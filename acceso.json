@@ -12,6 +12,16 @@
    "acento": "#6CC4F0",
    "caduca": "2026-12-31",
    "activo": true
+  },
+  {
+   "clave": "158e21cccc1a45b4f73db4ba0bfa98949fc04d0c6364945357dab9c5fbe6ae93",
+   "centro": "Bodychronos",
+   "entrenador": "Miguel",
+   "ciudad": "Vitoria",
+   "primario": "#0F1E36",
+   "acento": "#F5B48E",
+   "caduca": "2026-11-05",
+   "activo": true
   }
  ]
 }
