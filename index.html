@@ -1054,7 +1054,8 @@ body.locked .shell{visibility:hidden}
     return h;
   }
 
-  function flowScroll() { requestAnimationFrame(function () { var fin = document.querySelector('.fl-in'), msgs = document.querySelector('.fl-msgs'); if (!msgs) return; var r = document.documentElement; r.style.scrollPaddingBottom = ((fin ? fin.getBoundingClientRect().height : 0) + 16) + 'px'; r.style.scrollPaddingTop = '140px'; msgs.scrollTop = msgs.scrollHeight; var last = msgs.lastElementChild; if (last && last.scrollIntoView) last.scrollIntoView({ block: 'end' }); }); }
+  function flowScroll() { var go = function () { var msgs = document.querySelector('.fl-msgs'); if (!msgs) return; msgs.scrollTop = msgs.scrollHeight; var last = msgs.lastElementChild; if (last && msgs.scrollHeight <= msgs.clientHeight + 2) { var fin = document.querySelector('.fl-in'); document.documentElement.style.scrollPaddingBottom = ((fin ? fin.getBoundingClientRect().height : 0) + 16) + 'px'; last.scrollIntoView({ block: 'end' }); } }; requestAnimationFrame(go); setTimeout(go, 160); setTimeout(go, 480); }
+  if (window.visualViewport) window.visualViewport.addEventListener('resize', function () { if (UI.c === 'flow') flowScroll(); });
   function renderC() {
     var c = client(), r = UI.c, html;
     if (r === 'home' && !c.profile) { startFlow('alta'); return; }

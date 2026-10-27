@@ -356,6 +356,13 @@ table.t tr.click:hover td{background:rgba(255,255,255,.05)}
 .tcard{border-left:5px solid var(--tc,var(--acc))}
 .tcard .trk2 i{background:var(--tc,var(--acc))!important}
 .tdot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--tc);margin-right:7px;vertical-align:1px}
+
+/* Cuestionario: la conversación se desplaza por dentro y la última pregunta queda siempre a la vista */
+.flow{height:calc(100vh - 54px);height:calc(100dvh - 54px - env(safe-area-inset-top,0px));min-height:0!important;overflow:hidden}
+.flow .fl-msgs{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.flow .fl-top{position:relative;top:auto}
+.flow .fl-in{position:relative;bottom:auto;flex:none}
+@media (min-width:1000px){.flow{height:100vh}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 /* acceso */
 body.locked .shell{visibility:hidden}
@@ -940,7 +947,8 @@ body.big #client{zoom:1.15}
     return h + (inp ? '<div class="fl-in">' + inp + '</div>' : '') + '</div>';
   }
 
-  function flowScroll() { requestAnimationFrame(function () { var fin = document.querySelector('.fl-in'), msgs = document.querySelector('.fl-msgs'); if (!msgs) return; var r = document.documentElement; r.style.scrollPaddingBottom = ((fin ? fin.getBoundingClientRect().height : 0) + 16) + 'px'; r.style.scrollPaddingTop = '140px'; msgs.scrollTop = msgs.scrollHeight; var last = msgs.lastElementChild; if (last && last.scrollIntoView) last.scrollIntoView({ block: 'end' }); }); }
+  function flowScroll() { var go = function () { var msgs = document.querySelector('.fl-msgs'); if (!msgs) return; msgs.scrollTop = msgs.scrollHeight; var last = msgs.lastElementChild; if (last && msgs.scrollHeight <= msgs.clientHeight + 2) { var fin = document.querySelector('.fl-in'); document.documentElement.style.scrollPaddingBottom = ((fin ? fin.getBoundingClientRect().height : 0) + 16) + 'px'; last.scrollIntoView({ block: 'end' }); } }; requestAnimationFrame(go); setTimeout(go, 160); setTimeout(go, 480); }
+  if (window.visualViewport) window.visualViewport.addEventListener('resize', function () { if (UI.c === 'flow') flowScroll(); });
   function renderC() {
     var p = me(), r = UI.c, html;
     if ((r === 'home' || r === 'tests' || r === 'plan' || r === 'progress' || r === 'chat') && !p.profile) { startFlow('alta'); return; }
@@ -950,7 +958,7 @@ body.big #client{zoom:1.15}
     if (UI.toastC) html += '<p class="toast" role="status">' + esc(UI.toastC) + '</p>';
     cRoot.innerHTML = html;
     var cs = $('chatScroll'); if (cs) cs.scrollTop = cs.scrollHeight;
-    if (r === 'flow') flowScroll();
+    if (r === 'flow') { window.scrollTo(0, 0); flowScroll(); }
   }
   function toastC(t) { UI.toastC = t; renderC(); clearTimeout(UI.tc); UI.tc = setTimeout(function () { UI.toastC = ''; renderC(); }, 2400); }
   function addMark(p, t, v) { p.marks[t.id] = p.marks[t.id] || []; var arr = p.marks[t.id]; if (arr.length && arr[arr.length - 1].d === iso(T) && arr.length > 1) arr[arr.length - 1].v = v; else if (arr.length === 1 && arr[0].d === iso(T)) arr.push({ d: iso(T), v: v }); else arr.push({ d: iso(T), v: v }); }
