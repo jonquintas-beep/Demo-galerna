@@ -926,6 +926,7 @@ body.locked .shell{visibility:hidden}
     return h + (inp ? '<div class="fl-in">' + inp + '</div>' : '') + '</div>';
   }
 
+  function flowScroll() { requestAnimationFrame(function () { var fin = document.querySelector('.fl-in'), msgs = document.querySelector('.fl-msgs'); if (!msgs) return; var r = document.documentElement; r.style.scrollPaddingBottom = ((fin ? fin.getBoundingClientRect().height : 0) + 16) + 'px'; r.style.scrollPaddingTop = '140px'; msgs.scrollTop = msgs.scrollHeight; var last = msgs.lastElementChild; if (last && last.scrollIntoView) last.scrollIntoView({ block: 'end' }); }); }
   function renderC() {
     var p = me(), r = UI.c, html;
     if ((r === 'home' || r === 'tests' || r === 'plan' || r === 'progress' || r === 'chat') && !p.profile) { startFlow('alta'); return; }
@@ -935,7 +936,7 @@ body.locked .shell{visibility:hidden}
     if (UI.toastC) html += '<p class="toast" role="status">' + esc(UI.toastC) + '</p>';
     cRoot.innerHTML = html;
     var cs = $('chatScroll'); if (cs) cs.scrollTop = cs.scrollHeight;
-    if (r === 'flow') { var fm = document.querySelector('.fl-msgs'); if (fm) { var last = fm.lastElementChild; if (last && last.scrollIntoView) last.scrollIntoView({ block: 'nearest' }); } }
+    if (r === 'flow') flowScroll();
   }
   function toastC(t) { UI.toastC = t; renderC(); clearTimeout(UI.tc); UI.tc = setTimeout(function () { UI.toastC = ''; renderC(); }, 2400); }
   function addMark(p, t, v) { p.marks[t.id] = p.marks[t.id] || []; var arr = p.marks[t.id]; if (arr.length && arr[arr.length - 1].d === iso(T)) arr[arr.length - 1].v = v; else arr.push({ d: iso(T), v: v }); }

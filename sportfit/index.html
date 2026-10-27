@@ -833,7 +833,7 @@ body.big #client{zoom:1.15}
   function profOf(F) { return PICK[F.ans.prof] || person(F.pid).prof; }
   function altaSteps(F) {
     var p = person(F.pid), pk = profOf(F), PR = PROF[pk], st = [
-      { id: 'prof', block: 'Tu objetivo', type: 'choice', text: 'Hola, ' + first(p.name) + '. Soy el asistente de ' + S.brand.coach + ' en ' + S.brand.name + '. Para prepararte un plan que sea de verdad tuyo, cuéntame: ¿qué te trae por aquí?', opts: PKEYS.map(function (k) { return PROF[k].pick; }) },
+      { id: 'prof', block: 'Tu objetivo', type: 'choice', text: '¡Hola, ' + first(p.name) + '! Soy ' + S.brand.coach + ', de ' + S.brand.name + '. Antes de empezar quiero conocerte bien para prepararte un plan que sea de verdad tuyo. Cuéntame: ¿qué te trae por aquí?', opts: PKEYS.map(function (k) { return PROF[k].pick; }) },
       { id: 'age', block: 'Tu objetivo', type: 'choice', text: '¿En qué franja de edad estás? Así ajustamos cargas y recuperación.', opts: ['18–35', '36–50', '51–65', 'Más de 65'] },
       { id: 'when', block: 'Tu objetivo', type: 'choice', text: pk === 'run' ? '¿Tienes alguna carrera en el calendario?' : pk === 'raq' ? '¿Tienes algún torneo o partido importante a la vista?' : '¿Hay alguna fecha que te motive? Un viaje, una boda, una caminata…', opts: ['Sí, en menos de 2 meses', 'Sí, en 2–4 meses', 'Sí, en 4–6 meses', 'No, sin fecha'] },
       { id: 'evname', block: 'Tu objetivo', type: 'text', text: '¿Cómo se llama? Lo pondré en tu pantalla de inicio.', ph: PR.evPh, cond: function (a) { return a.when && a.when !== 'No, sin fecha'; } }
@@ -858,7 +858,7 @@ body.big #client{zoom:1.15}
       { id: 'steps', type: 'choice', text: '¿Cuánto te has movido hoy, más o menos?', opts: ['Menos de 5.000 pasos', '5.000–8.000', '8.000–12.000', 'Más de 12.000'] },
       { id: 'pain', type: 'choice', text: '¿Alguna molestia?', opts: ['Ninguna', 'Algo leve', 'Sí, me molesta'] },
       { id: 'zone', type: 'choice', text: '¿Dónde?', opts: ['Rodilla', 'Espalda', 'Hombro', 'Cadera', 'Tobillo o pie', 'Otra'], cond: function (a) { return a.pain && a.pain !== 'Ninguna'; } },
-      { id: 'note', type: 'text', text: '¿Algo más que quieras contarle a ' + S.brand.coach + '?', ph: 'Escribe o pulsa «Nada más»' }
+      { id: 'note', type: 'text', text: '¿Algo más que quieras contarme?', ph: 'Escribe o pulsa «Nada más»' }
     ];
   }
   function steps(F) { return F.kind === 'alta' ? altaSteps(F) : diarioSteps(F); }
@@ -879,23 +879,23 @@ body.big #client{zoom:1.15}
   function react(F, q, v) {
     var p = person(F.pid), co = S.brand.coach;
     if (F.kind === 'alta') {
-      if (q.type === 'mark') { if (v == null) return 'Sin problema. La haces esta semana y la apuntas en la app.'; return 'Apuntado. Te propongo como primer objetivo ' + fmtV(q.t, roundT(q.t, v * q.t.f)) + '. ' + co + ' lo afinará contigo.'; }
+      if (q.type === 'mark') { if (v == null) return 'Sin problema. La haces esta semana y la apuntas en la app.'; return 'Apuntado. Como primer objetivo te propongo ' + fmtV(q.t, roundT(q.t, v * q.t.f)) + ', y lo vamos afinando juntos.'; }
       switch (q.id) {
         case 'prof': return { run: 'Me encanta. Vamos a por esas marcas, kilómetro a kilómetro.', str: 'Buena elección. Técnica, constancia y comer bien: lo vamos a hacer bien.', raq: 'Perfecto. Más potencia, pies más rápidos y menos lesiones.', senior: 'Lo mejor que puedes hacer por ti. Iremos con calma y con seguridad.', fit: 'Vamos a por ello, sin dietas milagro y con un plan que puedas mantener.' }[PICK[v]];
         case 'age': return v === 'Más de 65' ? 'Perfecto. Prioridad: fuerza, equilibrio y que disfrutes.' : '';
         case 'when': return v === 'No, sin fecha' ? 'Sin problema: la fecha la pones tú cuando quieras.' : 'Genial, una fecha ayuda muchísimo.';
-        case 'injury': return v === 'Ninguna' ? '' : 'Gracias por decírmelo. ' + co + ' lo tendrá en cuenta en cada sesión.';
+        case 'injury': return v === 'Ninguna' ? '' : 'Gracias por decírmelo. Lo tendré en cuenta en cada sesión y lo vemos juntos el primer día.';
         case 'sleep': return v < 7 ? 'Un poco justo. Lo iremos mejorando: también cuenta para tus resultados.' : 'Bien, eso ayuda muchísimo.';
-        case 'why': return v ? 'Gracias por contármelo. Lo guardo para los días que cueste.' : '';
+        case 'why': return v ? 'Gracias por contármelo. Me lo guardo para recordártelo los días que cueste.' : '';
       }
       return '';
     }
     switch (q.id) {
       case 'mood': return { 'Genial': '¡Así me gusta!', 'Bien': 'Me alegro.', 'Regular': 'Un día de esos. A ver cómo estás.', 'Mal': 'Lo siento, ' + first(p.name) + '. Vamos a ver qué ajustamos.' }[v] || '';
       case 'sleep': return v < 6.5 ? 'Poco descanso. Hoy, intensidad baja.' : '';
-      case 'fat': return v <= 2 ? 'Apuntado. ' + co + ' puede bajarte la carga de mañana.' : v >= 4 ? 'Cuerpo fresco: buen día para apretar.' : '';
+      case 'fat': return v <= 2 ? 'Apuntado. Mañana te bajo un poco la carga.' : v >= 4 ? 'Cuerpo fresco: buen día para apretar.' : '';
       case 'steps': return v === 'Menos de 5.000 pasos' ? 'Mañana intenta un paseo de 20 minutos.' : v === 'Más de 12.000' ? '¡Qué bien te has movido!' : '';
-      case 'zone': return 'Gracias por avisar. Se lo paso ahora a ' + co + '.';
+      case 'zone': return 'Gracias por avisar. Lo miro hoy mismo y te digo algo.';
     }
     return '';
   }
@@ -914,7 +914,7 @@ body.big #client{zoom:1.15}
     } else {
       var it = { d: iso(T), sleep: a.sleep, fat: a.fat || 3, energy: a.energy || 3, steps: a.steps || '', pain: { 'Ninguna': 'no', 'Algo leve': 'leve', 'Sí, me molesta': 'si' }[a.pain] || 'no', zone: a.zone || '', mood: a.mood || '', note: a.note || '' };
       p.checks = p.checks.filter(function (k) { return k.d !== it.d; }); p.checks.push(it);
-      F.log.push({ from: 'bot', t: 'Gracias, ' + first(p.name) + '.' + (it.pain !== 'no' ? ' ' + S.brand.coach + ' ya tiene lo de tu ' + it.zone.toLowerCase() + '.' : '') + (it.fat <= 2 ? ' Hoy, cuida el cuerpo.' : '') + ' Mañana te pregunto otra vez.', sum: it });
+      F.log.push({ from: 'bot', t: 'Gracias, ' + first(p.name) + '.' + (it.pain !== 'no' ? ' Me apunto lo de tu ' + it.zone.toLowerCase() + ' y lo miro hoy.' : '') + (it.fat <= 2 ? ' Hoy, cuida el cuerpo.' : '') + ' Mañana te pregunto otra vez.', sum: it });
     }
     save(); renderA();
   }
@@ -940,6 +940,7 @@ body.big #client{zoom:1.15}
     return h + (inp ? '<div class="fl-in">' + inp + '</div>' : '') + '</div>';
   }
 
+  function flowScroll() { requestAnimationFrame(function () { var fin = document.querySelector('.fl-in'), msgs = document.querySelector('.fl-msgs'); if (!msgs) return; var r = document.documentElement; r.style.scrollPaddingBottom = ((fin ? fin.getBoundingClientRect().height : 0) + 16) + 'px'; r.style.scrollPaddingTop = '140px'; msgs.scrollTop = msgs.scrollHeight; var last = msgs.lastElementChild; if (last && last.scrollIntoView) last.scrollIntoView({ block: 'end' }); }); }
   function renderC() {
     var p = me(), r = UI.c, html;
     if ((r === 'home' || r === 'tests' || r === 'plan' || r === 'progress' || r === 'chat') && !p.profile) { startFlow('alta'); return; }
@@ -949,7 +950,7 @@ body.big #client{zoom:1.15}
     if (UI.toastC) html += '<p class="toast" role="status">' + esc(UI.toastC) + '</p>';
     cRoot.innerHTML = html;
     var cs = $('chatScroll'); if (cs) cs.scrollTop = cs.scrollHeight;
-    if (r === 'flow') { var fm = document.querySelector('.fl-msgs'); if (fm && fm.lastElementChild && fm.lastElementChild.scrollIntoView) fm.lastElementChild.scrollIntoView({ block: 'nearest' }); }
+    if (r === 'flow') flowScroll();
   }
   function toastC(t) { UI.toastC = t; renderC(); clearTimeout(UI.tc); UI.tc = setTimeout(function () { UI.toastC = ''; renderC(); }, 2400); }
   function addMark(p, t, v) { p.marks[t.id] = p.marks[t.id] || []; var arr = p.marks[t.id]; if (arr.length && arr[arr.length - 1].d === iso(T) && arr.length > 1) arr[arr.length - 1].v = v; else if (arr.length === 1 && arr[0].d === iso(T)) arr.push({ d: iso(T), v: v }); else arr.push({ d: iso(T), v: v }); }

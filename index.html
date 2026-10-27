@@ -1054,6 +1054,7 @@ body.locked .shell{visibility:hidden}
     return h;
   }
 
+  function flowScroll() { requestAnimationFrame(function () { var fin = document.querySelector('.fl-in'), msgs = document.querySelector('.fl-msgs'); if (!msgs) return; var r = document.documentElement; r.style.scrollPaddingBottom = ((fin ? fin.getBoundingClientRect().height : 0) + 16) + 'px'; r.style.scrollPaddingTop = '140px'; msgs.scrollTop = msgs.scrollHeight; var last = msgs.lastElementChild; if (last && last.scrollIntoView) last.scrollIntoView({ block: 'end' }); }); }
   function renderC() {
     var c = client(), r = UI.c, html;
     if (r === 'home' && !c.profile) { startFlow('alta'); return; }
@@ -1066,7 +1067,7 @@ body.locked .shell{visibility:hidden}
     cRoot.innerHTML = html;
     if (kv != null && document.getElementById('obname')) { document.getElementById('obname').value = kv; if (foc === 'obname') document.getElementById('obname').focus(); }
     var cs = document.getElementById('chatScroll'); if (cs) cs.scrollTop = cs.scrollHeight;
-    var fs = document.getElementById('flowScroll'); if (fs) fs.scrollTop = fs.scrollHeight;
+    if (r === 'flow') flowScroll();
     if (r === 'flow' && UI.flow) { document.getElementById('capC').textContent = 'App del cliente · ' + (UI.flow.kind === 'alta' ? 'cuestionario inicial de ' : 'check-in de ') + c.name; return; }
     document.getElementById('capC').textContent = r === 'onboard' || r === 'obresult' || r === 'obdone' ? 'App del cliente · cliente nuevo' : 'App del cliente · viendo como ' + c.name;
   }
