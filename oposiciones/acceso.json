@@ -1,0 +1,17 @@
+{
+ "contacto": {
+  "whatsapp": ""
+ },
+ "accesos": [
+  {
+   "clave": "b83eaa762d2432c0d2f2e134e3d1cf578ac57c15f7a796cdbcc1899fe61ab254",
+   "centro": "Academia Galerna",
+   "entrenador": "Jon",
+   "ciudad": "Vitoria",
+   "primario": "#0B1F3A",
+   "acento": "#F2B33D",
+   "caduca": "2026-12-31",
+   "activo": true
+  }
+ ]
+}

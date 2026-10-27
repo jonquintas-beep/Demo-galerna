@@ -1,0 +1,1048 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Demo Oposiciones</title>
+<meta name="description" content="Demo privada: app de seguimiento para academias de oposiciones físicas">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0B1F3A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Oposiciones">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="application-name" content="Oposiciones">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&display=swap">
+<style>
+/* Producto: app del opositor (móvil) + panel del preparador. Números grandes en condensada, como un marcador de pista. */
+:root{
+  --brand:#0B1F3A; --brand-2:#132C50; --acc:#6CC4F0; --acc-soft:#E4F4FC; --on-acc:#0B1F3A;
+  --ink:#0E1726; --sub:#5A6577; --paper:#F2F4F7; --card:#FFFFFF; --line:#E1E5EB;
+  --ok:#1E7A4C; --ok-soft:#E2F3EA; --warn:#9A5B00; --warn-soft:#FCEFD9; --bad:#B42318; --bad-soft:#FBE4E1;
+  --cond:'Barlow Condensed','Arial Narrow',sans-serif; --body:'Barlow',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:500 15px/1.45 var(--body);padding-top:env(safe-area-inset-top,0px);-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.num{font-variant-numeric:tabular-nums}
+/* switch */
+.switch{position:sticky;top:0;z-index:20;display:flex;gap:4px;padding:8px max(12px,env(safe-area-inset-left,0px));background:var(--paper);border-bottom:1px solid var(--line)}
+.switch button{flex:1;height:38px;border:0;border-radius:10px;background:transparent;font-weight:700;color:var(--sub)}
+.switch button.on{background:var(--brand);color:#fff}
+.stage{max-width:1180px;margin:0 auto}
+#paneC[data-hidden="true"],#paneA[data-hidden="true"]{display:none}
+/* ---------- APP ---------- */
+.app{max-width:460px;margin:0 auto;min-height:calc(100vh - 54px);display:flex;flex-direction:column;background:var(--paper);position:relative}
+.scroll{flex:1;display:flex;flex-direction:column;gap:14px;padding:16px max(16px,env(safe-area-inset-left,0px)) 100px}
+.scroll > *{flex-shrink:0}
+.hdr{display:flex;align-items:center;justify-content:space-between}
+.word{font-family:var(--cond);font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:16px;border:0;background:none;padding:0;display:flex;align-items:center;gap:8px}
+.word i{font-style:normal;color:var(--acc);filter:brightness(.8)}
+.av{width:36px;height:36px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-family:var(--cond);font-weight:700;font-size:15px;flex:none}
+h1.t{font-family:var(--cond);font-weight:700;font-size:32px;line-height:1.05;margin:0;letter-spacing:.01em;text-wrap:balance}
+.st{color:var(--sub);margin:2px 0 0;font-size:14px}
+.card{background:var(--card);border-radius:16px;padding:16px;border:1px solid var(--line)}
+.card h3{margin:0;font-family:var(--cond);font-weight:700;font-size:19px;letter-spacing:.02em}
+.ch{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:10px}
+.ch span{font-size:12.5px;color:var(--sub);font-weight:600}
+.bt{height:46px;border-radius:12px;border:0;padding:0 18px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap}
+.bt.acc{background:var(--acc);color:var(--on-acc)}
+.bt.dark{background:var(--brand);color:#fff}
+.bt.ghost{background:transparent;border:1.5px solid var(--line)}
+.bt.ghost-l{background:transparent;border:1.5px solid rgba(255,255,255,.3);color:#fff}
+.bt.full{width:100%}
+.bt[aria-disabled="true"]{opacity:.45}
+.row{display:flex;gap:10px;align-items:center}
+.row2{display:flex;gap:10px}
+.row2 > *{flex:1}
+.chip{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:999px;font-size:12px;font-weight:700;white-space:nowrap}
+.chip.ok{background:var(--ok-soft);color:var(--ok)} .chip.warn{background:var(--warn-soft);color:var(--warn)} .chip.bad{background:var(--bad-soft);color:var(--bad)} .chip.mute{background:var(--paper);color:var(--sub)}
+.chip.on-dark{background:rgba(255,255,255,.14);color:#fff}
+/* hero marcador */
+.board{background:var(--brand);color:#fff;border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:14px;position:relative;overflow:hidden}
+.board::after{content:"";position:absolute;right:-60px;top:-60px;width:200px;height:200px;border-radius:50%;border:28px solid rgba(255,255,255,.05)}
+.board .top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;position:relative;z-index:1}
+.board .lab{font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:.75;font-weight:700}
+.big{font-family:var(--cond);font-weight:700;font-size:64px;line-height:.9;letter-spacing:-.01em}
+.big small{font-size:22px;opacity:.7;margin-left:4px}
+.days{text-align:right}
+.days b{font-family:var(--cond);font-size:40px;line-height:.9;display:block}
+.bars{display:grid;gap:8px;position:relative;z-index:1}
+.bar-r{display:grid;grid-template-columns:120px 1fr 40px;gap:10px;align-items:center;font-size:13px}
+.bar-r .n{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.9}
+.trk{height:8px;border-radius:99px;background:rgba(255,255,255,.14);overflow:hidden}
+.trk i{display:block;height:100%;border-radius:99px;background:var(--acc)}
+.trk i.lo{background:#FF8A7A}
+.bar-r b{font-family:var(--cond);font-size:17px;text-align:right}
+.focus{display:flex;gap:12px;align-items:center}
+.focus .ic{width:42px;height:42px;border-radius:12px;background:var(--acc-soft);display:grid;place-items:center;flex:none;color:var(--brand)}
+.focus p{margin:0;font-size:14px}
+.note{display:flex;gap:10px;align-items:flex-start}
+.note p{margin:0;font-size:14.5px}
+/* pruebas */
+.tcard{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center;text-align:left;width:100%;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+.tcard .tn{font-weight:700;font-size:16px}
+.tcard .tv{color:var(--sub);font-size:13.5px}
+.pts{font-family:var(--cond);font-weight:700;font-size:34px;line-height:1;text-align:right}
+.pts small{font-size:14px;color:var(--sub);font-weight:600}
+.tcard .trk2{grid-column:1/-1;height:6px;border-radius:99px;background:var(--paper);overflow:hidden;margin-top:6px}
+.tcard .trk2 i{display:block;height:100%;background:var(--brand)}
+.tcard .trk2 i.lo{background:var(--bad)}
+.back{display:inline-flex;align-items:center;gap:6px;border:0;background:none;padding:0;font-weight:700;color:var(--sub);height:32px}
+.field{height:48px;border-radius:12px;border:1.5px solid var(--line);background:var(--card);padding:0 14px;width:100%;min-width:0;font-size:16px}
+.field:focus{border-color:var(--brand);outline:none}
+.lab{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:var(--sub)}
+table.bar{width:100%;border-collapse:collapse;font-size:13.5px}
+table.bar th,table.bar td{padding:7px 6px;border-bottom:1px solid var(--line);text-align:left}
+table.bar th{font-size:12px;color:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+table.bar tr.me td{background:var(--acc-soft);font-weight:700}
+.marks{display:flex;flex-direction:column}
+.marks div{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
+.marks div:last-child{border-bottom:0}
+/* plan */
+.seg{display:flex;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:4px;gap:4px}
+.seg button{flex:1;height:36px;border:0;border-radius:9px;background:transparent;font-weight:700;color:var(--sub)}
+.seg button.on{background:var(--brand);color:#fff}
+.wd{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line);width:100%;background:none;border-left:0;border-right:0;border-top:0;text-align:left}
+.wd:last-child{border-bottom:0}
+.wd .d{font-family:var(--cond);font-weight:700;font-size:15px;text-transform:uppercase;text-align:center;line-height:1.05}
+.wd .d small{display:block;font-size:12px;color:var(--sub);font-family:var(--body)}
+.wd b{display:block;font-size:15px}
+.wd span.x{font-size:13px;color:var(--sub)}
+.wd.today .d{color:var(--brand);background:var(--acc-soft);border-radius:10px;padding:4px 0}
+.wd.rest b{color:var(--sub);font-weight:600}
+.ex{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line)}
+.ex:last-child{border-bottom:0}
+.ex i{font-style:normal;width:26px;height:26px;border-radius:8px;background:var(--paper);display:grid;place-items:center;font-weight:700;font-size:13px;flex:none}
+.ex p{margin:0;font-weight:600}
+.ex p span{display:block;font-weight:500;color:var(--sub);font-size:13.5px}
+ul.rules{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:14.5px}
+.meal{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+.meal:last-child{border-bottom:0}
+.meal b{width:84px;flex:none}
+/* progreso */
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px}
+.kpi span{font-size:12px;color:var(--sub);font-weight:700}
+.kpi b{display:block;font-family:var(--cond);font-size:26px;line-height:1.1}
+.kpi small{font-size:12px;color:var(--sub)}
+.heat{display:grid;grid-template-columns:repeat(14,1fr);gap:4px}
+.heat i{aspect-ratio:1;border-radius:4px;display:block;max-width:100%}
+.legend{display:flex;flex-wrap:wrap;gap:6px 12px;margin-top:10px;font-size:12px;color:var(--sub)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+svg{display:block;max-width:100%;height:auto}
+/* chat */
+.bub{max-width:85%;padding:10px 13px;border-radius:16px;font-size:14.5px;margin:0;white-space:pre-line}
+.bub.me{align-self:flex-end;background:var(--brand);color:#fff;border-bottom-right-radius:4px}
+.bub.bot{align-self:flex-start;background:var(--card);border:1px solid var(--line);border-bottom-left-radius:4px}
+.bub.coach{align-self:flex-start;background:var(--acc-soft);border-bottom-left-radius:4px}
+.bub .tag{display:block;margin-top:6px;font-size:11.5px;color:var(--sub);font-weight:700}
+.bub .tag.esc{color:var(--warn)}
+.bub .who{display:block;font-size:11.5px;font-weight:700;color:var(--brand);margin-bottom:2px}
+.sugg{display:flex;gap:8px;overflow-x:auto;padding:0 16px 8px;scrollbar-width:none;flex-shrink:0}
+.sugg button{flex:none;height:34px;padding:0 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);font-size:13px;font-weight:600}
+.compose{display:flex;gap:8px;padding:8px 16px 12px;background:var(--paper);flex-shrink:0}
+.compose input{flex:1;min-width:0;height:46px;border-radius:999px;border:1.5px solid var(--line);padding:0 16px;background:var(--card)}
+.send{width:46px;height:46px;border-radius:50%;border:0;background:var(--brand);color:#fff;display:grid;place-items:center;flex:none}
+.typing{display:flex;gap:4px;padding:12px 14px;background:var(--card);border:1px solid var(--line);border-radius:16px;align-self:flex-start}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--sub);animation:tp 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes tp{0%,60%,100%{opacity:.3}30%{opacity:1}}
+.chatwrap{flex:1;display:flex;flex-direction:column;min-height:0}
+.chatwrap .scroll{padding-bottom:12px;gap:8px}
+/* nav */
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:460px;display:grid;grid-template-columns:repeat(5,1fr);background:var(--card);border-top:1px solid var(--line);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));z-index:15}
+.nav button{border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11.5px;font-weight:700;color:var(--sub);padding:6px 0}
+.nav button.on{color:var(--brand)}
+.nav svg{width:22px;height:22px}
+.chat-view{height:calc(100dvh - 54px);min-height:0!important}
+.chat-view .chatwrap{min-height:0}
+.chat-view .chatwrap .scroll{overflow-y:auto;min-height:0}
+.chat-view .nav{position:static;transform:none;left:auto;max-width:none}
+/* flow */
+.flow{flex:1;display:flex;flex-direction:column;min-height:calc(100vh - 54px)}
+.fl-top{padding:12px 16px;background:var(--card);border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:8px;position:sticky;top:54px;z-index:5}
+.fl-top b{font-family:var(--cond);font-size:20px}
+.fl-top span{font-size:13px;color:var(--sub)}
+.ptrk{height:5px;border-radius:99px;background:var(--paper);overflow:hidden}
+.ptrk i{display:block;height:100%;background:var(--acc);transition:width .4s}
+.fl-msgs{flex:1;display:flex;flex-direction:column;gap:10px;padding:16px}
+.fl-bot{display:flex;gap:8px;align-items:flex-end}
+.fl-av{width:30px;height:30px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-size:11px;font-weight:700;flex:none}
+.fl-sys{align-self:center;font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--sub);margin:6px 0}
+.fl-in{position:sticky;bottom:0;background:var(--paper);padding:10px 16px calc(14px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
+.qr{display:flex;flex-wrap:wrap;gap:8px}
+.qr button{min-height:42px;padding:8px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--card);font-weight:600;text-align:left}
+.qr button.on{border-color:var(--brand);background:var(--acc-soft)}
+.qs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.qs button{height:46px;border-radius:12px;border:1.5px solid var(--line);background:var(--card);font-family:var(--cond);font-size:20px;font-weight:700}
+.scale-l{display:flex;justify-content:space-between;font-size:12px;color:var(--sub)}
+.stepper{display:flex;align-items:center;gap:16px;justify-content:center}
+.stepper button{width:46px;height:46px;border-radius:50%;border:1.5px solid var(--line);background:var(--card);font-size:22px;font-weight:700}
+.stepper b{font-family:var(--cond);font-size:30px;min-width:96px;text-align:center}
+.fl-row{display:flex;gap:8px}
+.fl-row input{flex:1;min-width:0;height:48px;border-radius:12px;border:1.5px solid var(--line);padding:0 14px;background:var(--card);font-size:16px}
+.sum{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:8px}
+.sum span{background:var(--paper);border-radius:8px;padding:6px 8px;font-size:12px;color:var(--sub)}
+.sum b{display:block;color:var(--ink);font-size:14px}
+/* splash */
+.splash{min-height:calc(100vh - 54px);background:var(--brand);color:#fff;display:flex;flex-direction:column;justify-content:flex-end;gap:16px;padding:28px max(22px,env(safe-area-inset-left,0px)) calc(28px + env(safe-area-inset-bottom,0px));position:relative;overflow:hidden}
+.lanes{position:absolute;inset:0;opacity:.13;pointer-events:none}
+.splash .kick{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;opacity:.8;position:relative}
+.splash h1{font-family:var(--cond);font-weight:700;font-size:clamp(46px,14vw,72px);line-height:.92;margin:0;text-transform:uppercase;letter-spacing:.005em;position:relative;overflow-wrap:anywhere}
+.splash h1 i{font-style:normal;color:var(--acc)}
+.splash .tag{font-size:18px;max-width:28ch;opacity:.92;margin:0;position:relative}
+.splash .opos{display:flex;flex-wrap:wrap;gap:8px;position:relative}
+.splash .opos span{border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:5px 12px;font-size:13px;font-weight:600}
+.splash .foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 8px;text-align:center;font-size:12px;opacity:.75;position:relative}
+.glogo{height:13px;width:auto;display:block}
+.blogo{width:min(190px,52vw);aspect-ratio:1;border-radius:50%;display:block;max-width:100%;position:relative}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));background:var(--ink);color:#fff;padding:10px 16px;border-radius:999px;font-weight:600;font-size:14px;z-index:60;max-width:90vw;text-align:center}
+/* ---------- PANEL ---------- */
+.adm{display:grid;grid-template-columns:230px minmax(0,1fr);min-height:calc(100vh - 54px)}
+.side{background:var(--brand);color:#fff;padding:20px 12px;display:flex;flex-direction:column;gap:4px}
+.side .bn{font-family:var(--cond);font-weight:700;font-size:20px;letter-spacing:.05em;text-transform:uppercase;padding:0 10px}
+.side .who{font-size:12.5px;opacity:.7;padding:0 10px 12px}
+.side button{display:flex;align-items:center;gap:10px;height:40px;border:0;border-radius:10px;background:transparent;color:rgba(255,255,255,.82);font-weight:600;padding:0 10px;text-align:left}
+.side button.on{background:rgba(255,255,255,.13);color:#fff}
+.side button .n{margin-left:auto;background:var(--acc);color:var(--on-acc);border-radius:99px;font-size:11px;font-weight:800;padding:1px 7px}
+.side .pow{margin-top:auto;padding:14px 10px 0;opacity:.7;font-size:11.5px;display:flex;flex-direction:column;gap:6px}
+.main{padding:24px max(16px,env(safe-area-inset-right,0px)) 60px 28px;display:flex;flex-direction:column;gap:18px;min-width:0}
+.mh{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.mh h2{font-family:var(--cond);font-size:32px;margin:0;line-height:1}
+.mh p{margin:4px 0 0;color:var(--sub);max-width:70ch}
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.stat span{font-size:12.5px;color:var(--sub);font-weight:700}
+.stat b{display:block;font-family:var(--cond);font-size:34px;line-height:1.05}
+.stat small{color:var(--sub);font-size:12.5px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;min-width:0}
+.box h3{margin:0 0 12px;font-family:var(--cond);font-size:20px}
+.box h3 small{font-family:var(--body);font-size:12.5px;color:var(--sub);font-weight:600;margin-left:6px}
+.alert{display:grid;grid-template-columns:8px minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.alert:last-child{border-bottom:0}
+.alert .sev{width:8px;height:38px;border-radius:4px;background:var(--warn)}
+.alert .sev.bad{background:var(--bad)}
+.alert b{display:block;font-size:14.5px}
+.alert span{font-size:13px;color:var(--sub)}
+.tw{overflow-x:auto}
+table.t{width:100%;border-collapse:collapse;font-size:14px;min-width:640px}
+table.t th{text-align:left;font-size:12px;color:var(--sub);text-transform:uppercase;letter-spacing:.05em;padding:8px 10px;border-bottom:1px solid var(--line)}
+table.t td{padding:10px;border-bottom:1px solid var(--line);vertical-align:middle}
+table.t tr.click{cursor:pointer}
+table.t tr.click:hover td{background:var(--paper)}
+.mini{display:flex;gap:3px;align-items:flex-end;height:22px}
+.mini i{width:8px;border-radius:2px;background:var(--brand);display:block}
+.mini i.lo{background:var(--bad)}
+.btn-a{height:38px;border-radius:10px;border:0;padding:0 14px;font-weight:700;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.btn-a.pri{background:var(--brand);color:#fff}
+.btn-a.sec{background:var(--card);border:1.5px solid var(--line)}
+.btn-a.acc{background:var(--acc);color:var(--on-acc)}
+.form{display:flex;flex-direction:column;gap:10px}
+.inp,.sel,.ta{height:42px;border-radius:10px;border:1.5px solid var(--line);background:var(--card);padding:0 12px;width:100%;min-width:0}
+.ta{height:auto;min-height:90px;padding:10px 12px;resize:vertical;line-height:1.45}
+.rep{white-space:pre-line;background:var(--paper);border-radius:12px;padding:14px;font-size:14px;line-height:1.55}
+.rule{display:grid;grid-template-columns:minmax(0,180px) minmax(0,1fr) auto;gap:10px;align-items:start;padding:12px 0;border-bottom:1px solid var(--line)}
+.rule b{font-size:14px}
+.rule p{margin:0;font-size:14px;color:var(--sub)}
+.empty{padding:26px;text-align:center;color:var(--sub);display:flex;flex-direction:column;align-items:center;gap:12px}
+.pill-o{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:6px;background:var(--paper)}
+@media (min-width:1000px){
+  .switch{display:none}
+  .stage{display:grid;grid-template-columns:440px minmax(0,1fr);max-width:none;gap:0}
+  #paneC[data-hidden="true"],#paneA[data-hidden="true"]{display:block}
+  #paneC{border-right:1px solid var(--line);height:100vh;overflow:auto;position:sticky;top:0}
+  #paneA{height:100vh;overflow:auto}
+  .app,.flow,.splash{min-height:100vh}
+  .chat-view{height:100vh}
+  .fl-top{top:0}
+  .nav{position:sticky;transform:none;left:auto}
+  .adm{min-height:100vh}
+}
+@media (max-width:999px){
+  .adm{grid-template-columns:1fr}
+  .side{flex-direction:row;overflow-x:auto;padding:10px;gap:4px;position:sticky;top:54px;z-index:5}
+  .side .bn,.side .who,.side .pow{display:none}
+  .side button{flex:none}
+  .main{padding:18px max(16px,env(safe-area-inset-left,0px)) 60px}
+  .grid4{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid2{grid-template-columns:1fr}
+  .rule{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* acceso */
+body.locked .shell{visibility:hidden}
+#gate{position:fixed;inset:0;z-index:100;background:#0B1F3A;color:#fff;display:flex;align-items:center;justify-content:center;padding:24px 16px calc(24px + env(safe-area-inset-bottom,0px));overflow:auto}
+#gate[hidden]{display:none}
+.g-card{width:100%;max-width:380px;display:flex;flex-direction:column;gap:14px}
+.g-logo .glogo{height:22px;margin-bottom:18px}
+#gate h1{font-family:var(--cond);font-size:34px;line-height:1.05;margin:0;text-transform:uppercase;letter-spacing:.02em}
+.g-sub{color:#B9C6DA;font-size:15px;margin:0 0 6px}
+#gForm{display:flex;flex-direction:column;gap:8px}
+#gForm label{font-size:13px;font-weight:700;color:#DCE5F2;margin-top:6px}
+#gForm input{height:52px;border-radius:14px;border:1.5px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:#fff;font-size:17px;font-weight:600;padding:0 16px;outline:none}
+#gForm input:focus{border-color:#6CC4F0}
+#gCode{letter-spacing:.12em;text-transform:uppercase}
+.g-err{min-height:20px;color:#FFB4A6;font-size:14px;margin:4px 0 0}
+.g-btn{display:flex;align-items:center;justify-content:center;height:54px;border-radius:16px;border:0;background:#6CC4F0;color:#0B1F3A;font-weight:800;font-size:16px;text-decoration:none;margin-top:4px}
+.g-btn:disabled{opacity:.6}
+.g-btn.ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.25)}
+.g-foot{color:#7F93B2;font-size:12px;margin-top:18px;text-align:center}
+</style>
+</head>
+<body>
+<div id="gate" hidden></div>
+<div class="shell">
+  <div class="switch" role="tablist" aria-label="Vista">
+    <button type="button" role="tab" id="swC" class="on" aria-selected="true">App del opositor</button>
+    <button type="button" role="tab" id="swA" aria-selected="false">Panel del preparador</button>
+  </div>
+  <div class="stage">
+    <section id="paneC" aria-label="App del opositor"><div id="client"></div></section>
+    <section id="paneA" aria-label="Panel del preparador" data-hidden="true"><div id="admin"></div></section>
+  </div>
+</div>
+<script>
+(function () {
+  'use strict';
+  /* ================= utilidades ================= */
+  function $(id) { return document.getElementById(id); }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function clone(o) { return JSON.parse(JSON.stringify(o)); }
+  function uid() { return Math.random().toString(36).slice(2, 9); }
+  function today() { var d = new Date(); d.setHours(12, 0, 0, 0); return d; }
+  var T = today();
+  function iso(d) { return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+  function parse(s) { return new Date(s + 'T12:00:00'); }
+  function addDays(d, n) { var x = new Date(d); x.setDate(x.getDate() + n); return x; }
+  function daysTo(s) { return Math.round((parse(s) - T) / 864e5); }
+  function fmt(d, o) { return d.toLocaleDateString('es-ES', o || { weekday: 'long', day: 'numeric', month: 'long' }); }
+  function short(d) { return d.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' }); }
+  function nf(n, d) { return Number(n).toLocaleString('es-ES', { minimumFractionDigits: d || 0, maximumFractionDigits: d || 0 }); }
+  function first(n) { return String(n).trim().split(/\s+/)[0]; }
+  function initials(n) { return String(n).split(/\s+/).filter(Boolean).map(function (p) { return p[0]; }).join('').slice(0, 2).toUpperCase(); }
+  function norm(s) { return String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
+  function dow(d) { return (d.getDay() + 6) % 7; }
+  var DAYS = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'], DAYS_L = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+  function hexOk(x) { return /^#[0-9a-fA-F]{6}$/.test(x || ''); }
+  function lum(hex) { var n = parseInt(hex.slice(1), 16), r = n >> 16 & 255, g = n >> 8 & 255, b = n & 255; function c(v) { v /= 255; return v <= .03928 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); } return .2126 * c(r) + .7152 * c(g) + .0722 * c(b); }
+  function mix(a, b, t) { var x = parseInt(a.slice(1), 16), y = parseInt(b.slice(1), 16); function ch(s) { return Math.round(((x >> s) & 255) * (1 - t) + ((y >> s) & 255) * t); } return '#' + [16, 8, 0].map(function (s) { return ch(s).toString(16).padStart(2, '0'); }).join(''); }
+
+  var GLOGO = '<svg role="img" aria-label="Galerna Method" class="glogo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1467 288"><g fill="#FFFFFF"><g transform="translate(0.000000,282.000000) scale(0.100000,-0.100000)"><path d="M2156 2749 c-430 -38 -817 -280 -1158 -724 -118 -154 -305 -425 -293 -425 3 0 88 51 188 113 413 256 722 424 869 471 169 53 207 57 638 65 442 9 494 15 658 73 186 65 352 170 509 321 57 55 103 103 103 108 0 11 -1390 9 -1514 -2z M1945 1869 c-478 -45 -1008 -314 -1577 -801 -96 -82 -265 -246 -290 -280 l-19 -27 38 13 c21 8 132 51 248 96 1338 522 1214 490 1968 497 416 4 527 2 527 -8 0 -57 -156 -376 -241 -492 -28 -38 -48 -71 -45 -74 11 -11 125 -33 219 -43 112 -12 268 0 351 28 l51 17 47 117 c75 186 153 413 202 585 49 173 96 355 96 372 0 13 -1436 13 -1575 0z M1369 995 c-152 -31 -416 -135 -569 -225 l-75 -44 99 -23 c128 -30 264 -95 448 -214 516 -334 741 -429 1016 -429 234 0 408 74 582 249 83 83 191 225 179 235 -2 2 -38 -1 -79 -6 -91 -11 -262 -3 -390 18 -227 38 -385 105 -760 319 l-225 129 -80 3 c-44 1 -110 -4 -146 -12z"/></g></g><g fill="#FFFFFF" transform="translate(396 3)"><g transform="translate(0.000000,288.000000) scale(0.100000,-0.100000)"><path d="M835 2375 c-673 -125 -861 -1011 -295 -1395 145 -98 286 -135 494 -127 450 15 696 277 696 742 l0 135 -375 0 -375 0 0 -150 0 -150 200 0 200 0 -6 -27 c-20 -83 -96 -166 -192 -211 -91 -42 -270 -40 -365 5 -319 151 -356 615 -64 804 88 57 148 72 272 67 124 -4 223 -46 294 -123 23 -25 44 -45 48 -45 15 0 262 166 263 177 0 19 -100 122 -166 169 -171 122 -407 171 -629 129z M2351 2333 c-20 -43 -313 -718 -479 -1103 -82 -190 -148 -347 -147 -350 2 -3 85 -3 186 0 l182 5 57 135 57 135 334 3 334 2 59 -140 58 -140 188 0 188 0 -80 183 c-76 175 -259 590 -470 1070 l-101 227 -177 0 -177 0 -12 -27z m279 -585 c47 -111 93 -221 102 -245 l18 -43 -206 0 c-192 0 -206 1 -202 18 9 32 193 472 198 472 3 0 43 -91 90 -202z M3460 1620 l0 -740 550 0 550 0 0 150 0 150 -375 0 -375 0 0 544 c0 299 -3 564 -6 590 l-7 46 -168 0 -169 0 0 -740z M4690 2353 c-2 -90 1 -1477 3 -1477 1 -1 266 0 590 2 l588 3 -3 147 -3 147 -415 1 -415 2 -3 151 -3 151 376 0 376 0 -3 147 -3 147 -370 0 -370 1 -3 143 -3 142 416 0 415 0 0 150 0 150 -585 0 c-322 0 -585 -3 -585 -7z M6017 2353 c-4 -3 -7 -336 -7 -740 l0 -733 175 0 175 0 0 255 0 255 133 0 132 0 183 -255 183 -255 210 0 209 0 -69 93 c-276 367 -331 442 -331 448 0 4 17 13 38 19 198 64 311 240 300 470 -12 239 -174 395 -455 439 -78 12 -865 16 -876 4z m850 -308 c163 -49 179 -261 25 -337 -45 -22 -56 -23 -287 -23 l-240 0 -3 188 -2 187 228 0 c174 0 240 -4 279 -15z M7500 1614 c0 -676 1 -746 16 -740 9 3 85 6 170 6 l154 0 2 460 3 460 290 -332 c160 -183 342 -392 406 -463 l116 -130 139 2 139 3 3 740 2 740 -170 0 -170 0 -2 -460 -3 -461 -106 123 c-58 68 -152 177 -209 243 -57 66 -189 218 -293 338 l-190 217 -149 0 -148 0 0 -746z M9626 2328 c-7 -18 -69 -159 -136 -313 -107 -246 -439 -1014 -477 -1103 l-13 -32 186 2 187 3 56 135 56 135 335 0 334 0 57 -135 57 -135 187 -5 c103 -3 188 -4 190 -2 1 2 -29 74 -67 160 -79 177 -529 1202 -560 1275 l-21 47 -178 0 -179 0 -14 -32z m299 -623 c54 -129 96 -238 93 -240 -3 -3 -95 -4 -205 -3 l-200 3 100 242 c55 134 103 241 107 238 4 -2 51 -110 105 -240z"/></g></g></svg>';
+
+  /* ================= Baremos ================= */
+  // low: menos es mejor ([límite, puntos] de mejor a peor) · high: más es mejor
+  var OPOS = {
+    pn: { name: 'Policía Nacional', scale: 10, minPts: 1, mode: 'media', src: 'Baremo de la convocatoria BOE-A-2024-17401',
+      tests: [
+        { id: 'agi', nH: 'Circuito de agilidad', nM: 'Circuito de agilidad', unit: 's', dec: 1, dir: 'low',
+          H: [[8.2, 10], [8.8, 9], [9.3, 8], [9.7, 7], [10.1, 6], [10.5, 5], [10.9, 4], [11.2, 3], [11.4, 2], [11.6, 1]],
+          M: [[9.3, 10], [9.8, 9], [10.3, 8], [10.8, 7], [11.2, 6], [11.6, 5], [12.0, 4], [12.3, 3], [12.5, 2], [12.7, 1]] },
+        { id: 'dom', nH: 'Dominadas', nM: 'Suspensión en barra', unitH: 'reps', unitM: 's', dec: 0, dir: 'high',
+          H: [[17, 10], [16, 9], [15, 8], [14, 7], [12, 6], [10, 5], [8, 4], [7, 3], [6, 2], [5, 1]],
+          M: [[95, 10], [86, 9], [78, 8], [70, 7], [63, 6], [57, 5], [52, 4], [46, 3], [41, 2], [36, 1]] },
+        { id: 'r1000', nH: 'Carrera 1.000 m', nM: 'Carrera 1.000 m', unit: 'mmss', dir: 'low',
+          H: [[174, 10], [180, 9], [186, 8], [192, 7], [198, 6], [204, 5], [210, 4], [216, 3], [222, 2], [228, 1]],
+          M: [[204, 10], [213, 9], [222, 8], [231, 7], [240, 6], [249, 5], [258, 4], [267, 3], [276, 2], [285, 1]] }
+      ] },
+    ertz: { name: 'Ertzaintza', scale: 20, minPts: 5, mode: 'total', src: 'Baremo de referencia de las últimas convocatorias',
+      tests: [
+        { id: 'nat', nH: 'Natación 50 m', nM: 'Natación 50 m', unit: 's', dec: 2, dir: 'low',
+          H: [[30, 20], [32, 19], [34, 18], [36, 17], [39, 15.5], [42, 13.5], [46, 9], [52, 5]],
+          M: [[38, 20], [40, 19], [42, 18], [44, 17], [47, 15.5], [50, 13.5], [56, 9], [68, 5]] },
+        { id: 'press', nH: 'Press de banca (35 kg)', nM: 'Press de banca (25 kg)', unit: 'reps', dec: 0, dir: 'high',
+          H: [[50, 20], [49, 19], [48, 18], [45, 17], [42, 15.5], [37, 13.5], [31, 9], [22, 5]],
+          M: [[40, 20], [39, 19], [38, 18], [34, 17], [30, 15.5], [26, 13.5], [21, 9], [12, 5]] },
+        { id: 'agi', nH: 'Circuito de agilidad', nM: 'Circuito de agilidad', unit: 's', dec: 2, dir: 'low',
+          H: [[8.40, 20], [8.57, 19], [8.79, 18], [9.05, 17], [9.37, 15.5], [9.79, 13.5], [10.26, 9], [11.05, 5]],
+          M: [[9.40, 20], [9.57, 19], [9.79, 18], [10.07, 17], [10.41, 15.5], [10.87, 13.5], [11.38, 9], [12.25, 5]] },
+        { id: 'nav', nH: 'Course navette', nM: 'Course navette', unit: 'nivel', dec: 1, dir: 'high',
+          H: [[13.5, 20], [13, 19], [12.5, 18], [12, 17], [11.5, 16], [11, 15], [10.5, 14], [10, 9], [9.5, 5]],
+          M: [[11, 20], [10.5, 19], [10, 18], [9.5, 17], [9, 16], [8.5, 15], [8, 14], [7.5, 9], [7, 5]] }
+      ] },
+    bomb: { name: 'Bomberos', scale: 10, minPts: 5, mode: 'media', src: 'Baremo de ejemplo: se ajusta a las bases de cada convocatoria', example: true,
+      tests: [
+        { id: 'nat', nH: 'Natación 50 m', nM: 'Natación 50 m', unit: 's', dec: 1, dir: 'low', H: [[28, 10], [30, 9], [32, 8], [34, 7], [36, 6], [38, 5]], M: [[32, 10], [34, 9], [36, 8], [38, 7], [40, 6], [43, 5]] },
+        { id: 'trepa', nH: 'Trepa de cuerda 6 m', nM: 'Trepa de cuerda 6 m', unit: 's', dec: 1, dir: 'low', H: [[6, 10], [7, 9], [8, 8], [9, 7], [10.5, 6], [12, 5]], M: [[8, 10], [9.5, 9], [11, 8], [12.5, 7], [14, 6], [16, 5]] },
+        { id: 'press', nH: 'Press de banca (40 kg)', nM: 'Press de banca (30 kg)', unit: 'reps', dec: 0, dir: 'high', H: [[40, 10], [36, 9], [32, 8], [28, 7], [24, 6], [20, 5]], M: [[34, 10], [30, 9], [26, 8], [22, 7], [18, 6], [14, 5]] },
+        { id: 'r100', nH: 'Velocidad 100 m', nM: 'Velocidad 100 m', unit: 's', dec: 2, dir: 'low', H: [[12.0, 10], [12.4, 9], [12.8, 8], [13.2, 7], [13.6, 6], [14.0, 5]], M: [[14.0, 10], [14.5, 9], [15.0, 8], [15.5, 7], [16.0, 6], [16.5, 5]] },
+        { id: 'r2000', nH: 'Carrera 2.000 m', nM: 'Carrera 2.000 m', unit: 'mmss', dir: 'low', H: [[400, 10], [420, 9], [440, 8], [460, 7], [480, 6], [500, 5]], M: [[480, 10], [500, 9], [520, 8], [540, 7], [560, 6], [580, 5]] }
+      ] }
+  };
+  function tName(t, sex) { return sex === 'M' ? t.nM : t.nH; }
+  function tUnit(t, sex) { return t.unit || (sex === 'M' ? t.unitM : t.unitH); }
+  function fmtV(t, sex, v) {
+    if (v == null || v === '') return '—';
+    var u = tUnit(t, sex);
+    if (u === 'mmss') { var m = Math.floor(v / 60), s = Math.round(v - m * 60); if (s === 60) { m++; s = 0; } return m + ':' + String(s).padStart(2, '0'); }
+    if (u === 'reps') return nf(v) + ' reps';
+    if (u === 'nivel') return 'nivel ' + nf(v, 1).replace(',0', '');
+    return nf(v, t.dec || 1) + ' s';
+  }
+  function parseV(t, sex, raw) {
+    var s = String(raw || '').trim().replace(',', '.'), u = tUnit(t, sex);
+    if (!s) return null;
+    if (u === 'mmss') { var m = s.match(/^(\d{1,2})\s*[:.'´ ]\s*(\d{1,2})$/); if (m) return +m[1] * 60 + +m[2]; var n = parseFloat(s); return isNaN(n) ? null : (n < 20 ? n * 60 : n); }
+    var v = parseFloat(s); return isNaN(v) || v <= 0 ? null : v;
+  }
+  function ph(t, sex) { var u = tUnit(t, sex); return u === 'mmss' ? 'Ej.: 3:25' : u === 'reps' ? 'Ej.: 12' : u === 'nivel' ? 'Ej.: 10,5' : 'Ej.: 9,8'; }
+  function points(t, sex, v) {
+    if (v == null) return null;
+    var tb = t[sex] || t.H;
+    for (var i = 0; i < tb.length; i++) { if (t.dir === 'low' ? v <= tb[i][0] + 1e-9 : v >= tb[i][0] - 1e-9) return tb[i][1]; }
+    return 0;
+  }
+  function nextStep(t, sex, v) { // siguiente tramo: {need, pts}
+    var tb = t[sex] || t.H, p = points(t, sex, v);
+    var better = tb.filter(function (r) { return r[1] > p; });
+    if (!better.length) return null;
+    var tgt = better[better.length - 1];
+    return { lim: tgt[0], pts: tgt[1], diff: Math.abs(v - tgt[0]) };
+  }
+  function diffTxt(t, sex, d) { var u = tUnit(t, sex); if (u === 'mmss') return Math.max(1, Math.round(d)) + ' s'; if (u === 'reps') { var r = Math.max(1, Math.ceil(d)); return r + (r === 1 ? ' repetición' : ' repeticiones'); } if (u === 'nivel') return nf(d, 1) + ' niveles'; return nf(Math.max(d, 0.01), t.dec || 1) + ' s'; }
+  function lastMark(p, tid) { var a = (p.marks[tid] || []); return a.length ? a[a.length - 1].v : null; }
+  function bestMark(p, t) { var a = (p.marks[t.id] || []); if (!a.length) return null; return a.reduce(function (b, m) { return b == null ? m.v : (t.dir === 'low' ? Math.min(b, m.v) : Math.max(b, m.v)); }, null); }
+  function score(p, upTo) {
+    var O = OPOS[p.opo], tot = 0, n = 0, missing = 0, apto = true, per = [];
+    O.tests.forEach(function (t) {
+      var arr = (p.marks[t.id] || []).filter(function (m) { return !upTo || m.d <= upTo; });
+      var v = arr.length ? arr[arr.length - 1].v : null, pt = points(t, p.sex, v);
+      if (v == null) { missing++; apto = false; } else { tot += pt; n++; if (pt < O.minPts) apto = false; }
+      per.push({ t: t, v: v, pts: pt });
+    });
+    var max = O.tests.length * O.scale;
+    return { total: tot, max: max, n: n, missing: missing, apto: apto && !missing, per: per, show: O.mode === 'media' ? (n ? tot / O.tests.length : 0) : tot, showMax: O.mode === 'media' ? O.scale : max, pct: max ? tot / max : 0 };
+  }
+  function weakest(p) { var s = score(p), w = null; s.per.forEach(function (x) { var r = x.v == null ? -1 : x.pts / OPOS[p.opo].scale; if (!w || r < w.r) w = { r: r, x: x }; }); return w ? w.x : null; }
+  function showScore(p, s) { return OPOS[p.opo].mode === 'media' ? nf(s.show, 1) : nf(s.show, 1).replace(',0', ''); }
+
+  /* ================= Planes por oposición ================= */
+  var PLANS = {
+    pn: [
+      { day: 0, title: 'Agilidad + dominadas', detail: '75 min · técnica de circuito y tracción', test: 'agi', ex: [{ n: 'Calentamiento con skipping y cambios de dirección', s: '15 min' }, { n: 'Circuito de agilidad completo', s: '6 pasadas · 2 min de descanso' }, { n: 'Dominadas con pausa arriba', s: '5 × máx −2' }, { n: 'Excéntricas de dominada', s: '3 × 5 · bajada de 5 s' }] },
+      { day: 1, title: 'Series de 400 m', detail: '60 min · ritmo de examen', test: 'r1000', ex: [{ n: 'Rodaje suave', s: '15 min' }, { n: '400 m a ritmo objetivo de 1.000', s: '6 × 400 · 1 min 30 s de recuperación' }, { n: 'Vuelta a la calma', s: '10 min' }] },
+      { day: 3, title: 'Fuerza de tracción', detail: '60 min · gimnasio', test: 'dom', ex: [{ n: 'Dominadas lastradas', s: '4 × 4' }, { n: 'Remo con barra', s: '4 × 8' }, { n: 'Curl de bíceps', s: '3 × 12' }, { n: 'Core antirrotación', s: '3 × 30 s' }] },
+      { day: 5, title: 'Simulacro de 1.000 m', detail: '45 min · test cronometrado', test: 'r1000', ex: [{ n: 'Calentamiento del día de examen', s: '20 min' }, { n: '1.000 m a tope', s: 'Apunta tu marca en la app' }] }
+    ],
+    ertz: [
+      { day: 0, title: 'Natación técnica', detail: '60 min · piscina', test: 'nat', ex: [{ n: 'Técnica de crol', s: '400 m' }, { n: 'Salidas y viraje', s: '10 repeticiones' }, { n: '50 m a ritmo de examen', s: '6 × 50 · 1 min de descanso' }] },
+      { day: 1, title: 'Press de banca resistencia', detail: '50 min · gimnasio', test: 'press', ex: [{ n: 'Press con el peso de examen', s: '4 series al 70 % de tus repeticiones máximas' }, { n: 'Fondos en paralelas', s: '3 × máx' }, { n: 'Press inclinado', s: '3 × 12' }] },
+      { day: 3, title: 'Agilidad', detail: '50 min · pista', test: 'agi', ex: [{ n: 'Circuito de agilidad completo', s: '6 pasadas' }, { n: 'Aceleraciones de 10 m', s: '8 repeticiones' }] },
+      { day: 5, title: 'Intervalos de navette', detail: '45 min · pista', test: 'nav', ex: [{ n: 'Navette por bloques', s: '4 × 3 min · 2 min de recuperación' }, { n: 'Rodaje suave', s: '15 min' }] }
+    ],
+    bomb: [
+      { day: 0, title: 'Natación + trepa', detail: '75 min', test: 'nat', ex: [{ n: '50 m a ritmo de examen', s: '8 × 50' }, { n: 'Trepa con piernas', s: '4 subidas' }, { n: 'Trepa solo brazos', s: '3 subidas' }] },
+      { day: 1, title: 'Velocidad', detail: '50 min · pista', test: 'r100', ex: [{ n: 'Técnica de carrera', s: '15 min' }, { n: 'Salidas de 30 m', s: '6 repeticiones' }, { n: '100 m', s: '4 × 100 · recuperación completa' }] },
+      { day: 3, title: 'Press de banca', detail: '50 min · gimnasio', test: 'press', ex: [{ n: 'Press con el peso de examen', s: '5 × 60 % del máximo' }, { n: 'Remo invertido', s: '3 × 12' }] },
+      { day: 5, title: 'Fondo 2.000 m', detail: '60 min', test: 'r2000', ex: [{ n: 'Series de 1.000 m', s: '3 × 1.000 · 2 min' }, { n: 'Rodaje suave', s: '15 min' }] }
+    ]
+  };
+  var NUTRI = {
+    protein: '1,6–1,8 g por kg', water: '2,5–3 L al día', kcal: 'Según tu objetivo',
+    rules: ['Hidratos el día antes de series y simulacros', 'Proteína en cada comida', 'Nada nuevo la semana del examen'],
+    meals: [['Desayuno', 'Avena con leche o yogur, plátano y frutos secos'], ['Comida', 'Arroz o pasta + pollo o pescado + verdura'], ['Merienda', 'Tostada con pavo o queso fresco y fruta'], ['Cena', 'Tortilla o pescado con verdura y patata']],
+    exam: ['Desayuna 3 horas antes lo mismo que en los simulacros', 'Lleva agua y un plátano a la prueba', 'La noche antes, cena de siempre: nada de probar cosas']
+  };
+  var REST = ['Duerme 7,5–8 h: también es entrenamiento', 'Si estudias por la tarde, entrena por la mañana', 'Un día completo de descanso a la semana', 'La semana del examen bajamos volumen un 40 %'];
+
+  /* ================= Estado ================= */
+  var DEF_BRAND = { name: 'Tu Academia', coach: 'Tu preparador', city: '', primary: '#0B1F3A', accent: '#6CC4F0', logo: '' };
+  function newPerson(name) {
+    return { id: 'yo', name: name || 'Tú', opo: 'pn', sex: 'H', exam: iso(addDays(T, 90)), start: iso(T), marks: {}, checks: [], weight: [], done: 0, chat: [],
+      note: 'Hola ' + first(name || 'Tú') + '. Esta semana es para conocerte y tomar tus marcas de partida. Registra lo que hagas y lo vamos afinando juntos.', profile: null };
+  }
+  function seedState(E, name, h) {
+    var B = clone(DEF_BRAND);
+    if (E) { B.name = E.centro || B.name; B.coach = E.entrenador || B.coach; B.city = E.ciudad || ''; if (hexOk(E.primario)) B.primary = E.primario; if (hexOk(E.acento)) B.accent = E.acento; if (E.logo) B.logo = E.logo; }
+    return {
+      v: 1, brand: B, people: [newPerson(name)], group: false, weekly: true, inbox: [], sent: [],
+      rules: [
+        { id: uid(), topic: 'Día del examen', keys: 'dia del examen, el examen, antes del examen, el dia de la prueba', answer: 'La semana del examen bajamos volumen. Ese día: desayuno 3 horas antes, el mismo calentamiento que en los simulacros y nada nuevo, ni zapatillas ni comida.' },
+        { id: uid(), topic: 'Nervios', keys: 'nervios, ansiedad, presion, agobio, miedo', answer: 'Es normal, significa que te importa. Repite la rutina de los simulacros tal cual: así el cuerpo reconoce la situación. Y respira 4 segundos dentro, 6 fuera, antes de cada prueba.' },
+        { id: uid(), topic: 'Agujetas', keys: 'agujetas, cargado, cargada, piernas duras', answer: 'Hoy rodaje muy suave o movilidad, y bebe agua. Si a las 72 horas sigues igual, avísame y ajusto la semana.' },
+        { id: uid(), topic: 'Estudio y entreno', keys: 'estudiar, temario, no tengo tiempo, test teorico', answer: 'Entrena antes de tu bloque de estudio: llegas más despejado. En semanas de mucho temario bajamos a 3 sesiones, pero no saltes las de tu prueba más floja.' },
+        { id: uid(), topic: 'Zapatillas', keys: 'zapatillas, clavos, calzado', answer: 'Para el examen, las mismas zapatillas con las que has hecho los simulacros. Nada de estrenar ese día.' }
+      ],
+      escalate: ['dolor', 'duele', 'lesion', 'mareo', 'pecho', 'medicacion', 'me he hecho dano'],
+      trial: { h: h || '', exp: E ? (E.caduca || '') : '', ok: Date.now() }
+    };
+  }
+  var KEY = 'demo-opos-v1', S;
+  try { S = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { S = null; }
+  if (!S || S.v !== 1 || !S.trial || !S.trial.h) S = seedState(null, '', '');
+  function save() { if (!S.trial || !S.trial.h) return; try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+  function applyBrand() {
+    var b = S.brand, r = document.documentElement.style;
+    var prim = lum(b.primary) > 0.3 ? mix(b.primary, '#000000', 0.55) : b.primary;
+    r.setProperty('--brand', prim); r.setProperty('--brand-2', mix(prim, '#FFFFFF', 0.1));
+    r.setProperty('--acc', b.accent); r.setProperty('--acc-soft', mix(b.accent, '#FFFFFF', 0.85));
+    r.setProperty('--on-acc', lum(b.accent) > 0.32 ? '#0E1726' : '#FFFFFF');
+    var m = document.querySelector('meta[name=theme-color]'); if (m) m.setAttribute('content', prim);
+  }
+  applyBrand();
+  var UI = { c: 'splash', a: 'resumen', aP: 'yo', test: null, planTab: 'entreno', sess: 0, flow: null, typing: false, mobile: 'c', toastC: '', toastA: '', repP: null };
+  function me() { return S.people.filter(function (p) { return p.id === 'yo'; })[0]; }
+  function person(id) { return S.people.filter(function (p) { return p.id === id; })[0] || me(); }
+  function lastCheck(p) { return p.checks[p.checks.length - 1]; }
+  function checkedToday(p) { var l = lastCheck(p); return l && l.d === iso(T); }
+  function sessionsOf(p) { var all = PLANS[p.opo], n = p.profile && p.profile.days ? parseInt(p.profile.days, 10) : 4; return all.slice(0, Math.max(3, Math.min(all.length, n))); }
+  function sessionOn(p, d) { return sessionsOf(p).filter(function (s) { return s.day === d; })[0]; }
+  function nextSession(p) { for (var i = 0; i < 7; i++) { var d = (dow(T) + i) % 7, s = sessionOn(p, d); if (s) return { s: s, off: i, d: d }; } return null; }
+
+  /* ================= Grupo de ejemplo ================= */
+  function makeGroup() {
+    var defs = [
+      ['Aitor Ugarte', 'ertz', 'H', 46, { nat: [41, 37.5], press: [34, 41], agi: [9.9, 9.3], nav: [10, 11] }, 3],
+      ['Nerea Olabarria', 'ertz', 'M', 46, { nat: [49, 45.2], press: [22, 27], agi: [11.1, 10.6], nav: [8, 9] }, 1],
+      ['Iker Fernández', 'pn', 'H', 63, { agi: [10.4, 9.6], dom: [9, 13], r1000: [212, 197] }, 0],
+      ['Lucía Martín', 'pn', 'M', 63, { agi: [11.9, 11.4], dom: [44, 58], r1000: [262, 244] }, 1],
+      ['Jon Arrieta', 'bomb', 'H', 120, { nat: [36, 33], trepa: [11, 8.6], press: [24, 31], r100: [13.5, 13.0], r2000: [495, 462] }, 1],
+      ['Ane Zubizarreta', 'pn', 'M', 34, { agi: [13.4, 12.9], dom: [33, 38], r1000: [281, 270] }, 5],
+      ['Unai Ortiz', 'ertz', 'H', 46, { nat: [33.5, 31.8], press: [44, 48], agi: [8.9, 8.6], nav: [12, 12.5] }, 0],
+      ['Marta Ibáñez', 'bomb', 'M', 120, { nat: [44, 40.5], trepa: [19, 16.8], press: [15, 21], r100: [16.8, 16.1], r2000: [590, 562] }, 1]
+    ];
+    return defs.map(function (d, k) {
+      var p = { id: 'g' + k, name: d[0], opo: d[1], sex: d[2], exam: iso(addDays(T, d[3])), start: iso(addDays(T, -56)), marks: {}, checks: [], weight: [], done: 18 + k, chat: [], ex: true, note: '', profile: { why: '' } };
+      Object.keys(d[4]).forEach(function (tid) {
+        var a = d[4][tid][0], b = d[4][tid][1], arr = [];
+        for (var w = 0; w <= 7; w++) { var v = a + (b - a) * (w / 7) + (w > 0 && w < 7 ? Math.sin(w * 2.1 + k) * Math.abs(b - a) * 0.08 : 0); var t = OPOS[d[1]].tests.filter(function (x) { return x.id === tid; })[0]; v = tUnit(t, d[2]) === 'reps' || tUnit(t, d[2]) === 'mmss' ? Math.round(v) : Math.round(v * 100) / 100; if (tUnit(t, d[2]) === 'nivel') v = Math.round(v * 2) / 2; arr.push({ d: iso(addDays(T, -56 + w * 8)), v: v }); }
+        p.marks[tid] = arr;
+      });
+      var gap = d[5];
+      for (var i = 20; i >= gap + 1; i--) { if ((i + k) % 6 === 0) continue; var w2 = Math.sin(i * 1.3 + k); p.checks.push({ d: iso(addDays(T, -i)), sleep: Math.round((7 + w2 * 0.8) * 2) / 2, fat: Math.max(1, Math.min(5, Math.round(3.4 + w2))), energy: Math.max(1, Math.min(5, Math.round(3.6 + w2 * 0.8))), study: Math.round((4 + w2 * 1.5) * 2) / 2, pain: 'no', zone: '', mood: 'Bien', note: '' }); }
+      if (k === 3) { var lc = p.checks[p.checks.length - 1]; lc.pain = 'leve'; lc.zone = 'Rodilla'; lc.note = 'Molestia al bajar escaleras después de las series'; }
+      if (k === 7) { var lc2 = p.checks[p.checks.length - 1]; lc2.fat = 1; lc2.sleep = 5.5; }
+      return p;
+    });
+  }
+
+  /* ================= Gráficas ================= */
+  function lineChart(vals, labels, color, label, maxV) {
+    if (!vals || vals.length < 2) return '<p class="st" style="margin:4px 0">' + (vals && vals.length ? 'Primer registro guardado. La gráfica aparece con el segundo.' : 'Aún sin datos: se rellena con tus registros.') + '</p>';
+    var w = 320, h = 130, pl = 8, pr = 30, pt = 12, pb = 22;
+    var mn = 0, mx = maxV || Math.max.apply(null, vals);
+    var pts = vals.map(function (v, i) { return [pl + i * (w - pl - pr) / (vals.length - 1), pt + (1 - (v - mn) / (mx - mn || 1)) * (h - pt - pb)]; });
+    var d = pts.map(function (p, i) { return (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1); }).join(' ');
+    var area = d + ' L' + pts[pts.length - 1][0].toFixed(1) + ' ' + (h - pb) + ' L' + pl + ' ' + (h - pb) + ' Z', g = '';
+    for (var i = 0; i < 3; i++) { var yy = pt + i * (h - pt - pb) / 2, v = mx - i * (mx - mn) / 2; g += '<line x1="' + pl + '" x2="' + (w - pr) + '" y1="' + yy + '" y2="' + yy + '" stroke="#E1E5EB"/><text x="' + (w - pr + 5) + '" y="' + (yy + 4) + '" font-size="10" fill="#5A6577">' + nf(v, v % 1 ? 1 : 0) + '</text>'; }
+    var L = pts[pts.length - 1];
+    return '<svg viewBox="0 0 ' + w + ' ' + h + '" role="img" aria-label="' + esc(label) + '">' + g + '<path d="' + area + '" fill="' + color + '" opacity=".12"/><path d="' + d + '" fill="none" stroke="' + color + '" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><circle cx="' + L[0] + '" cy="' + L[1] + '" r="4.5" fill="' + color + '" stroke="#fff" stroke-width="2"/><text x="' + pl + '" y="' + (h - 5) + '" font-size="10" fill="#5A6577">' + esc(labels[0]) + '</text><text x="' + (w - pr) + '" y="' + (h - 5) + '" text-anchor="end" font-size="10" fill="#5A6577">' + esc(labels[1]) + '</text></svg>';
+  }
+  function scoreSeries(p) {
+    var ds = {}; Object.keys(p.marks).forEach(function (k) { p.marks[k].forEach(function (m) { ds[m.d] = 1; }); });
+    return Object.keys(ds).sort().map(function (d) { var s = score(p, d); return { d: d, v: s.show, full: s.missing === 0 }; }).filter(function (x) { return x.full; });
+  }
+  function brandCol() { return getComputedStyle(document.documentElement).getPropertyValue('--brand').trim() || '#0B1F3A'; }
+
+  var IC = {
+    home: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></svg>',
+    tests: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M10 2h4"/></svg>',
+    plan: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>',
+    prog: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 17l5-5 4 3 7-8"/></svg>',
+    chat: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M5 5h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H10l-5 4z"/></svg>',
+    back: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>',
+    send: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>',
+    target: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg>'
+  };
+
+  /* ================= APP DEL OPOSITOR ================= */
+  var cRoot = $('client');
+  function nav(on) {
+    function b(r, l, ic) { return '<button type="button" data-c="' + r + '" class="' + (on === r ? 'on' : '') + '"' + (on === r ? ' aria-current="page"' : '') + '>' + ic + l + '</button>'; }
+    return '<nav class="nav" aria-label="Menú">' + b('home', 'Hoy', IC.home) + b('tests', 'Pruebas', IC.tests) + b('plan', 'Plan', IC.plan) + b('progress', 'Progreso', IC.prog) + b('chat', 'Asistente', IC.chat) + '</nav>';
+  }
+  function hdr(p) { return '<div class="hdr"><button type="button" class="word" data-c="splash" aria-label="Portada">' + (S.brand.logo ? '<img src="' + esc(S.brand.logo) + '" alt="" style="width:28px;height:28px;border-radius:50%">' : '') + esc(S.brand.name) + '</button><span class="av" aria-hidden="true">' + esc(initials(p.name)) + '</span></div>'; }
+  function vSplash() {
+    var B = S.brand, p = me(), lanes = '';
+    for (var i = 0; i < 6; i++) lanes += '<path d="M' + (40 + i * 60) + ' 900 C ' + (40 + i * 60) + ' 500 ' + (300 + i * 40) + ' 300 ' + (520 + i * 30) + ' -20" fill="none" stroke="#fff" stroke-width="2"/>';
+    return '<div class="splash"><svg class="lanes" viewBox="0 0 460 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">' + lanes + '</svg>' +
+      (B.logo ? '<img class="blogo" src="' + esc(B.logo) + '" alt="' + esc(B.name) + '">' : '') +
+      '<p class="kick">' + esc(B.city ? B.city + ' · ' : '') + 'Preparación física de oposiciones</p>' +
+      (B.logo ? '' : '<h1>' + esc(B.name).replace(/(\S+)$/, '<i>$1</i>') + '</h1>') +
+      '<p class="tag">Tu plaza, prueba a prueba. Tus marcas, tu nota y tu plan en un solo sitio.</p>' +
+      '<div class="opos"><span>Policía Nacional</span><span>Ertzaintza</span><span>Bomberos</span></div>' +
+      '<button type="button" class="bt acc full" style="height:54px;font-size:16px;margin-top:6px" data-c="home">Entrar como ' + esc(first(p.name)) + '</button>' +
+      '<p class="foot">' + (S.trial && S.trial.exp ? 'Demo privada hasta el ' + esc(fmt(parse(S.trial.exp), { day: 'numeric', month: 'long' })) + ' · ' : '') + 'Con la tecnología de ' + GLOGO + '</p></div>';
+  }
+  function boardHtml(p) {
+    var O = OPOS[p.opo], s = score(p), dd = daysTo(p.exam);
+    var h = '<section class="board" aria-label="Tu marcador"><div class="top"><div><p class="lab" style="margin:0">' + esc(O.name) + ' · nota estimada</p><p class="big num" style="margin:6px 0 0">' + (s.n ? showScore(p, s) : '—') + '<small>/ ' + s.showMax + '</small></p></div>' +
+      '<div class="days"><b class="num">' + Math.max(0, dd) + '</b><span class="lab">días al examen</span></div></div>';
+    h += '<div class="row" style="position:relative;z-index:1;flex-wrap:wrap">' + (s.missing ? '<span class="chip on-dark">Faltan ' + s.missing + ' marca' + (s.missing > 1 ? 's' : '') + ' por registrar</span>' : s.apto ? '<span class="chip ok">Hoy serías apto/a</span>' : '<span class="chip bad">Alguna prueba por debajo del mínimo</span>') + '</div>';
+    h += '<div class="bars">' + s.per.map(function (x) { var pc = x.v == null ? 0 : x.pts / O.scale * 100; return '<div class="bar-r"><span class="n">' + esc(tName(x.t, p.sex)) + '</span><span class="trk"><i class="' + (x.v != null && x.pts < O.minPts ? 'lo' : '') + '" style="width:' + Math.max(pc, x.v == null ? 0 : 4) + '%"></i></span><b class="num">' + (x.v == null ? '—' : nf(x.pts, x.pts % 1 ? 1 : 0)) + '</b></div>'; }).join('') + '</div></section>';
+    return h;
+  }
+  function vHome(p) {
+    var O = OPOS[p.opo], n = nextSession(p), w = weakest(p), co = S.brand.coach;
+    var h = '<div class="scroll">' + hdr(p) + '<div><h1 class="t">Hola, ' + esc(first(p.name)) + '</h1><p class="st">' + esc(fmt(T)) + '</p></div>' + boardHtml(p);
+    if (w) {
+      var txt;
+      if (w.v == null) txt = 'Aún no tenemos tu marca de <b>' + esc(tName(w.t, p.sex)) + '</b>. Hazla esta semana y la registras.';
+      else { var ns = nextStep(w.t, p.sex, w.v); txt = 'Tu prueba a reforzar es <b>' + esc(tName(w.t, p.sex)) + '</b>.' + (ns ? ' Te faltan <b>' + diffTxt(w.t, p.sex, ns.diff) + '</b> para pasar a ' + nf(ns.pts, ns.pts % 1 ? 1 : 0) + ' puntos.' : ''); }
+      h += '<button type="button" class="card focus" data-test="' + w.t.id + '" style="text-align:left;width:100%"><span class="ic">' + IC.target + '</span><p>' + txt + '</p></button>';
+    }
+    if (n) h += '<section class="card"><div class="ch"><h3>' + (n.off === 0 ? 'Hoy' : n.off === 1 ? 'Mañana' : DAYS_L[n.d]) + ': ' + esc(n.s.title) + '</h3><span>' + esc(n.s.detail) + '</span></div><div class="row2"><button type="button" class="bt dark" data-sess="' + sessionsOf(p).indexOf(n.s) + '">Ver sesión</button><button type="button" class="bt ghost" data-c="plan">Semana</button></div></section>';
+    if (!checkedToday(p)) h += '<section class="card row" style="justify-content:space-between"><div><h3 style="font-family:var(--cond);font-size:19px;margin:0">Check-in de hoy</h3><p class="st" style="margin:0">Sueño, piernas, estudio y molestias · 1 min</p></div><button type="button" class="bt acc" data-c="checkin">Empezar</button></section>';
+    else { var l = lastCheck(p); h += '<section class="card row" style="flex-wrap:wrap"><span class="chip ok">Check-in hecho</span><span class="st" style="margin:0">Durmió ' + nf(l.sleep, 1) + ' h · estudio ' + nf(l.study, 1) + ' h · piernas ' + l.fat + '/5</span></section>'; }
+    h += '<section class="card"><div class="ch"><h3>Nota de ' + esc(co) + '</h3></div><div class="note"><span class="av" aria-hidden="true">' + esc(initials(co)) + '</span><p>' + esc(p.note) + '</p></div></section>';
+    h += '<button type="button" class="card" data-c="report" style="text-align:left;width:100%"><div class="ch" style="margin:0"><h3>Tu informe de la semana</h3><span>Ver →</span></div><p class="st" style="margin:6px 0 0">Lo que has mejorado, tu nota y el foco de la semana que viene. Te llega cada domingo.</p></button>';
+    return h + '</div>' + nav('home');
+  }
+  function vTests(p) {
+    var O = OPOS[p.opo], s = score(p);
+    var h = '<div class="scroll">' + hdr(p) + '<div><h1 class="t">Tus pruebas</h1><p class="st">' + esc(O.name) + ' · baremo de ' + (p.sex === 'M' ? 'mujeres' : 'hombres') + '. Toca una prueba para registrar marca.</p></div>';
+    h += s.per.map(function (x) {
+      var pc = x.v == null ? 0 : x.pts / O.scale * 100, lo = x.v != null && x.pts < O.minPts;
+      return '<button type="button" class="tcard" data-test="' + x.t.id + '"><span><span class="tn">' + esc(tName(x.t, p.sex)) + '</span><br><span class="tv">' + (x.v == null ? 'Sin marca todavía' : 'Mejor reciente: ' + fmtV(x.t, p.sex, x.v)) + '</span></span><span class="pts num">' + (x.v == null ? '—' : nf(x.pts, x.pts % 1 ? 1 : 0)) + '<small>/' + O.scale + '</small></span><span class="trk2"><i class="' + (lo ? 'lo' : '') + '" style="width:' + pc + '%"></i></span></button>';
+    }).join('');
+    h += '<button type="button" class="bt dark full" style="height:52px" data-c="sim">Registrar simulacro completo</button>';
+    h += '<p class="st" style="font-size:12.5px">' + esc(O.src) + '. Mínimo para ser apto/a: ' + O.minPts + ' punto' + (O.minPts > 1 ? 's' : '') + ' en cada prueba.</p>';
+    return h + '</div>' + nav('tests');
+  }
+  function vTest(p) {
+    var O = OPOS[p.opo], t = O.tests.filter(function (x) { return x.id === UI.test; })[0] || O.tests[0], arr = p.marks[t.id] || [];
+    var v = arr.length ? arr[arr.length - 1].v : null, pt = points(t, p.sex, v), ns = v != null ? nextStep(t, p.sex, v) : null, tb = t[p.sex];
+    var h = '<div class="scroll"><button type="button" class="back" data-c="tests">' + IC.back + 'Pruebas</button><div><h1 class="t">' + esc(tName(t, p.sex)) + '</h1><p class="st">' + (t.dir === 'low' ? 'Menos tiempo, más puntos' : 'Más es mejor') + ' · máximo ' + O.scale + ' puntos</p></div>';
+    h += '<section class="board"><div class="top"><div><p class="lab" style="margin:0">Tu marca</p><p class="big num" style="margin:6px 0 0;font-size:52px">' + fmtV(t, p.sex, v) + '</p></div><div class="days"><b class="num">' + (v == null ? '—' : nf(pt, pt % 1 ? 1 : 0)) + '</b><span class="lab">puntos</span></div></div>' +
+      (ns ? '<p style="margin:0;position:relative;z-index:1">Para ' + nf(ns.pts, ns.pts % 1 ? 1 : 0) + ' puntos necesitas ' + fmtV(t, p.sex, ns.lim) + ': te faltan <b>' + diffTxt(t, p.sex, ns.diff) + '</b>.</p>' : v != null ? '<p style="margin:0;position:relative;z-index:1">Tienes la nota máxima en esta prueba. A mantenerla.</p>' : '') + '</section>';
+    h += '<form class="card" id="markForm" style="display:flex;flex-direction:column;gap:10px"><h3>Registrar marca</h3><div class="fl-row"><label class="sr" for="markIn">Marca</label><input id="markIn" inputmode="decimal" autocomplete="off" placeholder="' + ph(t, p.sex) + '"><button type="submit" class="bt dark">Guardar</button></div><p class="st" id="markPrev" style="margin:0;font-size:13px">La app calcula los puntos con el baremo oficial.</p></form>';
+    h += '<section class="card"><div class="ch"><h3>Evolución</h3><span>puntos en cada marca</span></div>' + lineChart(arr.map(function (m) { return points(t, p.sex, m.v); }), ['Inicio', 'Hoy'], brandCol(), 'Evolución', O.scale) + '</section>';
+    if (arr.length) h += '<section class="card"><div class="ch"><h3>Tus marcas</h3></div><div class="marks">' + arr.slice(-6).reverse().map(function (m) { return '<div><span>' + esc(short(parse(m.d))) + '</span><b class="num">' + fmtV(t, p.sex, m.v) + ' · ' + nf(points(t, p.sex, m.v), 1).replace(',0', '') + ' pts</b></div>'; }).join('') + '</div></section>';
+    h += '<section class="card"><div class="ch"><h3>Baremo</h3><span>' + (p.sex === 'M' ? 'Mujeres' : 'Hombres') + '</span></div><div class="tw"><table class="bar"><thead><tr><th>Marca</th><th>Puntos</th></tr></thead><tbody>' +
+      tb.map(function (r) { return '<tr class="' + (v != null && r[1] === pt ? 'me' : '') + '"><td class="num">' + (t.dir === 'low' ? 'Hasta ' : 'Desde ') + fmtV(t, p.sex, r[0]) + '</td><td class="num">' + nf(r[1], r[1] % 1 ? 1 : 0) + '</td></tr>'; }).join('') + '</tbody></table></div><p class="st" style="font-size:12.5px;margin-top:8px">' + esc(O.src) + '.</p></section>';
+    return h + '</div>' + nav('tests');
+  }
+  function vSim(p) {
+    var O = OPOS[p.opo];
+    return '<div class="scroll"><button type="button" class="back" data-c="tests">' + IC.back + 'Pruebas</button><div><h1 class="t">Simulacro</h1><p class="st">Apunta las marcas del simulacro de hoy. Deja en blanco las que no hayas hecho.</p></div>' +
+      '<form class="card form" id="simForm">' + O.tests.map(function (t) { return '<label class="lab" for="sim-' + t.id + '">' + esc(tName(t, p.sex)) + '<input class="field" id="sim-' + t.id + '" data-simt="' + t.id + '" inputmode="decimal" autocomplete="off" placeholder="' + ph(t, p.sex) + '"></label>'; }).join('') +
+      '<button type="submit" class="bt dark full" style="height:50px;margin-top:6px">Calcular mi nota</button></form></div>' + nav('tests');
+  }
+  function vPlan(p) {
+    var t = UI.planTab, ss = sessionsOf(p);
+    var h = '<div class="scroll">' + hdr(p) + '<div><h1 class="t">Tu plan</h1><p class="st">' + esc(OPOS[p.opo].name) + ' · ' + ss.length + ' sesiones por semana</p></div><div class="seg" role="tablist"><button type="button" data-tab="entreno" class="' + (t === 'entreno' ? 'on' : '') + '">Entreno</button><button type="button" data-tab="nutri" class="' + (t === 'nutri' ? 'on' : '') + '">Nutrición</button><button type="button" data-tab="rest" class="' + (t === 'rest' ? 'on' : '') + '">Descanso</button></div>';
+    if (t === 'entreno') {
+      h += '<section class="card" style="padding:6px 14px">';
+      for (var d = 0; d < 7; d++) {
+        var s = sessionOn(p, d), isT = d === dow(T), date = addDays(T, d - dow(T)), dd = '<span class="d">' + DAYS[d] + '<small>' + date.getDate() + '</small></span>';
+        h += s ? '<button type="button" class="wd' + (isT ? ' today' : '') + '" data-sess="' + ss.indexOf(s) + '">' + dd + '<span><b>' + esc(s.title) + '</b><span class="x">' + esc(s.detail) + '</span></span>' + (d < dow(T) ? '<span class="chip ok">Hecha</span>' : isT ? '<span class="chip warn">Hoy</span>' : '') + '</button>'
+          : '<div class="wd rest' + (isT ? ' today' : '') + '">' + dd + '<span><b>Descanso o estudio</b><span class="x">Movilidad 15 min</span></span></div>';
+      }
+      h += '</section>';
+    } else if (t === 'nutri') {
+      h += '<section class="card"><div class="ch"><h3>Tus objetivos</h3><span>Los pone ' + esc(S.brand.coach) + '</span></div><div class="kpis"><div class="kpi"><span>Proteína</span><b style="font-size:18px">' + NUTRI.protein + '</b></div><div class="kpi"><span>Agua</span><b style="font-size:18px">' + NUTRI.water + '</b></div><div class="kpi"><span>Calorías</span><b style="font-size:18px">' + NUTRI.kcal + '</b></div></div></section>' +
+        '<section class="card"><div class="ch"><h3>Pautas</h3></div><ul class="rules">' + NUTRI.rules.map(function (r) { return '<li>' + esc(r) + '</li>'; }).join('') + '</ul></section>' +
+        '<section class="card"><div class="ch"><h3>Un día de ejemplo</h3>' + (p.profile && p.profile.diet && p.profile.diet !== 'Como de todo' ? '<span>Adaptado: ' + esc(p.profile.diet.toLowerCase()) + '</span>' : '') + '</div>' + NUTRI.meals.map(function (m) { return '<div class="meal"><b>' + m[0] + '</b><span>' + esc(adaptMeal(p, m[1])) + '</span></div>'; }).join('') + '</section>' +
+        '<section class="card" style="background:var(--acc-soft);border-color:transparent"><div class="ch"><h3>Semana del examen</h3></div><ul class="rules">' + NUTRI.exam.map(function (r) { return '<li>' + esc(r) + '</li>'; }).join('') + '</ul></section>';
+    } else {
+      h += '<section class="card"><div class="ch"><h3>Descanso y recuperación</h3></div><ul class="rules">' + REST.map(function (r) { return '<li>' + esc(r) + '</li>'; }).join('') + '</ul></section><section class="card"><div class="ch"><h3>¿Dudas?</h3></div><p class="st" style="margin:0 0 12px">El asistente conoce tu plan y tus marcas.</p><button type="button" class="bt dark full" data-c="chat">Preguntar al asistente</button></section>';
+    }
+    return h + '</div>' + nav('plan');
+  }
+  function adaptMeal(p, txt) { var d = p.profile && p.profile.diet; if (d === 'Vegetariano/a') return txt.replace('pollo o pescado', 'huevos o legumbre').replace('pescado', 'tofu o huevos').replace('pavo', 'hummus'); if (d === 'Vegano/a') return txt.replace('con leche o yogur', 'con bebida de soja').replace('pollo o pescado', 'legumbre o tofu').replace('Tortilla o pescado', 'Tofu salteado').replace('pavo o queso fresco', 'hummus'); return txt; }
+  function vSession(p) {
+    var s = sessionsOf(p)[UI.sess] || sessionsOf(p)[0], t = OPOS[p.opo].tests.filter(function (x) { return x.id === s.test; })[0];
+    return '<div class="scroll"><button type="button" class="back" data-c="plan">' + IC.back + 'Plan</button><div><span class="chip mute">' + DAYS_L[s.day] + '</span><h1 class="t" style="margin-top:8px">' + esc(s.title) + '</h1><p class="st">' + esc(s.detail) + (t ? ' · trabaja tu ' + esc(tName(t, p.sex).toLowerCase()) : '') + '</p></div>' +
+      '<section class="card"><div class="ch"><h3>Ejercicios</h3><span>' + s.ex.length + '</span></div>' + s.ex.map(function (e, i) { return '<div class="ex"><i>' + (i + 1) + '</i><p>' + esc(e.n) + '<span>' + esc(e.s) + '</span></p></div>'; }).join('') + '</section>' +
+      '<div class="row2"><button type="button" class="bt ghost" data-test="' + (t ? t.id : '') + '">Registrar marca</button><button type="button" class="bt dark" data-c="done">Sesión hecha</button></div></div>' + nav('plan');
+  }
+  function vProgress(p) {
+    var O = OPOS[p.opo], ser = scoreSeries(p), last14 = p.checks.slice(-14), heat = '';
+    var sl = last14.length ? last14.reduce(function (a, k) { return a + k.sleep; }, 0) / last14.length : 0, st = last14.length ? last14.reduce(function (a, k) { return a + (k.study || 0); }, 0) / last14.length : 0;
+    for (var i = 27; i >= 0; i--) { var dd = iso(addDays(T, -i)), k = p.checks.filter(function (x) { return x.d === dd; })[0]; var col = !k ? '#E1E5EB' : k.pain !== 'no' ? '#D9534F' : k.fat >= 4 ? brandCol() : k.fat >= 3 ? mix(brandCol(), '#FFFFFF', 0.45) : '#F0C27B'; heat += '<i style="background:' + col + '" title="' + esc(short(addDays(T, -i))) + '"></i>'; }
+    var h = '<div class="scroll">' + hdr(p) + '<div><h1 class="t">Tu progreso</h1><p class="st">Desde el ' + esc(fmt(parse(p.start), { day: 'numeric', month: 'long' })) + '</p></div>' +
+      '<div class="kpis"><div class="kpi"><span>Nota</span><b class="num">' + (ser.length ? nf(ser[ser.length - 1].v, 1) : '—') + '</b><small>' + (ser.length > 1 ? (ser[ser.length - 1].v - ser[0].v >= 0 ? '+' : '') + nf(ser[ser.length - 1].v - ser[0].v, 1) + ' desde el inicio' : 'de ' + score(p).showMax) + '</small></div><div class="kpi"><span>Sueño</span><b class="num">' + (sl ? nf(sl, 1) + ' h' : '—') + '</b><small>media 2 semanas</small></div><div class="kpi"><span>Estudio</span><b class="num">' + (st ? nf(st, 1) + ' h' : '—') + '</b><small>al día</small></div></div>' +
+      '<section class="card"><div class="ch"><h3>Nota estimada</h3><span>con todas las pruebas</span></div>' + lineChart(ser.map(function (x) { return x.v; }), ['Inicio', 'Hoy'], brandCol(), 'Nota estimada', score(p).showMax) + '</section>' +
+      '<section class="card"><div class="ch"><h3>Prueba a prueba</h3><span>primera → última</span></div><div class="marks">' + O.tests.map(function (t) { var a = p.marks[t.id] || []; return '<div><span>' + esc(tName(t, p.sex)) + '</span><b class="num">' + (a.length ? fmtV(t, p.sex, a[0].v) + ' → ' + fmtV(t, p.sex, a[a.length - 1].v) : '—') + '</b></div>'; }).join('') + '</div></section>' +
+      '<section class="card"><div class="ch"><h3>Cómo te has sentido</h3><span>4 semanas</span></div><div class="heat">' + heat + '</div><div class="legend"><span><i style="background:' + brandCol() + '"></i>Fresco/a</span><span><i style="background:' + mix(brandCol(), '#FFFFFF', 0.45) + '"></i>Normal</span><span><i style="background:#F0C27B"></i>Cargado/a</span><span><i style="background:#D9534F"></i>Molestias</span><span><i style="background:#E1E5EB"></i>Sin registro</span></div></section>' +
+      '<form class="card" id="wForm" style="display:flex;flex-direction:column;gap:10px"><div class="ch" style="margin:0"><h3>Peso</h3><span>' + (p.weight.length ? nf(p.weight[p.weight.length - 1].v, 1) + ' kg' : 'sin registros') + '</span></div><div class="fl-row"><label class="sr" for="wIn">Peso de hoy</label><input id="wIn" inputmode="decimal" autocomplete="off" placeholder="Peso de hoy (kg)"><button type="submit" class="bt dark">Guardar</button></div></form>';
+    return h + '</div>' + nav('progress');
+  }
+  function bubble(m) {
+    if (m.k === 'me') return '<p class="bub me">' + esc(m.t) + '</p>';
+    if (m.k === 'coach') return '<p class="bub coach"><span class="who">' + esc(S.brand.coach) + '</span>' + esc(m.t) + '</p>';
+    return '<p class="bub bot">' + esc(m.t) + (m.tag ? '<span class="tag' + (m.esc ? ' esc' : '') + '">' + esc(m.tag) + '</span>' : '') + '</p>';
+  }
+  function vChat(p) {
+    var w = weakest(p), sug = ['¿Qué nota tengo?', w ? '¿Cuánto me falta en ' + tName(w.t, p.sex).toLowerCase() + '?' : '¿Cuánto me falta?', '¿Qué me toca hoy?', '¿Cuándo es mi examen?', '¿Qué como el día del examen?', 'Tengo nervios', 'Me duele la rodilla'];
+    return '<div class="chatwrap"><div class="scroll" id="chatScroll">' + hdr(p) + '<div><h1 class="t">Asistente</h1><p class="st">Conoce tus marcas, tu plan y las pautas de ' + esc(S.brand.coach) + '. Lo importante se lo pasa a él.</p></div>' +
+      (p.chat.length ? p.chat.map(bubble).join('') : '<p class="bub bot">Hola, ' + esc(first(p.name)) + '. Pregúntame por tu nota, tus pruebas, tu plan o el examen.</p>') + (UI.typing ? '<div class="typing" aria-label="Escribiendo"><i></i><i></i><i></i></div>' : '') + '</div>' +
+      '<div class="sugg">' + sug.map(function (s) { return '<button type="button" data-ask="' + esc(s) + '">' + esc(s) + '</button>'; }).join('') + '</div>' +
+      '<form class="compose" id="chatForm"><label class="sr" for="cmsg">Mensaje</label><input id="cmsg" autocomplete="off" placeholder="Escribe tu pregunta…"><button type="submit" class="send" aria-label="Enviar">' + IC.send + '</button></form></div>' + nav('chat');
+  }
+  function vReport(p) {
+    return '<div class="scroll"><button type="button" class="back" data-c="home">' + IC.back + 'Hoy</button><div><h1 class="t">Informe semanal</h1><p class="st">De ' + esc(S.brand.coach) + ' para ti · cada domingo</p></div><section class="card"><div class="rep">' + esc(report(p)) + '</div></section></div>' + nav('home');
+  }
+
+  /* ---------- asistente ---------- */
+  function reply(p, text) {
+    var q = norm(text), O = OPOS[p.opo], co = S.brand.coach;
+    for (var i = 0; i < S.escalate.length; i++) if (q.indexOf(norm(S.escalate[i])) !== -1) return { t: 'Esto prefiero que lo vea ' + co + ' directamente. Se lo acabo de pasar con tu último check-in y te responde hoy. Mientras tanto, no fuerces esa zona.', tag: 'Derivado a ' + co, esc: true };
+    var tm = O.tests.filter(function (t) { return q.indexOf(norm(tName(t, p.sex)).split(' ')[0]) !== -1 || q.indexOf(norm(tName(t, p.sex)).split(' (')[0]) !== -1 || (t.id === 'r1000' && /1\.?000/.test(q)) || (t.id === 'r2000' && /2\.?000/.test(q)) || (t.id === 'r100' && /\b100\b/.test(q)); })[0];
+    if (/(cuanto me falta|me falta|para el 10|para sacar|para subir)/.test(q)) {
+      var t = tm || (weakest(p) || {}).t, v = t ? lastMark(p, t.id) : null;
+      if (!t || v == null) return { t: 'Primero necesito tu marca en esa prueba. Regístrala en Pruebas y te digo exactamente cuánto te falta.', tag: 'Tus pruebas' };
+      var ns = nextStep(t, p.sex, v), top = t[p.sex][0];
+      return { t: 'En ' + tName(t, p.sex).toLowerCase() + ' tienes ' + fmtV(t, p.sex, v) + ' (' + nf(points(t, p.sex, v), 1).replace(',0', '') + ' puntos). ' + (ns ? 'Para ' + nf(ns.pts, 1).replace(',0', '') + ' puntos necesitas ' + fmtV(t, p.sex, ns.lim) + ': te faltan ' + diffTxt(t, p.sex, ns.diff) + '. La nota máxima está en ' + fmtV(t, p.sex, top[0]) + '.' : 'Ya tienes la nota máxima.'), tag: 'Calculado con el baremo de ' + O.name };
+    }
+    for (var r = 0; r < S.rules.length; r++) { var keys = S.rules[r].keys.split(',').map(function (k) { return norm(k.trim()); }).filter(Boolean); for (var k = 0; k < keys.length; k++) if (q.indexOf(keys[k]) !== -1) return { t: S.rules[r].answer, tag: 'Pauta de ' + co + ' · ' + S.rules[r].topic }; }
+    if (/(nota|como voy|apto|puntuacion|puntos)/.test(q)) { var s = score(p), w = weakest(p); if (!s.n) return { t: 'Todavía no tengo marcas tuyas. Registra al menos una prueba y te calculo la nota.', tag: 'Tus pruebas' }; return { t: 'Con tus últimas marcas, tu nota estimada es ' + showScore(p, s) + ' de ' + s.showMax + '. ' + (s.missing ? 'Faltan ' + s.missing + ' pruebas por registrar. ' : s.apto ? 'Hoy serías apto/a en todas las pruebas. ' : 'Hay alguna prueba por debajo del mínimo. ') + (w && w.v != null ? 'Donde más puedes ganar es en ' + tName(w.t, p.sex).toLowerCase() + '.' : ''), tag: 'Calculado con el baremo de ' + O.name }; }
+    if (/(cuando es|examen|fecha|cuantos dias)/.test(q)) return { t: 'Tu examen es el ' + fmt(parse(p.exam), { day: 'numeric', month: 'long', year: 'numeric' }) + ': quedan ' + daysTo(p.exam) + ' días. ' + (daysTo(p.exam) < 21 ? 'Entramos en fase de afinar: menos volumen y más simulacros.' : 'Tiempo de sobra para subir nota si eres constante.'), tag: 'Tu convocatoria' };
+    if (/(hoy|toca|manana|entreno|sesion)/.test(q)) { var tmr = /manana/.test(q), d = (dow(T) + (tmr ? 1 : 0)) % 7, ss = sessionOn(p, d); return { t: (tmr ? 'Mañana' : 'Hoy') + (ss ? ' toca ' + ss.title.toLowerCase() + ' (' + ss.detail + ').' : ' no hay sesión: día de estudio y 15 minutos de movilidad.'), tag: 'Tu plan' }; }
+    if (/(como|comer|cena|desayuno|dieta|proteina)/.test(q)) return { t: 'Tu objetivo es ' + NUTRI.protein + ' de proteína y ' + NUTRI.water + ' de agua. El día antes de series o simulacros, hidratos: arroz, pasta o patata.', tag: 'Tu pauta de nutrición' };
+    if (/(dormir|sueno|cansad|descanso)/.test(q)) return { t: REST[0] + '. ' + REST[1] + '.', tag: 'Tus pautas de descanso' };
+    return { t: 'No tengo una pauta de ' + co + ' para eso, así que no me la juego: se lo paso a él y te responde hoy.', tag: 'Derivado a ' + co, esc: true };
+  }
+  function ask(p, text) {
+    if (!text || UI.typing) return;
+    p.chat.push({ k: 'me', t: text }); UI.typing = true; save(); renderC();
+    setTimeout(function () { var r = reply(p, text); p.chat.push({ k: 'bot', t: r.t, tag: r.tag, esc: !!r.esc }); if (r.esc) S.inbox.unshift({ id: uid(), p: p.id, q: text, d: iso(T), done: false }); UI.typing = false; save(); renderC(); renderA(); }, 850);
+  }
+
+  /* ---------- informe semanal ---------- */
+  function report(p) {
+    var O = OPOS[p.opo], from = iso(addDays(T, -7)), wk = p.checks.filter(function (k) { return k.d > from; });
+    var sl = wk.length ? wk.reduce(function (a, k) { return a + k.sleep; }, 0) / wk.length : 0, st = wk.length ? wk.reduce(function (a, k) { return a + (k.study || 0); }, 0) / wk.length : 0;
+    var nw = [], s0 = score(p, from), s1 = score(p);
+    O.tests.forEach(function (t) { var a = (p.marks[t.id] || []).filter(function (m) { return m.d > from; }); if (a.length) { var prev = (p.marks[t.id] || []).filter(function (m) { return m.d <= from; }); var pv = prev.length ? prev[prev.length - 1].v : null; nw.push('· ' + tName(t, p.sex) + ': ' + fmtV(t, p.sex, a[a.length - 1].v) + (pv != null ? ' (antes ' + fmtV(t, p.sex, pv) + ')' : '')); } });
+    var w = weakest(p), pains = wk.filter(function (k) { return k.pain !== 'no'; });
+    var L = ['Semana del ' + short(addDays(T, -6)) + ' al ' + short(T) + ' · ' + first(p.name), '',
+      'Check-ins: ' + wk.length + ' de 7' + (wk.length ? ' · sueño medio ' + nf(sl, 1) + ' h · estudio ' + nf(st, 1) + ' h al día' : ''),
+      'Nota estimada: ' + (s1.n ? showScore(p, s1) + ' de ' + s1.showMax : 'sin marcas todavía') + (s0.n && s1.n && s1.show !== s0.show ? ' (la semana pasada ' + showScore(p, s0) + ')' : ''),
+      'Quedan ' + daysTo(p.exam) + ' días para el examen.', ''];
+    L.push(nw.length ? 'Marcas nuevas:\n' + nw.join('\n') : 'Esta semana no has registrado marcas nuevas.');
+    if (pains.length) L.push('', 'Molestias: ' + pains.map(function (k) { return (k.zone || 'sin zona').toLowerCase(); }).join(', ') + '. Lo revisamos en la próxima sesión.');
+    L.push('', 'Foco de la semana que viene: ' + (w ? tName(w.t, p.sex).toLowerCase() : 'registrar tus marcas de partida') + '.');
+    L.push('', '— ' + S.brand.coach);
+    return L.join('\n');
+  }
+
+  /* ---------- conversaciones ---------- */
+  function altaSteps(F) {
+    var p = person(F.pid), O = OPOS[OPO_KEY[F.ans.opo] || p.opo], st = [
+      { id: 'opo', block: 'Tu oposición', type: 'choice', text: 'Hola, ' + first(p.name) + '. Soy el asistente de ' + S.brand.coach + ' en ' + S.brand.name + '. Vamos a preparar tu plaza juntos. ¿A qué te presentas?', opts: ['Policía Nacional', 'Ertzaintza', 'Bomberos'] },
+      { id: 'sex', block: 'Tu oposición', type: 'choice', text: 'Las marcas oficiales cambian según el baremo. ¿Con cuál te presentas?', opts: ['Hombres', 'Mujeres'] },
+      { id: 'when', block: 'Tu oposición', type: 'choice', text: '¿Para cuándo esperas las pruebas físicas?', opts: ['En menos de 2 meses', 'Entre 2 y 4 meses', 'Entre 4 y 6 meses', 'Más de 6 meses'] },
+      { id: 'tries', block: 'Tu oposición', type: 'choice', text: '¿Es tu primera vez?', opts: ['Sí, es la primera', 'Ya me he presentado antes'] }
+    ];
+    O.tests.forEach(function (t) { st.push({ id: 'm_' + t.id, block: 'Tus marcas', type: 'mark', t: t, text: '¿Cuál es tu mejor marca ahora mismo en ' + tName(t, F.ans.sex === 'Mujeres' ? 'M' : 'H').toLowerCase() + '? Si no lo sabes, no pasa nada.' }); });
+    st.push(
+      { id: 'days', block: 'Tu semana', type: 'choice', text: '¿Cuántos días a la semana puedes entrenar de verdad, contando con el estudio?', opts: ['3 días', '4 días', '5 días'] },
+      { id: 'study', block: 'Tu semana', type: 'number', text: '¿Cuántas horas estudias al día, más o menos?', min: 0, max: 12, step: 0.5, def: 4, unit: 'h' },
+      { id: 'injury', block: 'Tu semana', type: 'choice', text: '¿Arrastras alguna lesión o molestia?', opts: ['Ninguna', 'Rodilla', 'Hombro', 'Espalda', 'Tobillo o pie', 'Otra'] },
+      { id: 'diet', block: 'Comida y descanso', type: 'choice', text: '¿Cómo comes normalmente?', opts: ['Como de todo', 'Vegetariano/a', 'Vegano/a', 'Otro'] },
+      { id: 'sleep', block: 'Comida y descanso', type: 'number', text: '¿Cuántas horas sueles dormir?', min: 4, max: 10, step: 0.5, def: 7, unit: 'h' },
+      { id: 'why', block: 'Lo importante', type: 'text', text: 'Última, y la que más me importa: ¿qué significa para ti sacar esta plaza?', ph: 'Cuéntamelo con tus palabras' }
+    );
+    return st;
+  }
+  function diarioSteps(F) {
+    var p = person(F.pid), l = lastCheck(p);
+    return [
+      { id: 'mood', type: 'choice', text: '¡Hola, ' + first(p.name) + '! ¿Qué tal el día?', opts: ['Genial', 'Bien', 'Regular', 'Mal'] },
+      { id: 'sleep', type: 'number', text: '¿Cuántas horas has dormido?' + (l ? ' La última vez me dijiste ' + nf(l.sleep, 1) + ' h.' : ''), min: 3, max: 12, step: 0.5, def: l ? l.sleep : 7, unit: 'h' },
+      { id: 'fat', type: 'scale', text: '¿Cómo tienes las piernas hoy?', lo: 'Destrozadas', hi: 'Frescas' },
+      { id: 'energy', type: 'scale', text: '¿Y de energía?', lo: 'Por los suelos', hi: 'A tope' },
+      { id: 'study', type: 'number', text: '¿Cuántas horas has estudiado hoy?', min: 0, max: 14, step: 0.5, def: l ? l.study : 4, unit: 'h' },
+      { id: 'pain', type: 'choice', text: '¿Alguna molestia?', opts: ['Ninguna', 'Algo leve', 'Sí, me molesta'] },
+      { id: 'zone', type: 'choice', text: '¿Dónde?', opts: ['Rodilla', 'Tobillo o pie', 'Espalda', 'Hombro', 'Otra'], cond: function (a) { return a.pain && a.pain !== 'Ninguna'; } },
+      { id: 'note', type: 'text', text: '¿Algo más que quieras contarle a ' + S.brand.coach + '?', ph: 'Escribe o pulsa «Nada más»' }
+    ];
+  }
+  var OPO_KEY = { 'Policía Nacional': 'pn', 'Ertzaintza': 'ertz', 'Bomberos': 'bomb' };
+  function steps(F) { return F.kind === 'alta' ? altaSteps(F) : diarioSteps(F); }
+  function nextIdx(F) { var st = steps(F); for (var i = F.idx + 1; i < st.length; i++) if (!st[i].cond || st[i].cond(F.ans)) return i; return -1; }
+  function curQ() { var F = UI.flow; return F && F.idx >= 0 ? steps(F)[F.idx] : null; }
+  function startFlow(kind) { var p = me(); UI.flow = { kind: kind, pid: p.id, ans: {}, log: [], idx: -1, typing: false, done: false, sel: [], num: null, block: '' }; UI.c = 'flow'; advance(''); }
+  function advance(reaction) {
+    var F = UI.flow; F.typing = true; renderC();
+    setTimeout(function () {
+      if (UI.flow !== F) return;
+      if (reaction) F.log.push({ from: 'bot', t: reaction });
+      var ni = nextIdx(F);
+      if (ni === -1) finish();
+      else { F.idx = ni; var q = steps(F)[ni]; if (F.kind === 'alta' && q.block !== F.block) F.log.push({ from: 'sys', t: q.block }); F.block = q.block; F.log.push({ from: 'bot', t: q.text }); F.num = q.type === 'number' ? q.def : null; }
+      F.typing = false; renderC();
+    }, reaction ? 900 : 500);
+  }
+  function react(F, q, v) {
+    var p = person(F.pid), co = S.brand.coach;
+    if (F.kind === 'alta') {
+      if (q.type === 'mark') { if (v == null) return 'Sin problema. La harás esta semana y la registras en la app.'; var sx = F.ans.sex === 'Mujeres' ? 'M' : 'H', pt = points(q.t, sx, v), O = OPOS[{ 'Policía Nacional': 'pn', 'Ertzaintza': 'ertz', 'Bomberos': 'bomb' }[F.ans.opo]]; return 'Eso son ' + nf(pt, 1).replace(',0', '') + ' de ' + O.scale + ' puntos. ' + (pt >= O.scale * 0.8 ? '¡Muy buena base!' : pt < O.minPts ? 'Ahora mismo está por debajo del mínimo: aquí es donde más vamos a trabajar.' : 'Hay margen para subir, y lo vamos a aprovechar.'); }
+      switch (q.id) {
+        case 'opo': return { 'Policía Nacional': 'Circuito, dominadas y 1.000 m. Vamos a por ello.', 'Ertzaintza': 'Natación, press de banca, agilidad y navette. Cuatro pruebas, una plaza.', 'Bomberos': 'De las más completas. Vamos prueba a prueba.' }[v];
+        case 'when': return v === 'En menos de 2 meses' ? 'Vamos justos, pero se puede afinar mucho en ese tiempo.' : 'Bien, tiempo para construir de verdad.';
+        case 'tries': return v === 'Ya me he presentado antes' ? 'Esa experiencia vale oro. Esta vez llegas con todo medido.' : 'Perfecto. Te voy a quitar sorpresas para el día del examen.';
+        case 'study': return v >= 6 ? 'Mucho temario. Encajaremos los entrenos para que te despejen, no para que te agoten.' : 'Apuntado. Lo cuadramos con tus entrenos.';
+        case 'injury': return v === 'Ninguna' ? '' : 'Gracias por decírmelo. ' + co + ' lo tendrá en cuenta en cada sesión.';
+        case 'sleep': return v < 7 ? 'Un poco justo. Dormir también sube nota, lo iremos mejorando.' : 'Bien, eso ayuda muchísimo.';
+        case 'why': return v ? 'Gracias por contármelo. Lo guardo para los días que cueste.' : '';
+      }
+      return '';
+    }
+    switch (q.id) {
+      case 'mood': return { 'Genial': '¡Así me gusta!', 'Bien': 'Me alegro.', 'Regular': 'Un día de esos. A ver cómo estás.', 'Mal': 'Lo siento, ' + first(p.name) + '. Vamos a ver qué ajustamos.' }[v] || '';
+      case 'sleep': return v < 6.5 ? 'Poco descanso. Hoy, intensidad baja.' : '';
+      case 'fat': return v <= 2 ? 'Apuntado. Si mañana toca series, ' + co + ' puede bajarlas.' : v >= 4 ? 'Piernas frescas: buen día para apretar.' : '';
+      case 'study': return v >= 7 ? 'Día largo de temario. Bien hecho.' : '';
+      case 'zone': return 'Gracias por avisar. Se lo paso ahora a ' + co + '.';
+    }
+    return '';
+  }
+  function answer(v, label) { var F = UI.flow, q = curQ(); if (!F || !q || F.typing || F.done) return; F.log.push({ from: 'me', t: label }); F.ans[q.id] = v; advance(react(F, q, v)); }
+  function finish() {
+    var F = UI.flow, p = person(F.pid), a = F.ans; F.done = true;
+    if (F.kind === 'alta') {
+      p.opo = { 'Policía Nacional': 'pn', 'Ertzaintza': 'ertz', 'Bomberos': 'bomb' }[a.opo] || 'pn'; p.sex = a.sex === 'Mujeres' ? 'M' : 'H';
+      p.exam = iso(addDays(T, { 'En menos de 2 meses': 50, 'Entre 2 y 4 meses': 95, 'Entre 4 y 6 meses': 150, 'Más de 6 meses': 220 }[a.when] || 95));
+      p.marks = {}; OPOS[p.opo].tests.forEach(function (t) { var v = a['m_' + t.id]; if (v != null) p.marks[t.id] = [{ d: iso(T), v: v }]; });
+      p.profile = { days: a.days, study: a.study, injury: a.injury, diet: a.diet, sleep: a.sleep, why: a.why, tries: a.tries, when: a.when };
+      if (a.injury && a.injury !== 'Ninguna') S.inbox.unshift({ id: uid(), p: p.id, q: 'Alta: molestias de ' + a.injury.toLowerCase() + '. Revisarlo en la primera sesión.', d: iso(T), done: false });
+      var s = score(p), w = weakest(p);
+      F.log.push({ from: 'bot', t: 'Listo, ' + first(p.name) + '. ' + (s.n ? 'Con tus marcas de hoy tu nota estimada es ' + showScore(p, s) + ' de ' + s.showMax + '. ' : '') + (w && w.v != null ? 'Vamos a empezar fuerte por ' + tName(w.t, p.sex).toLowerCase() + ', que es donde más puntos puedes ganar. ' : '') + 'Tu plan ya está listo.' });
+    } else {
+      var it = { d: iso(T), sleep: a.sleep, fat: a.fat || 3, energy: a.energy || 3, study: a.study || 0, pain: { 'Ninguna': 'no', 'Algo leve': 'leve', 'Sí, me molesta': 'si' }[a.pain] || 'no', zone: a.zone || '', mood: a.mood || '', note: a.note || '' };
+      p.checks = p.checks.filter(function (k) { return k.d !== it.d; }); p.checks.push(it);
+      var end = 'Gracias, ' + first(p.name) + '.' + (it.pain !== 'no' ? ' ' + S.brand.coach + ' ya tiene lo de tu ' + it.zone.toLowerCase() + '.' : '') + (it.fat <= 2 ? ' Hoy, cuida las piernas.' : '') + ' Mañana te pregunto otra vez.';
+      F.log.push({ from: 'bot', t: end, sum: it });
+    }
+    save(); renderA();
+  }
+  function vFlow() {
+    var F = UI.flow, q = curQ(), st = steps(F), total = st.filter(function (s) { return !s.cond || s.cond(F.ans); }).length, done = Object.keys(F.ans).length, pct = F.done ? 100 : Math.round(done / total * 100), co = S.brand.coach;
+    var h = '<div class="flow"><div class="fl-top"><div class="row" style="justify-content:space-between"><button type="button" class="back" data-flowexit="1">' + IC.back + 'Salir</button><span class="chip mute">' + Math.min(done, total) + ' de ' + total + '</span></div><div><b>' + (F.kind === 'alta' ? 'Empecemos' : 'Check-in de hoy') + '</b><br><span>' + (F.kind === 'alta' ? 'Tu oposición, tus marcas y tu semana · 3 minutos' : 'Un minuto · ' + esc(co) + ' lo lee cada día') + '</span></div><div class="ptrk"><i style="width:' + pct + '%"></i></div></div>';
+    var av = '<span class="fl-av" aria-hidden="true">' + esc(initials(co)) + '</span>';
+    h += '<div class="fl-msgs" aria-live="polite">' + F.log.map(function (m) {
+      if (m.from === 'sys') return '<p class="fl-sys">' + esc(m.t) + '</p>';
+      if (m.from === 'me') return '<p class="bub me">' + esc(m.t) + '</p>';
+      var sm = m.sum ? '<span class="sum"><span>Sueño<b>' + nf(m.sum.sleep, 1) + ' h</b></span><span>Piernas<b>' + m.sum.fat + ' de 5</b></span><span>Energía<b>' + m.sum.energy + ' de 5</b></span><span>Estudio<b>' + nf(m.sum.study, 1) + ' h</b></span></span>' : '';
+      return '<div class="fl-bot">' + av + '<p class="bub bot" style="max-width:100%">' + esc(m.t) + sm + '</p></div>';
+    }).join('') + (F.typing ? '<div class="fl-bot">' + av + '<div class="typing"><i></i><i></i><i></i></div></div>' : '') + '</div>';
+    var inp = '';
+    if (F.done) inp = '<div class="row2"><button type="button" class="bt ghost" data-c="tests">Mis pruebas</button><button type="button" class="bt dark" data-c="home">Ir a Hoy</button></div>';
+    else if (q && !F.typing) {
+      if (q.type === 'choice') inp = '<div class="qr">' + q.opts.map(function (o) { return '<button type="button" data-fa="' + esc(o) + '">' + esc(o) + '</button>'; }).join('') + '</div>';
+      else if (q.type === 'scale') { var b = ''; for (var i = 1; i <= 5; i++) b += '<button type="button" data-fs="' + i + '">' + i + '</button>'; inp = '<div class="qs">' + b + '</div><div class="scale-l"><span>1 · ' + esc(q.lo) + '</span><span>5 · ' + esc(q.hi) + '</span></div>'; }
+      else if (q.type === 'number') inp = '<div class="stepper"><button type="button" data-fn="-1" aria-label="Menos">−</button><b class="num">' + nf(F.num, 1) + ' ' + q.unit + '</b><button type="button" data-fn="1" aria-label="Más">+</button></div><button type="button" class="bt dark full" data-fnok="1">Enviar</button>';
+      else if (q.type === 'mark') inp = '<form class="fl-row" id="flowMark"><label class="sr" for="flowMarkIn">Tu marca</label><input id="flowMarkIn" inputmode="decimal" autocomplete="off" placeholder="' + ph(q.t, F.ans.sex === 'Mujeres' ? 'M' : 'H') + '"><button type="submit" class="send" aria-label="Enviar">' + IC.send + '</button></form><button type="button" class="bt ghost full" data-fskip="1">No lo sé todavía</button><p class="st" id="flowMarkErr" style="margin:0;font-size:13px"></p>';
+      else inp = '<form class="fl-row" id="flowText"><label class="sr" for="flowIn">Respuesta</label><input id="flowIn" autocomplete="off" placeholder="' + esc(q.ph || '') + '"><button type="submit" class="send" aria-label="Enviar">' + IC.send + '</button></form><button type="button" class="bt ghost full" data-fskip="1">' + (q.id === 'note' ? 'Nada más' : 'Prefiero no contestar') + '</button>';
+    }
+    return h + (inp ? '<div class="fl-in">' + inp + '</div>' : '') + '</div>';
+  }
+
+  function renderC() {
+    var p = me(), r = UI.c, html;
+    if ((r === 'home' || r === 'tests' || r === 'plan' || r === 'progress' || r === 'chat') && !p.profile) { startFlow('alta'); return; }
+    if (r === 'flow' && UI.flow) html = vFlow();
+    else if (r === 'splash') html = vSplash();
+    else html = '<div class="app' + (r === 'chat' ? ' chat-view' : '') + '">' + (r === 'tests' ? vTests(p) : r === 'test' ? vTest(p) : r === 'sim' ? vSim(p) : r === 'plan' ? vPlan(p) : r === 'session' ? vSession(p) : r === 'progress' ? vProgress(p) : r === 'chat' ? vChat(p) : r === 'report' ? vReport(p) : vHome(p)) + '</div>';
+    if (UI.toastC) html += '<p class="toast" role="status">' + esc(UI.toastC) + '</p>';
+    cRoot.innerHTML = html;
+    var cs = $('chatScroll'); if (cs) cs.scrollTop = cs.scrollHeight;
+    if (r === 'flow') { var fm = document.querySelector('.fl-msgs'); if (fm) { var last = fm.lastElementChild; if (last && last.scrollIntoView) last.scrollIntoView({ block: 'nearest' }); } }
+  }
+  function toastC(t) { UI.toastC = t; renderC(); clearTimeout(UI.tc); UI.tc = setTimeout(function () { UI.toastC = ''; renderC(); }, 2400); }
+  function addMark(p, t, v) { p.marks[t.id] = p.marks[t.id] || []; var arr = p.marks[t.id]; if (arr.length && arr[arr.length - 1].d === iso(T)) arr[arr.length - 1].v = v; else arr.push({ d: iso(T), v: v }); }
+
+  cRoot.addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    var p = me(), ds = b.dataset;
+    if (ds.flowexit) { UI.flow = null; UI.c = p.profile ? 'home' : 'splash'; renderC(); return; }
+    if ('fa' in ds) { answer(ds.fa, ds.fa); return; }
+    if (ds.fs) { answer(+ds.fs, ds.fs + ' de 5'); return; }
+    if (ds.fn) { var q = curQ(); UI.flow.num = Math.max(q.min, Math.min(q.max, Math.round((UI.flow.num + (+ds.fn) * q.step) * 10) / 10)); renderC(); return; }
+    if (ds.fnok) { var q2 = curQ(); answer(UI.flow.num, nf(UI.flow.num, 1) + ' ' + q2.unit); return; }
+    if (ds.fskip) { var q3 = curQ(); answer(q3.type === 'mark' ? null : '', q3.type === 'mark' ? 'No lo sé todavía' : q3.id === 'note' ? 'Nada más' : 'Prefiero no contestar'); return; }
+    if (ds.test !== undefined && ds.test !== '') { UI.test = ds.test; UI.c = 'test'; UI.flow = null; renderC(); window.scrollTo(0, 0); return; }
+    if (ds.sess !== undefined) { UI.sess = +ds.sess; UI.c = 'session'; renderC(); window.scrollTo(0, 0); return; }
+    if (ds.tab) { UI.planTab = ds.tab; renderC(); return; }
+    if (ds.ask) { ask(p, ds.ask); return; }
+    if (ds.c) {
+      UI.flow = null;
+      if (ds.c === 'checkin') { startFlow('diario'); return; }
+      if (ds.c === 'done') { p.done++; save(); UI.c = 'plan'; renderA(); toastC('Sesión marcada como hecha'); return; }
+      UI.c = ds.c; renderC(); window.scrollTo(0, 0);
+    }
+  });
+  cRoot.addEventListener('input', function (e) {
+    if (e.target.id === 'markIn') { var p = me(), t = OPOS[p.opo].tests.filter(function (x) { return x.id === UI.test; })[0], v = parseV(t, p.sex, e.target.value), el = $('markPrev'); if (el) el.textContent = v == null ? 'La app calcula los puntos con el baremo oficial.' : fmtV(t, p.sex, v) + ' → ' + nf(points(t, p.sex, v), 1).replace(',0', '') + ' puntos'; }
+  });
+  cRoot.addEventListener('submit', function (e) {
+    e.preventDefault(); var p = me(), f = e.target;
+    if (f.id === 'flowText') { var v = $('flowIn').value.trim(); if (v) answer(v, v); return; }
+    if (f.id === 'flowMark') { var q = curQ(), sx = UI.flow.ans.sex === 'Mujeres' ? 'M' : 'H', mv = parseV(q.t, sx, $('flowMarkIn').value); if (mv == null) { $('flowMarkErr').textContent = 'No entiendo esa marca. Escríbela así: ' + ph(q.t, sx).replace('Ej.: ', ''); return; } answer(mv, fmtV(q.t, sx, mv)); return; }
+    if (f.id === 'chatForm') { var t = $('cmsg').value.trim(); if (t) ask(p, t); return; }
+    if (f.id === 'markForm') { var tt = OPOS[p.opo].tests.filter(function (x) { return x.id === UI.test; })[0], val = parseV(tt, p.sex, $('markIn').value); if (val == null) { $('markPrev').textContent = 'Escribe la marca así: ' + ph(tt, p.sex).replace('Ej.: ', ''); return; } var before = score(p); addMark(p, tt, val); save(); renderA(); var after = score(p); toastC(fmtV(tt, p.sex, val) + ' = ' + nf(points(tt, p.sex, val), 1).replace(',0', '') + ' puntos' + (after.n && before.n && after.show > before.show ? ' · tu nota sube' : '')); return; }
+    if (f.id === 'simForm') { var O = OPOS[p.opo], n = 0; O.tests.forEach(function (t) { var vv = parseV(t, p.sex, $('sim-' + t.id).value); if (vv != null) { addMark(p, t, vv); n++; } }); if (!n) return; save(); renderA(); var s = score(p); UI.c = 'tests'; toastC('Simulacro guardado · nota ' + showScore(p, s) + ' de ' + s.showMax); return; }
+    if (f.id === 'wForm') { var w = parseFloat(String($('wIn').value).replace(',', '.')); if (w >= 35 && w <= 200) { p.weight.push({ d: iso(T), v: w }); save(); toastC('Peso guardado'); } return; }
+  });
+
+  /* ================= PANEL DEL PREPARADOR ================= */
+  var aRoot = $('admin');
+  function alerts() {
+    var out = [];
+    S.people.forEach(function (p) {
+      if (!p.profile) return;
+      var l = lastCheck(p), O = OPOS[p.opo], s = score(p);
+      if (l && l.pain !== 'no' && daysTo(l.d) >= -2) out.push({ p: p, sev: 'bad', t: 'Molestia en ' + (l.zone || 'zona sin indicar').toLowerCase(), d: 'Check-in del ' + short(parse(l.d)) + (l.note ? ' · «' + l.note + '»' : '') });
+      if (l && l.fat <= 1 && daysTo(l.d) >= -2) out.push({ p: p, sev: 'warn', t: 'Piernas muy cargadas (' + l.fat + '/5)', d: 'Durmió ' + nf(l.sleep, 1) + ' h. Valora bajar la carga.' });
+      if (l && -daysTo(l.d) >= 3) out.push({ p: p, sev: 'warn', t: -daysTo(l.d) + ' días sin check-in', d: 'Buen momento para escribirle.' });
+      s.per.forEach(function (x) { if (x.v != null && x.pts < O.minPts) out.push({ p: p, sev: daysTo(p.exam) < 60 ? 'bad' : 'warn', t: tName(x.t, p.sex) + ' por debajo del mínimo', d: fmtV(x.t, p.sex, x.v) + ' · ' + daysTo(p.exam) + ' días al examen' }); });
+    });
+    return out;
+  }
+  function side() {
+    var nA = alerts().length + S.inbox.filter(function (x) { return !x.done; }).length;
+    function b(r, l, n) { return '<button type="button" data-a="' + r + '" class="' + ((UI.a === r || (UI.a === 'ficha' && r === 'opositores')) ? 'on' : '') + '">' + l + (n ? '<span class="n">' + n + '</span>' : '') + '</button>'; }
+    return '<nav class="side" aria-label="Panel"><p class="bn">' + esc(S.brand.name) + '</p><p class="who">Panel de ' + esc(S.brand.coach) + '</p>' + b('resumen', 'Resumen', nA) + b('opositores', 'Opositores') + b('convocatorias', 'Convocatorias y baremos') + b('informes', 'Informes semanales') + b('asistente', 'Entrenar asistente') + '<p class="pow">' + GLOGO + '<span>Demo para academias</span></p></nav>';
+  }
+  function head(t, d, act) { return '<div class="mh"><div><h2>' + t + '</h2>' + (d ? '<p>' + d + '</p>' : '') + '</div>' + (act || '') + '</div>'; }
+  function aResumen() {
+    var ps = S.people.filter(function (p) { return p.profile; }), al = alerts(), inb = S.inbox.filter(function (x) { return !x.done; });
+    var apt = ps.filter(function (p) { return score(p).apto; }).length, act = ps.filter(function (p) { var l = lastCheck(p); return l && -daysTo(l.d) <= 2; }).length;
+    var soon = ps.slice().sort(function (a, b) { return a.exam < b.exam ? -1 : 1; })[0];
+    var h = head('Buenos días, ' + esc(first(S.brand.coach)), 'Lo que necesita tu atención hoy. Sin abrir el correo.', S.group ? '' : '<button type="button" class="btn-a acc" data-group="1">Cargar grupo de ejemplo</button>');
+    h += '<div class="grid4"><div class="stat"><span>Opositores</span><b class="num">' + ps.length + '</b><small>' + (S.group ? 'incluye grupo de ejemplo' : 'en la demo') + '</small></div><div class="stat"><span>Hoy serían aptos</span><b class="num">' + apt + '</b><small>de ' + ps.length + '</small></div><div class="stat"><span>Registraron esta semana</span><b class="num">' + act + '</b><small>check-in en 48 h</small></div><div class="stat"><span>Próximo examen</span><b class="num">' + (soon ? daysTo(soon.exam) + ' d' : '—') + '</b><small>' + (soon ? esc(OPOS[soon.opo].name) : '') + '</small></div></div>';
+    h += '<div class="grid2"><div class="box"><h3>Alertas <small>' + al.length + '</small></h3>' + (al.length ? al.map(function (a) { return '<div class="alert"><span class="sev ' + a.sev + '"></span><div><b>' + esc(a.p.name) + ' · ' + esc(a.t) + '</b><span>' + esc(a.d) + '</span></div><button type="button" class="btn-a sec" data-ficha="' + a.p.id + '">Ver</button></div>'; }).join('') : '<p class="st">Todo en orden. Las alertas aparecen solas cuando alguien marca molestias, deja de registrar o baja del mínimo.</p>') + '</div>' +
+      '<div class="box"><h3>Preguntas para ti <small>' + inb.length + '</small></h3>' + (inb.length ? inb.map(function (x) { var p = person(x.p); return '<form class="form" data-inbox="' + x.id + '" style="padding:10px 0;border-bottom:1px solid var(--line)"><b style="font-size:14px">' + esc(p.name) + '</b><span class="st" style="margin:0">«' + esc(x.q) + '»</span><div class="row"><label class="sr" for="in-' + x.id + '">Respuesta</label><input class="inp" id="in-' + x.id + '" placeholder="Responder en su app"><button type="submit" class="btn-a pri">Enviar</button></div></form>'; }).join('') : '<p class="st">El asistente responde lo que conoce y te pasa aquí solo lo importante: dolor, lesiones o dudas sin pauta.</p>') + '</div></div>';
+    return h;
+  }
+  function aOpositores() {
+    var ps = S.people.filter(function (p) { return p.profile; });
+    var h = head('Opositores', 'Cada uno con su nota estimada calculada con el baremo oficial de su oposición.', S.group ? '' : '<button type="button" class="btn-a acc" data-group="1">Cargar grupo de ejemplo</button>');
+    if (!ps.length) return h + '<div class="box empty"><p>Aún no hay nadie. Entra en la app del opositor y haz el cuestionario de alta: aparecerás aquí al momento.</p></div>';
+    h += '<div class="box tw" style="padding:6px 6px"><table class="t"><thead><tr><th>Opositor</th><th>Oposición</th><th>Examen</th><th>Nota</th><th>Pruebas</th><th>A reforzar</th><th>Último registro</th></tr></thead><tbody>' +
+      ps.sort(function (a, b) { return score(a).pct - score(b).pct; }).map(function (p) {
+        var s = score(p), O = OPOS[p.opo], w = weakest(p), l = lastCheck(p);
+        return '<tr class="click" data-ficha="' + p.id + '"><td><b>' + esc(p.name) + '</b>' + (p.ex ? ' <span class="pill-o">ejemplo</span>' : '') + '</td><td>' + esc(O.name) + '</td><td class="num">' + daysTo(p.exam) + ' días</td><td class="num"><b>' + (s.n ? showScore(p, s) : '—') + '</b> / ' + s.showMax + ' ' + (s.missing ? '<span class="chip mute">incompleta</span>' : s.apto ? '<span class="chip ok">Apto</span>' : '<span class="chip bad">No apto</span>') + '</td><td><span class="mini">' + s.per.map(function (x) { return '<i class="' + (x.v != null && x.pts < O.minPts ? 'lo' : '') + '" style="height:' + Math.max(3, x.v == null ? 3 : x.pts / O.scale * 22) + 'px" title="' + esc(tName(x.t, p.sex)) + '"></i>'; }).join('') + '</span></td><td>' + (w ? esc(tName(w.t, p.sex)) : '—') + '</td><td>' + (l ? (daysTo(l.d) === 0 ? 'Hoy' : -daysTo(l.d) + ' días') : 'Sin check-in') + '</td></tr>';
+      }).join('') + '</tbody></table></div>';
+    return h;
+  }
+  function aFicha() {
+    var p = person(UI.aP), O = OPOS[p.opo], s = score(p), ser = scoreSeries(p), pr = p.profile || {};
+    var h = head(esc(p.name), esc(O.name) + ' · baremo de ' + (p.sex === 'M' ? 'mujeres' : 'hombres') + ' · examen el ' + esc(fmt(parse(p.exam), { day: 'numeric', month: 'long' })) + ' (' + daysTo(p.exam) + ' días)', '<button type="button" class="btn-a sec" data-a="opositores">← Opositores</button>');
+    h += '<div class="grid4"><div class="stat"><span>Nota estimada</span><b class="num">' + (s.n ? showScore(p, s) : '—') + '</b><small>de ' + s.showMax + '</small></div><div class="stat"><span>Estado</span><b style="font-size:22px;margin-top:6px">' + (s.missing ? 'Incompleta' : s.apto ? 'Apto/a' : 'No apto/a') + '</b><small>' + (s.missing ? s.missing + ' pruebas sin marca' : 'con sus últimas marcas') + '</small></div><div class="stat"><span>Sesiones hechas</span><b class="num">' + p.done + '</b><small>desde el ' + esc(short(parse(p.start))) + '</small></div><div class="stat"><span>Estudio</span><b class="num">' + (p.checks.length ? nf(p.checks.slice(-7).reduce(function (a, k) { return a + (k.study || 0); }, 0) / Math.min(7, p.checks.length), 1) + ' h' : (pr.study != null ? nf(pr.study, 1) + ' h' : '—')) + '</b><small>al día</small></div></div>';
+    h += '<div class="grid2"><div class="box"><h3>Prueba a prueba</h3><div class="tw"><table class="t" style="min-width:420px"><thead><tr><th>Prueba</th><th>Primera</th><th>Última</th><th>Puntos</th><th>Siguiente tramo</th></tr></thead><tbody>' + s.per.map(function (x) { var a = p.marks[x.t.id] || [], ns = x.v != null ? nextStep(x.t, p.sex, x.v) : null; return '<tr><td>' + esc(tName(x.t, p.sex)) + '</td><td class="num">' + (a.length ? fmtV(x.t, p.sex, a[0].v) : '—') + '</td><td class="num"><b>' + fmtV(x.t, p.sex, x.v) + '</b></td><td class="num">' + (x.v == null ? '—' : '<span class="chip ' + (x.pts < O.minPts ? 'bad' : x.pts >= O.scale * 0.8 ? 'ok' : 'mute') + '">' + nf(x.pts, 1).replace(',0', '') + '</span>') + '</td><td class="num">' + (ns ? 'faltan ' + diffTxt(x.t, p.sex, ns.diff) : x.v != null ? 'máximo' : '—') + '</td></tr>'; }).join('') + '</tbody></table></div></div>' +
+      '<div class="box"><h3>Nota estimada <small>evolución</small></h3>' + lineChart(ser.map(function (x) { return x.v; }), ['Inicio', 'Hoy'], brandCol(), 'Nota', s.showMax) + '</div></div>';
+    h += '<div class="grid2"><div class="box"><h3>Últimos check-ins</h3><div class="tw"><table class="t" style="min-width:460px"><thead><tr><th>Día</th><th>Sueño</th><th>Piernas</th><th>Energía</th><th>Estudio</th><th>Molestias</th></tr></thead><tbody>' + (p.checks.length ? p.checks.slice(-6).reverse().map(function (k) { return '<tr><td>' + esc(short(parse(k.d))) + '</td><td class="num">' + nf(k.sleep, 1) + ' h</td><td class="num">' + k.fat + '/5</td><td class="num">' + k.energy + '/5</td><td class="num">' + nf(k.study || 0, 1) + ' h</td><td>' + (k.pain === 'no' ? 'Ninguna' : '<span class="chip bad">' + esc(k.zone || 'Sí') + '</span>') + '</td></tr>'; }).join('') : '<tr><td colspan="6" class="st">Aún sin check-ins.</td></tr>') + '</tbody></table></div></div>' +
+      '<div class="box"><h3>Lo que nos contó al darse de alta</h3>' + (p.profile && !p.ex ? '<div class="marks">' + [['Primera vez', pr.tries], ['Pruebas físicas', pr.when], ['Días de entreno', pr.days], ['Estudio al día', pr.study != null ? nf(pr.study, 1) + ' h' : ''], ['Lesiones', pr.injury], ['Alimentación', pr.diet], ['Sueño', pr.sleep != null ? nf(pr.sleep, 1) + ' h' : ''], ['Por qué quiere la plaza', pr.why]].filter(function (r) { return r[1]; }).map(function (r) { return '<div><span>' + esc(r[0]) + '</span><b style="text-align:right;max-width:60%">' + esc(r[1]) + '</b></div>'; }).join('') + '</div>' : '<p class="st">Opositor de ejemplo.</p>') + '</div></div>';
+    h += '<div class="grid2"><form class="box form" id="fichaForm"><h3>Nota para ' + esc(first(p.name)) + ' <small>la ve en su pantalla de inicio</small></h3><label class="sr" for="fNote">Nota</label><textarea class="ta" id="fNote">' + esc(p.note) + '</textarea><label class="lab" for="fExam">Fecha del examen<input class="inp" type="date" id="fExam" value="' + esc(p.exam) + '"></label><button type="submit" class="btn-a pri" style="align-self:flex-start">Guardar y enviar a su app</button></form>' +
+      '<div class="box"><h3>Informe de esta semana <small>sale solo el domingo</small></h3><div class="rep" style="max-height:300px;overflow:auto">' + esc(report(p)) + '</div><button type="button" class="btn-a acc" style="margin-top:10px" data-sendrep="' + p.id + '">Enviar ahora</button></div></div>';
+    return h;
+  }
+  function aConv() {
+    var h = head('Convocatorias y baremos', 'Los baremos están dentro de la app: cada marca se convierte en puntos sola. Si cambian las bases, se actualizan aquí y se aplica a todos.');
+    Object.keys(OPOS).forEach(function (k) {
+      var O = OPOS[k], n = S.people.filter(function (p) { return p.profile && p.opo === k; });
+      h += '<div class="box"><h3>' + esc(O.name) + ' <small>' + n.length + ' opositor' + (n.length === 1 ? '' : 'es') + ' · ' + O.tests.length + ' pruebas · ' + (O.mode === 'media' ? 'nota media sobre ' + O.scale : 'total sobre ' + O.tests.length * O.scale) + ' · mínimo ' + O.minPts + ' por prueba</small></h3><div class="tw"><table class="t"><thead><tr><th>Prueba</th><th>Nota máxima (H)</th><th>Mínimo (H)</th><th>Nota máxima (M)</th><th>Mínimo (M)</th></tr></thead><tbody>' +
+        O.tests.map(function (t) { var minH = t.H.filter(function (r) { return r[1] >= O.minPts; }).pop(), minM = t.M.filter(function (r) { return r[1] >= O.minPts; }).pop(); return '<tr><td>' + esc(t.nH) + (t.nM !== t.nH ? ' / ' + esc(t.nM) : '') + '</td><td class="num">' + fmtV(t, 'H', t.H[0][0]) + '</td><td class="num">' + fmtV(t, 'H', minH[0]) + '</td><td class="num">' + fmtV(t, 'M', t.M[0][0]) + '</td><td class="num">' + fmtV(t, 'M', minM[0]) + '</td></tr>'; }).join('') + '</tbody></table></div><p class="st" style="font-size:12.5px;margin:8px 0 0">' + esc(O.src) + '.</p></div>';
+    });
+    return h;
+  }
+  function aInformes() {
+    var ps = S.people.filter(function (p) { return p.profile; }), sel = person(UI.repP || (ps[0] && ps[0].id));
+    var h = head('Informes semanales', 'Sustituyen al correo de seguimiento: cada domingo a las 20:00 cada opositor recibe el suyo en la app, hecho con sus marcas y sus check-ins.', '<label style="display:flex;gap:10px;align-items:center;font-weight:700"><input type="checkbox" id="wkOn"' + (S.weekly ? ' checked' : '') + '> Envío automático los domingos</label>');
+    if (!ps.length) return h + '<div class="box empty"><p>Aún no hay opositores.</p></div>';
+    h += '<div class="grid2"><div class="box"><h3>Opositores</h3>' + ps.map(function (p) { var sent = S.sent.indexOf(p.id + iso(T)) !== -1; return '<div class="alert" style="grid-template-columns:minmax(0,1fr) auto"><div><b>' + esc(p.name) + '</b><span>' + esc(OPOS[p.opo].name) + (sent ? ' · enviado hoy' : '') + '</span></div><button type="button" class="btn-a ' + (sel && sel.id === p.id ? 'pri' : 'sec') + '" data-rep="' + p.id + '">Ver</button></div>'; }).join('') + '</div>' +
+      '<div class="box"><h3>Vista previa <small>' + esc(sel.name) + '</small></h3><div class="rep">' + esc(report(sel)) + '</div><button type="button" class="btn-a acc" style="margin-top:10px" data-sendrep="' + sel.id + '">Enviar ahora</button></div></div>';
+    return h;
+  }
+  function aAsistente() {
+    var h = head('Entrenar al asistente', 'Escribe tus pautas una vez y el asistente las usa para responder a todos tus opositores, a cualquier hora. Las marcas y los puntos los calcula solo.');
+    h += '<div class="box">' + S.rules.map(function (r) { return '<div class="rule"><b>' + esc(r.topic) + '</b><p>' + esc(r.answer) + '<br><span style="font-size:12px">Se activa con: ' + esc(r.keys) + '</span></p><button type="button" class="btn-a sec" data-delrule="' + r.id + '">Quitar</button></div>'; }).join('') + '</div>';
+    h += '<form class="box form" id="ruleForm"><h3>Nueva pauta</h3><div class="grid2" style="gap:10px"><label class="lab" for="rTopic">Tema<input class="inp" id="rTopic" placeholder="Por ejemplo: Creatina"></label><label class="lab" for="rKeys">Palabras que la activan<input class="inp" id="rKeys" placeholder="creatina, suplementos"></label></div><label class="lab" for="rAns">Lo que respondería tu preparador<textarea class="ta" id="rAns" placeholder="Escríbelo como se lo dirías tú"></textarea></label><button type="submit" class="btn-a pri" style="align-self:flex-start">Añadir pauta</button></form>';
+    h += '<div class="box"><h3>Siempre te lo pasa a ti</h3><p class="st" style="margin:0">Si un opositor menciona ' + S.escalate.join(', ') + ', el asistente no responde por su cuenta: te avisa en Resumen.</p></div>';
+    return h;
+  }
+  function renderA() {
+    var V = { resumen: aResumen, opositores: aOpositores, ficha: aFicha, convocatorias: aConv, informes: aInformes, asistente: aAsistente };
+    aRoot.innerHTML = '<div class="adm">' + side() + '<main class="main">' + (V[UI.a] || aResumen)() + '</main></div>' + (UI.toastA ? '<p class="toast" role="status" style="bottom:24px">' + esc(UI.toastA) + '</p>' : '');
+  }
+  function toastA(t) { UI.toastA = t; renderA(); clearTimeout(UI.ta); UI.ta = setTimeout(function () { UI.toastA = ''; renderA(); }, 2600); }
+  aRoot.addEventListener('click', function (e) {
+    var el = e.target.closest('[data-a],[data-ficha],[data-group],[data-rep],[data-sendrep],[data-delrule]'); if (!el) return;
+    var ds = el.dataset;
+    if (ds.a) { UI.a = ds.a; renderA(); return; }
+    if (ds.ficha) { UI.aP = ds.ficha; UI.a = 'ficha'; renderA(); var pa = $('paneA'); if (pa) pa.scrollTop = 0; window.scrollTo(0, 0); return; }
+    if (ds.group) { S.people = S.people.filter(function (p) { return !p.ex; }).concat(makeGroup()); S.group = true; save(); renderA(); toastA('Grupo de ejemplo cargado: 8 opositores'); return; }
+    if (ds.rep) { UI.repP = ds.rep; renderA(); return; }
+    if (ds.sendrep) { var p = person(ds.sendrep); if (S.sent.indexOf(p.id + iso(T)) === -1) S.sent.push(p.id + iso(T)); if (p.id === 'yo') p.chat.push({ k: 'coach', t: 'Te he dejado tu informe de la semana en Hoy. ¡Vamos!' }); save(); renderC(); toastA('Informe enviado a ' + first(p.name) + ' en su app'); return; }
+    if (ds.delrule) { S.rules = S.rules.filter(function (r) { return r.id !== ds.delrule; }); save(); renderA(); return; }
+  });
+  aRoot.addEventListener('change', function (e) { if (e.target.id === 'wkOn') { S.weekly = e.target.checked; save(); toastA(S.weekly ? 'Los informes saldrán solos cada domingo' : 'Envío automático desactivado'); } });
+  aRoot.addEventListener('submit', function (e) {
+    e.preventDefault(); var f = e.target;
+    if (f.id === 'fichaForm') { var p = person(UI.aP); p.note = $('fNote').value.trim() || p.note; if ($('fExam').value) p.exam = $('fExam').value; save(); renderC(); toastA('Enviado a la app de ' + first(p.name)); return; }
+    if (f.id === 'ruleForm') { var tp = $('rTopic').value.trim(), ks = $('rKeys').value.trim(), an = $('rAns').value.trim(); if (!tp || !ks || !an) { toastA('Rellena tema, palabras y respuesta'); return; } S.rules.push({ id: uid(), topic: tp, keys: ks, answer: an }); save(); renderA(); toastA('Pauta añadida. Pruébala en el asistente.'); return; }
+    if (f.dataset.inbox) { var it = S.inbox.filter(function (x) { return x.id === f.dataset.inbox; })[0], txt = f.querySelector('input').value.trim(); if (!it || !txt) return; it.done = true; person(it.p).chat.push({ k: 'coach', t: txt }); save(); renderC(); renderA(); toastA('Respuesta enviada a su app'); }
+  });
+
+  /* ================= selector móvil ================= */
+  function setMobile(v) { UI.mobile = v; $('swC').classList.toggle('on', v === 'c'); $('swA').classList.toggle('on', v === 'a'); $('swC').setAttribute('aria-selected', v === 'c'); $('swA').setAttribute('aria-selected', v === 'a'); $('paneC').dataset.hidden = v !== 'c'; $('paneA').dataset.hidden = v !== 'a'; window.scrollTo(0, 0); }
+  $('swC').addEventListener('click', function () { setMobile('c'); });
+  $('swA').addEventListener('click', function () { setMobile('a'); renderA(); });
+  setMobile('c'); renderC(); renderA();
+
+  /* ================= acceso con código ================= */
+  var gate = $('gate'), CONTACTO = null;
+  function today0() { var d = new Date(); d.setHours(0, 0, 0, 0); return d; }
+  function expired(x) { return x && new Date(x + 'T00:00:00') < today0(); }
+  function normCode(v) { return String(v || '').toUpperCase().replace(/[^A-Z0-9]/g, ''); }
+  function hashCode(code) { return crypto.subtle.digest('SHA-256', new TextEncoder().encode('galerna|' + normCode(code))).then(function (buf) { return Array.prototype.map.call(new Uint8Array(buf), function (x) { return ('0' + x.toString(16)).slice(-2); }).join(''); }); }
+  function fetchList() { return fetch('acceso.json?t=' + Date.now(), { cache: 'no-store' }).then(function (r) { if (!r.ok) throw new Error('http'); return r.json(); }).then(function (j) { CONTACTO = j.contacto || null; return j.accesos || []; }); }
+  function findE(list, h) { return list.filter(function (x) { return x.clave === h; })[0]; }
+  function contactBtn() { var wa = CONTACTO ? String(CONTACTO.whatsapp || '').replace(/[^0-9]/g, '') : ''; return wa ? '<a class="g-btn" href="https://wa.me/' + wa + '?text=' + encodeURIComponent('Hola, he probado la demo de la app y quiero hablar de la versión completa') + '" target="_blank" rel="noopener">Escribir por WhatsApp</a>' : ''; }
+  function showGate(mode, msg) {
+    document.body.classList.add('locked'); gate.hidden = false;
+    var top = '<div class="g-card"><div class="g-logo">' + GLOGO + '</div>';
+    if (mode === 'login') gate.innerHTML = top + '<h1>Tu demo privada</h1><p class="g-sub">Entra con el código que te hemos enviado. Probarás la app como uno de tus opositores.</p><form id="gForm" novalidate><label for="gCode">Código de acceso</label><input id="gCode" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="XXXX-XXXX"><label for="gName">Tu nombre</label><input id="gName" autocomplete="given-name" placeholder="Cómo quieres que te llame la app"><p class="g-err" id="gErr" role="alert">' + esc(msg || '') + '</p><button type="submit" class="g-btn" id="gGo">Entrar</button></form><p class="g-foot">Galerna Method · demo para academias</p></div>';
+    else gate.innerHTML = top + '<h1>' + (mode === 'expired' ? 'Tu prueba ha terminado' : mode === 'offline' ? 'Necesitas conexión' : 'Este acceso ya no está activo') + '</h1><p class="g-sub">' + esc(mode === 'offline' ? 'Conéctate a internet un momento para comprobar tu acceso.' : 'Gracias por probar la app. Si la quieres para tu academia, hablamos.') + '</p>' + contactBtn() + (mode === 'offline' ? '<button type="button" class="g-btn ghost" data-gretry="1">Reintentar</button>' : '<button type="button" class="g-btn ghost" data-gnew="1">Tengo otro código</button>') + '<p class="g-foot">Galerna Method · demo para academias</p></div>';
+  }
+  function openApp() { document.body.classList.remove('locked'); gate.hidden = true; gate.innerHTML = ''; }
+  function verify() {
+    var t = S.trial; if (!t || !t.h) { showGate('login'); return; }
+    fetchList().then(function (list) {
+      var E = findE(list, t.h);
+      if (!E || E.activo === false) { showGate('off'); return; }
+      if (expired(E.caduca)) { showGate('expired'); return; }
+      t.exp = E.caduca || ''; t.ok = Date.now();
+      var b = S.brand, ch = false;
+      [['centro', 'name'], ['entrenador', 'coach'], ['ciudad', 'city'], ['logo', 'logo']].forEach(function (q) { if ((E[q[0]] || '') !== (b[q[1]] || '') && (E[q[0]] || q[0] === 'logo')) { b[q[1]] = E[q[0]] || ''; ch = true; } });
+      if (hexOk(E.primario) && b.primary !== E.primario) { b.primary = E.primario; ch = true; }
+      if (hexOk(E.acento) && b.accent !== E.acento) { b.accent = E.acento; ch = true; }
+      if (ch) { applyBrand(); renderC(); renderA(); }
+      save(); openApp();
+    }).catch(function () { if (expired(t.exp)) showGate('expired'); else if (Date.now() - (t.ok || 0) < 3 * 864e5) openApp(); else showGate('offline'); });
+  }
+  gate.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var code = normCode($('gCode').value), name = $('gName').value.trim(), err = $('gErr'), go = $('gGo');
+    if (code.length < 6) { err.textContent = 'Escribe el código tal y como te lo hemos enviado.'; return; }
+    if (!name) { err.textContent = 'Dinos cómo te llamas para personalizar tu app.'; return; }
+    go.disabled = true; go.textContent = 'Comprobando…'; err.textContent = '';
+    hashCode(code).then(function (h) {
+      return fetchList().then(function (list) {
+        var E = findE(list, h);
+        if (!E || E.activo === false) throw new Error('Ese código no es válido o ya no está activo.');
+        if (expired(E.caduca)) throw new Error('Ese código ya ha caducado.');
+        S = seedState(E, name, h); save(); applyBrand(); UI.c = 'splash'; UI.a = 'resumen'; UI.flow = null; renderC(); renderA(); openApp();
+      }, function () { throw new Error('No hay conexión. Conéctate a internet para entrar la primera vez.'); });
+    }).catch(function (x) { err.textContent = x && x.message ? x.message : 'No se ha podido comprobar el código.'; go.disabled = false; go.textContent = 'Entrar'; });
+  });
+  gate.addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; if (b.dataset.gretry) verify(); if (b.dataset.gnew) { try { localStorage.removeItem(KEY); } catch (x) {} S = seedState(null, '', ''); applyBrand(); showGate('login'); } });
+  document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible' && S.trial && S.trial.h) verify(); });
+  verify();
+  if ('serviceWorker' in navigator) window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
+})();
+</script>
+</body>
+</html>
