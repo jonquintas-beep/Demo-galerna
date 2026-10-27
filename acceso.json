@@ -1,4 +1,17 @@
 {
- "contacto": { "whatsapp": "" },
- "accesos": []
+ "contacto": {
+  "whatsapp": ""
+ },
+ "accesos": [
+  {
+   "clave": "92d7d343682b59c21fc4b6c96a3c6c937d21a4423b2d6ff017b30faff419a635",
+   "centro": "Galerna Method",
+   "entrenador": "Jon",
+   "ciudad": "Vitoria",
+   "primario": "#0B1F3A",
+   "acento": "#6CC4F0",
+   "caduca": "2026-12-31",
+   "activo": true
+  }
+ ]
 }
