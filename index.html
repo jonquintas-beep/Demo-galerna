@@ -76,6 +76,9 @@ h1,h2,h3,h4,p{margin:0}
 .c-hdr{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .word-s{font-family:var(--display);font-weight:700;font-size:15px;letter-spacing:.06em;text-transform:uppercase;text-align:left}
 .word-s span{color:var(--peach)}
+.word-s{display:flex;align-items:center;gap:8px}
+.blogo{width:min(210px,56vw);height:auto;aspect-ratio:1;max-width:100%;display:block;border-radius:50%;box-shadow:0 10px 40px rgba(0,0,0,.35)}
+.blogo-s{width:30px;height:30px;border-radius:50%;display:block;flex:none}
 .av{width:40px;height:40px;border-radius:50%;background:var(--navy);color:var(--peach);display:grid;place-items:center;font-weight:700;font-size:14px;flex:none}
 .back{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:14px;color:var(--sub);height:40px;align-self:flex-start}
 .title{font-family:var(--display);font-weight:600;font-size:27px;letter-spacing:-.02em;line-height:1.1}
@@ -633,6 +636,7 @@ body.locked .shell{visibility:hidden}
       B.name = E.centro || B.name; B.coach = E.entrenador || B.coach; B.city = E.ciudad || B.city;
       if (hexOk(E.primario)) B.primary = E.primario; if (hexOk(E.acento)) B.accent = E.acento;
       if (E.servicios && E.servicios.length) B.services = E.servicios.slice(0, 6);
+      if (E.logo) B.logo = E.logo;
     }
     var s = seed(B), t = s.templates[0], nm = String(name || '').trim() || 'Tú';
     var me = { id: 'yo', name: nm, goal: '', start: iso(T), coach: 'c1', waOk: true, weight: [], strength: { name: 'Fuerza percibida', unit: 'de 5', vals: [] }, checks: [], done: 0,
@@ -761,13 +765,13 @@ body.locked .shell{visibility:hidden}
     function b(r, l, ic) { return '<button type="button" data-c="' + r + '" class="' + (on === r ? 'on' : '') + '"' + (on === r ? ' aria-current="page"' : '') + '>' + ic + l + '</button>'; }
     return '<nav class="c-nav" aria-label="Menú de la app">' + b('home', 'Inicio', IC.home) + b('plan', 'Plan', IC.plan) + b('progress', 'Progreso', IC.prog) + b('chat', 'Asistente', IC.chat) + '</nav>';
   }
-  function cHeader(c) { return '<div class="c-hdr"><button type="button" class="word-s" data-c="splash" aria-label="Ir a la portada">' + brandWord(S.brand) + '</button><span class="av" aria-hidden="true">' + initials(c.name) + '</span></div>'; }
+  function cHeader(c) { return '<div class="c-hdr"><button type="button" class="word-s" data-c="splash" aria-label="Ir a la portada">' + (S.brand.logo ? '<img class="blogo-s" src="' + esc(S.brand.logo) + '" alt="">' : '') + brandWord(S.brand) + '</button><span class="av" aria-hidden="true">' + initials(c.name) + '</span></div>'; }
   function vSplash() {
     var B = S.brand;
     return '<div class="splash">' +
       '<svg class="rg" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="90" fill="none" stroke="currentColor"/><circle cx="100" cy="100" r="68" fill="none" stroke="currentColor" stroke-dasharray="2 6"/><circle cx="100" cy="100" r="46" fill="none" stroke="currentColor"/><path d="M100 10 A90 90 0 0 1 188 116" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg>' +
       '<p class="badge-s"><b>' + esc(B.city) + '</b> · Entrenamiento personalizado</p>' +
-      '<h1 class="word">' + brandWord(B) + '</h1>' +
+      (B.logo ? '<h1 class="word"><img class="blogo" src="' + esc(B.logo) + '" alt="' + esc(B.name) + '"></h1>' : '<h1 class="word">' + brandWord(B) + '</h1>') +
       '<p class="tagline">' + esc(B.tagline) + '</p>' +
       '<div class="svc">' + B.services.map(function (s) { return '<span>' + esc(s) + '</span>'; }).join('') + '</div>' +
       '<div style="display:flex;flex-direction:column;gap:10px;margin-top:26px"><button type="button" class="bt peach full" style="height:54px;font-size:16px" data-c="home">Entrar como ' + esc(first(client().name)) + '</button>' +
@@ -1645,6 +1649,7 @@ body.locked .shell{visibility:hidden}
       [['centro', 'name'], ['entrenador', 'coach'], ['ciudad', 'city']].forEach(function (p) { if (E[p[0]] && nb[p[1]] !== E[p[0]]) { nb[p[1]] = E[p[0]]; ch = true; } });
       if (hexOk(E.primario) && nb.primary !== E.primario) { nb.primary = E.primario; ch = true; }
       if (hexOk(E.acento) && nb.accent !== E.acento) { nb.accent = E.acento; ch = true; }
+      if ((E.logo || '') !== (nb.logo || '')) { nb.logo = E.logo || ''; ch = true; }
       if (ch) { S.brand = nb; S.team[0].name = nb.coach; S.assistant.name = nb.coach; applyBrand(); renderC(); renderA(); }
       save(); openApp();
     }).catch(function () {

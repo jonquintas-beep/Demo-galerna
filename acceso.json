@@ -18,10 +18,11 @@
    "centro": "Bodychronos",
    "entrenador": "Miguel",
    "ciudad": "Vitoria",
-   "primario": "#2B0A24",
+   "primario": "#6E1F5C",
    "acento": "#E6007E",
    "caduca": "2026-11-05",
-   "activo": true
+   "activo": true,
+   "logo": "logos/bodychronos.png"
   },
   {
    "clave": "0d11363362d879342c7d75fb2844e058cd4780467d5e7a21d474ceb9fa6d688f",
