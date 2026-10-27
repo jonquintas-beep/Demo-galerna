@@ -1,0 +1,18 @@
+{
+ "contacto": {
+  "whatsapp": ""
+ },
+ "accesos": [
+  {
+   "clave": "70d57d12ae7979ccb6c1daf9f90638a0031c9c1a424413aac2ffb738efa552b0",
+   "centro": "Tu Estudio",
+   "entrenador": "",
+   "ciudad": "",
+   "primario": "#0F3B2E",
+   "acento": "#FF4D8D",
+   "acento2": "#FF8A3D",
+   "caduca": "2026-12-31",
+   "activo": true
+  }
+ ]
+}
