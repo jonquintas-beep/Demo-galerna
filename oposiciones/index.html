@@ -816,7 +816,7 @@ body.locked .shell{visibility:hidden}
   /* ---------- conversaciones ---------- */
   function altaSteps(F) {
     var p = person(F.pid), O = OPOS[OPO_KEY[F.ans.opo] || p.opo], st = [
-      { id: 'opo', block: 'Tu oposición', type: 'choice', text: 'Hola, ' + first(p.name) + '. Soy el asistente de ' + S.brand.coach + ' en ' + S.brand.name + '. Vamos a preparar tu plaza juntos. ¿A qué te presentas?', opts: ['Policía Nacional', 'Ertzaintza', 'Bomberos'] },
+      { id: 'opo', block: 'Tu oposición', type: 'choice', text: '¡Hola, ' + first(p.name) + '! Soy ' + S.brand.coach + ', de ' + S.brand.name + '. Vamos a preparar tu plaza juntos, prueba a prueba. Para empezar: ¿a qué te presentas?', opts: ['Policía Nacional', 'Ertzaintza', 'Bomberos'] },
       { id: 'sex', block: 'Tu oposición', type: 'choice', text: 'Las marcas oficiales cambian según el baremo. ¿Con cuál te presentas?', opts: ['Hombres', 'Mujeres'] },
       { id: 'when', block: 'Tu oposición', type: 'choice', text: '¿Para cuándo esperas las pruebas físicas?', opts: ['En menos de 2 meses', 'Entre 2 y 4 meses', 'Entre 4 y 6 meses', 'Más de 6 meses'] },
       { id: 'tries', block: 'Tu oposición', type: 'choice', text: '¿Es tu primera vez?', opts: ['Sí, es la primera', 'Ya me he presentado antes'] }
@@ -842,7 +842,7 @@ body.locked .shell{visibility:hidden}
       { id: 'study', type: 'number', text: '¿Cuántas horas has estudiado hoy?', min: 0, max: 14, step: 0.5, def: l ? l.study : 4, unit: 'h' },
       { id: 'pain', type: 'choice', text: '¿Alguna molestia?', opts: ['Ninguna', 'Algo leve', 'Sí, me molesta'] },
       { id: 'zone', type: 'choice', text: '¿Dónde?', opts: ['Rodilla', 'Tobillo o pie', 'Espalda', 'Hombro', 'Otra'], cond: function (a) { return a.pain && a.pain !== 'Ninguna'; } },
-      { id: 'note', type: 'text', text: '¿Algo más que quieras contarle a ' + S.brand.coach + '?', ph: 'Escribe o pulsa «Nada más»' }
+      { id: 'note', type: 'text', text: '¿Algo más que quieras contarme?', ph: 'Escribe o pulsa «Nada más»' }
     ];
   }
   var OPO_KEY = { 'Policía Nacional': 'pn', 'Ertzaintza': 'ertz', 'Bomberos': 'bomb' };
@@ -870,18 +870,18 @@ body.locked .shell{visibility:hidden}
         case 'when': return v === 'En menos de 2 meses' ? 'Vamos justos, pero se puede afinar mucho en ese tiempo.' : 'Bien, tiempo para construir de verdad.';
         case 'tries': return v === 'Ya me he presentado antes' ? 'Esa experiencia vale oro. Esta vez llegas con todo medido.' : 'Perfecto. Te voy a quitar sorpresas para el día del examen.';
         case 'study': return v >= 6 ? 'Mucho temario. Encajaremos los entrenos para que te despejen, no para que te agoten.' : 'Apuntado. Lo cuadramos con tus entrenos.';
-        case 'injury': return v === 'Ninguna' ? '' : 'Gracias por decírmelo. ' + co + ' lo tendrá en cuenta en cada sesión.';
+        case 'injury': return v === 'Ninguna' ? '' : 'Gracias por decírmelo. Lo tendré en cuenta en cada sesión y lo vemos juntos el primer día.';
         case 'sleep': return v < 7 ? 'Un poco justo. Dormir también sube nota, lo iremos mejorando.' : 'Bien, eso ayuda muchísimo.';
-        case 'why': return v ? 'Gracias por contármelo. Lo guardo para los días que cueste.' : '';
+        case 'why': return v ? 'Gracias por contármelo. Me lo guardo para recordártelo los días que cueste.' : '';
       }
       return '';
     }
     switch (q.id) {
       case 'mood': return { 'Genial': '¡Así me gusta!', 'Bien': 'Me alegro.', 'Regular': 'Un día de esos. A ver cómo estás.', 'Mal': 'Lo siento, ' + first(p.name) + '. Vamos a ver qué ajustamos.' }[v] || '';
       case 'sleep': return v < 6.5 ? 'Poco descanso. Hoy, intensidad baja.' : '';
-      case 'fat': return v <= 2 ? 'Apuntado. Si mañana toca series, ' + co + ' puede bajarlas.' : v >= 4 ? 'Piernas frescas: buen día para apretar.' : '';
+      case 'fat': return v <= 2 ? 'Apuntado. Si mañana toca series, te las bajo un poco.' : v >= 4 ? 'Piernas frescas: buen día para apretar.' : '';
       case 'study': return v >= 7 ? 'Día largo de temario. Bien hecho.' : '';
-      case 'zone': return 'Gracias por avisar. Se lo paso ahora a ' + co + '.';
+      case 'zone': return 'Gracias por avisar. Lo miro hoy mismo y te digo algo.';
     }
     return '';
   }
@@ -899,7 +899,7 @@ body.locked .shell{visibility:hidden}
     } else {
       var it = { d: iso(T), sleep: a.sleep, fat: a.fat || 3, energy: a.energy || 3, study: a.study || 0, pain: { 'Ninguna': 'no', 'Algo leve': 'leve', 'Sí, me molesta': 'si' }[a.pain] || 'no', zone: a.zone || '', mood: a.mood || '', note: a.note || '' };
       p.checks = p.checks.filter(function (k) { return k.d !== it.d; }); p.checks.push(it);
-      var end = 'Gracias, ' + first(p.name) + '.' + (it.pain !== 'no' ? ' ' + S.brand.coach + ' ya tiene lo de tu ' + it.zone.toLowerCase() + '.' : '') + (it.fat <= 2 ? ' Hoy, cuida las piernas.' : '') + ' Mañana te pregunto otra vez.';
+      var end = 'Gracias, ' + first(p.name) + '.' + (it.pain !== 'no' ? ' Me apunto lo de tu ' + it.zone.toLowerCase() + ' y lo miro hoy.' : '') + (it.fat <= 2 ? ' Hoy, cuida las piernas.' : '') + ' Mañana te pregunto otra vez.';
       F.log.push({ from: 'bot', t: end, sum: it });
     }
     save(); renderA();
