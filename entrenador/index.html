@@ -561,6 +561,65 @@ body.big #client{zoom:1.15}
 .mode.on{border-color:var(--acc2,var(--acc));background:rgba(255,138,61,.1)}
 .lab span .tdot{margin-right:6px}
 </style>
+<style>
+:root{--stacc:#FF4D8D}
+/* Servicio del estudio */
+.st-card{display:flex;flex-direction:column;gap:6px}
+.st-btn{text-align:left;width:100%;cursor:pointer;color:var(--ink);font:inherit}
+.st-row{display:flex;align-items:center;gap:12px}
+.st-ic{width:40px;height:40px;border-radius:50%;background:var(--stacc);color:#fff;display:grid;place-items:center;font-weight:800;flex:none}
+.st-chip{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:999px;font-size:12px;font-weight:700;background:var(--stacc);color:#fff;margin-right:6px}
+.st-chip.ghost{background:transparent;border:1.5px solid var(--line);color:var(--ink)}
+.st-more{font-size:13px;font-weight:700;color:var(--stacc);margin-top:4px}
+.st-mini{display:flex;gap:10px;flex-wrap:wrap}
+.st-mini div{flex:1;min-width:80px;border:1px solid var(--line);border-radius:14px;padding:8px 10px}
+.st-mini b{display:block;font-size:18px}.st-mini span{font-size:12px;color:var(--sub)}
+.st-q{display:block;font-weight:700;margin:0 0 10px;font-size:15px}
+.st-opts{display:flex;flex-wrap:wrap;gap:8px}
+.st-opt{min-height:40px;padding:6px 14px;border-radius:999px;border:1.5px solid var(--line);background:transparent;color:var(--ink);font:inherit;font-weight:600;cursor:pointer}
+.st-opt.on{background:var(--stacc);border-color:var(--stacc);color:#fff}
+.st-zones{display:flex;flex-direction:column;gap:6px;margin:6px 0}
+.st-z{display:grid;grid-template-columns:72px 1fr 52px;gap:8px;align-items:center;font-size:13px}
+.st-zt{height:8px;border-radius:99px;background:rgba(127,127,127,.18);overflow:hidden}
+.st-zt i{display:block;height:100%;border-radius:99px;background:var(--stacc)}
+.st-z b{text-align:right}
+.st-z small{font-size:10.5px;margin-left:3px}
+.up{color:#22A06B}.dn{color:#E5484D}
+.st-tips{margin:8px 0 0;padding-left:18px;font-size:13.5px;display:flex;flex-direction:column;gap:3px}
+table.st-t{width:100%;border-collapse:collapse;font-size:13.5px}
+table.st-t th,table.st-t td{padding:7px 6px;border-bottom:1px solid var(--line);text-align:left}
+table.st-t th{font-size:11.5px;color:var(--sub);text-transform:uppercase;letter-spacing:.04em}
+.st-rep{display:flex;flex-direction:column;gap:10px;padding:20px;border-radius:24px;background:var(--card);border:1px solid var(--line)}
+.st-rep header{padding-bottom:12px;border-bottom:2px solid var(--stacc)}
+.st-rk{font-size:11.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--stacc)}
+.st-rep h2{margin:4px 0 2px;font-size:24px}.st-rep header p{margin:0;color:var(--sub);font-size:13.5px}
+.st-rep h3{margin:10px 0 0;font-size:15px}.st-rep p{margin:0;font-size:14px}
+.st-rg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.st-rg div{border:1px solid var(--line);border-radius:14px;padding:10px;text-align:center}
+.st-rg b{display:block;font-size:22px}.st-rg span{font-size:11.5px;color:var(--sub)}
+.st-rr{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--line);font-size:14px}
+.st-hoy{display:grid;grid-template-columns:minmax(0,280px) minmax(0,1fr);gap:14px;align-items:start}
+.st-list{display:flex;flex-direction:column;gap:6px;padding:10px}
+.st-li{display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:10px 12px;border-radius:12px;border:1.5px solid transparent;background:transparent;color:var(--ink);text-align:left;font:inherit;cursor:pointer}
+.st-li.on{border-color:var(--stacc)}
+.st-li span{display:flex;flex-wrap:wrap;gap:4px}
+.st-tag{font-style:normal;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px}
+.st-tag.ok{background:rgba(34,160,107,.15);color:#22A06B}.st-tag.warn{background:rgba(230,150,30,.16);color:#C77A0A}.st-tag.bad{background:rgba(229,72,77,.15);color:#E5484D}.st-tag.mute{background:rgba(127,127,127,.15);color:var(--sub)}
+.st-pre{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.st-pre div{border:1px solid var(--line);border-radius:12px;padding:8px 10px}
+.st-pre span{display:block;font-size:11.5px;color:var(--sub)}.st-pre b{font-size:14px}
+.st-note{margin:10px 0 0;font-style:italic}
+.st-warn{margin-top:12px;padding:12px;border-radius:12px;background:rgba(229,72,77,.1);border:1px solid rgba(229,72,77,.3);display:flex;flex-direction:column;gap:4px;font-size:13.5px}
+.st-sl{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:6px 16px}
+.st-sl label{display:grid;grid-template-columns:70px 1fr 34px;gap:8px;align-items:center;font-size:13px;font-weight:600}
+.st-sl small{grid-column:2/4;font-size:11px;color:var(--sub);margin-top:-6px}
+.st-sl input{accent-color:var(--stacc);width:100%}
+.st-chk{display:flex;flex-direction:column;gap:6px;font-size:13.5px}
+.st-chk input{accent-color:var(--stacc)}
+.st-ht td,.st-ht th{white-space:nowrap}
+.tw{overflow-x:auto}
+@media (max-width:900px){.st-hoy{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 <div id="gate" hidden></div>
@@ -1027,6 +1086,182 @@ body.big #client{zoom:1.15}
     S.requests.push({ id: uid(), p: 'g3', t: 'La comida · Tengo antojos por la noche · Sobre todo entre semana, después de cenar', d: iso(addDays(T, -1)), done: false });
     S.requests.push({ id: uid(), p: 'g1', t: 'El entrenamiento · Menos impacto en las articulaciones', d: iso(T), done: false });
   }
+  var STC = { ch: 'ch', st: 'st', t: 't', pri: 'dark', acc: 'acc', scroll: 'scroll', acol: '#FF4D8D', home: 'Hoy' };
+  function stPeople() { return S.people.filter(function (p) { return p.profile; }); }
+  function stSeedPeople() { return S.people.filter(function (p) { return p.ex; }); }
+  function stGet(id) { return person(id); }
+  function stTrainers() { var c = S.brand.coach && String(S.brand.coach).trim(); return c ? [c] : ['Tu entrenador']; }
+  function stCoachName(p) { return coachN(); }
+  function stNav(x) { return nav(x); }
+  function stRefresh() { save(); renderC(); renderA(); }
+  function stToastC(t) { toastC(t); }
+  function stToastA(t) { toastA(t); }
+  function stFichaId() { return UI.aP; }
+  function stOpenFicha(id) { UI.aP = id; UI.a = 'ficha'; renderA(); }
+  /* ================= Servicio del estudio: ¿cómo vienes hoy?, registro de sesión y mediciones ================= */
+  var ST_ZONES = ['Piernas', 'Glúteo', 'Abdomen', 'Lumbar', 'Pecho', 'Dorsal', 'Brazos', 'Hombros'];
+  var ST_PROGS = ['Fuerza', 'Tonificación', 'Resistencia', 'Quema de grasa', 'Readaptación', 'Drenaje y recuperación'];
+  var ST_TIPS = ['Bebe 500 ml de agua en la próxima hora', 'Proteína en tu próxima comida', 'Estira 10 minutos esta noche', '48 h de descanso antes de la próxima electro', 'Paseo suave de 20 minutos mañana'];
+  var ST_MEAS = [{ k: 'peso', n: 'Peso', u: 'kg', low: true }, { k: 'grasa', n: 'Grasa', u: '%', low: true }, { k: 'musculo', n: 'Masa muscular', u: 'kg', low: false }, { k: 'cintura', n: 'Cintura', u: 'cm', low: true }, { k: 'cadera', n: 'Cadera', u: 'cm', low: true }, { k: 'brazo', n: 'Brazo', u: 'cm', low: false }];
+  var ST_PRE = [
+    { k: 'sleep', q: '¿Qué tal has dormido?', o: ['Menos de 6 h', '6–7 h', '7–8 h', 'Más de 8 h'] },
+    { k: 'energy', q: '¿Cómo vas de energía?', o: ['1', '2', '3', '4', '5'] },
+    { k: 'pain', q: '¿Te duele o molesta algo?', o: ['Nada', 'Rodilla', 'Espalda', 'Hombro', 'Cuello', 'Otra zona'] },
+    { k: 'water', q: '¿Has bebido agua hoy?', o: ['Sí, bastante', 'Poca', 'Casi nada'] },
+    { k: 'food', q: '¿Cuándo has comido por última vez?', o: ['Hace menos de 1 h', '1–3 h', 'Más de 3 h'] }
+  ];
+  function stDay(d) { return d || iso(T); }
+  function stPre(p, d) { S.stPre = S.stPre || {}; return (S.stPre[p.id] || {})[stDay(d)]; }
+  function stFlags(pr) {
+    if (!pr) return [];
+    var f = [];
+    if (pr.pain && pr.pain !== 'Nada') f.push({ c: 'bad', t: 'Molestia: ' + pr.pain.toLowerCase() });
+    if (pr.sleep === 'Menos de 6 h') f.push({ c: 'warn', t: 'Ha dormido poco' });
+    if (pr.water === 'Casi nada') f.push({ c: 'warn', t: 'Casi sin agua: ojo con la electro' });
+    if (pr.food === 'Hace menos de 1 h') f.push({ c: 'warn', t: 'Ha comido hace menos de 1 h' });
+    if (pr.energy && +pr.energy <= 2) f.push({ c: 'warn', t: 'Energía baja (' + pr.energy + '/5)' });
+    return f;
+  }
+  function stLast(p) { return (p.slog || [])[(p.slog || []).length - 1]; }
+  function stMeasLast(p, k, before) { var m = (p.meas || []).filter(function (x) { return x[k] != null && (!before || x.d <= before); }); return m.length ? m[m.length - 1] : null; }
+  function stDelta(p, k) { var m = (p.meas || []).filter(function (x) { return x[k] != null; }); if (m.length < 2) return null; return Math.round((m[m.length - 1][k] - m[0][k]) * 10) / 10; }
+  function stSign(v) { return (v > 0 ? '+' : v < 0 ? '−' : '') + nf(Math.abs(v), 1); }
+  function stChart(vals, color) {
+    if (!vals || vals.length < 2) return '<p class="' + STC.st + '" style="margin:6px 0">' + (vals && vals.length ? 'Primera medición guardada. La gráfica aparece con la segunda.' : 'Aún sin mediciones.') + '</p>';
+    var w = 320, h = 120, pl = 6, pr = 36, pt = 10, pb = 20, mn = Math.min.apply(null, vals), mx = Math.max.apply(null, vals), pad = (mx - mn) * 0.25 || 1; mn -= pad; mx += pad;
+    var pts = vals.map(function (v, i) { return [pl + i * (w - pl - pr) / (vals.length - 1), pt + (1 - (v - mn) / (mx - mn)) * (h - pt - pb)]; });
+    var d = pts.map(function (q, i) { return (i ? 'L' : 'M') + q[0].toFixed(1) + ' ' + q[1].toFixed(1); }).join(' '), L = pts[pts.length - 1];
+    return '<svg viewBox="0 0 ' + w + ' ' + h + '" role="img" aria-label="Evolución" style="width:100%;height:auto;display:block"><path d="' + d + ' L' + L[0].toFixed(1) + ' ' + (h - pb) + ' L' + pl + ' ' + (h - pb) + ' Z" fill="' + color + '" opacity=".14"/><path d="' + d + '" fill="none" stroke="' + color + '" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>' + pts.map(function (q) { return '<circle cx="' + q[0].toFixed(1) + '" cy="' + q[1].toFixed(1) + '" r="3" fill="' + color + '"/>'; }).join('') + '<text x="' + (L[0] + 6) + '" y="' + (L[1] + 4) + '" font-size="11" font-weight="700" fill="' + color + '">' + nf(vals[vals.length - 1], 1) + '</text></svg>';
+  }
+  function stZoneBars(z, prev) {
+    return '<div class="st-zones">' + ST_ZONES.map(function (n) { var v = (z || {})[n] || 0, pv = prev ? (prev[n] || 0) : null; return '<div class="st-z"><span>' + n + '</span><span class="st-zt"><i style="width:' + v + '%"></i></span><b class="num">' + v + (pv != null && v !== pv ? '<small class="' + (v > pv ? 'up' : 'dn') + '">' + (v > pv ? '+' : '') + (v - pv) + '</small>' : '') + '</b></div>'; }).join('') + '</div>';
+  }
+  function stSeedAll() {
+    var ppl = stSeedPeople(), tr = stTrainers(), notes = ['Muy buena sesión. Hemos subido intensidad en piernas y glúteo.', 'Hoy más suave: venías cansado/a. Prioriza dormir bien.', 'Técnica de sentadilla muy mejorada. Seguimos así.', 'Hemos trabajado más core: la espalda lo va a agradecer.', 'Primera vez con el programa de resistencia: lo has llevado genial.', 'Sesión completa. Buen ritmo y buena respiración.'];
+    ppl.forEach(function (p, k) {
+      if (p.slog && p.slog.length) return;
+      var base = 38 + (k * 7) % 16; p.slog = [];
+      for (var i = 0; i < 6; i++) {
+        var z = {}; ST_ZONES.forEach(function (n, j) { z[n] = Math.min(95, base + i * 3 + ((j * 5 + k) % 12) - (n === 'Lumbar' ? 6 : 0)); });
+        p.slog.push({ d: iso(addDays(T, -(20 - i * 3 - (k % 2)))), by: tr[(i + k) % tr.length], prog: ST_PROGS[(i + k) % 4], z: z, ex: 'Sentadilla, zancada, remo, press, plancha', rpe: 6 + (i + k) % 3, note: notes[(i + k) % notes.length], tips: [ST_TIPS[0], ST_TIPS[(i + k) % ST_TIPS.length]].filter(function (x, ix, a) { return a.indexOf(x) === ix; }) });
+      }
+      var peso = 64 + (k * 9) % 22, grasa = 28 + (k * 3) % 9, mus = 24 + (k * 2) % 8, cin = 78 + (k * 5) % 16;
+      p.meas = [90, 60, 30, 2].map(function (ago, i) { return { d: iso(addDays(T, -ago)), peso: Math.round((peso - i * 0.7) * 10) / 10, grasa: Math.round((grasa - i * 0.9) * 10) / 10, musculo: Math.round((mus + i * 0.35) * 10) / 10, cintura: Math.round((cin - i * 1.3) * 10) / 10, cadera: Math.round((cin + 18 - i * 0.8) * 10) / 10, brazo: Math.round((29 + (k % 4) + i * 0.2) * 10) / 10 }; });
+      if (k % 3 !== 2) { S.stPre = S.stPre || {}; S.stPre[p.id] = S.stPre[p.id] || {}; S.stPre[p.id][iso(T)] = { sleep: k % 3 === 1 ? 'Menos de 6 h' : '7–8 h', energy: String(3 + (k % 3)), pain: k % 3 === 1 ? 'Rodilla' : 'Nada', water: k % 4 === 3 ? 'Casi nada' : 'Sí, bastante', food: '1–3 h', note: '' }; }
+    });
+  }
+
+  /* ---------- cliente ---------- */
+  function stHomeCards(p) {
+    var pr = stPre(p), l = stLast(p), dg = stDelta(p, 'grasa'), dm = stDelta(p, 'musculo');
+    var h = '<section class="card st-card"><div class="st-row"><span class="st-ic">✓</span><div style="flex:1;min-width:0"><b>¿Cómo vienes hoy?</b><p class="' + STC.st + '" style="margin:2px 0 0">' + (pr ? 'Hecho. Tu entrenador ya lo tiene para preparar tu sesión.' : '20 segundos. Tu entrenador lo ve antes de tu sesión y la adapta.') + '</p></div><button type="button" class="bt ' + (pr ? 'ghost' : STC.acc) + '" data-c="precheck">' + (pr ? 'Cambiar' : 'Responder') + '</button></div></section>';
+    if (l) h += '<button type="button" class="card st-card st-btn" data-c="sesiones"><div class="' + STC.ch + '"><h3>Tu última sesión</h3><span>' + esc(short(parse(l.d))) + ' · con ' + esc(l.by) + '</span></div><p style="margin:0 0 8px;font-size:14px">' + esc(l.note) + '</p><span class="st-chip">' + esc(l.prog) + '</span><span class="st-more">Ver mis sesiones →</span></button>';
+    if ((p.meas || []).length) h += '<button type="button" class="card st-card st-btn" data-c="medidas"><div class="' + STC.ch + '"><h3>Tus mediciones</h3><span>' + (p.meas.length) + ' registros</span></div><div class="st-mini">' + (dg != null ? '<div><b class="num">' + stSign(dg) + ' %</b><span>grasa</span></div>' : '') + (dm != null ? '<div><b class="num">' + stSign(dm) + ' kg</b><span>músculo</span></div>' : '') + (stDelta(p, 'cintura') != null ? '<div><b class="num">' + stSign(stDelta(p, 'cintura')) + ' cm</b><span>cintura</span></div>' : '') + '</div><span class="st-more">Ver evolución e informe →</span></button>';
+    return h;
+  }
+  function vPre(p) {
+    UI.stp = UI.stp || Object.assign({}, stPre(p) || {});
+    var D = UI.stp, ready = ST_PRE.every(function (q) { return D[q.k]; });
+    var h = '<div class="' + STC.scroll + '"><button type="button" class="back" data-c="home">' + IC.back + STC.home + '</button><div><h1 class="' + STC.t + '">¿Cómo vienes hoy?</h1><p class="' + STC.st + '">Tu entrenador lo ve antes de empezar y ajusta la sesión a cómo estás.</p></div>';
+    h += ST_PRE.map(function (q) { return '<section class="card"><p class="st-q">' + q.q + '</p><div class="st-opts">' + q.o.map(function (o) { return '<button type="button" class="st-opt' + (D[q.k] === o ? ' on' : '') + '" data-pk="' + q.k + '" data-pv="' + esc(o) + '" aria-pressed="' + (D[q.k] === o) + '">' + esc(o) + '</button>'; }).join('') + '</div></section>'; }).join('');
+    h += '<section class="card"><label class="st-q" for="stNote">¿Algo más que deba saber?</label><input id="stNote" class="field" autocomplete="off" placeholder="Opcional" value="' + esc(D.note || '') + '"></section>';
+    h += '<button type="button" class="bt ' + STC.pri + ' full" style="height:54px" data-presave="1"' + (ready ? '' : ' aria-disabled="true"') + '>' + (ready ? 'Enviar a mi entrenador' : 'Responde las 5 preguntas') + '</button></div>';
+    return h + stNav('home');
+  }
+  function vSes(p) {
+    var ls = (p.slog || []).slice().reverse();
+    var h = '<div class="' + STC.scroll + '"><button type="button" class="back" data-c="home">' + IC.back + STC.home + '</button><div><h1 class="' + STC.t + '">Mis sesiones</h1><p class="' + STC.st + '">Lo que has trabajado en cada sesión, escrito por tu entrenador.</p></div>';
+    if (!ls.length) h += '<section class="card"><p class="' + STC.st + '" style="margin:0">Aún no hay sesiones registradas. Después de cada sesión verás aquí lo que habéis trabajado.</p></section>';
+    h += ls.map(function (s, i) { var prev = ls[i + 1]; return '<section class="card"><div class="' + STC.ch + '"><h3>' + esc(fmt(parse(s.d), { weekday: 'long', day: 'numeric', month: 'long' })) + '</h3><span>con ' + esc(s.by) + '</span></div><span class="st-chip">' + esc(s.prog) + '</span><span class="st-chip ghost">Esfuerzo ' + s.rpe + '/10</span><p style="margin:10px 0;font-size:14px">' + esc(s.note) + '</p>' + stZoneBars(s.z, prev && prev.z) + (s.tips && s.tips.length ? '<ul class="st-tips">' + s.tips.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>' : '') + '</section>'; }).join('');
+    return h + '</div>' + stNav('progress');
+  }
+  function vMed(p) {
+    UI.stm = UI.stm || 'grasa';
+    var M = ST_MEAS.filter(function (x) { return x.k === UI.stm; })[0], vals = (p.meas || []).filter(function (x) { return x[M.k] != null; }).map(function (x) { return x[M.k]; });
+    var month = iso(addDays(T, -28));
+    var h = '<div class="' + STC.scroll + '"><button type="button" class="back" data-c="home">' + IC.back + STC.home + '</button><div><h1 class="' + STC.t + '">Tus mediciones</h1><p class="' + STC.st + '">Las toma tu entrenador una vez al mes.</p></div>';
+    h += '<div class="st-opts">' + ST_MEAS.map(function (x) { return '<button type="button" class="st-opt' + (x.k === UI.stm ? ' on' : '') + '" data-stm="' + x.k + '">' + x.n + '</button>'; }).join('') + '</div>';
+    h += '<section class="card"><div class="' + STC.ch + '"><h3>' + M.n + '</h3><span>' + M.u + '</span></div>' + stChart(vals, STC.acol) + '</section>';
+    h += '<section class="card"><div class="' + STC.ch + '"><h3>Comparativa</h3><span>inicio · hace un mes · hoy</span></div><div class="tw"><table class="st-t"><thead><tr><th></th><th>Inicio</th><th>Hace 1 mes</th><th>Hoy</th></tr></thead><tbody>' + ST_MEAS.map(function (x) {
+      var all = (p.meas || []).filter(function (m) { return m[x.k] != null; }); if (!all.length) return '';
+      var a = all[0][x.k], b = stMeasLast(p, x.k, month), c = all[all.length - 1][x.k], good = x.low ? c < a : c > a;
+      return '<tr><td>' + x.n + '</td><td class="num">' + nf(a, 1) + '</td><td class="num">' + (b ? nf(b[x.k], 1) : '—') + '</td><td class="num"><b class="' + (c === a ? '' : good ? 'up' : 'dn') + '">' + nf(c, 1) + ' ' + x.u + '</b></td></tr>';
+    }).join('') + '</tbody></table></div></section>';
+    h += '<button type="button" class="bt ' + STC.pri + ' full" style="height:52px" data-c="informe">Ver mi informe del mes</button></div>';
+    return h + stNav('progress');
+  }
+  var ST_MONTHS = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+  function stReport(p) {
+    var from = iso(addDays(T, -30)), ses = (p.slog || []).filter(function (s) { return s.d >= from; }), f = ses[0], l = ses[ses.length - 1];
+    var avg = function (s) { return s ? Math.round(ST_ZONES.reduce(function (a, n) { return a + (s.z[n] || 0); }, 0) / ST_ZONES.length) : null; };
+    var rows = ST_MEAS.map(function (x) { var all = (p.meas || []).filter(function (m) { return m[x.k] != null; }); if (all.length < 2) return ''; var a = stMeasLast(p, x.k, from) || all[0], c = all[all.length - 1], dv = Math.round((c[x.k] - a[x.k]) * 10) / 10, good = x.low ? dv < 0 : dv > 0; return '<div class="st-rr"><span>' + x.n + '</span><b class="num ' + (dv === 0 ? '' : good ? 'up' : 'dn') + '">' + stSign(dv) + ' ' + x.u + '</b></div>'; }).join('');
+    var h = '<article class="st-rep"><header><span class="st-rk">Informe de ' + ST_MONTHS[T.getMonth()] + ' ' + T.getFullYear() + '</span><h2>' + esc(p.name) + '</h2><p>' + esc(S.brand.name) + ' · con ' + esc(stCoachName(p)) + '</p></header>' +
+      '<div class="st-rg"><div><b class="num">' + ses.length + '</b><span>sesiones este mes</span></div><div><b class="num">' + (f && l ? (avg(l) - avg(f) >= 0 ? '+' : '') + (avg(l) - avg(f)) : '—') + '</b><span>intensidad media</span></div><div><b class="num">' + (l ? l.rpe + '/10' : '—') + '</b><span>último esfuerzo</span></div></div>' +
+      (rows ? '<h3>Tu cuerpo este mes</h3>' + rows : '') +
+      (l ? '<h3>Cómo trabajas ahora</h3>' + stZoneBars(l.z, f && f !== l ? f.z : null) : '') +
+      '<h3>Lo que destaca tu entrenador</h3><p>' + esc(l ? l.note : 'Este mes empezamos a registrar tus sesiones.') + '</p>' +
+      '<h3>Objetivo para el próximo mes</h3><p>Mantener 2 sesiones por semana, subir intensidad en las zonas que más cuestan y seguir con hidratación y proteína.</p></article>';
+    return h;
+  }
+  function vInf(p) { return '<div class="' + STC.scroll + '"><button type="button" class="back" data-c="medidas">' + IC.back + 'Mediciones</button>' + stReport(p) + '</div>' + stNav('progress'); }
+  function stClientClick(b, ds, p) {
+    if (ds.pk) { UI.stp = UI.stp || {}; UI.stp[ds.pk] = ds.pv; var n = $('stNote'); if (n) UI.stp.note = n.value; renderC(); return true; }
+    if (ds.presave) { if (b.getAttribute('aria-disabled') === 'true') return true; var n2 = $('stNote'); UI.stp.note = n2 ? n2.value.trim() : ''; S.stPre = S.stPre || {}; S.stPre[p.id] = S.stPre[p.id] || {}; S.stPre[p.id][iso(T)] = UI.stp; UI.stp = null; UI.c = 'home'; stRefresh(); stToastC('Enviado. Tu entrenador lo verá antes de tu sesión.'); return true; }
+    if (ds.stm) { UI.stm = ds.stm; renderC(); return true; }
+    if (ds.c === 'precheck') UI.stp = null;
+    return false;
+  }
+
+  /* ---------- panel ---------- */
+  function aHoy() {
+    var ppl = stPeople(); UI.sts = UI.sts && ppl.some(function (x) { return x.id === UI.sts; }) ? UI.sts : (ppl[0] && ppl[0].id);
+    var h = head('Sesión de hoy', 'Cómo viene cada cliente, qué tener en cuenta y el registro de la sesión en menos de un minuto.');
+    if (!ppl.length) return h + '<div class="box"><p class="' + STC.st + '">Aún no hay clientes.</p></div>';
+    h += '<div class="st-hoy"><div class="box st-list">' + ppl.map(function (p) { var pr = stPre(p), fl = stFlags(pr); return '<button type="button" class="st-li' + (p.id === UI.sts ? ' on' : '') + '" data-sthsel="' + p.id + '"><b>' + esc(p.name) + '</b><span>' + (!pr ? '<em class="st-tag mute">Sin responder</em>' : fl.length ? fl.map(function (x) { return '<em class="st-tag ' + x.c + '">' + esc(x.t) + '</em>'; }).join('') : '<em class="st-tag ok">Viene bien</em>') + '</span></button>'; }).join('') + '</div>';
+    var p = stGet(UI.sts), pr = stPre(p), fl = stFlags(pr), l = stLast(p), prof = p.profile || {};
+    h += '<div style="display:flex;flex-direction:column;gap:14px;min-width:0"><div class="box"><h3>' + esc(p.name) + ' <small>cómo viene hoy</small></h3>' + (pr ? '<div class="st-pre">' + ST_PRE.map(function (q) { return '<div><span>' + q.q.replace('¿', '').replace('?', '') + '</span><b>' + esc(pr[q.k] || '—') + (q.k === 'energy' ? '/5' : '') + '</b></div>'; }).join('') + '</div>' + (pr.note ? '<p class="st-note">«' + esc(pr.note) + '»</p>' : '') : '<p class="' + STC.st + '" style="margin:0">Aún no ha respondido. Le llega un recordatorio 2 horas antes de su sesión.</p>') +
+      (fl.length || (prof.injury && prof.injury !== 'Ninguna') ? '<div class="st-warn"><b>Ten en cuenta</b>' + fl.map(function (x) { return '<span>' + esc(x.t) + '</span>'; }).join('') + (prof.injury && prof.injury !== 'Ninguna' ? '<span>Lesión indicada al darse de alta: ' + esc(String(prof.injury).toLowerCase()) + '</span>' : '') + '</div>' : '') + '</div>';
+    var z = l ? l.z : {};
+    h += '<form class="box form" id="stSesForm"><h3>Registrar la sesión <small>' + (l ? 'precargado con la del ' + esc(short(parse(l.d))) : 'primera sesión') + '</small></h3>' +
+      '<div class="grid2" style="gap:10px"><label class="lab" for="stBy">Entrenador<select class="inp" id="stBy">' + stTrainers().map(function (t) { return '<option' + (l && l.by === t ? ' selected' : '') + '>' + esc(t) + '</option>'; }).join('') + '</select></label><label class="lab" for="stProg">Programa<select class="inp" id="stProg">' + ST_PROGS.map(function (t) { return '<option' + (l && l.prog === t ? ' selected' : '') + '>' + t + '</option>'; }).join('') + '</select></label></div>' +
+      '<p class="lab" style="margin:4px 0 0">Intensidad por zona</p><div class="st-sl">' + ST_ZONES.map(function (n, i) { var v = z[n] != null ? z[n] : 40; return '<label for="zr-' + i + '"><span>' + n + '</span><input type="range" min="0" max="100" step="1" id="zr-' + i + '" data-zone="' + i + '" value="' + v + '"><b class="num" id="zv-' + i + '">' + v + '</b>' + (l ? '<small>antes ' + (z[n] || 0) + '</small>' : '') + '</label>'; }).join('') + '</div>' +
+      '<div class="grid2" style="gap:10px"><label class="lab" for="stEx">Ejercicios<input class="inp" id="stEx" value="' + esc(l ? l.ex : '') + '" placeholder="Sentadilla, remo, plancha…"></label><label class="lab" for="stRpe">Esfuerzo percibido<select class="inp" id="stRpe">' + [5, 6, 7, 8, 9, 10].map(function (v) { return '<option' + (l && l.rpe === v ? ' selected' : v === 7 && !l ? ' selected' : '') + '>' + v + '</option>'; }).join('') + '</select></label></div>' +
+      '<label class="lab" for="stNoteC">Nota para el cliente (la ve en su app)<textarea class="ta" id="stNoteC" rows="2" placeholder="Por ejemplo: hoy hemos subido en piernas, muy bien la técnica"></textarea></label>' +
+      '<p class="lab" style="margin:0">Pautas para después</p><div class="st-chk">' + ST_TIPS.map(function (t, i) { return '<label for="tp-' + i + '"><input type="checkbox" id="tp-' + i + '"' + (i === 0 ? ' checked' : '') + '> ' + esc(t) + '</label>'; }).join('') + '</div>' +
+      '<button type="submit" class="btn-a pri" style="align-self:flex-start">Guardar y enviar a su app</button></form></div></div>';
+    return h;
+  }
+  function stFichaHtml(p) {
+    var ls = (p.slog || []).slice().reverse();
+    var h = '<div class="box" style="margin-top:16px"><h3>Historial de sesiones <small>' + ls.length + '</small></h3>' + (ls.length ? '<div class="tw"><table class="t st-ht"><thead><tr><th>Día</th><th>Con</th><th>Programa</th>' + ST_ZONES.map(function (n) { return '<th>' + n.slice(0, 4) + '</th>'; }).join('') + '<th>Esfuerzo</th></tr></thead><tbody>' + ls.slice(0, 8).map(function (s) { return '<tr><td>' + esc(short(parse(s.d))) + '</td><td>' + esc(s.by) + '</td><td>' + esc(s.prog) + '</td>' + ST_ZONES.map(function (n) { return '<td class="num">' + (s.z[n] || 0) + '</td>'; }).join('') + '<td class="num">' + s.rpe + '</td></tr>'; }).join('') + '</tbody></table></div>' : '<p class="' + STC.st + '" style="margin:0">Aún no hay sesiones. Regístralas en «Sesión de hoy».</p>') + '</div>';
+    h += '<div class="grid2" style="margin-top:16px"><form class="box form" id="stMedForm"><h3>Nueva medición <small>' + esc(short(T)) + '</small></h3><div class="grid2" style="gap:10px">' + ST_MEAS.map(function (x) { var lv = stMeasLast(p, x.k); return '<label class="lab" for="md-' + x.k + '">' + x.n + ' (' + x.u + ')<input class="inp" id="md-' + x.k + '" inputmode="decimal" placeholder="' + (lv ? nf(lv[x.k], 1) : '') + '"></label>'; }).join('') + '</div><button type="submit" class="btn-a pri" style="align-self:flex-start">Guardar medición</button></form>' +
+      '<div class="box"><h3>Evolución <small>% de grasa</small></h3>' + stChart((p.meas || []).filter(function (m) { return m.grasa != null; }).map(function (m) { return m.grasa; }), STC.acol) + '<div class="st-mini" style="margin-top:10px">' + ['grasa', 'musculo', 'cintura'].map(function (k) { var dv = stDelta(p, k), x = ST_MEAS.filter(function (m) { return m.k === k; })[0]; return dv == null ? '' : '<div><b class="num">' + stSign(dv) + ' ' + x.u + '</b><span>' + x.n.toLowerCase() + '</span></div>'; }).join('') + '</div><button type="button" class="btn-a sec" style="margin-top:12px" data-stinf="' + p.id + '">Ver informe mensual</button></div></div>';
+    return h;
+  }
+  function aStInf() { var p = stGet(UI.stInf || stPeople()[0].id); return head('Informe mensual', 'Así lo ve ' + esc(first(p.name)) + ' en su app. Puedes enseñárselo en la sesión.', '<button type="button" class="btn-a sec" data-stback="' + p.id + '">← Ficha</button>') + '<div class="box">' + stReport(p) + '</div>'; }
+  function stPanelClick(el, ds) {
+    if (ds.sthsel) { UI.sts = ds.sthsel; renderA(); return true; }
+    if (ds.stinf) { UI.stInf = ds.stinf; UI.a = 'stinf'; renderA(); window.scrollTo(0, 0); return true; }
+    if (ds.stback) { stOpenFicha(ds.stback); return true; }
+    return false;
+  }
+  function stPanelSubmit(f) {
+    if (f.id === 'stSesForm') {
+      var p = stGet(UI.sts), z = {}; ST_ZONES.forEach(function (n, i) { z[n] = +$('zr-' + i).value; });
+      var tips = ST_TIPS.filter(function (t, i) { return $('tp-' + i).checked; });
+      var note = $('stNoteC').value.trim() || 'Buena sesión. ¡Seguimos!';
+      p.slog = p.slog || []; p.slog.push({ d: iso(T), by: $('stBy').value, prog: $('stProg').value, z: z, ex: $('stEx').value.trim(), rpe: +$('stRpe').value, note: note, tips: tips });
+      stRefresh(); stToastA('Sesión guardada. ' + first(p.name) + ' ya la ve en su app.'); return true;
+    }
+    if (f.id === 'stMedForm') {
+      var q = stGet(stFichaId()), m = { d: iso(T) }, n = 0;
+      ST_MEAS.forEach(function (x) { var v = parseFloat(String($('md-' + x.k).value).replace(',', '.')); if (v > 0) { m[x.k] = v; n++; } });
+      if (!n) { stToastA('Rellena al menos una medida'); return true; }
+      q.meas = (q.meas || []).filter(function (x) { return x.d !== m.d; }); q.meas.push(m); stRefresh(); stToastA('Medición guardada. ' + first(q.name) + ' ya ve su evolución.'); return true;
+    }
+    return false;
+  }
+  document.addEventListener('input', function (e) { var t = e.target; if (t && t.dataset && t.dataset.zone !== undefined) { var o = $('zv-' + t.dataset.zone); if (o) o.textContent = t.value; } });
   function makeGroup() {
     var defs = [
       ['Ander Molina', 'musc', '18–35', { peso: [72, 75.5], brazo: [33, 35], sq5: [70, 85], bp5: [55, 65] }, 0, null],
@@ -1135,6 +1370,7 @@ body.big #client{zoom:1.15}
     var n = nextSession(p), w = weakest(p), co = coachN(), ck = checkedToday(p), wt = w ? w.t : P(p).tests[0];
     var h = '<div class="scroll">' + hdr(p) + '<div class="hello"><h1 class="t">Hola, ' + esc(first(p.name)) + '</h1><p class="st">' + esc(fmt(T)) + '</p></div>' + orb(p);
     h += ringsHtml(p);
+    h += stHomeCards(p);
     h += '<div class="bubbles" role="group" aria-label="¿Qué hago ahora?">' +
       '<button type="button" class="bub-a b1" data-c="checkin">' + (ck ? '<span class="tick">✓</span>' : '') + '<span class="bi">' + IC.heart + '</span><b>Check-in</b><span>' + (ck ? 'hecho' : '1 minuto') + '</span></button>' +
       '<button type="button" class="bub-a b2" ' + (n ? 'data-sess="' + sessionsOf(p).indexOf(n.s) + '"' : 'data-c="plan"') + '><span class="bi">' + IC.run + '</span><b>' + (n ? (n.off === 0 ? 'Entreno hoy' : n.off === 1 ? 'Mañana' : DAYS[n.d]) : 'Mi plan') + '</b><span>' + (n ? esc(n.s.title) : 'ver semana') + '</span></button>' +
@@ -1419,7 +1655,7 @@ body.big #client{zoom:1.15}
     if ((r === 'home' || r === 'tests' || r === 'plan' || r === 'progress' || r === 'chat') && !p.profile) { startFlow('alta'); return; }
     if (r === 'flow' && UI.flow) html = vFlow();
     else if (r === 'splash') html = vSplash();
-    else html = '<div class="app' + (r === 'chat' ? ' chat-view' : '') + '">' + (r === 'tests' ? vTests(p) : r === 'test' ? vTest(p) : r === 'sim' ? vSim(p) : r === 'plan' ? vPlan(p) : r === 'session' ? vSession(p) : r === 'progress' ? vProgress(p) : r === 'chat' ? vChat(p) : r === 'report' ? vReport(p) : r === 'settings' ? vSettings(p) : r === 'workout' && UI.wk ? vWorkout(p) : r === 'wkdone' ? vWorkDone(p) : r === 'connect' ? vConnect(p) : r === 'actform' ? vActForm(p) : vHome(p)) + '</div>';
+    else html = '<div class="app' + (r === 'chat' ? ' chat-view' : '') + '">' + (r === 'tests' ? vTests(p) : r === 'test' ? vTest(p) : r === 'sim' ? vSim(p) : r === 'plan' ? vPlan(p) : r === 'session' ? vSession(p) : r === 'progress' ? vProgress(p) : r === 'chat' ? vChat(p) : r === 'report' ? vReport(p) : r === 'settings' ? vSettings(p) : r === 'workout' && UI.wk ? vWorkout(p) : r === 'wkdone' ? vWorkDone(p) : r === 'connect' ? vConnect(p) : r === 'actform' ? vActForm(p) : r === 'precheck' ? vPre(p) : r === 'sesiones' ? vSes(p) : r === 'medidas' ? vMed(p) : r === 'informe' ? vInf(p) : vHome(p)) + '</div>';
     if (UI.toastC) html += '<p class="toast" role="status">' + esc(UI.toastC) + '</p>';
     cRoot.innerHTML = html;
     var cs = $('chatScroll'); if (cs) cs.scrollTop = cs.scrollHeight;
@@ -1431,6 +1667,7 @@ body.big #client{zoom:1.15}
   cRoot.addEventListener('click', function (e) {
     var b = e.target.closest('button'); if (!b) return;
     var p = me(), ds = b.dataset;
+    if (stClientClick(b, ds, p)) return;
     if (ds.hab) { var hd = habitDay(p, iso(T)), hx = HABITS.filter(function (x) { return x.id === ds.hab; })[0], cur = hd[hx.id] || 0; hd[hx.id] = hx.max > 1 ? (cur >= hx.max ? 0 : cur + 1) : (cur ? 0 : 1); p.habits[iso(T)] = hd; save(); renderC(); renderA(); if (habitCount(p, iso(T)) === HABITS.length) toastC('¡Todos los hábitos de hoy hechos!'); return; }
     if (ds.book) { UI.c = 'plan'; UI.planTab = 'book'; renderC(); window.scrollTo(0, 0); return; }
     if (ds.bkday) { UI.bkDay = ds.bkday; renderC(); return; }
@@ -1502,7 +1739,7 @@ body.big #client{zoom:1.15}
   function side() {
     var nA = alerts().length + S.inbox.filter(function (x) { return !x.done; }).length;
     function b(r, l, n) { return '<button type="button" data-a="' + r + '" class="' + ((UI.a === r || (UI.a === 'ficha' && r === 'clientes')) ? 'on' : '') + '">' + l + (n ? '<span class="n">' + n + '</span>' : '') + '</button>'; }
-    return '<nav class="side" aria-label="Panel"><p class="bn">' + esc(S.brand.name) + '</p><p class="who">' + (S.brand.coach ? 'Panel de ' + esc(coachN()) : 'Panel del entrenador') + '</p>' + b('resumen', 'Resumen', nA) + b('servicio', 'Mi servicio') + b('clientes', 'Clientes') + b('agenda', 'Agenda') + b('cuotas', 'Cuotas') + b('perfiles', 'Perfiles y tests') + b('informes', 'Informes semanales') + b('asistente', 'Entrenar asistente') + '<p class="pow">' + GLOGO + '<span>Demo para entrenadores</span></p></nav>';
+    return '<nav class="side" aria-label="Panel"><p class="bn">' + esc(S.brand.name) + '</p><p class="who">' + (S.brand.coach ? 'Panel de ' + esc(coachN()) : 'Panel del entrenador') + '</p>' + b('resumen', 'Resumen', nA) + b('hoy', 'Sesión de hoy') + b('servicio', 'Mi servicio') + b('clientes', 'Clientes') + b('agenda', 'Agenda') + b('cuotas', 'Cuotas') + b('perfiles', 'Perfiles y tests') + b('informes', 'Informes semanales') + b('asistente', 'Entrenar asistente') + '<p class="pow">' + GLOGO + '<span>Demo para entrenadores</span></p></nav>';
   }
   function head(t, d, act) { return '<div class="mh"><div><h2>' + t + '</h2>' + (d ? '<p>' + d + '</p>' : '') + '</div>' + (act || '') + '</div>'; }
   function groupBtn() { return S.group ? '' : '<button type="button" class="btn-a acc" data-group="1">Cargar clientes de ejemplo</button>'; }
@@ -1541,6 +1778,7 @@ body.big #client{zoom:1.15}
     h += planEditorHtml(p) + workoutsHtml(p, 6);
     h += '<div class="grid2"><form class="box form" id="fichaForm"><h3>Nota para ' + esc(first(p.name)) + ' <small>la ve en su pantalla de inicio</small></h3><label class="sr" for="fNote">Nota</label><textarea class="ta" id="fNote">' + esc(p.note) + '</textarea><label class="lab" for="fEvName">Objetivo con fecha<input class="inp" id="fEvName" value="' + esc(p.event ? p.event.name : '') + '" placeholder="Por ejemplo: Maratón de Vitoria"></label><label class="lab" for="fEvDate">Fecha<input class="inp" type="date" id="fEvDate" value="' + esc(p.event ? p.event.date : '') + '"></label><button type="submit" class="btn-a pri" style="align-self:flex-start">Guardar y enviar a su app</button></form>' +
       '<div class="box"><h3>Informe de esta semana <small>sale solo el domingo</small></h3><div class="rep" style="max-height:300px;overflow:auto">' + esc(report(p)) + '</div><button type="button" class="btn-a acc" style="margin-top:10px" data-sendrep="' + p.id + '">Enviar ahora</button></div></div>';
+    h += stFichaHtml(p);
     return h;
   }
   function aPerfiles() {
@@ -1574,13 +1812,14 @@ body.big #client{zoom:1.15}
     return h;
   }
   function renderA() {
-    var V = { agenda: aAgenda, cuotas: aCuotas, servicio: aServicio, resumen: aResumen, clientes: aClientes, ficha: aFicha, perfiles: aPerfiles, informes: aInformes, asistente: aAsistente };
+    var V = { hoy: aHoy, stinf: aStInf, agenda: aAgenda, cuotas: aCuotas, servicio: aServicio, resumen: aResumen, clientes: aClientes, ficha: aFicha, perfiles: aPerfiles, informes: aInformes, asistente: aAsistente };
     aRoot.innerHTML = '<div class="adm">' + side() + '<main class="main">' + (V[UI.a] || aResumen)() + '</main></div>' + (UI.toastA ? '<p class="toast" role="status" style="bottom:24px">' + esc(UI.toastA) + '</p>' : '');
   }
   function toastA(t) { UI.toastA = t; renderA(); clearTimeout(UI.ta); UI.ta = setTimeout(function () { UI.toastA = ''; renderA(); }, 2600); }
   aRoot.addEventListener('click', function (e) {
-    var el = e.target.closest('[data-a],[data-ficha],[data-group],[data-rep],[data-sendrep],[data-delrule],[data-pay],[data-unpay],[data-remind],[data-planreset],[data-reqdone]'); if (!el) return;
+    var el = e.target.closest('[data-a],[data-ficha],[data-group],[data-rep],[data-sendrep],[data-delrule],[data-pay],[data-unpay],[data-remind],[data-planreset],[data-reqdone],[data-sthsel],[data-stinf],[data-stback]'); if (!el) return;
     var ds = el.dataset;
+    if (stPanelClick(el, ds)) return;
     if (ds.a) { UI.a = ds.a; renderA(); return; }
     if (ds.pay) { var pp = person(ds.pay); pp.paid = pp.paid || {}; pp.paid[monthKey()] = true; save(); renderA(); toastA(first(pp.name) + ': cuota de ' + MONTH_N[T.getMonth()] + ' cobrada'); return; }
     if (ds.unpay) { var pu = person(ds.unpay); if (pu.paid) delete pu.paid[monthKey()]; save(); renderA(); return; }
@@ -1588,7 +1827,7 @@ body.big #client{zoom:1.15}
     if (ds.planreset) { var pz = person(ds.planreset); delete pz.planCustom; save(); renderA(); renderC(); toastA('Vuelve a tener el plan de su perfil'); return; }
     if (ds.reqdone) { (S.requests || []).forEach(function (r) { if (r.id === ds.reqdone) r.done = true; }); save(); renderA(); toastA('Petición resuelta'); return; }
     if (ds.ficha) { UI.aP = ds.ficha; UI.a = 'ficha'; renderA(); var pa = $('paneA'); if (pa) pa.scrollTop = 0; window.scrollTo(0, 0); return; }
-    if (ds.group) { S.people = S.people.filter(function (p) { return !p.ex; }).concat(makeGroup()); S.group = true; seedBookings(); save(); renderA(); renderC(); toastA('8 clientes de ejemplo cargados'); return; }
+    if (ds.group) { S.people = S.people.filter(function (p) { return !p.ex; }).concat(makeGroup()); S.group = true; seedBookings(); stSeedAll(); save(); renderA(); renderC(); toastA('8 clientes de ejemplo cargados'); return; }
     if (ds.rep) { UI.repP = ds.rep; renderA(); return; }
     if (ds.sendrep) { var p = person(ds.sendrep); if (S.sent.indexOf(p.id + iso(T)) === -1) S.sent.push(p.id + iso(T)); if (p.id === 'yo') p.chat.push({ k: 'coach', t: 'Te he dejado tu informe de la semana en Hoy. ¡Vamos!' }); save(); renderC(); toastA('Informe enviado a ' + first(p.name) + ' en su app'); return; }
     if (ds.delrule) { S.rules = S.rules.filter(function (r) { return r.id !== ds.delrule; }); save(); renderA(); return; }
@@ -1596,6 +1835,7 @@ body.big #client{zoom:1.15}
   aRoot.addEventListener('change', function (e) { if (e.target.dataset && e.target.dataset.fee) { var pf = person(e.target.dataset.fee), fv = parseInt(e.target.value, 10); if (fv > 0) { pf.fee = fv; save(); renderA(); toastA('Cuota actualizada'); } return; } if (e.target.dataset && e.target.dataset.offer) { S.offer = S.offer || {}; var ks = enabledKeys(); if (!e.target.checked && ks.length === 1 && ks[0] === e.target.dataset.offer) { e.target.checked = true; toastA('Deja al menos un servicio activo'); return; } S.offer[e.target.dataset.offer] = e.target.checked; save(); renderA(); renderC(); toastA('Actualizado en la app de tus clientes'); return; } if (e.target.name === 'mode') { S.mode = e.target.value; save(); renderA(); renderC(); toastA('Modalidad: ' + S.mode.toLowerCase()); return; } if (e.target.id === 'wkOn') { S.weekly = e.target.checked; save(); toastA(S.weekly ? 'Los informes saldrán solos cada domingo' : 'Envío automático desactivado'); } });
   aRoot.addEventListener('submit', function (e) {
     e.preventDefault(); var f = e.target;
+    if (stPanelSubmit(f)) return;
     if (f.id === 'planForm') { var pq = person(UI.aP), base = planOf(pq); pq.planCustom = base.map(function (sx, k) { var lines = String($('pl-e-' + k).value || '').split('\n').map(function (l) { return l.trim(); }).filter(Boolean); return { day: sx.day, test: sx.test, title: $('pl-t-' + k).value.trim() || sx.title, detail: $('pl-d-' + k).value.trim() || sx.detail, ex: lines.map(function (l) { var pp2 = l.split('|'); return { n: pp2[0].trim(), s: (pp2[1] || '').trim() }; }) }; }); save(); renderA(); renderC(); toastA('Plan enviado a la app de ' + first(pq.name)); return; }
     if (f.id === 'tgForm') { var p = person(UI.aP), n = 0; P(p).tests.forEach(function (t) { var el = $('tg-' + t.id); if (!el) return; var v = parseV(t, el.value); if (v != null && v !== target(p, t)) { p.targets[t.id] = v; n++; } }); save(); renderA(); renderC(); toastA(n ? 'Objetivos actualizados en la app de ' + first(p.name) : 'Sin cambios'); return; }
     if (f.id === 'fichaForm') { var p2 = person(UI.aP); p2.note = $('fNote').value.trim() || p2.note; var en = $('fEvName').value.trim(), ed = $('fEvDate').value; p2.event = en && ed ? { name: en, date: ed } : (en || ed ? p2.event : null); save(); renderC(); renderA(); toastA('Enviado a la app de ' + first(p2.name)); return; }
