@@ -13,6 +13,18 @@
    "acento2": "#FF8A3D",
    "caduca": "2026-12-31",
    "activo": true
+  },
+  {
+   "clave": "9ab95835ca88fc4d485f909b4d8c754eb0893b3c523372631de2b06efe38782b",
+   "centro": "Tu Estudio",
+   "entrenador": "",
+   "ciudad": "",
+   "primario": "#0F3B2E",
+   "acento": "#FF4D8D",
+   "acento2": "#FF8A3D",
+   "caduca": "2026-12-31",
+   "activo": true,
+   "nota": "demo 2"
   }
  ]
 }
