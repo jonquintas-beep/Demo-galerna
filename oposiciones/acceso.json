@@ -22,6 +22,16 @@
    "acento": "#D7192A",
    "caduca": "2026-11-05",
    "activo": true
+  },
+  {
+   "clave": "bb6fa26c4177dda18e71c63c5f369e8f41b73eac51c2625b068ddc7095d2da00",
+   "centro": "Academia Luis Altuna",
+   "entrenador": "Luis",
+   "ciudad": "Bilbao",
+   "primario": "#0E1C3F",
+   "acento": "#D7192A",
+   "caduca": "2026-11-05",
+   "activo": true
   }
  ]
 }
