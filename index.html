@@ -942,6 +942,7 @@ body.locked .shell{visibility:hidden}
   function curQ() { var F = UI.flow; return F && F.idx >= 0 ? flowSteps(F.kind)[F.idx] : null; }
   function startFlow(kind) {
     var c = client();
+    if (kind === 'alta' && S.altaDraft && S.altaDraft.cid === c.id) { var D = S.altaDraft; UI.flow = { kind: 'alta', cid: c.id, ans: D.ans || {}, log: (D.log || []).concat([{ from: 'bot', t: '¡Hola de nuevo! Seguimos donde lo dejamos.' }]), idx: D.idx, typing: false, done: false, sel: [], num: null, block: D.block || '' }; UI.c = 'flow'; flowAdvance(''); return; }
     UI.flow = { kind: kind, cid: c.id, ans: {}, log: [], idx: -1, typing: false, done: false, sel: [], num: null, block: '' };
     UI.c = 'flow';
     if (kind === 'alta') UI.flow.log.push({ from: 'bot', t: 'Hola, ' + first(c.name) + '. Soy el asistente de ' + coachOf(c).name + ' en ' + S.brand.name + '. Antes de empezar me gustaría conocerte un poco: son unas preguntas rápidas sobre entreno, comida y descanso. Así tu plan será de verdad tuyo.' });
@@ -998,6 +999,7 @@ body.locked .shell{visibility:hidden}
     var F = UI.flow, q = curQ(); if (!F || !q || F.typing || F.done) return;
     F.log.push({ from: 'me', t: label });
     F.ans[q.id] = v;
+    if (F.kind === 'alta') { S.altaDraft = { cid: F.cid, ans: F.ans, log: F.log.slice(), idx: F.idx, block: F.block }; save(); }
     flowAdvance(react(F, q, v, client(F.cid)));
   }
   function flowFinish() {
@@ -1014,7 +1016,7 @@ body.locked .shell{visibility:hidden}
       end += (a.mood === 'Mal' || a.mood === 'Regular') ? ' Mañana será mejor. Aquí estoy si necesitas algo.' : ' Mañana te pregunto otra vez. ¡Buen descanso!';
       F.log.push({ from: 'bot', t: end, sum: item });
     } else {
-      c.profile = clone(a);
+      c.profile = clone(a); delete S.altaDraft;
       var GT = { 'Perder grasa': 'grasa', 'Ganar músculo': 'f40', 'Mejorar marcas': 'f40', 'Estar en forma y con energía': 'ems', 'Cuidar la espalda o una lesión': 'f40' };
       var tt = tplById(GT[a.goal] || 'ems');
       if (tt) { c.tpl = tt.id; c.planName = tt.name; c.weeks = tt.weeks; c.sessions = clone(tt.sessions); c.nutrition = clone(tt.nutrition); c.rest = clone(tt.rest); c.targets = clone(tt.targets); }

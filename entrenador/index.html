@@ -445,6 +445,15 @@ h1.t{font-family:var(--cond);font-weight:700;letter-spacing:-.02em}
 .flow .fl-top{position:relative;top:auto}
 .flow .fl-in{position:relative;bottom:auto;flex:none}
 @media (min-width:1000px){.flow{height:100vh}}
+
+button.av{border:0;cursor:pointer;padding:0}
+.set-list{display:flex;flex-direction:column;padding:6px 16px}
+.set-row{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:14px 0;border:0;border-bottom:1px solid var(--line);background:none;color:var(--ink);text-align:left}
+.set-row:last-child{border-bottom:0}
+.set-row b{display:block;font-size:15px}
+.set-row span span{display:block;font-size:13px;color:var(--sub);margin-top:2px}
+.set-row i{font-style:normal;font-weight:700;color:var(--acc)}
+body.big #client{zoom:1.15}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 /* acceso */
 body.locked .shell{visibility:hidden}
@@ -780,7 +789,7 @@ body.big #client{zoom:1.15}
 
   /* ================= APP DEL CLIENTE ================= */
   var cRoot = $('client');
-  function hdr(p) { return '<div class="hdr"><button type="button" class="word" data-c="splash" aria-label="Portada">' + (S.brand.logo ? '<img src="' + esc(S.brand.logo) + '" alt="" style="width:28px;height:28px;border-radius:50%">' : '') + esc(S.brand.name) + '</button><span class="row" style="gap:8px"><button type="button" class="aa" data-big="1" aria-pressed="' + !!S.big + '" title="Tamaño de letra">Aa</button><span class="av" aria-hidden="true">' + esc(initials(p.name)) + '</span></span></div>'; }
+  function hdr(p) { return '<div class="hdr"><button type="button" class="word" data-c="splash" aria-label="Portada">' + (S.brand.logo ? '<img src="' + esc(S.brand.logo) + '" alt="" style="width:28px;height:28px;border-radius:50%">' : '') + esc(S.brand.name) + '</button><span class="row" style="gap:8px"><button type="button" class="aa" data-big="1" aria-pressed="' + !!S.big + '" title="Tamaño de letra">Aa</button><button type="button" class="av" data-c="settings" aria-label="Ajustes">' + esc(initials(p.name)) + '</button></span></div>'; }
   function nav(on) {
     function b(r, l, ic) { return '<button type="button" data-c="' + r + '" class="' + (on === r ? 'on' : '') + '"' + (on === r ? ' aria-current="page"' : '') + ' aria-label="' + l + '"><span class="dk">' + ic + '</span><span class="dl">' + l + '</span></button>'; }
     return '<nav class="nav dock" aria-label="Menú">' + b('home', 'Hoy', IC.home) + b('tests', 'Marcas', IC.tests) + b('plan', 'Plan', IC.plan) + b('progress', 'Progreso', IC.prog) + b('chat', 'Asistente', IC.chat) + '</nav>';
@@ -1002,7 +1011,7 @@ body.big #client{zoom:1.15}
   function steps(F) { return F.kind === 'alta' ? altaSteps(F) : diarioSteps(F); }
   function nextIdx(F) { var st = steps(F); for (var i = F.idx + 1; i < st.length; i++) if (!st[i].cond || st[i].cond(F.ans)) return i; return -1; }
   function curQ() { var F = UI.flow; return F && F.idx >= 0 ? steps(F)[F.idx] : null; }
-  function startFlow(kind) { var p = me(); UI.flow = { kind: kind, pid: p.id, ans: {}, log: [], idx: -1, typing: false, done: false, num: null, block: '' }; UI.c = 'flow'; advance(''); }
+  function startFlow(kind) { if (kind === 'alta' && S.altaDraft) { var D = S.altaDraft; UI.flow = { kind: 'alta', pid: me().id, ans: D.ans || {}, log: (D.log || []).concat([{ from: 'bot', t: '¡Hola de nuevo! Seguimos donde lo dejamos.' }]), idx: D.idx, typing: false, done: false, sel: [], num: null, block: D.block || '' }; UI.c = 'flow'; advance(''); return; } var p = me(); UI.flow = { kind: kind, pid: p.id, ans: {}, log: [], idx: -1, typing: false, done: false, num: null, block: '' }; UI.c = 'flow'; advance(''); }
   function advance(reaction) {
     var F = UI.flow; F.typing = true; renderC();
     setTimeout(function () {
@@ -1038,14 +1047,15 @@ body.big #client{zoom:1.15}
     }
     return '';
   }
-  function answer(v, label) { var F = UI.flow, q = curQ(); if (!F || !q || F.typing || F.done) return; F.log.push({ from: 'me', t: label }); F.ans[q.id] = v; advance(react(F, q, v)); }
+  function answer(v, label) { var F = UI.flow, q = curQ(); if (!F || !q || F.typing || F.done) return; F.log.push({ from: 'me', t: label }); F.ans[q.id] = v; if (F.kind === 'alta') { S.altaDraft = { ans: F.ans, log: F.log.slice(), idx: F.idx, block: F.block }; save(); } advance(react(F, q, v)); }
   function finish() {
     var F = UI.flow, p = person(F.pid), a = F.ans; F.done = true;
     if (F.kind === 'alta') {
+      delete S.altaDraft; var prevP = p.prof, had = !!p.profile;
       p.prof = profOf(F); p.age = a.age || '';
       var dd = { 'Sí, en menos de 2 meses': 50, 'Sí, en 2–4 meses': 95, 'Sí, en 4–6 meses': 150 }[a.when];
       p.event = dd ? { name: a.evname || ('Mi ' + P(p).ev), date: iso(addDays(T, dd)) } : null;
-      p.marks = {}; p.targets = {}; P(p).tests.forEach(function (t) { var v = a['m_' + t.id]; if (v != null) p.marks[t.id] = [{ d: iso(T), v: v }]; });
+      if (!had || prevP !== p.prof) { p.marks = {}; p.targets = {}; } P(p).tests.forEach(function (t) { var v = a['m_' + t.id]; if (v != null) { p.marks[t.id] = p.marks[t.id] || []; p.marks[t.id].push({ d: iso(T), v: v }); } });
       p.profile = { days: a.days, injury: a.injury, diet: a.diet, sleep: a.sleep, why: a.why, age: a.age, zona: a.zona };
       if (a.injury && a.injury !== 'Ninguna') S.inbox.unshift({ id: uid(), p: p.id, q: 'Alta: molestias de ' + a.injury.toLowerCase() + '. Revisarlo en la primera sesión.', d: iso(T), done: false });
       var n = score(p).n;
@@ -1081,12 +1091,25 @@ body.big #client{zoom:1.15}
 
   function flowScroll() { var go = function () { var msgs = document.querySelector('.fl-msgs'); if (!msgs) return; msgs.scrollTop = msgs.scrollHeight; var last = msgs.lastElementChild; if (last && msgs.scrollHeight <= msgs.clientHeight + 2) { var fin = document.querySelector('.fl-in'); document.documentElement.style.scrollPaddingBottom = ((fin ? fin.getBoundingClientRect().height : 0) + 16) + 'px'; last.scrollIntoView({ block: 'end' }); } }; requestAnimationFrame(go); setTimeout(go, 160); setTimeout(go, 480); }
   if (window.visualViewport) window.visualViewport.addEventListener('resize', function () { if (UI.c === 'flow') flowScroll(); });
+  function vSettings(p) {
+    var exp = S.trial && S.trial.exp ? fmt(parse(S.trial.exp), { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+    var h = '<div class="scroll">' + hdr(p) + '<div><h1 class="t">Ajustes</h1><p class="st">Tu cuenta y tu app</p></div>';
+    h += '<section class="card"><div class="note"><span class="av" aria-hidden="true">' + esc(initials(p.name)) + '</span><div><b style="font-size:16px">' + esc(p.name) + '</b><p class="st" style="margin:2px 0 0">' + esc(S.brand.name) + (exp ? ' · acceso hasta el ' + esc(exp) : '') + '</p></div></div></section>';
+    h += '<section class="card set-list">' +
+      '<button type="button" class="set-row" data-c="redo"><span><b>Repetir el cuestionario inicial</b><span>Para actualizar tu objetivo, tus días o tus gustos. Tus marcas y tu historial se mantienen.</span></span><i>→</i></button>' +
+      '<button type="button" class="set-row" data-big="1"><span><b>Letra grande</b><span>' + (S.big ? 'Activada' : 'Desactivada') + '</span></span><i>' + (S.big ? 'Sí' : 'No') + '</i></button>' +
+      '<button type="button" class="set-row" data-c="report"><span><b>Mi informe de la semana</b><span>Lo que has mejorado y el foco de la próxima semana.</span></span><i>→</i></button>' +
+      '</section>';
+    h += '<section class="card set-list">' + (UI.confirmOut ? '<p style="margin:0 0 10px">Se borrarán de este móvil tus datos de la demo. ¿Seguro?</p><div class="row2"><button type="button" class="bt ghost" data-nologout="1">Cancelar</button><button type="button" class="bt dark" data-logout="1">Sí, cerrar sesión</button></div>' : '<button type="button" class="set-row" data-logout="1"><span><b>Cerrar sesión</b><span>Para entrar con otro código.</span></span><i>→</i></button>') + '</section>';
+    h += '<p class="st" style="text-align:center;font-size:12px">Tus datos se guardan en este móvil. No se borran al cerrar la app.</p>';
+    return h + '</div>' + nav('home');
+  }
   function renderC() {
     var p = me(), r = UI.c, html;
     if ((r === 'home' || r === 'tests' || r === 'plan' || r === 'progress' || r === 'chat') && !p.profile) { startFlow('alta'); return; }
     if (r === 'flow' && UI.flow) html = vFlow();
     else if (r === 'splash') html = vSplash();
-    else html = '<div class="app' + (r === 'chat' ? ' chat-view' : '') + '">' + (r === 'tests' ? vTests(p) : r === 'test' ? vTest(p) : r === 'sim' ? vSim(p) : r === 'plan' ? vPlan(p) : r === 'session' ? vSession(p) : r === 'progress' ? vProgress(p) : r === 'chat' ? vChat(p) : r === 'report' ? vReport(p) : vHome(p)) + '</div>';
+    else html = '<div class="app' + (r === 'chat' ? ' chat-view' : '') + '">' + (r === 'tests' ? vTests(p) : r === 'test' ? vTest(p) : r === 'sim' ? vSim(p) : r === 'plan' ? vPlan(p) : r === 'session' ? vSession(p) : r === 'progress' ? vProgress(p) : r === 'chat' ? vChat(p) : r === 'report' ? vReport(p) : r === 'settings' ? vSettings(p) : vHome(p)) + '</div>';
     if (UI.toastC) html += '<p class="toast" role="status">' + esc(UI.toastC) + '</p>';
     cRoot.innerHTML = html;
     var cs = $('chatScroll'); if (cs) cs.scrollTop = cs.scrollHeight;
@@ -1098,7 +1121,9 @@ body.big #client{zoom:1.15}
   cRoot.addEventListener('click', function (e) {
     var b = e.target.closest('button'); if (!b) return;
     var p = me(), ds = b.dataset;
-    if (ds.big) { S.big = !S.big; save(); applyBrand(); renderC(); return; }
+    if (ds.logout) { if (!UI.confirmOut) { UI.confirmOut = true; renderC(); return; } try { localStorage.removeItem(KEY); } catch (x) {} location.reload(); return; }
+    if (ds.nologout) { UI.confirmOut = false; renderC(); return; }
+    if (ds.big) { S.big = !S.big; save(); document.body.classList.toggle('big', !!S.big); renderC(); return; }
     if (ds.flowexit) { UI.flow = null; UI.c = p.profile ? 'home' : 'splash'; renderC(); return; }
     if ('fa' in ds) { answer(ds.fa, ds.fa); return; }
     if (ds.fs) { answer(+ds.fs, ds.fs + ' de 5'); return; }
@@ -1112,6 +1137,8 @@ body.big #client{zoom:1.15}
     if (ds.c) {
       UI.flow = null;
       if (ds.c === 'checkin') { startFlow('diario'); return; }
+      if (ds.c === 'redo') { delete S.altaDraft; save(); startFlow('alta'); return; }
+      UI.confirmOut = false;
       if (ds.c === 'done') { p.done++; save(); UI.c = 'plan'; renderA(); toastC('Sesión marcada como hecha'); return; }
       UI.c = ds.c; renderC(); window.scrollTo(0, 0);
     }
