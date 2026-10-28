@@ -686,7 +686,7 @@ body.big #client{zoom:1.15}
       (B.logo ? '' : '<h1>' + esc(B.name).replace(/(\S+)$/, '<i>$1</i>') + '</h1>') +
       '<p class="tag">Tu entrenador contigo todos los días. Tus marcas, tu plan y tu progreso en un solo sitio.</p>' +
       '<div class="opos"><span>Carrera</span><span>Fuerza</span><span>Pádel y golf</span><span>Salud +60</span><span>En forma</span></div>' +
-      '<button type="button" class="bt acc full" style="height:54px;font-size:16px;margin-top:6px" data-c="home">Entrar como ' + esc(first(p.name)) + '</button>' +
+      '<button type="button" class="bt acc full" style="height:54px;font-size:16px;margin-top:6px" data-c="home">Entrar como ' + esc(first(p.name)) + '</button>' + (UI.confirmOut ? '<div style="display:flex;flex-direction:column;gap:8px;margin-top:4px;position:relative"><p style="margin:0;font-size:14px;opacity:.9">Se borrarán de este móvil los datos de la demo. ¿Seguro?</p><div class="row2"><button type="button" class="bt ghost-l" data-nologout="1">Cancelar</button><button type="button" class="bt acc" data-logout="1">Sí, cerrar sesión</button></div></div>' : '<button type="button" class="bt ghost-l full" style="position:relative;height:46px" data-logout="1">Cerrar sesión · entrar con otro código</button>') + 
       '<p class="foot">' + (S.trial && S.trial.exp ? 'Demo privada hasta el ' + esc(fmt(parse(S.trial.exp), { day: 'numeric', month: 'long' })) + ' · ' : '') + 'Con la tecnología de ' + GLOGO + '</p></div>';
   }
   function boardHtml(p) {

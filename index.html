@@ -774,7 +774,7 @@ body.locked .shell{visibility:hidden}
       (B.logo ? '<h1 class="word"><img class="blogo" src="' + esc(B.logo) + '" alt="' + esc(B.name) + '"></h1>' : '<h1 class="word">' + brandWord(B) + '</h1>') +
       '<p class="tagline">' + esc(B.tagline) + '</p>' +
       '<div class="svc">' + B.services.map(function (s) { return '<span>' + esc(s) + '</span>'; }).join('') + '</div>' +
-      '<div style="display:flex;flex-direction:column;gap:10px;margin-top:26px"><button type="button" class="bt peach full" style="height:54px;font-size:16px" data-c="home">Entrar como ' + esc(first(client().name)) + '</button>' +
+      '<div style="display:flex;flex-direction:column;gap:10px;margin-top:26px"><button type="button" class="bt peach full" style="height:54px;font-size:16px" data-c="home">Entrar como ' + esc(first(client().name)) + '</button>' + (UI.confirmOut ? '<div style="display:flex;flex-direction:column;gap:8px;margin-top:4px;position:relative"><p style="margin:0;font-size:14px;opacity:.9">Se borrarán de este móvil los datos de la demo. ¿Seguro?</p><div class="row2"><button type="button" class="bt ghost-l" data-nologout="1">Cancelar</button><button type="button" class="bt acc" data-logout="1">Sí, cerrar sesión</button></div></div>' : '<button type="button" class="bt ghost-l full" style="position:relative;height:46px" data-logout="1">Cerrar sesión · entrar con otro código</button>') + 
       '</div><p class="trial-n">Demo privada' + (S.trial && S.trial.exp ? ' · activa hasta el ' + esc(fmt(parse(S.trial.exp), { day: 'numeric', month: 'long' })) : '') + '</p>' +
       '<p class="addr"><span>Con la tecnología de</span>' + GLOGO + '</p></div>';
   }
@@ -1079,6 +1079,8 @@ body.locked .shell{visibility:hidden}
   cRoot.addEventListener('click', function (e) {
     var b = e.target.closest('button'); if (!b) return;
     var c = client(), ds = b.dataset;
+    if (ds.logout) { if (!UI.confirmOut) { UI.confirmOut = true; renderC(); return; } try { localStorage.removeItem(KEY); } catch (x) {} location.reload(); return; }
+    if (ds.nologout) { UI.confirmOut = false; renderC(); return; }
     if (ds.flowexit) { UI.flow = null; UI.c = c.profile ? 'home' : 'splash'; renderC(); return; }
     if ('fa' in ds) { flowAnswer(ds.fa, ds.fa); return; }
     if ('fm' in ds) { var sel = UI.flow.sel, ix = sel.indexOf(ds.fm); if (ix === -1) { if (ds.fm === 'Nada en especial') sel.length = 0; else { var ne = sel.indexOf('Nada en especial'); if (ne !== -1) sel.splice(ne, 1); } sel.push(ds.fm); } else sel.splice(ix, 1); renderC(); return; }
