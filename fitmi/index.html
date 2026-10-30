@@ -438,6 +438,13 @@ body.big #client{zoom:1.15}
 .vt th,.vt td{white-space:nowrap}
 .vt .vt-new{background:rgba(205,113,62,.12)}
 .vt .vt-new .inp{height:34px;width:84px}
+
+.skip-q{position:relative;background:none;border:0;color:#fff;opacity:.85;font-weight:600;font-size:14.5px;text-decoration:underline;text-underline-offset:3px;padding:6px;align-self:center}
+.q-pend{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;align-items:center;text-align:left;width:100%;border:1px solid var(--acc);background:linear-gradient(135deg,rgba(205,113,62,.28),rgba(205,113,62,.08))}
+.q-pend .q-pi{width:34px;height:34px;border-radius:50%;background:var(--acc);color:var(--on-acc);display:grid;place-items:center;font-weight:800;grid-row:span 2}
+.q-pend b{display:block;font-size:16px}
+.q-pend span span{display:block;font-size:13.5px;color:var(--sub);margin-top:3px;line-height:1.4}
+.q-pend .q-go{grid-column:2;font-weight:800;color:var(--acc);font-size:14px}
 </style>
 </head>
 <body>
@@ -761,7 +768,7 @@ body.big #client{zoom:1.15}
       '<h1>' + esc(B.name).replace(/(\S+)$/, '<i>$1</i>') + '</h1>' +
       '<p class="tag">Tu entrenadora contigo todos los días. Tus valoraciones, tu plan y cómo mejoras, en un solo sitio.</p>' +
       '<div class="opos"><span>Fuerza +55</span><span>Equilibrio</span><span>Movilidad</span><span>Fisioterapia</span><span>Puesta en forma</span></div>' +
-      '<button type="button" class="bt acc full" style="height:54px;font-size:16px;margin-top:6px" data-c="home">Entrar como ' + esc(first(p.name)) + '</button>' + (UI.confirmOut ? '<div style="display:flex;flex-direction:column;gap:8px;margin-top:4px;position:relative"><p style="margin:0;font-size:14px;opacity:.9">Se borrarán de este móvil los datos de la demo. ¿Seguro?</p><div class="row2"><button type="button" class="bt ghost-l" data-nologout="1">Cancelar</button><button type="button" class="bt acc" data-logout="1">Sí, cerrar sesión</button></div></div>' : '<button type="button" class="bt ghost-l full" style="position:relative;height:46px" data-logout="1">Cerrar sesión · entrar con otro código</button>') + 
+      '<button type="button" class="bt acc full" style="height:54px;font-size:16px;margin-top:6px" data-c="home">Entrar como ' + esc(first(p.name)) + '</button>' + (p.profile ? '' : '<button type="button" class="skip-q" data-skip="1">Saltar el cuestionario · lo relleno después</button>') + (UI.confirmOut ? '<div style="display:flex;flex-direction:column;gap:8px;margin-top:4px;position:relative"><p style="margin:0;font-size:14px;opacity:.9">Se borrarán de este móvil los datos de la demo. ¿Seguro?</p><div class="row2"><button type="button" class="bt ghost-l" data-nologout="1">Cancelar</button><button type="button" class="bt acc" data-logout="1">Sí, cerrar sesión</button></div></div>' : '<button type="button" class="bt ghost-l full" style="position:relative;height:46px" data-logout="1">Cerrar sesión · entrar con otro código</button>') + 
       '<p class="foot">' + (S.trial && S.trial.exp ? 'Demo privada hasta el ' + esc(fmt(parse(S.trial.exp), { day: 'numeric', month: 'long' })) + ' · ' : '') + 'Con la tecnología de ' + GLOGO + '</p></div>';
   }
   function boardHtml(p) {
@@ -775,7 +782,7 @@ body.big #client{zoom:1.15}
   function weeksSince(s) { return Math.max(1, Math.floor((T - parse(s)) / 864e5 / 7) + 1); }
   function vHome(p) {
     var n = nextSession(p), w = weakest(p), co = S.brand.coach, ck = checkedToday(p), wt = w ? w.t : P(p).tests[0];
-    var h = '<div class="scroll">' + hdr(p) + '<div><h1 class="t">Hola, ' + esc(first(p.name)) + '</h1><p class="st">' + esc(fmt(T)) + '</p></div>' + boardHtml(p);
+    var h = '<div class="scroll">' + hdr(p) + '<div><h1 class="t">Hola, ' + esc(first(p.name)) + '</h1><p class="st">' + esc(fmt(T)) + '</p></div>' + (p.profile && p.profile.pending ? '<button type="button" class="card q-pend" data-c="redo"><span class="q-pi">!</span><span><b>Rellena tu cuestionario para empezar</b><span>3 minutos. Con tus respuestas ' + esc(S.brand.coach) + ' prepara tu plan. Mientras, ves la app con datos de ejemplo.</span></span><span class="q-go">Empezar →</span></button>' : '') + boardHtml(p);
     h += '<p class="qa-h">¿Qué hago ahora?</p><div class="qa">' +
       '<button type="button" class="q1" data-c="checkin"><span class="ico">' + IC.heart + '</span><b>Check-in de hoy</b><span class="s">' + (ck ? 'Hecho · puedes repetirlo' : '1 minuto · sueño, cuerpo, pasos') + '</span>' + (ck ? '<span class="ok">✓ Hecho</span>' : '') + '</button>' +
       '<button type="button" class="q2" ' + (n ? 'data-sess="' + sessionsOf(p).indexOf(n.s) + '"' : 'data-c="plan"') + '><span class="ico">' + IC.run + '</span><b>' + (n ? (n.off === 0 ? 'Entreno de hoy' : n.off === 1 ? 'Entreno de mañana' : 'Próximo entreno') : 'Mi plan') + '</b><span class="s">' + (n ? esc(n.s.title) + (n.off > 1 ? ' · ' + DAYS_L[n.d].toLowerCase() : '') : 'Ver la semana') + '</span></button>' +
@@ -1068,6 +1075,7 @@ body.big #client{zoom:1.15}
     if (ds.logout) { if (!UI.confirmOut) { UI.confirmOut = true; renderC(); return; } try { localStorage.removeItem(KEY); } catch (x) {} location.reload(); return; }
     if (ds.nologout) { UI.confirmOut = false; renderC(); return; }
     if (ds.big) { S.big = !S.big; save(); document.body.classList.toggle('big', !!S.big); renderC(); return; }
+    if (ds.skip) { var ex = makeGroup()[0]; p.prof = 'senior'; p.profile = { pending: true, why: '', days: '2 días' }; p.age = ex.age; p.start = ex.start; p.marks = ex.marks; p.targets = ex.targets; p.vnotes = ex.vnotes; p.checks = ex.checks; p.done = ex.done; p.event = ex.event; p.demo = true; delete S.altaDraft; UI.flow = null; UI.c = 'home'; save(); renderC(); renderA(); return; }
     if (ds.flowexit) { UI.flow = null; UI.c = p.profile ? 'home' : 'splash'; renderC(); return; }
     if ('fa' in ds) { answer(ds.fa, ds.fa); return; }
     if (ds.fs) { answer(+ds.fs, ds.fs + ' de 5'); return; }
