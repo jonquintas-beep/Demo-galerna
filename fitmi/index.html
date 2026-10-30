@@ -408,6 +408,14 @@ body.big #client{zoom:1.15}
   .side button.on{background:#fff;color:#05070D;box-shadow:none}
   .side button.on .n{background:var(--acc);color:var(--on-acc,#111)}
 }
+
+/* Fitmi: logo difuminado de fondo */
+.splash .bmark{position:absolute;left:4%;right:4%;top:5%;height:44%;filter:blur(7px);opacity:.5;pointer-events:none}
+.splash .bmark i{position:absolute;inset:0;background:var(--acc);-webkit-mask:url(../logos/fitmi-mark.png) center/contain no-repeat;mask:url(../logos/fitmi-mark.png) center/contain no-repeat}
+.splash::before{content:"";position:absolute;inset:0;background:radial-gradient(70% 45% at 50% 30%,rgba(205,113,62,.28),transparent 70%);pointer-events:none}
+.splash h1{font-size:clamp(64px,22vw,110px);letter-spacing:.04em;text-shadow:0 6px 30px rgba(0,0,0,.45)}
+.splash h1 i{color:#fff}
+@media (min-width:1000px){.splash .bmark{top:10%;height:40%}}
 </style>
 </head>
 <body>
@@ -693,9 +701,9 @@ body.big #client{zoom:1.15}
     var B = S.brand, p = me(), lanes = '';
     for (var i = 0; i < 6; i++) lanes += '<path d="M' + (40 + i * 60) + ' 900 C ' + (40 + i * 60) + ' 500 ' + (300 + i * 40) + ' 300 ' + (520 + i * 30) + ' -20" fill="none" stroke="#fff" stroke-width="2"/>';
     return '<div class="splash"><svg class="lanes" viewBox="0 0 460 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">' + lanes + '</svg>' +
-      (B.logo ? '<img class="blogo" src="' + esc(B.logo) + '" alt="' + esc(B.name) + '">' : '') +
+      '<div class="bmark" aria-hidden="true"><i></i></div>' +
       '<p class="kick">' + esc(B.city ? B.city + ' · ' : '') + 'Entrenamiento personal</p>' +
-      (B.logo ? '' : '<h1>' + esc(B.name).replace(/(\S+)$/, '<i>$1</i>') + '</h1>') +
+      '<h1>' + esc(B.name).replace(/(\S+)$/, '<i>$1</i>') + '</h1>' +
       '<p class="tag">Tu entrenadora contigo todos los días. Tus marcas, tu plan y tu progreso en un solo sitio.</p>' +
       '<div class="opos"><span>Carrera</span><span>Fuerza</span><span>Pádel y golf</span><span>Salud +60</span><span>En forma</span></div>' +
       '<button type="button" class="bt acc full" style="height:54px;font-size:16px;margin-top:6px" data-c="home">Entrar como ' + esc(first(p.name)) + '</button>' + (UI.confirmOut ? '<div style="display:flex;flex-direction:column;gap:8px;margin-top:4px;position:relative"><p style="margin:0;font-size:14px;opacity:.9">Se borrarán de este móvil los datos de la demo. ¿Seguro?</p><div class="row2"><button type="button" class="bt ghost-l" data-nologout="1">Cancelar</button><button type="button" class="bt acc" data-logout="1">Sí, cerrar sesión</button></div></div>' : '<button type="button" class="bt ghost-l full" style="position:relative;height:46px" data-logout="1">Cerrar sesión · entrar con otro código</button>') + 
