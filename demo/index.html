@@ -456,6 +456,35 @@ table.st-t th{font-size:11.5px;color:var(--sub);text-transform:uppercase;letter-
 .tw{overflow-x:auto}
 @media (max-width:900px){.st-hoy{grid-template-columns:1fr}}
 </style>
+<style>
+.a-login{grid-column:1/-1;grid-row:1/-1;background:radial-gradient(120% 90% at 85% 0%,rgba(255,255,255,.10),transparent 60%),var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;padding:32px 18px;overflow:auto}
+.a-login .lg{width:100%;max-width:560px;display:flex;flex-direction:column;gap:14px}
+.a-login .a-brand{padding:0}
+.a-login h2{font-family:var(--display);font-size:28px;line-height:1.1;margin:4px 0 0}
+.a-login p.sub{color:#C8D3E6;font-size:14.5px;line-height:1.45;margin:0}
+.lg-list{display:flex;flex-direction:column;gap:10px;margin-top:6px}
+.lg-card{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#fff;text-align:left;width:100%;transition:background .15s,transform .15s}
+.lg-card:hover{background:rgba(255,255,255,.14);transform:translateY(-1px)}
+.lg-card .av{background:var(--peach);color:var(--on-accent)}
+.lg-card .tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.lg-card .tx b{font-size:16px}
+.lg-card .tx span{font-size:13px;color:#C8D3E6}
+.lg-card .bd{font-size:11.5px;font-weight:800;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.14);white-space:nowrap}
+.lg-card .bd.own{background:var(--peach);color:var(--on-accent)}
+.a-login .note{font-size:12.5px;color:#9FB0CC;line-height:1.45;margin:4px 0 0}
+.a-scope{display:grid;grid-template-columns:1fr 1fr;gap:3px;padding:3px;margin:0 6px 10px;border-radius:999px;background:rgba(255,255,255,.08)}
+.a-side .a-scope button{min-height:30px;justify-content:center;padding:0 6px;font-size:12px;border-radius:999px;color:#AEBBD2}
+.a-side .a-scope button.on{background:#fff;color:var(--navy)}
+.a-me{display:flex;align-items:center;gap:10px;padding:2px 10px 12px}
+.a-me .av{width:34px;height:34px;font-size:12.5px;background:var(--peach);color:var(--on-accent)}
+.a-me div b{display:block;color:#fff;font-size:13.5px}
+.a-me div span{display:block;font-size:11.5px;color:#AEBBD2}
+.team-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--line)}
+.team-row:first-of-type{border-top:0}
+.team-row .tx{flex:1;min-width:0}
+.team-row .tx b{display:block;font-size:14.5px}
+.team-row .tx span{font-size:12.5px;color:var(--sub)}
+</style>
 </head>
 <body>
 <div class="shell">
@@ -613,13 +642,25 @@ table.st-t th{font-size:11.5px;color:var(--sub);text-transform:uppercase;letter-
       weight: [72.3, 71.6], strength: { name: 'Sentadilla con electro', unit: 'reps', vals: [10, 12] },
       checks: genChecks(11, [8], { sleep: 7.4, rest: 4, str: 3 }), done: 4, note: 'Bienvenida, Leire. Las dos primeras semanas son de adaptación: sin prisa.', chat: [] }, fromTpl('grasa'));
     leire.checks[leire.checks.length - 1].pain = 'leve'; leire.checks[leire.checks.length - 1].zone = 'Rodilla';
+    var irati = Object.assign({ id: 'irati', name: 'Irati Goñi', goal: 'Mejorar postura y tonificar', start: iso(addDays(T, -47)), coach: 'c1', waOk: true,
+      weight: [61.2, 60.9, 60.8, 60.4, 60.1], strength: { name: 'Hip thrust', unit: 'kg', vals: [20, 24, 26, 30, 32] },
+      checks: genChecks(18, [9, 4], { sleep: 7.2, rest: 3.8, str: 3 }), done: 16, note: 'Irati, muy bien la postura esta semana. Seguimos con el core.', chat: [] }, fromTpl('ems'));
+    var ane = Object.assign({ id: 'ane', name: 'Ane Lasa', goal: 'Perder grasa y ganar energía', start: iso(addDays(T, -26)), coach: 'c2', waOk: true,
+      weight: [77.8, 77.1, 76.5, 75.9], strength: { name: 'Sentadilla con electro', unit: 'reps', vals: [10, 12, 14, 15] },
+      checks: genChecks(15, [12, 5], { sleep: 6.8, rest: 3.4, str: 3 }), done: 9, note: 'Ane, esta semana subimos un poco en piernas. Cuidado con el hombro en el press.', chat: [] }, fromTpl('grasa'));
+    var pablo = Object.assign({ id: 'pablo', name: 'Pablo Ríos', goal: 'Ganar fuerza para el pádel', start: iso(addDays(T, -40)), coach: 'c2', waOk: false,
+      weight: [79.0, 79.2, 79.5, 79.9], strength: { name: 'Peso muerto rumano', unit: 'kg', vals: [40, 46, 50, 56] },
+      checks: genChecks(19, [6, 5, 4, 3], { sleep: 7, rest: 3.5, str: 3 }), done: 14, note: 'Pablo, recuerda la movilidad de cadera antes del pádel.', chat: [] }, fromTpl('f40'));
+    irati.profile = { goal: 'Ganar músculo', why: 'Trabajo sentada y quiero mejorar la postura', exp: 'He entrenado a rachas', likes: ['Electrofitness', 'Pilates'], dislikes: ['Correr'], days: '2 días', injury: 'Ninguna', diet: 'Como de todo', foods: ['Pescado', 'Verdura', 'Fruta'], nofood: '', meals: '4', cook: 'Sí, me gusta', sleepH: 7, sleepQ: 'Del tirón', stress: 3, when: 'Mañana' };
+    ane.profile = { goal: 'Perder grasa', why: 'Quiero tener más energía en el día a día', exp: 'Empiezo de cero', likes: ['Electrofitness'], dislikes: ['Saltos'], days: '2 días', injury: 'Hombro', diet: 'Como de todo', foods: ['Carne', 'Huevos', 'Verdura'], nofood: '', meals: '3', cook: 'Lo justo', sleepH: 6.5, sleepQ: 'Me despierto alguna vez', stress: 4, when: 'Tarde' };
+    pablo.profile = { goal: 'Rendir más en mi deporte', why: 'Juego al pádel 3 días y quiero no lesionarme', exp: 'Entreno de forma habitual', likes: ['Pesas'], dislikes: ['Clases en grupo'], days: '2 días', injury: 'Ninguna', diet: 'Como de todo', foods: ['Carne', 'Pasta y arroz', 'Legumbres'], nofood: '', meals: '4', cook: 'Casi nunca, como fuera', sleepH: 7, sleepQ: 'Del tirón', stress: 2, when: 'Tarde' };
     marta.profile = { goal: 'Ganar músculo', why: 'Quiero sentirme fuerte y con energía para todo el día', exp: 'He entrenado a rachas', likes: ['Pesas', 'Electrofitness'], dislikes: ['Correr'], days: '3 días', injury: 'Ninguna', diet: 'Como de todo', foods: ['Pescado', 'Huevos', 'Verdura', 'Fruta'], nofood: 'Hígado', meals: '4', cook: 'Lo justo', sleepH: 7, sleepQ: 'Me despierto alguna vez', stress: 3, when: 'Tarde' };
     inaki.profile = { goal: 'Cuidar la espalda o una lesión', why: 'Me paso el día sentado y la espalda me avisa', exp: 'Entreno de forma habitual', likes: ['Pesas', 'Movilidad y estiramientos'], dislikes: ['Saltos'], days: '3 días', injury: 'Espalda', diet: 'Como de todo', foods: ['Carne', 'Legumbres', 'Pasta y arroz'], nofood: '', meals: '3', cook: 'Casi nunca, como fuera', sleepH: 6.5, sleepQ: 'Mal, me cuesta', stress: 4, when: 'Mañana' };
     leire.profile = { goal: 'Perder grasa', why: 'Quiero verme y sentirme mejor', exp: 'Empiezo de cero', likes: ['Clases en grupo', 'Electrofitness'], dislikes: ['Burpees'], days: '3 días', injury: 'Ninguna', diet: 'Vegetariano/a', foods: ['Huevos', 'Legumbres', 'Verdura', 'Lácteos'], nofood: 'Champiñones', meals: '4', cook: 'Sí, me gusta', sleepH: 7.5, sleepQ: 'Del tirón', stress: 2, when: 'Tarde' };
     var y = iso(addDays(T, -1));
     return {
-      v: 4, brand: B, forms: FORMS(), active: 'marta', templates: templates, clients: [marta, inaki, leire],
-      team: [{ id: 'c1', name: coach, role: 'Responsable y entrenador' }, { id: 'c2', name: 'Carlos', role: 'Entrenador' }],
+      v: 5, me: null, scope: 'all', brand: B, forms: FORMS(), active: 'marta', templates: templates, clients: [marta, irati, leire, inaki, ane, pablo],
+      team: [{ id: 'c1', name: coach, role: 'Dirección y entrenador', owner: true }, { id: 'c2', name: 'Carlos', role: 'Entrenador' }],
       assistant: {
         tone: 'cercano', name: coach,
         rules: [
@@ -630,7 +671,7 @@ table.st-t th{font-size:11.5px;color:var(--sub);text-transform:uppercase;letter-
         ],
         escalate: ['dolor', 'duele', 'lesion', 'mareo', 'pecho', 'embarazo', 'embarazada', 'marcapasos', 'medicacion']
       },
-      inbox: [{ id: uid(), client: 'leire', q: 'Me molesta un poco la rodilla al bajar escaleras, ¿hago igual la electro?', date: y, done: false }],
+      inbox: [{ id: uid(), client: 'leire', q: 'Me molesta un poco la rodilla al bajar escaleras, ¿hago igual la electro?', date: y, done: false }, { id: uid(), client: 'ane', q: 'El hombro me tira un poco en el press, ¿lo hago igual el jueves?', date: y, done: false }],
       dismissed: [],
       wa: {
         marta: [{ from: 'centro', t: 'Hola Marta, te recordamos que hoy a las 18:00 tienes Electrofitness. ¡Te esperamos!', time: '16:00', day: y, tpl: 'Recordatorio de sesión', st: 'read' }, { from: 'cliente', t: '¡Allí estaré!', time: '16:12', day: y }],
@@ -664,7 +705,7 @@ table.st-t th{font-size:11.5px;color:var(--sub);text-transform:uppercase;letter-
   var KEY = 'galerna-demo-abierta-v1';
   var S, hb = parseHash();
   try { S = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { S = null; }
-  if (!S || S.v !== 4) S = seed(hb || DEF_BRAND);
+  if (!S || S.v !== 5) S = seed(hb || DEF_BRAND);
   else if (hb && tokenFor(hb) !== tokenFor(S.brand)) S = seed(hb);
   function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
   save();
@@ -675,6 +716,13 @@ table.st-t th{font-size:11.5px;color:var(--sub);text-transform:uppercase;letter-
   function client(id) { return S.clients.filter(function (c) { return c.id === (id || S.active); })[0] || S.clients[0]; }
   function tplById(id) { return S.templates.filter(function (t) { return t.id === id; })[0]; }
   function coachOf(c) { return S.team.filter(function (t) { return t.id === c.coach; })[0] || S.team[0]; }
+  function me() { return S.team.filter(function (t) { return t.id === S.me; })[0] || null; }
+  function isOwner() { var m = me(); return !!(m && m.owner); }
+  function seeAll() { return isOwner() && S.scope !== 'mine'; }
+  function mine() { var m = me(); return (!m || seeAll()) ? S.clients : S.clients.filter(function (c) { return c.coach === m.id; }); }
+  function isMine(c) { return mine().indexOf(c) !== -1; }
+  function myInbox() { return S.inbox.filter(function (x) { if (x.done) return false; var c = S.clients.filter(function (k) { return k.id === x.client; })[0]; return c && isMine(c); }); }
+  var OWNER_ONLY = ['leads', 'forms', 'equipo', 'asistente', 'auto', 'comunidad', 'informes', 'marca', 'completa'];
   function lastCheck(c) { return c.checks[c.checks.length - 1]; }
   function checkedToday(c) { var l = lastCheck(c); return l && l.date === iso(T); }
   function daysSinceCheck(c) { var l = lastCheck(c); return l ? Math.round((T - parse(l.date)) / 864e5) : 99; }
@@ -730,7 +778,7 @@ table.st-t th{font-size:11.5px;color:var(--sub);text-transform:uppercase;letter-
 
   function $(id) { return document.getElementById(id); }
   var STC = { ch: 'card-h', st: 'subt', t: 'title', pri: 'navy', acc: 'peach', scroll: 'c-scroll', acol: '#E0603A', home: 'Inicio' };
-  function stPeople() { return S.clients; }
+  function stPeople() { return mine(); }
   function stSeedPeople() { return S.clients; }
   function stGet(id) { return client(id); }
   function stTrainers() { return S.team.map(function (t) { return t.name; }); }
@@ -786,7 +834,7 @@ table.st-t th{font-size:11.5px;color:var(--sub);text-transform:uppercase;letter-
       var base = 38 + (k * 7) % 16; p.slog = [];
       for (var i = 0; i < 6; i++) {
         var z = {}; ST_ZONES.forEach(function (n, j) { z[n] = Math.min(95, base + i * 3 + ((j * 5 + k) % 12) - (n === 'Lumbar' ? 6 : 0)); });
-        p.slog.push({ d: iso(addDays(T, -(20 - i * 3 - (k % 2)))), by: tr[(i + k) % tr.length], prog: ST_PROGS[(i + k) % 4], z: z, ex: 'Sentadilla, zancada, remo, press, plancha', rpe: 6 + (i + k) % 3, note: notes[(i + k) % notes.length], tips: [ST_TIPS[0], ST_TIPS[(i + k) % ST_TIPS.length]].filter(function (x, ix, a) { return a.indexOf(x) === ix; }) });
+        p.slog.push({ d: iso(addDays(T, -(20 - i * 3 - (k % 2)))), by: (i === 2 && tr.length > 1) ? tr[(tr.indexOf(stCoachName(p)) + 1) % tr.length] : stCoachName(p), prog: ST_PROGS[(i + k) % 4], z: z, ex: 'Sentadilla, zancada, remo, press, plancha', rpe: 6 + (i + k) % 3, note: notes[(i + k) % notes.length], tips: [ST_TIPS[0], ST_TIPS[(i + k) % ST_TIPS.length]].filter(function (x, ix, a) { return a.indexOf(x) === ix; }) });
       }
       var peso = 64 + (k * 9) % 22, grasa = 28 + (k * 3) % 9, mus = 24 + (k * 2) % 8, cin = 78 + (k * 5) % 16;
       p.meas = [90, 60, 30, 2].map(function (ago, i) { return { d: iso(addDays(T, -ago)), peso: Math.round((peso - i * 0.7) * 10) / 10, grasa: Math.round((grasa - i * 0.9) * 10) / 10, musculo: Math.round((mus + i * 0.35) * 10) / 10, cintura: Math.round((cin - i * 1.3) * 10) / 10, cadera: Math.round((cin + 18 - i * 0.8) * 10) / 10, brazo: Math.round((29 + (k % 4) + i * 0.2) * 10) / 10 }; });
@@ -858,7 +906,7 @@ table.st-t th{font-size:11.5px;color:var(--sub);text-transform:uppercase;letter-
   /* ---------- panel ---------- */
   function aHoy() {
     var ppl = stPeople(); UI.sts = UI.sts && ppl.some(function (x) { return x.id === UI.sts; }) ? UI.sts : (ppl[0] && ppl[0].id);
-    var h = head('Sesión de hoy', 'Cómo viene cada cliente, qué tener en cuenta y el registro de la sesión en menos de un minuto.');
+    var h = head('Sesión de hoy', (seeAll() ? 'Todos los clientes del centro: ' : 'Tus clientes: ') + 'cómo viene cada uno, qué tener en cuenta y el registro de la sesión en menos de un minuto.');
     if (!ppl.length) return h + '<div class="box"><p class="' + STC.st + '">Aún no hay clientes.</p></div>';
     h += '<div class="st-hoy"><div class="box st-list">' + ppl.map(function (p) { var pr = stPre(p), fl = stFlags(pr); return '<button type="button" class="st-li' + (p.id === UI.sts ? ' on' : '') + '" data-sthsel="' + p.id + '"><b>' + esc(p.name) + '</b><span>' + (!pr ? '<em class="st-tag mute">Sin responder</em>' : fl.length ? fl.map(function (x) { return '<em class="st-tag ' + x.c + '">' + esc(x.t) + '</em>'; }).join('') : '<em class="st-tag ok">Viene bien</em>') + '</span></button>'; }).join('') + '</div>';
     var p = stGet(UI.sts), pr = stPre(p), fl = stFlags(pr), l = stLast(p), prof = p.profile || {};
@@ -866,7 +914,7 @@ table.st-t th{font-size:11.5px;color:var(--sub);text-transform:uppercase;letter-
       (fl.length || (prof.injury && prof.injury !== 'Ninguna') ? '<div class="st-warn"><b>Ten en cuenta</b>' + fl.map(function (x) { return '<span>' + esc(x.t) + '</span>'; }).join('') + (prof.injury && prof.injury !== 'Ninguna' ? '<span>Lesión indicada al darse de alta: ' + esc(String(prof.injury).toLowerCase()) + '</span>' : '') + '</div>' : '') + '</div>';
     var z = l ? l.z : {};
     h += '<form class="box form" id="stSesForm"><h3>Registrar la sesión <small>' + (l ? 'precargado con la del ' + esc(short(parse(l.d))) : 'primera sesión') + '</small></h3>' +
-      '<div class="grid2" style="gap:10px"><label class="lab" for="stBy">Entrenador<select class="inp" id="stBy">' + stTrainers().map(function (t) { return '<option' + (l && l.by === t ? ' selected' : '') + '>' + esc(t) + '</option>'; }).join('') + '</select></label><label class="lab" for="stProg">Programa<select class="inp" id="stProg">' + ST_PROGS.map(function (t) { return '<option' + (l && l.prog === t ? ' selected' : '') + '>' + t + '</option>'; }).join('') + '</select></label></div>' +
+      '<div class="grid2" style="gap:10px"><label class="lab" for="stBy">Entrenador<select class="inp" id="stBy">' + stTrainers().map(function (t) { return '<option' + ((me() ? me().name === t : l && l.by === t) ? ' selected' : '') + '>' + esc(t) + '</option>'; }).join('') + '</select></label><label class="lab" for="stProg">Programa<select class="inp" id="stProg">' + ST_PROGS.map(function (t) { return '<option' + (l && l.prog === t ? ' selected' : '') + '>' + t + '</option>'; }).join('') + '</select></label></div>' +
       '<p class="lab" style="margin:4px 0 0">Intensidad por zona</p><div class="st-sl">' + ST_ZONES.map(function (n, i) { var v = z[n] != null ? z[n] : 40; return '<label for="zr-' + i + '"><span>' + n + '</span><input type="range" min="0" max="100" step="1" id="zr-' + i + '" data-zone="' + i + '" value="' + v + '"><b class="num" id="zv-' + i + '">' + v + '</b>' + (l ? '<small>antes ' + (z[n] || 0) + '</small>' : '') + '</label>'; }).join('') + '</div>' +
       '<div class="grid2" style="gap:10px"><label class="lab" for="stEx">Ejercicios<input class="inp" id="stEx" value="' + esc(l ? l.ex : '') + '" placeholder="Sentadilla, remo, plancha…"></label><label class="lab" for="stRpe">Esfuerzo percibido<select class="inp" id="stRpe">' + [5, 6, 7, 8, 9, 10].map(function (v) { return '<option' + (l && l.rpe === v ? ' selected' : v === 7 && !l ? ' selected' : '') + '>' + v + '</option>'; }).join('') + '</select></label></div>' +
       '<label class="lab" for="stNoteC">Nota para el cliente (la ve en su app)<textarea class="ta" id="stNoteC" rows="2" placeholder="Por ejemplo: hoy hemos subido en piernas, muy bien la técnica"></textarea></label>' +
@@ -1310,9 +1358,9 @@ table.st-t th{font-size:11.5px;color:var(--sub);text-transform:uppercase;letter-
 
   /* ================= PANEL ================= */
   var aRoot = document.getElementById('admin');
-  function alerts() {
+  function alerts(all) {
     var out = [];
-    S.clients.forEach(function (c) {
+    (all ? S.clients : mine()).forEach(function (c) {
       var l = lastCheck(c), ds = daysSinceCheck(c);
       if (l && l.pain !== 'no' && (T - parse(l.date)) / 864e5 <= 2) out.push({ id: c.id + '-pain-' + l.date, c: c, type: 'pain', zona: l.zone || 'zona', lvl: 'bad', t: 'Molestia en ' + (l.zone || 'zona sin indicar').toLowerCase(), d: 'Check-in del ' + short(parse(l.date)) + (l.note ? ' · «' + l.note + '»' : '') });
       if (l && l.rest <= 2 && (T - parse(l.date)) / 864e5 <= 2) out.push({ id: c.id + '-rest-' + l.date, c: c, type: 'rest', lvl: 'warn', t: 'Recuperación baja (' + l.rest + '/5)', d: 'Durmió ' + nf(l.sleep, 1) + ' h. Valora bajar la carga.' });
@@ -1321,33 +1369,43 @@ table.st-t th{font-size:11.5px;color:var(--sub);text-transform:uppercase;letter-
     return out.filter(function (a) { return S.dismissed.indexOf(a.id) === -1; });
   }
   function aSide() {
-    var nAl = alerts().length + S.inbox.filter(function (x) { return !x.done; }).length;
+    var nAl = alerts().length + myInbox().length, M = me(), own = isOwner();
     var nLead = S.leads.filter(function (l) { return l.stage === 'nuevo' || l.fresh; }).length;
-    var nWa = Object.keys(S.waUnread).filter(function (k) { return S.waUnread[k]; }).length;
+    var nWa = mine().filter(function (c) { return S.waUnread[c.id]; }).length;
     var on = { ficha: 'clientes', tpl: 'planes' }[UI.a] || UI.a;
     function b(r, l, ic, n) { return '<button type="button" data-a="' + r + '" class="' + (on === r ? 'on' : '') + '"' + (on === r ? ' aria-current="page"' : '') + '>' + ic + l + (n ? '<span class="n">' + n + '</span>' : '') + '</button>'; }
-    return '<nav class="a-side" aria-label="Menú del panel"><p class="a-brand">' + brandWord(S.brand) + '</p><p class="a-who">Panel de ' + esc(S.brand.coach) + '</p>' +
-      b('resumen', 'Resumen', IC.grid, nAl) + b('hoy', 'Sesión de hoy', IC.form) + b('leads', 'Captación', IC.funnel, nLead) +
-      '<p class="a-grp">Clientes</p>' + b('clientes', 'Clientes', IC.users) + b('planes', 'Plantillas de plan', IC.tpl) + b('forms', 'Cuestionarios', IC.form) + b('equipo', 'Equipo', IC.team) +
-      '<p class="a-grp">Asistente y mensajes</p>' + b('asistente', 'Entrenar asistente', IC.bot) + b('whatsapp', 'WhatsApp', IC.wa, nWa) + b('auto', 'Recordatorios', IC.bell) +
-      '<p class="a-grp">Centro</p>' + b('comunidad', 'Comunidad y retos', IC.trophy) + b('informes', 'Informes', IC.chart) + b('marca', 'Marca de la app', IC.brush) + b('completa', 'Versión completa', IC.star) +
+    return '<nav class="a-side" aria-label="Menú del panel"><p class="a-brand" style="padding-bottom:12px">' + brandWord(S.brand) + '</p>' +
+      '<div class="a-me"><span class="av" aria-hidden="true">' + esc(initials(M.name)) + '</span><div><b>' + esc(M.name) + '</b><span>' + esc(own ? 'Dirección · ve todo el centro' : M.role + ' · ' + mine().length + ' clientes') + '</span></div></div>' +
+      (own ? '<div class="a-scope" role="group" aria-label="Qué ver"><button type="button" data-scope="all" class="' + (seeAll() ? 'on' : '') + '">Todo el centro</button><button type="button" data-scope="mine" class="' + (seeAll() ? '' : 'on') + '">Mis clientes</button></div>' : '') +
+      b('resumen', 'Resumen', IC.grid, nAl) + b('hoy', 'Sesión de hoy', IC.form) + (own ? b('leads', 'Captación', IC.funnel, nLead) : '') +
+      '<p class="a-grp">' + (seeAll() ? 'Clientes' : 'Mis clientes') + '</p>' + b('clientes', seeAll() ? 'Clientes' : 'Mis clientes', IC.users) + b('planes', 'Plantillas de plan', IC.tpl) + (own ? b('forms', 'Cuestionarios', IC.form) + b('equipo', 'Equipo', IC.team) : '') +
+      '<p class="a-grp">' + (own ? 'Asistente y mensajes' : 'Mensajes') + '</p>' + (own ? b('asistente', 'Entrenar asistente', IC.bot) : '') + b('whatsapp', 'WhatsApp', IC.wa, nWa) + (own ? b('auto', 'Recordatorios', IC.bell) : '') +
+      (own ? '<p class="a-grp">Centro</p>' + b('comunidad', 'Comunidad y retos', IC.trophy) + b('informes', 'Informes', IC.chart) + b('marca', 'Marca de la app', IC.brush) + b('completa', 'Versión completa', IC.star) : '') +
       b('nuevo', 'Nuevo cliente', IC.plus) +
-      '<span class="spacer"></span><button type="button" class="reset" data-a="reset">Reiniciar la demo</button><p class="pow">' + GLOGO + '<span>Demo para gimnasios</span></p></nav>';
+      '<span class="spacer"></span><button type="button" class="reset" data-logout="1">Cerrar sesión · cambiar de usuario</button><button type="button" class="reset" data-a="reset">Reiniciar la demo</button><p class="pow">' + GLOGO + '<span>Demo para centros de entrenamiento</span></p></nav>';
+  }
+  function aLogin() {
+    return '<div class="a-login"><div class="lg"><p class="a-brand">' + brandWord(S.brand) + '</p><h2>Acceso al panel</h2><p class="sub">Cada entrenador entra con su cuenta y ve solo a sus clientes. La dirección ve todo el centro.</p>' +
+      '<div class="lg-list">' + S.team.map(function (t) { var n = S.clients.filter(function (c) { return c.coach === t.id; }).length; return '<button type="button" class="lg-card" data-login="' + t.id + '"><span class="av" aria-hidden="true">' + esc(initials(t.name)) + '</span><span class="tx"><b>' + esc(t.name) + '</b><span>' + esc(t.role) + ' · ' + n + ' cliente' + (n === 1 ? '' : 's') + '</span></span><span class="bd' + (t.owner ? ' own' : '') + '">' + (t.owner ? 'Ve todo' : 'Solo los suyos') + '</span></button>'; }).join('') + '</div>' +
+      '<p class="note">En la versión instalada cada uno entra desde su móvil con su email y un código de acceso. Aquí eliges con quién entrar para ver la diferencia.</p></div></div>';
   }
   function head(t, p, right) { return '<div class="a-head"><div><h2>' + t + '</h2>' + (p ? '<p>' + p + '</p>' : '') + '</div>' + (right || '') + '</div>'; }
   function greet() { var hr = new Date().getHours(); return hr < 14 ? 'Buenos días' : hr < 21 ? 'Buenas tardes' : 'Buenas noches'; }
 
   function aResumen() {
-    var al = alerts(), inbox = S.inbox.filter(function (x) { return !x.done; });
-    var checksToday = S.clients.filter(checkedToday).length, newLeads = S.leads.filter(function (l) { return l.stage !== 'cliente'; }).length;
-    var h = head(greet() + ', ' + esc(S.brand.coach), esc(fmt(T)) + ' · lo que necesita tu atención hoy') +
-      '<div class="grid4" style="margin-bottom:16px"><div class="box stat"><span>Clientes activos</span><b class="num">' + S.clients.length + '</b></div><div class="box stat"><span>Check-ins de hoy</span><b class="num">' + checksToday + ' / ' + S.clients.length + '</b></div><div class="box stat"><span>Preguntas para ti</span><b class="num">' + inbox.length + '</b></div><button type="button" class="box stat" data-a="leads" style="text-align:left"><span>Leads en marcha</span><b class="num">' + newLeads + '</b><small>Ver captación →</small></button></div>' +
+    var al = alerts(), inbox = myInbox(), M = me(), cl = mine();
+    var checksToday = cl.filter(checkedToday).length, newLeads = S.leads.filter(function (l) { return l.stage !== 'cliente'; }).length;
+    var wk = 0; cl.forEach(function (c) { (c.slog || []).forEach(function (x) { if ((T - parse(x.d)) / 864e5 < 7 && (seeAll() || x.by === M.name)) wk++; }); });
+    var h = head(greet() + ', ' + esc(M.name), esc(fmt(T)) + ' · ' + (seeAll() ? 'así va el centro hoy' : 'lo que necesitan tus clientes hoy')) +
+      '<div class="grid4" style="margin-bottom:16px"><div class="box stat"><span>' + (seeAll() ? 'Clientes del centro' : 'Tus clientes') + '</span><b class="num">' + cl.length + '</b></div><div class="box stat"><span>Check-ins de hoy</span><b class="num">' + checksToday + ' / ' + cl.length + '</b></div><div class="box stat"><span>Preguntas para ti</span><b class="num">' + inbox.length + '</b></div>' +
+      (isOwner() ? '<button type="button" class="box stat" data-a="leads" style="text-align:left"><span>Leads en marcha</span><b class="num">' + newLeads + '</b><small>Ver captación →</small></button>' : '<button type="button" class="box stat" data-a="hoy" style="text-align:left"><span>Sesiones tuyas (7 días)</span><b class="num">' + wk + '</b><small>Registrar la de hoy →</small></button>') + '</div>' +
+      (seeAll() ? '<div class="box" style="margin-bottom:16px"><h3>Tu equipo hoy <small>' + S.team.length + ' entrenadores</small></h3>' + S.team.map(function (t) { var cs = S.clients.filter(function (c) { return c.coach === t.id; }), na = alerts(true).filter(function (a) { return a.c.coach === t.id; }).length, pend = cs.filter(function (c) { return !stPre(c); }).length, ses = 0; cs.forEach(function (c) { (c.slog || []).forEach(function (x) { if ((T - parse(x.d)) / 864e5 < 7) ses++; }); }); return '<div class="team-row"><span class="avs">' + esc(initials(t.name)) + '</span><div class="tx"><b>' + esc(t.name) + '</b><span>' + esc(t.role) + '</span></div><span class="chip info">' + cs.length + ' clientes</span><span class="chip mute">' + ses + ' sesiones 7 d</span>' + (na ? '<span class="chip warn">' + na + ' alerta' + (na === 1 ? '' : 's') + '</span>' : '<span class="chip ok">Sin alertas</span>') + (pend ? '<span class="chip mute">' + pend + ' sin «cómo vienes»</span>' : '') + '</div>'; }).join('') + '</div>' : '') +
       '<div class="grid2"><div class="box"><h3>Alertas <small>' + al.length + '</small></h3><div class="list">' + (al.length ? al.map(alertRow).join('') : '<p class="subt">Todo en orden. Ninguna alerta.</p>') + '</div></div>' +
       '<div class="box"><h3>Preguntas que te pasa el asistente <small>' + inbox.length + '</small></h3><div class="list">' +
       (inbox.length ? inbox.map(function (q) { var c = client(q.client); return '<div class="li" style="flex-direction:column;align-items:stretch;gap:4px"><div style="display:flex;gap:10px;align-items:center"><span class="avs">' + initials(c.name) + '</span><div class="tx"><b>' + esc(c.name) + '</b><span>' + esc(short(parse(q.date))) + '</span></div></div><p style="font-size:14px;line-height:1.45;margin-top:4px">' + (q.ch === 'wa' ? '<span class="chip ok" style="margin-right:6px">Por WhatsApp</span>' : '') + '«' + esc(q.q) + '»</p><form class="inbox-r" data-inbox="' + q.id + '"><label class="sr" for="r-' + q.id + '">Respuesta</label><input id="r-' + q.id + '" class="inp" placeholder="Responde a ' + esc(first(c.name)) + '…"><button type="submit" class="btn-a pri">Enviar</button></form></div>'; }).join('') : '<p class="subt">No hay preguntas pendientes.</p>') +
       '</div></div></div>' +
-      '<div class="box" style="margin-top:16px"><h3>Retención por WhatsApp <small>últimos 7 días</small></h3><div class="grid3"><div class="stat"><span>Mensajes enviados</span><b class="num">' + S.stats.sent + '</b></div><div class="stat"><span>Clientes que contestan</span><b class="num">' + S.stats.replies + '</b></div><div class="stat"><span>Clientes recuperados</span><b class="num">' + S.stats.recovered + '</b></div></div>' +
-      '<div class="actions" style="justify-content:flex-start"><button type="button" class="btn-a sec" data-a="whatsapp">' + IC.wa + 'Ver conversaciones</button><button type="button" class="btn-a sec" data-a="auto">' + IC.bell + 'Recordatorios automáticos</button></div></div>';
+      (!isOwner() ? '' : '<div class="box" style="margin-top:16px"><h3>Retención por WhatsApp <small>últimos 7 días</small></h3><div class="grid3"><div class="stat"><span>Mensajes enviados</span><b class="num">' + S.stats.sent + '</b></div><div class="stat"><span>Clientes que contestan</span><b class="num">' + S.stats.replies + '</b></div><div class="stat"><span>Clientes recuperados</span><b class="num">' + S.stats.recovered + '</b></div></div>' +
+      '<div class="actions" style="justify-content:flex-start"><button type="button" class="btn-a sec" data-a="whatsapp">' + IC.wa + 'Ver conversaciones</button><button type="button" class="btn-a sec" data-a="auto">' + IC.bell + 'Recordatorios automáticos</button></div></div>');
     return h;
   }
   function alertRow(a) {
@@ -1429,12 +1487,13 @@ table.st-t th{font-size:11.5px;color:var(--sub);text-transform:uppercase;letter-
     return h;
   }
   function aClientes() {
-    var h = head('Clientes', S.clients.length + ' clientes con plan activo', '<button type="button" class="btn-a pri" data-a="nuevo">' + IC.plus + 'Nuevo cliente</button>');
-    h += '<div class="box"><div class="tbl-wrap"><table><thead><tr><th>Cliente</th><th>Entrenador</th><th>Plan</th><th>Semana</th><th>Último check-in</th><th>Estado</th></tr></thead><tbody>' +
-      S.clients.map(function (c) {
+    var cl = mine(), all = seeAll();
+    var h = head(all ? 'Clientes' : 'Mis clientes', cl.length + ' clientes con plan activo' + (all ? ' en el centro' : ' asignados a ti'), '<button type="button" class="btn-a pri" data-a="nuevo">' + IC.plus + 'Nuevo cliente</button>');
+    h += '<div class="box"><div class="tbl-wrap"><table><thead><tr><th>Cliente</th>' + (all ? '<th>Entrenador</th>' : '') + '<th>Plan</th><th>Semana</th><th>Último check-in</th><th>Estado</th></tr></thead><tbody>' +
+      cl.map(function (c) {
         var l = lastCheck(c), ds = daysSinceCheck(c);
         var st = l && l.pain !== 'no' && ds <= 2 ? '<span class="chip bad"><span class="dot"></span>Molestia</span>' : l && ds >= 3 ? '<span class="chip warn"><span class="dot"></span>Sin registrar</span>' : !l ? '<span class="chip info"><span class="dot"></span>Nuevo</span>' : '<span class="chip ok"><span class="dot"></span>Al día</span>';
-        return '<tr class="click" data-open="' + c.id + '" tabindex="0"><td><b>' + esc(c.name) + '</b></td><td>' + esc(coachOf(c).name) + '</td><td>' + esc(c.planName) + '</td><td class="num">' + Math.min(weeksSince(c.start), c.weeks) + ' / ' + c.weeks + '</td><td>' + (l ? (ds === 0 ? 'Hoy' : ds === 1 ? 'Ayer' : 'Hace ' + ds + ' días') : '—') + '</td><td>' + st + '</td></tr>';
+        return '<tr class="click" data-open="' + c.id + '" tabindex="0"><td><b>' + esc(c.name) + '</b></td>' + (all ? '<td>' + esc(coachOf(c).name) + '</td>' : '') + '<td>' + esc(c.planName) + '</td><td class="num">' + Math.min(weeksSince(c.start), c.weeks) + ' / ' + c.weeks + '</td><td>' + (l ? (ds === 0 ? 'Hoy' : ds === 1 ? 'Ayer' : 'Hace ' + ds + ' días') : '—') + '</td><td>' + st + '</td></tr>';
       }).join('') + '</tbody></table></div></div>';
     return h;
   }
@@ -1446,8 +1505,8 @@ table.st-t th{font-size:11.5px;color:var(--sub);text-transform:uppercase;letter-
   function aFicha() {
     var c = client(UI.aClient), w = c.weight, st = c.strength, N = c.nutrition;
     var h = head(esc(c.name), esc(c.goal) + ' · empezó el ' + esc(fmt(parse(c.start), { day: 'numeric', month: 'long' })) + ' · ' + esc(c.planName),
-      '<div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn-a sec" data-a="clientes">' + IC.back + 'Clientes</button>' + (c.waOk ? '<button type="button" class="btn-a wa-btn" data-thread="' + c.id + '">' + IC.wa + 'WhatsApp</button>' : '<button type="button" class="btn-a sec" data-consent="' + c.id + '">Marcar que acepta WhatsApp</button>') + '<button type="button" class="btn-a peach" data-view="' + c.id + '">Ver su app</button></div>');
-    h += '<div class="box" style="margin-bottom:16px;display:flex;gap:14px;align-items:center;flex-wrap:wrap"><label class="lab" style="flex-direction:row;align-items:center;gap:10px" for="coachSel">Entrenador asignado<select class="sel" id="coachSel" style="width:auto">' + S.team.map(function (t) { return '<option value="' + t.id + '"' + (t.id === c.coach ? ' selected' : '') + '>' + esc(t.name) + ' · ' + esc(t.role) + '</option>'; }).join('') + '</select></label>' + (c.waOk ? '<span class="chip ok">Acepta WhatsApp</span>' : '<span class="chip warn">Sin permiso WhatsApp</span>') + '</div>';
+      '<div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn-a sec" data-a="clientes">' + IC.back + (seeAll() ? 'Clientes' : 'Mis clientes') + '</button>' + (c.waOk ? '<button type="button" class="btn-a wa-btn" data-thread="' + c.id + '">' + IC.wa + 'WhatsApp</button>' : '<button type="button" class="btn-a sec" data-consent="' + c.id + '">Marcar que acepta WhatsApp</button>') + '<button type="button" class="btn-a peach" data-view="' + c.id + '">Ver su app</button></div>');
+    h += '<div class="box" style="margin-bottom:16px;display:flex;gap:14px;align-items:center;flex-wrap:wrap">' + (isOwner() ? '<label class="lab" style="flex-direction:row;align-items:center;gap:10px" for="coachSel">Entrenador asignado<select class="sel" id="coachSel" style="width:auto">' + S.team.map(function (t) { return '<option value="' + t.id + '"' + (t.id === c.coach ? ' selected' : '') + '>' + esc(t.name) + ' · ' + esc(t.role) + '</option>'; }).join('') + '</select></label>' : '<span class="chip info">Cliente de ' + esc(coachOf(c).name) + '</span>') + (c.waOk ? '<span class="chip ok">Acepta WhatsApp</span>' : '<span class="chip warn">Sin permiso WhatsApp</span>') + '</div>';
     h += '<div class="box" style="margin-bottom:16px"><h3>Lo que nos contó al darse de alta <small>' + (c.profile ? 'Cuestionario inicial' : 'Pendiente') + '</small></h3>' + (c.profile ? profileHtml(c.profile) : '<p class="subt" style="margin:0">Aún no ha hecho el cuestionario. Se le pregunta al entrar por primera vez en la app.</p>') + '</div>';
     h += '<div class="grid2" style="margin-bottom:16px"><div class="box mini-chart"><h3>Peso <small>' + nf(w[0], 1) + ' → ' + nf(w[w.length - 1], 1) + ' kg</small></h3>' + lineChart(w, ['Inicio', 'Hoy'], 'kg', '#2D5BA8', 'Peso') + '</div><div class="box mini-chart"><h3>' + esc(st.name) + ' <small>' + st.vals[0] + ' → ' + st.vals[st.vals.length - 1] + ' ' + esc(st.unit) + '</small></h3>' + lineChart(st.vals, ['Inicio', 'Hoy'], st.unit, '#E0603A', st.name) + '</div></div>';
     h += '<div class="box" style="margin-bottom:16px"><h3>Últimos check-ins</h3><div class="tbl-wrap"><table><thead><tr><th>Día</th><th>Sueño</th><th>Descanso</th><th>Fuerza</th><th>Energía</th><th>Comida</th><th>Molestias</th></tr></thead><tbody>' +
@@ -1478,11 +1537,11 @@ table.st-t th{font-size:11.5px;color:var(--sub);text-transform:uppercase;letter-
     return h;
   }
   function aEquipo() {
-    var h = head('Equipo', 'Cada entrenador ve sus clientes, sus alertas y sus conversaciones.');
-    var al = alerts();
+    var h = head('Equipo', 'Cada entrenador entra con su cuenta y solo ve a sus clientes, sus alertas y sus conversaciones. Tú lo ves todo y decides a quién lleva cada uno desde la ficha del cliente.');
+    var al = alerts(true);
     h += '<div class="grid3">' + S.team.map(function (t) {
       var cs = S.clients.filter(function (c) { return c.coach === t.id; }), na = al.filter(function (a) { return a.c.coach === t.id; }).length;
-      return '<div class="box"><div style="display:flex;gap:12px;align-items:center;margin-bottom:12px"><span class="av" aria-hidden="true">' + esc(initials(t.name)) + '</span><div><b style="display:block;font-size:15px">' + esc(t.name) + '</b><span class="subt" style="margin:0;font-size:13px">' + esc(t.role) + '</span></div></div>' +
+      return '<div class="box"><div style="display:flex;gap:12px;align-items:center;margin-bottom:12px"><span class="av" aria-hidden="true">' + esc(initials(t.name)) + '</span><div><b style="display:block;font-size:15px">' + esc(t.name) + '</b><span class="subt" style="margin:0;font-size:13px">' + esc(t.role) + (t.owner ? ' · ve todo' : ' · solo ve los suyos') + '</span></div></div>' +
         '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px"><span class="chip info">' + cs.length + ' cliente' + (cs.length === 1 ? '' : 's') + '</span>' + (na ? '<span class="chip warn">' + na + ' alerta' + (na === 1 ? '' : 's') + '</span>' : '<span class="chip ok">Sin alertas</span>') + '</div>' +
         '<div class="list">' + (cs.length ? cs.map(function (c) { return '<button type="button" class="li" style="width:100%;text-align:left" data-open="' + c.id + '"><span class="avs">' + initials(c.name) + '</span><span class="tx"><b>' + esc(c.name) + '</b><span>' + esc(c.planName) + '</span></span></button>'; }).join('') : '<p class="subt">Sin clientes asignados.</p>') + '</div></div>';
     }).join('') + '</div>' +
@@ -1502,11 +1561,12 @@ table.st-t th{font-size:11.5px;color:var(--sub);text-transform:uppercase;letter-
     return h;
   }
   function aWhatsApp() {
-    if (!UI.waC) { var withMsgs = S.clients.filter(function (c) { return (S.wa[c.id] || []).length; }); UI.waC = (withMsgs[0] || S.clients[0]).id; }
+    var wl = mine();
+    if (!UI.waC || !wl.some(function (c) { return c.id === UI.waC; })) { var withMsgs = wl.filter(function (c) { return (S.wa[c.id] || []).length; }); UI.waC = (withMsgs[0] || wl[0]).id; }
     S.waUnread[UI.waC] = false;
     var c = client(UI.waC), log = S.wa[c.id] || [];
     var h = head('WhatsApp', 'Mensajes desde el número del centro. Cuando el cliente contesta, responde el asistente con tus pautas; lo delicado te llega a ti.', '<button type="button" class="btn-a sec" data-a="auto">' + IC.bell + 'Recordatorios automáticos</button>');
-    var list = S.clients.map(function (x) {
+    var list = wl.map(function (x) {
       var l = (S.wa[x.id] || []), last = l[l.length - 1];
       return '<button type="button" class="wa-row' + (x.id === UI.waC ? ' on' : '') + '" data-thread="' + x.id + '"><span class="avs">' + initials(x.name) + '</span><span class="tx"><b>' + esc(x.name) + '</b><span>' + (last ? esc((last.from === 'centro' ? 'Tú: ' : last.from === 'asistente' ? 'Asistente: ' : '') + last.t) : (x.waOk ? 'Sin mensajes todavía' : 'No ha aceptado WhatsApp')) + '</span></span>' + (S.waUnread[x.id] ? '<span class="wa-dot" aria-label="Sin leer"></span>' : '') + (last ? '<small>' + esc(last.time) + '</small>' : '') + '</button>';
     }).join('');
@@ -1588,7 +1648,7 @@ table.st-t th{font-size:11.5px;color:var(--sub);text-transform:uppercase;letter-
     h += '<form id="newForm" class="box form" style="max-width:680px"><div class="grid2" style="gap:10px"><label class="lab">Nombre y apellido<input class="inp" name="name" required placeholder="Ej. Ane Gómez" value="' + esc(pf.name || '') + '"></label><label class="lab">Peso inicial (kg)<input class="inp" name="w" type="number" step="0.1" min="30" max="250" placeholder="65"></label></div>' +
       '<label class="lab">Objetivo<input class="inp" name="goal" placeholder="Ej. Tonificar y mejorar postura" value="' + esc(pf.goal || '') + '"></label>' +
       '<div class="grid2" style="gap:10px"><label class="lab">Plantilla de plan<select class="sel" name="tpl">' + S.templates.map(function (t) { return '<option value="' + t.id + '"' + (t.id === pre ? ' selected' : '') + '>' + esc(t.name) + ' · ' + t.weeks + ' semanas</option>'; }).join('') + '</select></label>' +
-      '<label class="lab">Entrenador<select class="sel" name="coach">' + S.team.map(function (t) { return '<option value="' + t.id + '">' + esc(t.name) + '</option>'; }).join('') + '</select></label></div>' +
+      (isOwner() ? '<label class="lab">Entrenador<select class="sel" name="coach">' + S.team.map(function (t) { return '<option value="' + t.id + '"' + (t.id === S.me ? ' selected' : '') + '>' + esc(t.name) + '</option>'; }).join('') + '</select></label>' : '<input type="hidden" name="coach" value="' + esc(S.me) + '"><div class="lab">Entrenador<span class="chip info" style="align-self:flex-start;margin-top:6px">' + esc(me().name) + ' · tú</span></div>') + '</div>' +
       '<label style="display:flex;gap:12px;align-items:center;font-size:14px;font-weight:600"><input type="checkbox" class="sw" name="wa" checked>Acepta recibir WhatsApp del centro (recordatorios y seguimiento)</label>' +
       '<label class="lab">Nota de bienvenida<textarea class="ta" name="note">Bienvenido/a a ' + esc(S.brand.name) + '. Aquí tienes tu plan, tus pautas y a tu asistente para cualquier duda.</textarea></label>' +
       '<div class="actions"><button type="submit" class="btn-a pri">Crear cliente y su app</button></div></form>';
@@ -1615,6 +1675,9 @@ table.st-t th{font-size:11.5px;color:var(--sub);text-transform:uppercase;letter-
   }
   var VIEWS = { hoy: aHoy, stinf: aStInf, forms: aForms, resumen: aResumen, leads: aLeads, clientes: aClientes, ficha: aFicha, planes: aPlanes, tpl: aTpl, equipo: aEquipo, asistente: aAsistente, whatsapp: aWhatsApp, auto: aAuto, comunidad: aComunidad, informes: aInformes, marca: aMarca, completa: aCompleta, nuevo: aNuevo };
   function renderA() {
+    if (!me()) { aRoot.innerHTML = aLogin(); return; }
+    if (!isOwner() && OWNER_ONLY.indexOf(UI.a) !== -1) UI.a = 'resumen';
+    if (UI.a === 'ficha' && !isMine(client(UI.aClient))) UI.a = 'clientes';
     var body = (VIEWS[UI.a] || aResumen)();
     var keep = aRoot.querySelector('.a-main'), st = keep ? keep.scrollTop : 0;
     var vals = {}, act = document.activeElement && document.activeElement.id;
@@ -1655,6 +1718,9 @@ table.st-t th{font-size:11.5px;color:var(--sub);text-transform:uppercase;letter-
   aRoot.addEventListener('click', function (e) {
     var b = e.target.closest('button, tr[data-open]'); if (!b) return;
     var d = b.dataset;
+    if (d.login) { S.me = d.login; S.scope = 'all'; save(); var ml = mine(); UI.a = 'resumen'; UI.aClient = ml[0] && ml[0].id; UI.waC = null; UI.sts = null; UI.compose = null; renderA(); var mm = aRoot.querySelector('.a-main'); if (mm) mm.scrollTop = 0; return; }
+    if (d.logout) { S.me = null; save(); renderA(); return; }
+    if (d.scope) { S.scope = d.scope; save(); UI.waC = null; UI.sts = null; renderA(); return; }
     if (stPanelClick(b, d)) return;
     if (d.a) {
       if (d.a === 'reset') { S = seed(S.brand); stSeedAll(); save(); applyBrand(); UI.a = 'resumen'; UI.c = 'splash'; UI.compose = null; UI.waC = null; renderA(); renderC(); return; }
