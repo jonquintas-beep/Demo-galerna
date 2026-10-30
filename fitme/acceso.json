@@ -1,0 +1,29 @@
+{
+ "contacto": {
+  "whatsapp": ""
+ },
+ "accesos": [
+  {
+   "centro": "Fitme",
+   "entrenador": "María",
+   "ciudad": "",
+   "primario": "#111111",
+   "acento": "#FF7A00",
+   "activo": true,
+   "clave": "321d049aa6365d3f14cb5a42a6e64995ac9be10c02bc6135d9cc3fc96e5d30f1",
+   "caduca": "2026-12-31",
+   "nota": "María"
+  },
+  {
+   "centro": "Fitme",
+   "entrenador": "María",
+   "ciudad": "",
+   "primario": "#111111",
+   "acento": "#FF7A00",
+   "activo": true,
+   "clave": "03347dc251ba572a71406a6d2f4ff4cdbf4db003bb2a8ea8848837360bb33689",
+   "caduca": "2026-12-31",
+   "nota": "Jon"
+  }
+ ]
+}
