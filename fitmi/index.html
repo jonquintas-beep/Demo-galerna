@@ -416,6 +416,28 @@ body.big #client{zoom:1.15}
 .splash h1{font-size:clamp(64px,22vw,110px);letter-spacing:.04em;text-shadow:0 6px 30px rgba(0,0,0,.45)}
 .splash h1 i{color:#fff}
 @media (min-width:1000px){.splash .bmark{top:10%;height:40%}}
+
+/* Fitmi: antes y ahora */
+.cmp-h{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.cmp-h h3{font-size:18px}
+.cmp-badge{background:var(--acc);color:var(--on-acc);border-radius:999px;padding:6px 12px;font-size:12.5px;font-weight:700;white-space:nowrap}
+.cmp-badge b{font-size:15px}
+.cmp-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.cmp-c{border:1px solid var(--line);border-radius:16px;padding:12px 14px;background:rgba(255,255,255,.035);display:flex;flex-direction:column;gap:8px;border-top:3px solid var(--tc)}
+.cmp-n{font-size:13.5px;font-weight:700;display:flex;align-items:center;gap:6px}
+.cmp-v{display:flex;align-items:center;gap:10px}
+.cmp-v span{display:flex;flex-direction:column}
+.cmp-v small{font-size:11px;color:var(--sub);text-transform:uppercase;letter-spacing:.06em}
+.cmp-v b{font-size:22px;line-height:1.1}
+.cmp-v span:last-child b{color:var(--tc)}
+.cmp-v i{font-style:normal;color:var(--sub);font-size:18px}
+.cmp-ch svg{width:100%;height:auto;display:block}
+.cmp-d{font-size:13px;font-weight:800;align-self:flex-start;padding:3px 10px;border-radius:999px;background:rgba(255,255,255,.08)}
+.cmp-d.up{background:rgba(56,211,159,.16);color:#38D39F}
+.cmp-d.down{background:rgba(255,90,95,.16);color:#FF7A7E}
+.vt th,.vt td{white-space:nowrap}
+.vt .vt-new{background:rgba(205,113,62,.12)}
+.vt .vt-new .inp{height:34px;width:84px}
 </style>
 </head>
 <body>
@@ -507,15 +529,17 @@ body.big #client{zoom:1.15}
       ],
       food: { protein: '1,4–1,6 g por kg', water: '2,5 L + 0,5 L por hora de partido', kcal: 'Según objetivo', rules: ['Come 2–3 horas antes de jugar', 'En partidos largos, fruta o barrita entre sets', 'Sal y agua si sudas mucho'], event: ['Desayuno conocido el día del torneo', 'Lleva agua, plátano y algo salado'] },
       rest: ['Duerme 7,5 h como mínimo', 'Después de partido, 10 min de movilidad', 'No metas fuerza explosiva el día antes de jugar'] },
-    senior: { name: 'Salud y vitalidad', long: 'Salud, equilibrio y vitalidad', pick: 'Moverme mejor y con más vitalidad', ev: 'meta', evPh: 'Por ejemplo: viaje, caminata o revisión',
+    senior: { name: 'Valoración +55', long: 'Fuerza, equilibrio y autonomía (+55)', pick: 'Moverme mejor y con más vitalidad', ev: 'meta', evPh: 'Por ejemplo: viaje, caminata o revisión',
       tests: [
         { id: 'sts', n: 'Levantarse de la silla (30 s)', unit: 'reps', dir: 'high', f: 1.25, how: 'Brazos cruzados, siéntate y levántate de una silla tantas veces como puedas en 30 segundos.' },
-        { id: 'walk', n: 'Caminata de 6 minutos', unit: 'm', dir: 'high', f: 1.12, how: 'Camina a buen ritmo durante 6 minutos en un pasillo o pista y apunta los metros.' },
+        { id: 'sqq', n: 'Sentadilla · técnica', unit: 'pts', dir: 'high', f: 1.3, how: 'La valora tu entrenadora de 1 a 10: profundidad, rodillas alineadas, espalda y control al bajar y subir.' },
+        { id: 'grip', n: 'Fuerza de agarre', unit: 'kg', dir: 'high', f: 1.12, how: 'Con dinamómetro, de pie y brazo pegado al cuerpo. Mejor de tres intentos con la mano dominante.' },
         { id: 'bal', n: 'Equilibrio a una pierna', unit: 's', dir: 'high', f: 1.5, how: 'Cerca de una pared por seguridad. Sostente sobre una pierna y cuenta los segundos.' },
-        { id: 'tug', n: 'Levántate y anda (3 m)', unit: 's', dir: 'low', f: 0.85, how: 'Desde sentado, levántate, camina 3 m, gira, vuelve y siéntate. Cronometra.' }
+        { id: 'tug', n: 'Levántate y anda (3 m)', unit: 's', dir: 'low', f: 0.85, how: 'Desde sentado, levántate, camina 3 m, gira, vuelve y siéntate. Cronometra.' },
+        { id: 'walk', n: 'Caminata de 6 minutos', unit: 'm', dir: 'high', f: 1.12, how: 'Camina a buen ritmo durante 6 minutos en un pasillo o pista y apunta los metros.' }
       ],
       plan: [
-        { day: 0, title: 'Fuerza suave', detail: '45 min · con tu entrenador', test: 'sts', ex: [{ n: 'Sentarse y levantarse de la silla', s: '3 × 10' }, { n: 'Remo con banda elástica', s: '3 × 12' }, { n: 'Subir un escalón', s: '3 × 8 por pierna' }] },
+        { day: 0, title: 'Fuerza suave', detail: '45 min · con tu entrenadora', test: 'sqq', ex: [{ n: 'Sentarse y levantarse de la silla', s: '3 × 10' }, { n: 'Remo con banda elástica', s: '3 × 12' }, { n: 'Subir un escalón', s: '3 × 8 por pierna' }] },
         { day: 2, title: 'Equilibrio', detail: '30 min', test: 'bal', ex: [{ n: 'Equilibrio con apoyo', s: '3 × 20 s por pierna' }, { n: 'Caminar en línea recta', s: '4 × 5 m' }, { n: 'Levantar talones', s: '3 × 12' }] },
         { day: 4, title: 'Paseo activo', detail: '40 min', test: 'walk', ex: [{ n: 'Paseo a buen ritmo', s: '30 min' }, { n: 'Estiramientos suaves', s: '10 min' }] },
         { day: 5, title: 'Movilidad', detail: '30 min', test: 'tug', ex: [{ n: 'Movilidad de cadera', s: '5 min' }, { n: 'Hombros con pica', s: '5 min' }, { n: 'Respiración y estiramientos', s: '10 min' }] }
@@ -553,16 +577,17 @@ body.big #client{zoom:1.15}
       case 'cm': return nf(v, v % 1 ? 1 : 0) + ' cm';
       case 'ppm': return nf(v) + ' ppm';
       case 'deg': return nf(v) + '°';
+      case 'pts': return nf(v, v % 1 ? 1 : 0) + '/10';
       default: return nf(v, 1) + ' s';
     }
   }
-  function ph(t) { return { mmss: 'Ej.: 24:30', reps: 'Ej.: 12', kg: 'Ej.: 80', km: 'Ej.: 15', m: 'Ej.: 520', cm: 'Ej.: 35', ppm: 'Ej.: 58', deg: 'Ej.: 45' }[t.unit] || 'Ej.: 9,5'; }
+  function ph(t) { return { mmss: 'Ej.: 24:30', reps: 'Ej.: 12', kg: 'Ej.: 80', km: 'Ej.: 15', m: 'Ej.: 520', cm: 'Ej.: 35', ppm: 'Ej.: 58', deg: 'Ej.: 45', pts: 'Ej.: 7' }[t.unit] || 'Ej.: 9,5'; }
   function parseV(t, raw) {
     var s = String(raw || '').trim().replace(',', '.'); if (!s) return null;
     if (t.unit === 'mmss') { var p3 = s.match(/^(\d{1,2})[:.'h ](\d{1,2})[:.'m ](\d{1,2})$/); if (p3) return +p3[1] * 3600 + +p3[2] * 60 + +p3[3]; var p2 = s.match(/^(\d{1,3})\s*[:.'´ ]\s*(\d{1,2})$/); if (p2) return +p2[1] * 60 + +p2[2]; var n = parseFloat(s); return isNaN(n) ? null : n * 60; }
     var v = parseFloat(s); return isNaN(v) || v <= 0 ? null : v;
   }
-  function roundT(t, v) { if (t.unit === 'reps' || t.unit === 'm' || t.unit === 'ppm' || t.unit === 'deg') return Math.round(v); if (t.unit === 'mmss') return Math.round(v / 5) * 5; return Math.round(v * 10) / 10; }
+  function roundT(t, v) { if (t.unit === 'reps' || t.unit === 'm' || t.unit === 'ppm' || t.unit === 'deg') return Math.round(v); if (t.unit === 'pts') return Math.min(10, Math.round(v * 2) / 2); if (t.unit === 'mmss') return Math.round(v / 5) * 5; return Math.round(v * 10) / 10; }
   function firstV(p, t) { var a = p.marks[t.id] || []; return a.length ? a[0].v : null; }
   function lastV(p, t) { var a = p.marks[t.id] || []; return a.length ? a[a.length - 1].v : null; }
   function target(p, t) { if (p.targets[t.id] != null) return p.targets[t.id]; var s = firstV(p, t); return s == null ? null : roundT(t, s * t.f); }
@@ -581,7 +606,7 @@ body.big #client{zoom:1.15}
   function pctTxt(v) { return v == null ? '—' : Math.round(v * 100) + '%'; }
   function gap(t, a, b) { var d = Math.abs(a - b); if (t.unit === 'mmss') { return d >= 60 ? Math.floor(d / 60) + ' min ' + Math.round(d % 60) + ' s' : Math.round(d) + ' s'; } return fmtV(t, roundT(t, d)); }
   function status(p) { var s = score(p); if (s.pct == null) return { c: 'mute', t: 'Faltan tus marcas de partida' }; if (s.pct >= 0.66) return { c: 'ok', t: 'Muy cerca de tu objetivo' }; if (s.pct >= 0.25) return { c: 'ok', t: 'En camino' }; var stale = s.per.every(function (x) { return (p.marks[x.t.id] || []).length < 2; }); return stale ? { c: 'mute', t: 'Arrancando' } : { c: 'warn', t: 'Hay que apretar' }; }
-  var TCOL = ['#4DA3FF', '#FF5A5F', '#FFC23D', '#38D39F', '#B98CFF'];
+  var TCOL = ['#4DA3FF', '#FF5A5F', '#FFC23D', '#38D39F', '#B98CFF', '#FF8FB1'];
   function tcol(p, t) { return TCOL[P(p).tests.indexOf(t) % TCOL.length]; }
   function brandCol() { return '#7FB2F0'; }
   function pace(sec, km) { var s = sec / km, m = Math.floor(s / 60), r = Math.round(s % 60); if (r === 60) { m++; r = 0; } return m + ':' + String(r).padStart(2, '0') + ' min/km'; }
@@ -636,26 +661,27 @@ body.big #client{zoom:1.15}
   /* ================= Grupo de ejemplo ================= */
   function makeGroup() {
     var defs = [
-      ['Mikel Agirre', 'run', '36–50', { r5k: [1500, 1395], r10k: [3150, 2930], lrun: [14, 24], fc: [62, 55] }, 0, { n: 'Media maratón de tu ciudad', d: 165 }],
-      ['Ane Ruiz', 'run', '18–35', { r5k: [1620, 1500], r10k: [3420, 3210], lrun: [8, 13], fc: [66, 61] }, 1, { n: '10K de San Prudencio', d: 46 }],
-      ['Javier Ortiz', 'raq', '36–50', { lat: [9.8, 9.1], mb: [7.2, 8.1], cmj: [31, 34], rot: [38, 44] }, 2, { n: 'Torneo de pádel del club', d: 30 }],
-      ['Carmen López', 'raq', '51–65', { lat: [11.5, 11.3], mb: [5.1, 5.3], cmj: [22, 22], rot: [30, 31] }, 6, null],
-      ['Begoña Sáez', 'senior', 'Más de 65', { sts: [9, 13], walk: [410, 465], bal: [6, 11], tug: [9.8, 8.2] }, 0, { n: 'Camino de Santiago (etapa)', d: 120 }],
-      ['Juan Mari Etxeberria', 'senior', 'Más de 65', { sts: [8, 10], walk: [380, 405], bal: [4, 6], tug: [11.2, 10.1] }, 1, null],
-      ['Laura Gil', 'fit', '36–50', { peso: [74.5, 70.8], cint: [86, 81], flex: [4, 9], plank: [35, 62] }, 3, { n: 'Boda de mi hermana', d: 75 }],
-      ['Iñigo Pérez', 'str', '18–35', { sq: [90, 105], dl: [120, 140], bp: [70, 80], pu: [6, 10] }, 1, null]
+      ['Begoña Sáez', 'senior', '67 años', { sts: [9, 14], sqq: [4, 8], grip: [19, 23], bal: [5, 14], tug: [9.8, 7.6], walk: [410, 480] }, 0, { n: 'Camino de Santiago (etapa)', d: 120 }],
+      ['Juan Mari Etxeberria', 'senior', '69 años', { sts: [8, 11], sqq: [3, 6], grip: [28, 31], bal: [4, 7], tug: [11.2, 9.6], walk: [380, 425] }, 1, null],
+      ['Maite Urrutia', 'senior', '61 años', { sts: [12, 17], sqq: [5, 8.5], grip: [22, 26], bal: [11, 24], tug: [7.9, 6.5], walk: [470, 545] }, 0, { n: 'Viaje a Roma', d: 60 }],
+      ['Pilar Gómez', 'senior', '64 años', { sts: [10, 13], sqq: [4, 7], grip: [20, 22], bal: [7, 15], tug: [9.1, 7.9], walk: [430, 470] }, 2, null],
+      ['Rosa Martín', 'senior', '70 años', { sts: [7, 10], sqq: [3, 6], grip: [16, 18], bal: [3, 8], tug: [12.4, 10.2], walk: [350, 400] }, 0, null],
+      ['Josean Ibarra', 'senior', '58 años', { sts: [13, 18], sqq: [5, 9], grip: [34, 39], bal: [14, 30], tug: [7.2, 6.1], walk: [520, 590] }, 3, { n: 'Subir al Gorbea', d: 45 }],
+      ['Koldo Arana', 'fit', '56 años', { peso: [88.5, 82.1], cint: [104, 97], flex: [3, 10], plank: [20, 55] }, 1, null],
+      ['Ana Belén Ruiz', 'str', '57 años', { sq: [30, 50], dl: [40, 62], bp: [20, 28], pu: [0.5, 2] }, 6, null]
     ];
-    var FR = [0.62, 0.48, 0.71, 0.15, 0.83, 0.35, 0.55, 0.66];
+    var FR = [0.72, 0.48, 0.81, 0.55, 0.42, 0.66, 0.6, 0.5];
     return defs.map(function (d, k) {
-      var p = { id: 'g' + k, name: d[0], prof: d[1], age: d[2], start: iso(addDays(T, -56)), event: d[5] ? { name: d[5].n, date: iso(addDays(T, d[5].d)) } : null, marks: {}, targets: {}, checks: [], weight: [], done: 16 + k * 2, chat: [], ex: true, note: '', profile: { why: '' } };
+      var p = { id: 'g' + k, name: d[0], prof: d[1], age: d[2], start: iso(addDays(T, -189)), vnotes: {}, event: d[5] ? { name: d[5].n, date: iso(addDays(T, d[5].d)) } : null, marks: {}, targets: {}, checks: [], weight: [], done: 16 + k * 2, chat: [], ex: true, note: '', profile: { why: '' } };
       Object.keys(d[3]).forEach(function (tid) {
         var t = PROF[d[1]].tests.filter(function (x) { return x.id === tid; })[0], a = d[3][tid][0], b = d[3][tid][1], arr = [];
-        for (var w = 0; w <= 6; w++) { var v = a + (b - a) * (w / 6) + (w > 0 && w < 6 ? Math.sin(w * 2.3 + k) * Math.abs(b - a) * 0.08 : 0); arr.push({ d: iso(addDays(T, -56 + w * 9)), v: roundT(t, v) }); }
+        for (var w = 0; w <= 6; w++) { var v = a + (b - a) * (w / 6) + (w > 0 && w < 6 ? Math.sin(w * 2.3 + k) * Math.abs(b - a) * 0.08 : 0); arr.push({ d: iso(addDays(T, -187 + w * 30)), v: roundT(t, v) }); }
         p.marks[tid] = arr; var fr = FR[k] * (0.8 + 0.4 * ((tid.charCodeAt(0) + k) % 5) / 4); p.targets[tid] = roundT(t, a + (b - a) / Math.max(0.1, Math.min(0.97, fr)));
       });
       for (var i = 20; i >= d[4] + 1; i--) { if ((i + k) % 6 === 0) continue; var w2 = Math.sin(i * 1.3 + k); p.checks.push({ d: iso(addDays(T, -i)), sleep: Math.round((7 + w2 * 0.8) * 2) / 2, fat: Math.max(1, Math.min(5, Math.round(3.5 + w2))), energy: Math.max(1, Math.min(5, Math.round(3.6 + w2 * 0.8))), steps: ['5.000–8.000', '8.000–12.000', 'Más de 12.000'][(i + k) % 3], pain: 'no', zone: '', mood: 'Bien', note: '' }); }
-      if (k === 5) { var lc = p.checks[p.checks.length - 1]; lc.pain = 'leve'; lc.zone = 'Rodilla'; lc.note = 'Me molesta al subir escaleras'; }
-      if (k === 1) { var lc2 = p.checks[p.checks.length - 1]; lc2.fat = 1; lc2.sleep = 5.5; }
+      if (k === 1) { var lc = p.checks[p.checks.length - 1]; lc.pain = 'leve'; lc.zone = 'Rodilla'; lc.note = 'Me molesta al subir escaleras'; }
+      if (k === 3) { var lc2 = p.checks[p.checks.length - 1]; lc2.fat = 1; lc2.sleep = 5.5; }
+      if (d[1] === 'senior') { p.vnotes[iso(addDays(T, -187))] = 'Primera valoración. Le cuesta bajar en la sentadilla y se apoya en las manos al levantarse.'; p.vnotes[iso(addDays(T, -7))] = ['Sentadilla mucho más profunda y controlada. Ya se levanta sin manos.', 'Mejora clara. Seguimos con equilibrio y fuerza de piernas; cuidado con la rodilla.', 'Gran avance en equilibrio. Podemos subir carga en piernas.', 'Va muy constante. Mejor control de rodillas en la sentadilla.', 'Más segura al caminar y al girar. Seguimos con fuerza suave.', 'Muy buen nivel. Lista para su objetivo.'][k] || 'Buena evolución.'; }
       return p;
     });
   }
@@ -690,6 +716,35 @@ body.big #client{zoom:1.15}
     return Object.keys(ds).sort().map(function (d) { var s = score(p, d); return s.pct == null ? null : Math.round(s.pct * 100); }).filter(function (x) { return x != null; });
   }
 
+  /* ================= Valoraciones: antes y ahora ================= */
+  var MES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+  function mlab(d) { var x = parse(d); return x.getDate() + ' ' + MES[x.getMonth()]; }
+  function agoTxt(d) { var m = Math.round((T - parse(d)) / 864e5 / 30.4); return m >= 2 ? 'hace ' + m + ' meses' : m === 1 ? 'hace 1 mes' : 'hace ' + Math.max(1, Math.round((T - parse(d)) / 864e5)) + ' días'; }
+  function vDates(p) { var ds = {}; P(p).tests.forEach(function (t) { (p.marks[t.id] || []).forEach(function (m) { ds[m.d] = 1; }); }); return Object.keys(ds).sort(); }
+  function improve(t, a, b) { if (a == null || b == null || a === b) return { txt: 'igual', pct: 0, good: null }; var up = b > a, good = t.dir === 'low' ? !up : up, pct = Math.abs(b - a) / Math.abs(a || 1) * 100; return { pct: pct, good: good, txt: t.unit === 'pts' ? (good ? '+' : '−') + nf(Math.abs(b - a), Math.abs(b - a) % 1 ? 1 : 0) + ' puntos' : (good ? '+' : '−') + Math.round(pct) + '%' }; }
+  function compareHtml(p, panel) {
+    var ds = vDates(p); if (!ds.length) return '';
+    var d0 = ds[0], items = P(p).tests.map(function (t) { var a = p.marks[t.id] || []; return { t: t, a: a, v0: a.length ? a[0].v : null, v1: a.length ? a[a.length - 1].v : null }; });
+    var good = items.filter(function (x) { return improve(x.t, x.v0, x.v1).good; }).length;
+    var lastNote = p.vnotes ? p.vnotes[ds[ds.length - 1]] : '';
+    var h = '<section class="' + (panel ? 'box' : 'card') + ' cmp"><div class="cmp-h"><div><p class="lab" style="margin:0">Antes y ahora</p><h3 style="margin:4px 0 0">Entraste ' + agoTxt(d0) + ' · así estás hoy</h3></div><span class="cmp-badge"><b class="num">' + good + '/' + items.length + '</b> pruebas mejoradas</span></div>';
+    h += '<div class="cmp-g">' + items.map(function (x) {
+      var im = improve(x.t, x.v0, x.v1), col = tcol(p, x.t);
+      return '<div class="cmp-c" style="--tc:' + col + '"><span class="cmp-n"><span class="tdot" style="--tc:' + col + '"></span>' + esc(x.t.n) + '</span><div class="cmp-v"><span><small>' + esc(mlab(x.a.length ? x.a[0].d : d0)) + '</small><b class="num">' + fmtV(x.t, x.v0) + '</b></span><i aria-hidden="true">→</i><span><small>Hoy</small><b class="num">' + fmtV(x.t, x.v1) + '</b></span></div>' +
+        (x.a.length > 1 ? '<div class="cmp-ch">' + lineChart(x.a.map(function (m) { return m.v; }), [mlab(x.a[0].d), 'Hoy'], col, x.t.n) + '</div>' : '') +
+        '<span class="cmp-d ' + (im.good ? 'up' : im.good === false ? 'down' : '') + '">' + (im.good ? '▲ ' : im.good === false ? '▼ ' : '') + esc(im.txt) + (im.good != null ? (im.good ? ' mejor' : ' peor') : '') + '</span></div>';
+    }).join('') + '</div>';
+    if (lastNote) h += '<div class="note" style="margin-top:12px"><span class="av" aria-hidden="true">' + esc(initials(S.brand.coach)) + '</span><p><b>' + esc(S.brand.coach) + ', última valoración (' + esc(mlab(ds[ds.length - 1])) + '):</b> ' + esc(lastNote) + '</p></div>';
+    return h + '</section>';
+  }
+  function valTableHtml(p) {
+    var ds = vDates(p).slice(-6);
+    var h = '<form class="box" id="valForm"><h3>Valoraciones <small>una columna por valoración · rellena la de hoy y guarda</small></h3><div class="tw"><table class="t vt"><thead><tr><th>Prueba</th>' + ds.map(function (d) { return '<th>' + esc(mlab(d)) + '</th>'; }).join('') + '<th class="vt-new">Hoy</th></tr></thead><tbody>' +
+      P(p).tests.map(function (t) { var a = p.marks[t.id] || []; return '<tr><td><span class="tdot" style="--tc:' + tcol(p, t) + '"></span>' + esc(t.n) + '</td>' + ds.map(function (d) { var m = a.filter(function (x) { return x.d === d; })[0]; return '<td class="num">' + (m ? fmtV(t, m.v) : '—') + '</td>'; }).join('') + '<td class="vt-new"><label class="sr" for="vv-' + t.id + '">' + esc(t.n) + ' hoy</label><input class="inp" id="vv-' + t.id + '" inputmode="decimal" autocomplete="off" placeholder="' + ph(t).replace('Ej.: ', '') + '"></td></tr>'; }).join('') +
+      '</tbody></table></div><label class="lab" for="vNote" style="margin-top:12px">Observaciones de la valoración (las ve en su app)<textarea class="ta" id="vNote" rows="2" placeholder="Por ejemplo: sentadilla más profunda, ya se levanta sin apoyarse"></textarea></label><button type="submit" class="btn-a pri" style="margin-top:10px">Guardar valoración y enviar a su app</button></form>';
+    return h;
+  }
+
   /* ================= APP DEL CLIENTE ================= */
   var cRoot = $('client');
   function nav(on) {
@@ -704,8 +759,8 @@ body.big #client{zoom:1.15}
       '<div class="bmark" aria-hidden="true"><i></i></div>' +
       '<p class="kick">' + esc(B.city ? B.city + ' · ' : '') + 'Entrenamiento personal</p>' +
       '<h1>' + esc(B.name).replace(/(\S+)$/, '<i>$1</i>') + '</h1>' +
-      '<p class="tag">Tu entrenadora contigo todos los días. Tus marcas, tu plan y tu progreso en un solo sitio.</p>' +
-      '<div class="opos"><span>Carrera</span><span>Fuerza</span><span>Pádel y golf</span><span>Salud +60</span><span>En forma</span></div>' +
+      '<p class="tag">Tu entrenadora contigo todos los días. Tus valoraciones, tu plan y cómo mejoras, en un solo sitio.</p>' +
+      '<div class="opos"><span>Fuerza +55</span><span>Equilibrio</span><span>Movilidad</span><span>Fisioterapia</span><span>Puesta en forma</span></div>' +
       '<button type="button" class="bt acc full" style="height:54px;font-size:16px;margin-top:6px" data-c="home">Entrar como ' + esc(first(p.name)) + '</button>' + (UI.confirmOut ? '<div style="display:flex;flex-direction:column;gap:8px;margin-top:4px;position:relative"><p style="margin:0;font-size:14px;opacity:.9">Se borrarán de este móvil los datos de la demo. ¿Seguro?</p><div class="row2"><button type="button" class="bt ghost-l" data-nologout="1">Cancelar</button><button type="button" class="bt acc" data-logout="1">Sí, cerrar sesión</button></div></div>' : '<button type="button" class="bt ghost-l full" style="position:relative;height:46px" data-logout="1">Cerrar sesión · entrar con otro código</button>') + 
       '<p class="foot">' + (S.trial && S.trial.exp ? 'Demo privada hasta el ' + esc(fmt(parse(S.trial.exp), { day: 'numeric', month: 'long' })) + ' · ' : '') + 'Con la tecnología de ' + GLOGO + '</p></div>';
   }
@@ -732,6 +787,7 @@ body.big #client{zoom:1.15}
       else { var g = target(p, w.t); txt = 'Donde más margen tienes: <b>' + esc(w.t.n) + '</b>. Estás en ' + fmtV(w.t, w.v) + ' y tu objetivo es <b>' + fmtV(w.t, g) + '</b>' + (g !== w.v ? ': te faltan ' + gap(w.t, g, w.v) + '.' : '.'); }
       h += '<button type="button" class="card focus" data-test="' + w.t.id + '" style="text-align:left;width:100%"><span class="ic">' + IC.target + '</span><p>' + txt + '</p></button>';
     }
+    if (vDates(p).length > 1) { var dd0 = vDates(p)[0], gd = P(p).tests.filter(function (t) { var a = p.marks[t.id] || []; return a.length > 1 && improve(t, a[0].v, a[a.length - 1].v).good; }).length; h += '<button type="button" class="card cmp-teaser" data-c="progress" style="text-align:left;width:100%"><div class="ch" style="margin:0"><h3>Antes y ahora</h3><span>Ver →</span></div><p class="st" style="margin:6px 0 0">Desde que entraste, ' + agoTxt(dd0) + ', has mejorado en <b>' + gd + ' de ' + P(p).tests.length + '</b> pruebas.</p></button>'; }
     h += '<section class="card"><div class="ch"><h3>Nota de ' + esc(co) + '</h3></div><div class="note"><span class="av" aria-hidden="true">' + esc(initials(co)) + '</span><p>' + esc(p.note) + '</p></div></section>';
     h += '<button type="button" class="card" data-c="report" style="text-align:left;width:100%"><div class="ch" style="margin:0"><h3>Tu informe de la semana</h3><span>Ver →</span></div><p class="st" style="margin:6px 0 0">Lo que has mejorado, cómo te has sentido y el foco de la semana que viene. Te llega cada domingo.</p></button>';
     return h + '</div>' + nav('home');
@@ -796,7 +852,7 @@ body.big #client{zoom:1.15}
     var ser = progSeries(p), last14 = p.checks.slice(-14), heat = '';
     var sl = last14.length ? last14.reduce(function (a, k) { return a + k.sleep; }, 0) / last14.length : 0;
     for (var i = 27; i >= 0; i--) { var dd = iso(addDays(T, -i)), k = p.checks.filter(function (x) { return x.d === dd; })[0]; var col = !k ? 'rgba(255,255,255,.08)' : k.pain !== 'no' ? '#FF5A5F' : k.fat >= 4 ? '#38D39F' : k.fat >= 3 ? '#4DA3FF' : '#FFC23D'; heat += '<i style="background:' + col + '" title="' + esc(short(addDays(T, -i))) + '"></i>'; }
-    var h = '<div class="scroll">' + hdr(p) + secHead(IC.prog, 'var(--c4)', 'Tu progreso', 'Desde el ' + esc(fmt(parse(p.start), { day: 'numeric', month: 'long' }))) +
+    var h = '<div class="scroll">' + hdr(p) + secHead(IC.prog, 'var(--c4)', 'Tu progreso', 'Desde el ' + esc(fmt(parse(p.start), { day: 'numeric', month: 'long' }))) + (vDates(p).length > 1 ? compareHtml(p, false) : '<p class="st" style="margin:0">Cuando tengas tu segunda valoración verás aquí tu antes y ahora. Así lo ve, por ejemplo, Begoña después de 6 meses:</p>' + compareHtml(makeGroup()[0], false)) +
       '<div class="kpis"><div class="kpi"><span>Objetivo</span><b class="num">' + pctTxt(score(p).pct) + '</b><small>conseguido</small></div><div class="kpi"><span>Sesiones</span><b class="num">' + p.done + '</b><small>hechas</small></div><div class="kpi"><span>Sueño</span><b class="num">' + (sl ? nf(sl, 1) + ' h' : '—') + '</b><small>media 2 semanas</small></div></div>' +
       '<section class="card"><div class="ch"><h3>Camino a tu objetivo</h3><span>% conseguido</span></div>' + lineChart(ser, ['Inicio', 'Hoy'], '#38D39F', 'Progreso', 100) + '</section>' +
       '<section class="card"><div class="ch"><h3>Marca a marca</h3><span>inicio → ahora</span></div><div class="marks">' + P(p).tests.map(function (t) { var a = p.marks[t.id] || []; return '<div><span><span class="tdot" style="--tc:' + tcol(p, t) + '"></span>' + esc(t.n) + '</span><b class="num">' + (a.length ? fmtV(t, a[0].v) + ' → ' + fmtV(t, a[a.length - 1].v) : '—') + '</b></div>'; }).join('') + '</div></section>' +
@@ -1090,7 +1146,8 @@ body.big #client{zoom:1.15}
     var p = person(UI.aP), s = score(p), ser = progSeries(p), pr = p.profile || {};
     var h = head(esc(p.name), esc(P(p).long) + (p.age ? ' · ' + esc(p.age) : '') + (p.event ? ' · ' + esc(p.event.name) + ' en ' + evDays(p) + ' días' : ''), '<button type="button" class="btn-a sec" data-a="clientes">← Clientes</button>');
     h += '<div class="grid4"><div class="stat"><span>Hacia su objetivo</span><b class="num">' + pctTxt(s.pct) + '</b><small>' + esc(status(p).t) + '</small></div><div class="stat"><span>Sesiones hechas</span><b class="num">' + p.done + '</b><small>desde el ' + esc(short(parse(p.start))) + '</small></div><div class="stat"><span>Sueño</span><b class="num">' + (p.checks.length ? nf(p.checks.slice(-7).reduce(function (a, k) { return a + k.sleep; }, 0) / Math.min(7, p.checks.length), 1) + ' h' : (pr.sleep != null ? nf(pr.sleep, 1) + ' h' : '—')) + '</b><small>media</small></div><div class="stat"><span>Energía</span><b class="num">' + (p.checks.length ? nf(p.checks.slice(-7).reduce(function (a, k) { return a + k.energy; }, 0) / Math.min(7, p.checks.length), 1) : '—') + '</b><small>de 5</small></div></div>';
-    h += '<form class="box" id="tgForm"><h3>Marcas y objetivos <small>cambia el objetivo y guarda</small></h3><div class="tw"><table class="t" style="min-width:460px"><thead><tr><th>Test</th><th>Inicio</th><th>Ahora</th><th>Objetivo</th><th>%</th></tr></thead><tbody>' + s.per.map(function (x) { var g = target(p, x.t); return '<tr><td><span class="tdot" style="--tc:' + tcol(p, x.t) + '"></span>' + esc(x.t.n) + '</td><td class="num">' + fmtV(x.t, firstV(p, x.t)) + '</td><td class="num"><b>' + fmtV(x.t, x.v) + '</b></td><td><label class="sr" for="tg-' + x.t.id + '">Objetivo</label><input class="inp" style="height:36px;max-width:110px" id="tg-' + x.t.id + '" value="' + (g == null ? '' : esc(fmtV(x.t, g).replace(/ (kg|km|m|cm|ppm|reps|s)$/, '').replace('°', ''))) + '" placeholder="' + ph(x.t).replace('Ej.: ', '') + '"></td><td class="num">' + pctTxt(x.pct) + '</td></tr>'; }).join('') + '</tbody></table></div><button type="submit" class="btn-a pri" style="margin-top:10px">Guardar objetivos</button></form>' +
+    h += compareHtml(p, true) + valTableHtml(p);
+    h += '<form class="box" id="tgForm"><h3>Marcas y objetivos <small>cambia el objetivo y guarda</small></h3><div class="tw"><table class="t" style="min-width:460px"><thead><tr><th>Test</th><th>Inicio</th><th>Ahora</th><th>Objetivo</th><th>%</th></tr></thead><tbody>' + s.per.map(function (x) { var g = target(p, x.t); return '<tr><td><span class="tdot" style="--tc:' + tcol(p, x.t) + '"></span>' + esc(x.t.n) + '</td><td class="num">' + fmtV(x.t, firstV(p, x.t)) + '</td><td class="num"><b>' + fmtV(x.t, x.v) + '</b></td><td><label class="sr" for="tg-' + x.t.id + '">Objetivo</label><input class="inp" style="height:36px;max-width:110px" id="tg-' + x.t.id + '" value="' + (g == null ? '' : esc(fmtV(x.t, g).replace(/ (kg|km|m|cm|ppm|reps|s)$/, '').replace('°', '').replace('/10', ''))) + '" placeholder="' + ph(x.t).replace('Ej.: ', '') + '"></td><td class="num">' + pctTxt(x.pct) + '</td></tr>'; }).join('') + '</tbody></table></div><button type="submit" class="btn-a pri" style="margin-top:10px">Guardar objetivos</button></form>' +
       '<div class="box"><h3>Camino al objetivo <small>evolución</small></h3>' + lineChart(ser, ['Inicio', 'Hoy'], '#38D39F', 'Progreso', 100) + '</div>';
     h += '<div class="grid2"><div class="box"><h3>Últimos check-ins</h3><div class="tw"><table class="t" style="min-width:460px"><thead><tr><th>Día</th><th>Sueño</th><th>Cuerpo</th><th>Energía</th><th>Pasos</th><th>Molestias</th></tr></thead><tbody>' + (p.checks.length ? p.checks.slice(-6).reverse().map(function (k) { return '<tr><td>' + esc(short(parse(k.d))) + '</td><td class="num">' + nf(k.sleep, 1) + ' h</td><td class="num">' + k.fat + '/5</td><td class="num">' + k.energy + '/5</td><td>' + esc(k.steps || '—') + '</td><td>' + (k.pain === 'no' ? 'Ninguna' : '<span class="chip bad">' + esc(k.zone || 'Sí') + '</span>') + '</td></tr>'; }).join('') : '<tr><td colspan="6" class="st">Aún sin check-ins.</td></tr>') + '</tbody></table></div></div>' +
       '<div class="box"><h3>Lo que nos contó al darse de alta</h3>' + (p.profile && !p.ex ? '<div class="marks">' + [['Edad', pr.age], ['Días de entreno', pr.days], ['Lesiones', pr.injury], ['Alimentación', pr.diet], ['Sueño', pr.sleep != null ? nf(pr.sleep, 1) + ' h' : ''], ['Por qué quiere conseguirlo', pr.why]].filter(function (r) { return r[1]; }).map(function (r) { return '<div><span>' + esc(r[0]) + '</span><b style="text-align:right;max-width:60%">' + esc(r[1]) + '</b></div>'; }).join('') + '</div>' : '<p class="st">Cliente de ejemplo.</p>') + '</div></div>';
@@ -1140,6 +1197,7 @@ body.big #client{zoom:1.15}
   aRoot.addEventListener('submit', function (e) {
     e.preventDefault(); var f = e.target;
     if (f.id === 'tgForm') { var p = person(UI.aP), n = 0; P(p).tests.forEach(function (t) { var el = $('tg-' + t.id); if (!el) return; var v = parseV(t, el.value); if (v != null && v !== target(p, t)) { p.targets[t.id] = v; n++; } }); save(); renderA(); renderC(); toastA(n ? 'Objetivos actualizados en la app de ' + first(p.name) : 'Sin cambios'); return; }
+    if (f.id === 'valForm') { var pv = person(UI.aP), nv = 0; P(pv).tests.forEach(function (t) { var el = $('vv-' + t.id); if (!el) return; var v = parseV(t, el.value); if (v != null) { if (t.unit === 'pts') v = Math.min(10, v); addMark(pv, t, v); nv++; } }); var nt = $('vNote').value.trim(); if (nt) { pv.vnotes = pv.vnotes || {}; pv.vnotes[iso(T)] = nt; } if (!nv && !nt) { toastA('Rellena al menos una prueba'); return; } save(); renderC(); renderA(); toastA('Valoración guardada · ' + first(pv.name) + ' ya la ve en su app'); return; }
     if (f.id === 'fichaForm') { var p2 = person(UI.aP); p2.note = $('fNote').value.trim() || p2.note; var en = $('fEvName').value.trim(), ed = $('fEvDate').value; p2.event = en && ed ? { name: en, date: ed } : (en || ed ? p2.event : null); save(); renderC(); renderA(); toastA('Enviado a la app de ' + first(p2.name)); return; }
     if (f.id === 'ruleForm') { var tp = $('rTopic').value.trim(), ks = $('rKeys').value.trim(), an = $('rAns').value.trim(); if (!tp || !ks || !an) { toastA('Rellena tema, palabras y respuesta'); return; } S.rules.push({ id: uid(), topic: tp, keys: ks, answer: an }); save(); renderA(); toastA('Pauta añadida. Pruébala en el asistente.'); return; }
     if (f.dataset.inbox) { var it = S.inbox.filter(function (x) { return x.id === f.dataset.inbox; })[0], txt = f.querySelector('input').value.trim(); if (!it || !txt) return; it.done = true; person(it.p).chat.push({ k: 'coach', t: txt }); save(); renderC(); renderA(); toastA('Respuesta enviada a su app'); }
