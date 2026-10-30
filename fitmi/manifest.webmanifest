@@ -1,6 +1,6 @@
 {
- "name": "Entrena · Demo Galerna",
- "short_name": "Entrena",
+ "name": "Fitmi",
+ "short_name": "Fitmi",
  "start_url": "./index.html",
  "scope": "./",
  "display": "standalone",
