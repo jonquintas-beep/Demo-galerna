@@ -446,9 +446,15 @@ body.big #client{zoom:1.15}
 .q-pend b{display:block;font-size:16px}
 .q-pend span span{display:block;font-size:13.5px;color:var(--sub);margin-top:3px;line-height:1.4}
 .q-pend .q-go{grid-column:2;font-weight:800;color:var(--acc);font-size:14px}
+
+/* Fitmi: logo difuminado de fondo en toda la app */
+.bgmark{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:url(../logos/fitmi-mark-blur.png);background-repeat:no-repeat;background-position:center 62%;background-size:min(125vw,640px) auto;opacity:.3}
+.stage{position:relative;z-index:1}
+@media (min-width:1000px){.bgmark{background-image:url(../logos/fitmi-mark-blur.png),url(../logos/fitmi-mark-blur.png);background-position:30px 52%,right -4% bottom -12%;background-size:400px auto,min(62vw,900px) auto;opacity:.2}}
 </style>
 </head>
 <body>
+<div class="bgmark" aria-hidden="true"></div>
 <div id="gate" hidden></div>
 <div class="shell">
   <div class="switch" role="tablist" aria-label="Vista">
