@@ -576,6 +576,10 @@ body.va-open{overflow:hidden}
 .va-hi div{display:flex;flex-direction:column;gap:2px;min-width:0} .va-hi b{font-size:14px} .va-hi span{font-size:12.5px;color:var(--sub)} .va-hi small{font-size:12px;color:var(--sub)}
 .va-evo{margin:0 0 8px;font-size:13.5px;padding:8px 10px;border-radius:10px;background:var(--peach-soft)}
 .c-nav svg{width:22px;height:22px}
+
+.va-use{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;margin-top:12px;font-size:13.5px}
+.va-bar{height:8px;border-radius:99px;background:var(--line);overflow:hidden} .va-bar i{display:block;height:100%;background:var(--peach)}
+.va-capc{border:1px solid var(--warn);background:var(--warn-soft)}
 </style>
 </head>
 <body>
@@ -1636,6 +1640,11 @@ body.va-open{overflow:hidden}
   var VA_DEPTH = [{ v: 95, n: 'Profunda: rodilla a 95° o menos (paralelo)' }, { v: 110, n: 'Media: rodilla a 110° o menos' }, { v: 125, n: 'Parcial: rodilla a 125° o menos' }];
   var VA_LEAN = [{ v: 35, n: 'Tronco muy erguido (máx. 35°)' }, { v: 45, n: 'Tronco normal (máx. 45°)' }, { v: 55, n: 'Permite más inclinación (máx. 55°)' }];
   var VA = { pose: null, loading: null, running: false, mode: null, cid: null, src: 'cliente', reps: [], cur: null, ema: null, lastLm: null, best: null, thumb: '', stream: null, done: false, err: '', facing: 'environment' };
+  function vaMonth() { return crmMonthKey(T); }
+  function vaUsed(c) { return (c.vlog || []).filter(function (s) { return s.d && crmMonthKey(parse(s.d)) === vaMonth(); }).length; }
+  function vaCap(c) { return (S.vaCapN || 4) + ((c.vaExtra || {})[vaMonth()] || 0); }
+  function vaLeft(c) { return Math.max(0, vaCap(c) - vaUsed(c)); }
+  function vaRenew() { var d = new Date(T.getFullYear(), T.getMonth() + 1, 1); return fmt(d, { day: 'numeric', month: 'long' }); }
   function vaDefault() { S.tech = S.tech || { depth: 110, lean: 45, knees: true, note: 'Baja controlando en 2–3 segundos, pecho alto y rodillas en la línea de los pies.' }; return S.tech; }
   function vaRule(c) { var d = vaDefault(); return Object.assign({}, d, c && c.tech || {}); }
   function vaAng(a, b, c) { var v1x = a.x - b.x, v1y = a.y - b.y, v2x = c.x - b.x, v2y = c.y - b.y; var d = Math.sqrt(v1x * v1x + v1y * v1y) * Math.sqrt(v2x * v2x + v2y * v2y); if (!d) return 180; return Math.acos(Math.max(-1, Math.min(1, (v1x * v2x + v1y * v2y) / d))) * 180 / Math.PI; }
@@ -1684,7 +1693,7 @@ body.va-open{overflow:hidden}
   }
   /* ---------- modal ---------- */
   function vaModalEl() { var m = $('vaModal'); if (!m) { m = document.createElement('div'); m.id = 'vaModal'; m.className = 'va-modal'; m.hidden = true; document.body.appendChild(m); m.addEventListener('click', vaClick); m.addEventListener('change', vaChange); } return m; }
-  function vaOpen(cid, src) { VA.cid = cid; VA.src = src; VA.reps = []; VA.cur = null; VA.ema = null; VA.hist = []; VA.done = false; VA.err = ''; VA.thumb = ''; VA.best = null; VA.sum = null; var m = vaModalEl(); m.hidden = false; document.body.classList.add('va-open'); vaRender('intro'); }
+  function vaOpen(cid, src) { if (vaLeft(client(cid)) <= 0) { if (src === 'cliente') { toastC('Ya has usado tus ' + vaCap(client(cid)) + ' análisis de este mes. Se renuevan el ' + vaRenew() + '.'); return; } toastA(first(client(cid).name) + ' ha llegado a su tope de este mes. Dale un análisis extra desde su ficha.'); return; } VA.cid = cid; VA.src = src; VA.reps = []; VA.cur = null; VA.ema = null; VA.hist = []; VA.done = false; VA.err = ''; VA.thumb = ''; VA.best = null; VA.sum = null; var m = vaModalEl(); m.hidden = false; document.body.classList.add('va-open'); vaRender('intro'); }
   function vaClose() { vaStop(); var m = $('vaModal'); if (m) { m.hidden = true; m.innerHTML = ''; } document.body.classList.remove('va-open'); }
   function vaRender(st) {
     VA.state = st; var c = client(VA.cid), R = vaRule(c), m = vaModalEl();
@@ -1693,7 +1702,7 @@ body.va-open{overflow:hidden}
       m.innerHTML = '<div class="va-box">' + head + '<div class="va-body"><div class="va-rules"><p class="va-k">Lo que mide</p><ul><li><b>Profundidad:</b> rodilla a ' + R.depth + '° o menos</li><li><b>Espalda:</b> tronco inclinado ' + R.lean + '° como máximo</li>' + (R.knees ? '<li><b>Rodillas:</b> que no se vayan hacia dentro (de frente)</li>' : '') + '<li><b>Ritmo:</b> bajada controlada</li></ul>' + (R.note ? '<p class="va-note">«' + esc(R.note) + '» · ' + esc(coachOf(c).name) + '</p>' : '') + '</div>' +
         '<div class="va-how"><p class="va-k">Cómo grabar</p><p>Móvil apoyado a 2–3 metros, <b>de lado</b> para medir profundidad y espalda, o <b>de frente</b> para ver las rodillas. Que se vea el cuerpo entero, de la cabeza a los pies. Haz 5–8 sentadillas.</p></div>' +
         (VA.err ? '<p class="va-err">' + esc(VA.err) + '</p>' : '') +
-        '<div class="va-btns"><button type="button" class="va-b pri" data-vacam="environment">Grabar con la cámara</button><button type="button" class="va-b" data-vacam="user">Cámara frontal</button><label class="va-b">Subir un vídeo<input type="file" accept="video/*" id="vaFile" hidden></label></div><p class="va-small">El vídeo se analiza en el propio móvil y no se sube a ningún sitio. Solo se guarda el resultado.</p></div></div>';
+        '<div class="va-btns"><button type="button" class="va-b pri" data-vacam="user">Cámara frontal</button><button type="button" class="va-b" data-vacam="environment">Cámara trasera</button><label class="va-b">Subir un vídeo<input type="file" accept="video/*" id="vaFile" hidden></label></div><p class="va-small">Te quedan <b>' + vaLeft(c) + ' de ' + vaCap(c) + '</b> análisis este mes. Con la cámara frontal te ves en pantalla mientras lo haces. El vídeo se analiza en el propio móvil y no se sube a ningún sitio: solo se guarda el resultado.</p></div></div>';
       return;
     }
     if (st === 'loading' || st === 'live') {
@@ -1766,7 +1775,7 @@ body.va-open{overflow:hidden}
   }
   function vaFichaHtml(c) {
     var R = vaRule(c);
-    return '<div class="grid2" style="margin-top:16px"><div class="box"><h3>Técnica en vídeo <small>sentadilla</small></h3>' + vaHistHtml(c, true) + '<button type="button" class="btn-a peach" style="margin-top:12px" data-vaopen="' + c.id + '">' + CRM_IC.cam + 'Analizar ahora</button></div>' +
+    return '<div class="grid2" style="margin-top:16px"><div class="box"><h3>Técnica en vídeo <small>sentadilla</small></h3>' + vaHistHtml(c, true) + '<div class="va-use"><span>Este mes: <b>' + vaUsed(c) + ' de ' + vaCap(c) + '</b> análisis</span><span class="va-bar"><i style="width:' + Math.min(100, vaUsed(c) / vaCap(c) * 100) + '%"></i></span><button type="button" class="btn-a sm sec" data-vaextra="' + c.id + '">+1 extra</button></div><button type="button" class="btn-a peach" style="margin-top:12px" data-vaopen="' + c.id + '"' + (vaLeft(c) ? '' : ' disabled') + '>' + CRM_IC.cam + 'Analizar ahora</button></div>' +
       '<form class="box form" id="vaRuleForm"><h3>Pautas de técnica para ' + esc(first(c.name)) + ' <small>' + (c.tech ? 'personalizadas' : 'las del centro') + '</small></h3><label class="lab">Profundidad<select class="sel" id="vrD">' + VA_DEPTH.map(function (o) { return '<option value="' + o.v + '"' + (o.v === R.depth ? ' selected' : '') + '>' + o.n + '</option>'; }).join('') + '</select></label><label class="lab">Espalda<select class="sel" id="vrL">' + VA_LEAN.map(function (o) { return '<option value="' + o.v + '"' + (o.v === R.lean ? ' selected' : '') + '>' + o.n + '</option>'; }).join('') + '</select></label><label style="display:flex;gap:10px;align-items:center;font-size:14px;font-weight:600"><input type="checkbox" id="vrK"' + (R.knees ? ' checked' : '') + '> Avisar si las rodillas se van hacia dentro</label><label class="lab">Indicación que verá antes de grabarse<input class="inp" id="vrN" value="' + esc(R.note || '') + '"></label><button type="submit" class="btn-a pri" style="align-self:flex-start">Guardar pautas</button></form></div>';
   }
   function aTecnica() {
@@ -1775,7 +1784,7 @@ body.va-open{overflow:hidden}
     rec.sort(function (a, b) { return a.s.d < b.s.d ? 1 : -1; });
     var h = head('Técnica en vídeo', 'El cliente se graba con el móvil y la app mide su sentadilla con tus pautas: repeticiones, profundidad, espalda, rodillas y ritmo. Tú ves el resultado en su ficha.', '<button type="button" class="btn-a peach" data-vaopen="' + (UI.aClient || cl[0].id) + '">' + CRM_IC.cam + 'Probar ahora</button>');
     h += '<div class="grid2"><div class="box"><h3>Últimos análisis <small>' + rec.length + '</small></h3>' + (rec.length ? '<div class="va-hist">' + rec.slice(0, 10).map(function (x) { return '<button type="button" class="va-hi" data-open="' + x.c.id + '">' + (x.s.thumb ? '<img src="' + x.s.thumb + '" alt="">' : '<span class="va-ph">' + CRM_IC.cam + '</span>') + '<div><b>' + esc(x.c.name) + ' · ' + nf(x.s.score, 1) + '/10</b><span>' + esc(short(parse(x.s.d))) + ' · ' + x.s.reps + ' reps · profundidad ' + x.s.depth + '°</span><small>' + esc(x.s.tips[0] || '') + '</small></div></button>'; }).join('') + '</div>' : '<p class="subt">Aún no hay análisis.</p>') + '</div>' +
-      (isOwner() ? '<form class="box form" id="vaDefForm"><h3>Pautas del centro <small>por defecto para todos</small></h3><label class="lab">Profundidad<select class="sel" id="vdD">' + VA_DEPTH.map(function (o) { return '<option value="' + o.v + '"' + (o.v === D.depth ? ' selected' : '') + '>' + o.n + '</option>'; }).join('') + '</select></label><label class="lab">Espalda<select class="sel" id="vdL">' + VA_LEAN.map(function (o) { return '<option value="' + o.v + '"' + (o.v === D.lean ? ' selected' : '') + '>' + o.n + '</option>'; }).join('') + '</select></label><label style="display:flex;gap:10px;align-items:center;font-size:14px;font-weight:600"><input type="checkbox" id="vdK"' + (D.knees ? ' checked' : '') + '> Avisar si las rodillas se van hacia dentro</label><label class="lab">Indicación antes de grabarse<input class="inp" id="vdN" value="' + esc(D.note || '') + '"></label><p class="subt" style="margin:0">Cada entrenador puede ajustarlas para un cliente concreto desde su ficha.</p><button type="submit" class="btn-a pri" style="align-self:flex-start">Guardar</button></form>' : '<div class="box"><h3>Tus pautas</h3><p class="subt">Profundidad ≤ ' + D.depth + '° · tronco ≤ ' + D.lean + '°' + (D.knees ? ' · rodillas alineadas' : '') + '. Puedes personalizarlas para cada cliente en su ficha.</p></div>') + '</div>';
+      (isOwner() ? '<form class="box form" id="vaDefForm"><h3>Pautas del centro <small>por defecto para todos</small></h3><label class="lab">Profundidad<select class="sel" id="vdD">' + VA_DEPTH.map(function (o) { return '<option value="' + o.v + '"' + (o.v === D.depth ? ' selected' : '') + '>' + o.n + '</option>'; }).join('') + '</select></label><label class="lab">Espalda<select class="sel" id="vdL">' + VA_LEAN.map(function (o) { return '<option value="' + o.v + '"' + (o.v === D.lean ? ' selected' : '') + '>' + o.n + '</option>'; }).join('') + '</select></label><label style="display:flex;gap:10px;align-items:center;font-size:14px;font-weight:600"><input type="checkbox" id="vdK"' + (D.knees ? ' checked' : '') + '> Avisar si las rodillas se van hacia dentro</label><label class="lab">Indicación antes de grabarse<input class="inp" id="vdN" value="' + esc(D.note || '') + '"></label><label class="lab">Tope de análisis por cliente y mes<select class="sel" id="vdCap">' + [2, 4, 6, 8].map(function (n) { return '<option value="' + n + '"' + (n === (S.vaCapN || 4) ? ' selected' : '') + '>' + n + ' al mes</option>'; }).join('') + '</select></label><p class="subt" style="margin:0">Cada entrenador puede ajustarlas para un cliente concreto desde su ficha.</p><button type="submit" class="btn-a pri" style="align-self:flex-start">Guardar</button></form>' : '<div class="box"><h3>Tus pautas</h3><p class="subt">Cada cliente puede hacer ' + (S.vaCapN || 4) + ' análisis al mes. Profundidad ≤ ' + D.depth + '° · tronco ≤ ' + D.lean + '°' + (D.knees ? ' · rodillas alineadas' : '') + '. Puedes personalizarlas para cada cliente en su ficha.</p></div>') + '</div>';
     return h;
   }
   function vaSeed() {
@@ -1784,22 +1793,23 @@ body.va-open{overflow:hidden}
       if (k % 3 === 2) return; var n = 2 + k % 3; c.vlog = [];
       for (var i = 0; i < n; i++) { var dep = 128 - i * 9 - (k % 4) * 2, ln = 52 - i * 4, reps = 6 + (k + i) % 3, okD = dep <= 110 ? reps : Math.max(0, reps - 3 - (128 - dep) / -6 | 0), sc = Math.min(9.5, 5.2 + i * 1.3 + (k % 3) * 0.4); c.vlog.push({ id: uid(), d: iso(addDays(T, -(n - i) * 21)), ex: 'Sentadilla', reps: reps, depth: dep, best: dep - 6, lean: ln, okD: dep <= 110 ? reps : Math.max(1, reps - 3 + i), okL: ln <= 45 ? reps : reps - 2, okK: reps, tempo: 1.1 + i * 0.4, score: Math.round(sc * 10) / 10, frontal: false, rule: { depth: 110, lean: 45, knees: true }, tips: [dep <= 110 ? 'Profundidad perfecta en todas las repeticiones.' : 'Baja un poco más: rodilla a 110° o menos.', ln <= 45 ? 'Buena posición de espalda.' : 'Mantén el pecho más alto.'], src: i % 2 ? 'cliente' : 'entrenador', by: coachOf(c).name, thumb: '' }); }
     });
+    S.vaCapN = S.vaCapN || 4; var mt = S.clients.filter(function (c) { return c.id === 'marta'; })[0]; if (mt && mt.vlog && mt.vlog.length) mt.vlog[mt.vlog.length - 1].d = iso(addDays(T, -Math.min(T.getDate() - 1, 6)));
     S.vaOk = true;
   }
   function vaClientCard(c) {
     var L = c.vlog || [], l = L[L.length - 1];
-    return '<button type="button" class="card st-card st-btn" data-c="tecnica"><div class="card-h"><h3>Analiza tu sentadilla</h3><span>' + (l ? 'último: ' + nf(l.score, 1) + '/10' : 'nuevo') + '</span></div><p style="margin:0 0 6px;font-size:14px">Grábate con el móvil y la app mide tu técnica con las pautas de ' + esc(coachOf(c).name) + '.</p><span class="st-more">Empezar →</span></button>';
+    return '<button type="button" class="card st-card st-btn" data-c="tecnica"><div class="card-h"><h3>Analiza tu sentadilla</h3><span>' + vaLeft(c) + ' de ' + vaCap(c) + ' este mes</span></div><p style="margin:0 0 6px;font-size:14px">Grábate con el móvil y la app mide tu técnica con las pautas de ' + esc(coachOf(c).name) + '.</p><span class="st-more">Empezar →</span></button>';
   }
   function vTecnica(c) {
     var R = vaRule(c);
     return '<div class="c-scroll"><button type="button" class="back" data-c="home">' + IC.back + 'Inicio</button><div><h1 class="title">Tu técnica</h1><p class="subt">Grábate haciendo sentadillas y la app las mide al momento con las pautas de ' + esc(coachOf(c).name) + '.</p></div>' +
       '<section class="card"><div class="card-h"><h3>Tus pautas</h3><span>' + esc(coachOf(c).name) + '</span></div><ul class="va-ul"><li>Rodilla a <b>' + R.depth + '°</b> o menos</li><li>Tronco como máximo a <b>' + R.lean + '°</b></li>' + (R.knees ? '<li>Rodillas en la línea de los pies</li>' : '') + '</ul>' + (R.note ? '<p class="va-note">«' + esc(R.note) + '»</p>' : '') + '</section>' +
-      '<button type="button" class="bt peach full" style="height:56px;font-size:16px" data-vaopen="' + c.id + '">' + CRM_IC.cam + ' Analizar mi sentadilla</button>' +
+      (vaLeft(c) > 0 ? '<button type="button" class="bt peach full" style="height:56px;font-size:16px" data-vaopen="' + c.id + '">' + CRM_IC.cam + ' Analizar mi sentadilla</button><p class="subt" style="margin:-4px 0 0;text-align:center">Te quedan <b>' + vaLeft(c) + ' de ' + vaCap(c) + '</b> análisis este mes</p>' : '<section class="card va-capc"><b>Has usado tus ' + vaCap(c) + ' análisis de este mes</b><p class="subt" style="margin:4px 0 0">Se renuevan el ' + vaRenew() + '. Si necesitas uno antes, pídeselo a ' + esc(coachOf(c).name) + '.</p></section>') +
       '<section class="card"><div class="card-h"><h3>Mis análisis</h3><span>' + (c.vlog || []).length + '</span></div>' + vaHistHtml(c, false) + '</section></div>' + cNav('progress');
   }
   function vaPanelSubmit(f) {
     if (f.id === 'vaRuleForm') { var c = client(UI.aClient); c.tech = { depth: +$('vrD').value, lean: +$('vrL').value, knees: $('vrK').checked, note: $('vrN').value.trim() }; save(); renderA(); renderC(); toastA('Pautas guardadas para ' + first(c.name)); return true; }
-    if (f.id === 'vaDefForm') { S.tech = { depth: +$('vdD').value, lean: +$('vdL').value, knees: $('vdK').checked, note: $('vdN').value.trim() }; save(); renderA(); renderC(); toastA('Pautas del centro guardadas'); return true; }
+    if (f.id === 'vaDefForm') { S.tech = { depth: +$('vdD').value, lean: +$('vdL').value, knees: $('vdK').checked, note: $('vdN').value.trim() }; S.vaCapN = +$('vdCap').value; save(); renderA(); renderC(); toastA('Pautas del centro guardadas'); return true; }
     return false;
   }
   window.__va = { frame: vaFrame, step: vaStep, summary: vaSummary, open: vaOpen, reset: function (cid) { VA.cid = cid; VA.reps = []; VA.cur = null; VA.ema = null; VA.hist = []; }, state: VA };
@@ -2172,6 +2182,7 @@ body.va-open{overflow:hidden}
     if (d.logout) { S.me = null; save(); renderA(); return; }
     if (d.scope) { S.scope = d.scope; save(); UI.waC = null; UI.sts = null; renderA(); return; }
     if (d.vaopen) { vaOpen(d.vaopen, 'entrenador'); return; }
+    if (d.vaextra) { var cx = client(d.vaextra); cx.vaExtra = cx.vaExtra || {}; cx.vaExtra[vaMonth()] = (cx.vaExtra[vaMonth()] || 0) + 1; save(); renderA(); renderC(); toastA('Análisis extra para ' + first(cx.name) + ' este mes'); return; }
     if (crmPanelClick(b, d)) return;
     if (stPanelClick(b, d)) return;
     if (d.a) {
