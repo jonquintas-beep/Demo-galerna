@@ -600,7 +600,7 @@ body.big #client{zoom:1.15}
       trial: { h: h || '', exp: E ? (E.caduca || '') : '', ok: Date.now() }
     };
   }
-  var KEY = 'demo-fitme-v1', S;
+  var KEY = 'demo-fitmi-v1', S;
   try { S = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { S = null; }
   if (!S || S.v !== 1 || !S.trial || !S.trial.h) S = seedState(null, '', '');
   function save() { if (!S.trial || !S.trial.h) return; try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
