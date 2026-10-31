@@ -209,7 +209,7 @@ h1,h2,h3,h4,p{margin:0}
 .a-side .reset{font-size:12.5px;color:#AEBBD2}
 .a-side .pow{font-size:11px;color:#8C9BB8;padding:10px 12px 0;display:flex;flex-direction:column;gap:6px}
 .a-side .pow .glogo{height:16px;opacity:.9}
-.a-main{min-height:0;overflow-y:auto;padding:26px 28px 40px;background:#FBFAF7}
+.a-main{min-height:0;overflow-y:auto;overflow-x:hidden;padding:26px 28px 40px;background:#FBFAF7}
 .a-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:20px}
 .a-head h2{font-family:var(--display);font-weight:600;font-size:26px;letter-spacing:-.02em}
 .a-head p{color:var(--sub);font-size:14px;margin-top:4px;max-width:70ch}
@@ -379,9 +379,15 @@ input[type=color]{width:100%;height:42px;border:1px solid var(--line);border-rad
 .fq .opts-p span{font-size:12px;padding:4px 9px;border-radius:999px;background:var(--bg);color:var(--sub);font-weight:600}
 @media (max-width:1080px){ .prof{grid-template-columns:1fr} }
 @media (max-width: 1080px){
-  .a-side{flex-direction:row;overflow-x:auto;padding:10px 12px;gap:4px;scrollbar-width:none}
-  .a-side::-webkit-scrollbar{display:none}
-  .a-brand,.a-who,.a-side .spacer,.a-grp,.a-side .pow{display:none}
+  .a-side{flex-direction:row;flex-wrap:wrap;align-items:center;overflow:hidden;min-width:0;padding:12px 14px 10px;gap:8px 10px}
+  .a-side .a-brand{flex:1 1 auto;min-width:0;padding:0!important;font-size:14px}
+  .a-side .a-me{flex:0 1 auto;min-width:0;padding:0}
+  .a-side .a-me div span{display:none}
+  .a-side .a-scope{flex:1 1 100%;margin:0}
+  .a-nav{display:flex;flex:1 1 100%;min-width:0;gap:4px;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;margin:0 -14px;padding:0 14px}
+  .a-nav::-webkit-scrollbar{display:none}
+  .a-nav .th-btn{margin:0;flex:none}
+  .a-who,.a-side .spacer,.a-grp,.a-side .pow{display:none}
   .a-side button{width:auto;height:38px;white-space:nowrap}
   .a-main{padding:18px 16px 40px}
   .grid4{grid-template-columns:1fr 1fr;gap:8px}
@@ -484,6 +490,11 @@ table.st-t th{font-size:11.5px;color:var(--sub);text-transform:uppercase;letter-
 .team-row .tx{flex:1;min-width:0}
 .team-row .tx b{display:block;font-size:14.5px}
 .team-row .tx span{font-size:12.5px;color:var(--sub)}
+@media (min-width:1081px){.a-nav{display:contents}.a-back{display:none!important}}
+.a-back{display:inline-flex;align-items:center;gap:6px;margin:0 0 12px;padding:7px 14px;border-radius:999px;background:var(--line);color:var(--ink);font-weight:700;font-size:13px}
+.team-row{flex-wrap:wrap}
+.team-row .tx{flex:1 1 160px}
+@media (max-width:640px){.team-row{gap:6px 10px}.team-row .tx{flex:1 1 calc(100% - 50px)}.team-row .chip:first-of-type{margin-left:46px}}
 
 /* La Fábrica: marca */
 .fx-mark{position:absolute;left:-10%;right:-10%;top:6%;height:40%;background:url(../logos/fabrica-mark-blur.png) center/contain no-repeat;opacity:.45;pointer-events:none}
@@ -1892,13 +1903,13 @@ html[data-theme] .chip.mute{background:var(--bg-2);color:var(--sub)}
     function b(r, l, ic, n) { return '<button type="button" data-a="' + r + '" class="' + (on === r ? 'on' : '') + '"' + (on === r ? ' aria-current="page"' : '') + '>' + ic + l + (n ? '<span class="n">' + n + '</span>' : '') + '</button>'; }
     return '<nav class="a-side" aria-label="Menú del panel"><p class="a-brand fx-ab" style="padding-bottom:12px"><img src="../logos/fabrica-logo.png" alt="' + esc(S.brand.name) + '"></p>' +
       '<div class="a-me"><span class="av" aria-hidden="true">' + esc(initials(M.name)) + '</span><div><b>' + esc(M.name) + '</b><span>' + esc(own ? 'Dirección · ve todo el centro' : M.role + ' · ' + mine().length + ' clientes') + '</span></div></div>' +
-      (own ? '<div class="a-scope" role="group" aria-label="Qué ver"><button type="button" data-scope="all" class="' + (seeAll() ? 'on' : '') + '">Todo el centro</button><button type="button" data-scope="mine" class="' + (seeAll() ? '' : 'on') + '">Mis clientes</button></div>' : '') +
+      (own ? '<div class="a-scope" role="group" aria-label="Qué ver"><button type="button" data-scope="all" class="' + (seeAll() ? 'on' : '') + '">Todo el centro</button><button type="button" data-scope="mine" class="' + (seeAll() ? '' : 'on') + '">Mis clientes</button></div>' : '') + '<div class="a-nav">' +
       b('resumen', 'Resumen', IC.grid, nAl) + b('hoy', 'Sesión de hoy', IC.form) + '<p class="a-grp">CRM</p>' + b('crm', seeAll() ? 'Altas y bajas' : 'Mis altas y bajas', CRM_IC.flow) + b('clases', 'Clases y reservas', CRM_IC.cal) + (own ? b('pagos', 'Pagos y cuotas', CRM_IC.euro) + b('leads', 'Captación', IC.funnel, nLead) : '') +
       '<p class="a-grp">' + (seeAll() ? 'Clientes' : 'Mis clientes') + '</p>' + b('clientes', seeAll() ? 'Clientes' : 'Mis clientes', IC.users) + b('tecnica', 'Técnica en vídeo', CRM_IC.cam) + b('planes', 'Plantillas de plan', IC.tpl) + (own ? b('forms', 'Cuestionarios', IC.form) + b('equipo', 'Equipo', IC.team) : '') +
       '<p class="a-grp">' + (own ? 'Asistente y mensajes' : 'Mensajes') + '</p>' + (own ? b('asistente', 'Entrenar asistente', IC.bot) : '') + b('whatsapp', 'WhatsApp', IC.wa, nWa) + (own ? b('auto', 'Recordatorios', IC.bell) : '') +
       (own ? '<p class="a-grp">Centro</p>' + b('comunidad', 'Comunidad y retos', IC.trophy) + b('informes', 'Informes', IC.chart) + b('marca', 'Marca de la app', IC.brush) + b('completa', 'Versión completa', IC.star) : '') +
       b('nuevo', 'Nuevo cliente', IC.plus) +
-      '<span class="spacer"></span>' + thBtn(false) + '<button type="button" class="reset" data-logout="1">Cerrar sesión · cambiar de usuario</button><button type="button" class="reset" data-a="reset">Reiniciar la demo</button><p class="pow">' + GLOGO + '<span>Demo para centros de entrenamiento</span></p></nav>';
+      '<span class="spacer"></span>' + thBtn(false) + '<button type="button" class="reset" data-logout="1">Cerrar sesión · cambiar de usuario</button><button type="button" class="reset" data-a="reset">Reiniciar la demo</button></div><p class="pow">' + GLOGO + '<span>Demo para centros de entrenamiento</span></p></nav>';
   }
   function aLogin() {
     return '<div class="a-login"><div class="lg"><p class="a-brand fx-ab" style="max-width:300px"><img src="../logos/fabrica-logo.png" alt="' + esc(S.brand.name) + '"></p><h2>Acceso al panel</h2><p class="sub">Cada entrenador entra con su cuenta y ve solo a sus clientes. La dirección ve todo el centro.</p>' +
@@ -2195,7 +2206,8 @@ html[data-theme] .chip.mute{background:var(--bg-2);color:var(--sub)}
     if (!isOwner() && OWNER_ONLY.indexOf(UI.a) !== -1) UI.a = 'resumen';
     if (UI.a === 'ficha' && !isMine(client(UI.aClient))) UI.a = 'clientes';
     var body = (VIEWS[UI.a] || aResumen)();
-    var keep = aRoot.querySelector('.a-main'), st = keep ? keep.scrollTop : 0;
+    var keep = aRoot.querySelector('.a-main'), st = keep ? keep.scrollTop : 0, nv0 = aRoot.querySelector('.a-nav'), nsl = nv0 ? nv0.scrollLeft : 0;
+    if (UI.a !== 'resumen' && UI.a !== 'ficha') body = '<button type="button" class="a-back" data-a="resumen">' + '\u2190 Volver al resumen</button>' + body;
     var vals = {}, act = document.activeElement && document.activeElement.id;
     ['waText', 'waManualIn', 'escIn'].forEach(function (id) { var e = document.getElementById(id); if (e) vals[id] = e.value; });
     aRoot.innerHTML = aSide() + '<main class="a-main">' + body + '</main>' + (UI.toastA ? '<p class="toast" role="status" style="bottom:24px">' + esc(UI.toastA) + '</p>' : '');
@@ -2203,6 +2215,8 @@ html[data-theme] .chip.mute{background:var(--bg-2);color:var(--sub)}
     if (act && document.getElementById(act) && aRoot.contains(document.getElementById(act))) document.getElementById(act).focus({ preventScroll: true });
     if (UI.keepScroll) aRoot.querySelector('.a-main').scrollTop = st;
     UI.keepScroll = false;
+    var nv = aRoot.querySelector('.a-nav'), on = nv && nv.querySelector('button.on');
+    if (nv) { nv.scrollLeft = nsl; if (on && nv.scrollWidth > nv.clientWidth) { var l = on.offsetLeft - nv.offsetLeft, r = l + on.offsetWidth; if (l < nv.scrollLeft + 10 || r > nv.scrollLeft + nv.clientWidth - 10) nv.scrollTo({ left: Math.max(0, l - 40), behavior: nsl ? 'smooth' : 'auto' }); } }
     var wb = aRoot.querySelector('.wa-body'); if (wb) wb.scrollTop = wb.scrollHeight;
   }
   function toastA(t) { UI.toastA = t; refreshA(); clearTimeout(UI.ta); UI.ta = setTimeout(function () { UI.toastA = ''; refreshA(); }, 2600); }
