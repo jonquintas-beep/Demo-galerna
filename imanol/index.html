@@ -1266,7 +1266,7 @@ html[data-theme="dark"] .rh-per button.on{background:var(--peach);color:var(--on
     return '<div class="splash">' +
       '<div class="fx-mark" aria-hidden="true"></div>' +
       '<div class="cx-emb" aria-hidden="true">' + MARK + '</div><h1 class="cx-word">' + brandWord(B) + '</h1><p class="cx-sub">Running coach</p>' +
-      '<p class="badge-s"><b>' + esc(B.city) + '</b> · Entrenamiento personal</p>' +
+      
       '<p class="tagline">' + esc(B.tagline) + '</p>' +
       '<div class="svc">' + B.services.map(function (s) { return '<span>' + esc(s) + '</span>'; }).join('') + '</div>' +
       '<div style="display:flex;flex-direction:column;gap:10px;margin-top:26px"><button type="button" class="bt peach full" style="height:54px;font-size:16px" data-c="home">Entrar como ' + esc(first(client().name)) + '</button>' +
