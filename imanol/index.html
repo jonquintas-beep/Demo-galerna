@@ -677,6 +677,26 @@ table.r-zt{width:100%;border-collapse:collapse} .r-zt td{padding:9px 0;border-bo
 .r-li.on{background:var(--peach-soft)}
 html[data-theme="light"] .bt.peach, html[data-theme="light"] .btn-a.peach{color:#0F2A1A}
 html[data-theme="light"] .vt-badge, html[data-theme="light"] .va-b.pri{color:#0F2A1A}
+
+.r-hero{color:var(--ink)}
+.rh-top{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;margin:4px 0 6px}
+.rh-big{font-size:52px;line-height:1;font-weight:800;color:var(--navy)}
+html[data-theme="dark"] .rh-big{color:var(--peach)}
+.rh-u{display:block;font-size:13px;font-weight:700;color:var(--sub)}
+.rh-txt{margin:0;font-size:14px;line-height:1.45;flex:1;min-width:180px} .rh-txt span{color:var(--sub);font-size:13px}
+.rh-sp{width:100%;height:auto;display:block;color:#7DAE22;margin-top:4px}
+.box.r-hero .rh-sp{max-width:560px}
+html[data-theme="dark"] .rh-sp{color:var(--peach)}
+.rh-per{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.rh-per button{height:32px;padding:0 12px;border-radius:999px;font-size:12.5px;font-weight:700;background:var(--bg-2);color:var(--ink);border:0}
+.rh-per button.on{background:var(--navy);color:#fff}
+html[data-theme="dark"] .rh-per button.on{background:var(--peach);color:var(--on-accent)}
+.rh-x{margin:10px 0 0;font-size:13.5px;padding:8px 10px;border-radius:10px;background:var(--peach-soft)}
+.rh-row{display:grid;grid-template-columns:28px minmax(0,1.3fr) minmax(0,1fr) auto;gap:10px;align-items:center;width:100%;text-align:left;padding:8px 0;border:0;border-bottom:1px solid var(--line);background:none;color:inherit}
+.rh-pos{width:26px;height:26px;border-radius:50%;background:var(--bg-2);display:grid;place-items:center;font-weight:800;font-size:12.5px}
+.rh-n b{display:block;font-size:14px} .rh-n small{font-size:12px;color:var(--sub)}
+.rh-bar{height:8px;border-radius:99px;background:var(--line);overflow:hidden} .rh-bar i{display:block;height:100%;background:var(--peach)}
+.vt-pace{margin:-2px 0 0;font-size:12.5px;color:var(--sub)}
 </style>
 <script>try{document.documentElement.dataset.theme=localStorage.getItem("imanol-theme")||"light"}catch(e){document.documentElement.dataset.theme="light"}</script>
 </head>
@@ -847,10 +867,10 @@ html[data-theme="light"] .vt-badge, html[data-theme="light"] .va-b.pri{color:#0F
     var pablo = Object.assign({ id: 'pablo', name: 'Pablo Ríos', goal: 'Maratón en menos de 3:30', start: iso(addDays(T, -40)), coach: 'c2', waOk: false,
       weight: [79.0, 79.2, 79.5, 79.9], strength: { name: 'Peso muerto rumano', unit: 'kg', vals: [40, 46, 50, 56] },
       checks: genChecks(19, [6, 5, 4, 3], { sleep: 7, rest: 3.5, str: 3 }), done: 14, note: 'Pablo, recuerda la movilidad de cadera antes del pádel.', chat: [] }, fromTpl('f40'));
-    irati.profile = { goal: 'Ganar músculo', why: 'Trabajo sentada y quiero mejorar la postura', exp: 'He entrenado a rachas', likes: ['Entrenamiento personal', 'Movilidad'], dislikes: ['Correr'], days: '2 días', injury: 'Ninguna', diet: 'Como de todo', foods: ['Pescado', 'Verdura', 'Fruta'], nofood: '', meals: '4', cook: 'Sí, me gusta', sleepH: 7, sleepQ: 'Del tirón', stress: 3, when: 'Mañana' };
+    irati.profile = { goal: 'Ganar músculo', why: 'Trabajo sentada y quiero mejorar la postura', exp: 'He entrenado a rachas', likes: ['Entrenamiento personal', 'Movilidad'], dislikes: ['Cinta'], days: '2 días', injury: 'Ninguna', diet: 'Como de todo', foods: ['Pescado', 'Verdura', 'Fruta'], nofood: '', meals: '4', cook: 'Sí, me gusta', sleepH: 7, sleepQ: 'Del tirón', stress: 3, when: 'Mañana' };
     ane.profile = { goal: 'Perder grasa', why: 'Quiero tener más energía en el día a día', exp: 'Empiezo de cero', likes: ['Entrenamiento personal'], dislikes: ['Saltos'], days: '2 días', injury: 'Hombro', diet: 'Como de todo', foods: ['Carne', 'Huevos', 'Verdura'], nofood: '', meals: '3', cook: 'Lo justo', sleepH: 6.5, sleepQ: 'Me despierto alguna vez', stress: 4, when: 'Tarde' };
     pablo.profile = { goal: 'Rendir más en mi deporte', why: 'Juego al pádel 3 días y quiero no lesionarme', exp: 'Entreno de forma habitual', likes: ['Pesas'], dislikes: ['Clases en grupo'], days: '2 días', injury: 'Ninguna', diet: 'Como de todo', foods: ['Carne', 'Pasta y arroz', 'Legumbres'], nofood: '', meals: '4', cook: 'Casi nunca, como fuera', sleepH: 7, sleepQ: 'Del tirón', stress: 2, when: 'Tarde' };
-    marta.profile = { goal: 'Ganar músculo', why: 'Quiero sentirme fuerte y con energía para todo el día', exp: 'He entrenado a rachas', likes: ['Pesas', 'Entrenamiento personal'], dislikes: ['Correr'], days: '3 días', injury: 'Ninguna', diet: 'Como de todo', foods: ['Pescado', 'Huevos', 'Verdura', 'Fruta'], nofood: 'Hígado', meals: '4', cook: 'Lo justo', sleepH: 7, sleepQ: 'Me despierto alguna vez', stress: 3, when: 'Tarde' };
+    marta.profile = { goal: 'Mejorar mi marca', why: 'Quiero bajar de 50 minutos en un 10K', exp: 'He entrenado a rachas', likes: ['Series', 'Rodajes'], dislikes: ['Cinta'], days: '3 días', injury: 'Ninguna', diet: 'Como de todo', foods: ['Pescado', 'Huevos', 'Verdura', 'Fruta'], nofood: 'Hígado', meals: '4', cook: 'Lo justo', sleepH: 7, sleepQ: 'Me despierto alguna vez', stress: 3, when: 'Tarde' };
     inaki.profile = { goal: 'Cuidar la espalda o una lesión', why: 'Me paso el día sentado y la espalda me avisa', exp: 'Entreno de forma habitual', likes: ['Pesas', 'Movilidad y estiramientos'], dislikes: ['Saltos'], days: '3 días', injury: 'Espalda', diet: 'Como de todo', foods: ['Carne', 'Legumbres', 'Pasta y arroz'], nofood: '', meals: '3', cook: 'Casi nunca, como fuera', sleepH: 6.5, sleepQ: 'Mal, me cuesta', stress: 4, when: 'Mañana' };
     leire.profile = { goal: 'Perder grasa', why: 'Quiero verme y sentirme mejor', exp: 'Empiezo de cero', likes: ['Clases en grupo', 'Entrenamiento personal'], dislikes: ['Burpees'], days: '3 días', injury: 'Ninguna', diet: 'Vegetariano/a', foods: ['Huevos', 'Legumbres', 'Verdura', 'Lácteos'], nofood: 'Champiñones', meals: '4', cook: 'Sí, me gusta', sleepH: 7.5, sleepQ: 'Del tirón', stress: 2, when: 'Tarde' };
     var y = iso(addDays(T, -1));
@@ -922,7 +942,7 @@ html[data-theme="light"] .vt-badge, html[data-theme="light"] .va-b.pri{color:#0F
       return c;
     });
   }
-  var KEY = 'galerna-imanol-v1';
+  var KEY = 'galerna-imanol-v5';
   var S, hb = parseHash();
   try { S = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { S = null; }
   if (!S || S.v !== 5) S = seed(hb || DEF_BRAND);
@@ -1251,7 +1271,7 @@ html[data-theme="light"] .vt-badge, html[data-theme="light"] .va-b.pri{color:#0F
     if (n) h += '<section class="hero" aria-label="Próxima sesión"><p class="pill">' + nextTxt + '</p><h2>' + esc(n.s.title) + '</h2><p>' + esc(n.s.detail) + ' · con ' + esc(co.name) + '</p><div class="row2"><button type="button" class="bt peach" style="flex:1" data-c="session" data-i="' + c.sessions.indexOf(n.s) + '">Ver sesión</button><button type="button" class="bt ghost-l" style="flex:1" data-c="plan">Ver semana</button></div></section>';
     if (!checkedToday(c)) h += '<section class="card" aria-label="Check-in de hoy" style="display:flex;align-items:center;gap:14px"><div style="flex:1"><h3 style="font-family:var(--display);font-weight:600;font-size:16px">Check-in de hoy</h3><p class="subt" style="margin-top:2px">Sueño, descanso, fuerza y comida · 1 min</p></div><button type="button" class="bt navy" data-c="checkin">Empezar</button></section>';
     else h += '<section class="card" aria-label="Check-in hecho" style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><span class="chip ok"><span class="dot"></span>Check-in hecho</span><p class="subt" style="margin:0">Durmió ' + nf(lc.sleep, 1) + ' h · Fuerza ' + lc.strength + '/5</p></section>';
-    h += vtHomeCard(c) + rHomeCards(c) + stHomeCards(c) + crmHomeCard(c) + vaClientCard(c);
+    h += rHero(c, false) + rHomeCards(c) + stHomeCards(c) + crmHomeCard(c);
     h += '<section class="card" aria-label="Tu semana"><div class="card-h"><h3>Tu semana</h3><span>Pautas de ' + esc(S.assistant.name) + '</span></div><div class="rings">' +
       '<div class="ring">' + ring(sleepAvg / c.targets.sleep, '#2D5BA8', 'Sueño medio') + '<b>' + (wc.length ? nf(sleepAvg, 1) + ' h' : '—') + '</b><span>Sueño · obj. ' + nf(c.targets.sleep, 1) + '</span></div>' +
       '<div class="ring">' + ring(sessDone / sessWeek, S.brand.accent, sessDone + ' de ' + sessWeek + ' sesiones') + '<b>' + sessDone + ' de ' + c.sessions.length + '</b><span>Sesiones</span></div>' +
@@ -1516,7 +1536,7 @@ html[data-theme="light"] .vt-badge, html[data-theme="light"] .va-b.pri{color:#0F
     if (r === 'flow' && UI.flow) html = '<div class="c-view">' + vFlow() + '</div>';
     else if (r === 'splash') html = vSplash();
     else if (r === 'onboard' || r === 'obresult' || r === 'obdone') html = '<div class="c-view">' + (r === 'onboard' ? vOnboard() : r === 'obresult' ? vObResult() : vObDone()) + '</div>';
-    else html = '<div class="c-view">' + (r === 'home' ? vHome(c) : r === 'plan' ? vPlan(c) : r === 'session' ? vSession(c) : r === 'progress' ? vProgress(c) : r === 'checkin' ? vCheckin(c) : r === 'reto' ? vReto(c) : r === 'precheck' ? vPre(c) : r === 'clases' ? vClases(c) : r === 'tecnica' ? vTecnica(c) : r === 'valoraciones' ? vValoraciones(c) : r === 'ritmos' ? vRitmos(c) : r === 'series' ? vSeries(c) : r === 'carreras' ? vCarreras(c) : r === 'sesiones' ? vSes(c) : r === 'medidas' ? vMed(c) : r === 'informe' ? vInf(c) : vChat(c)) + '</div>';
+    else html = '<div class="c-view">' + (r === 'home' ? vHome(c) : r === 'plan' ? vPlan(c) : r === 'session' ? vSession(c) : r === 'progress' ? vRunProgress(c) : r === 'checkin' ? vCheckin(c) : r === 'reto' ? vReto(c) : r === 'precheck' ? vPre(c) : r === 'clases' ? vClases(c) : r === 'tecnica' ? vTecnica(c) : r === 'valoraciones' ? vValoraciones(c) : r === 'ritmos' ? vRitmos(c) : r === 'series' ? vSeries(c) : r === 'carreras' ? vCarreras(c) : r === 'sesiones' ? vSes(c) : r === 'medidas' ? vMed(c) : r === 'informe' ? vInf(c) : vChat(c)) + '</div>';
     if (UI.toastC) html += '<p class="toast" role="status">' + esc(UI.toastC) + '</p>';
     var keepVal = document.getElementById('obname'), kv = keepVal ? keepVal.value : null, foc = document.activeElement && document.activeElement.id;
     cRoot.innerHTML = html;
@@ -1919,18 +1939,18 @@ html[data-theme="light"] .vt-badge, html[data-theme="light"] .va-b.pri{color:#0F
 
   /* ================= Valoraciones: antes y ahora ================= */
   var VT = [
-    { id: 'r5', n: '5 km', u: 't', dir: 'low', c: '#0F3B24' },
-    { id: 'r10', n: '10 km', u: 't', dir: 'low', c: '#7DAE22' },
-    { id: 'r1k', n: 'Test de 1.000 m', u: 't', dir: 'low', c: '#2E8B57' },
+    { id: 'r5', n: '5 km', u: 't', km: 5, dir: 'low', c: '#0F3B24' },
+    { id: 'r10', n: '10 km', u: 't', km: 10, dir: 'low', c: '#7DAE22' },
+    { id: 'r1k', n: 'Test de 1.000 m', u: 't', km: 1, dir: 'low', c: '#2E8B57' },
     { id: 'cad', n: 'Cadencia', u: 'spm', dir: 'high', c: '#4F9DDE' },
     { id: 'fc', n: 'Pulso en reposo', u: 'ppm', dir: 'low', c: '#E07A3A' },
-    { id: 'cmj', n: 'Salto vertical', u: 'cm', dir: 'high', c: '#9B6BFF' }
+    { id: 'rod', n: 'Ritmo medio de rodaje', u: 'pace', dir: 'low', c: '#9B6BFF' }
   ];
   var VT_MES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
   function vtLab(d) { var x = parse(d); return x.getDate() + ' ' + VT_MES[x.getMonth()]; }
-  function vtFmt(t, v) { if (v == null) return '—'; if (t.u === 't') return rTime(v); if (t.u === 'spm') return nf(v) + ' ppm'; if (t.u === 'ppm') return nf(v) + ' lpm'; return t.u === 'pts' ? nf(v, v % 1 ? 1 : 0) + '/10' : t.u === 'reps' ? nf(v) + ' reps' : t.u === 'kg' ? nf(v, v % 1 ? 1 : 0) + ' kg' : t.u === 'cm' ? nf(v) + ' cm' : nf(v, v % 1 ? 1 : 0) + ' s'; }
+  function vtFmt(t, v) { if (v == null) return '—'; if (t.u === 'pace') return rPace(v); if (t.u === 't') return rTime(v); if (t.u === 'spm') return nf(v) + ' ppm'; if (t.u === 'ppm') return nf(v) + ' lpm'; return t.u === 'pts' ? nf(v, v % 1 ? 1 : 0) + '/10' : t.u === 'reps' ? nf(v) + ' reps' : t.u === 'kg' ? nf(v, v % 1 ? 1 : 0) + ' kg' : t.u === 'cm' ? nf(v) + ' cm' : nf(v, v % 1 ? 1 : 0) + ' s'; }
   function vtDates(c) { var ds = {}; VT.forEach(function (t) { ((c.vt || {})[t.id] || []).forEach(function (m) { ds[m.d] = 1; }); }); return Object.keys(ds).sort(); }
-  function vtImp(t, a, b) { if (a == null || b == null || a === b) return { txt: 'igual', good: null }; var good = t.dir === 'low' ? b < a : b > a; return { good: good, txt: t.u === 't' ? (good ? '−' : '+') + (Math.abs(b - a) >= 60 ? Math.floor(Math.abs(b - a) / 60) + ' min ' + Math.round(Math.abs(b - a) % 60) + ' s' : Math.round(Math.abs(b - a)) + ' s') : t.u === 'pts' ? (good ? '+' : '−') + nf(Math.abs(b - a), Math.abs(b - a) % 1 ? 1 : 0) + ' puntos' : (good ? '+' : '−') + Math.round(Math.abs(b - a) / Math.abs(a || 1) * 100) + '%' }; }
+  function vtImp(t, a, b) { if (a == null || b == null || a === b) return { txt: 'igual', good: null }; var good = t.dir === 'low' ? b < a : b > a; return { good: good, txt: (t.km || t.u === 'pace') ? (good ? '−' : '+') + Math.round(Math.abs(b - a) / (t.km || 1)) + ' s/km' : t.u === 't' ? (good ? '−' : '+') + (Math.abs(b - a) >= 60 ? Math.floor(Math.abs(b - a) / 60) + ' min ' + Math.round(Math.abs(b - a) % 60) + ' s' : Math.round(Math.abs(b - a)) + ' s') : t.u === 'pts' ? (good ? '+' : '−') + nf(Math.abs(b - a), Math.abs(b - a) % 1 ? 1 : 0) + ' puntos' : (good ? '+' : '−') + Math.round(Math.abs(b - a) / Math.abs(a || 1) * 100) + '%' }; }
   function vtAgo(d) { var m = Math.round((T - parse(d)) / 864e5 / 30.4); return m >= 2 ? 'hace ' + m + ' meses' : m === 1 ? 'hace 1 mes' : 'hace ' + Math.max(1, Math.round((T - parse(d)) / 864e5)) + ' días'; }
   function vtSpark(vals, col, l0) {
     if (vals.length < 2) return '';
@@ -1944,20 +1964,20 @@ html[data-theme="light"] .vt-badge, html[data-theme="light"] .va-b.pri{color:#0F
     var items = VT.map(function (t) { var a = (c.vt || {})[t.id] || []; return { t: t, a: a, v0: a.length ? a[0].v : null, v1: a.length ? a[a.length - 1].v : null }; }).filter(function (x) { return x.a.length; });
     var good = items.filter(function (x) { return vtImp(x.t, x.v0, x.v1).good; }).length, note = (c.vnotes || {})[ds[ds.length - 1]];
     return '<section class="' + (panel ? 'box' : 'card') + ' vt-cmp"><div class="vt-h"><div><p class="vt-k">Antes y ahora</p><h3>' + (panel ? esc(first(c.name)) + ' entró ' : 'Entraste ') + vtAgo(ds[0]) + ' · así ' + (panel ? 'está' : 'estás') + ' hoy</h3></div><span class="vt-badge"><b class="num">' + good + '/' + items.length + '</b> marcas mejoradas</span></div><div class="vt-g">' +
-      items.map(function (x) { var im = vtImp(x.t, x.v0, x.v1); return '<div class="vt-c" style="--tc:' + x.t.c + '"><span class="vt-n"><i></i>' + esc(x.t.n) + '</span><div class="vt-v"><span><small>' + esc(vtLab(x.a[0].d)) + '</small><b class="num">' + vtFmt(x.t, x.v0) + '</b></span><em>→</em><span><small>Hoy</small><b class="num vt-now">' + vtFmt(x.t, x.v1) + '</b></span></div>' + vtSpark(x.a.map(function (m) { return m.v; }), x.t.c, vtLab(x.a[0].d)) + '<span class="vt-d ' + (im.good ? 'up' : im.good === false ? 'dn' : '') + '">' + (im.good ? '▲ ' : im.good === false ? '▼ ' : '') + esc(im.txt) + (im.good != null ? (x.t.u === 't' ? (im.good ? ' más rápido' : ' más lento') : (im.good ? ' mejor' : ' peor')) : '') + '</span></div>'; }).join('') + '</div>' +
+      items.map(function (x) { var im = vtImp(x.t, x.v0, x.v1); return '<div class="vt-c" style="--tc:' + x.t.c + '"><span class="vt-n"><i></i>' + esc(x.t.n) + '</span><div class="vt-v"><span><small>' + esc(vtLab(x.a[0].d)) + '</small><b class="num">' + vtFmt(x.t, x.v0) + '</b></span><em>→</em><span><small>Hoy</small><b class="num vt-now">' + vtFmt(x.t, x.v1) + '</b></span></div>' + (x.t.km ? '<p class="vt-pace">' + rPace(x.v0 / x.t.km) + ' → <b>' + rPace(x.v1 / x.t.km) + '</b></p>' : '') + vtSpark(x.a.map(function (m) { return m.v; }), x.t.c, vtLab(x.a[0].d)) + '<span class="vt-d ' + (im.good ? 'up' : im.good === false ? 'dn' : '') + '">' + (im.good ? '▲ ' : im.good === false ? '▼ ' : '') + esc(im.txt) + (im.good != null ? ((x.t.u === 't' || x.t.u === 'pace') ? (im.good ? ' más rápido' : ' más lento') : (im.good ? ' mejor' : ' peor')) : '') + '</span></div>'; }).join('') + '</div>' +
       (note ? '<p class="vt-note"><b>' + esc(coachOf(c).name) + ', última valoración (' + esc(vtLab(ds[ds.length - 1])) + '):</b> ' + esc(note) + '</p>' : '') + '</section>';
   }
   function vtTableHtml(c) {
     var ds = vtDates(c).slice(-6);
     return '<form class="box" id="vtForm" style="margin-top:16px"><h3>Valoraciones <small>una columna por valoración · rellena la de hoy y guarda</small></h3><div class="tbl-wrap"><table class="vt-t"><thead><tr><th>Prueba</th>' + ds.map(function (d) { return '<th>' + esc(vtLab(d)) + '</th>'; }).join('') + '<th class="vt-new">Hoy</th></tr></thead><tbody>' +
-      VT.map(function (t) { var a = (c.vt || {})[t.id] || []; return '<tr><td><span class="vt-dot" style="background:' + t.c + '"></span>' + esc(t.n) + '</td>' + ds.map(function (d) { var m = a.filter(function (x) { return x.d === d; })[0]; return '<td class="num">' + (m ? vtFmt(t, m.v) : '—') + '</td>'; }).join('') + '<td class="vt-new"><label class="sr" for="vt-' + t.id + '">' + esc(t.n) + '</label><input class="inp" id="vt-' + t.id + '" inputmode="decimal" autocomplete="off" placeholder="' + (t.u === 't' ? 'mm:ss' : '') + '"></td></tr>'; }).join('') +
+      VT.map(function (t) { var a = (c.vt || {})[t.id] || []; return '<tr><td><span class="vt-dot" style="background:' + t.c + '"></span>' + esc(t.n) + '</td>' + ds.map(function (d) { var m = a.filter(function (x) { return x.d === d; })[0]; return '<td class="num">' + (m ? vtFmt(t, m.v) : '—') + '</td>'; }).join('') + '<td class="vt-new"><label class="sr" for="vt-' + t.id + '">' + esc(t.n) + '</label><input class="inp" id="vt-' + t.id + '" inputmode="decimal" autocomplete="off" placeholder="' + (t.u === 't' || t.u === 'pace' ? 'mm:ss' : '') + '"></td></tr>'; }).join('') +
       '</tbody></table></div><label class="lab" style="margin-top:12px">Observaciones (las ve en su app)<textarea class="ta" id="vtNote" rows="2" placeholder="Por ejemplo: sentadilla más profunda y controlada"></textarea></label><button type="submit" class="btn-a pri" style="margin-top:10px">Guardar valoración y enviar a su app</button></form>';
   }
   function vtSeed() {
     if (S.vtOk) return;
     S.clients.forEach(function (c, k) {
       c.vt = {}; c.vnotes = {}; var months = 6;
-      var t10 = 2580 + (k * 97) % 900; var base = { r5: [t10 * 0.49 + 60, t10 * 0.475], r10: [t10 + 150, t10], r1k: [t10 / 10 + 22, t10 / 10 - 4], cad: [158 + k % 8, 170 + k % 8], fc: [62 + k % 9, 55 + k % 8], cmj: [24 + k % 9, 29 + k % 10] };
+      var t10 = 2580 + (k * 97) % 900; var gain = k === 0 ? 420 : 220 + (k * 53) % 300; var base = { r5: [t10 * 0.475 + gain * 0.5, t10 * 0.475], r10: [t10 + gain, t10], r1k: [t10 / 10 + 8 + gain / 12, t10 / 10 - 4], cad: [158 + k % 8, 170 + k % 8], fc: [62 + k % 9, 55 + k % 8], rod: [t10 / 10 + 75, t10 / 10 + 50] };
       VT.forEach(function (t) { var a = base[t.id][0], b = base[t.id][1], arr = []; for (var i = 0; i <= months; i++) { var v = a + (b - a) * (i / months) + (i > 0 && i < months ? Math.sin(i * 2.1 + k) * (b - a) * 0.08 : 0); v = t.u === 't' ? Math.round(v) : Math.round(v); arr.push({ d: iso(addDays(T, -7 - (months - i) * 30)), v: v }); } c.vt[t.id] = arr; });
       c.vnotes[iso(addDays(T, -7))] = ['Gran test de 1.000. Ya estás para bajar tu marca en 10K.', 'Cadencia mucho mejor: la zancada es más corta y eficiente.', 'El pulso en reposo baja: el fondo está mejorando mucho.', 'Muy constante. Toca cuidar el descanso antes de la carrera.'][k % 4];
     });
@@ -1966,7 +1986,7 @@ html[data-theme="light"] .vt-badge, html[data-theme="light"] .va-b.pri{color:#0F
   function vtPanelSubmit(f) {
     if (f.id !== 'vtForm') return false;
     var c = client(UI.aClient), n = 0; c.vt = c.vt || {};
-    VT.forEach(function (t) { var el = $('vt-' + t.id); var v = el ? (t.u === 't' ? (rParse(el.value) || NaN) : parseFloat(String(el.value).replace(',', '.'))) : NaN; if (v > 0) { if (t.u === 'pts') v = Math.min(10, v); var a = c.vt[t.id] = c.vt[t.id] || []; a = a.filter(function (m) { return m.d !== iso(T); }); a.push({ d: iso(T), v: v }); c.vt[t.id] = a; n++; } });
+    VT.forEach(function (t) { var el = $('vt-' + t.id); var v = el ? ((t.u === 't' || t.u === 'pace') ? (rParse(el.value) || NaN) : parseFloat(String(el.value).replace(',', '.'))) : NaN; if (v > 0) { if (t.u === 'pts') v = Math.min(10, v); var a = c.vt[t.id] = c.vt[t.id] || []; a = a.filter(function (m) { return m.d !== iso(T); }); a.push({ d: iso(T), v: v }); c.vt[t.id] = a; n++; } });
     var nt = $('vtNote').value.trim(); if (nt) { c.vnotes = c.vnotes || {}; c.vnotes[iso(T)] = nt; }
     if (!n && !nt) { toastA('Rellena al menos una prueba'); return true; }
     save(); renderA(); renderC(); toastA('Valoración guardada · ' + first(c.name) + ' ya la ve en su app'); return true;
@@ -2003,12 +2023,42 @@ html[data-theme="light"] .vt-badge, html[data-theme="light"] .va-b.pri{color:#0F
     S.clients.forEach(function (c, k) {
       var base = 22 + (k * 7) % 30, arr = []; for (var i = 0; i < 9; i++) arr.push(Math.round((base + i * 1.4 + Math.sin(i * 1.9 + k) * 4) * 10) / 10);
       if (k % 6 === 1) arr[arr.length - 1] = Math.round(arr[arr.length - 2] * 1.45);
-      c.km = arr; c.slog = [];
+      c.km = arr; c.slog = []; c.meas = [];
       var r = S.races[k % 4]; r.who = r.who || {}; var t10 = rBest10(c); r.who[c.id] = { obj: Math.round(t10 / 10 * r.km * (r.km > 21 ? 1.12 : r.km > 11 ? 1.05 : 0.98) / 5) * 5 };
       var p1 = rBest10(c) / 10 - 8, reps = []; for (var j = 0; j < 6; j++) reps.push(Math.round(p1 + (j === 5 ? -3 : 0) + Math.sin(j + k) * 4));
       c.srs = [{ d: iso(addDays(T, -(2 + k % 4))), n: '6 × 1.000 m', target: Math.round(p1), reps: reps }];
     });
     S.runOk = true;
+  }
+
+  function rProg(c, days) {
+    var tid = ((c.vt || {}).r10 || []).length ? 'r10' : 'r5', t = VT.filter(function (x) { return x.id === tid; })[0], a = (c.vt || {})[tid] || [];
+    if (a.length < 2) return null;
+    var cut = days ? iso(addDays(T, -days)) : a[0].d, ref = a[0];
+    a.forEach(function (m) { if (m.d <= cut) ref = m; });
+    var last = a[a.length - 1], p0 = ref.v / t.km, p1 = last.v / t.km;
+    return { t: t, s: Math.round(p0 - p1), p0: p0, p1: p1, d0: ref.d, series: a.filter(function (m) { return m.d >= ref.d; }) };
+  }
+  var R_PER = [[30, '1 mes'], [60, '2 meses'], [180, '6 meses'], [0, 'Desde que empezó']];
+  function rHero(c, panel) {
+    var per = UI.rPer == null ? 60 : UI.rPer, P = rProg(c, per); if (!P) return '';
+    var mo = Math.max(1, Math.round((T - parse(P.d0)) / 864e5 / 30.4)), pts = P.series.map(function (m) { return m.v / P.t.km; });
+    var w = 320, h = 110, pl = 6, pr = 10, pt = 10, pb = 20, mn = Math.min.apply(null, pts), mx = Math.max.apply(null, pts), pad = (mx - mn) * 0.25 || 4; mn -= pad; mx += pad;
+    var xy = pts.map(function (v, i) { return [pl + i * (w - pl - pr) / Math.max(1, pts.length - 1), pt + (v - mn) / (mx - mn) * (h - pt - pb)]; });
+    var d = xy.map(function (q, i) { return (i ? 'L' : 'M') + q[0].toFixed(1) + ' ' + q[1].toFixed(1); }).join(' '), L = xy[xy.length - 1];
+    var svg = pts.length > 1 ? '<svg viewBox="0 0 ' + w + ' ' + h + '" class="rh-sp" aria-hidden="true"><path d="' + d + ' L' + L[0].toFixed(1) + ' ' + (h - pb) + ' L' + pl + ' ' + (h - pb) + ' Z" fill="currentColor" opacity=".12"/><path d="' + d + '" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/><circle cx="' + L[0] + '" cy="' + L[1] + '" r="5" fill="currentColor"/><text x="' + pl + '" y="' + (h - 5) + '" font-size="10" fill="currentColor" opacity=".7">' + esc(vtLab(P.d0)) + '</text><text x="' + (w - pr) + '" y="' + (h - 5) + '" text-anchor="end" font-size="10" fill="currentColor" opacity=".7">Hoy</text></svg>' : '';
+    var good = P.s > 0;
+    return '<section class="' + (panel ? 'box' : 'card') + ' r-hero"><p class="vt-k">' + (panel ? 'Progreso de ' + esc(first(c.name)) : 'Tu progreso') + '</p><div class="rh-top"><div><b class="num rh-big">' + (good ? '−' : P.s < 0 ? '+' : '') + Math.abs(P.s) + ' s</b><span class="rh-u">por kilómetro</span></div><p class="rh-txt">' + (good ? (panel ? 'Ha bajado ' : 'Has bajado ') + '<b>' + P.s + ' segundos cada kilómetro</b> en ' + (per ? R_PER.filter(function (r) { return r[0] === per; })[0][1] : mo + (mo === 1 ? ' mes' : ' meses')) + '.' : 'Ritmo estable en este periodo.') + '<br><span>' + esc(P.t.n) + ': ' + rPace(P.p0) + ' → <b>' + rPace(P.p1) + '</b></span></p></div>' + svg +
+      '<div class="rh-per" role="group" aria-label="Periodo">' + R_PER.map(function (r) { return '<button type="button" data-rper="' + r[0] + '" class="' + (r[0] === per ? 'on' : '') + '">' + r[1] + '</button>'; }).join('') + '</div>' +
+      (P.s > 0 ? '<p class="rh-x">En un 10K son <b>' + rTime(P.s * 10) + '</b> menos. En una media maratón, <b>' + rTime(P.s * 21.1) + '</b>.</p>' : '') + '</section>';
+  }
+  function rImproveBox() {
+    var per = UI.rPer == null ? 60 : UI.rPer, rows = mine().map(function (c) { return { c: c, P: rProg(c, per) }; }).filter(function (x) { return x.P; }).sort(function (a, b) { return b.P.s - a.P.s; });
+    return '<div class="box" style="margin-bottom:16px"><h3>Quién más ha mejorado <small>segundos por km · ' + (per ? R_PER.filter(function (r) { return r[0] === per; })[0][1] : 'desde que empezaron') + '</small></h3><div class="rh-per" role="group" style="margin:0 0 10px">' + R_PER.map(function (r) { return '<button type="button" data-rper="' + r[0] + '" class="' + (r[0] === per ? 'on' : '') + '">' + r[1] + '</button>'; }).join('') + '</div>' +
+      rows.slice(0, 8).map(function (x, i) { var mxs = Math.max(1, rows[0].P.s); return '<button type="button" class="rh-row" data-open="' + x.c.id + '"><span class="rh-pos">' + (i + 1) + '</span><span class="rh-n"><b>' + esc(x.c.name) + '</b><small>' + rPace(x.P.p0) + ' → ' + rPace(x.P.p1) + '</small></span><span class="rh-bar"><i style="width:' + Math.max(4, Math.round(Math.max(0, x.P.s) / mxs * 100)) + '%"></i></span><b class="num">' + (x.P.s > 0 ? '−' : '') + Math.abs(x.P.s) + ' s/km</b></button>'; }).join('') + '</div>';
+  }
+  function vRunProgress(c) {
+    return '<div class="c-scroll">' + cHeader(c) + '<div><h1 class="title">Tu progreso</h1><p class="subt">Lo que importa: cuánto más rápido corres.</p></div>' + rHero(c, false) + vtCompareHtml(c, false) + '<section class="card"><div class="card-h"><h3>Kilómetros por semana</h3><span>últimas 9</span></div>' + rKmChart(c) + '</section><button type="button" class="bt ghost full" data-c="ritmos">Ver mis ritmos de entrenamiento</button></div>' + cNav('progress');
   }
   function rHomeCards(c) {
     var h = '', mr = rMyRace(c);
@@ -2040,6 +2090,7 @@ html[data-theme="light"] .vt-badge, html[data-theme="light"] .va-b.pri{color:#0F
       rr.map(function (r) { var me2 = (r.who || {})[c.id], n = Object.keys(r.who || {}).length; return '<section class="card r-rc' + (me2 ? ' on' : '') + '"><div><b>' + esc(r.n) + '</b><span>' + esc(fmt(parse(r.d), { day: 'numeric', month: 'long' })) + ' · ' + (r.km % 1 ? nf(r.km, 1) : r.km) + ' km · en ' + rDays(r.d) + ' días</span><small>' + (me2 ? 'Objetivo ' + rTime(me2.obj) + ' · ritmo ' + rPace(me2.obj / r.km) : n + ' del grupo apuntados') + '</small></div><button type="button" class="bt ' + (me2 ? 'ghost' : 'peach') + '" data-rrace="' + r.id + '">' + (me2 ? 'Quitarme' : 'Me apunto') + '</button></section>'; }).join('') + '</div>' + cNav('home');
   }
   function rClientClick(b, ds, c) {
+    if (ds.rper != null) { UI.rPer = +ds.rper; renderC(); renderA(); return true; }
     if (ds.rconn) { if (c.conn) { c.conn = null; toastC('Reloj desconectado'); } else { c.conn = 'Garmin'; var k = c.km || []; if (k.length) k[k.length - 1] = Math.round((k[k.length - 1] + 8.4) * 10) / 10; toastC('Garmin conectado · 8,4 km de hoy importados'); } save(); renderC(); renderA(); return true; }
     if (ds.rrace) { var r = S.races.filter(function (x) { return x.id === ds.rrace; })[0]; r.who = r.who || {}; if (r.who[c.id]) { delete r.who[c.id]; toastC('Te has quitado de ' + r.n); } else { r.who[c.id] = { obj: Math.round(rBest10(c) / 10 * r.km * (r.km > 21 ? 1.12 : r.km > 11 ? 1.05 : 0.98) / 5) * 5 }; toastC('Apuntado/a a ' + r.n); } save(); renderC(); renderA(); return true; }
     return false;
@@ -2065,7 +2116,7 @@ html[data-theme="light"] .vt-badge, html[data-theme="light"] .va-b.pri{color:#0F
     if (sel) { var who = Object.keys(sel.who || {}).map(function (id) { return { c: client(id), o: sel.who[id].obj }; }).filter(function (x) { return mine().indexOf(x.c) !== -1; }).sort(function (a, b) { return a.o - b.o; }); h += '<div class="box"><h3>' + esc(sel.n) + ' <small>' + who.length + ' apuntados</small></h3>' + (who.length ? '<div class="tbl-wrap"><table><thead><tr><th>Atleta</th><th>Objetivo</th><th>Ritmo</th><th>Entrenador</th></tr></thead><tbody>' + who.map(function (x) { return '<tr class="click" data-open="' + x.c.id + '"><td><b>' + esc(x.c.name) + '</b></td><td class="num">' + rTime(x.o) + '</td><td class="num">' + rPace(x.o / sel.km) + '</td><td>' + esc(coachOf(x.c).name) + '</td></tr>'; }).join('') + '</tbody></table></div>' : '<p class="subt">Nadie apuntado todavía.</p>') + '</div>'; }
     return h + '</div>';
   }
-  function rPanelClick(b, d) { if (d.rsel) { UI.rSel = d.rsel; renderA(); return true; } return false; }
+  function rPanelClick(b, d) { if (d.rper != null) { UI.rPer = +d.rper; renderA(); renderC(); return true; } if (d.rsel) { UI.rSel = d.rsel; renderA(); return true; } return false; }
   function rPanelSubmit(f) {
     if (f.id !== 'rRaceForm') return false;
     var fd = new FormData(f), n = String(fd.get('n') || '').trim(), dd = String(fd.get('d') || ''), km = parseFloat(String(fd.get('km') || '10').replace(',', '.')) || 10;
@@ -2097,7 +2148,7 @@ html[data-theme="light"] .vt-badge, html[data-theme="light"] .va-b.pri{color:#0F
       '<div class="a-me"><span class="av" aria-hidden="true">' + esc(initials(M.name)) + '</span><div><b>' + esc(M.name) + '</b><span>' + esc(own ? 'Dirección · ve todo el centro' : M.role + ' · ' + mine().length + ' clientes') + '</span></div></div>' +
       (own ? '<div class="a-scope" role="group" aria-label="Qué ver"><button type="button" data-scope="all" class="' + (seeAll() ? 'on' : '') + '">Todo el centro</button><button type="button" data-scope="mine" class="' + (seeAll() ? '' : 'on') + '">Mis clientes</button></div>' : '') +
       b('resumen', 'Resumen', IC.grid, nAl) + '<p class="a-grp">CRM</p>' + b('crm', seeAll() ? 'Altas y bajas' : 'Mis altas y bajas', CRM_IC.flow) + b('clases', 'Entrenos en grupo', CRM_IC.cal) + b('carreras', 'Carreras', CRM_IC.flow) + (own ? b('pagos', 'Pagos y cuotas', CRM_IC.euro) + b('leads', 'Captación', IC.funnel, nLead) : '') +
-      '<p class="a-grp">' + (seeAll() ? 'Clientes' : 'Mis clientes') + '</p>' + b('clientes', seeAll() ? 'Clientes' : 'Mis clientes', IC.users) + b('tecnica', 'Técnica en vídeo', CRM_IC.cam) + b('planes', 'Plantillas de plan', IC.tpl) + (own ? b('forms', 'Cuestionarios', IC.form) + b('equipo', 'Equipo', IC.team) : '') +
+      '<p class="a-grp">' + (seeAll() ? 'Clientes' : 'Mis clientes') + '</p>' + b('clientes', seeAll() ? 'Clientes' : 'Mis clientes', IC.users) + b('planes', 'Plantillas de plan', IC.tpl) + (own ? b('forms', 'Cuestionarios', IC.form) + b('equipo', 'Equipo', IC.team) : '') +
       '<p class="a-grp">' + (own ? 'Asistente y mensajes' : 'Mensajes') + '</p>' + (own ? b('asistente', 'Entrenar asistente', IC.bot) : '') + b('whatsapp', 'WhatsApp', IC.wa, nWa) + (own ? b('auto', 'Recordatorios', IC.bell) : '') +
       (own ? '<p class="a-grp">Centro</p>' + b('comunidad', 'Comunidad y retos', IC.trophy) + b('informes', 'Informes', IC.chart) + b('marca', 'Marca de la app', IC.brush) + b('completa', 'Versión completa', IC.star) : '') +
       b('nuevo', 'Nuevo cliente', IC.plus) +
@@ -2119,7 +2170,7 @@ html[data-theme="light"] .vt-badge, html[data-theme="light"] .va-b.pri{color:#0F
       '<div class="grid4" style="margin-bottom:16px"><div class="box stat"><span>' + (seeAll() ? 'Clientes del centro' : 'Tus clientes') + '</span><b class="num">' + cl.length + '</b></div><div class="box stat"><span>Check-ins de hoy</span><b class="num">' + checksToday + ' / ' + cl.length + '</b></div><div class="box stat"><span>Preguntas para ti</span><b class="num">' + inbox.length + '</b></div>' +
       (isOwner() ? '<button type="button" class="box stat" data-a="leads" style="text-align:left"><span>Leads en marcha</span><b class="num">' + newLeads + '</b><small>Ver captación →</small></button>' : '<button type="button" class="box stat" data-a="hoy" style="text-align:left"><span>Sesiones tuyas (7 días)</span><b class="num">' + wk + '</b><small>Registrar la de hoy →</small></button>') + '</div>' +
       (seeAll() ? '<div class="box" style="margin-bottom:16px"><h3>Tu equipo hoy <small>' + S.team.length + ' entrenadores</small></h3>' + S.team.map(function (t) { var cs = S.clients.filter(function (c) { return c.coach === t.id; }), na = alerts(true).filter(function (a) { return a.c.coach === t.id; }).length, pend = cs.filter(function (c) { return !stPre(c); }).length, ses = 0; cs.forEach(function (c) { var kk = c.km || []; ses += kk.length ? kk[kk.length - 1] : 0; }); ses = Math.round(ses); return '<div class="team-row"><span class="avs">' + esc(initials(t.name)) + '</span><div class="tx"><b>' + esc(t.name) + '</b><span>' + esc(t.role) + '</span></div><span class="chip info">' + cs.length + ' clientes</span><span class="chip mute">' + ses + ' km esta semana</span>' + (na ? '<span class="chip warn">' + na + ' alerta' + (na === 1 ? '' : 's') + '</span>' : '<span class="chip ok">Sin alertas</span>') + (pend ? '<span class="chip mute">' + pend + ' sin «cómo vienes»</span>' : '') + '</div>'; }).join('') + '</div>' : '') +
-      '<div class="grid2"><div class="box"><h3>Alertas <small>' + al.length + '</small></h3><div class="list">' + (al.length ? al.map(alertRow).join('') : '<p class="subt">Todo en orden. Ninguna alerta.</p>') + '</div></div>' +
+      rImproveBox() + '<div class="grid2"><div class="box"><h3>Alertas <small>' + al.length + '</small></h3><div class="list">' + (al.length ? al.map(alertRow).join('') : '<p class="subt">Todo en orden. Ninguna alerta.</p>') + '</div></div>' +
       '<div class="box"><h3>Preguntas que te pasa el asistente <small>' + inbox.length + '</small></h3><div class="list">' +
       (inbox.length ? inbox.map(function (q) { var c = client(q.client); return '<div class="li" style="flex-direction:column;align-items:stretch;gap:4px"><div style="display:flex;gap:10px;align-items:center"><span class="avs">' + initials(c.name) + '</span><div class="tx"><b>' + esc(c.name) + '</b><span>' + esc(short(parse(q.date))) + '</span></div></div><p style="font-size:14px;line-height:1.45;margin-top:4px">' + (q.ch === 'wa' ? '<span class="chip ok" style="margin-right:6px">Por WhatsApp</span>' : '') + '«' + esc(q.q) + '»</p><form class="inbox-r" data-inbox="' + q.id + '"><label class="sr" for="r-' + q.id + '">Respuesta</label><input id="r-' + q.id + '" class="inp" placeholder="Responde a ' + esc(first(c.name)) + '…"><button type="submit" class="btn-a pri">Enviar</button></form></div>'; }).join('') : '<p class="subt">No hay preguntas pendientes.</p>') +
       '</div></div></div>' +
@@ -2226,8 +2277,8 @@ html[data-theme="light"] .vt-badge, html[data-theme="light"] .va-b.pri{color:#0F
     var h = head(esc(c.name), esc(c.goal) + ' · empezó el ' + esc(fmt(parse(c.start), { day: 'numeric', month: 'long' })) + ' · ' + esc(c.planName),
       '<div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn-a sec" data-a="clientes">' + IC.back + (seeAll() ? 'Clientes' : 'Mis clientes') + '</button>' + (c.waOk ? '<button type="button" class="btn-a wa-btn" data-thread="' + c.id + '">' + IC.wa + 'WhatsApp</button>' : '<button type="button" class="btn-a sec" data-consent="' + c.id + '">Marcar que acepta WhatsApp</button>') + '<button type="button" class="btn-a peach" data-view="' + c.id + '">Ver su app</button></div>');
     h += '<div class="box" style="margin-bottom:16px;display:flex;gap:14px;align-items:center;flex-wrap:wrap">' + (isOwner() ? '<label class="lab" style="flex-direction:row;align-items:center;gap:10px" for="coachSel">Entrenador asignado<select class="sel" id="coachSel" style="width:auto">' + S.team.map(function (t) { return '<option value="' + t.id + '"' + (t.id === c.coach ? ' selected' : '') + '>' + esc(t.name) + ' · ' + esc(t.role) + '</option>'; }).join('') + '</select></label>' : '<span class="chip info">Cliente de ' + esc(coachOf(c).name) + '</span>') + (c.waOk ? '<span class="chip ok">Acepta WhatsApp</span>' : '<span class="chip warn">Sin permiso WhatsApp</span>') + '</div>';
+    h += '<div style="margin-bottom:16px">' + rHero(c, true) + '</div>';
     h += '<div class="box" style="margin-bottom:16px"><h3>Lo que nos contó al darse de alta <small>' + (c.profile ? 'Cuestionario inicial' : 'Pendiente') + '</small></h3>' + (c.profile ? profileHtml(c.profile) : '<p class="subt" style="margin:0">Aún no ha hecho el cuestionario. Se le pregunta al entrar por primera vez en la app.</p>') + '</div>';
-    h += '<div class="grid2" style="margin-bottom:16px"><div class="box mini-chart"><h3>Peso <small>' + nf(w[0], 1) + ' → ' + nf(w[w.length - 1], 1) + ' kg</small></h3>' + lineChart(w, ['Inicio', 'Hoy'], 'kg', '#2D5BA8', 'Peso') + '</div><div class="box mini-chart"><h3>' + esc(st.name) + ' <small>' + st.vals[0] + ' → ' + st.vals[st.vals.length - 1] + ' ' + esc(st.unit) + '</small></h3>' + lineChart(st.vals, ['Inicio', 'Hoy'], st.unit, '#E0603A', st.name) + '</div></div>';
     h += '<div class="box" style="margin-bottom:16px"><h3>Últimos check-ins</h3><div class="tbl-wrap"><table><thead><tr><th>Día</th><th>Sueño</th><th>Descanso</th><th>Fuerza</th><th>Energía</th><th>Comida</th><th>Molestias</th></tr></thead><tbody>' +
       (c.checks.length ? c.checks.slice(-6).reverse().map(function (k) { return '<tr><td>' + esc(short(parse(k.date))) + '</td><td class="num">' + nf(k.sleep, 1) + ' h</td><td class="num">' + k.rest + '/5</td><td class="num">' + k.strength + '/5</td><td class="num">' + k.energy + '/5</td><td>' + ({ si: 'Sí', regular: 'Más o menos', no: 'No' }[k.nutrition] || '—') + '</td><td>' + (k.pain === 'no' ? 'Ninguna' : '<span class="chip bad">' + esc(k.zone || 'Sí') + '</span>') + '</td></tr>'; }).join('') : '<tr><td colspan="7" style="color:var(--sub)">Aún no ha hecho ningún check-in.</td></tr>') + '</tbody></table></div></div>';
     h += '<form id="fichaForm" class="form"><div class="grid2"><div class="box"><h3>Plan semanal <small>' + esc(c.planName) + '</small></h3><div>' + sessRows(c.sessions) + '</div><button type="button" class="addl" data-addsess="1">+ Añadir sesión</button></div>' +
@@ -2235,7 +2286,7 @@ html[data-theme="light"] .vt-badge, html[data-theme="light"] .va-b.pri{color:#0F
       '<div class="grid2"><div class="box form"><h3>Descanso</h3><label class="lab">Pautas de descanso (una por línea)<textarea class="ta" name="rest">' + esc(c.rest.join('\n')) + '</textarea></label><label class="lab">Horas de sueño objetivo<input class="inp" name="sleepT" type="number" step="0.5" min="5" max="10" value="' + c.targets.sleep + '"></label></div>' +
       '<div class="box form"><h3>Nota para ' + esc(first(c.name)) + '</h3><label class="lab">La ve en su pantalla de inicio<textarea class="ta" name="note">' + esc(c.note) + '</textarea></label></div></div>' +
       '<div class="actions"><button type="submit" class="btn-a pri">Guardar y enviar a su app</button></div></form>';
-    h += '<div style="margin-top:16px">' + vtCompareHtml(c, true) + '</div>' + vtTableHtml(c) + rFichaHtml(c) + crmFichaHtml(c) + vaFichaHtml(c);
+    h += '<div style="margin-top:16px">' + vtCompareHtml(c, true) + '</div>' + vtTableHtml(c) + rFichaHtml(c) + crmFichaHtml(c);
     return h;
   }
   function aPlanes() {
