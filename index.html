@@ -502,6 +502,17 @@ body.locked .shell{visibility:hidden}
     r.setProperty('--peach-soft', mix(b.accent, '#FFFFFF', 0.82));
     r.setProperty('--on-accent', lum(b.accent) > 0.32 ? '#13203A' : '#FFFFFF');
     document.title = 'Demo Galerna';
+    brandIcon(b);
+  }
+  // icono de pantalla de inicio con la marca de cada centro
+  var BRAND_ICONS = { 'Bodychronos': 'logos/bodychronos-icon', 'Sportfit': 'logos/sportfit-icon' };
+  function brandIcon(b) {
+    try {
+      var pre = BRAND_ICONS[b.name], at = document.querySelector('link[rel="apple-touch-icon"]'), ic = document.querySelector('link[rel="icon"]'), mt = document.querySelector('meta[name="apple-mobile-web-app-title"]'), ml = document.querySelector('link[rel="manifest"]');
+      if (!pre) { if (at) at.href = 'icons/apple-touch-icon.png'; if (ic) ic.href = 'icons/icon-192.png'; if (mt) mt.content = 'Demo Galerna'; if (ml && ml.dataset.orig) ml.href = ml.dataset.orig; return; }
+      if (at) at.href = pre + '-180.png'; if (ic) ic.href = pre + '-192.png'; if (mt) mt.content = b.name;
+      if (ml) { if (!ml.dataset.orig) ml.dataset.orig = ml.getAttribute('href'); var base = location.href.replace(/[#?].*$/, '').replace(/[^\/]*$/, ''); var man = { name: b.name, short_name: b.name, start_url: base + 'index.html', scope: base, display: 'standalone', background_color: b.primary, theme_color: b.primary, icons: [{ src: base + pre + '-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' }, { src: base + pre + '-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' }, { src: base + pre + '-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' }] }; ml.href = URL.createObjectURL(new Blob([JSON.stringify(man)], { type: 'application/manifest+json' })); }
+    } catch (e) {}
   }
 
   /* ================= Datos de ejemplo ================= */
