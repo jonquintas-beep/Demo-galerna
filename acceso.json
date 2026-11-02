@@ -33,6 +33,40 @@
    "acento": "#E5383B",
    "caduca": "2026-11-05",
    "activo": true
+  },
+  {
+   "clave": "2ac2408a720f36ded8254a25dd56af8ed86c6fa13383df353e9eef3d0cfcf0b0",
+   "centro": "Galerna Method",
+   "entrenador": "Jon",
+   "ciudad": "Vitoria",
+   "primario": "#0B1F3A",
+   "acento": "#6CC4F0",
+   "caduca": "2026-12-31",
+   "activo": true,
+   "nota": "codigo-lista-nov"
+  },
+  {
+   "clave": "e0854f52bb5e2889f1df3c0dcf338a03773c8af37df79599d21cde8a51015e30",
+   "centro": "Bodychronos",
+   "entrenador": "Miguel",
+   "ciudad": "Vitoria",
+   "primario": "#6E1F5C",
+   "acento": "#E6007E",
+   "caduca": "2026-11-05",
+   "activo": true,
+   "logo": "logos/bodychronos.png",
+   "nota": "codigo-lista-nov"
+  },
+  {
+   "clave": "65f8f192ae700a11efff53ab0a6f72a0509c66169f06ec9285099484213cac18",
+   "centro": "Sportfit",
+   "entrenador": "Antonio",
+   "ciudad": "Vitoria",
+   "primario": "#141416",
+   "acento": "#E5383B",
+   "caduca": "2026-11-05",
+   "activo": true,
+   "nota": "codigo-lista-nov"
   }
  ]
 }

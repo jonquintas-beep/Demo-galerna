@@ -25,6 +25,18 @@
    "caduca": "2026-12-31",
    "activo": true,
    "nota": "demo 2"
+  },
+  {
+   "clave": "f4f7e9a9a26fbc7deecd1488ae4e2229a16788000a0c968cd91d945936bd8b2f",
+   "centro": "Tu Estudio",
+   "entrenador": "",
+   "ciudad": "",
+   "primario": "#0F3B2E",
+   "acento": "#FF4D8D",
+   "acento2": "#FF8A3D",
+   "caduca": "2026-12-31",
+   "activo": true,
+   "nota": "codigo-lista-nov"
   }
  ]
 }

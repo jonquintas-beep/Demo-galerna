@@ -22,6 +22,17 @@
    "acento": "#FF7A00",
    "caduca": "2026-12-31",
    "activo": true
+  },
+  {
+   "clave": "aca12776ddc0f4d301e9648d2bc93e5d53e92600c6734b9eccde6e90dde9d157",
+   "centro": "Sportfit",
+   "entrenador": "Antonio",
+   "ciudad": "Vitoria",
+   "primario": "#111111",
+   "acento": "#FF7A00",
+   "caduca": "2026-12-31",
+   "activo": true,
+   "nota": "codigo-lista-nov"
   }
  ]
 }

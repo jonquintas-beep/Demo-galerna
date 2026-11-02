@@ -26,6 +26,18 @@
    "caduca": "2026-12-31",
    "nota": "Jon",
    "logo": "../logos/fitmi.png"
+  },
+  {
+   "centro": "Fitmi",
+   "entrenador": "María",
+   "ciudad": "",
+   "primario": "#1A1411",
+   "acento": "#CD713E",
+   "activo": true,
+   "clave": "ac3117b14a8de098958ddacea04031cc3204ad3b974a978e0684c6e81e4b3b91",
+   "caduca": "2026-12-31",
+   "nota": "codigo-lista-nov",
+   "logo": "../logos/fitmi.png"
   }
  ]
 }
