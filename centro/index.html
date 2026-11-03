@@ -404,7 +404,7 @@ input[type=color]{width:100%;height:42px;border:1px solid var(--line);border-rad
 @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
 </style>
 <style>
-:root{--stacc:#E5383B}
+:root{--stacc:var(--peach)}
 /* Servicio del estudio */
 .st-card{display:flex;flex-direction:column;gap:6px}
 .st-btn{text-align:left;width:100%;cursor:pointer;color:var(--ink);font:inherit}
@@ -551,7 +551,7 @@ body.va-open{overflow:hidden}
 .va-body{padding:16px 18px 20px;display:flex;flex-direction:column;gap:14px}
 .va-k{margin:0 0 6px;font-size:11.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#FF6B6E}
 .va-rules ul,.va-ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;font-size:14.5px}
-.va-note{margin:8px 0 0;padding:10px 12px;border-radius:12px;background:rgba(229,56,59,.15);font-size:14px;font-style:italic}
+.va-note{margin:8px 0 0;padding:10px 12px;border-radius:12px;background:var(--peach-soft);font-size:14px;font-style:italic}
 .va-how p{margin:0;font-size:14px;line-height:1.5;color:#C9D0D8}
 .va-btns{display:flex;flex-wrap:wrap;gap:8px;padding:0 0 4px}
 .va-live .va-btns{padding:12px 18px 18px}
@@ -648,12 +648,12 @@ html[data-theme] .chip.mute{background:var(--bg-2);color:var(--sub)}
 .cm{width:20px;height:20px;flex:none;color:var(--peach)}
 .fx-hw .cm{width:22px;height:22px}
 .cx-emb{position:relative;margin-top:auto;margin-bottom:14px}
-.cx-emb .cm{width:64px;height:64px;color:#E5383B;filter:drop-shadow(0 6px 24px rgba(229,56,59,.45))}
+.cx-emb .cm{width:64px;height:64px;color:var(--peach);filter:drop-shadow(0 6px 24px color-mix(in srgb,var(--peach) 45%,transparent))}
 .cx-word{position:relative;margin:0 0 16px;font-family:var(--display);font-weight:800;font-size:clamp(44px,13vw,64px);line-height:.95;letter-spacing:-.02em;text-transform:uppercase;color:#fff}
-.cx-word span{color:#E5383B}
+.cx-word span{color:var(--peach)}
 .cx-ab{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.04em}
-.cx-ab .cm{width:26px;height:26px;color:#E5383B}
-.cx-ab span{color:#E5383B}
+.cx-ab .cm{width:26px;height:26px;color:var(--peach)}
+.cx-ab span{color:var(--peach)}
 
 .vt-cmp .vt-h{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:12px}
 .vt-k{margin:0;font-size:11.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--peach)}
@@ -669,6 +669,22 @@ html[data-theme] .chip.mute{background:var(--bg-2);color:var(--sub)}
 .vt-note{margin:12px 0 0;font-size:14px;padding:10px 12px;border-radius:12px;background:var(--peach-soft)}
 .vt-t th,.vt-t td{white-space:nowrap} .vt-t .vt-new{background:var(--peach-soft)} .vt-t .inp{height:34px;width:80px}
 .vt-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+
+.ed-on{outline:1.5px dashed color-mix(in srgb,var(--peach) 70%,transparent);outline-offset:2px;border-radius:4px;cursor:text}
+.ed-on:focus{outline:2px solid var(--peach);background:color-mix(in srgb,var(--peach) 12%,transparent)}
+.ed-bar{position:absolute;left:12px;right:12px;top:12px;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 8px 8px 14px;border-radius:14px;background:var(--peach);color:var(--on-accent);font-size:12.5px;font-weight:700;box-shadow:0 10px 30px -10px rgba(0,0,0,.5)}
+.ed-bar button{background:rgba(0,0,0,.25);color:inherit;border-radius:10px;padding:7px 12px;font-weight:800;font-size:12.5px}
+.vtd-rows{display:flex;flex-direction:column;gap:8px}
+.vtd-row{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr) minmax(0,1.2fr) 44px auto;gap:8px;align-items:center}
+.vtd-row input[type=color]{height:42px;width:44px;padding:2px}
+@media (max-width:640px){.vtd-row{grid-template-columns:1fr 1fr}.vtd-row .inp{grid-column:1/-1}}
+.cm-img{object-fit:contain;border-radius:8px}
+
+html[data-custom][data-theme="dark"]{--bg:#141518;--main-bg:#121316;--card:rgba(255,255,255,.05);--card-solid:#1E2024;--line:rgba(255,255,255,.1);--sub:#A9ADB6;--faint:#80848C;--ink:#F2F3F5;--inp:#1C1E22;--kb:#1A1C20;--page:#0E0F11;--wm:none}
+html[data-custom][data-theme="light"]{--bg:#F3F3F1;--main-bg:#F6F6F4;--card:rgba(255,255,255,.92);--card-solid:#FFFFFF;--bg-2:#E9E9E6;--ink:#1A1B1E;--sub:#5E6168;--faint:#8A8D93;--line:rgba(0,0,0,.1);--page:#E4E4E0;--kb:#ECECE8;--inp:#FFFFFF;--wm:none}
+html[data-custom] .splash{background:radial-gradient(ellipse 90% 55% at 50% 22%,color-mix(in srgb,var(--peach) 32%,transparent),transparent 62%),radial-gradient(ellipse 80% 60% at 10% 95%,color-mix(in srgb,var(--peach) 16%,transparent),transparent 65%),#111214!important}
+html[data-custom] .fx-mark{display:none}
+html[data-custom][data-theme="dark"] .hero{background:linear-gradient(150deg,color-mix(in srgb,var(--peach) 38%,#16171A),#16171A)}
 </style>
 <script>try{document.documentElement.dataset.theme=localStorage.getItem("centro-theme")||"dark"}catch(e){document.documentElement.dataset.theme="dark"}</script>
 </head>
@@ -743,14 +759,17 @@ html[data-theme] .chip.mute{background:var(--bg-2);color:var(--sub)}
     if (parts.length > 1) { var last = parts.pop(); return esc(parts.join(' ')) + ' <span>' + esc(last) + '</span>'; }
     return esc(b.name) + '<span>.</span>';
   }
+  function MK() { return S.brand && S.brand.logo ? '<img class="cm cm-img" src="' + S.brand.logo + '" alt="">' : MARK; }
   function applyBrand() {
     var b = S.brand, r = document.documentElement.style;
     var prim = lum(b.primary) > 0.3 ? mix(b.primary, '#000000', 0.55) : b.primary;
-    r.setProperty('--navy', prim);
-    r.setProperty('--navy-2', mix(prim, '#FFFFFF', 0.12));
-    r.setProperty('--peach', b.accent);
-    r.setProperty('--peach-soft', mix(b.accent, '#FFFFFF', 0.82));
-    r.setProperty('--on-accent', lum(b.accent) > 0.32 ? '#13203A' : '#FFFFFF');
+    var dk = document.documentElement.dataset.theme === 'dark';
+    if (String(b.accent).toLowerCase() !== '#e5383b') document.documentElement.setAttribute('data-custom', '1'); else document.documentElement.removeAttribute('data-custom');
+    r.setProperty('--navy', dk ? mix(prim, '#000000', 0.35) : prim, 'important');
+    r.setProperty('--navy-2', mix(prim, '#FFFFFF', 0.12), 'important');
+    r.setProperty('--peach', b.accent, 'important');
+    r.setProperty('--peach-soft', dk ? 'color-mix(in srgb, ' + b.accent + ' 20%, transparent)' : mix(b.accent, '#FFFFFF', 0.82), 'important');
+    r.setProperty('--on-accent', lum(b.accent) > 0.32 ? '#13203A' : '#FFFFFF', 'important');
     document.title = b.name;
   }
 
@@ -913,7 +932,7 @@ html[data-theme] .chip.mute{background:var(--bg-2);color:var(--sub)}
       return c;
     });
   }
-  var KEY = 'galerna-centro-v1';
+  var KEY = 'galerna-centro-v2';
   var S, hb = parseHash();
   try { S = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { S = null; }
   if (!S || S.v !== 5) S = seed(hb || DEF_BRAND);
@@ -988,7 +1007,7 @@ html[data-theme] .chip.mute{background:var(--bg-2);color:var(--sub)}
   }
 
   function $(id) { return document.getElementById(id); }
-  var STC = { ch: 'card-h', st: 'subt', t: 'title', pri: 'navy', acc: 'peach', scroll: 'c-scroll', acol: '#E5383B', home: 'Inicio' };
+  var STC = { ch: 'card-h', st: 'subt', t: 'title', pri: 'navy', acc: 'peach', scroll: 'c-scroll', acol: 'var(--peach)', home: 'Inicio' };
   function stPeople() { return mine(); }
   function stSeedPeople() { return S.clients; }
   function stGet(id) { return client(id); }
@@ -1033,7 +1052,7 @@ html[data-theme] .chip.mute{background:var(--bg-2);color:var(--sub)}
     var w = 320, h = 120, pl = 6, pr = 36, pt = 10, pb = 20, mn = Math.min.apply(null, vals), mx = Math.max.apply(null, vals), pad = (mx - mn) * 0.25 || 1; mn -= pad; mx += pad;
     var pts = vals.map(function (v, i) { return [pl + i * (w - pl - pr) / (vals.length - 1), pt + (1 - (v - mn) / (mx - mn)) * (h - pt - pb)]; });
     var d = pts.map(function (q, i) { return (i ? 'L' : 'M') + q[0].toFixed(1) + ' ' + q[1].toFixed(1); }).join(' '), L = pts[pts.length - 1];
-    return '<svg viewBox="0 0 ' + w + ' ' + h + '" role="img" aria-label="Evolución" style="width:100%;height:auto;display:block"><path d="' + d + ' L' + L[0].toFixed(1) + ' ' + (h - pb) + ' L' + pl + ' ' + (h - pb) + ' Z" fill="' + color + '" opacity=".14"/><path d="' + d + '" fill="none" stroke="' + color + '" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>' + pts.map(function (q) { return '<circle cx="' + q[0].toFixed(1) + '" cy="' + q[1].toFixed(1) + '" r="3" fill="' + color + '"/>'; }).join('') + '<text x="' + (L[0] + 6) + '" y="' + (L[1] + 4) + '" font-size="11" font-weight="700" fill="' + color + '">' + nf(vals[vals.length - 1], 1) + '</text></svg>';
+    return '<svg viewBox="0 0 ' + w + ' ' + h + '" role="img" aria-label="Evolución" style="width:100%;height:auto;display:block"><path d="' + d + ' L' + L[0].toFixed(1) + ' ' + (h - pb) + ' L' + pl + ' ' + (h - pb) + ' Z" style="fill:' + color + '" opacity=".14"/><path d="' + d + '" fill="none" style="stroke:' + color + '" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>' + pts.map(function (q) { return '<circle cx="' + q[0].toFixed(1) + '" cy="' + q[1].toFixed(1) + '" r="3" style="fill:' + color + '"/>'; }).join('') + '<text x="' + (L[0] + 6) + '" y="' + (L[1] + 4) + '" font-size="11" font-weight="700" style="fill:' + color + '">' + nf(vals[vals.length - 1], 1) + '</text></svg>';
   }
   function stZoneBars(z, prev) {
     return '<div class="st-zones">' + ST_ZONES.map(function (n) { var v = (z || {})[n] || 0, pv = prev ? (prev[n] || 0) : null; return '<div class="st-z"><span>' + n + '</span><span class="st-zt"><i style="width:' + v + '%"></i></span><b class="num">' + v + (pv != null && v !== pv ? '<small class="' + (v > pv ? 'up' : 'dn') + '">' + (v > pv ? '+' : '') + (v - pv) + '</small>' : '') + '</b></div>'; }).join('') + '</div>';
@@ -1215,14 +1234,14 @@ html[data-theme] .chip.mute{background:var(--bg-2);color:var(--sub)}
     function b(r, l, ic) { return '<button type="button" data-c="' + r + '" class="' + (on === r ? 'on' : '') + '"' + (on === r ? ' aria-current="page"' : '') + '>' + ic + l + '</button>'; }
     return '<nav class="c-nav" aria-label="Menú de la app">' + b('home', 'Inicio', IC.home) + b('plan', 'Plan', IC.plan) + b('clases', 'Clases', CRM_IC.cal) + b('progress', 'Progreso', IC.prog) + b('chat', 'Asistente', IC.chat) + '</nav>';
   }
-  function cHeader(c) { return '<div class="c-hdr"><button type="button" class="word-s fx-hw" data-c="splash" aria-label="Ir a la portada">' + MARK + esc(S.brand.name) + '</button><span style="display:flex;gap:8px;align-items:center">' + thBtn(true) + '<span class="av" aria-hidden="true">' + initials(c.name) + '</span></span></div>'; }
+  function cHeader(c) { return '<div class="c-hdr"><button type="button" class="word-s fx-hw" data-c="splash" aria-label="Ir a la portada">' + MK() + esc(S.brand.name) + '</button><span style="display:flex;gap:8px;align-items:center"><button type="button" class="th-btn" data-edon="1" aria-label="Editar textos" title="Editar textos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>' + thBtn(true) + '<span class="av" aria-hidden="true">' + initials(c.name) + '</span></span></div>'; }
   function thBtn(compact) { var dk = document.documentElement.dataset.theme !== 'light'; var ic = dk ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>' : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>'; return '<button type="button" class="th-btn" data-themet="1" aria-label="' + (dk ? 'Cambiar a tono claro' : 'Cambiar a tono oscuro') + '" title="' + (dk ? 'Tono claro' : 'Tono oscuro') + '">' + ic + (compact ? '' : (dk ? 'Tono claro' : 'Tono oscuro')) + '</button>'; }
-  document.addEventListener('click', function (e) { var b = e.target.closest && e.target.closest('[data-themet]'); if (!b) return; e.stopPropagation(); var nt = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light'; document.documentElement.dataset.theme = nt; try { localStorage.setItem('centro-theme', nt); } catch (x) {} var m = document.querySelector('meta[name=theme-color]'); if (m) m.setAttribute('content', nt === 'light' ? '#1D3E2E' : '#0B1D14'); renderC(); renderA(); }, true);
+  document.addEventListener('click', function (e) { var b = e.target.closest && e.target.closest('[data-themet]'); if (!b) return; e.stopPropagation(); var nt = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light'; document.documentElement.dataset.theme = nt; try { localStorage.setItem('centro-theme', nt); } catch (x) {} var m = document.querySelector('meta[name=theme-color]'); if (m) m.setAttribute('content', nt === 'light' ? '#1D3E2E' : '#0B1D14'); applyBrand(); renderC(); renderA(); }, true);
   function vSplash() {
     var B = S.brand;
     return '<div class="splash">' +
       '<div class="fx-mark" aria-hidden="true"></div>' +
-      '<div class="cx-emb" aria-hidden="true">' + MARK + '</div><h1 class="cx-word">' + brandWord(B) + '</h1>' +
+      '<div class="cx-emb" aria-hidden="true">' + MK() + '</div><h1 class="cx-word">' + brandWord(B) + '</h1>' +
       '<p class="badge-s"><b>' + esc(B.city) + '</b> · Entrenamiento personal</p>' +
       '<p class="tagline">' + esc(B.tagline) + '</p>' +
       '<div class="svc">' + B.services.map(function (s) { return '<span>' + esc(s) + '</span>'; }).join('') + '</div>' +
@@ -1501,7 +1520,43 @@ html[data-theme] .chip.mute{background:var(--bg-2);color:var(--sub)}
 
   function flowScroll() { var go = function () { var msgs = document.querySelector('.fl-msgs'); if (!msgs) return; msgs.scrollTop = msgs.scrollHeight; var last = msgs.lastElementChild; if (last && msgs.scrollHeight <= msgs.clientHeight + 2) { var fin = document.querySelector('.fl-in'); document.documentElement.style.scrollPaddingBottom = ((fin ? fin.getBoundingClientRect().height : 0) + 16) + 'px'; last.scrollIntoView({ block: 'end' }); } }; requestAnimationFrame(go); setTimeout(go, 160); setTimeout(go, 480); }
   if (window.visualViewport) window.visualViewport.addEventListener('resize', function () { if (UI.c === 'flow') flowScroll(); });
-  function renderC() {
+  function renderC() { renderC0(); txtApply(cRoot); if (UI.edit) edMark(); edBar(); }
+  function txtApply(root) {
+    var map = S.txt || {}; if (!Object.keys(map).length) return;
+    var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT), n, list = [];
+    while ((n = w.nextNode())) list.push(n);
+    list.forEach(function (n) { var t = n.nodeValue, k = t.trim(); if (k && Object.prototype.hasOwnProperty.call(map, k)) { n.nodeValue = t.replace(k, map[k]); if (n.parentNode && n.parentNode.nodeType === 1 && !n.parentNode.dataset.k) n.parentNode.dataset.k = k; } });
+  }
+  function edMark() {
+    cRoot.querySelectorAll('h1,h2,h3,h4,p,span,b,small,em,strong,button,label,li,a,div').forEach(function (el) {
+      if (el.closest('.ed-bar')) return;
+      var kids = el.childNodes, ok = kids.length > 0, txt = '';
+      for (var i = 0; i < kids.length; i++) { if (kids[i].nodeType !== 3) { ok = false; break; } txt += kids[i].nodeValue; }
+      if (!ok || !txt.trim()) return;
+      if (!el.dataset.k) el.dataset.k = txt.trim();
+      el.contentEditable = 'true'; el.spellcheck = false; el.classList.add('ed-on');
+    });
+  }
+  function edBar() {
+    var b = document.getElementById('edBar'), ph = cRoot.closest('.phone') || cRoot.parentNode;
+    if (!UI.edit) { if (b) b.remove(); return; }
+    if (!b) { b = document.createElement('div'); b.id = 'edBar'; b.className = 'ed-bar'; ph.appendChild(b); }
+    b.innerHTML = '<span>Modo edición · toca cualquier texto y escribe</span><button type="button" data-edoff="1">Terminar</button>';
+  }
+  function edSave(el) {
+    var k = el.dataset.k, v = el.textContent.replace(/\s+/g, ' ').trim(); if (!k) return;
+    S.txt = S.txt || {};
+    if (!v || v === k) delete S.txt[k]; else S.txt[k] = v;
+    save();
+  }
+  document.addEventListener('focusout', function (e) { var el = e.target; if (el && el.classList && el.classList.contains('ed-on')) { edSave(el); if (S.txt && S.txt[el.dataset.k]) renderA(); } });
+  document.addEventListener('keydown', function (e) { var el = e.target; if (el && el.classList && el.classList.contains('ed-on') && e.key === 'Enter') { e.preventDefault(); el.blur(); } });
+  document.addEventListener('click', function (e) {
+    var off = e.target.closest && e.target.closest('[data-edoff]'); if (off) { UI.edit = false; renderC(); renderA(); return; }
+    var on = e.target.closest && e.target.closest('[data-edon]'); if (on) { e.preventDefault(); e.stopPropagation(); UI.edit = true; if (UI.c === 'splash') UI.c = 'home'; renderC(); renderA(); return; }
+    if (UI.edit && e.target.closest && e.target.closest('.ed-on')) { e.stopPropagation(); e.preventDefault(); }
+  }, true);
+  function renderC0() {
     var c = client(), r = UI.c, html;
     if (r === 'home' && !c.profile) { startFlow('alta'); return; }
     if (r === 'flow' && UI.flow) html = '<div class="c-view">' + vFlow() + '</div>';
@@ -1916,6 +1971,7 @@ html[data-theme] .chip.mute{background:var(--bg-2);color:var(--sub)}
     { id: 'plank', n: 'Plancha', u: 's', dir: 'high', c: '#B98CFF' },
     { id: 'reach', n: 'Flexibilidad (alcance)', u: 'cm', dir: 'high', c: '#FF8FB1' }
   ];
+  function vtLoad() { if (S.vtDefs && S.vtDefs.length) { VT.length = 0; S.vtDefs.forEach(function (t) { VT.push(t); }); } }
   var VT_MES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
   function vtLab(d) { var x = parse(d); return x.getDate() + ' ' + VT_MES[x.getMonth()]; }
   function vtFmt(t, v) { if (v == null) return '—'; return t.u === 'pts' ? nf(v, v % 1 ? 1 : 0) + '/10' : t.u === 'reps' ? nf(v) + ' reps' : t.u === 'kg' ? nf(v, v % 1 ? 1 : 0) + ' kg' : t.u === 'cm' ? nf(v) + ' cm' : nf(v, v % 1 ? 1 : 0) + ' s'; }
@@ -1968,7 +2024,7 @@ html[data-theme] .chip.mute{background:var(--bg-2);color:var(--sub)}
   }
   function vValoraciones(c) { return '<div class="c-scroll"><button type="button" class="back" data-c="home">' + IC.back + 'Inicio</button><div><h1 class="title">Tus valoraciones</h1><p class="subt">Cada mes tu entrenador mide estas pruebas. Así has cambiado.</p></div>' + vtCompareHtml(c, false) + '</div>' + cNav('progress'); }
 
-  crmSeed(); vaSeed(); vtSeed(); save();
+  vtLoad(); crmSeed(); vaSeed(); vtSeed(); save();
 
   /* ================= PANEL ================= */
   var aRoot = document.getElementById('admin');
@@ -1988,7 +2044,7 @@ html[data-theme] .chip.mute{background:var(--bg-2);color:var(--sub)}
     var nWa = mine().filter(function (c) { return S.waUnread[c.id]; }).length;
     var on = { ficha: 'clientes', tpl: 'planes' }[UI.a] || UI.a;
     function b(r, l, ic, n) { return '<button type="button" data-a="' + r + '" class="' + (on === r ? 'on' : '') + '"' + (on === r ? ' aria-current="page"' : '') + '>' + ic + l + (n ? '<span class="n">' + n + '</span>' : '') + '</button>'; }
-    return '<nav class="a-side" aria-label="Menú del panel"><p class="a-brand cx-ab" style="padding-bottom:12px">' + MARK + brandWord(S.brand) + '</p>' +
+    return '<nav class="a-side" aria-label="Menú del panel"><p class="a-brand cx-ab" style="padding-bottom:12px">' + MK() + brandWord(S.brand) + '</p>' +
       '<div class="a-me"><span class="av" aria-hidden="true">' + esc(initials(M.name)) + '</span><div><b>' + esc(M.name) + '</b><span>' + esc(own ? 'Dirección · ve todo el centro' : M.role + ' · ' + mine().length + ' clientes') + '</span></div></div>' +
       (own ? '<div class="a-scope" role="group" aria-label="Qué ver"><button type="button" data-scope="all" class="' + (seeAll() ? 'on' : '') + '">Todo el centro</button><button type="button" data-scope="mine" class="' + (seeAll() ? '' : 'on') + '">Mis clientes</button></div>' : '') + '<div class="a-nav">' +
       b('resumen', 'Resumen', IC.grid, nAl) + b('hoy', 'Sesión de hoy', IC.form) + '<p class="a-grp">CRM</p>' + b('crm', seeAll() ? 'Altas y bajas' : 'Mis altas y bajas', CRM_IC.flow) + b('clases', 'Clases y reservas', CRM_IC.cal) + (own ? b('pagos', 'Pagos y cuotas', CRM_IC.euro) + b('leads', 'Captación', IC.funnel, nLead) : '') +
@@ -1999,7 +2055,7 @@ html[data-theme] .chip.mute{background:var(--bg-2);color:var(--sub)}
       '<span class="spacer"></span>' + thBtn(false) + '<button type="button" class="reset" data-logout="1">Cerrar sesión · cambiar de usuario</button><button type="button" class="reset" data-a="reset">Reiniciar la demo</button></div><p class="pow">' + GLOGO + '<span>Demo para centros de entrenamiento</span></p></nav>';
   }
   function aLogin() {
-    return '<div class="a-login"><div class="lg"><p class="a-brand cx-ab">' + MARK + brandWord(S.brand) + '</p><h2>Acceso al panel</h2><p class="sub">Cada entrenador entra con su cuenta y ve solo a sus clientes. La dirección ve todo el centro.</p>' +
+    return '<div class="a-login"><div class="lg"><p class="a-brand cx-ab">' + MK() + brandWord(S.brand) + '</p><h2>Acceso al panel</h2><p class="sub">Cada entrenador entra con su cuenta y ve solo a sus clientes. La dirección ve todo el centro.</p>' +
       '<div class="lg-list">' + S.team.map(function (t) { var n = S.clients.filter(function (c) { return c.coach === t.id; }).length; return '<button type="button" class="lg-card" data-login="' + t.id + '"><span class="av" aria-hidden="true">' + esc(initials(t.name)) + '</span><span class="tx"><b>' + esc(t.name) + '</b><span>' + esc(t.role) + ' · ' + n + ' cliente' + (n === 1 ? '' : 's') + '</span></span><span class="bd' + (t.owner ? ' own' : '') + '">' + (t.owner ? 'Ve todo' : 'Solo los suyos') + '</span></button>'; }).join('') + '</div>' +
       '<p class="note">En la versión instalada cada uno entra desde su móvil con su email y un código de acceso. Aquí eliges con quién entrar para ver la diferencia.</p></div></div>';
   }
@@ -2157,6 +2213,7 @@ html[data-theme] .chip.mute{background:var(--bg-2);color:var(--sub)}
       var cs = S.clients.filter(function (c) { return c.coach === t.id; }), na = al.filter(function (a) { return a.c.coach === t.id; }).length;
       return '<div class="box"><div style="display:flex;gap:12px;align-items:center;margin-bottom:12px"><span class="av" aria-hidden="true">' + esc(initials(t.name)) + '</span><div><b style="display:block;font-size:15px">' + esc(t.name) + '</b><span class="subt" style="margin:0;font-size:13px">' + esc(t.role) + (t.owner ? ' · ve todo' : ' · solo ve los suyos') + '</span></div></div>' +
         '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px"><span class="chip info">' + cs.length + ' cliente' + (cs.length === 1 ? '' : 's') + '</span>' + (na ? '<span class="chip warn">' + na + ' alerta' + (na === 1 ? '' : 's') + '</span>' : '<span class="chip ok">Sin alertas</span>') + '</div>' +
+        '<form class="ed-team form" data-tid="' + t.id + '" style="margin-bottom:12px"><div style="display:flex;flex-direction:column;gap:8px"><input class="inp" name="tn" aria-label="Nombre" value="' + esc(t.name) + '"><input class="inp" name="tr" aria-label="Especialidad" value="' + esc(t.role) + '"></div><div style="display:flex;gap:8px;margin-top:8px"><button type="submit" class="btn-a sec sm">Guardar</button>' + (t.owner ? '' : '<button type="button" class="btn-a sec sm" data-tdel="' + t.id + '">Quitar</button>') + '</div></form>' +
         '<div class="list">' + (cs.length ? cs.map(function (c) { return '<button type="button" class="li" style="width:100%;text-align:left" data-open="' + c.id + '"><span class="avs">' + initials(c.name) + '</span><span class="tx"><b>' + esc(c.name) + '</b><span>' + esc(c.planName) + '</span></span></button>'; }).join('') : '<p class="subt">Sin clientes asignados.</p>') + '</div></div>';
     }).join('') + '</div>' +
       '<form id="teamForm" class="box form" style="margin-top:16px;max-width:640px"><h3>Añadir entrenador</h3><div class="grid2" style="gap:10px"><label class="lab">Nombre<input class="inp" name="name" required placeholder="Ej. Ane"></label><label class="lab">Especialidad<input class="inp" name="role" placeholder="Ej. Readaptación de rodilla"></label></div><div class="actions" style="margin-top:4px"><button type="submit" class="btn-a pri">Añadir al equipo</button></div></form>';
@@ -2236,9 +2293,13 @@ html[data-theme] .chip.mute{background:var(--bg-2);color:var(--sub)}
   }
   function aMarca() {
     var B = S.brand, tk = tokenFor(B);
-    var h = head('Marca de la app', 'La app sale con el nombre, los colores y el equipo de cada centro. Cambia los datos y mira la app del cliente.');
+    var h = head('Marca de la app', 'Todo lo de la app se puede cambiar: nombre, logo, colores, textos, pruebas, planes y equipo. Cambia lo que quieras y mira la app del cliente.');
+    var nT = Object.keys(S.txt || {}).length;
+    h += '<div class="box ed-box" style="margin-bottom:16px"><h3>Textos de la app <small>' + (nT ? nT + ' cambiado' + (nT === 1 ? '' : 's') : 'sin cambios') + '</small></h3><p class="subt" style="margin:0 0 12px">Activa el modo edición, toca cualquier texto de la app del cliente y escríbelo a tu manera: títulos, botones, mensajes, nombres de secciones… Se guarda solo.</p><div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn-a pri" data-edon="1">' + (UI.edit ? 'Modo edición activo' : 'Editar textos de la app') + '</button>' + (UI.edit ? '<button type="button" class="btn-a sec" data-edoff="1">Terminar</button>' : '') + (nT ? '<button type="button" class="btn-a sec" data-txtreset="1">Volver a los textos originales</button>' : '') + '</div></div>';
+    h += '<form id="vtDefForm" class="box form" style="margin-bottom:16px"><h3>Pruebas de valoración <small>las que ve el cliente en «Antes y ahora»</small></h3><div class="vtd-rows">' + VT.map(function (t, i) { return '<div class="vtd-row"><input class="inp" name="n' + i + '" aria-label="Nombre de la prueba" value="' + esc(t.n) + '"><select class="sel" name="u' + i + '" aria-label="Unidad">' + [['reps', 'repeticiones'], ['kg', 'kg'], ['s', 'segundos'], ['cm', 'cm'], ['pts', 'puntos /10'], ['%', '%']].map(function (o) { return '<option value="' + o[0] + '"' + (t.u === o[0] ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('') + '</select><select class="sel" name="d' + i + '" aria-label="Qué es mejor"><option value="high"' + (t.dir !== 'low' ? ' selected' : '') + '>Mejor si sube</option><option value="low"' + (t.dir === 'low' ? ' selected' : '') + '>Mejor si baja</option></select><input type="color" name="c' + i + '" aria-label="Color" value="' + esc(t.c) + '"><button type="button" class="btn-a sec sm" data-vtdel="' + i + '" aria-label="Quitar prueba">Quitar</button></div>'; }).join('') + '</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button type="button" class="btn-a sec" data-vtadd="1">+ Añadir prueba</button><button type="submit" class="btn-a pri">Guardar pruebas</button></div></form>';
     h += '<div class="grid2"><form id="brandForm" class="box form"><h3>Datos del centro</h3><label class="lab">Nombre del centro<input class="inp" name="name" value="' + esc(B.name) + '"></label><div class="grid2" style="gap:10px"><label class="lab">Entrenador principal<input class="inp" name="coach" value="' + esc(B.coach) + '"></label><label class="lab">Ciudad<input class="inp" name="city" value="' + esc(B.city) + '"></label></div>' +
       '<label class="lab">Frase de la portada<input class="inp" name="tagline" value="' + esc(B.tagline) + '"></label><label class="lab">Servicios (separados por comas)<input class="inp" name="services" value="' + esc(B.services.join(', ')) + '"></label>' +
+      '<label class="lab">Logo (PNG o JPG)<input class="inp" type="file" id="logoIn" accept="image/*" style="padding-top:9px"></label>' + (B.logo ? '<button type="button" class="btn-a sec sm" data-logodel="1" style="align-self:flex-start">Quitar logo</button>' : '') +
       '<div class="grid2" style="gap:10px"><label class="lab">Color principal<input type="color" name="primary" value="' + esc(B.primary) + '"></label><label class="lab">Color de acento<input type="color" name="accent" value="' + esc(B.accent) + '"></label></div>' +
       '<div><p class="lab" style="margin-bottom:8px">Combinaciones listas</p><div class="sw-row">' + PALETTES.map(function (p, i) { return '<button type="button" class="pal" data-pal="' + i + '"><i style="background:linear-gradient(135deg,' + p.p + ' 50%,' + p.a + ' 50%)"></i>' + esc(p.n) + '</button>'; }).join('') + '</div></div>' +
       '<div class="actions"><button type="submit" class="btn-a pri">Aplicar a la app</button></div></form>' +
@@ -2404,6 +2465,30 @@ html[data-theme] .chip.mute{background:var(--bg-2);color:var(--sub)}
     if (e.target.id === 'coachSel') { client(UI.aClient).coach = e.target.value; save(); renderC(); toastA('Entrenador asignado'); return; }
     if (e.target.id === 'chOn') { S.challenge.on = e.target.checked; save(); renderC(); toastA(S.challenge.on ? 'Reto visible en la app' : 'Reto oculto en la app'); return; }
     if (e.target.id === 'fee') { S.fee = Math.max(0, +e.target.value || 0); save(); refreshA(); return; }
+  });
+  function vtFromForm(f) {
+    var fd = new FormData(f), out = [];
+    VT.forEach(function (t, i) { var n = String(fd.get('n' + i) || '').trim(); if (!n) return; out.push({ id: t.id, n: n, u: fd.get('u' + i) || t.u, dir: fd.get('d' + i) === 'low' ? 'low' : 'high', c: fd.get('c' + i) || t.c }); });
+    return out;
+  }
+  function vtSet(list) { S.vtDefs = list; VT.length = 0; list.forEach(function (t) { VT.push(t); }); save(); renderA(); renderC(); }
+  aRoot.addEventListener('change', function (e) {
+    if (e.target.id !== 'logoIn' || !e.target.files || !e.target.files[0]) return;
+    var fr = new FileReader(); fr.onload = function () {
+      var img = new Image(); img.onload = function () { var k = Math.min(1, 256 / Math.max(img.width, img.height)), cv = document.createElement('canvas'); cv.width = Math.round(img.width * k); cv.height = Math.round(img.height * k); cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height); S.brand.logo = cv.toDataURL('image/png'); save(); renderA(); renderC(); toastA('Logo puesto en la app'); };
+      img.src = fr.result; }; fr.readAsDataURL(e.target.files[0]);
+  });
+  aRoot.addEventListener('click', function (e) {
+    var t = e.target.closest && e.target.closest('[data-logodel],[data-tdel],[data-vtdel],[data-vtadd],[data-txtreset]'); if (!t) return;
+    if (t.dataset.logodel) { delete S.brand.logo; save(); renderA(); renderC(); toastA('Logo quitado'); }
+    else if (t.dataset.tdel) { var id = t.dataset.tdel, own = S.team.filter(function (x) { return x.owner; })[0]; S.clients.forEach(function (c) { if (c.coach === id) c.coach = own.id; }); S.team = S.team.filter(function (x) { return x.id !== id; }); save(); renderA(); renderC(); toastA('Entrenador quitado. Sus clientes pasan a ' + own.name); }
+    else if (t.dataset.vtdel != null) { var l = vtFromForm(t.closest('form')); l.splice(+t.dataset.vtdel, 1); if (!l.length) { toastA('Deja al menos una prueba'); return; } vtSet(l); toastA('Prueba quitada'); }
+    else if (t.dataset.vtadd) { var l2 = vtFromForm(t.closest('form')); l2.push({ id: 'p' + uid(), n: 'Nueva prueba', u: 'reps', dir: 'high', c: '#7FB2F0' }); vtSet(l2); }
+    else if (t.dataset.txtreset) { S.txt = {}; save(); renderA(); renderC(); toastA('Textos originales recuperados'); }
+  });
+  aRoot.addEventListener('submit', function (e) {
+    if (e.target.id === 'vtDefForm') { e.preventDefault(); e.stopImmediatePropagation(); vtSet(vtFromForm(e.target)); toastA('Pruebas guardadas. El cliente ya las ve.'); return; }
+    if (e.target.classList && e.target.classList.contains('ed-team')) { e.preventDefault(); e.stopImmediatePropagation(); var tm = S.team.filter(function (x) { return x.id === e.target.dataset.tid; })[0], fd0 = new FormData(e.target); if (tm) { tm.name = String(fd0.get('tn') || '').trim() || tm.name; tm.role = String(fd0.get('tr') || '').trim() || tm.role; if (tm.owner) S.brand.coach = tm.name; save(); renderA(); renderC(); toastA('Equipo actualizado'); } return; }
   });
   aRoot.addEventListener('submit', function (e) {
     e.preventDefault();
