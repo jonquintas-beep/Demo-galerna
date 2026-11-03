@@ -799,6 +799,55 @@ html[data-theme] .a-login button[data-login]{border-radius:18px!important}
 html[data-theme] .splash > .cx-emb{width:108px!important;flex:none}
 html[data-theme] section[aria-label="Tu semana"] .ring svg circle:first-child{stroke:rgba(255,255,255,.22)!important}
 html[data-theme] section[aria-label="Tu semana"] .ring svg circle:last-child{stroke:#FFFFFF!important}
+
+/* ===== Omega fácil: botones grandes y tareas claras ===== */
+html[data-theme] .c-scroll{font-size:16px}
+html[data-theme] .bt{min-height:50px;font-size:15px}
+.ez{display:flex;flex-direction:column;gap:10px}
+.ez-q{margin:0;font-family:var(--display);font-weight:700;font-size:15px;color:var(--sub)}
+.ez-g{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ez-t{display:flex;flex-direction:column;align-items:flex-start;gap:6px;min-height:128px;padding:16px;border-radius:22px;background:var(--card-solid);box-shadow:0 0 0 1px var(--line);text-align:left;color:var(--ink);transition:transform .12s}
+.ez-t:active,.ez-w:active,.ez-todo button:active{transform:scale(.97)}
+.ez-t b{font-family:var(--display);font-size:18px;line-height:1.15}
+.ez-t small{font-size:13px;color:var(--sub)}
+.ez-i{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;background:var(--peach-soft);color:var(--acc-t);flex:none}
+.ez-i svg{width:24px;height:24px}
+.ez-t.hot{background:var(--peach);color:var(--on-accent);box-shadow:0 14px 30px -16px color-mix(in srgb,var(--peach) 90%,#000)}
+.ez-t.hot small{color:inherit;opacity:.85}
+.ez-t.hot .ez-i{background:rgba(255,255,255,.25);color:inherit}
+.ez-w{display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:22px;background:var(--card-solid);box-shadow:0 0 0 1px var(--line);text-align:left;color:var(--ink);min-height:70px}
+.ez-w > span:nth-child(2){flex:1;display:flex;flex-direction:column}
+.ez-w b{font-family:var(--display);font-size:17px}
+.ez-w small{font-size:13px;color:var(--sub)}
+.ez-go{font-size:28px;line-height:1;color:var(--faint)}
+.ez-p{display:flex;flex-direction:column;gap:14px;margin-bottom:16px}
+.ez-s{display:flex;align-items:center;gap:10px;height:56px;padding:0 18px;border-radius:18px;background:var(--card-solid);box-shadow:0 0 0 1px var(--line);color:var(--sub)}
+.ez-s svg{width:22px;height:22px;flex:none}
+.ez-s input{flex:1;min-width:0;border:0;background:transparent;font-size:16px;color:var(--ink);outline:none;height:100%}
+.ez-res[hidden]{display:none!important}
+.ez-res{display:flex;flex-direction:column;gap:4px;padding:6px;border-radius:18px;background:var(--card-solid);box-shadow:0 0 0 1px var(--line)}
+.ez-res button{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:14px;text-align:left;color:var(--ink)}
+.ez-res button:hover{background:var(--bg-2)}
+.ez-res button > span:nth-child(2){flex:1;display:flex;flex-direction:column}
+.ez-res small{color:var(--sub);font-size:12.5px}
+.ez-todo ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.ez-todo button{width:100%;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;background:var(--bg-2);text-align:left;color:var(--ink);min-height:66px}
+.ez-todo button:hover{background:var(--peach-soft)}
+.ez-n{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--peach);color:var(--on-accent);font-weight:800;font-size:13px;flex:none}
+.ez-todo .ez-i{width:40px;height:40px;border-radius:12px;background:var(--card-solid)}
+.ez-tx{flex:1;display:flex;flex-direction:column;min-width:0}
+.ez-tx b{font-size:15.5px}
+.ez-tx small{font-size:13px;color:var(--sub)}
+.ez-qa{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.ez-qa button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:92px;padding:12px;border-radius:18px;background:var(--card-solid);box-shadow:0 0 0 1px var(--line);font-weight:700;font-size:14px;color:var(--ink);text-align:center}
+.ez-qa button svg{width:26px;height:26px;color:var(--acc-t)}
+.ez-qa button:hover{box-shadow:0 0 0 2px var(--peach)}
+@media (max-width:640px){.ez-qa{grid-template-columns:1fr 1fr}}
+.ez-flash{animation:ezf 1.4s ease}
+@keyframes ezf{0%,60%{box-shadow:0 0 0 3px var(--peach)}100%{box-shadow:0 0 0 1px var(--line)}}
+@media (prefers-reduced-motion:reduce){.ez-t,.ez-flash{animation:none;transition:none}}
+html[data-theme] .c-nav button{height:46px;font-size:12.5px}
+html[data-theme] .a-nav button, html[data-theme] .a-side button{min-height:42px}
 </style>
 <script>try{document.documentElement.dataset.theme=localStorage.getItem("omega-theme")||"light"}catch(e){document.documentElement.dataset.theme="dark"}</script>
 </head>
@@ -1316,6 +1365,17 @@ html[data-theme] section[aria-label="Tu semana"] .ring svg circle:last-child{str
     return '<svg viewBox="0 0 64 64" role="img" aria-label="' + esc(label) + '"><circle cx="32" cy="32" r="26" fill="none" stroke="#EDE9E2" stroke-width="7"/><circle cx="32" cy="32" r="26" fill="none" stroke="' + color + '" stroke-width="7" stroke-linecap="round" stroke-dasharray="' + (C * p).toFixed(1) + ' ' + C.toFixed(1) + '" transform="rotate(-90 32 32)"/></svg>';
   }
   function svgI(d, sw) { return '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="' + (sw || 1.8) + '" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + '</svg>'; }
+  var EZ = {
+    run: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4" r="2"/><path d="m4 17 5 1 2-4 3 3v5"/><path d="m7 10 3-3 4 2 3 3 3-1"/></svg>',
+    heart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg>',
+    up: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17 9 11l4 4 8-8"/><path d="M14 7h7v7"/></svg>',
+    chat: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.4A8 8 0 1 1 21 12Z"/></svg>',
+    cal: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>',
+    users: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0"/><path d="M16 4a4 4 0 0 1 0 8M22 21a7 7 0 0 0-5-6.7"/></svg>',
+    bell: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21a2 2 0 0 0 4 0"/></svg>',
+    plus: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>',
+    search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>'
+  };
   var IC = {
     home: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></svg>',
     plan: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>',
@@ -1373,6 +1433,14 @@ html[data-theme] section[aria-label="Tu semana"] .ring svg circle:last-child{str
     var co = coachOf(c);
     var h = '<div class="c-scroll">' + cHeader(c) + '<div><h1 class="title">Hola, ' + esc(first(c.name)) + '</h1><p class="subt">' + esc(fmt(T)) + ' · Semana ' + Math.min(wk, c.weeks) + ' de ' + c.weeks + '</p></div>';
     var HERO = '', CHK = '', MID = '', WEEK = '';
+    var done = checkedToday(c);
+    function tile(r, ic, t, sub, hot) { return '<button type="button" class="ez-t' + (hot ? ' hot' : '') + '" data-c="' + r + '"><span class="ez-i">' + ic + '</span><b>' + t + '</b><small>' + sub + '</small></button>'; }
+    h += '<section class="ez" aria-label="Qué quieres hacer"><p class="ez-q">¿Qué quieres hacer?</p><div class="ez-g">' +
+      tile(n ? 'session' : 'plan', EZ.run, n ? 'Mi entreno' : 'Mi plan', n ? esc(nextTxt) + ' · ' + esc(n.s.title) : 'Ver la semana', false) +
+      tile('checkin', EZ.heart, done ? 'Ya me he registrado' : 'Cómo estoy hoy', done ? 'Hecho hoy ✓' : '1 minuto', !done) +
+      tile('progress', EZ.up, 'Mi progreso', 'Cuánto he mejorado', false) +
+      tile('chat', EZ.chat, 'Hablar con ' + esc(co.name), 'Te responde al momento', false) +
+      '</div><button type="button" class="ez-w" data-c="clases"><span class="ez-i">' + EZ.cal + '</span><span><b>Reservar una clase</b><small>Elige día y hora</small></span><span class="ez-go" aria-hidden="true">›</span></button></section>';
     if (n) HERO += '<section class="hero" aria-label="Próxima sesión"><p class="pill">' + nextTxt + '</p><h2>' + esc(n.s.title) + '</h2><p>' + esc(n.s.detail) + ' · con ' + esc(co.name) + '</p><div class="row2"><button type="button" class="bt peach" style="flex:1" data-c="session" data-i="' + c.sessions.indexOf(n.s) + '">Ver sesión</button><button type="button" class="bt ghost-l" style="flex:1" data-c="plan">Ver semana</button></div></section>';
     if (!checkedToday(c)) CHK += '<section class="card" aria-label="Check-in de hoy" style="display:flex;align-items:center;gap:14px"><div style="flex:1"><h3 style="font-family:var(--display);font-weight:600;font-size:16px">Check-in de hoy</h3><p class="subt" style="margin-top:2px">Sueño, descanso, fuerza y comida · 1 min</p></div><button type="button" class="bt navy" data-c="checkin">Empezar</button></section>';
     else CHK += '<section class="card" aria-label="Check-in hecho" style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><span class="chip ok"><span class="dot"></span>Check-in hecho</span><p class="subt" style="margin:0">Durmió ' + nf(lc.sleep, 1) + ' h · Fuerza ' + lc.strength + '/5</p></section>';
@@ -2183,7 +2251,15 @@ html[data-theme] section[aria-label="Tu semana"] .ring svg circle:last-child{str
     var al = alerts(), inbox = myInbox(), M = me(), cl = mine();
     var checksToday = cl.filter(checkedToday).length, newLeads = S.leads.filter(function (l) { return l.stage !== 'cliente'; }).length;
     var wk = 0; cl.forEach(function (c) { (c.slog || []).forEach(function (x) { if ((T - parse(x.d)) / 864e5 < 7 && (seeAll() || x.by === M.name)) wk++; }); });
-    var h = head(greet() + ', ' + esc(M.name), esc(fmt(T)) + ' · ' + (seeAll() ? 'así va el centro hoy' : 'lo que necesitan tus clientes hoy')) +
+    var pend = cl.filter(function (c) { return !checkedToday(c); }).length, todo = [];
+    if (inbox.length) todo.push(['goto', 'preguntas', EZ.chat, 'Contestar ' + inbox.length + ' pregunta' + (inbox.length === 1 ? '' : 's'), 'Te las pasa el asistente']);
+    if (al.length) todo.push(['goto', 'alertas', EZ.bell, 'Revisar ' + al.length + ' aviso' + (al.length === 1 ? '' : 's'), 'Clientes que se enfrían o con molestias']);
+    if (isOwner() && newLeads) todo.push(['a', 'leads', EZ.users, 'Atender ' + newLeads + ' contacto' + (newLeads === 1 ? '' : 's') + ' nuevo' + (newLeads === 1 ? '' : 's'), 'Gente que quiere empezar']);
+    todo.push(['a', 'hoy', EZ.run, 'Apuntar la sesión de hoy', 'Lo que habéis hecho y cómo ha ido']);
+    var ezTop = '<div class="ez-p"><label class="ez-s" for="ezSearch">' + EZ.search + '<input id="ezSearch" type="search" placeholder="Buscar un cliente por su nombre…" autocomplete="off"></label><div id="ezRes" class="ez-res" hidden></div>' +
+      '<div class="box ez-todo"><h3>Hoy te toca <small>' + todo.length + ' cosa' + (todo.length === 1 ? '' : 's') + '</small></h3><ol>' + todo.map(function (t, i) { return '<li><button type="button" ' + (t[0] === 'a' ? 'data-a="' + t[1] + '"' : 'data-goto="' + t[1] + '"') + '><span class="ez-n">' + (i + 1) + '</span><span class="ez-i">' + t[2] + '</span><span class="ez-tx"><b>' + t[3] + '</b><small>' + t[4] + '</small></span><span class="ez-go" aria-hidden="true">›</span></button></li>'; }).join('') + '</ol></div>' +
+      '<div class="ez-qa"><button type="button" data-a="nuevo">' + EZ.plus + 'Nuevo cliente</button><button type="button" data-a="whatsapp">' + EZ.chat + 'Enviar un mensaje</button><button type="button" data-a="clases">' + EZ.cal + 'Ver las clases</button><button type="button" data-a="clientes">' + EZ.users + 'Todos los clientes</button></div></div>';
+    var h = head(greet() + ', ' + esc(M.name), esc(fmt(T)) + ' · ' + (seeAll() ? 'así va el centro hoy' : 'lo que necesitan tus clientes hoy')) + ezTop +
       '<div class="grid4" style="margin-bottom:16px"><div class="box stat"><span>' + (seeAll() ? 'Clientes del centro' : 'Tus clientes') + '</span><b class="num">' + cl.length + '</b></div><div class="box stat"><span>Check-ins de hoy</span><b class="num">' + checksToday + ' / ' + cl.length + '</b></div><div class="box stat"><span>Preguntas para ti</span><b class="num">' + inbox.length + '</b></div>' +
       (isOwner() ? '<button type="button" class="box stat" data-a="leads" style="text-align:left"><span>Leads en marcha</span><b class="num">' + newLeads + '</b><small>Ver captación →</small></button>' : '<button type="button" class="box stat" data-a="hoy" style="text-align:left"><span>Sesiones tuyas (7 días)</span><b class="num">' + wk + '</b><small>Registrar la de hoy →</small></button>') + '</div>' +
       (seeAll() ? '<div class="box" style="margin-bottom:16px"><h3>Tu equipo hoy <small>' + S.team.length + ' entrenadores</small></h3>' + S.team.map(function (t) { var cs = S.clients.filter(function (c) { return c.coach === t.id; }), na = alerts(true).filter(function (a) { return a.c.coach === t.id; }).length, pend = cs.filter(function (c) { return !stPre(c); }).length, ses = 0; cs.forEach(function (c) { (c.slog || []).forEach(function (x) { if ((T - parse(x.d)) / 864e5 < 7) ses++; }); }); return '<div class="team-row"><span class="avs">' + esc(initials(t.name)) + '</span><div class="tx"><b>' + esc(t.name) + '</b><span>' + esc(t.role) + '</span></div><span class="chip info">' + cs.length + ' clientes</span><span class="chip mute">' + ses + ' sesiones 7 d</span>' + (na ? '<span class="chip warn">' + na + ' alerta' + (na === 1 ? '' : 's') + '</span>' : '<span class="chip ok">Sin alertas</span>') + (pend ? '<span class="chip mute">' + pend + ' sin «cómo vienes»</span>' : '') + '</div>'; }).join('') + '</div>' : '') +
@@ -2582,6 +2658,20 @@ html[data-theme] section[aria-label="Tu semana"] .ring svg circle:last-child{str
     if (e.target.id === 'coachSel') { client(UI.aClient).coach = e.target.value; save(); renderC(); toastA('Entrenador asignado'); return; }
     if (e.target.id === 'chOn') { S.challenge.on = e.target.checked; save(); renderC(); toastA(S.challenge.on ? 'Reto visible en la app' : 'Reto oculto en la app'); return; }
     if (e.target.id === 'fee') { S.fee = Math.max(0, +e.target.value || 0); save(); refreshA(); return; }
+  });
+  aRoot.addEventListener('input', function (e) {
+    if (e.target.id !== 'ezSearch') return;
+    var q = e.target.value.trim().toLowerCase(), box = document.getElementById('ezRes');
+    if (!q) { box.hidden = true; box.innerHTML = ''; return; }
+    var r = mine().filter(function (c) { return c.name.toLowerCase().indexOf(q) !== -1; }).slice(0, 6);
+    box.hidden = false;
+    box.innerHTML = r.length ? r.map(function (c) { return '<button type="button" data-open="' + c.id + '"><span class="avs">' + initials(c.name) + '</span><span><b>' + esc(c.name) + '</b><small>' + esc(c.planName || c.goal || '') + '</small></span><span class="ez-go">›</span></button>'; }).join('') : '<p class="subt" style="margin:8px 4px">No hay nadie con ese nombre.</p>';
+  });
+  aRoot.addEventListener('click', function (e) {
+    var g = e.target.closest && e.target.closest('[data-goto]'); if (!g) return;
+    var key = g.dataset.goto === 'alertas' ? 'Alertas' : 'Preguntas';
+    var h3 = [].slice.call(aRoot.querySelectorAll('.a-main h3')).filter(function (x) { return x.textContent.indexOf(key) === 0; })[0];
+    if (h3) { var bx = h3.closest('.box') || h3; var mn = aRoot.querySelector('.a-main'); mn.scrollTo({ top: mn.scrollTop + bx.getBoundingClientRect().top - mn.getBoundingClientRect().top - 12, behavior: 'smooth' }); bx.classList.add('ez-flash'); setTimeout(function () { bx.classList.remove('ez-flash'); }, 1400); }
   });
   function vtFromForm(f) {
     var fd = new FormData(f), out = [];
