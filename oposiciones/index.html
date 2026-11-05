@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Demo Oposiciones</title>
+<title>Academia Luis Altuna</title>
 <meta name="description" content="Demo privada: app de seguimiento para academias de oposiciones físicas">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#0B1F3A">
@@ -939,7 +939,7 @@ body.va-open{overflow:hidden}
       (B.logo ? '' : '<h1>' + esc(B.name).replace(/(\S+)$/, '<i>$1</i>') + '</h1>') +
       '<p class="tag">Tu plaza, prueba a prueba. Tus marcas, tu nota y tu plan en un solo sitio.</p>' +
       '<div class="opos"><span>Policía Nacional</span><span>Ertzaintza</span><span>Bomberos</span></div>' +
-      '<button type="button" class="bt acc full" style="height:54px;font-size:16px;margin-top:6px" data-c="home">Entrar como ' + esc(first(p.name)) + '</button>' + (UI.confirmOut ? '<div style="display:flex;flex-direction:column;gap:8px;margin-top:4px;position:relative"><p style="margin:0;font-size:14px;opacity:.9">Se borrarán de este móvil los datos de la demo. ¿Seguro?</p><div class="row2"><button type="button" class="bt ghost-l" data-nologout="1">Cancelar</button><button type="button" class="bt acc" data-logout="1">Sí, cerrar sesión</button></div></div>' : '<button type="button" class="bt ghost-l full" style="position:relative;height:46px" data-logout="1">Cerrar sesión · entrar con otro código</button>') + 
+      '<button type="button" class="bt acc full" style="height:54px;font-size:16px;margin-top:6px" data-c="home">Entrar como ' + esc(first(p.name)) + '</button>' + (UI.confirmOut ? '<div style="display:flex;flex-direction:column;gap:8px;margin-top:4px;position:relative"><p style="margin:0;font-size:14px;opacity:.9">Se borrarán de este móvil los datos de la demo. ¿Seguro?</p><div class="row2"><button type="button" class="bt ghost-l" data-nologout="1">Cancelar</button><button type="button" class="bt acc" data-logout="1">Sí, reiniciar</button></div></div>' : '<button type="button" class="bt ghost-l full" style="position:relative;height:46px" data-logout="1">Cerrar sesión · entrar con otro código</button>') + 
       '<p class="foot">' + (S.trial && S.trial.exp ? 'Demo privada hasta el ' + esc(fmt(parse(S.trial.exp), { day: 'numeric', month: 'long' })) + ' · ' : '') + 'Con la tecnología de ' + GLOGO + '</p></div>';
   }
   function boardHtml(p) {
@@ -1223,7 +1223,7 @@ body.va-open{overflow:hidden}
       '<button type="button" class="set-row" data-big="1"><span><b>Letra grande</b><span>' + (S.big ? 'Activada' : 'Desactivada') + '</span></span><i>' + (S.big ? 'Sí' : 'No') + '</i></button>' +
       '<button type="button" class="set-row" data-c="report"><span><b>Mi informe de la semana</b><span>Lo que has mejorado y el foco de la próxima semana.</span></span><i>→</i></button>' +
       '</section>';
-    h += '<section class="card set-list">' + (UI.confirmOut ? '<p style="margin:0 0 10px">Se borrarán de este móvil tus datos de la demo. ¿Seguro?</p><div class="row2"><button type="button" class="bt ghost" data-nologout="1">Cancelar</button><button type="button" class="bt dark" data-logout="1">Sí, cerrar sesión</button></div>' : '<button type="button" class="set-row" data-logout="1"><span><b>Cerrar sesión</b><span>Para entrar con otro código.</span></span><i>→</i></button>') + '</section>';
+    h += '<section class="card set-list">' + (UI.confirmOut ? '<p style="margin:0 0 10px">Se borrarán de este móvil tus datos de la demo. ¿Seguro?</p><div class="row2"><button type="button" class="bt ghost" data-nologout="1">Cancelar</button><button type="button" class="bt dark" data-logout="1">Sí, reiniciar</button></div>' : '<button type="button" class="set-row" data-logout="1"><span><b>Reiniciar la demo</b><span>Borra los datos y empieza de cero.</span></span><i>→</i></button>') + '</section>';
     h += '<p class="st" style="text-align:center;font-size:12px">Tus datos se guardan en este móvil. No se borran al cerrar la app.</p>';
     return h + '</div>' + nav('home');
   }
@@ -1933,7 +1933,7 @@ body.va-open{overflow:hidden}
       (p.profile ? '' : '<button type="button" class="en-link" data-demo="1">o verla ya con datos de ejemplo</button>') + '</div>';
     h += '<div class="en-col"><button type="button" class="en-coach" data-go="a"><span class="en-ic">' + IC.watch + '</span><span class="en-k">Preparador · panel de la academia</span><span class="en-cn">' + esc(B.coach) + '</span><span class="en-stats"><span><b class="num">' + (ps.length + (p.profile ? 1 : 0)) + '</b> opositores</span><span class="' + (al ? 'hot' : '') + '"><b class="num">' + al + '</b> alertas</span><span><b class="num">' + pend + '</b> cuotas pendientes</span></span><span class="en-go">Abrir el panel <i>→</i></span></button>' +
       '<p class="en-note">Rutinas con sobrecarga progresiva, juez IA por vídeo, nota proyectada al examen y cuotas con factura.</p></div></div>';
-    h += '<footer class="en-foot">' + (UI.confirmOut ? '<span>Se borrarán de este móvil los datos de la demo.</span><button type="button" data-nologout="1">Cancelar</button><button type="button" class="red" data-logout="1">Sí, cerrar sesión</button>' : '<span>' + (S.trial && S.trial.exp ? 'Demo privada hasta el ' + esc(fmt(parse(S.trial.exp), { day: 'numeric', month: 'long' })) : 'Demo privada') + '</span><button type="button" data-logout="1">Cerrar sesión</button>') + '<span class="pw">Con la tecnología de ' + GLOGO + '</span></footer>';
+    h += '<footer class="en-foot">' + (UI.confirmOut ? '<span>Se borrarán de este móvil los datos de la demo.</span><button type="button" data-nologout="1">Cancelar</button><button type="button" class="red" data-logout="1">Sí, reiniciar</button>' : '<span>' + (S.trial && S.trial.exp ? 'Demo privada hasta el ' + esc(fmt(parse(S.trial.exp), { day: 'numeric', month: 'long' })) : 'Demo privada') + '</span><button type="button" data-logout="1">Reiniciar la demo</button>') + '<span class="pw">Con la tecnología de ' + GLOGO + '</span></footer>';
     return h + '</div></div>';
   }
   $('entry').addEventListener('click', function (e) {
@@ -1964,7 +1964,10 @@ body.va-open{overflow:hidden}
     else gate.innerHTML = top + '<h1>' + (mode === 'expired' ? 'Tu prueba ha terminado' : mode === 'offline' ? 'Necesitas conexión' : 'Este acceso ya no está activo') + '</h1><p class="g-sub">' + esc(mode === 'offline' ? 'Conéctate a internet un momento para comprobar tu acceso.' : 'Gracias por probar la app. Si la quieres para tu academia, hablamos.') + '</p>' + contactBtn() + (mode === 'offline' ? '<button type="button" class="g-btn ghost" data-gretry="1">Reintentar</button>' : '<button type="button" class="g-btn ghost" data-gnew="1">Tengo otro código</button>') + '<p class="g-foot">Galerna Method · demo para academias</p></div>';
   }
   function openApp() { document.body.classList.remove('locked'); gate.hidden = true; gate.innerHTML = ''; }
+  var LIBRE = { centro: 'Academia Luis Altuna', entrenador: 'Luis', ciudad: 'Bilbao', primario: '#0E1C3F', acento: '#D7192A', caduca: '' };
   function verify() {
+    if (!S.trial || !S.trial.h) { S = seedState(LIBRE, 'Marta', 'libre'); upgrade(); save(); applyBrand(); UI.c = 'splash'; UI.a = 'resumen'; UI.flow = null; renderC(); renderA(); }
+    openApp(); return;
     var t = S.trial; if (!t || !t.h) { showGate('login'); return; }
     fetchList().then(function (list) {
       var E = findE(list, t.h);
