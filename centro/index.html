@@ -685,6 +685,99 @@ html[data-custom][data-theme="light"]{--bg:#F3F3F1;--main-bg:#F6F6F4;--card:rgba
 html[data-custom] .splash{background:radial-gradient(ellipse 90% 55% at 50% 22%,color-mix(in srgb,var(--peach) 32%,transparent),transparent 62%),radial-gradient(ellipse 80% 60% at 10% 95%,color-mix(in srgb,var(--peach) 16%,transparent),transparent 65%),#111214!important}
 html[data-custom] .fx-mark{display:none}
 html[data-custom][data-theme="dark"] .hero{background:linear-gradient(150deg,color-mix(in srgb,var(--peach) 38%,#16171A),#16171A)}
+/* ===== Entrenamiento y facturas ===== */
+.tr-chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.tr-chips::-webkit-scrollbar{display:none}
+.tr-chips button{flex:none;padding:8px 13px;border-radius:999px;font-size:13px;font-weight:700;background:var(--bg-2);color:var(--sub)}
+.tr-chips button.on{background:var(--peach);color:var(--on-accent)}
+.tr-goal{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:999px;background:var(--peach-soft);color:var(--ink)}
+.tr-goalc p{margin:8px 0 4px;font-weight:700}
+.tr-goalc small{color:var(--sub);font-size:13px}
+.tr-exh{display:flex;gap:12px;align-items:center}
+.tr-exh > div{flex:1;min-width:0}
+.tr-exh b{display:block;font-size:16px}
+.tr-exh small{color:var(--sub);font-size:12.5px}
+.tr-n{width:32px;height:32px;border-radius:10px;background:var(--peach);color:var(--on-accent);display:grid;place-items:center;font-weight:800;flex:none}
+.tr-why{margin:10px 0;font-size:13.5px;padding:10px 12px;border-radius:12px;background:var(--bg-2)}
+.tr-why span{color:var(--sub);font-size:12.5px}
+.tr-sets{display:flex;flex-direction:column;gap:6px}
+.tr-sh,.tr-set{display:grid;grid-template-columns:42px 1fr 1fr 1fr 46px;gap:6px;align-items:center}
+.tr-sh span{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--sub);text-align:center}
+.tr-set > span{text-align:center;font-weight:800;color:var(--sub)}
+.tr-set input{width:100%;min-width:0;height:44px;border-radius:12px;border:1.5px solid var(--line);background:var(--inp,#fff);color:var(--ink);text-align:center;font-size:16px;font-weight:700}
+.tr-set button{height:44px;border-radius:12px;border:1.5px solid var(--line);font-size:20px;font-weight:900;color:#fff}
+.tr-set.ok input{border-color:color-mix(in srgb,var(--ok) 60%,transparent);background:color-mix(in srgb,var(--ok) 10%,transparent)}
+.tr-set.ok button{background:var(--ok);border-color:var(--ok)}
+.tr-vid{margin-top:10px;width:100%;display:flex;align-items:center;justify-content:center;gap:8px;min-height:42px;border-radius:12px;background:var(--bg-2);color:var(--ink);font-weight:700;font-size:13.5px}
+.tr-vid svg{width:18px;height:18px}
+.tr-kpi{border-radius:22px;padding:18px;background:linear-gradient(150deg,var(--peach),color-mix(in srgb,var(--peach) 55%,var(--navy)));color:var(--on-accent)}
+.tr-kpi .tr-goal{background:rgba(255,255,255,.22);color:inherit}
+.tr-kpi > b{display:block;font-family:var(--display);font-size:46px;font-weight:700;line-height:1;margin:10px 0 4px}
+.tr-kpi p{opacity:.9;font-size:14px}
+.tr-mini{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.tr-mini span{background:rgba(255,255,255,.18);border-radius:10px;padding:6px 10px;font-size:12.5px}
+.tr-svg{width:100%;height:auto;display:block;margin-top:10px}
+.tr-row3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
+.tr-row3 div{background:var(--bg-2);border-radius:12px;padding:10px}
+.tr-row3 small{display:block;font-size:11.5px;color:var(--sub)}
+.tr-row3 b{font-size:14.5px}
+.up{color:var(--ok)}
+.tr-bars{display:flex;align-items:flex-end;gap:6px;height:120px;margin-top:8px}
+.tr-bars div{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:4px}
+.tr-bars i{width:100%;border-radius:8px 8px 3px 3px}
+.tr-bars small{font-size:10.5px;color:var(--sub)}
+.tr-prs{display:flex;flex-direction:column}
+.tr-prs > div{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
+.tr-prs > div:first-child{border-top:0}
+.tr-prs b{display:block;font-size:14px}
+.tr-prs small{color:var(--sub);font-size:12.5px}
+.tr-prs em{font-style:normal;font-weight:800;font-size:15px}
+.tr-grp{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.tr-grp > div{display:grid;grid-template-columns:90px 1fr 28px;gap:8px;align-items:center;font-size:13px}
+.tr-grp i{height:10px;border-radius:6px;background:var(--bg-2);overflow:hidden}
+.tr-grp i b{display:block;height:100%;background:var(--peach);border-radius:6px}
+.tr-grp em{font-style:normal;font-weight:800;text-align:right}
+.tr-cli{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:14px;scrollbar-width:thin}
+.tr-cli button{flex:none;display:flex;align-items:center;gap:8px;padding:6px 12px 6px 6px;border-radius:999px;background:var(--card-solid);box-shadow:0 0 0 1px var(--line);font-weight:700;font-size:13.5px;color:var(--ink)}
+.tr-cli button small{font-weight:600;color:var(--sub);font-size:11.5px}
+.tr-cli button.on{box-shadow:0 0 0 2px var(--peach)}
+.tr-goals{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.tr-goals button{text-align:left;padding:12px;border-radius:14px;background:var(--bg-2);color:var(--ink)}
+.tr-goals button b{display:block;font-size:14px}
+.tr-goals button small{color:var(--sub);font-size:12px}
+.tr-goals button.on{background:var(--peach);color:var(--on-accent)}
+.tr-goals button.on small{color:inherit;opacity:.85}
+.tr-next{display:flex;flex-direction:column}
+.tr-next > div{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
+.tr-next > div:first-child{border-top:0}
+.tr-next b{display:block;font-size:14px}
+.tr-next small{display:block;color:var(--sub);font-size:12.5px}
+.tr-day{margin-bottom:14px;padding:12px;border-radius:14px;background:var(--bg-2)}
+.tr-dn{font-weight:800;margin-bottom:8px;max-width:340px}
+.tr-ed{min-width:720px}
+.tr-ed .inp,.tr-ed .sel{height:38px;padding:0 8px;font-size:13.5px}
+.tr-ed td{padding:4px}
+.tr-pgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.tr-pgrid .tr-kpi{grid-column:1/-1}
+@media (max-width:900px){.tr-pgrid{grid-template-columns:1fr}}
+.fx-modal{position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;padding:20px}
+.fx-paper{background:#fff;color:#16181C;width:100%;max-width:620px;max-height:90vh;overflow:auto;border-radius:16px;padding:28px;font-family:var(--body)}
+.fx-top{display:flex;justify-content:space-between;gap:16px;border-bottom:2px solid #16181C;padding-bottom:14px;margin-bottom:16px}
+.fx-brand{font-family:var(--display);font-size:22px;display:block}
+.fx-paper small{display:block;color:#666;font-size:12.5px}
+.fx-num{text-align:right}
+.fx-num b{font-size:18px}
+.fx-to{margin-bottom:16px}
+.fx-t{width:100%;border-collapse:collapse;font-size:14px}
+.fx-t th{text-align:left;border-bottom:1px solid #ddd;padding:8px 6px;font-size:12px;text-transform:uppercase;color:#666}
+.fx-t td{padding:10px 6px;border-bottom:1px solid #eee}
+.fx-sum{margin:14px 0 0 auto;max-width:260px}
+.fx-sum div{display:flex;justify-content:space-between;padding:6px 0;font-size:14px}
+.fx-sum .t{border-top:2px solid #16181C;font-size:17px}
+.fx-st{margin-top:14px;font-size:13px;color:#1F7A4D;font-weight:700}
+.fx-acts{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;margin-top:18px}
+.fx-acts .btn-a.sec{background:#F1F1F1!important;color:#16181C!important}
+@media print{body *{visibility:hidden}#fxModal,#fxModal *{visibility:visible}#fxModal{position:absolute;inset:0;background:#fff}.fx-paper{max-height:none;box-shadow:none}.fx-acts{display:none}}
 </style>
 <script>try{document.documentElement.dataset.theme=localStorage.getItem("centro-theme")||"dark"}catch(e){document.documentElement.dataset.theme="dark"}</script>
 </head>
@@ -932,7 +1025,7 @@ html[data-custom][data-theme="dark"] .hero{background:linear-gradient(150deg,col
       return c;
     });
   }
-  var KEY = 'galerna-centro-v2';
+  var KEY = 'galerna-centro-v3';
   var S, hb = parseHash();
   try { S = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { S = null; }
   if (!S || S.v !== 5) S = seed(hb || DEF_BRAND);
@@ -952,7 +1045,7 @@ html[data-custom][data-theme="dark"] .hero{background:linear-gradient(150deg,col
   function mine() { var m = me(); return (!m || seeAll()) ? S.clients : S.clients.filter(function (c) { return c.coach === m.id; }); }
   function isMine(c) { return mine().indexOf(c) !== -1; }
   function myInbox() { return S.inbox.filter(function (x) { if (x.done) return false; var c = S.clients.filter(function (k) { return k.id === x.client; })[0]; return c && isMine(c); }); }
-  var OWNER_ONLY = ['pagos', 'leads', 'forms', 'equipo', 'asistente', 'auto', 'comunidad', 'informes', 'marca', 'completa'];
+  var OWNER_ONLY = ['facturas', 'pagos', 'leads', 'forms', 'equipo', 'asistente', 'auto', 'comunidad', 'informes', 'marca', 'completa'];
   function lastCheck(c) { return c.checks[c.checks.length - 1]; }
   function checkedToday(c) { var l = lastCheck(c); return l && l.date === iso(T); }
   function daysSinceCheck(c) { var l = lastCheck(c); return l ? Math.round((T - parse(l.date)) / 864e5) : 99; }
@@ -1232,7 +1325,7 @@ html[data-custom][data-theme="dark"] .hero{background:linear-gradient(150deg,col
   var cRoot = document.getElementById('client');
   function cNav(on) {
     function b(r, l, ic) { return '<button type="button" data-c="' + r + '" class="' + (on === r ? 'on' : '') + '"' + (on === r ? ' aria-current="page"' : '') + '>' + ic + l + '</button>'; }
-    return '<nav class="c-nav" aria-label="Menú de la app">' + b('home', 'Inicio', IC.home) + b('plan', 'Plan', IC.plan) + b('clases', 'Clases', CRM_IC.cal) + b('progress', 'Progreso', IC.prog) + b('chat', 'Asistente', IC.chat) + '</nav>';
+    return '<nav class="c-nav" aria-label="Menú de la app">' + b('home', 'Inicio', IC.home) + b('tr', 'Entreno', IC.plan) + b('clases', 'Clases', CRM_IC.cal) + b('progress', 'Progreso', IC.prog) + b('chat', 'Asistente', IC.chat) + '</nav>';
   }
   function cHeader(c) { return '<div class="c-hdr"><button type="button" class="word-s fx-hw" data-c="splash" aria-label="Ir a la portada">' + MK() + esc(S.brand.name) + '</button><span style="display:flex;gap:8px;align-items:center"><button type="button" class="th-btn" data-edon="1" aria-label="Editar textos" title="Editar textos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>' + thBtn(true) + '<span class="av" aria-hidden="true">' + initials(c.name) + '</span></span></div>'; }
   function thBtn(compact) { var dk = document.documentElement.dataset.theme !== 'light'; var ic = dk ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>' : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>'; return '<button type="button" class="th-btn" data-themet="1" aria-label="' + (dk ? 'Cambiar a tono claro' : 'Cambiar a tono oscuro') + '" title="' + (dk ? 'Tono claro' : 'Tono oscuro') + '">' + ic + (compact ? '' : (dk ? 'Tono claro' : 'Tono oscuro')) + '</button>'; }
@@ -1562,7 +1655,7 @@ html[data-custom][data-theme="dark"] .hero{background:linear-gradient(150deg,col
     if (r === 'flow' && UI.flow) html = '<div class="c-view">' + vFlow() + '</div>';
     else if (r === 'splash') html = vSplash();
     else if (r === 'onboard' || r === 'obresult' || r === 'obdone') html = '<div class="c-view">' + (r === 'onboard' ? vOnboard() : r === 'obresult' ? vObResult() : vObDone()) + '</div>';
-    else html = '<div class="c-view">' + (r === 'home' ? vHome(c) : r === 'plan' ? vPlan(c) : r === 'session' ? vSession(c) : r === 'progress' ? vProgress(c) : r === 'checkin' ? vCheckin(c) : r === 'reto' ? vReto(c) : r === 'precheck' ? vPre(c) : r === 'clases' ? vClases(c) : r === 'tecnica' ? vTecnica(c) : r === 'valoraciones' ? vValoraciones(c) : r === 'sesiones' ? vSes(c) : r === 'medidas' ? vMed(c) : r === 'informe' ? vInf(c) : vChat(c)) + '</div>';
+    else html = '<div class="c-view">' + (r === 'home' ? vHome(c) : r === 'tr' ? vTr(c) : r === 'plan' ? vPlan(c) : r === 'session' ? vSession(c) : r === 'progress' ? vTrProg(c) : r === 'progress0' ? vProgress(c) : r === 'checkin' ? vCheckin(c) : r === 'reto' ? vReto(c) : r === 'precheck' ? vPre(c) : r === 'clases' ? vClases(c) : r === 'tecnica' ? vTecnica(c) : r === 'valoraciones' ? vValoraciones(c) : r === 'sesiones' ? vSes(c) : r === 'medidas' ? vMed(c) : r === 'informe' ? vInf(c) : vChat(c)) + '</div>';
     if (UI.toastC) html += '<p class="toast" role="status">' + esc(UI.toastC) + '</p>';
     var keepVal = document.getElementById('obname'), kv = keepVal ? keepVal.value : null, foc = document.activeElement && document.activeElement.id;
     cRoot.innerHTML = html;
@@ -2047,8 +2140,8 @@ html[data-custom][data-theme="dark"] .hero{background:linear-gradient(150deg,col
     return '<nav class="a-side" aria-label="Menú del panel"><p class="a-brand cx-ab" style="padding-bottom:12px">' + MK() + brandWord(S.brand) + '</p>' +
       '<div class="a-me"><span class="av" aria-hidden="true">' + esc(initials(M.name)) + '</span><div><b>' + esc(M.name) + '</b><span>' + esc(own ? 'Dirección · ve todo el centro' : M.role + ' · ' + mine().length + ' clientes') + '</span></div></div>' +
       (own ? '<div class="a-scope" role="group" aria-label="Qué ver"><button type="button" data-scope="all" class="' + (seeAll() ? 'on' : '') + '">Todo el centro</button><button type="button" data-scope="mine" class="' + (seeAll() ? '' : 'on') + '">Mis clientes</button></div>' : '') + '<div class="a-nav">' +
-      b('resumen', 'Resumen', IC.grid, nAl) + b('hoy', 'Sesión de hoy', IC.form) + '<p class="a-grp">CRM</p>' + b('crm', seeAll() ? 'Altas y bajas' : 'Mis altas y bajas', CRM_IC.flow) + b('clases', 'Clases y reservas', CRM_IC.cal) + (own ? b('pagos', 'Pagos y cuotas', CRM_IC.euro) + b('leads', 'Captación', IC.funnel, nLead) : '') +
-      '<p class="a-grp">' + (seeAll() ? 'Clientes' : 'Mis clientes') + '</p>' + b('clientes', seeAll() ? 'Clientes' : 'Mis clientes', IC.users) + b('tecnica', 'Técnica en vídeo', CRM_IC.cam) + b('planes', 'Plantillas de plan', IC.tpl) + (own ? b('forms', 'Cuestionarios', IC.form) + b('equipo', 'Equipo', IC.team) : '') +
+      b('resumen', 'Resumen', IC.grid, nAl) + b('hoy', 'Sesión de hoy', IC.form) + '<p class="a-grp">CRM</p>' + b('crm', seeAll() ? 'Altas y bajas' : 'Mis altas y bajas', CRM_IC.flow) + b('clases', 'Clases y reservas', CRM_IC.cal) + (own ? b('pagos', 'Pagos y cuotas', CRM_IC.euro) + b('facturas', 'Facturas y gastos', IC.form) + b('leads', 'Captación', IC.funnel, nLead) : '') +
+      '<p class="a-grp">' + (seeAll() ? 'Clientes' : 'Mis clientes') + '</p>' + b('clientes', seeAll() ? 'Clientes' : 'Mis clientes', IC.users) + b('entreno', 'Entrenamiento y progreso', IC.prog) + b('tecnica', 'Técnica en vídeo', CRM_IC.cam) + b('planes', 'Plantillas de plan', IC.tpl) + (own ? b('forms', 'Cuestionarios', IC.form) + b('equipo', 'Equipo', IC.team) : '') +
       '<p class="a-grp">' + (own ? 'Asistente y mensajes' : 'Mensajes') + '</p>' + (own ? b('asistente', 'Entrenar asistente', IC.bot) : '') + b('whatsapp', 'WhatsApp', IC.wa, nWa) + (own ? b('auto', 'Recordatorios', IC.bell) : '') +
       (own ? '<p class="a-grp">Centro</p>' + b('comunidad', 'Comunidad y retos', IC.trophy) + b('informes', 'Informes', IC.chart) + b('marca', 'Marca de la app', IC.brush) + b('completa', 'Versión completa', IC.star) : '') +
       b('nuevo', 'Nuevo cliente', IC.plus) +
@@ -2348,7 +2441,235 @@ html[data-custom][data-theme="dark"] .hero{background:linear-gradient(150deg,col
       return '<div><h4>' + bl + '</h4><dl>' + qs.map(function (q) { var v = P[q.id]; v = Array.isArray(v) ? v.join(', ') : q.id === 'sleepH' ? nf(v, 1) + ' h' : q.id === 'stress' ? v + ' de 5' : v; return '<div><dt>' + esc(SHORT[q.id] || q.id) + '</dt><dd>' + esc(v) + '</dd></div>'; }).join('') + '</dl></div>';
     }).join('') + '</div>';
   }
-  var VIEWS = { tecnica: aTecnica, crm: aCrm, pagos: aPagos, clases: aClases, hoy: aHoy, stinf: aStInf, forms: aForms, resumen: aResumen, leads: aLeads, clientes: aClientes, ficha: aFicha, planes: aPlanes, tpl: aTpl, equipo: aEquipo, asistente: aAsistente, whatsapp: aWhatsApp, auto: aAuto, comunidad: aComunidad, informes: aInformes, marca: aMarca, completa: aCompleta, nuevo: aNuevo };
+
+  /* ================= ENTRENAMIENTO: rutinas, sobrecarga progresiva y progreso ================= */
+  var TR_GOALS = {
+    musculo: { n: 'Ganar músculo', rmin: 8, rmax: 12, rir: 2, rest: 90, inc: 2.5, kpi: 'Volumen semanal', txt: 'Cuando hagas el máximo de repeticiones en todas las series, subimos peso.' },
+    fuerza: { n: 'Ganar fuerza', rmin: 3, rmax: 6, rir: 2, rest: 180, inc: 5, kpi: 'Fuerza estimada (1RM)', txt: 'Pocas repeticiones con mucho peso. Si completas todas con margen, subimos 5 kg.' },
+    grasa: { n: 'Perder grasa', rmin: 12, rmax: 15, rir: 2, rest: 60, inc: 2.5, kpi: 'Peso corporal y constancia', txt: 'Descansos cortos y ritmo alto. Mantener la fuerza mientras bajas de peso.' },
+    resistencia: { n: 'Ganar resistencia', rmin: 15, rmax: 20, rir: 3, rest: 45, inc: 1, kpi: 'Repeticiones totales', txt: 'Muchas repeticiones con poco descanso. Subimos cuando aguantas el máximo.' },
+    salud: { n: 'Salud y movilidad', rmin: 10, rmax: 15, rir: 3, rest: 75, inc: 1, kpi: 'Constancia', txt: 'Moverse bien y sin dolor. Progresamos poco a poco y con buena técnica.' }
+  };
+  var TR_LIB = [
+    { id: 'sq', n: 'Sentadilla con barra', g: 'Pierna', k: 40 }, { id: 'gb', n: 'Sentadilla goblet', g: 'Pierna', k: 16 }, { id: 'rdl', n: 'Peso muerto rumano', g: 'Pierna', k: 40 },
+    { id: 'pr', n: 'Prensa de piernas', g: 'Pierna', k: 80 }, { id: 'lu', n: 'Zancada con mancuernas', g: 'Pierna', k: 10 }, { id: 'ht', n: 'Hip thrust', g: 'Glúteo', k: 50 },
+    { id: 'bp', n: 'Press de banca', g: 'Pecho', k: 35 }, { id: 'db', n: 'Press inclinado con mancuernas', g: 'Pecho', k: 12 }, { id: 'ro', n: 'Remo con barra', g: 'Espalda', k: 35 },
+    { id: 'jl', n: 'Jalón al pecho', g: 'Espalda', k: 40 }, { id: 'om', n: 'Press militar', g: 'Hombro', k: 25 }, { id: 'el', n: 'Elevaciones laterales', g: 'Hombro', k: 6 },
+    { id: 'cu', n: 'Curl de bíceps', g: 'Brazo', k: 10 }, { id: 'tr', n: 'Extensión de tríceps en polea', g: 'Brazo', k: 15 }, { id: 'pl', n: 'Plancha con lastre', g: 'Core', k: 5 }, { id: 'kb', n: 'Swing con kettlebell', g: 'Pierna', k: 16 }
+  ];
+  function trEx(id) { return TR_LIB.filter(function (e) { return e.id === id; })[0] || TR_LIB[0]; }
+  var TR_TPL = {
+    musculo: [['Día A · Pierna', ['sq', 'rdl', 'pr', 'lu']], ['Día B · Torso', ['bp', 'ro', 'om', 'jl']], ['Día C · Completo', ['ht', 'db', 'cu', 'tr']]],
+    fuerza: [['Día A · Sentadilla y banca', ['sq', 'bp', 'ro']], ['Día B · Bisagra y press', ['rdl', 'om', 'jl']]],
+    grasa: [['Circuito A', ['gb', 'db', 'ro', 'kb']], ['Circuito B', ['lu', 'jl', 'el', 'pl']]],
+    resistencia: [['Día A', ['gb', 'jl', 'lu', 'pl']], ['Día B', ['kb', 'db', 'ro', 'el']]],
+    salud: [['Día A · Fuerza básica', ['gb', 'ro', 'ht']], ['Día B · Estabilidad', ['lu', 'jl', 'pl']]]
+  };
+  function e1rm(kg, r) { return kg * (1 + r / 30); }
+  function trRound(v, inc) { return Math.round(v / inc) * inc; }
+  function trMkProg(goal, scale) {
+    var G = TR_GOALS[goal];
+    return { goal: goal, days: TR_TPL[goal].map(function (d) { return { n: d[0], ex: d[1].map(function (id) { var L = trEx(id); return { ex: id, sets: goal === 'fuerza' ? 4 : 3, rmin: G.rmin, rmax: G.rmax, rir: G.rir, rest: G.rest, kg: trRound(L.k * scale, G.inc >= 2.5 ? 2.5 : 1) }; }) }; }), log: [] };
+  }
+  function trSeed() {
+    if (S.trOk) return;
+    S.tr = {};
+    var goals = ['musculo', 'fuerza', 'grasa', 'resistencia', 'musculo', 'salud'];
+    S.clients.forEach(function (c, k) {
+      var goal = c.id === 'marta' ? 'musculo' : goals[k % goals.length], G = TR_GOALS[goal], P = trMkProg(goal, 0.8 + (k % 5) * 0.08), weeks = 8, per = P.days.length;
+      // simular 8 semanas de doble progresión
+      var state = {}; P.days.forEach(function (d) { d.ex.forEach(function (e) { state[e.ex] = { kg: e.kg, r: e.rmin }; }); });
+      var nSes = weeks * per, skip = k % 4 === 1 ? 5 : k % 3 === 0 ? 2 : 1;
+      for (var s = 0; s < nSes; s++) {
+        if ((s + k) % 9 === skip) continue;
+        var d = P.days[s % per], dt = iso(addDays(T, -Math.round((nSes - s) * 7 / per) - 1));
+        P.log.push({ d: dt, day: s % per, ex: d.ex.map(function (e) {
+          var st = state[e.ex], sets = [];
+          for (var i = 0; i < e.sets; i++) { var r = Math.max(e.rmin - 1, st.r - (i === e.sets - 1 && st.r < e.rmax && (s + i) % 4 === 0 ? 1 : 0)); sets.push({ kg: st.kg, r: r, rir: Math.max(0, G.rir + (r >= e.rmax ? 0 : 1) - (i === e.sets - 1 ? 1 : 0)) }); }
+          if (sets.every(function (x) { return x.r >= e.rmax; })) { st.kg = trRound(st.kg + G.inc, G.inc >= 2.5 ? 2.5 : 1); st.r = e.rmin; } else st.r = Math.min(e.rmax, st.r + (G.rmax - G.rmin > 6 ? 2 : 1));
+          return { ex: e.ex, sets: sets };
+        }) });
+      }
+      P.days.forEach(function (d) { d.ex.forEach(function (e) { e.kg = state[e.ex].kg; }); });
+      S.tr[c.id] = P;
+    });
+    S.fx = { manual: [], gastos: [['Alquiler del local', 1450], ['Software y app', 390], ['Luz y agua', 210], ['Seguro de responsabilidad civil', 60], ['Material y mantenimiento', 140]], sent: {} };
+    S.trOk = true;
+  }
+  function trOf(c) { if (!S.tr || !S.tr[c.id]) { S.tr = S.tr || {}; S.tr[c.id] = trMkProg('musculo', 1); } return S.tr[c.id]; }
+  function trHist(P, exId) { var out = []; P.log.forEach(function (l) { l.ex.forEach(function (x) { if (x.ex === exId && x.sets.length) { var best = x.sets.reduce(function (b, s) { return e1rm(s.kg, s.r) > e1rm(b.kg, b.r) ? s : b; }); out.push({ d: l.d, sets: x.sets, best: best, e: e1rm(best.kg, best.r), vol: x.sets.reduce(function (a, s) { return a + s.kg * s.r; }, 0), reps: x.sets.reduce(function (a, s) { return a + s.r; }, 0) }); } }); }); return out; }
+  // sobrecarga progresiva: qué toca hoy en cada ejercicio
+  function trNext(P, e) {
+    var G = TR_GOALS[P.goal], h = trHist(P, e.ex), last = h[h.length - 1], inc = G.inc;
+    if (!last) return { kg: e.kg, r: e.rmin, act: 'nuevo', why: 'Primera vez: empieza con ' + nf(e.kg, e.kg % 1 ? 1 : 0) + ' kg y céntrate en la técnica.' };
+    var sets = last.sets, kg = sets[0].kg, allTop = sets.every(function (s) { return s.r >= e.rmax; }), anyLow = sets.some(function (s) { return s.r < e.rmin; }), avgRir = sets.reduce(function (a, s) { return a + (s.rir == null ? G.rir : s.rir); }, 0) / sets.length;
+    var prev = h[h.length - 2], fails = anyLow && prev && prev.sets.some(function (s) { return s.r < e.rmin; });
+    if (allTop && avgRir >= G.rir - 0.5) return { kg: kg + inc, r: e.rmin, act: 'sube', why: 'La última vez hiciste ' + sets.map(function (s) { return s.r; }).join('-') + ' con margen. Toca subir a ' + nf(kg + inc, (kg + inc) % 1 ? 1 : 0) + ' kg.' };
+    if (fails) return { kg: trRound(kg * 0.9, inc >= 2.5 ? 2.5 : 1), r: e.rmin, act: 'baja', why: 'Dos sesiones sin llegar al mínimo. Bajamos un 10% para recuperar la técnica.' };
+    var tgt = Math.min(e.rmax, Math.max.apply(null, sets.map(function (s) { return s.r; })) + 1);
+    return { kg: kg, r: tgt, act: 'reps', why: 'Mantén ' + nf(kg, kg % 1 ? 1 : 0) + ' kg e intenta ' + tgt + ' repeticiones en cada serie.' };
+  }
+  var TR_ACT = { sube: ['ok', '▲ Sube peso'], reps: ['info', '+1 repetición'], baja: ['warn', '▼ Baja un poco'], nuevo: ['mute', 'Nuevo'] };
+  function trNextDay(P) { return P.log.length ? (P.log[P.log.length - 1].day + 1) % P.days.length : 0; }
+  function trWeekVol(P) {
+    var out = []; for (var w = 7; w >= 0; w--) { var a = addDays(T, -7 * (w + 1)), b = addDays(T, -7 * w), v = 0, n = 0, reps = 0; P.log.forEach(function (l) { var d = parse(l.d); if (d >= a && d < b) { n++; l.ex.forEach(function (x) { x.sets.forEach(function (s) { v += s.kg * s.r; reps += s.r; }); }); } }); out.push({ l: w === 0 ? 'Esta' : '-' + w, v: v, n: n, reps: reps }); }
+    return out;
+  }
+  function trPRs(P) { var out = []; P.days.forEach(function (d) { d.ex.forEach(function (e) { var h = trHist(P, e.ex); if (h.length < 2) return; var best = h.reduce(function (b, x) { return x.e > b.e ? x : b; }), firstE = h[0].e; if (out.some(function (o) { return o.id === e.ex; })) return; out.push({ id: e.ex, n: trEx(e.ex).n, e: best.e, d: best.d, set: best.best, gain: Math.round((best.e - firstE) / firstE * 100) }); }); }); return out.sort(function (a, b) { return b.gain - a.gain; }); }
+  function trLine(vals, col, unit) {
+    if (vals.length < 2) return '<p class="subt">Aún no hay suficientes sesiones.</p>';
+    var w = 320, h = 140, pl = 34, pr = 12, pt = 14, pb = 22, mn = Math.min.apply(null, vals.map(function (x) { return x.v; })), mx = Math.max.apply(null, vals.map(function (x) { return x.v; })), pad = (mx - mn) * 0.15 || 1; mn -= pad; mx += pad;
+    var X = function (i) { return pl + i * (w - pl - pr) / (vals.length - 1); }, Y = function (v) { return pt + (1 - (v - mn) / (mx - mn)) * (h - pt - pb); };
+    var d = vals.map(function (p, i) { return (i ? 'L' : 'M') + X(i).toFixed(1) + ' ' + Y(p.v).toFixed(1); }).join(' '), L = vals.length - 1;
+    var grid = [0, 0.5, 1].map(function (f) { var v = mn + (mx - mn) * f; return '<line x1="' + pl + '" x2="' + (w - pr) + '" y1="' + Y(v).toFixed(1) + '" y2="' + Y(v).toFixed(1) + '" style="stroke:var(--line)"/><text x="' + (pl - 6) + '" y="' + (Y(v) + 3).toFixed(1) + '" text-anchor="end" style="fill:var(--sub);font-size:9px">' + nf(v) + '</text>'; }).join('');
+    return '<svg class="tr-svg" viewBox="0 0 ' + w + ' ' + h + '" role="img" aria-label="Evolución">' + grid + '<path d="' + d + ' L' + X(L).toFixed(1) + ' ' + (h - pb) + ' L' + pl + ' ' + (h - pb) + ' Z" style="fill:' + col + ';opacity:.14"/><path d="' + d + '" style="fill:none;stroke:' + col + ';stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round"/><circle cx="' + X(L).toFixed(1) + '" cy="' + Y(vals[L].v).toFixed(1) + '" r="4.5" style="fill:' + col + ';stroke:var(--card-solid,#fff);stroke-width:2"/><text x="' + pl + '" y="' + (h - 6) + '" style="fill:var(--sub);font-size:9px">' + esc(vals[0].l) + '</text><text x="' + (w - pr) + '" y="' + (h - 6) + '" text-anchor="end" style="fill:var(--sub);font-size:9px">' + esc(vals[L].l) + '</text></svg>';
+  }
+  function trBars(rows, key, col) { var mx = Math.max.apply(null, rows.map(function (r) { return r[key]; }).concat([1])); return '<div class="tr-bars">' + rows.map(function (r, i) { return '<div><i style="height:' + Math.max(3, Math.round(r[key] / mx * 100)) + '%;background:' + (i === rows.length - 1 ? col : 'color-mix(in srgb,' + col + ' 35%,transparent)') + '"></i><small>' + r.l + '</small></div>'; }).join('') + '</div>'; }
+  function trShort(d) { var x = parse(d); return x.getDate() + '/' + (x.getMonth() + 1); }
+  // bloque de progreso común (app y panel)
+  function trProgHtml(c, panel) {
+    var P = trOf(c), G = TR_GOALS[P.goal], wv = trWeekVol(P), prs = trPRs(P), exIds = []; P.days.forEach(function (d) { d.ex.forEach(function (e) { if (exIds.indexOf(e.ex) < 0) exIds.push(e.ex); }); });
+    var sel = (panel ? UI.trpe : UI.trce) || exIds[0]; if (exIds.indexOf(sel) < 0) sel = exIds[0];
+    var h = trHist(P, sel), tot = prs.reduce(function (a, p) { return a + p.e; }, 0), first8 = wv.slice(0, 4).reduce(function (a, x) { return a + x.v; }, 0), last8 = wv.slice(4).reduce(function (a, x) { return a + x.v; }, 0);
+    var planned = P.days.length * 8, done = P.log.filter(function (l) { return (T - parse(l.d)) / 864e5 <= 56; }).length, adh = Math.min(100, Math.round(done / planned * 100));
+    var kpi;
+    var avgG = prs.length ? Math.round(prs.reduce(function (a, p) { return a + Math.max(0, p.gain); }, 0) / prs.length) : 0;
+    if (P.goal === 'musculo') kpi = ['+' + avgG + '%', 'de fuerza media en tus ejercicios desde que empezaste, subiendo peso semana a semana'];
+    else if (P.goal === 'fuerza') kpi = ['+' + Math.round(prs.reduce(function (a, p) { return a + p.e * p.gain / (100 + p.gain); }, 0)) + ' kg', 'de fuerza estimada sumando tus ejercicios principales'];
+    else if (P.goal === 'grasa') { var wt = c.weight || []; kpi = [(wt.length > 1 ? nf(wt[wt.length - 1] - wt[0], 1) : '0') + ' kg', 'de peso corporal manteniendo tu fuerza (' + (prs[0] ? '+' + prs[0].gain + '% en ' + prs[0].n.toLowerCase() : 'sin bajar cargas') + ')']; }
+    else if (P.goal === 'resistencia') kpi = ['+' + Math.max(0, Math.round((wv[7].reps - wv[3].reps) / Math.max(1, wv[3].reps) * 100)) + '%', 'repeticiones totales por semana'];
+    else kpi = [adh + '%', 'de constancia en las últimas 8 semanas'];
+    var o = '<div class="tr-kpi"><span class="tr-goal">' + esc(G.n) + '</span><b>' + kpi[0] + '</b><p>' + kpi[1] + '</p><div class="tr-mini"><span><b>' + done + '</b> sesiones en 8 semanas</span><span><b>' + adh + '%</b> constancia</span><span><b>' + prs.filter(function (p) { return p.gain > 0; }).length + '</b> ejercicios con récord</span></div></div>';
+    o += '<section class="' + (panel ? 'box' : 'card') + '"><div class="card-h"><h3>Fuerza estimada por ejercicio</h3><span>1RM calculado de tu mejor serie</span></div><div class="tr-chips">' + exIds.map(function (id) { return '<button type="button" class="' + (id === sel ? 'on' : '') + '" data-trsel="' + id + '|' + (panel ? 'p' : 'c') + '">' + esc(trEx(id).n) + '</button>'; }).join('') + '</div>' +
+      trLine(h.map(function (x) { return { l: trShort(x.d), v: Math.round(x.e) }; }), 'var(--peach)', 'kg') +
+      (h.length ? '<div class="tr-row3"><div><small>Primera vez</small><b>' + nf(h[0].best.kg, h[0].best.kg % 1 ? 1 : 0) + ' kg × ' + h[0].best.r + '</b></div><div><small>Ahora</small><b>' + nf(h[h.length - 1].best.kg, h[h.length - 1].best.kg % 1 ? 1 : 0) + ' kg × ' + h[h.length - 1].best.r + '</b></div><div><small>1RM estimado</small><b class="up">' + Math.round(h[0].e) + ' → ' + Math.round(h[h.length - 1].e) + ' kg</b></div></div>' : '') + '</section>';
+    o += '<section class="' + (panel ? 'box' : 'card') + '"><div class="card-h"><h3>' + (P.goal === 'resistencia' ? 'Repeticiones por semana' : 'Volumen por semana') + '</h3><span>' + (P.goal === 'resistencia' ? 'repeticiones totales' : 'kg × repeticiones') + '</span></div>' + trBars(wv, P.goal === 'resistencia' ? 'reps' : 'v', 'var(--peach)') + '</section>';
+    o += '<section class="' + (panel ? 'box' : 'card') + '"><div class="card-h"><h3>Tus récords</h3><span>mejora desde el inicio</span></div><div class="tr-prs">' + prs.slice(0, 6).map(function (p) { return '<div><span><b>' + esc(p.n) + '</b><small>' + nf(p.set.kg, p.set.kg % 1 ? 1 : 0) + ' kg × ' + p.set.r + ' · ' + trShort(p.d) + '</small></span><em class="' + (p.gain > 0 ? 'up' : '') + '">' + (p.gain > 0 ? '+' : '') + p.gain + '%</em></div>'; }).join('') + '</div></section>';
+    var grp = {}; P.log.filter(function (l) { return (T - parse(l.d)) / 864e5 <= 7; }).forEach(function (l) { l.ex.forEach(function (x) { var g = trEx(x.ex).g; grp[g] = (grp[g] || 0) + x.sets.length; }); });
+    var gk = Object.keys(grp); if (gk.length) { var gm = Math.max.apply(null, gk.map(function (k) { return grp[k]; })); o += '<section class="' + (panel ? 'box' : 'card') + '"><div class="card-h"><h3>Series por grupo muscular</h3><span>últimos 7 días</span></div><div class="tr-grp">' + gk.map(function (k) { return '<div><span>' + k + '</span><i><b style="width:' + Math.round(grp[k] / gm * 100) + '%"></b></i><em>' + grp[k] + '</em></div>'; }).join('') + '</div></section>'; }
+    return o;
+  }
+  // ---- app del cliente: entreno de hoy ----
+  function vTr(c) {
+    var P = trOf(c), G = TR_GOALS[P.goal]; if (!UI.trw || UI.trw.cid !== c.id) UI.trw = { cid: c.id, day: trNextDay(P), sets: {} };
+    var W = UI.trw, D = P.days[W.day];
+    var h = '<div class="c-scroll">' + cHeader(c) + '<div><h1 class="title">Tu entreno</h1><p class="subt">' + esc(G.n) + ' · preparado por ' + esc(coachOf(c).name) + '</p></div>';
+    h += '<section class="card tr-goalc"><span class="tr-goal">' + esc(G.n) + '</span><p>' + G.rmin + '-' + G.rmax + ' repeticiones · descanso ' + G.rest + ' s · deja ' + G.rir + ' en reserva</p><small>' + G.txt + '</small></section>';
+    h += '<div class="tr-chips">' + P.days.map(function (d, i) { return '<button type="button" class="' + (i === W.day ? 'on' : '') + '" data-trday="' + i + '">' + esc(d.n) + (i === trNextDay(P) ? ' · hoy' : '') + '</button>'; }).join('') + '</div>';
+    D.ex.forEach(function (e, ei) {
+      var L = trEx(e.ex), nx = trNext(P, e), hist = trHist(P, e.ex), last = hist[hist.length - 1], A = TR_ACT[nx.act];
+      var rows = W.sets[e.ex] = W.sets[e.ex] || (function () { var r = []; for (var i = 0; i < e.sets; i++) r.push({ kg: nx.kg, r: nx.r, rir: G.rir, ok: false }); return r; })();
+      h += '<section class="card tr-exc"><div class="tr-exh"><span class="tr-n">' + (ei + 1) + '</span><div><b>' + esc(L.n) + '</b><small>' + esc(L.g) + ' · ' + e.sets + ' × ' + e.rmin + '-' + e.rmax + ' · descanso ' + e.rest + ' s</small></div><span class="chip ' + A[0] + '">' + A[1] + '</span></div>' +
+        '<p class="tr-why">' + esc(nx.why) + (last ? '<br><span>Última vez: ' + last.sets.map(function (s) { return nf(s.kg, s.kg % 1 ? 1 : 0) + '×' + s.r; }).join(' · ') + '</span>' : '') + '</p>' +
+        '<div class="tr-sets"><div class="tr-sh"><span>Serie</span><span>Kg</span><span>Reps</span><span>RIR</span><span></span></div>' + rows.map(function (s, i) { return '<div class="tr-set' + (s.ok ? ' ok' : '') + '"><span>' + (i + 1) + '</span><input inputmode="decimal" aria-label="Kilos serie ' + (i + 1) + '" data-trin="' + e.ex + '|' + i + '|kg" value="' + nf(s.kg, s.kg % 1 ? 1 : 0) + '"><input inputmode="numeric" aria-label="Repeticiones serie ' + (i + 1) + '" data-trin="' + e.ex + '|' + i + '|r" value="' + s.r + '"><input inputmode="numeric" aria-label="Repeticiones en reserva" data-trin="' + e.ex + '|' + i + '|rir" value="' + s.rir + '"><button type="button" data-trok="' + e.ex + '|' + i + '" aria-label="Serie hecha">' + (s.ok ? '✓' : '') + '</button></div>'; }).join('') + '</div>' +
+        '<button type="button" class="tr-vid" data-c="tecnica">' + CRM_IC.cam + 'Analizar este ejercicio con vídeo IA</button></section>';
+    });
+    var nOk = 0, nT = 0; D.ex.forEach(function (e) { (W.sets[e.ex] || []).forEach(function (s) { nT++; if (s.ok) nOk++; }); });
+    h += '<button type="button" class="bt peach full" style="height:54px" data-trfin="1">Terminar entreno · ' + nOk + ' de ' + nT + ' series</button>';
+    h += '<button type="button" class="bt ghost full" data-c="plan">Ver el plan de la semana</button>';
+    return h + '</div>' + cNav('tr');
+  }
+  function vTrProg(c) {
+    return '<div class="c-scroll">' + cHeader(c) + '<div><h1 class="title">Tu progreso</h1><p class="subt">Lo que has mejorado, ejercicio a ejercicio</p></div>' + trProgHtml(c, false) +
+      '<button type="button" class="bt ghost full" data-c="valoraciones">Valoraciones antes y ahora</button><button type="button" class="bt ghost full" data-c="progress0">Medidas, peso y check-ins</button></div>' + cNav('progress');
+  }
+  cRoot.addEventListener('input', function (e) { var t = e.target; if (!t.dataset || !t.dataset.trin || !UI.trw) return; var p = t.dataset.trin.split('|'), v = parseFloat(String(t.value).replace(',', '.')); if (isNaN(v)) return; var s = UI.trw.sets[p[0]][+p[1]]; s[p[2]] = v; });
+  cRoot.addEventListener('click', function (e) {
+    var t = e.target.closest && e.target.closest('[data-trday],[data-trok],[data-trfin],[data-trsel]'); if (!t) return;
+    var c = client(), P = trOf(c);
+    if (t.dataset.trsel) { var q = t.dataset.trsel.split('|'); if (q[1] === 'c') { UI.trce = q[0]; renderC(); } return; }
+    if (t.dataset.trday) { UI.trw = { cid: c.id, day: +t.dataset.trday, sets: {} }; renderC(); return; }
+    if (t.dataset.trok) { var p = t.dataset.trok.split('|'); var s = UI.trw.sets[p[0]][+p[1]]; s.ok = !s.ok; renderC(); return; }
+    if (t.dataset.trfin) {
+      var W = UI.trw, D = P.days[W.day], before = {}; D.ex.forEach(function (x) { var hh = trHist(P, x.ex); before[x.ex] = hh.length ? Math.max.apply(null, hh.map(function (y) { return y.e; })) : 0; });
+      var ent = { d: iso(T), day: W.day, ex: D.ex.map(function (x) { return { ex: x.ex, sets: (W.sets[x.ex] || []).filter(function (s) { return s.ok; }).map(function (s) { return { kg: s.kg, r: s.r, rir: s.rir }; }) }; }).filter(function (x) { return x.sets.length; }) };
+      if (!ent.ex.length) { toastC('Marca al menos una serie con ✓'); return; }
+      P.log = P.log.filter(function (l) { return !(l.d === ent.d && l.day === ent.day); }); P.log.push(ent);
+      var pr = ent.ex.filter(function (x) { return Math.max.apply(null, x.sets.map(function (s) { return e1rm(s.kg, s.r); })) > before[x.ex] + 0.01; });
+      save(); UI.trw = null; UI.c = 'progress'; if (pr.length) UI.trce = pr[0].ex; renderA(); toastC(pr.length ? '¡Récord en ' + trEx(pr[0].ex).n + '! ' + coachOf(c).name + ' ya lo ve' : 'Entreno guardado. ' + coachOf(c).name + ' ya lo ve');
+    }
+  });
+  // ---- panel: entrenamiento y progreso ----
+  function aEntreno() {
+    var cl = mine(); if (!UI.trpc || !cl.some(function (c) { return c.id === UI.trpc; })) UI.trpc = cl[0] && cl[0].id;
+    var c = client(UI.trpc), P = trOf(c), G = TR_GOALS[P.goal];
+    var h = head('Entrenamiento y progreso', 'Tú marcas la rutina y el objetivo. La app calcula la sobrecarga progresiva de cada ejercicio y el cliente apunta cada serie.');
+    h += '<div class="tr-cli">' + cl.map(function (k) { return '<button type="button" class="' + (k.id === c.id ? 'on' : '') + '" data-trpc="' + k.id + '"><span class="avs">' + esc(initials(k.name)) + '</span>' + esc(first(k.name)) + '<small>' + esc(TR_GOALS[trOf(k).goal].n) + '</small></button>'; }).join('') + '</div>';
+    h += '<div class="grid2" style="margin-bottom:16px"><div class="box"><h3>Objetivo de ' + esc(first(c.name)) + '</h3><div class="tr-goals">' + Object.keys(TR_GOALS).map(function (k) { return '<button type="button" class="' + (k === P.goal ? 'on' : '') + '" data-trgoal="' + k + '"><b>' + TR_GOALS[k].n + '</b><small>' + TR_GOALS[k].rmin + '-' + TR_GOALS[k].rmax + ' reps · ' + TR_GOALS[k].rest + ' s</small></button>'; }).join('') + '</div><p class="subt" style="margin-top:10px">' + G.txt + ' Al cambiar de objetivo se ajustan los rangos y descansos de su rutina.</p></div>';
+    h += '<div class="box"><h3>Próxima sesión <small>sobrecarga progresiva</small></h3><div class="tr-next">' + P.days[trNextDay(P)].ex.map(function (e) { var nx = trNext(P, e), A = TR_ACT[nx.act]; return '<div><span><b>' + esc(trEx(e.ex).n) + '</b><small>' + esc(nx.why) + '</small></span><span class="chip ' + A[0] + '">' + nf(nx.kg, nx.kg % 1 ? 1 : 0) + ' kg × ' + nx.r + '</span></div>'; }).join('') + '</div><p class="subt" style="margin-top:8px">' + esc(P.days[trNextDay(P)].n) + '. El cliente lo ve ya puesto en su app.</p></div></div>';
+    h += '<form id="trForm" class="box form" style="margin-bottom:16px"><h3>Rutina <small>' + P.days.length + ' días</small></h3>' + P.days.map(function (d, di) {
+      return '<div class="tr-day"><input class="inp tr-dn" name="dn' + di + '" value="' + esc(d.n) + '" aria-label="Nombre del día"><div class="tbl-wrap"><table class="tr-ed"><thead><tr><th>Ejercicio</th><th>Series</th><th>Reps mín.</th><th>Reps máx.</th><th>Kg</th><th>RIR</th><th>Descanso</th><th></th></tr></thead><tbody>' + d.ex.map(function (e, ei) { var f = 'e' + di + '_' + ei + '_'; return '<tr><td><select class="sel" name="' + f + 'ex">' + TR_LIB.map(function (L) { return '<option value="' + L.id + '"' + (L.id === e.ex ? ' selected' : '') + '>' + esc(L.n) + '</option>'; }).join('') + '</select></td><td><input class="inp" name="' + f + 'sets" type="number" min="1" max="8" value="' + e.sets + '"></td><td><input class="inp" name="' + f + 'rmin" type="number" min="1" max="50" value="' + e.rmin + '"></td><td><input class="inp" name="' + f + 'rmax" type="number" min="1" max="50" value="' + e.rmax + '"></td><td><input class="inp" name="' + f + 'kg" inputmode="decimal" value="' + nf(e.kg, e.kg % 1 ? 1 : 0) + '"></td><td><input class="inp" name="' + f + 'rir" type="number" min="0" max="5" value="' + e.rir + '"></td><td><input class="inp" name="' + f + 'rest" type="number" min="15" max="600" step="15" value="' + e.rest + '"></td><td><button type="button" class="btn-a sec sm" data-trdel="' + di + '|' + ei + '" aria-label="Quitar">×</button></td></tr>'; }).join('') + '</tbody></table></div><button type="button" class="addl" data-tradd="' + di + '">+ Añadir ejercicio</button></div>';
+    }).join('') + '<div class="actions" style="display:flex;gap:8px;flex-wrap:wrap"><button type="submit" class="btn-a pri">Guardar rutina</button><button type="button" class="btn-a sec" data-tradday="1">+ Añadir día</button></div></form>';
+    h += '<div class="tr-pgrid">' + trProgHtml(c, true) + '</div>';
+    var L = P.log.slice(-6).reverse();
+    h += '<div class="grid2" style="margin-top:16px"><div class="box"><h3>Últimas sesiones <small>lo que ha apuntado</small></h3><div class="tbl-wrap"><table><thead><tr><th>Fecha</th><th>Día</th><th>Series</th><th>Volumen</th></tr></thead><tbody>' + L.map(function (l) { var ns = 0, v = 0; l.ex.forEach(function (x) { ns += x.sets.length; x.sets.forEach(function (s) { v += s.kg * s.r; }); }); return '<tr><td>' + trShort(l.d) + '</td><td>' + esc((P.days[l.day] || { n: '—' }).n) + '</td><td>' + ns + '</td><td>' + nf(v) + ' kg</td></tr>'; }).join('') + '</tbody></table></div></div>' +
+      '<div class="box"><h3>Técnica en vídeo <small>análisis con IA</small></h3>' + vaHistHtml(c, true) + '<button type="button" class="btn-a sec" data-a="tecnica" style="margin-top:10px">' + CRM_IC.cam + 'Abrir análisis de vídeo</button></div></div>';
+    return h;
+  }
+  function trReadForm(f) {
+    var c = client(UI.trpc), P = trOf(c), fd = new FormData(f);
+    P.days.forEach(function (d, di) { d.n = String(fd.get('dn' + di) || d.n).trim() || d.n; d.ex.forEach(function (e, ei) { var k = 'e' + di + '_' + ei + '_', g = function (n) { return fd.get(k + n); }; e.ex = g('ex') || e.ex; e.sets = Math.max(1, +g('sets') || e.sets); e.rmin = Math.max(1, +g('rmin') || e.rmin); e.rmax = Math.max(e.rmin, +g('rmax') || e.rmax); var kg = parseFloat(String(g('kg')).replace(',', '.')); if (!isNaN(kg)) e.kg = kg; var rir = +g('rir'); if (!isNaN(rir)) e.rir = rir; e.rest = Math.max(15, +g('rest') || e.rest); }); });
+  }
+  aRoot.addEventListener('click', function (e) {
+    var t = e.target.closest && e.target.closest('[data-trpc],[data-trgoal],[data-trdel],[data-tradd],[data-tradday],[data-trsel],[data-fxv],[data-fxsend],[data-fxcsv],[data-fxclose],[data-fxprint],[data-fxdelg]'); if (!t) return;
+    if (t.dataset.trpc) { UI.trpc = t.dataset.trpc; renderA(); return; }
+    if (t.dataset.trsel) { var q = t.dataset.trsel.split('|'); UI.trpe = q[0]; renderA(); return; }
+    var c = client(UI.trpc), P = c && trOf(c), f = document.getElementById('trForm');
+    if (t.dataset.trgoal) { var G = TR_GOALS[t.dataset.trgoal]; P.goal = t.dataset.trgoal; P.days.forEach(function (d) { d.ex.forEach(function (x) { x.rmin = G.rmin; x.rmax = G.rmax; x.rir = G.rir; x.rest = G.rest; }); }); save(); renderA(); renderC(); toastA('Objetivo: ' + G.n + '. Rutina ajustada'); return; }
+    if (t.dataset.trdel) { if (f) trReadForm(f); var p = t.dataset.trdel.split('|'); P.days[+p[0]].ex.splice(+p[1], 1); save(); renderA(); return; }
+    if (t.dataset.tradd) { if (f) trReadForm(f); var G2 = TR_GOALS[P.goal]; P.days[+t.dataset.tradd].ex.push({ ex: 'gb', sets: 3, rmin: G2.rmin, rmax: G2.rmax, rir: G2.rir, rest: G2.rest, kg: 10 }); save(); renderA(); return; }
+    if (t.dataset.tradday) { if (f) trReadForm(f); var G3 = TR_GOALS[P.goal]; P.days.push({ n: 'Día ' + String.fromCharCode(65 + P.days.length), ex: [{ ex: 'gb', sets: 3, rmin: G3.rmin, rmax: G3.rmax, rir: G3.rir, rest: G3.rest, kg: 10 }] }); save(); renderA(); return; }
+    if (t.dataset.fxv) { fxShow(t.dataset.fxv); return; }
+    if (t.dataset.fxclose) { var m = document.getElementById('fxModal'); if (m) m.remove(); return; }
+    if (t.dataset.fxprint) { window.print(); return; }
+    if (t.dataset.fxsend) { S.fx.sent[t.dataset.fxsend] = iso(T); save(); var m2 = document.getElementById('fxModal'); if (m2) m2.remove(); renderA(); toastA('Factura enviada por email y WhatsApp'); return; }
+    if (t.dataset.fxdelg) { S.fx.gastos.splice(+t.dataset.fxdelg, 1); save(); renderA(); return; }
+    if (t.dataset.fxcsv) { var rows = [['Número', 'Fecha', 'Cliente', 'Concepto', 'Base', 'IVA', 'Total', 'Estado']].concat(fxAll().map(function (x) { return [x.num, x.d, x.cli, x.con, x.base.toFixed(2), x.iva.toFixed(2), x.tot.toFixed(2), x.est]; })); var csv = rows.map(function (r) { return r.map(function (v) { return '"' + String(v).replace(/"/g, '""') + '"'; }).join(';'); }).join('\n'); var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['﻿' + csv], { type: 'text/csv' })); a.download = 'facturas-' + iso(T) + '.csv'; document.body.appendChild(a); a.click(); a.remove(); toastA('Facturas exportadas para tu gestoría'); return; }
+  });
+  aRoot.addEventListener('submit', function (e) {
+    var f = e.target;
+    if (f.id === 'trForm') { e.preventDefault(); e.stopImmediatePropagation(); trReadForm(f); save(); renderA(); renderC(); toastA('Rutina guardada. ' + first(client(UI.trpc).name) + ' ya la tiene en su app'); return; }
+    if (f.id === 'fxNew') { e.preventDefault(); e.stopImmediatePropagation(); var fd = new FormData(f), imp = parseFloat(String(fd.get('imp')).replace(',', '.')); if (!(imp > 0)) { toastA('Pon un importe'); return; } var cc = client(fd.get('cli')); S.fx.manual.push({ id: 'm' + uid(), d: iso(T), cid: cc.id, con: String(fd.get('con') || 'Servicio').trim() || 'Servicio', imp: imp }); save(); renderA(); toastA('Factura creada'); return; }
+    if (f.id === 'fxGasto') { e.preventDefault(); e.stopImmediatePropagation(); var fd2 = new FormData(f), v = parseFloat(String(fd2.get('imp')).replace(',', '.')); if (!(v > 0) || !String(fd2.get('con')).trim()) { toastA('Pon concepto e importe'); return; } S.fx.gastos.push([String(fd2.get('con')).trim(), v]); save(); renderA(); return; }
+  }, true);
+  /* ================= FACTURAS Y COBROS ================= */
+  var FX_MES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+  function fxAll() {
+    var out = []; S.clients.forEach(function (c) { var cr = crmOf(c); (cr.pagos || []).forEach(function (p) { var pm = String(p.mes).split('-'); out.push({ id: c.id + '|' + p.mes, d: p.d || (p.mes + '-01'), cid: c.id, cli: c.name, con: (p.concepto || 'Cuota') + ' · ' + FX_MES[+pm[1] - 1], tot: p.imp, met: p.metodo, est: p.estado === 'pagado' ? 'Cobrada' : 'Pendiente' }); }); });
+    (S.fx.manual || []).forEach(function (m) { out.push({ id: m.id, d: m.d, cid: m.cid, cli: client(m.cid).name, con: m.con, tot: m.imp, est: 'Cobrada' }); });
+    out.sort(function (a, b) { return a.d < b.d ? -1 : a.d > b.d ? 1 : a.cli < b.cli ? -1 : 1; });
+    var y = T.getFullYear(), n = 0; out.forEach(function (x) { x.base = x.tot / 1.21; x.iva = x.tot - x.base; if (x.d.slice(0, 4) === String(y)) n++; x.num = 'F' + y + '-' + String(n).padStart(4, '0'); });
+    return out;
+  }
+  function eur(v) { return nf(v, 2) + ' €'; }
+  function eur0(v) { return nf(Math.round(v)) + ' €'; }
+  function aFacturas() {
+    var all = fxAll(), mk = iso(T).slice(0, 7), mes = all.filter(function (x) { return x.d.slice(0, 7) === mk; }), q = Math.floor(T.getMonth() / 3), qx = all.filter(function (x) { var d = parse(x.d); return d.getFullYear() === T.getFullYear() && Math.floor(d.getMonth() / 3) === q && x.est === 'Cobrada'; });
+    var ing = mes.filter(function (x) { return x.est === 'Cobrada'; }).reduce(function (a, x) { return a + x.tot; }, 0), pen = all.filter(function (x) { return x.est === 'Pendiente'; }), penI = pen.reduce(function (a, x) { return a + x.tot; }, 0);
+    var gas = S.fx.gastos.reduce(function (a, g) { return a + g[1]; }, 0), ivaQ = qx.reduce(function (a, x) { return a + x.iva; }, 0), res = ing / 1.21 - gas / 1.21;
+    var h = head('Facturas y cobros', 'Cada cuota cobrada genera su factura con IVA. Envíala al cliente, controla lo pendiente y pásale todo a tu gestoría con un clic.', '<button type="button" class="btn-a sec" data-fxcsv="1">Exportar para la gestoría</button>');
+    h += '<div class="grid4" style="margin-bottom:16px"><div class="box stat"><span>Facturado este mes</span><b class="num">' + eur0(ing) + '</b><small>' + mes.length + ' facturas</small></div><div class="box stat"><span>Pendiente de cobro</span><b class="num">' + eur0(penI) + '</b><small style="color:var(--warn)">' + pen.length + ' cuotas</small></div><div class="box stat"><span>IVA del trimestre</span><b class="num">' + eur0(ivaQ) + '</b><small>para el modelo 303 (T' + (q + 1) + ')</small></div><div class="box stat"><span>Resultado del mes</span><b class="num">' + eur0(res) + '</b><small>ingresos − gastos, sin IVA</small></div></div>';
+    h += '<div class="box" style="margin-bottom:16px"><h3>Facturas <small>' + all.length + ' este año</small></h3><div class="tbl-wrap"><table><thead><tr><th>Número</th><th>Fecha</th><th>Cliente</th><th>Concepto</th><th>Base</th><th>IVA 21%</th><th>Total</th><th>Estado</th><th></th></tr></thead><tbody>' + all.slice().reverse().slice(0, 40).map(function (x) { var sent = S.fx.sent[x.id]; return '<tr><td><b>' + x.num + '</b></td><td>' + trShort(x.d) + '</td><td>' + esc(x.cli) + '</td><td>' + esc(x.con) + '</td><td class="num">' + eur(x.base) + '</td><td class="num">' + eur(x.iva) + '</td><td class="num"><b>' + eur(x.tot) + '</b></td><td><span class="chip ' + (x.est === 'Cobrada' ? 'ok' : 'warn') + '">' + x.est + '</span>' + (sent ? ' <span class="chip mute">Enviada</span>' : '') + '</td><td><button type="button" class="btn-a sec sm" data-fxv="' + x.id + '">Ver</button></td></tr>'; }).join('') + '</tbody></table></div></div>';
+    h += '<div class="grid2"><form id="fxNew" class="box form"><h3>Nueva factura</h3><label class="lab">Cliente<select class="sel" name="cli">' + S.clients.map(function (c) { return '<option value="' + c.id + '">' + esc(c.name) + '</option>'; }).join('') + '</select></label><label class="lab">Concepto<input class="inp" name="con" placeholder="Ej. Bono 10 sesiones de fisio"></label><label class="lab">Importe con IVA (€)<input class="inp" name="imp" inputmode="decimal" placeholder="120"></label><div class="actions"><button type="submit" class="btn-a pri">Crear factura</button></div></form>' +
+      '<div class="box"><h3>Gastos del mes <small>' + eur(gas) + '</small></h3><div class="tr-next">' + S.fx.gastos.map(function (g, i) { return '<div><span><b>' + esc(g[0]) + '</b></span><span style="display:flex;gap:8px;align-items:center"><b class="num">' + eur(g[1]) + '</b><button type="button" class="btn-a sec sm" data-fxdelg="' + i + '" aria-label="Quitar">×</button></span></div>'; }).join('') + '</div><form id="fxGasto" class="form" style="margin-top:10px;display:grid;grid-template-columns:1fr 110px auto;gap:8px"><input class="inp" name="con" placeholder="Concepto" aria-label="Concepto del gasto"><input class="inp" name="imp" inputmode="decimal" placeholder="€" aria-label="Importe"><button type="submit" class="btn-a sec">Añadir</button></form></div></div>';
+    return h;
+  }
+  function fxShow(id) {
+    var x = fxAll().filter(function (y) { return y.id === id; })[0]; if (!x) return; var B = S.brand, c = client(x.cid);
+    var old = document.getElementById('fxModal'); if (old) old.remove();
+    var m = document.createElement('div'); m.id = 'fxModal'; m.className = 'fx-modal';
+    m.innerHTML = '<div class="fx-paper" role="dialog" aria-label="Factura ' + x.num + '"><div class="fx-top"><div><b class="fx-brand">' + esc(B.name) + '</b><small>NIF B00000000 · ' + esc(B.city || '') + '</small></div><div class="fx-num"><small>Factura</small><b>' + x.num + '</b><small>' + fmt(parse(x.d), { day: 'numeric', month: 'long', year: 'numeric' }) + '</small></div></div>' +
+      '<div class="fx-to"><small>Cliente</small><b>' + esc(c.name) + '</b><small>' + esc(c.email || 'cliente@email.com') + '</small></div>' +
+      '<table class="fx-t"><thead><tr><th>Concepto</th><th>Base</th><th>IVA</th><th>Total</th></tr></thead><tbody><tr><td>' + esc(x.con) + '</td><td>' + eur(x.base) + '</td><td>21%</td><td>' + eur(x.tot) + '</td></tr></tbody></table>' +
+      '<div class="fx-sum"><div><span>Base imponible</span><b>' + eur(x.base) + '</b></div><div><span>IVA 21%</span><b>' + eur(x.iva) + '</b></div><div class="t"><span>Total</span><b>' + eur(x.tot) + '</b></div></div>' +
+      '<p class="fx-st">' + (x.est === 'Cobrada' ? 'Cobrada' + (x.met ? ' · ' + esc(x.met) : '') : 'Pendiente de cobro') + '</p>' +
+      '<div class="fx-acts"><button type="button" class="btn-a sec" data-fxclose="1">Cerrar</button><button type="button" class="btn-a sec" data-fxprint="1">Imprimir o guardar PDF</button><button type="button" class="btn-a pri" data-fxsend="' + x.id + '">Enviar al cliente</button></div></div>';
+    m.addEventListener('click', function (ev) { if (ev.target === m) m.remove(); });
+    aRoot.appendChild(m);
+  }
+
+  trSeed(); save();
+  var VIEWS = { entreno: aEntreno, facturas: aFacturas, tecnica: aTecnica, crm: aCrm, pagos: aPagos, clases: aClases, hoy: aHoy, stinf: aStInf, forms: aForms, resumen: aResumen, leads: aLeads, clientes: aClientes, ficha: aFicha, planes: aPlanes, tpl: aTpl, equipo: aEquipo, asistente: aAsistente, whatsapp: aWhatsApp, auto: aAuto, comunidad: aComunidad, informes: aInformes, marca: aMarca, completa: aCompleta, nuevo: aNuevo };
   function renderA() {
     if (!me()) { aRoot.innerHTML = aLogin(); return; }
     if (!isOwner() && OWNER_ONLY.indexOf(UI.a) !== -1) UI.a = 'resumen';
@@ -2404,7 +2725,7 @@ html[data-custom][data-theme="dark"] .hero{background:linear-gradient(150deg,col
     if (crmPanelClick(b, d)) return;
     if (stPanelClick(b, d)) return;
     if (d.a) {
-      if (d.a === 'reset') { S = seed(S.brand); stSeedAll(); crmSeed(); vaSeed(); vtSeed(); save(); applyBrand(); UI.a = 'resumen'; UI.c = 'splash'; UI.compose = null; UI.waC = null; renderA(); renderC(); return; }
+      if (d.a === 'reset') { S = seed(S.brand); stSeedAll(); crmSeed(); vaSeed(); vtSeed(); trSeed(); save(); applyBrand(); UI.a = 'resumen'; UI.c = 'splash'; UI.compose = null; UI.waC = null; renderA(); renderC(); return; }
       if (d.pre) UI.pre = d.pre;
       if (d.a === 'nuevo' && !d.keep) UI.prefill = null;
       UI.a = d.a; UI.test = ''; renderA(); aRoot.querySelector('.a-main').scrollTop = 0; return;
