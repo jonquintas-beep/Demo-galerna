@@ -1,0 +1,752 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gorobel · Jiu-jitsu, Boxeo y Kickboxing</title>
+<meta name="description" content="Reserva tus clases, descubre tu deporte de contacto y entrena la sombra con un coach que te canta los combos.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0C0D0A">
+<meta property="og:title" content="Gorobel">
+<meta property="og:description" content="Jiu-jitsu, boxeo y kickboxing. Tu app de socio.">
+<meta property="og:image" content="https://app.galernamethod.com/gorobel/icons/icon-512.png">
+<meta property="og:url" content="https://app.galernamethod.com/gorobel/">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Gorobel">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:ital,wght@0,500;0,600;0,700;0,800;0,900;1,800;1,900&display=swap">
+<style>
+:root{
+  --bg:#0C0D0A;--bg2:#12140E;--card:#191C13;--card2:#222619;--line:rgba(237,234,224,.10);--line2:rgba(237,234,224,.18);
+  --bone:#EDEAE0;--sub:#A5A996;--faint:#6E7262;--sage:#93A06A;--sage-b:#BCCB86;--sage-d:#5E6844;
+  --box:#E8483B;--kb:#F3A73F;--bjj:#ECE7D6;--ok:#8FD16A;--bad:#FF6B5E;
+  --disp:"Anton","Impact","Haettenschweiler",sans-serif;--ui:"Montserrat","Segoe UI",system-ui,sans-serif;
+  --safe-b:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:#070806}
+body{background:#070806;color:var(--bone);font-family:var(--ui);font-size:15.5px;line-height:1.45;-webkit-font-smoothing:antialiased;overflow-x:clip}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent}
+.app{position:relative;max-width:480px;margin:0 auto;min-height:100vh;min-height:100dvh;background:var(--bg);overflow:hidden}
+@media (min-width:520px){.app{box-shadow:0 0 0 1px var(--line),0 30px 80px rgba(0,0,0,.6)}}
+.view{padding:0 18px calc(104px + var(--safe-b));min-height:100dvh}
+.view.nonav{padding-bottom:calc(30px + var(--safe-b))}
+.num{font-family:var(--disp);letter-spacing:.01em;font-weight:400}
+.k{font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--sub)}
+.h1{font-family:var(--disp);font-weight:400;text-transform:uppercase;font-size:44px;line-height:.92;letter-spacing:.005em}
+.h2{font-family:var(--disp);font-weight:400;text-transform:uppercase;font-size:26px;line-height:1;letter-spacing:.01em}
+.sub{color:var(--sub)}
+.row{display:flex;align-items:center;gap:10px}
+.sec{margin-top:26px}
+.sech{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+.sech a,.lnk{font-size:13px;font-weight:700;color:var(--sage-b);background:none;border:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:50px;padding:0 20px;border-radius:14px;border:0;font-weight:800;font-size:15px;letter-spacing:.02em}
+.btn.pri{background:var(--sage-b);color:#11140A}
+.btn.hot{background:var(--box);color:#fff}
+.btn.ghost{background:transparent;border:1.5px solid var(--line2);color:var(--bone)}
+.btn.full{width:100%}
+.btn.sm{height:38px;padding:0 14px;font-size:13.5px;border-radius:11px}
+.chip{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:99px;font-size:11.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;background:rgba(237,234,224,.08);color:var(--bone)}
+.sp-dot{width:9px;height:9px;border-radius:50%;background:var(--c);flex:none}
+/* top bar */
+.top{display:flex;justify-content:space-between;align-items:center;padding:calc(14px + env(safe-area-inset-top,0px)) 0 6px}
+.top img{height:17px;display:block}
+.av{width:38px;height:38px;border-radius:50%;background:var(--sage-d);display:grid;place-items:center;font-weight:900;font-size:14px;border:2px solid var(--sage);color:var(--bone)}
+/* nav */
+.nav{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:100%;max-width:480px;z-index:30;display:grid;grid-template-columns:repeat(5,1fr);padding:8px 8px calc(8px + var(--safe-b));background:linear-gradient(180deg,rgba(12,13,10,0),rgba(12,13,10,.92) 26%);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.nav button{border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 0 4px;color:var(--faint);font-size:10.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+.nav button svg{width:24px;height:24px}
+.nav button.on{color:var(--bone)}
+.nav button.on svg{color:var(--sage-b)}
+.nav .mid{position:relative}
+.nav .mid span.o{width:54px;height:54px;margin-top:-26px;border-radius:50%;background:var(--box);display:grid;place-items:center;color:#fff;box-shadow:0 8px 24px rgba(232,72,59,.45);border:4px solid var(--bg)}
+.nav .mid.on span.o{background:var(--sage-b);color:#11140A}
+.nav .mid.on svg{color:#11140A}
+.nav .mid svg{color:#fff}
+/* toast */
+.toast{position:fixed;left:50%;bottom:calc(96px + var(--safe-b));transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:60;background:var(--bone);color:#11140A;font-weight:800;font-size:14px;padding:12px 18px;border-radius:14px;max-width:92%;text-align:center;transition:.25s;box-shadow:0 14px 40px rgba(0,0,0,.5)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+/* splash */
+.sp{position:relative;min-height:100dvh;display:flex;flex-direction:column;padding:calc(28px + env(safe-area-inset-top,0px)) 22px calc(26px + var(--safe-b));overflow:hidden}
+.sp-bg{position:absolute;inset:0;pointer-events:none}
+.sp-word{position:absolute;left:-8px;right:-8px;font-family:var(--disp);text-transform:uppercase;font-size:136px;line-height:.82;color:transparent;-webkit-text-stroke:1.2px rgba(147,160,106,.22);white-space:nowrap;letter-spacing:-.01em}
+.sp-top img{height:22px}
+.sp-hero{margin-top:auto;position:relative}
+.sp-hero .h1{font-size:64px}
+.sp-hero .h1 em{font-style:normal;color:var(--sage-b)}
+.sp-hero p{margin-top:12px;color:#CFCDBF;font-size:16px;max-width:30ch}
+.sp-sports{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+.sp-opts{display:grid;gap:10px;margin-top:26px;position:relative}
+.opt-big{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;text-align:left;padding:16px;border-radius:20px;border:1.5px solid var(--line2);background:rgba(25,28,19,.82);backdrop-filter:blur(6px)}
+.opt-big.pri{background:var(--sage-b);color:#11140A;border-color:transparent}
+.opt-big .ic{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:rgba(0,0,0,.12)}
+.opt-big:not(.pri) .ic{background:rgba(237,234,224,.08);color:var(--sage-b)}
+.opt-big b{display:block;font-size:17px;font-weight:900}
+.opt-big small{font-size:13px;font-weight:600;opacity:.8}
+.opt-big i{font-style:normal;font-weight:900;font-size:20px}
+.sp-foot{margin-top:18px;text-align:center;font-size:11.5px;color:var(--faint);position:relative}
+/* quiz */
+.qz{min-height:100dvh;display:flex;flex-direction:column;padding:calc(16px + env(safe-area-inset-top,0px)) 20px calc(22px + var(--safe-b))}
+.qz-top{display:flex;align-items:center;gap:12px}
+.qz-x{width:38px;height:38px;border-radius:50%;border:0;background:rgba(237,234,224,.08);font-size:15px}
+.qz-bar{flex:1;height:6px;border-radius:9px;background:rgba(237,234,224,.1);overflow:hidden}
+.qz-bar i{display:block;height:100%;background:var(--sage-b);border-radius:9px;transition:width .35s}
+.qz-coach{display:flex;gap:10px;align-items:flex-start;margin-top:26px}
+.qz-coach .cav{flex:none;width:42px;height:42px;border-radius:50%;background:var(--sage);display:grid;place-items:center;color:#11140A}
+.qz-coach .bub{background:var(--card2);border-radius:4px 18px 18px 18px;padding:12px 14px;font-weight:600;font-size:15px}
+.qz h2{margin-top:22px;font-family:var(--disp);font-weight:400;text-transform:uppercase;font-size:38px;line-height:.95}
+.qz-opts{display:grid;gap:10px;margin-top:20px}
+.qz-opt{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;text-align:left;padding:14px;border-radius:18px;border:1.5px solid var(--line2);background:var(--card);transition:transform .12s,border-color .12s,background .12s}
+.qz-opt:active{transform:scale(.98)}
+.qz-opt.on{border-color:var(--sage-b);background:color-mix(in srgb,var(--sage-b) 14%,var(--card))}
+.qz-opt .ic{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;background:rgba(237,234,224,.07);color:var(--sage-b)}
+.qz-opt .ic svg{width:26px;height:26px}
+.qz-opt b{display:block;font-size:16px;font-weight:800}
+.qz-opt small{font-size:13px;color:var(--sub);font-weight:600}
+.qz-foot{margin-top:auto;padding-top:18px}
+/* result */
+.rs-hero{position:relative;margin:0 -18px;padding:calc(18px + env(safe-area-inset-top,0px)) 18px 26px;background:radial-gradient(420px 260px at 85% 10%,color-mix(in srgb,var(--c) 45%,transparent),transparent 70%),linear-gradient(180deg,#151810,var(--bg));overflow:hidden}
+.rs-hero .big{font-family:var(--disp);text-transform:uppercase;font-size:76px;line-height:.86;color:var(--c);margin-top:8px}
+.rs-match{display:flex;align-items:baseline;gap:8px;margin-top:8px}
+.rs-match b{font-family:var(--disp);font-size:44px;font-weight:400}
+.rs-ill{position:absolute;right:-14px;bottom:-10px;width:170px;height:170px;opacity:.95;color:var(--c)}
+.bars{display:flex;flex-direction:column;gap:12px}
+.bar-r{display:grid;grid-template-columns:96px 1fr 48px;gap:10px;align-items:center;font-weight:800;font-size:14px}
+.bar-r .tr{height:14px;border-radius:9px;background:rgba(237,234,224,.08);overflow:hidden}
+.bar-r .tr i{display:block;height:100%;border-radius:9px;background:var(--c);width:0;transition:width 1s cubic-bezier(.2,.8,.2,1)}
+.bar-r .pc{text-align:right;font-family:var(--disp);font-size:20px;font-weight:400}
+.why{display:flex;flex-direction:column;gap:10px}
+.why div{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start;font-size:14.5px}
+.why div span{width:28px;height:28px;border-radius:9px;background:color-mix(in srgb,var(--c) 22%,transparent);color:var(--c);display:grid;place-items:center;font-weight:900;font-size:14px}
+.gymx{position:relative;overflow:hidden;border:0;background:linear-gradient(135deg,#2A1512,#1A1D14 70%);padding:18px}
+.gymx::after{content:"";position:absolute;right:-40px;top:-40px;width:180px;height:180px;border-radius:50%;border:26px solid rgba(232,72,59,.16)}
+.gymx .h2{color:#FF8B7F}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-top:12px}
+.week div{border-radius:10px;padding:8px 2px;text-align:center;background:rgba(237,234,224,.05);font-size:10.5px;font-weight:800;color:var(--sub)}
+.week div b{display:block;font-size:13px;color:var(--bone);margin-bottom:4px}
+.week div i{display:block;height:6px;border-radius:9px;margin:4px 6px 0;background:var(--c,transparent)}
+/* home */
+.hello{margin-top:14px}
+.hello .h1{font-size:50px}
+.hello .h1 span{color:var(--sage-b)}
+.next{position:relative;overflow:hidden;margin-top:18px;border-radius:24px;padding:18px;background:linear-gradient(140deg,color-mix(in srgb,var(--c) 92%,#000) 0%,color-mix(in srgb,var(--c) 55%,#000) 100%);color:#11140A}
+.next.bjj{color:#11140A}
+.next .stripes{position:absolute;inset:0;background:repeating-linear-gradient(-55deg,rgba(0,0,0,.07) 0 14px,transparent 14px 30px);pointer-events:none}
+.next .k{color:rgba(17,20,10,.7)}
+.next .ttl{font-family:var(--disp);text-transform:uppercase;font-size:40px;line-height:.92;margin-top:6px;position:relative}
+.next .meta{display:flex;gap:14px;margin-top:10px;font-weight:800;font-size:13.5px;position:relative;flex-wrap:wrap}
+.next .cd{display:flex;gap:6px;margin-top:14px;position:relative}
+.next .cd div{background:rgba(17,20,10,.82);color:var(--bone);border-radius:12px;padding:6px 10px;text-align:center;min-width:58px}
+.next .cd b{display:block;font-family:var(--disp);font-size:28px;font-weight:400;line-height:1}
+.next .cd small{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--sub)}
+.next .acts{display:flex;gap:8px;margin-top:14px;position:relative}
+.next .acts .btn{background:#11140A;color:var(--bone);height:44px}
+.next .acts .btn.ghost{background:rgba(17,20,10,.12);border-color:rgba(17,20,10,.3);color:#11140A}
+.next-ill{position:absolute;right:-18px;top:-6px;width:150px;height:150px;color:rgba(17,20,10,.16)}
+.stats3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.stats3 .card{padding:12px;border-radius:16px}
+.stats3 b{display:block;font-family:var(--disp);font-size:32px;font-weight:400;line-height:1}
+.stats3 small{font-size:11.5px;color:var(--sub);font-weight:700}
+.stats3 .fire b{color:var(--kb)}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{position:relative;overflow:hidden;text-align:left;border-radius:20px;border:1px solid var(--line);background:var(--card);padding:14px;min-height:124px;display:flex;flex-direction:column;justify-content:flex-end}
+.tile .ic{position:absolute;top:12px;left:14px;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 20%,transparent);color:var(--c)}
+.tile .ic svg{width:24px;height:24px}
+.tile b{font-size:16px;font-weight:900;line-height:1.15}
+.tile small{font-size:12.5px;color:var(--sub);font-weight:600}
+.tile.wide{grid-column:1/-1;min-height:0;display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px}
+.tile.wide .ic{position:static}
+.hs{display:flex;gap:10px;overflow-x:auto;margin:0 -18px;padding:0 18px 4px;scrollbar-width:none}
+.hs::-webkit-scrollbar{display:none}
+.mini{flex:none;width:168px;text-align:left;border-radius:18px;border:1px solid var(--line);background:var(--card);padding:12px;position:relative;overflow:hidden}
+.mini::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--c)}
+.mini .t{font-family:var(--disp);font-size:26px;line-height:1}
+.mini b{display:block;font-size:14px;margin-top:4px;line-height:1.2}
+.mini small{font-size:12px;color:var(--sub);font-weight:600}
+.mini .pl{margin-top:8px;height:5px;border-radius:9px;background:rgba(237,234,224,.08);overflow:hidden}
+.mini .pl i{display:block;height:100%;background:var(--c)}
+.combo{position:relative;overflow:hidden;border:0;background:#13160E;padding:18px;border-radius:22px;border:1px solid var(--line)}
+.combo .seq{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.combo .seq span{font-family:var(--disp);font-size:24px;padding:4px 12px;border-radius:12px;background:rgba(237,234,224,.08)}
+.combo .seq span.kick{background:color-mix(in srgb,var(--kb) 25%,transparent);color:var(--kb)}
+.combo .w{font-size:13px;color:var(--sub);font-weight:700;margin-top:8px}
+.lb{display:flex;flex-direction:column}
+.lb div{display:grid;grid-template-columns:26px 34px 1fr auto;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);font-weight:700;font-size:14px}
+.lb div:last-child{border-bottom:0}
+.lb .p{font-family:var(--disp);font-size:18px;color:var(--sub);text-align:center}
+.lb .a{width:34px;height:34px;border-radius:50%;background:var(--card2);display:grid;place-items:center;font-size:12px;font-weight:900}
+.lb .me{color:var(--sage-b)}
+.lb .me .a{background:var(--sage-b);color:#11140A}
+.lb .v{font-family:var(--disp);font-size:20px}
+.lb-bar{height:8px;border-radius:9px;background:rgba(237,234,224,.08);overflow:hidden;margin:10px 0 4px}
+.lb-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--box),var(--kb))}
+/* classes */
+.days{display:flex;gap:6px;overflow-x:auto;margin:14px -18px 0;padding:0 18px 2px;scrollbar-width:none}
+.days::-webkit-scrollbar{display:none}
+.days button{flex:none;width:52px;border-radius:16px;border:1px solid var(--line);background:var(--card);padding:8px 0;display:flex;flex-direction:column;align-items:center;gap:2px}
+.days button small{font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--sub)}
+.days button b{font-family:var(--disp);font-size:24px;font-weight:400;line-height:1}
+.days button i{width:5px;height:5px;border-radius:50%;background:transparent}
+.days button.has i{background:var(--sage-b)}
+.days button.on{background:var(--bone);color:#11140A;border-color:var(--bone)}
+.days button.on small{color:#55594A}
+.filt{display:flex;gap:6px;margin-top:12px;overflow-x:auto;scrollbar-width:none}
+.filt::-webkit-scrollbar{display:none}
+.filt button{flex:none;height:36px;padding:0 14px;border-radius:99px;border:1.5px solid var(--line2);background:transparent;font-weight:800;font-size:13px;display:inline-flex;align-items:center;gap:7px}
+.filt button.on{background:var(--c,var(--bone));border-color:var(--c,var(--bone));color:#11140A}
+.filt button.on .sp-dot{background:#11140A}
+.cls{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.cl{position:relative;display:grid;grid-template-columns:68px 1fr;gap:12px;border-radius:20px;background:var(--card);border:1px solid var(--line);padding:14px;overflow:hidden}
+.cl::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--c)}
+.cl.mine{border-color:color-mix(in srgb,var(--c) 60%,transparent);background:color-mix(in srgb,var(--c) 9%,var(--card))}
+.cl .tm{font-family:var(--disp);font-size:28px;line-height:1}
+.cl .tm small{display:block;font-family:var(--ui);font-size:11px;font-weight:700;color:var(--sub);margin-top:4px}
+.cl h3{font-size:17px;font-weight:900;line-height:1.15}
+.cl .m{font-size:12.5px;color:var(--sub);font-weight:600;margin-top:2px}
+.cl .ft{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px}
+.spots{flex:1}
+.spots .tr{height:6px;border-radius:9px;background:rgba(237,234,224,.08);overflow:hidden}
+.spots .tr i{display:block;height:100%;background:var(--c)}
+.spots small{display:block;font-size:11.5px;font-weight:800;margin-top:4px;color:var(--sub)}
+.spots small.low{color:var(--kb)}
+.spots small.full{color:var(--bad)}
+.cl .bk{height:40px;padding:0 16px;border-radius:12px;border:0;font-weight:900;font-size:13.5px;background:var(--bone);color:#11140A;white-space:nowrap}
+.cl .bk.wait{background:transparent;border:1.5px solid var(--line2);color:var(--bone)}
+.cl .bk.done{background:var(--c);color:#11140A}
+.cl .tag{display:inline-block;margin-left:6px;font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:6px;background:var(--sage-b);color:#11140A;vertical-align:2px}
+.empty{text-align:center;padding:40px 10px;color:var(--sub)}
+/* sombra */
+.sh-hero{text-align:center;margin-top:8px}
+.ring{position:relative;width:min(78vw,320px);aspect-ratio:1;margin:12px auto 0}
+.ring svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+.ring .in{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 30px}
+.ring .ph{font-size:12px;font-weight:900;letter-spacing:.2em;text-transform:uppercase;color:var(--pc)}
+.ring .clock{font-family:var(--disp);font-size:84px;line-height:.95}
+.ring .rd{font-weight:800;font-size:13px;color:var(--sub)}
+.call{min-height:118px;margin-top:10px;text-align:center}
+.call .seq{font-family:var(--disp);font-size:52px;line-height:1;text-transform:uppercase;letter-spacing:.01em;transition:transform .15s}
+.call .seq.pop{animation:pop .35s ease}
+.call .w{font-size:14px;font-weight:800;color:var(--sub);margin-top:6px;text-transform:uppercase;letter-spacing:.08em}
+@keyframes pop{0%{transform:scale(.7);opacity:.2}60%{transform:scale(1.08);opacity:1}100%{transform:scale(1)}}
+.cfg{display:flex;flex-direction:column;gap:14px}
+.cfg .lab{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--sub);margin-bottom:8px}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button{flex:1;min-width:64px;height:44px;border-radius:12px;border:1.5px solid var(--line2);background:transparent;font-weight:900;font-size:14px}
+.seg button.on{background:var(--bone);border-color:var(--bone);color:#11140A}
+.sh-acts{display:flex;gap:8px;margin-top:16px}
+.sh-acts .btn{flex:1;height:58px;font-size:17px}
+.flash{position:fixed;inset:0;pointer-events:none;z-index:70;background:var(--fc,#fff);opacity:0}
+.flash.on{animation:fl .5s ease}
+@keyframes fl{0%{opacity:.35}100%{opacity:0}}
+.lib{display:flex;flex-wrap:wrap;gap:6px}
+.lib span{font-size:12.5px;font-weight:800;padding:6px 10px;border-radius:10px;background:rgba(237,234,224,.06)}
+.lib span b{font-family:var(--disp);font-weight:400;font-size:15px;margin-right:6px;color:var(--sage-b)}
+/* progreso */
+.belt-card{position:relative;overflow:hidden;padding:18px}
+.belt{position:relative;height:54px;border-radius:8px;margin:16px 0 10px;background:var(--bc);box-shadow:inset 0 -6px 0 rgba(0,0,0,.12),inset 0 6px 0 rgba(255,255,255,.08)}
+.belt::before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(0,0,0,.12)}
+.belt .bar{position:absolute;right:28px;top:0;bottom:0;width:96px;background:#111;display:flex;align-items:center;justify-content:center;gap:7px}
+.belt .bar i{width:7px;height:100%;background:#F2F0E8;opacity:.18}
+.belt .bar i.on{opacity:1}
+.belt-meta{display:flex;justify-content:space-between;align-items:flex-end;gap:10px}
+.belt-meta .h2{font-size:30px}
+.pbar{height:10px;border-radius:9px;background:rgba(237,234,224,.08);overflow:hidden;margin-top:10px}
+.pbar i{display:block;height:100%;background:var(--sage-b);border-radius:9px}
+.belts{display:flex;gap:4px;margin-top:12px}
+.belts span{flex:1;height:8px;border-radius:3px;background:var(--b);opacity:.35}
+.belts span.on{opacity:1;outline:2px solid var(--sage-b);outline-offset:2px}
+.lvl{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-top:12px}
+.lvl span{height:10px;border-radius:4px;background:rgba(237,234,224,.1)}
+.lvl span.on{background:var(--c)}
+.heat{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;margin-top:12px}
+.heat div{display:grid;grid-template-rows:repeat(7,1fr);gap:4px}
+.heat i{aspect-ratio:1;border-radius:3px;background:rgba(237,234,224,.06)}
+.heat i.l1{background:color-mix(in srgb,var(--sage-b) 45%,transparent)}
+.heat i.l2{background:var(--sage-b)}
+.tech{display:flex;flex-direction:column}
+.tech button{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:center;text-align:left;padding:11px 0;border:0;border-bottom:1px solid var(--line);background:none;font-weight:700;font-size:14.5px}
+.tech button:last-child{border-bottom:0}
+.tech .ck{width:26px;height:26px;border-radius:8px;border:2px solid var(--line2);display:grid;place-items:center;font-size:14px;font-weight:900}
+.tech button.on .ck{background:var(--c);border-color:var(--c);color:#11140A}
+.tech small{font-size:11.5px;color:var(--sub);font-weight:700}
+.tabs{display:flex;gap:6px;margin-top:14px}
+.tabs button{flex:1;height:40px;border-radius:12px;border:1.5px solid var(--line2);background:transparent;font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:center;gap:6px}
+.tabs button.on{background:var(--c);border-color:var(--c);color:#11140A}
+.tabs button.on .sp-dot{background:#11140A}
+/* coach chat */
+.chat{display:flex;flex-direction:column;gap:10px;margin-top:14px;padding-bottom:150px}
+.msg{max-width:86%;padding:11px 14px;border-radius:18px;font-size:15px;font-weight:550;line-height:1.45;animation:in .25s ease}
+.msg.b{align-self:flex-start;background:var(--card2);border-radius:4px 18px 18px 18px}
+.msg.u{align-self:flex-end;background:var(--sage-b);color:#11140A;border-radius:18px 4px 18px 18px;font-weight:700}
+.msg .acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.msg .acts button{height:36px;padding:0 12px;border-radius:10px;border:0;background:var(--bone);color:#11140A;font-weight:800;font-size:13px}
+.msg .acts button.g{background:rgba(237,234,224,.1);color:var(--bone)}
+.msg ul{margin:6px 0 0 18px}
+.msg b{font-weight:800}
+.typing{align-self:flex-start;background:var(--card2);border-radius:4px 18px 18px 18px;padding:14px 16px;display:flex;gap:5px}
+.typing i{width:7px;height:7px;border-radius:50%;background:var(--sub);animation:bl 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes bl{0%,80%{opacity:.3}40%{opacity:1}}
+@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.composer{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(72px + var(--safe-b));width:100%;max-width:480px;padding:10px 14px 8px;background:linear-gradient(180deg,rgba(12,13,10,0),var(--bg) 30%);z-index:25}
+.sugg{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:8px}
+.sugg::-webkit-scrollbar{display:none}
+.sugg button{flex:none;height:34px;padding:0 12px;border-radius:99px;border:1.5px solid var(--line2);background:var(--bg2);font-weight:700;font-size:13px}
+.inrow{display:flex;gap:8px}
+.inrow input{flex:1;height:50px;border-radius:16px;border:1.5px solid var(--line2);background:var(--card);padding:0 16px;font-weight:600;outline:none}
+.inrow input:focus{border-color:var(--sage-b)}
+.inrow button{width:50px;height:50px;border-radius:16px;border:0;background:var(--sage-b);color:#11140A;display:grid;place-items:center}
+.coach-hd{display:flex;gap:12px;align-items:center;margin-top:12px}
+.coach-hd .cav{width:52px;height:52px;border-radius:16px;background:var(--sage);display:grid;place-items:center;color:#11140A}
+.coach-hd .cav svg{width:30px;height:30px}
+.coach-hd b{display:block;font-family:var(--disp);font-size:26px;font-weight:400;text-transform:uppercase;line-height:1}
+.coach-hd small{font-size:12.5px;color:var(--sub);font-weight:700}
+.coach-hd small i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ok);margin-right:5px;font-style:normal}
+/* sheet */
+.sheet-bg{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.6);display:flex;align-items:flex-end;justify-content:center}
+.sheet{width:100%;max-width:480px;background:var(--bg2);border-radius:26px 26px 0 0;padding:10px 18px calc(22px + var(--safe-b));border-top:1px solid var(--line2);animation:up .28s cubic-bezier(.2,.8,.2,1);max-height:92dvh;overflow:auto}
+.sheet .grab{width:44px;height:5px;border-radius:9px;background:var(--line2);margin:0 auto 14px}
+@keyframes up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+.qr{width:200px;height:200px;margin:16px auto;background:#fff;border-radius:16px;padding:12px}
+.qr svg{width:100%;height:100%}
+.punch{position:fixed;z-index:80;pointer-events:none;font-family:var(--disp);font-size:54px;color:var(--c);text-transform:uppercase;left:50%;top:40%;transform:translate(-50%,-50%) rotate(-8deg);animation:pw .9s ease forwards;text-shadow:0 6px 30px rgba(0,0,0,.6);white-space:nowrap}
+@keyframes pw{0%{transform:translate(-50%,-50%) scale(.3) rotate(-8deg);opacity:0}30%{transform:translate(-50%,-50%) scale(1.15) rotate(-8deg);opacity:1}70%{opacity:1}100%{transform:translate(-50%,-70%) scale(1) rotate(-8deg);opacity:0}}
+.plan{display:flex;flex-direction:column;gap:8px}
+.plan div{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;border-radius:14px;background:rgba(237,234,224,.05);padding:10px 12px}
+.plan b{font-size:14px}
+.plan small{display:block;font-size:12px;color:var(--sub);font-weight:600}
+.plan .t{font-family:var(--disp);font-size:20px}
+.price{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.price div{border-radius:16px;border:1px solid var(--line);padding:12px;background:var(--card)}
+.price b{font-family:var(--disp);font-size:28px;font-weight:400;display:block;line-height:1}
+.price small{font-size:12px;color:var(--sub);font-weight:700}
+.price .hl{border-color:var(--sage-b)}
+</style>
+</head>
+<body>
+<div class="app" id="app"><div id="view"></div><nav class="nav" id="nav" hidden></nav></div>
+<div class="toast" id="toast" role="status"></div>
+<div class="flash" id="flash"></div>
+<script>
+(function () {
+  'use strict';
+  var KEY = 'gorobel-v1';
+  function $(id) { return document.getElementById(id); }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function iso(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+  function addD(d, n) { var x = new Date(d); x.setDate(x.getDate() + n); return x; }
+  function norm(s) { return String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
+  var T0 = new Date(); T0.setHours(12, 0, 0, 0);
+  var DOW = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'], DOWL = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+
+  /* ---------- iconos ---------- */
+  var I = {
+    glove: '<svg viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><path d="M20 8c-6.6 0-12 5.4-12 12v14c0 7 4.2 12.6 10 15v7a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2v-7.4c5.3-2.6 9-8 9-14.6v-9c0-4.4-3.6-8-8-8h-1.3C40.6 11.6 35.6 8 30 8z"/><path d="M12 30c4 3 11 4 18 2" stroke="#0C0D0A" stroke-width="2.4" fill="none" stroke-linecap="round" opacity=".5"/><rect x="18" y="52" width="26" height="3" fill="#0C0D0A" opacity=".35"/></svg>',
+    gi: '<svg viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><path d="M22 6l10 8 10-8 14 8-4 16-6-2v28H18V28l-6 2-4-16z"/><path d="M22 6l10 22 10-22" fill="none" stroke="#0C0D0A" stroke-width="2.6" stroke-linejoin="round" opacity=".45"/><rect x="18" y="38" width="28" height="6" fill="#0C0D0A" opacity=".55"/><path d="M28 44l-4 12M36 44l4 12" stroke="#0C0D0A" stroke-width="3" opacity=".55"/></svg>',
+    kick: '<svg viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><circle cx="22" cy="10" r="6"/><path d="M18 20h10l6 10 22-6 2 6-24 10-6-4-2 10 8 14h-7l-9-14 2-18-6 8-6-2z"/></svg>',
+    home: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5V21h-6v-6H9v6H3z"/></svg>',
+    cal: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>',
+    bolt: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 2L4 14h6.5L9 22l11-13h-7z"/></svg>',
+    prog: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 20V12M10 20V6M16 20v-9M22 20H2"/></svg>',
+    chat: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>',
+    coach: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm-7 19c0-4 3.1-7 7-7s7 3 7 7z"/><path d="M8 6.5h8" stroke="#11140A" stroke-width="1.6"/></svg>',
+    send: '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 20l18-8L3 4l2 7 9 1-9 1z"/></svg>',
+    qr: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM20 14v7M14 20h3"/></svg>',
+    fire: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 4 6 6 6 12a6 6 0 0 1-12 0c0-3 2-5 3-6 0 2 1 3 2 3 0-4-1-6 1-9z"/></svg>',
+    target: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>',
+    shield: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg>',
+    leaf: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M5 19c0-9 6-14 15-14 0 9-5 15-14 15M5 19l7-7"/></svg>',
+    trophy: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h10v5a5 5 0 0 1-10 0zM7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4M12 14v4M8 21h8"/></svg>',
+    brain: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M9 4a3 3 0 0 0-3 3 3 3 0 0 0-2 5 3 3 0 0 0 2 5 3 3 0 0 0 6 1M15 4a3 3 0 0 1 3 3 3 3 0 0 1 2 5 3 3 0 0 1-2 5 3 3 0 0 1-6 1"/></svg>',
+    dumb: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 7v10M3 9.5v5M18 7v10M21 9.5v5M6 12h12"/></svg>',
+    run: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="15" cy="4.5" r="2.2"/><path d="M10 8l4-1 3 3 3 1-.6 1.9-3.6-1-1.6-1.4-1.3 3.4 2.6 2.6-1 5.5h-2l.8-4.6-3-2.4-1.6 3.4H5v-2h3.4z"/></svg>',
+    seed: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 21v-9M12 12c0-4 3-7 7-7 0 4-3 7-7 7zM12 14c0-3-2.5-5.5-6-5.5 0 3.5 2.5 5.5 6 5.5z"/></svg>',
+    swap: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M5 12a7 7 0 0 1 12-5l2 2M19 12a7 7 0 0 1-12 5l-2-2M19 4v5h-5M5 20v-5h5"/></svg>',
+    fist: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 6a2 2 0 0 1 4 0 2 2 0 0 1 4 0 2 2 0 0 1 4 1v6c0 4-3 7-7 7h-1c-4 0-6-3-6-6v-3a2 2 0 0 1 2-2z"/></svg>',
+    floor: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M2 20h20M6 16c2-3 5-4 8-3l4 3M9 9a2 2 0 1 0 0-.1"/></svg>',
+    both: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M8 4v16M16 4v16M4 8h8M12 16h8"/></svg>',
+    none: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M6 6l12 12"/></svg>',
+    mid: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 12h16M8 8l-4 4 4 4M16 8l4 4-4 4"/></svg>',
+    spar: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M3 12h7M14 12h7M10 8v8M14 8v8"/></svg>',
+    leg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3v8l9 5 3-1M8 11l-2 10"/></svg>',
+    knee: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M9 3l2 9-2 9M15 3l-2 9 2 9"/><circle cx="12" cy="12" r="2.4"/></svg>',
+    back: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 3v18M9 6h6M8.5 10h7M9 14h6M9.5 18h5"/></svg>',
+    ok: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>'
+  };
+
+  /* ---------- datos del gimnasio (editables) ---------- */
+  var SP = {
+    bjj: { n: 'Jiu-jitsu', s: 'BJJ', c: '#ECE7D6', ic: I.gi, tag: 'Lucha en el suelo', coach: 'Iker' },
+    box: { n: 'Boxeo', s: 'Boxeo', c: '#E8483B', ic: I.glove, tag: 'Puños, pies y cintura', coach: 'Mikel' },
+    kb: { n: 'Kickboxing', s: 'Kick', c: '#F3A73F', ic: I.kick, tag: 'Puños y patadas', coach: 'Leire' }
+  };
+  // [hora, deporte, nombre, nivel, minutos, plazas]
+  var WEEK = {
+    1: [['07:00', 'box', 'Boxeo mañanero', 'Todos los niveles', 60, 14], ['18:00', 'bjj', 'BJJ Fundamentos', 'Iniciación', 60, 20], ['19:00', 'kb', 'Kickboxing', 'Todos los niveles', 60, 18], ['20:15', 'box', 'Boxeo técnico', 'Intermedio', 60, 14]],
+    2: [['09:30', 'kb', 'Kick Fit · sin contacto', 'Iniciación', 50, 16], ['18:00', 'box', 'Boxeo iniciación', 'Iniciación', 60, 14], ['19:15', 'bjj', 'BJJ No-Gi', 'Todos los niveles', 75, 20], ['20:30', 'kb', 'Sparring de kick', 'Avanzado', 60, 12]],
+    3: [['07:00', 'box', 'Boxeo mañanero', 'Todos los niveles', 60, 14], ['18:00', 'bjj', 'BJJ Fundamentos', 'Iniciación', 60, 20], ['19:00', 'kb', 'Kickboxing', 'Todos los niveles', 60, 18], ['20:15', 'bjj', 'BJJ Avanzado', 'Cinturón azul +', 75, 16]],
+    4: [['09:30', 'kb', 'Kick Fit · sin contacto', 'Iniciación', 50, 16], ['18:00', 'box', 'Boxeo iniciación', 'Iniciación', 60, 14], ['19:15', 'bjj', 'BJJ No-Gi', 'Todos los niveles', 75, 20], ['20:30', 'box', 'Sparring de boxeo', 'Avanzado', 60, 12]],
+    5: [['18:00', 'bjj', 'BJJ con kimono', 'Todos los niveles', 75, 20], ['19:15', 'box', 'Boxeo y saco', 'Todos los niveles', 60, 16], ['20:15', 'kb', 'Kickboxing', 'Todos los niveles', 60, 18]],
+    6: [['10:00', 'bjj', 'Open mat', 'Libre', 90, 24], ['11:30', 'box', 'Boxeo en familia', 'Todos', 60, 16]],
+    0: []
+  };
+  var COMBOS = {
+    box: ['1-2', '1-1-2', '1-2-3', '2-3-2', '1-2-3-2', '1-6-3-2', '3-2-3', '1-2-5-2', '5-6', '1-2-esquiva-2', 'doble jab', '1-2-gancho al cuerpo', '1-2-sal', '3 al cuerpo-3 arriba', '2-3-6', '1-2-3-4'],
+    kb: ['1-2-baja', '1-2-3-baja', 'jab-frontal', '2-alta', 'baja-baja', '1-2-rodilla', 'teep', '1-2-codo', '1-media', 'jab-cross-media', 'rodilla-rodilla', '3-2-baja', 'frontal-1-2', '1-2-3-media', 'baja de izquierda', '2-3-alta']
+  };
+  var NUM = { '1': 'jab', '2': 'cross', '3': 'gancho', '4': 'gancho de atrás', '5': 'uppercut', '6': 'uppercut de atrás' };
+  var BELTS = [['Blanco', '#F2F0E8'], ['Azul', '#2F5FD0'], ['Morado', '#6B3FA0'], ['Marrón', '#6E4325'], ['Negro', '#151515']];
+  var LVL = { box: ['Guardia y desplazamiento', 'Golpes básicos', 'Combinaciones', 'Defensa y contra', 'Sparring'], kb: ['Guardia y desplazamiento', 'Puños y patada baja', 'Combinaciones con piernas', 'Clinch y rodillas', 'Sparring'] };
+  var TECH = {
+    bjj: [['Guardia cerrada', 'Fundamentos'], ['Escape de montada', 'Fundamentos'], ['Raspado de tijera', 'Raspados'], ['Paso de guardia toreando', 'Pasajes'], ['Kimura desde guardia', 'Finalizaciones'], ['Triángulo', 'Finalizaciones'], ['Toma de espalda', 'Control'], ['Estrangulación por la espalda', 'Finalizaciones']],
+    box: [['Guardia y postura', 'Base'], ['Jab y cross', 'Golpes'], ['Gancho de delante', 'Golpes'], ['Uppercut', 'Golpes'], ['Esquiva y rodada', 'Defensa'], ['Bloqueo y contra', 'Defensa'], ['Trabajo al cuerpo', 'Combinaciones'], ['Salir en ángulo', 'Desplazamiento']],
+    kb: [['Guardia y postura', 'Base'], ['Patada baja', 'Piernas'], ['Patada media', 'Piernas'], ['Teep (frontal)', 'Piernas'], ['Rodilla en clinch', 'Clinch'], ['Bloqueo de patada', 'Defensa'], ['1-2-patada baja', 'Combinaciones'], ['Patada alta', 'Piernas']]
+  };
+  var PEOPLE = [['Unai', 412], ['Leire', 386], ['Aitor', 341], ['Nerea', 318], ['Jon', 297], ['Maite', 255], ['Gorka', 230], ['Iratxe', 198]];
+
+  /* ---------- estado ---------- */
+  var S;
+  function seed() {
+    var s = { v: 1, mode: null, name: 'Ane', book: {}, att: [], sh: [], tech: { bjj: [0, 1, 2, 3, 4], box: [0, 1], kb: [0, 1, 2, 3, 6] }, chat: [], quiz: null, trial: null, rounds: 168, gym: false };
+    for (var w = 12; w >= 1; w--) { [1, 3, 5].forEach(function (dw, j) { if ((w + j) % 7 === 3) return; var d = addD(T0, -w * 7 + (dw - T0.getDay())); if (d >= T0) return; s.att.push({ d: iso(d), sp: j === 1 ? 'kb' : 'bjj' }); }); }
+    s.att.push({ d: iso(addD(T0, -1)), sp: 'kb' });
+    for (var k = 1; k <= 4; k++) s.sh.push({ d: iso(addD(T0, -k * 4)), r: 5, c: 60 + k * 4, sp: k % 2 ? 'kb' : 'box' });
+    var nb = nextClasses(0, 6).filter(function (c) { return c.sp === 'kb' || c.sp === 'bjj'; })[0]; if (nb) s.book[nb.id] = 'ok';
+    return s;
+  }
+  function load() { try { var x = JSON.parse(localStorage.getItem(KEY)); if (x && x.v === 1) return x; } catch (e) {} return null; }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+  var UI = { r: 'splash', day: 0, filt: 'all', ptab: 'bjj', q: 0, qa: {}, sh: { sp: 'kb', rounds: 5, dur: 180, rest: 60, voice: true } };
+
+  /* ---------- clases ---------- */
+  function hash(s) { var h = 7; for (var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) % 100003; return h; }
+  function classesOn(off) {
+    var d = addD(T0, off), key = iso(d);
+    return (WEEK[d.getDay()] || []).map(function (c, i) {
+      var id = key + '|' + i, cap = c[5], taken = Math.min(cap, Math.round(cap * (0.35 + (hash(id) % 60) / 100)));
+      if (off === 0 && i % 3 === 1) taken = cap;
+      var st = S && S.book[id]; if (st === 'ok') taken = Math.min(cap, taken + 1);
+      var dt = new Date(d); dt.setHours(+c[0].slice(0, 2), +c[0].slice(3), 0, 0);
+      return { id: id, off: off, date: d, dt: dt, t: c[0], sp: c[1], n: c[2], lvl: c[3], min: c[4], cap: cap, taken: taken, st: st };
+    });
+  }
+  function nextClasses(from, days) { var out = []; for (var o = from; o <= days; o++) out = out.concat(classesOn(o)); var now = new Date(); return out.filter(function (c) { return c.dt > now; }); }
+  function myNext() { var L = nextClasses(0, 13).filter(function (c) { return S.book[c.id] === 'ok'; }); return L[0] || null; }
+  function dayLabel(c) { return c.off === 0 ? 'Hoy' : c.off === 1 ? 'Mañana' : DOWL[c.date.getDay()].replace(/^./, function (x) { return x.toUpperCase(); }) + ' ' + c.date.getDate(); }
+
+  /* ---------- ui helpers ---------- */
+  var toastT;
+  function toast(m) { var t = $('toast'); t.textContent = m; t.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(function () { t.classList.remove('on'); }, 2400); }
+  function punch(txt, c) { var p = document.createElement('div'); p.className = 'punch'; p.style.setProperty('--c', c || 'var(--sage-b)'); p.textContent = txt; document.body.appendChild(p); setTimeout(function () { p.remove(); }, 950); try { navigator.vibrate && navigator.vibrate([30, 40, 60]); } catch (e) {} }
+  function initials(n) { return String(n).trim().split(/\s+/).map(function (w) { return w[0]; }).join('').slice(0, 2).toUpperCase(); }
+  function streak() { var weeks = {}; S.att.forEach(function (a) { var d = new Date(a.d + 'T12:00'); var mon = addD(d, -((d.getDay() + 6) % 7)); weeks[iso(mon)] = 1; }); var n = 0, cur = addD(T0, -((T0.getDay() + 6) % 7)); if (!weeks[iso(cur)]) cur = addD(cur, -7); while (weeks[iso(cur)]) { n++; cur = addD(cur, -7); } return n; }
+  function monthCount() { var m = iso(addD(T0, -30)); return S.att.filter(function (a) { return a.d >= m; }).length; }
+  function top() { return '<div class="top"><img src="logo-w.png" alt="Gorobel"><button type="button" class="av" data-sheet="me" aria-label="Mi perfil">' + esc(initials(S.name)) + '</button></div>'; }
+  function navHtml() { var r = UI.r === 'result' ? 'home' : UI.r; function b(k, l, ic, mid) { return '<button type="button" class="' + (mid ? 'mid ' : '') + (r === k ? 'on' : '') + '" data-go="' + k + '">' + (mid ? '<span class="o">' + ic + '</span>' : ic) + '<span>' + l + '</span></button>'; } return b('home', 'Inicio', I.home) + b('clases', 'Clases', I.cal) + b('sombra', 'Sombra', I.bolt, true) + b('prog', 'Progreso', I.prog) + b('coach', 'Coach', I.chat); }
+
+  /* ---------- splash ---------- */
+  function vSplash() {
+    var words = ['ROMPE', 'TUS', 'LÍMITES', 'GOROBEL'];
+    return '<div class="sp"><div class="sp-bg" aria-hidden="true">' + words.map(function (w, i) { return '<div class="sp-word" style="top:' + (60 + i * 118) + 'px;' + (i % 2 ? 'text-align:right' : '') + '">' + w + '</div>'; }).join('') +
+      '<svg style="position:absolute;right:-50px;top:110px;width:250px;height:250px;color:#E8483B;opacity:.85" viewBox="0 0 64 64" fill="currentColor">' + I.glove.replace(/<svg[^>]*>|<\/svg>/g, '') + '</svg></div>' +
+      '<div class="sp-top" style="position:relative"><img src="logo-w.png" alt="Gorobel"></div>' +
+      '<div class="sp-hero"><p class="k" style="color:var(--sage-b)">Deportes de contacto</p><h1 class="h1">Entra.<br>Suda.<br><em>Vuelve.</em></h1><p>Jiu-jitsu, boxeo y kickboxing. Reserva en un toque, encuentra tu deporte y entrena la sombra con un coach que te canta los combos.</p>' +
+      '<div class="sp-sports">' + Object.keys(SP).map(function (k) { return '<span class="chip"><span class="sp-dot" style="--c:' + SP[k].c + '"></span>' + SP[k].n + '</span>'; }).join('') + '</div></div>' +
+      '<div class="sp-opts"><button type="button" class="opt-big pri" data-start="nuevo"><span class="ic">' + I.target.replace('<svg', '<svg width="26" height="26"') + '</span><span><b>Quiero probar</b><small>Te decimos qué deporte va contigo en 1 minuto</small></span><i>→</i></button>' +
+      '<button type="button" class="opt-big" data-start="socio"><span class="ic">' + I.fist.replace('<svg', '<svg width="26" height="26"') + '</span><span><b>Ya soy de Gorobel</b><small>Mis clases, mi cinturón y mis rondas</small></span><i>→</i></button></div>' +
+      '<p class="sp-foot">Demo para Gorobel · horarios y precios de ejemplo</p></div>';
+  }
+
+  /* ---------- quiz: encuentra tu deporte ---------- */
+  var QZ = [
+    { id: 'goal', say: 'Empezamos fuerte. Sin rodeos:', q: '¿Qué vienes a buscar?', o: [['forma', 'Ponerme en forma', 'Quemar, sudar, cardio de verdad', I.fire, { box: 3, kb: 3, bjj: 1 }], ['def', 'Saber defenderme', 'Confianza si algún día hace falta', I.shield, { bjj: 3, kb: 2, box: 2 }], ['estres', 'Soltar estrés', 'Descargar la cabeza después del curro', I.brain, { box: 3, kb: 2, bjj: 1 }], ['tec', 'Técnica y disciplina', 'Aprender algo que dure toda la vida', I.seed, { bjj: 3, box: 1, kb: 1 }], ['comp', 'Competir', 'Quiero subirme a un ring o un tatami', I.trophy, { bjj: 2, box: 2, kb: 2 }]] },
+    { id: 'from', say: 'Me ayuda saber de dónde vienes.', q: '¿Cómo estás ahora mismo?', o: [['gym', 'Vengo del gimnasio', 'Pesas y máquinas, pero quiero algo más', I.dumb, { box: 2, kb: 2, bjj: 1 }], ['cardio', 'Corro o hago cardio', 'Tengo fondo, me falta lo demás', I.run, { kb: 2, box: 2 }], ['zero', 'Empiezo de cero', 'Ni idea, pero con ganas', I.seed, { kb: 1, box: 1, bjj: 1 }], ['contacto', 'Ya he hecho contacto', 'Judo, lucha, muay thai, MMA…', I.fist, { bjj: 1, kb: 1, box: 1 }]] },
+    { id: 'body', say: 'Ahora lo que te pide el cuerpo.', q: '¿Golpear o luchar?', o: [['pie', 'Golpear', 'Saco, manoplas, ritmo', I.fist, { box: 3, kb: 3 }], ['suelo', 'Luchar en el suelo', 'Control, palancas, estrategia', I.floor, { bjj: 4 }], ['ambas', 'Las dos cosas', 'Quiero probarlo todo', I.both, { bjj: 2, kb: 2, box: 1 }]] },
+    { id: 'legs', say: 'Pregunta clave para decidir entre boxeo y kick.', q: '¿Y las piernas?', o: [['si', 'Quiero patear', 'Patadas, rodillas, todo', I.leg, { kb: 4 }], ['no', 'Solo puños', 'Lo clásico: boxeo puro', I.fist, { box: 4 }], ['igual', 'Me da igual', 'Lo que mejor me venga', I.mid, { kb: 1, box: 1, bjj: 1 }]] },
+    { id: 'contact', say: 'Tranquilidad: aquí nadie te tira a pelear el primer día.', q: '¿Cuánto contacto quieres?', o: [['cero', 'Sin contacto al principio', 'Saco, sombra y técnica', I.none, { kb: 2, box: 2 }], ['ctrl', 'Contacto controlado', 'Con compañero, sin hacerse daño', I.mid, { bjj: 2, kb: 1, box: 1 }], ['spar', 'Quiero sparring', 'Cuanto antes, mejor', I.spar, { box: 2, kb: 2, bjj: 1 }]] },
+    { id: 'pain', say: 'Última. Así te recomendamos con cabeza.', q: '¿Alguna zona delicada?', o: [['nada', 'Ninguna', 'Estoy al cien', I.ok, {}], ['rod', 'Rodillas', 'Mejor con cuidado al patear', I.knee, { box: 2, kb: -1 }], ['esp', 'Espalda', 'Evitar torsiones y caídas fuertes', I.back, { box: 1, kb: 1, bjj: -1 }], ['hom', 'Hombros', 'Cuidado con golpear mucho', I.shield, { bjj: 1, kb: 1, box: -1 }]] }
+  ];
+  function qzScore(a) {
+    var sc = { bjj: 1, box: 1, kb: 1 };
+    QZ.forEach(function (q) { var v = a[q.id]; if (!v) return; var o = q.o.filter(function (x) { return x[0] === v; })[0]; Object.keys(o[4]).forEach(function (k) { sc[k] += o[4][k]; }); });
+    var mx = Math.max(sc.bjj, sc.box, sc.kb), keys = Object.keys(sc).sort(function (x, y) { return sc[y] - sc[x]; });
+    var pc = {}; keys.forEach(function (k) { pc[k] = Math.max(18, Math.min(97, Math.round(sc[k] / mx * 92 + (k === keys[0] ? 5 : 0)))); });
+    return { win: keys[0], second: keys[1], pc: pc, order: keys };
+  }
+  function vQuiz() {
+    var q = QZ[UI.q], sel = UI.qa[q.id];
+    return '<div class="qz"><div class="qz-top"><button type="button" class="qz-x" data-qz="back" aria-label="Atrás">' + (UI.q ? '←' : '✕') + '</button><div class="qz-bar"><i style="width:' + Math.round((UI.q + 1) / QZ.length * 100) + '%"></i></div><span class="k">' + (UI.q + 1) + '/' + QZ.length + '</span></div>' +
+      '<div class="qz-coach"><span class="cav">' + I.coach.replace('<svg', '<svg width="24" height="24"') + '</span><div class="bub">' + esc(q.say) + '</div></div>' +
+      '<h2>' + esc(q.q) + '</h2><div class="qz-opts">' + q.o.map(function (o) { return '<button type="button" class="qz-opt' + (sel === o[0] ? ' on' : '') + '" data-ans="' + o[0] + '"><span class="ic">' + o[3] + '</span><span><b>' + esc(o[1]) + '</b><small>' + esc(o[2]) + '</small></span></button>'; }).join('') + '</div></div>';
+  }
+  var WHY = {
+    bjj: ['Es ajedrez con el cuerpo: ganas por técnica, no por fuerza.', 'La defensa personal más realista: controlar sin golpear.', 'Cero golpes a la cara. Se entrena fuerte todos los días sin machacarse.'],
+    box: ['El mejor cardio que vas a probar: 600-800 kcal en una hora.', 'Descarga total: el saco no te juzga.', 'Coordinación, piernas y reflejos desde la primera clase.'],
+    kb: ['Lo más completo de pie: puños, patadas y rodillas.', 'Quema muchísimo: trabajas el cuerpo entero.', 'Muy útil en defensa personal: las piernas dan distancia.']
+  };
+  function vResult() {
+    var R = S.quiz || qzScore(UI.qa), w = SP[R.win], gym = S.gym;
+    var tc = nextClasses(0, 7).filter(function (c) { return c.sp === R.win && /Iniciaci|Todos|Fit|Fundamentos/.test(c.lvl + c.n); })[0] || nextClasses(0, 7).filter(function (c) { return c.sp === R.win; })[0];
+    var h = '<div class="view nonav" style="--c:' + w.c + '"><div class="rs-hero"><div class="row" style="justify-content:space-between"><img src="logo-w.png" alt="Gorobel" style="height:15px"><button type="button" class="lnk" data-qz="again">Repetir</button></div>' +
+      '<p class="k" style="margin-top:26px;color:var(--bone)">Tu deporte es</p><div class="big">' + esc(w.n) + '</div><div class="rs-match"><b class="num">' + R.pc[R.win] + ' %</b><span class="sub" style="font-weight:700">compatible contigo</span></div><svg class="rs-ill" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true">' + w.ic.replace(/<svg[^>]*>|<\/svg>/g, '') + '</svg></div>';
+    h += '<div class="card"><div class="bars">' + R.order.map(function (k) { return '<div class="bar-r" style="--c:' + SP[k].c + '"><span>' + SP[k].n + '</span><span class="tr"><i data-w="' + R.pc[k] + '"></i></span><span class="pc">' + R.pc[k] + '%</span></div>'; }).join('') + '</div></div>';
+    h += '<div class="sec"><div class="sech"><span class="h2">Por qué te va</span></div><div class="why">' + WHY[R.win].map(function (x, i) { return '<div><span>' + (i + 1) + '</span><p>' + esc(x) + '</p></div>'; }).join('') + (UI.qa.pain && UI.qa.pain !== 'nada' ? '<div><span>!</span><p>Hemos tenido en cuenta tus ' + ({ rod: 'rodillas', esp: 'espalda', hom: 'hombros' }[UI.qa.pain] || '') + ': ' + esc(SP[R.win].coach) + ' lo sabrá antes de tu primera clase.</p></div>' : '') + '</div></div>';
+    if (gym) {
+      var g2 = R.win === 'bjj' ? 'box' : R.win;
+      h += '<div class="sec card gymx"><p class="k" style="color:#FF8B7F">Vienes del gimnasio</p><div class="h2" style="margin-top:6px">Tu fuerza ya es<br>media pelea</div><p style="margin-top:10px;font-size:14.5px;position:relative">Las pesas te dan fuerza; el ' + (g2 === 'kb' ? 'kickboxing' : 'boxeo') + ' te da lo que no te dan: cardio explosivo, coordinación y potencia de golpeo. Combínalo así:</p>' +
+        '<div class="week" style="--c:' + SP[g2].c + '">' + ['L', 'M', 'X', 'J', 'V', 'S', 'D'].map(function (d, i) { var t = i === 0 || i === 3 ? 'Pesas' : i === 1 || i === 4 ? SP[g2].s : i === 5 ? 'Libre' : '—'; return '<div style="' + (t === SP[g2].s ? '' : '--c:' + (t === 'Pesas' ? 'var(--sage)' : 'transparent')) + '"><b>' + d + '</b>' + t + '<i></i></div>'; }).join('') + '</div>' +
+        '<p style="margin-top:12px;font-size:13.5px;font-weight:800;color:#FFB3AA;position:relative">Pase cruzado: 2 semanas de ' + (g2 === 'kb' ? 'kickboxing' : 'boxeo') + ' gratis si ya entrenas en un gimnasio.</p></div>';
+    }
+    h += '<div class="sec"><div class="sech"><span class="h2">Tu primera semana</span></div><div class="plan">' + nextClasses(0, 7).filter(function (c) { return c.sp === R.win || (gym && c.sp === (R.win === 'bjj' ? 'box' : R.win)); }).slice(0, 3).map(function (c) { return '<div style="--c:' + SP[c.sp].c + '"><span class="sp-dot"></span><span><b>' + esc(c.n) + '</b><small>' + dayLabel(c) + ' · ' + esc(c.lvl) + ' · con ' + SP[c.sp].coach + '</small></span><span class="t">' + c.t + '</span></div>'; }).join('') + '</div></div>';
+    if (tc) h += '<div class="sec"><button type="button" class="btn pri full" style="height:60px;font-size:17px" data-trial="' + tc.id + '">' + (S.trial ? 'Clase de prueba reservada ✓' : 'Reservar clase de prueba gratis') + '</button><p class="sub" style="text-align:center;font-size:12.5px;margin-top:8px;font-weight:600">' + esc(tc.n) + ' · ' + dayLabel(tc) + ' a las ' + tc.t + ' · trae ropa cómoda y agua, los guantes te los dejamos</p></div>';
+    h += '<div class="sec" style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><button type="button" class="btn ghost" data-go="coach">Preguntar al coach</button><button type="button" class="btn ghost" data-go="home">Entrar a la app</button></div>';
+    return h + '</div>';
+  }
+
+  /* ---------- inicio ---------- */
+  function dailyCombo() { var sp = T0.getDay() % 2 ? 'kb' : 'box', L = COMBOS[sp]; return { sp: sp, c: L[(T0.getDate() * 7) % L.length] }; }
+  function comboParts(c) { return c.split('-').map(function (p) { return { t: p, w: NUM[p] || p, kick: !NUM[p] }; }); }
+  function vHome() {
+    var nx = myNext(), st = streak(), mc = monthCount(), dc = dailyCombo(), isNew = S.mode === 'nuevo';
+    var h = '<div class="view">' + top() + '<div class="hello"><p class="k">' + DOWL[T0.getDay()] + ' ' + T0.getDate() + '</p><h1 class="h1">' + (isNew ? 'Bienvenida,<br><span>' + esc(S.name) + '</span>' : 'A por ello,<br><span>' + esc(S.name) + '</span>') + '</h1></div>';
+    if (nx) {
+      var w = SP[nx.sp], ms = nx.dt - new Date(), hh = Math.floor(ms / 36e5), mm = Math.floor(ms % 36e5 / 6e4), dd = Math.floor(hh / 24);
+      h += '<div class="next" style="--c:' + w.c + '"><div class="stripes"></div><svg class="next-ill" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true">' + w.ic.replace(/<svg[^>]*>|<\/svg>/g, '') + '</svg><p class="k">' + (S.trial === nx.id ? 'Tu clase de prueba' : 'Tu próxima clase') + '</p><div class="ttl">' + esc(nx.n) + '</div><div class="meta"><span>' + dayLabel(nx) + ' · ' + nx.t + '</span><span>' + nx.min + ' min</span><span>con ' + w.coach + '</span></div>' +
+        '<div class="cd" id="cd" data-t="' + nx.dt.getTime() + '">' + (dd ? '<div><b>' + dd + '</b><small>días</small></div>' : '') + '<div><b>' + pad(hh % 24) + '</b><small>horas</small></div><div><b>' + pad(mm) + '</b><small>min</small></div></div>' +
+        '<div class="acts"><button type="button" class="btn sm" data-sheet="qr">' + I.qr + 'Entrar</button><button type="button" class="btn sm ghost" data-cancel="' + nx.id + '">Cancelar</button></div></div>';
+    } else {
+      h += '<div class="next" style="--c:var(--sage-b)"><div class="stripes"></div><p class="k">Sin clases reservadas</p><div class="ttl">Elige tu<br>próximo asalto</div><div class="acts"><button type="button" class="btn sm" data-go="clases">Ver horario</button></div></div>';
+    }
+    if (!isNew) h += '<div class="stats3"><div class="card fire"><b>' + st + '</b><small>semanas seguidas</small></div><div class="card"><b>' + mc + '</b><small>clases en 30 días</small></div><div class="card"><b>' + S.rounds + '</b><small>asaltos de sombra</small></div></div>';
+    if (isNew && S.quiz) h += '<div class="sec"><button type="button" class="tile wide" style="--c:' + SP[S.quiz.win].c + '" data-r="result"><span><b>Tu deporte: ' + SP[S.quiz.win].n + ' · ' + S.quiz.pc[S.quiz.win] + ' %</b><br><small>Ver por qué y tu primera semana</small></span><span class="ic">' + I.target + '</span></button></div>';
+    h += '<div class="sec tiles"><button type="button" class="tile" style="--c:var(--box)" data-go="sombra"><span class="ic">' + I.bolt + '</span><b>Sombra guiada</b><small>El coach te canta los combos</small></button><button type="button" class="tile" style="--c:var(--sage-b)" data-r="quiz"><span class="ic">' + I.target + '</span><b>¿Qué deporte<br>es el tuyo?</b><small>Test de 1 minuto</small></button>' +
+      (S.gym || isNew ? '' : '<button type="button" class="tile wide" style="--c:var(--kb)" data-gym="1"><span><b>¿Vienes del gimnasio?</b><br><small>Prueba boxeo o kickboxing: 2 semanas gratis</small></span><span class="ic">' + I.dumb + '</span></button>') + '</div>';
+    var today = nextClasses(0, 1).slice(0, 6);
+    h += '<div class="sec"><div class="sech"><span class="h2">Hoy y mañana</span><button type="button" class="lnk" data-go="clases">Horario completo</button></div><div class="hs">' + today.map(function (c) { var w = SP[c.sp], full = c.taken >= c.cap; return '<button type="button" class="mini" style="--c:' + w.c + '" data-openday="' + c.off + '"><span class="t num">' + c.t + '</span><b>' + esc(c.n) + '</b><small>' + (c.off ? 'Mañana' : 'Hoy') + ' · ' + (full ? 'completa' : (c.cap - c.taken) + ' plazas') + '</small><div class="pl"><i style="width:' + Math.round(c.taken / c.cap * 100) + '%"></i></div></button>'; }).join('') + '</div></div>';
+    var parts = comboParts(dc.c);
+    h += '<div class="sec combo"><div class="row" style="justify-content:space-between"><span class="k" style="color:' + SP[dc.sp].c + '">Combo del día · ' + SP[dc.sp].n + '</span><span class="chip">' + parts.length + ' golpes</span></div><div class="seq">' + parts.map(function (p) { return '<span class="' + (p.kick ? 'kick' : '') + '">' + esc(p.kick ? p.t.toUpperCase() : p.t) + '</span>'; }).join('') + '</div><p class="w">' + parts.map(function (p) { return p.w; }).join(' · ') + '</p><button type="button" class="btn ghost full" style="margin-top:14px" data-shpreset="' + dc.sp + '">Entrenarlo en sombra · 3 asaltos</button></div>';
+    var me = S.rounds, rows = PEOPLE.concat([[S.name, me]]).sort(function (a, b) { return b[1] - a[1]; }), pos = rows.findIndex(function (r) { return r[0] === S.name; });
+    h += '<div class="sec card"><div class="sech" style="margin-bottom:4px"><span class="h2">Reto de noviembre</span><span class="chip" style="background:rgba(243,167,63,.16);color:var(--kb)">500 asaltos</span></div><p class="sub" style="font-size:13.5px;font-weight:600">Suma asaltos de saco y sombra. Los 3 primeros se llevan unas vendas Gorobel.</p><div class="lb-bar"><i style="width:' + Math.min(100, me / 5) + '%"></i></div><p class="k" style="text-align:right">' + me + ' / 500</p><div class="lb">' + rows.slice(0, 5).concat(pos >= 5 ? [rows[pos]] : []).map(function (r) { var i = rows.indexOf(r); return '<div class="' + (r[0] === S.name ? 'me' : '') + '"><span class="p">' + (i + 1) + '</span><span class="a">' + esc(initials(r[0])) + '</span><span>' + esc(r[0]) + (r[0] === S.name ? ' (tú)' : '') + '</span><span class="v">' + r[1] + '</span></div>'; }).join('') + '</div></div>';
+    h += '<div class="sec card" style="display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center"><span style="width:44px;height:44px;border-radius:12px;background:rgba(236,231,214,.12);display:grid;place-items:center;color:var(--bjj)">' + I.gi.replace('<svg', '<svg width="26" height="26"') + '</span><span><b>Open mat el sábado a las 10:00</b><br><small class="sub" style="font-weight:600">Tatami libre para todos los niveles. Trae tu kimono o ven en No-Gi.</small></span></div>';
+    return h + '</div>';
+  }
+
+  /* ---------- clases ---------- */
+  function vClases() {
+    var h = '<div class="view">' + top() + '<h1 class="h1" style="margin-top:10px">Clases</h1>';
+    h += '<div class="days">' + [0, 1, 2, 3, 4, 5, 6].map(function (o) { var d = addD(T0, o), has = classesOn(o).some(function (c) { return S.book[c.id]; }); return '<button type="button" class="' + (UI.day === o ? 'on ' : '') + (has ? 'has' : '') + '" data-day="' + o + '"><small>' + (o === 0 ? 'Hoy' : DOW[d.getDay()]) + '</small><b>' + d.getDate() + '</b><i></i></button>'; }).join('') + '</div>';
+    h += '<div class="filt"><button type="button" class="' + (UI.filt === 'all' ? 'on' : '') + '" data-filt="all">Todas</button>' + Object.keys(SP).map(function (k) { return '<button type="button" class="' + (UI.filt === k ? 'on' : '') + '" style="--c:' + SP[k].c + '" data-filt="' + k + '"><span class="sp-dot" style="--c:' + SP[k].c + '"></span>' + SP[k].n + '</button>'; }).join('') + '</div>';
+    var now = new Date(), L = classesOn(UI.day).filter(function (c) { return UI.filt === 'all' || c.sp === UI.filt; }), rec = S.quiz ? S.quiz.win : null;
+    h += '<div class="cls">' + (L.length ? L.map(function (c) {
+      var w = SP[c.sp], st = S.book[c.id], left = c.cap - c.taken, past = c.dt < now, pct = Math.round(c.taken / c.cap * 100);
+      var btn = past ? '<span class="sub" style="font-weight:800;font-size:13px">Terminada</span>' : st === 'ok' ? '<button type="button" class="bk done" data-unbook="' + c.id + '">Reservada ✓</button>' : st === 'wait' ? '<button type="button" class="bk wait" data-unbook="' + c.id + '">En lista · salir</button>' : left <= 0 ? '<button type="button" class="bk wait" data-wait="' + c.id + '">Lista de espera</button>' : '<button type="button" class="bk" data-book="' + c.id + '">Reservar</button>';
+      return '<div class="cl' + (st ? ' mine' : '') + '" style="--c:' + w.c + (past ? ';opacity:.5' : '') + '"><div class="tm num">' + c.t + '<small>' + c.min + ' min</small></div><div><h3>' + esc(c.n) + (rec === c.sp && !st ? '<span class="tag">Para ti</span>' : '') + '</h3><p class="m">' + w.n + ' · ' + esc(c.lvl) + ' · ' + w.coach + '</p><div class="ft"><div class="spots"><div class="tr"><i style="width:' + pct + '%"></i></div><small class="' + (left <= 0 ? 'full' : left <= 3 ? 'low' : '') + '">' + (left <= 0 ? 'Completa' : left <= 3 ? '¡Quedan ' + left + '!' : left + ' de ' + c.cap + ' plazas') + '</small></div>' + btn + '</div></div></div>';
+    }).join('') : '<div class="empty"><p class="h2">Día de descanso</p><p style="margin-top:6px">El domingo el tatami descansa. Tú puedes hacer sombra en casa.</p><button type="button" class="btn ghost" style="margin-top:14px" data-go="sombra">Hacer sombra</button></div>') + '</div>';
+    return h + '</div>';
+  }
+
+  /* ---------- sombra guiada ---------- */
+  var SH = { on: false, ph: 'idle', round: 0, left: 0, tot: 0, combos: 0, timer: null, nextCall: 0, last: '' };
+  function vSombra() {
+    var c = UI.sh, run = SH.ph !== 'idle', pc = SH.ph === 'rest' ? 'var(--sage-b)' : SH.ph === 'ready' ? 'var(--bone)' : SP[c.sp === 'mix' ? 'kb' : c.sp].c;
+    var h = '<div class="view">' + top();
+    if (!run) {
+      h += '<h1 class="h1" style="margin-top:10px">Sombra<br><span style="color:var(--box)">guiada</span></h1><p class="sub" style="margin-top:8px;font-weight:600">Pon el móvil delante, sube el volumen y escucha: el coach te canta los combos en cada asalto, con campana de ring y aviso de 10 segundos.</p>';
+      h += '<div class="sec card cfg"><div><p class="lab">Disciplina</p><div class="seg">' + [['box', 'Boxeo'], ['kb', 'Kick'], ['mix', 'Mixto']].map(function (o) { return '<button type="button" class="' + (c.sp === o[0] ? 'on' : '') + '" data-shc="sp|' + o[0] + '">' + o[1] + '</button>'; }).join('') + '</div></div>' +
+        '<div><p class="lab">Asaltos</p><div class="seg">' + [3, 5, 8, 12].map(function (n) { return '<button type="button" class="' + (c.rounds === n ? 'on' : '') + '" data-shc="rounds|' + n + '">' + n + '</button>'; }).join('') + '</div></div>' +
+        '<div><p class="lab">Duración del asalto</p><div class="seg">' + [[120, '2 min'], [180, '3 min'], [60, '1 min']].map(function (o) { return '<button type="button" class="' + (c.dur === o[0] ? 'on' : '') + '" data-shc="dur|' + o[0] + '">' + o[1] + '</button>'; }).join('') + '</div></div>' +
+        '<div><p class="lab">Descanso</p><div class="seg">' + [[30, '30 s'], [60, '1 min']].map(function (o) { return '<button type="button" class="' + (c.rest === o[0] ? 'on' : '') + '" data-shc="rest|' + o[0] + '">' + o[1] + '</button>'; }).join('') + '<button type="button" class="' + (c.voice ? 'on' : '') + '" data-shc="voice|' + (c.voice ? 0 : 1) + '">Voz ' + (c.voice ? 'sí' : 'no') + '</button></div></div></div>';
+      h += '<button type="button" class="btn hot full" style="height:62px;font-size:19px;margin-top:16px" data-shstart="1">' + I.bolt.replace('<svg', '<svg width="22" height="22"') + 'Empezar · ' + c.rounds + ' × ' + (c.dur / 60) + ' min</button>';
+      h += '<div class="sec card"><p class="lab k" style="margin-bottom:10px">Así suenan los números</p><div class="lib">' + Object.keys(NUM).map(function (k) { return '<span><b>' + k + '</b>' + NUM[k] + '</span>'; }).join('') + '<span><b>B</b>patada baja</span><span><b>M</b>patada media</span><span><b>T</b>teep</span><span><b>R</b>rodilla</span></div></div>';
+      h += '<div class="sec"><div class="sech"><span class="h2">Tus últimas sesiones</span></div><div class="plan">' + S.sh.slice().reverse().slice(0, 4).map(function (x) { return '<div style="--c:' + SP[x.sp === 'mix' ? 'kb' : x.sp].c + '"><span class="sp-dot"></span><span><b>' + x.r + ' asaltos · ' + x.c + ' combos</b><small>' + new Date(x.d + 'T12:00').toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'short' }) + '</small></span><span class="t">' + (x.sp === 'box' ? 'Boxeo' : x.sp === 'kb' ? 'Kick' : 'Mixto') + '</span></div>'; }).join('') + '</div></div>';
+      return h + '</div>';
+    }
+    var tot = SH.ph === 'work' ? c.dur : SH.ph === 'rest' ? c.rest : 10, frac = Math.max(0, SH.left / tot), R = 46, C = 2 * Math.PI * R;
+    h += '<div class="sh-hero"><div class="ring" style="--pc:' + pc + '"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="' + R + '" fill="none" stroke="rgba(237,234,224,.08)" stroke-width="6"/><circle id="shRing" cx="50" cy="50" r="' + R + '" fill="none" stroke="' + pc + '" stroke-width="6" stroke-linecap="round" stroke-dasharray="' + C.toFixed(1) + '" stroke-dashoffset="' + (C * (1 - frac)).toFixed(1) + '"/></svg><div class="in"><span class="ph" id="shPh">' + (SH.ph === 'work' ? 'Asalto ' + SH.round : SH.ph === 'rest' ? 'Descanso' : SH.ph === 'done' ? 'Terminado' : 'Prepárate') + '</span><span class="clock" id="shClock">' + fmtT(SH.left) + '</span><span class="rd" id="shRd">' + SH.round + ' / ' + c.rounds + ' · ' + SH.combos + ' combos</span></div></div>';
+    h += '<div class="call"><div class="seq" id="shSeq">' + esc(SH.lastShow || (SH.ph === 'rest' ? 'Respira' : '¡Guardia!')) + '</div><div class="w" id="shW">' + esc(SH.lastW || '') + '</div></div></div>';
+    h += '<div class="sh-acts"><button type="button" class="btn ghost" data-shstop="1">Terminar</button><button type="button" class="btn ' + (SH.paused ? 'pri' : 'hot') + '" data-shpause="1">' + (SH.paused ? 'Seguir' : 'Pausa') + '</button></div>';
+    return h + '</div>';
+  }
+  function fmtT(s) { s = Math.max(0, Math.ceil(s)); return Math.floor(s / 60) + ':' + pad(s % 60); }
+  var AC = null;
+  function bell(n) {
+    try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); if (AC.state === 'suspended') AC.resume(); for (var k = 0; k < (n || 1); k++) { var t0 = AC.currentTime + k * 0.32; [[880, .5], [1320, .25], [2210, .12]].forEach(function (p) { var o = AC.createOscillator(), g = AC.createGain(); o.type = 'sine'; o.frequency.value = p[0]; g.gain.setValueAtTime(p[1], t0); g.gain.exponentialRampToValueAtTime(0.0001, t0 + 1.4); o.connect(g); g.connect(AC.destination); o.start(t0); o.stop(t0 + 1.5); }); } } catch (e) {}
+  }
+  function clap() { try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); var t0 = AC.currentTime; for (var k = 0; k < 3; k++) { var b = AC.createBuffer(1, 2200, AC.sampleRate), d = b.getChannelData(0); for (var i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / d.length, 3); var s = AC.createBufferSource(), g = AC.createGain(); g.gain.value = .6; s.buffer = b; s.connect(g); g.connect(AC.destination); s.start(t0 + k * 0.18); } } catch (e) {} }
+  function say(t) { if (!UI.sh.voice || !window.speechSynthesis) return; try { speechSynthesis.cancel(); var u = new SpeechSynthesisUtterance(t); u.lang = 'es-ES'; u.rate = 1.18; u.pitch = 1; var v = speechSynthesis.getVoices().filter(function (x) { return /^es/i.test(x.lang); })[0]; if (v) u.voice = v; speechSynthesis.speak(u); } catch (e) {} }
+  function flash(c) { var f = $('flash'); f.style.setProperty('--fc', c); f.classList.remove('on'); void f.offsetWidth; f.classList.add('on'); }
+  function pickCombo() {
+    var sp = UI.sh.sp === 'mix' ? (Math.random() < .5 ? 'box' : 'kb') : UI.sh.sp, L = COMBOS[sp], c; do { c = L[Math.floor(Math.random() * L.length)]; } while (c === SH.last && L.length > 1); SH.last = c;
+    var parts = comboParts(c); SH.lastShow = parts.map(function (p) { return p.kick ? p.t : p.t; }).join(' · '); SH.lastW = parts.map(function (p) { return p.w; }).join(' · ');
+    SH.combos++; var el = $('shSeq'); if (el) { el.textContent = SH.lastShow; el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop'); $('shW').textContent = SH.lastW; }
+    say(parts.map(function (p) { return p.w; }).join(', '));
+  }
+  var wake = null;
+  function shStart() {
+    SH.ph = 'ready'; SH.left = 10; SH.round = 0; SH.combos = 0; SH.paused = false; SH.lastShow = ''; SH.lastW = 'Empieza en 10 segundos';
+    try { navigator.wakeLock && navigator.wakeLock.request('screen').then(function (w) { wake = w; }); } catch (e) {}
+    say('Guardia arriba. Empezamos en diez segundos.'); render();
+    var last = performance.now(); clearInterval(SH.timer);
+    SH.timer = setInterval(function () {
+      var now = performance.now(), dt = (now - last) / 1000; last = now; if (SH.paused) return;
+      SH.left -= dt;
+      if (SH.ph === 'work') { SH.nextCall -= dt; if (SH.nextCall <= 0 && SH.left > 4) { pickCombo(); SH.nextCall = 3.2 + Math.random() * 3.2; } if (SH.left <= 10 && !SH.warned) { SH.warned = true; clap(); say('¡Diez segundos! ¡A tope!'); } }
+      if (SH.left <= 0) {
+        if (SH.ph === 'ready' || SH.ph === 'rest') { SH.round++; SH.ph = 'work'; SH.left = UI.sh.dur; SH.warned = false; SH.nextCall = 1.5; bell(1); flash(SP[UI.sh.sp === 'mix' ? 'kb' : UI.sh.sp].c); render(); }
+        else if (SH.ph === 'work') {
+          bell(3); flash('#BCCB86');
+          if (SH.round >= UI.sh.rounds) { shFinish(true); return; }
+          SH.ph = 'rest'; SH.left = UI.sh.rest; SH.lastShow = 'Respira'; SH.lastW = 'Siguiente asalto: ' + (SH.round + 1); say('Descanso. Respira por la nariz.'); render();
+        }
+      }
+      var ck = $('shClock'); if (ck) { ck.textContent = fmtT(SH.left); var tot = SH.ph === 'work' ? UI.sh.dur : SH.ph === 'rest' ? UI.sh.rest : 10, R = 46, C = 2 * Math.PI * R; $('shRing').setAttribute('stroke-dashoffset', (C * (1 - Math.max(0, SH.left / tot))).toFixed(1)); $('shRd').textContent = SH.round + ' / ' + UI.sh.rounds + ' · ' + SH.combos + ' combos'; }
+    }, 100);
+  }
+  function shFinish(full) {
+    clearInterval(SH.timer); try { speechSynthesis.cancel(); } catch (e) {} try { wake && wake.release(); } catch (e) {}
+    var r = full ? SH.round : Math.max(0, SH.round - (SH.ph === 'work' && SH.left > UI.sh.dur / 2 ? 1 : 0));
+    SH.ph = 'idle';
+    if (r > 0) { S.sh.push({ d: iso(T0), r: r, c: SH.combos, sp: UI.sh.sp }); S.rounds += r; save(); render(); punch(r + ' asaltos', 'var(--box)'); toast('Sumados ' + r + ' asaltos al reto del mes'); if (full) say('Buen trabajo. ' + r + ' asaltos y ' + SH.combos + ' combinaciones.'); }
+    else render();
+  }
+
+  /* ---------- progreso ---------- */
+  function vProg() {
+    var t = UI.ptab, w = SP[t], tot = S.att.length, mine = S.att.filter(function (a) { return a.sp === t; }).length;
+    var h = '<div class="view">' + top() + '<h1 class="h1" style="margin-top:10px">Tu<br><span style="color:var(--sage-b)">camino</span></h1>';
+    h += '<div class="stats3"><div class="card"><b>' + tot + '</b><small>clases en total</small></div><div class="card"><b>' + Math.round(tot * 1.1) + ' h</b><small>en el tatami</small></div><div class="card fire"><b>' + streak() + '</b><small>semanas seguidas</small></div></div>';
+    h += '<div class="tabs">' + Object.keys(SP).map(function (k) { return '<button type="button" class="' + (t === k ? 'on' : '') + '" style="--c:' + SP[k].c + '" data-ptab="' + k + '"><span class="sp-dot" style="--c:' + SP[k].c + '"></span>' + SP[k].s + '</button>'; }).join('') + '</div>';
+    if (t === 'bjj') {
+      var b = S.mode === 'nuevo' ? 0 : 1, gr = S.mode === 'nuevo' ? 0 : 2, need = 40, have = S.mode === 'nuevo' ? 0 : 31;
+      h += '<div class="sec card belt-card"><div class="belt-meta"><div><p class="k">Cinturón actual</p><div class="h2">' + BELTS[b][0] + ' · ' + gr + ' grado' + (gr === 1 ? '' : 's') + '</div></div><span class="chip">' + mine + ' clases BJJ</span></div><div class="belt" style="--bc:' + BELTS[b][1] + '"><div class="bar">' + [0, 1, 2, 3].map(function (i) { return '<i class="' + (i < gr ? 'on' : '') + '"></i>'; }).join('') + '</div></div>' +
+        '<p style="font-weight:700;font-size:14px">' + (have ? 'Próximo grado: <b>' + have + ' de ' + need + ' clases</b> y la aprobación de ' + SP.bjj.coach : 'Tu primer grado llega con 20 clases. Ya has empezado.') + '</p><div class="pbar"><i style="width:' + Math.round(have / need * 100) + '%"></i></div><div class="belts">' + BELTS.map(function (x, i) { return '<span class="' + (i === b ? 'on' : '') + '" style="--b:' + x[1] + '"></span>'; }).join('') + '</div></div>';
+    } else {
+      var lv = S.mode === 'nuevo' ? 0 : t === 'kb' ? 2 : 1;
+      h += '<div class="sec card" style="--c:' + w.c + '"><p class="k">Tu nivel de ' + w.n.toLowerCase() + '</p><div class="h2" style="margin-top:4px;color:' + w.c + '">Nivel ' + (lv + 1) + ' · ' + LVL[t][lv] + '</div><div class="lvl">' + LVL[t].map(function (x, i) { return '<span class="' + (i <= lv ? 'on' : '') + '"></span>'; }).join('') + '</div><p class="sub" style="margin-top:10px;font-size:13.5px;font-weight:600">Siguiente: ' + LVL[t][Math.min(4, lv + 1)] + '. ' + w.coach + ' te sube de nivel cuando dominas las técnicas de abajo.</p></div>';
+    }
+    var done = S.tech[t] || [];
+    h += '<div class="sec card" style="--c:' + w.c + '"><div class="sech" style="margin-bottom:2px"><span class="h2">Técnicas</span><span class="chip">' + done.length + ' / ' + TECH[t].length + '</span></div><div class="tech">' + TECH[t].map(function (x, i) { var on = done.indexOf(i) >= 0; return '<button type="button" class="' + (on ? 'on' : '') + '" data-tech="' + t + '|' + i + '"><span class="ck">' + (on ? '✓' : '') + '</span><span>' + esc(x[0]) + '</span><small>' + esc(x[1]) + '</small></button>'; }).join('') + '</div></div>';
+    var cols = ''; for (var wk = 11; wk >= 0; wk--) { cols += '<div>'; for (var dd = 0; dd < 7; dd++) { var d = addD(T0, -((T0.getDay() + 6) % 7) - wk * 7 + dd), k = iso(d), n = S.att.filter(function (a) { return a.d === k; }).length; cols += '<i class="' + (n > 1 ? 'l2' : n ? 'l1' : '') + '" title="' + k + '"></i>'; } cols += '</div>'; }
+    h += '<div class="sec card"><div class="sech" style="margin-bottom:0"><span class="h2">12 semanas</span><span class="k">cada cuadro, un día</span></div><div class="heat">' + cols + '</div></div>';
+    return h + '</div>';
+  }
+
+  /* ---------- coach (asistente) ---------- */
+  var INT = [
+    { k: ['que deporte', 'cual me conviene', 'cual elijo', 'recomiend', 'no se cual', 'para mi'], a: function () { return 'Te lo digo en 1 minuto con 6 preguntas. Sin compromiso.'; }, act: [['Hacer el test', 'quiz']] },
+    { k: ['precio', 'cuesta', 'tarifa', 'cuota', 'cuanto vale', 'mensual'], a: function () { return 'Estas son las tarifas (de ejemplo en esta demo):<div class="price" style="margin-top:10px"><div><b>49 €</b><small>2 días / semana</small></div><div class="hl"><b>65 €</b><small>Ilimitado 1 deporte</small></div><div><b>79 €</b><small>Ilimitado todo</small></div><div><b>Gratis</b><small>Clase de prueba</small></div></div>'; }, act: [['Reservar prueba', 'trial']] },
+    { k: ['horario', 'hora', 'cuando', 'que dias', 'mañana', 'tarde'], a: function () { var n = nextClasses(0, 1).slice(0, 3); return 'Las próximas clases:<ul>' + n.map(function (c) { return '<li><b>' + c.t + '</b> ' + esc(c.n) + ' (' + dayLabel(c).toLowerCase() + ')</li>'; }).join('') + '</ul>'; }, act: [['Ver horario', 'clases']] },
+    { k: ['llevar', 'traer', 'ropa', 'que necesito', 'primer dia', 'primera clase'], a: function () { return 'Para tu primera clase:<ul><li>Ropa cómoda de deporte y agua</li><li><b>Boxeo y kick:</b> los guantes te los dejamos. Si sigues, unas vendas (8-10 €)</li><li><b>Jiu-jitsu:</b> en No-Gi, camiseta ajustada; el kimono te lo prestamos al principio</li><li>Llega 10 minutos antes y avisa al entrenador si tienes alguna molestia</li></ul>'; } },
+    { k: ['pegar', 'pegan', 'miedo', 'daño', 'duele', 'golpe', 'sparring', 'contacto'], a: function () { return 'Pregunta muy normal. <b>Nadie hace sparring hasta que quiere y está preparado.</b> Las primeras semanas son técnica, saco, manoplas y sombra. En jiu-jitsu no hay golpes: se controla y se rinde con un toque.'; }, act: [['Elegir deporte', 'quiz']] },
+    { k: ['diferencia', 'boxeo o kick', 'kick o boxeo', 'kickboxing o boxeo', 'mejor boxeo'], a: function () { return '<b>Boxeo:</b> solo puños, mucho juego de piernas y cintura. <b>Kickboxing:</b> puños más patadas y rodillas; trabajas más el cuerpo entero. <b>Jiu-jitsu:</b> lucha en el suelo, sin golpes. Si no te decides, el test te lo dice.'; }, act: [['Hacer el test', 'quiz']] },
+    { k: ['gimnasio', 'pesas', 'musculacion', 'vengo del gym', 'crossfit'], a: function () { S.gym = true; save(); return 'Si vienes del gimnasio, tu fuerza ya es una ventaja. Te propongo <b>boxeo o kickboxing</b> 2 días a la semana además de tus pesas: cardio explosivo, coordinación y potencia de golpeo. Y tienes <b>2 semanas gratis</b> con el pase cruzado.'; }, act: [['Ver mi plan', 'quizgym']] },
+    { k: ['adelgaz', 'peso', 'grasa', 'kilos', 'quemar', 'calorias'], a: function () { return 'Para quemar, boxeo y kickboxing son de lo mejor: <b>600-800 kcal por clase</b>. Con 3 clases a la semana y algo de orden en la comida se nota en 4-6 semanas.'; } },
+    { k: ['niño', 'nino', 'hijo', 'hija', 'edad', 'años', 'mayor'], a: function () { return 'Entrenamos desde adolescentes hasta mayores de 50. Para los peques está <b>Boxeo en familia</b> los sábados a las 11:30. Lo importante no es la edad: adaptamos la intensidad a cada uno.'; } },
+    { k: ['lesion', 'rodilla', 'espalda', 'hombro', 'dolor', 'molestia'], a: function () { return 'Cuéntaselo al entrenador antes de empezar y adaptamos los ejercicios. Si es una lesión reciente o te duele al moverte, consúltalo antes con tu fisio o médico.'; } },
+    { k: ['cancel', 'anular', 'no puedo ir', 'baja'], a: function () { return 'Puedes cancelar desde Inicio o Clases hasta 2 horas antes y la plaza pasa al primero de la lista de espera, que recibe el aviso al momento.'; }, act: [['Mis clases', 'clases']] },
+    { k: ['competir', 'competicion', 'torneo', 'pelea'], a: function () { return 'Tenemos grupo de competición en las tres disciplinas. Lo normal es empezar a competir tras 6-12 meses entrenando. Habla con tu entrenador y te prepara un plan.'; } },
+    { k: ['kimono', 'gi', 'no-gi', 'nogi'], a: function () { return '<b>Gi:</b> con kimono, más agarres y estrategia. <b>No-Gi:</b> sin kimono, más rápido y dinámico. Al empezar puedes hacer las dos.'; } },
+    { k: ['hola', 'buenas', 'kaixo', 'ey'], a: function () { return 'Kaixo ' + esc(S.name) + ' 👊 ¿En qué te ayudo? Puedes preguntarme por horarios, precios, qué traer o qué deporte te va.'; } }
+  ];
+  var SUGG = ['¿Qué deporte me conviene?', 'Vengo del gimnasio', '¿Me van a pegar?', '¿Qué llevo el primer día?', 'Precios', 'Boxeo o kickboxing', 'Horario de hoy'];
+  function coachReply(q) {
+    var n = norm(q), best = null, bs = 0;
+    INT.forEach(function (it) { var s = 0; it.k.forEach(function (k) { if (n.indexOf(norm(k)) >= 0) s += k.length; }); if (s > bs) { bs = s; best = it; } });
+    if (!best) return { t: 'Eso te lo responde mejor el equipo de Gorobel. ¿Te paso con ellos por WhatsApp? Te contestan en el día.', act: [['Escribir por WhatsApp', 'wa'], ['Hacer el test', 'quiz']] };
+    return { t: best.a(), act: best.act };
+  }
+  function vCoach() {
+    if (!S.chat.length) S.chat.push({ b: 1, t: 'Kaixo ' + esc(S.name) + ', soy el coach de Gorobel. Pregúntame lo que quieras: qué deporte te va, horarios, precios, si te van a pegar el primer día… 👊', act: [['¿Qué deporte me va?', 'quiz']] });
+    var h = '<div class="view">' + top() + '<div class="coach-hd"><span class="cav">' + I.coach + '</span><span><b>Coach Gorobel</b><small><i></i>Responde al momento · 24 h</small></span></div><div class="chat" id="chat">' +
+      S.chat.map(function (m) { return '<div class="msg ' + (m.b ? 'b' : 'u') + '">' + (m.b ? m.t : esc(m.t)) + (m.act ? '<div class="acts">' + m.act.map(function (a, i) { return '<button type="button" class="' + (i ? 'g' : '') + '" data-act="' + a[1] + '">' + esc(a[0]) + '</button>'; }).join('') + '</div>' : '') + '</div>'; }).join('') + (UI.typing ? '<div class="typing"><i></i><i></i><i></i></div>' : '') + '</div></div>';
+    h += '<div class="composer"><div class="sugg">' + SUGG.map(function (s) { return '<button type="button" data-ask="' + esc(s) + '">' + esc(s) + '</button>'; }).join('') + '</div><form class="inrow" id="askF"><input id="askI" placeholder="Escribe tu pregunta…" autocomplete="off" aria-label="Pregunta"><button type="submit" aria-label="Enviar">' + I.send + '</button></form></div>';
+    return h;
+  }
+  function ask(q) {
+    q = String(q || '').trim(); if (!q) return; S.chat.push({ b: 0, t: q }); UI.typing = true; save(); render(); scrollChat();
+    setTimeout(function () { var r = coachReply(q); UI.typing = false; S.chat.push({ b: 1, t: r.t, act: r.act }); if (S.chat.length > 40) S.chat = S.chat.slice(-40); save(); if (UI.r === 'coach') { render(); scrollChat(); } }, 650 + Math.random() * 400);
+  }
+  function scrollChat() { setTimeout(function () { window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); }, 30); }
+
+  /* ---------- sheets ---------- */
+  function qrSvg(seed) { var n = 25, h = hash(seed), cells = ''; function fin(x, y) { return '<rect x="' + x + '" y="' + y + '" width="7" height="7" fill="#111"/><rect x="' + (x + 1) + '" y="' + (y + 1) + '" width="5" height="5" fill="#fff"/><rect x="' + (x + 2) + '" y="' + (y + 2) + '" width="3" height="3" fill="#111"/>'; } for (var y = 0; y < n; y++) for (var x = 0; x < n; x++) { if ((x < 8 && y < 8) || (x > 16 && y < 8) || (x < 8 && y > 16)) continue; h = (h * 1103515245 + 12345) % 2147483648; if (h % 100 < 48) cells += '<rect x="' + x + '" y="' + y + '" width="1" height="1" fill="#111"/>'; } return '<svg viewBox="0 0 25 25" shape-rendering="crispEdges">' + cells + fin(0, 0) + fin(18, 0) + fin(0, 18) + '</svg>'; }
+  function sheet(kind) {
+    var bg = document.createElement('div'); bg.className = 'sheet-bg'; var nx = myNext(), h = '<div class="sheet"><div class="grab"></div>';
+    if (kind === 'qr') h += '<p class="k" style="text-align:center">Pase de entrada</p><div class="h2" style="text-align:center;margin-top:6px">' + esc(S.name) + '</div><div class="qr">' + qrSvg(S.name + (nx ? nx.id : '')) + '</div><p class="sub" style="text-align:center;font-weight:700">' + (nx ? esc(nx.n) + ' · ' + dayLabel(nx) + ' ' + nx.t : 'Socio Gorobel') + '</p><p class="sub" style="text-align:center;font-size:12.5px;margin-top:4px">Pásalo por el lector de la entrada y tu asistencia se apunta sola.</p><button type="button" class="btn pri full" style="margin-top:16px" data-checkin="1">Simular entrada</button>';
+    else h += '<div class="row"><span class="av" style="width:56px;height:56px;font-size:20px">' + esc(initials(S.name)) + '</span><div><div class="h2">' + esc(S.name) + '</div><p class="sub" style="font-weight:700;font-size:13px">' + (S.mode === 'nuevo' ? 'Probando Gorobel' : 'Socia · Ilimitado todo') + '</p></div></div>' +
+      '<form id="nameF" class="inrow" style="margin-top:16px"><input id="nameI" value="' + esc(S.name) + '" aria-label="Tu nombre"><button type="submit" aria-label="Guardar">' + I.ok.replace('<svg', '<svg width="22" height="22"') + '</button></form>' +
+      (S.mode === 'nuevo' ? '' : '<div class="price" style="margin-top:14px"><div><b>65 €</b><small>Próximo cobro · 1 dic</small></div><div><b>' + S.att.length + '</b><small>Clases desde septiembre</small></div></div>') +
+      '<div style="display:grid;gap:8px;margin-top:16px"><button type="button" class="btn ghost full" data-switch="1">' + I.swap.replace('<svg', '<svg width="18" height="18"') + 'Ver como ' + (S.mode === 'nuevo' ? 'socia' : 'persona que quiere probar') + '</button><button type="button" class="btn ghost full" data-reset="1">Reiniciar la demo</button></div>';
+    bg.innerHTML = h + '</div>'; document.body.appendChild(bg);
+    bg.addEventListener('click', function (e) {
+      if (e.target === bg) { bg.remove(); return; }
+      var b = e.target.closest('button'); if (!b) return;
+      if (b.dataset.checkin) { bg.remove(); S.att.push({ d: iso(T0), sp: nx ? nx.sp : 'bjj' }); save(); render(); punch('¡Dentro!', nx ? SP[nx.sp].c : null); toast('Asistencia apuntada. Racha: ' + streak() + ' semanas'); }
+      if (b.dataset.switch) { bg.remove(); S.mode = S.mode === 'nuevo' ? 'socio' : 'nuevo'; save(); UI.r = 'home'; render(); toast(S.mode === 'nuevo' ? 'Vista de persona que quiere probar' : 'Vista de socia'); }
+      if (b.dataset.reset) { try { localStorage.removeItem(KEY); } catch (x) {} location.reload(); }
+    });
+    bg.addEventListener('submit', function (e) { e.preventDefault(); var v = $('nameI').value.trim(); if (v) { S.name = v.slice(0, 24); S.chat = []; save(); } bg.remove(); render(); });
+  }
+
+  /* ---------- render ---------- */
+  var cdT = null;
+  function render() {
+    var r = UI.r, v = $('view'), nav = $('nav'), full = r === 'splash' || r === 'quiz' || r === 'result';
+    v.innerHTML = r === 'splash' ? vSplash() : r === 'quiz' ? vQuiz() : r === 'result' ? vResult() : r === 'clases' ? vClases() : r === 'sombra' ? vSombra() : r === 'prog' ? vProg() : r === 'coach' ? vCoach() : vHome();
+    nav.hidden = full; if (!full) nav.innerHTML = navHtml();
+    if (r === 'result') setTimeout(function () { v.querySelectorAll('.bar-r i').forEach(function (i) { i.style.width = i.dataset.w + '%'; }); }, 60);
+    clearInterval(cdT); var cd = $('cd'); if (cd) cdT = setInterval(function () { var ms = +cd.dataset.t - Date.now(); if (ms < 0) return; var hh = Math.floor(ms / 36e5), mm = Math.floor(ms % 36e5 / 6e4), dd = Math.floor(hh / 24), b = cd.querySelectorAll('b'); b[b.length - 1].textContent = pad(mm); b[b.length - 2].textContent = pad(hh % 24); if (b.length === 3) b[0].textContent = dd; }, 15000);
+  }
+  function go(r) { if (SH.ph !== 'idle' && r !== 'sombra') { shFinish(false); } UI.r = r; render(); window.scrollTo(0, 0); }
+
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b || b.closest('.sheet-bg')) return; var d = b.dataset;
+    if (d.start) { S.mode = d.start; if (d.start === 'nuevo') { S.name = 'Ane'; S.att = []; S.tech = { bjj: [], box: [], kb: [] }; S.rounds = 0; S.sh = []; S.book = {}; UI.q = 0; UI.qa = {}; save(); go('quiz'); } else { save(); go('home'); } return; }
+    if (d.go) { go(d.go); return; }
+    if (d.r) { if (d.r === 'quiz') { UI.q = 0; UI.qa = {}; } go(d.r); return; }
+    if (d.sheet) { sheet(d.sheet); return; }
+    if (d.ans) { var q = QZ[UI.q]; UI.qa[q.id] = d.ans; render(); setTimeout(function () { if (UI.q < QZ.length - 1) { UI.q++; render(); } else { S.quiz = qzScore(UI.qa); S.gym = UI.qa.from === 'gym' || S.gym; save(); go('result'); setTimeout(function () { punch(SP[S.quiz.win].n + '!', SP[S.quiz.win].c); }, 250); } }, 260); return; }
+    if (d.qz === 'back') { if (UI.q) { UI.q--; render(); } else go(S.mode ? 'home' : 'splash'); return; }
+    if (d.qz === 'again') { UI.q = 0; UI.qa = {}; go('quiz'); return; }
+    if (d.trial) { if (!S.trial) { S.trial = d.trial; S.book[d.trial] = 'ok'; save(); render(); punch('¡Reservada!', 'var(--sage-b)'); toast('Clase de prueba reservada. Te llega el recordatorio por WhatsApp'); } else go('home'); return; }
+    if (d.cancel || d.unbook) { delete S.book[d.cancel || d.unbook]; if (S.trial === (d.cancel || d.unbook)) S.trial = null; save(); render(); toast('Reserva cancelada. Tu plaza pasa a la lista de espera'); return; }
+    if (d.book) { S.book[d.book] = 'ok'; save(); render(); var c = classesOn(UI.day).filter(function (x) { return x.id === d.book; })[0]; punch('¡Dentro!', c ? SP[c.sp].c : null); toast('Reservada. Te avisamos 2 horas antes'); return; }
+    if (d.wait) { S.book[d.wait] = 'wait'; save(); render(); toast('Estás en lista de espera. Si se libera plaza, es tuya'); return; }
+    if (d.day) { UI.day = +d.day; render(); return; }
+    if (d.openday) { UI.day = +d.openday; go('clases'); return; }
+    if (d.filt) { UI.filt = d.filt; render(); return; }
+    if (d.gym) { S.gym = true; save(); UI.q = 0; UI.qa = { from: 'gym' }; ask('Vengo del gimnasio'); go('coach'); return; }
+    if (d.shc) { var p = d.shc.split('|'); UI.sh[p[0]] = p[0] === 'sp' ? p[1] : +p[1]; if (p[0] === 'voice') UI.sh.voice = !!+p[1]; render(); return; }
+    if (d.shpreset) { UI.sh.sp = d.shpreset; UI.sh.rounds = 3; UI.sh.dur = 120; go('sombra'); return; }
+    if (d.shstart) { bell(1); shStart(); return; }
+    if (d.shpause) { SH.paused = !SH.paused; if (SH.paused) try { speechSynthesis.cancel(); } catch (x) {} render(); return; }
+    if (d.shstop) { shFinish(false); return; }
+    if (d.ptab) { UI.ptab = d.ptab; render(); return; }
+    if (d.tech) { var t = d.tech.split('|'), L = S.tech[t[0]] = S.tech[t[0]] || [], i = +t[1], k = L.indexOf(i); if (k >= 0) L.splice(k, 1); else { L.push(i); punch('¡Técnica!', SP[t[0]].c); } save(); render(); return; }
+    if (d.ask) { ask(d.ask); return; }
+    if (d.act) {
+      var a = d.act;
+      if (a === 'quiz') { UI.q = 0; UI.qa = {}; go('quiz'); }
+      else if (a === 'quizgym') { UI.q = 1; UI.qa = { from: 'gym' }; go('quiz'); }
+      else if (a === 'clases') go('clases');
+      else if (a === 'trial') { var tc = nextClasses(0, 7).filter(function (c) { return /Iniciaci|Fundamentos|Fit/.test(c.lvl + c.n); })[0]; if (tc) { S.trial = tc.id; S.book[tc.id] = 'ok'; save(); go('home'); punch('¡Reservada!'); toast('Clase de prueba: ' + tc.n + ' · ' + dayLabel(tc) + ' ' + tc.t); } }
+      else if (a === 'wa') toast('En la app real se abre el WhatsApp de Gorobel');
+    }
+  });
+  document.addEventListener('submit', function (e) { if (e.target.id === 'askF') { e.preventDefault(); var i = $('askI'); ask(i.value); } });
+
+  S = load(); if (!S) { S = seed(); save(); } else if (S.mode) UI.r = 'home';
+  if (window.speechSynthesis) try { speechSynthesis.getVoices(); } catch (e) {}
+  render();
+  if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(function () {});
+})();
+</script>
+</body>
+</html>
