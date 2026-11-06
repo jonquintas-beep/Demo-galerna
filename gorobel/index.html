@@ -645,16 +645,34 @@ button{cursor:pointer;-webkit-tap-highlight-color:transparent}
   var RATE = { calma: 0.82, normal: 0.95, rapido: 1.1 };
   function esVoices() { if (!window.speechSynthesis) return []; var V = speechSynthesis.getVoices().filter(function (x) { return /^es/i.test(x.lang); }); function sc(v) { var n = v.name, s = 0; if (/neural|natural|enhanced|premium|mejorad|online/i.test(n)) s += 6; if (/google/i.test(n)) s += 4; if (/m[oó]nica|jorge|paulina|diego|luc[ií]a|[aá]lvaro|dalia|elvira|pablo|marisol|helena|laura/i.test(n)) s += 2; if (/es[-_]ES/i.test(v.lang)) s += 1; if (/compact|eloquence|espeak/i.test(n)) s -= 6; return s; } return V.sort(function (a, b) { return sc(b) - sc(a); }); }
   function pickVoice() { var V = esVoices(); if (!V.length) return null; var n = S.vname; return V.filter(function (v) { return v.name === n; })[0] || V[0]; }
-  var VQ = [], VBUSY = false, VGEN = 0;
-  function vStop() { VGEN++; VQ = []; VBUSY = false; try { speechSynthesis.cancel(); } catch (e) {} if (vStop.a) { try { vStop.a.pause(); } catch (e) {} } }
-  function vNext(gen) {
-    if (gen !== VGEN) return; var it = VQ.shift(); if (!it) { VBUSY = false; return; } VBUSY = true;
-    var done = function () { if (gen === VGEN) setTimeout(function () { vNext(gen); }, it.gap || 90); };
-    if (VREC[it.k]) { var a = new Audio(VREC[it.k]); vStop.a = a; a.onended = done; a.onerror = done; a.play().catch(done); return; }
-    if (!window.speechSynthesis) { done(); return; }
-    try { var u = new SpeechSynthesisUtterance(it.t), v = pickVoice(); u.lang = v ? v.lang : 'es-ES'; if (v) u.voice = v; u.rate = RATE[UI.sh.speed] || 0.95; u.pitch = 0.88; u.volume = 1; u.onend = done; u.onerror = done; speechSynthesis.speak(u); setTimeout(function () { if (gen === VGEN && VBUSY && VQ[0] === undefined) {} }, 4000); } catch (e) { done(); }
+  var VQ = [], VBUSY = false, VGEN = 0, VWD = null;
+  function ss() { return window.speechSynthesis || null; }
+  function vStop() { VGEN++; VQ = []; VBUSY = false; clearTimeout(VWD); var S2 = ss(); try { if (S2 && (S2.speaking || S2.pending)) S2.cancel(); } catch (e) {} if (vStop.a) { try { vStop.a.pause(); } catch (e) {} vStop.a = null; } }
+  function vSpeak(text, cb) {
+    var S2 = ss(); if (!S2) { cb(); return; }
+    var fired = false, fin = function () { if (fired) return; fired = true; clearTimeout(VWD); cb(); };
+    try {
+      var u = new SpeechSynthesisUtterance(text), v = pickVoice(); window.__gu = u;
+      u.lang = v ? v.lang : 'es-ES'; if (v) u.voice = v; u.rate = RATE[UI.sh.speed] || 0.95; u.pitch = 0.9; u.volume = 1; u.onend = fin; u.onerror = fin;
+      if (S2.paused) S2.resume();
+      S2.speak(u);
+      VWD = setTimeout(fin, 1600 + text.length * 110);
+    } catch (e) { fin(); }
   }
-  function sayTok(list, force) { if (!UI.sh.voice && !force) return; vStop(); VQ = list.map(function (x) { return typeof x === 'string' ? { k: x, t: PH[x] || x } : x; }); vNext(VGEN); }
+  function vNext(gen) {
+    if (gen !== VGEN) return; if (!VQ.length) { VBUSY = false; return; } VBUSY = true;
+    // agrupa lo que no está grabado en una sola frase: suena más natural y es más fiable en el móvil
+    var it = VQ.shift(), done = function () { if (gen === VGEN) setTimeout(function () { vNext(gen); }, 70); };
+    if (VREC[it.k]) { var a = new Audio(VREC[it.k]); vStop.a = a; a.onended = done; a.onerror = done; var p = a.play(); if (p && p.catch) p.catch(done); return; }
+    var txt = it.t; while (VQ.length && !VREC[VQ[0].k]) txt += ' ' + VQ.shift().t;
+    vSpeak(txt, done);
+  }
+  function sayTok(list, force) {
+    if (!UI.sh.voice && !force) return; var S2 = ss(), busy = S2 && (S2.speaking || S2.pending);
+    vStop(); VQ = list.map(function (x) { return typeof x === 'string' ? { k: x, t: PH[x] || x } : x; }); var g = VGEN;
+    if (busy) setTimeout(function () { vNext(g); }, 80); else vNext(g);
+  }
+  function vUnlock() { try { var S2 = ss(); if (S2 && !vUnlock.done) { var u = new SpeechSynthesisUtterance(' '); u.volume = 0; S2.speak(u); vUnlock.done = true; } } catch (e) {} try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); if (AC.state === 'suspended') AC.resume(); } catch (e) {} }
   function say(t) { var k = Object.keys(PH).filter(function (x) { return PH[x] === t; })[0]; sayTok([k ? { k: k, t: t } : { k: '_', t: t }]); }
 
   function flash(c) { var f = $('flash'); f.style.setProperty('--fc', c); f.classList.remove('on'); void f.offsetWidth; f.classList.add('on'); }
@@ -800,11 +818,11 @@ button{cursor:pointer;-webkit-tap-highlight-color:transparent}
     if (d.filt) { UI.filt = d.filt; render(); return; }
     if (d.gym) { S.gym = true; save(); UI.q = 0; UI.qa = { from: 'gym' }; ask('Vengo del gimnasio'); go('coach'); return; }
     if (d.shc) { var p = d.shc.split('|'); UI.sh[p[0]] = p[0] === 'sp' ? p[1] : +p[1]; if (p[0] === 'voice') UI.sh.voice = !!+p[1]; render(); return; }
-    if (d.shs) { UI.sh.speed = d.shs; S.vspeed = d.shs; save(); render(); sayTok([{ k: '1', t: '¡Jab!' }, { k: '2', t: '¡Cross!' }, { k: '3', t: '¡Gancho!' }], true); return; }
-    if (d.vtest) { sayTok([{ k: '1', t: '¡Jab!' }, { k: '2', t: '¡Cross!' }, { k: '3', t: '¡Gancho!' }, 'vamos'], true); return; }
+    if (d.shs) { vUnlock(); UI.sh.speed = d.shs; S.vspeed = d.shs; save(); render(); sayTok([{ k: '1', t: '¡Jab!' }, { k: '2', t: '¡Cross!' }, { k: '3', t: '¡Gancho!' }], true); return; }
+    if (d.vtest) { vUnlock(); sayTok([{ k: '1', t: '¡Jab!' }, { k: '2', t: '¡Cross!' }, { k: '3', t: '¡Gancho!' }, 'vamos'], true); return; }
     if (d.vrec) { vRecSheet(); return; }
     if (d.shpreset) { UI.sh.sp = d.shpreset; UI.sh.rounds = 3; UI.sh.dur = 120; go('sombra'); return; }
-    if (d.shstart) { bell(1); shStart(); return; }
+    if (d.shstart) { vUnlock(); bell(1); shStart(); return; }
     if (d.shpause) { SH.paused = !SH.paused; if (SH.paused) vStop(); render(); return; }
     if (d.shstop) { shFinish(false); return; }
     if (d.ptab) { UI.ptab = d.ptab; render(); return; }
