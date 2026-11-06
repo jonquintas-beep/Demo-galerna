@@ -327,6 +327,24 @@ button{cursor:pointer;-webkit-tap-highlight-color:transparent}
 .price b{font-family:var(--disp);font-size:28px;font-weight:400;display:block;line-height:1}
 .price small{font-size:12px;color:var(--sub);font-weight:700}
 .price .hl{border-color:var(--sage-b)}
+.vrec-cta{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;text-align:left;padding:12px;border-radius:16px;border:1.5px dashed rgba(232,72,59,.5);background:rgba(232,72,59,.08)}
+.vrec-cta .ic{width:42px;height:42px;border-radius:12px;background:var(--box);color:#fff;display:grid;place-items:center}
+.vrec-cta .ic svg{width:22px;height:22px}
+.vrec-cta b{display:block;font-size:14.5px;font-weight:900}
+.vrec-cta small{font-size:12.5px;color:var(--sub);font-weight:600}
+.vrec-cta i{font-style:normal;font-weight:900}
+.vsel{display:flex;gap:8px}
+.vsel select{flex:1;min-width:0;height:44px;border-radius:12px;border:1.5px solid var(--line2);background:var(--card2);color:var(--bone);padding:0 10px;font-weight:700;font-size:14px}
+.vrec{display:flex;flex-direction:column;margin-top:12px}
+.vrec>div{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line)}
+.vrec>div b{font-size:15px;font-weight:800}
+.vrec>div small{margin-left:8px;font-family:var(--disp);font-size:15px;color:var(--sage-b)}
+.vrec>div.has b::after{content:" ✓";color:var(--ok)}
+.vrec .vr-b{display:flex;gap:6px}
+.vrec button{height:36px;min-width:36px;padding:0 12px;border-radius:10px;border:0;font-weight:900;font-size:13px}
+.vrec button.r{background:var(--box);color:#fff}
+.vrec button.g{background:rgba(237,234,224,.1);color:var(--bone);padding:0}
+.vrec>div.on button.r{background:var(--bone);color:#11140A;animation:bl 1s infinite}
 </style>
 </head>
 <body>
@@ -378,6 +396,7 @@ button{cursor:pointer;-webkit-tap-highlight-color:transparent}
     leg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3v8l9 5 3-1M8 11l-2 10"/></svg>',
     knee: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M9 3l2 9-2 9M15 3l-2 9 2 9"/><circle cx="12" cy="12" r="2.4"/></svg>',
     back: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 3v18M9 6h6M8.5 10h7M9 14h6M9.5 18h5"/></svg>',
+    mic: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>',
     ok: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>'
   };
 
@@ -398,9 +417,11 @@ button{cursor:pointer;-webkit-tap-highlight-color:transparent}
     0: []
   };
   var COMBOS = {
-    box: ['1-2', '1-1-2', '1-2-3', '2-3-2', '1-2-3-2', '1-6-3-2', '3-2-3', '1-2-5-2', '5-6', '1-2-esquiva-2', 'doble jab', '1-2-gancho al cuerpo', '1-2-sal', '3 al cuerpo-3 arriba', '2-3-6', '1-2-3-4'],
-    kb: ['1-2-baja', '1-2-3-baja', 'jab-frontal', '2-alta', 'baja-baja', '1-2-rodilla', 'teep', '1-2-codo', '1-media', 'jab-cross-media', 'rodilla-rodilla', '3-2-baja', 'frontal-1-2', '1-2-3-media', 'baja de izquierda', '2-3-alta']
+    box: ['1-2', '1-1-2', '1-2-3', '2-3-2', '1-2-3-2', '1-6-3-2', '3-2-3', '1-2-5-2', '5-6', '1-2-esquiva-2', '1-1', '1-2-cuerpo', '1-2-sal', '3-cuerpo-3', '2-3-6', '1-2-3-4'],
+    kb: ['1-2-baja', '1-2-3-baja', '1-frontal', '2-alta', 'baja-baja', '1-2-rodilla', 'teep', '1-2-codo', '1-media', '1-2-media', 'rodilla-rodilla', '3-2-baja', 'frontal-1-2', '1-2-3-media', 'baja-1-2', '2-3-alta']
   };
+  var WORDS = { baja: 'baja', media: 'media', alta: 'alta', frontal: 'frontal', teep: 'teep', rodilla: 'rodilla', codo: 'codo', esquiva: 'esquiva', sal: 'sal', cuerpo: 'al cuerpo' };
+  var PH = { vamos: '¡Vamos!', guardia: '¡Manos arriba!', eso: '¡Eso es!', muevete: '¡Muévete!', sigue: '¡Sigue, sigue!', respira: 'Respira', diez: '¡Diez segundos! ¡A tope!', descanso: 'Descanso. Respira por la nariz.', empezamos: 'Guardia arriba. Empezamos.', fin: '¡Buen trabajo, campeón!' };
   var NUM = { '1': 'jab', '2': 'cross', '3': 'gancho', '4': 'gancho de atrás', '5': 'uppercut', '6': 'uppercut de atrás' };
   var BELTS = [['Blanco', '#F2F0E8'], ['Azul', '#2F5FD0'], ['Morado', '#6B3FA0'], ['Marrón', '#6E4325'], ['Negro', '#151515']];
   var LVL = { box: ['Guardia y desplazamiento', 'Golpes básicos', 'Combinaciones', 'Defensa y contra', 'Sparring'], kb: ['Guardia y desplazamiento', 'Puños y patada baja', 'Combinaciones con piernas', 'Clinch y rodillas', 'Sparring'] };
@@ -423,7 +444,7 @@ button{cursor:pointer;-webkit-tap-highlight-color:transparent}
   }
   function load() { try { var x = JSON.parse(localStorage.getItem(KEY)); if (x && x.v === 1) return x; } catch (e) {} return null; }
   function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
-  var UI = { r: 'splash', day: 0, filt: 'all', ptab: 'bjj', q: 0, qa: {}, sh: { sp: 'kb', rounds: 5, dur: 180, rest: 60, voice: true } };
+  var UI = { r: 'splash', day: 0, filt: 'all', ptab: 'bjj', q: 0, qa: {}, sh: { sp: 'kb', rounds: 5, dur: 180, rest: 60, voice: true, speed: 'normal' } };
 
   /* ---------- clases ---------- */
   function hash(s) { var h = 7; for (var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) % 100003; return h; }
@@ -512,7 +533,7 @@ button{cursor:pointer;-webkit-tap-highlight-color:transparent}
 
   /* ---------- inicio ---------- */
   function dailyCombo() { var sp = T0.getDay() % 2 ? 'kb' : 'box', L = COMBOS[sp]; return { sp: sp, c: L[(T0.getDate() * 7) % L.length] }; }
-  function comboParts(c) { return c.split('-').map(function (p) { return { t: p, w: NUM[p] || p, kick: !NUM[p] }; }); }
+  function comboParts(c) { return c.split('-').map(function (p) { return { k: p, t: NUM[p] ? p : (WORDS[p] || p), w: NUM[p] || WORDS[p] || p, kick: !NUM[p] }; }); }
   function vHome() {
     var nx = myNext(), st = streak(), mc = monthCount(), dc = dailyCombo(), isNew = S.mode === 'nuevo';
     var h = '<div class="view">' + top() + '<div class="hello"><p class="k">' + DOWL[T0.getDay()] + ' ' + T0.getDate() + '</p><h1 class="h1">' + (isNew ? 'Bienvenida,<br><span>' + esc(S.name) + '</span>' : 'A por ello,<br><span>' + esc(S.name) + '</span>') + '</h1></div>';
@@ -562,7 +583,7 @@ button{cursor:pointer;-webkit-tap-highlight-color:transparent}
       h += '<div class="sec card cfg"><div><p class="lab">Disciplina</p><div class="seg">' + [['box', 'Boxeo'], ['kb', 'Kick'], ['mix', 'Mixto']].map(function (o) { return '<button type="button" class="' + (c.sp === o[0] ? 'on' : '') + '" data-shc="sp|' + o[0] + '">' + o[1] + '</button>'; }).join('') + '</div></div>' +
         '<div><p class="lab">Asaltos</p><div class="seg">' + [3, 5, 8, 12].map(function (n) { return '<button type="button" class="' + (c.rounds === n ? 'on' : '') + '" data-shc="rounds|' + n + '">' + n + '</button>'; }).join('') + '</div></div>' +
         '<div><p class="lab">Duración del asalto</p><div class="seg">' + [[120, '2 min'], [180, '3 min'], [60, '1 min']].map(function (o) { return '<button type="button" class="' + (c.dur === o[0] ? 'on' : '') + '" data-shc="dur|' + o[0] + '">' + o[1] + '</button>'; }).join('') + '</div></div>' +
-        '<div><p class="lab">Descanso</p><div class="seg">' + [[30, '30 s'], [60, '1 min']].map(function (o) { return '<button type="button" class="' + (c.rest === o[0] ? 'on' : '') + '" data-shc="rest|' + o[0] + '">' + o[1] + '</button>'; }).join('') + '<button type="button" class="' + (c.voice ? 'on' : '') + '" data-shc="voice|' + (c.voice ? 0 : 1) + '">Voz ' + (c.voice ? 'sí' : 'no') + '</button></div></div></div>';
+        '<div><p class="lab">Descanso</p><div class="seg">' + [[30, '30 s'], [60, '1 min']].map(function (o) { return '<button type="button" class="' + (c.rest === o[0] ? 'on' : '') + '" data-shc="rest|' + o[0] + '">' + o[1] + '</button>'; }).join('') + '</div></div>' + vVoiceCfg() + '</div>';
       h += '<button type="button" class="btn hot full" style="height:62px;font-size:19px;margin-top:16px" data-shstart="1">' + I.bolt.replace('<svg', '<svg width="22" height="22"') + 'Empezar · ' + c.rounds + ' × ' + (c.dur / 60) + ' min</button>';
       h += '<div class="sec card"><p class="lab k" style="margin-bottom:10px">Así suenan los números</p><div class="lib">' + Object.keys(NUM).map(function (k) { return '<span><b>' + k + '</b>' + NUM[k] + '</span>'; }).join('') + '<span><b>B</b>patada baja</span><span><b>M</b>patada media</span><span><b>T</b>teep</span><span><b>R</b>rodilla</span></div></div>';
       h += '<div class="sec"><div class="sech"><span class="h2">Tus últimas sesiones</span></div><div class="plan">' + S.sh.slice().reverse().slice(0, 4).map(function (x) { return '<div style="--c:' + SP[x.sp === 'mix' ? 'kb' : x.sp].c + '"><span class="sp-dot"></span><span><b>' + x.r + ' asaltos · ' + x.c + ' combos</b><small>' + new Date(x.d + 'T12:00').toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'short' }) + '</small></span><span class="t">' + (x.sp === 'box' ? 'Boxeo' : x.sp === 'kb' ? 'Kick' : 'Mixto') + '</span></div>'; }).join('') + '</div></div>';
@@ -574,46 +595,101 @@ button{cursor:pointer;-webkit-tap-highlight-color:transparent}
     h += '<div class="sh-acts"><button type="button" class="btn ghost" data-shstop="1">Terminar</button><button type="button" class="btn ' + (SH.paused ? 'pri' : 'hot') + '" data-shpause="1">' + (SH.paused ? 'Seguir' : 'Pausa') + '</button></div>';
     return h + '</div>';
   }
+  function vVoiceCfg() {
+    var c = UI.sh, V = esVoices(), cur = pickVoice(), nrec = VTOK.filter(function (x) { return VREC[x[0]]; }).length;
+    return '<div><p class="lab">Voz del coach</p><div class="seg">' + [['on', 'Con voz'], ['off', 'Sin voz']].map(function (o) { return '<button type="button" class="' + ((o[0] === 'on') === !!c.voice ? 'on' : '') + '" data-shc="voice|' + (o[0] === 'on' ? 1 : 0) + '">' + o[1] + '</button>'; }).join('') + '</div></div>' +
+      (c.voice ? '<div><p class="lab">Ritmo</p><div class="seg">' + [['calma', 'Tranquilo'], ['normal', 'Normal'], ['rapido', 'Rápido']].map(function (o) { return '<button type="button" class="' + (c.speed === o[0] ? 'on' : '') + '" data-shs="' + o[0] + '">' + o[1] + '</button>'; }).join('') + '</div></div>' +
+      '<button type="button" class="vrec-cta" data-vrec="1"><span class="ic">' + I.mic + '</span><span><b>' + (nrec ? 'Voz de tu entrenador · ' + nrec + ' de ' + VTOK.length : 'Graba la voz de tu entrenador') + '</b><small>' + (nrec ? 'Suena su voz real en cada combo' : 'El coach graba "¡jab!", "¡gancho!"… una vez y la sombra suena con su voz') + '</small></span><i>→</i></button>' +
+      (V.length ? '<div><p class="lab">Voz del móvil ' + (nrec === VTOK.length ? '(no se usa)' : nrec ? '(para lo no grabado)' : '') + '</p><div class="vsel"><select id="vSel" aria-label="Voz del móvil">' + V.slice(0, 12).map(function (v) { return '<option value="' + esc(v.name) + '"' + (cur && v.name === cur.name ? ' selected' : '') + '>' + esc(v.name.replace(/Microsoft |Google /, '')) + ' · ' + esc(v.lang) + '</option>'; }).join('') + '</select><button type="button" class="btn sm ghost" data-vtest="1">Probar</button></div></div>' : '') : '');
+  }
+  var REC = null;
+  function vRecSheet() {
+    var bg = document.createElement('div'); bg.className = 'sheet-bg'; bg.id = 'vrecBg';
+    function paint() {
+      bg.innerHTML = '<div class="sheet"><div class="grab"></div><p class="k">Sombra guiada</p><div class="h2" style="margin-top:4px">La voz de tu entrenador</div><p class="sub" style="font-size:13.5px;font-weight:600;margin-top:6px">Toca <b>Grabar</b>, di la palabra con energía de coach y vuelve a tocar. Se queda guardado y la sombra suena con esa voz. Lo que no grabes lo dice la voz del móvil.</p><div class="vrec">' +
+        VTOK.map(function (x) { var has = !!VREC[x[0]], on = REC && REC.k === x[0]; return '<div class="' + (has ? 'has' : '') + (on ? ' on' : '') + '"><span><b>' + esc(x[1]) + '</b>' + (/^\d$/.test(x[0]) ? '<small>' + x[0] + '</small>' : '') + '</span><span class="vr-b">' + (has ? '<button type="button" class="g" data-vplay="' + x[0] + '" aria-label="Escuchar">▶</button><button type="button" class="g" data-vdel="' + x[0] + '" aria-label="Borrar">✕</button>' : '') + '<button type="button" class="r" data-vgo="' + x[0] + '">' + (on ? '■ Parar' : has ? 'Repetir' : '● Grabar') + '</button></span></div>'; }).join('') +
+        '</div><button type="button" class="btn pri full" style="margin-top:14px" data-vclose="1">Listo</button></div>';
+    }
+    paint(); document.body.appendChild(bg);
+    bg.addEventListener('click', function (e) {
+      if (e.target === bg) { recStop(); bg.remove(); render(); return; }
+      var b = e.target.closest('button'); if (!b) return; var d = b.dataset;
+      if (d.vclose) { recStop(); bg.remove(); render(); return; }
+      if (d.vplay) { sayTok([d.vplay], true); return; }
+      if (d.vdel) { delete VREC[d.vdel]; vSave(); paint(); return; }
+      if (d.vgo) { if (REC && REC.k === d.vgo) { recStop(); return; } recStop(); recStart(d.vgo, paint); }
+    });
+  }
+  function recStart(k, paint) {
+    if (!navigator.mediaDevices || !window.MediaRecorder) { toast('Este navegador no permite grabar audio'); return; }
+    navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true } }).then(function (st) {
+      var mt = ['audio/webm;codecs=opus', 'audio/mp4', 'audio/webm'].filter(function (m) { return MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(m); })[0];
+      var mr = new MediaRecorder(st, mt ? { mimeType: mt, audioBitsPerSecond: 32000 } : undefined), ch = [];
+      REC = { k: k, mr: mr, st: st, t: setTimeout(recStop, 3500) }; paint();
+      mr.ondataavailable = function (e) { if (e.data.size) ch.push(e.data); };
+      mr.onstop = function () { st.getTracks().forEach(function (t) { t.stop(); }); var bl = new Blob(ch, { type: mr.mimeType || 'audio/webm' }), fr = new FileReader(); fr.onload = function () { VREC[k] = fr.result; if (vSave()) { sayTok([k], true); } paint(); }; fr.readAsDataURL(bl); };
+      mr.start();
+    }).catch(function () { toast('Necesito permiso para el micrófono'); });
+  }
+  function recStop() { if (!REC) return; clearTimeout(REC.t); var r = REC; REC = null; try { r.mr.state !== 'inactive' && r.mr.stop(); } catch (e) {} }
   function fmtT(s) { s = Math.max(0, Math.ceil(s)); return Math.floor(s / 60) + ':' + pad(s % 60); }
   var AC = null;
   function bell(n) {
     try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); if (AC.state === 'suspended') AC.resume(); for (var k = 0; k < (n || 1); k++) { var t0 = AC.currentTime + k * 0.32; [[880, .5], [1320, .25], [2210, .12]].forEach(function (p) { var o = AC.createOscillator(), g = AC.createGain(); o.type = 'sine'; o.frequency.value = p[0]; g.gain.setValueAtTime(p[1], t0); g.gain.exponentialRampToValueAtTime(0.0001, t0 + 1.4); o.connect(g); g.connect(AC.destination); o.start(t0); o.stop(t0 + 1.5); }); } } catch (e) {}
   }
   function clap() { try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); var t0 = AC.currentTime; for (var k = 0; k < 3; k++) { var b = AC.createBuffer(1, 2200, AC.sampleRate), d = b.getChannelData(0); for (var i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / d.length, 3); var s = AC.createBufferSource(), g = AC.createGain(); g.gain.value = .6; s.buffer = b; s.connect(g); g.connect(AC.destination); s.start(t0 + k * 0.18); } } catch (e) {} }
-  function say(t) { if (!UI.sh.voice || !window.speechSynthesis) return; try { speechSynthesis.cancel(); var u = new SpeechSynthesisUtterance(t); u.lang = 'es-ES'; u.rate = 1.18; u.pitch = 1; var v = speechSynthesis.getVoices().filter(function (x) { return /^es/i.test(x.lang); })[0]; if (v) u.voice = v; speechSynthesis.speak(u); } catch (e) {} }
+  /* ---- voz del coach: grabada por el entrenador o la mejor voz del móvil ---- */
+  var VKEY = 'gorobel-voz', VREC = {}; try { VREC = JSON.parse(localStorage.getItem(VKEY)) || {}; } catch (e) { VREC = {}; }
+  function vSave() { try { localStorage.setItem(VKEY, JSON.stringify(VREC)); return true; } catch (e) { toast('No cabe más audio en este móvil'); return false; } }
+  var VTOK = [['1', 'Jab'], ['2', 'Cross'], ['3', 'Gancho'], ['4', 'Gancho de atrás'], ['5', 'Uppercut'], ['6', 'Uppercut de atrás'], ['baja', 'Baja'], ['media', 'Media'], ['alta', 'Alta'], ['frontal', 'Frontal'], ['teep', 'Teep'], ['rodilla', 'Rodilla'], ['codo', 'Codo'], ['esquiva', 'Esquiva'], ['sal', 'Sal'], ['cuerpo', 'Al cuerpo'], ['vamos', '¡Vamos!'], ['guardia', '¡Manos arriba!'], ['eso', '¡Eso es!'], ['muevete', '¡Muévete!'], ['sigue', '¡Sigue, sigue!'], ['diez', '¡Diez segundos, a tope!'], ['descanso', 'Descanso, respira'], ['empezamos', 'Guardia arriba, empezamos'], ['fin', '¡Buen trabajo, campeón!']];
+  var RATE = { calma: 0.82, normal: 0.95, rapido: 1.1 };
+  function esVoices() { if (!window.speechSynthesis) return []; var V = speechSynthesis.getVoices().filter(function (x) { return /^es/i.test(x.lang); }); function sc(v) { var n = v.name, s = 0; if (/neural|natural|enhanced|premium|mejorad|online/i.test(n)) s += 6; if (/google/i.test(n)) s += 4; if (/m[oó]nica|jorge|paulina|diego|luc[ií]a|[aá]lvaro|dalia|elvira|pablo|marisol|helena|laura/i.test(n)) s += 2; if (/es[-_]ES/i.test(v.lang)) s += 1; if (/compact|eloquence|espeak/i.test(n)) s -= 6; return s; } return V.sort(function (a, b) { return sc(b) - sc(a); }); }
+  function pickVoice() { var V = esVoices(); if (!V.length) return null; var n = S.vname; return V.filter(function (v) { return v.name === n; })[0] || V[0]; }
+  var VQ = [], VBUSY = false, VGEN = 0;
+  function vStop() { VGEN++; VQ = []; VBUSY = false; try { speechSynthesis.cancel(); } catch (e) {} if (vStop.a) { try { vStop.a.pause(); } catch (e) {} } }
+  function vNext(gen) {
+    if (gen !== VGEN) return; var it = VQ.shift(); if (!it) { VBUSY = false; return; } VBUSY = true;
+    var done = function () { if (gen === VGEN) setTimeout(function () { vNext(gen); }, it.gap || 90); };
+    if (VREC[it.k]) { var a = new Audio(VREC[it.k]); vStop.a = a; a.onended = done; a.onerror = done; a.play().catch(done); return; }
+    if (!window.speechSynthesis) { done(); return; }
+    try { var u = new SpeechSynthesisUtterance(it.t), v = pickVoice(); u.lang = v ? v.lang : 'es-ES'; if (v) u.voice = v; u.rate = RATE[UI.sh.speed] || 0.95; u.pitch = 0.88; u.volume = 1; u.onend = done; u.onerror = done; speechSynthesis.speak(u); setTimeout(function () { if (gen === VGEN && VBUSY && VQ[0] === undefined) {} }, 4000); } catch (e) { done(); }
+  }
+  function sayTok(list, force) { if (!UI.sh.voice && !force) return; vStop(); VQ = list.map(function (x) { return typeof x === 'string' ? { k: x, t: PH[x] || x } : x; }); vNext(VGEN); }
+  function say(t) { var k = Object.keys(PH).filter(function (x) { return PH[x] === t; })[0]; sayTok([k ? { k: k, t: t } : { k: '_', t: t }]); }
+
   function flash(c) { var f = $('flash'); f.style.setProperty('--fc', c); f.classList.remove('on'); void f.offsetWidth; f.classList.add('on'); }
   function pickCombo() {
     var sp = UI.sh.sp === 'mix' ? (Math.random() < .5 ? 'box' : 'kb') : UI.sh.sp, L = COMBOS[sp], c; do { c = L[Math.floor(Math.random() * L.length)]; } while (c === SH.last && L.length > 1); SH.last = c;
     var parts = comboParts(c); SH.lastShow = parts.map(function (p) { return p.kick ? p.t : p.t; }).join(' · '); SH.lastW = parts.map(function (p) { return p.w; }).join(' · ');
     SH.combos++; var el = $('shSeq'); if (el) { el.textContent = SH.lastShow; el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop'); $('shW').textContent = SH.lastW; }
-    say(parts.map(function (p) { return p.w; }).join(', '));
+    var L = parts.map(function (p) { return { k: p.k, t: '¡' + p.w.replace(/^./, function (x) { return x.toUpperCase(); }) + '!', gap: 60 }; }); if (SH.combos % 4 === 0) L.push({ k: ['vamos', 'eso', 'muevete', 'sigue', 'guardia'][Math.floor(Math.random() * 5)], gap: 0 }); L.forEach(function (x) { if (!x.t) x.t = PH[x.k]; }); sayTok(L);
   }
   var wake = null;
   function shStart() {
     SH.ph = 'ready'; SH.left = 10; SH.round = 0; SH.combos = 0; SH.paused = false; SH.lastShow = ''; SH.lastW = 'Empieza en 10 segundos';
     try { navigator.wakeLock && navigator.wakeLock.request('screen').then(function (w) { wake = w; }); } catch (e) {}
-    say('Guardia arriba. Empezamos en diez segundos.'); render();
+    sayTok(['empezamos']); render();
     var last = performance.now(); clearInterval(SH.timer);
     SH.timer = setInterval(function () {
       var now = performance.now(), dt = (now - last) / 1000; last = now; if (SH.paused) return;
       SH.left -= dt;
-      if (SH.ph === 'work') { SH.nextCall -= dt; if (SH.nextCall <= 0 && SH.left > 4) { pickCombo(); SH.nextCall = 3.2 + Math.random() * 3.2; } if (SH.left <= 10 && !SH.warned) { SH.warned = true; clap(); say('¡Diez segundos! ¡A tope!'); } }
+      if (SH.ph === 'work') { SH.nextCall -= dt; if (SH.nextCall <= 0 && SH.left > 4) { pickCombo(); SH.nextCall = { calma: 5.2, normal: 4.2, rapido: 3.2 }[UI.sh.speed || 'normal'] + Math.random() * 2.4; } if (SH.left <= 10 && !SH.warned) { SH.warned = true; clap(); sayTok(['diez']); } }
       if (SH.left <= 0) {
         if (SH.ph === 'ready' || SH.ph === 'rest') { SH.round++; SH.ph = 'work'; SH.left = UI.sh.dur; SH.warned = false; SH.nextCall = 1.5; bell(1); flash(SP[UI.sh.sp === 'mix' ? 'kb' : UI.sh.sp].c); render(); }
         else if (SH.ph === 'work') {
           bell(3); flash('#BCCB86');
           if (SH.round >= UI.sh.rounds) { shFinish(true); return; }
-          SH.ph = 'rest'; SH.left = UI.sh.rest; SH.lastShow = 'Respira'; SH.lastW = 'Siguiente asalto: ' + (SH.round + 1); say('Descanso. Respira por la nariz.'); render();
+          SH.ph = 'rest'; SH.left = UI.sh.rest; SH.lastShow = 'Respira'; SH.lastW = 'Siguiente asalto: ' + (SH.round + 1); sayTok(['descanso']); render();
         }
       }
       var ck = $('shClock'); if (ck) { ck.textContent = fmtT(SH.left); var tot = SH.ph === 'work' ? UI.sh.dur : SH.ph === 'rest' ? UI.sh.rest : 10, R = 46, C = 2 * Math.PI * R; $('shRing').setAttribute('stroke-dashoffset', (C * (1 - Math.max(0, SH.left / tot))).toFixed(1)); $('shRd').textContent = SH.round + ' / ' + UI.sh.rounds + ' · ' + SH.combos + ' combos'; }
     }, 100);
   }
   function shFinish(full) {
-    clearInterval(SH.timer); try { speechSynthesis.cancel(); } catch (e) {} try { wake && wake.release(); } catch (e) {}
+    clearInterval(SH.timer); vStop(); try { wake && wake.release(); } catch (e) {}
     var r = full ? SH.round : Math.max(0, SH.round - (SH.ph === 'work' && SH.left > UI.sh.dur / 2 ? 1 : 0));
     SH.ph = 'idle';
-    if (r > 0) { S.sh.push({ d: iso(T0), r: r, c: SH.combos, sp: UI.sh.sp }); S.rounds += r; save(); render(); punch(r + ' asaltos', 'var(--box)'); toast('Sumados ' + r + ' asaltos al reto del mes'); if (full) say('Buen trabajo. ' + r + ' asaltos y ' + SH.combos + ' combinaciones.'); }
+    if (r > 0) { S.sh.push({ d: iso(T0), r: r, c: SH.combos, sp: UI.sh.sp }); S.rounds += r; save(); render(); punch(r + ' asaltos', 'var(--box)'); toast('Sumados ' + r + ' asaltos al reto del mes'); if (full) sayTok(['fin']); }
     else render();
   }
 
@@ -724,9 +800,12 @@ button{cursor:pointer;-webkit-tap-highlight-color:transparent}
     if (d.filt) { UI.filt = d.filt; render(); return; }
     if (d.gym) { S.gym = true; save(); UI.q = 0; UI.qa = { from: 'gym' }; ask('Vengo del gimnasio'); go('coach'); return; }
     if (d.shc) { var p = d.shc.split('|'); UI.sh[p[0]] = p[0] === 'sp' ? p[1] : +p[1]; if (p[0] === 'voice') UI.sh.voice = !!+p[1]; render(); return; }
+    if (d.shs) { UI.sh.speed = d.shs; S.vspeed = d.shs; save(); render(); sayTok([{ k: '1', t: '¡Jab!' }, { k: '2', t: '¡Cross!' }, { k: '3', t: '¡Gancho!' }], true); return; }
+    if (d.vtest) { sayTok([{ k: '1', t: '¡Jab!' }, { k: '2', t: '¡Cross!' }, { k: '3', t: '¡Gancho!' }, 'vamos'], true); return; }
+    if (d.vrec) { vRecSheet(); return; }
     if (d.shpreset) { UI.sh.sp = d.shpreset; UI.sh.rounds = 3; UI.sh.dur = 120; go('sombra'); return; }
     if (d.shstart) { bell(1); shStart(); return; }
-    if (d.shpause) { SH.paused = !SH.paused; if (SH.paused) try { speechSynthesis.cancel(); } catch (x) {} render(); return; }
+    if (d.shpause) { SH.paused = !SH.paused; if (SH.paused) vStop(); render(); return; }
     if (d.shstop) { shFinish(false); return; }
     if (d.ptab) { UI.ptab = d.ptab; render(); return; }
     if (d.tech) { var t = d.tech.split('|'), L = S.tech[t[0]] = S.tech[t[0]] || [], i = +t[1], k = L.indexOf(i); if (k >= 0) L.splice(k, 1); else { L.push(i); punch('¡Técnica!', SP[t[0]].c); } save(); render(); return; }
@@ -740,10 +819,12 @@ button{cursor:pointer;-webkit-tap-highlight-color:transparent}
       else if (a === 'wa') toast('En la app real se abre el WhatsApp de Gorobel');
     }
   });
+  document.addEventListener('change', function (e) { if (e.target.id === 'vSel') { S.vname = e.target.value; save(); sayTok([{ k: '_', t: '¡Jab! ¡Cross! ¡Gancho!' }, 'vamos'].map(function (x, i) { return i ? x : { k: '_', t: '¡Jab! ¡Cross! ¡Gancho!' }; }), true); } });
   document.addEventListener('submit', function (e) { if (e.target.id === 'askF') { e.preventDefault(); var i = $('askI'); ask(i.value); } });
 
   S = load(); if (!S) { S = seed(); save(); } else if (S.mode) UI.r = 'home';
-  if (window.speechSynthesis) try { speechSynthesis.getVoices(); } catch (e) {}
+  if (S.vspeed) UI.sh.speed = S.vspeed;
+  if (window.speechSynthesis) try { speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged = function () { if (UI.r === 'sombra' && SH.ph === 'idle') render(); }; } catch (e) {}
   render();
   if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(function () {});
 })();
