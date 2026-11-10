@@ -190,8 +190,29 @@ footer{padding:30px 0 40px;text-align:center;font-size:12.5px;color:var(--sub)}
   section{padding:54px 0}
   .hex{width:380px;height:380px;right:-140px}
 }
+@media (max-width:600px){.hero nav span.g{display:none}.hero nav .b{white-space:nowrap}}
 @media (max-width:480px){.flow{grid-template-columns:1fr}.funnel div{grid-template-columns:96px 1fr 44px}.res .big{font-size:42px}}
 @media print{.hero{-webkit-print-color-adjust:exact;print-color-adjust:exact}section{padding:30px 0;break-inside:avoid}.ctas{display:none!important}}
+.bf-top{margin:-26px -20px 20px;padding:9px 16px;background:#0B1F1E;color:#fff;font-size:13px;font-weight:600;text-align:center}
+.bf-top a{color:var(--t-l);font-weight:800}
+.bf{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-top:24px;background:#0B1F1E;color:#fff;border-radius:22px;padding:18px 22px}
+.bf-tag{display:inline-block;background:var(--t-l);color:var(--t-dd);font-size:11.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:5px 10px;border-radius:99px}
+.bf-l b{display:block;font-size:19px;margin-top:8px;line-height:1.3}
+.bf-l small{opacity:.7;font-size:13px}
+.bf-cd{display:flex;gap:6px}
+.bf-cd div{background:rgba(255,255,255,.1);border-radius:12px;padding:8px 10px;text-align:center;min-width:58px}
+.bf-cd b{display:block;font-size:24px;font-weight:800;line-height:1}
+.bf-cd small{font-size:10.5px;opacity:.7;text-transform:uppercase;letter-spacing:.08em}
+.vt{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:6px 20px}
+.vt-r{display:grid;grid-template-columns:1fr auto auto;gap:16px;align-items:center;padding:12px 0;border-bottom:1px dashed var(--line);font-size:15px}
+.vt-r small{color:var(--sub)}
+.vt-r s{color:#A33;opacity:.7;font-weight:600}
+.vt-r b{min-width:96px;text-align:right;font-size:18px}
+.vt-r b.inc{color:var(--ok)}
+.vt-r.tot{border-bottom:0;font-weight:800}
+.vt-r.tot b{color:var(--t-d);font-size:22px}
+s.old{display:block;font-size:18px;color:#A33;opacity:.65;font-weight:600}
+@media (max-width:520px){.vt-r{grid-template-columns:1fr auto;gap:4px 12px}.vt-r s{grid-column:2;grid-row:1}.vt-r b{grid-column:2}.vt-r span{grid-row:1/3}}
 </style>
 </head>
 <body>
@@ -199,6 +220,7 @@ footer{padding:30px 0 40px;text-align:center;font-size:12.5px;color:var(--sub)}
 <header class="hero">
   <svg class="hex" viewBox="0 0 100 100" aria-hidden="true"><path d="M27 6h46l23 44-23 44H27L4 50z" fill="none" stroke="#fff" stroke-width="5"/><path d="M27 18h46l17 32-17 32H27L10 50z" fill="none" stroke="#fff" stroke-width="2"/></svg>
   <div class="wrap">
+    <div class="bf-top">Black Friday · App incluida y puesta en marcha a mitad de precio · <a href="#propuesta">Ver oferta</a></div>
     <nav><span class="b"><img src="logo-circle.png" alt="Restart">RESTART · VITORIA</span><span class="g">Propuesta de Galerna Method · noviembre 2026</span></nav>
     <div class="in">
       <div>
@@ -325,15 +347,21 @@ footer{padding:30px 0 40px;text-align:center;font-size:12.5px;color:var(--sub)}
 
 <section id="propuesta">
   <div class="wrap">
-    <p class="kick">La propuesta</p>
+    <p class="kick">La propuesta · Black Friday</p>
     <h2 style="margin-top:10px">Todo montado y funcionando <em>en 3 semanas.</em></h2>
+    <div class="bf" id="bf"><div class="bf-l"><span class="bf-tag">Black Friday</span><b>La app con vuestra marca, incluida. Y la puesta en marcha, a mitad de precio.</b><small>Solo para quien firme antes del 30 de noviembre</small></div><div class="bf-cd" id="bfCd" aria-label="Tiempo restante"></div></div>
+    <div class="vt">
+      <div class="vt-r"><span>Puesta en marcha del sistema de captación</span><s>3.000 €</s><b>1.500 €</b></div>
+      <div class="vt-r"><span>App Restart con vuestra marca <small>(desarrollo y lanzamiento)</small></span><s>5.900 €</s><b class="inc">Incluida</b></div>
+      <div class="vt-r tot"><span>Os ahorráis</span><s></s><b>7.400 €</b></div>
+    </div>
     <div class="price">
       <div class="pbox">
-        <div class="row"><div><p class="lb">Puesta en marcha · pago único</p><div class="amt">1.500 €</div></div><div><p class="lb">Cuota mensual</p><div class="amt">449 €<small>/mes</small></div></div></div>
+        <div class="row"><div><p class="lb">Puesta en marcha · pago único</p><div class="amt"><s class="old">3.000 €</s>1.500 €</div></div><div><p class="lb">Cuota mensual · app incluida</p><div class="amt">449 €<small>/mes</small></div></div></div>
         <ul>
-          <li>App Restart con vuestra marca: ejercicios, evolución del dolor, informes de EMG, programas online y cobro</li>
+          <li><span><b>App Restart con vuestra marca, incluida</b> (normalmente 5.900 € aparte): ejercicios, evolución del dolor, informes de EMG, programas online y cobro</span></li>
           <li>Página y test “¿Qué te duele?” para presencial y para online</li>
-          <li>Marketing completo llevado por nosotros: campañas en Instagram y Facebook, creación, gestión y optimización</li><li><b>Reunión semanal</b> de 30–45 minutos para revisar números, citas y ventas, y decidir mejoras</li>
+          <li>Marketing completo llevado por nosotros: campañas en Instagram y Facebook, creación, gestión y optimización</li><li><span><b>Reunión semanal</b> de 30–45 minutos para revisar números, citas y ventas, y decidir mejoras</span></li>
           <li>4 anuncios nuevos al mes (os grabamos o editamos los vídeos)</li>
           <li>WhatsApp automático: respuesta, cita, recordatorio, reseña y revisión</li>
           <li>Montaje de los 3 productos online con vosotros</li>
@@ -343,7 +371,7 @@ footer{padding:30px 0 40px;text-align:center;font-size:12.5px;color:var(--sub)}
       </div>
       <div class="side">
         <div class="guar"><p class="kick" style="color:var(--t-l)">Garantía</p><h3>15 clientes nuevos en 3 meses, o el cuarto mes es gratis.</h3><p>Sumando presencial y online, con la inversión recomendada en anuncios. Si no llegamos, seguimos trabajando sin cobraros la cuota hasta conseguirlo.</p></div>
-        <div class="cond"><div><b>Permanencia de 12 meses</b>Es el tiempo que necesita un sistema de captación para dar todo su resultado. Después, mes a mes.</div><div><b>Entrada en dos pagos</b>750 € al firmar y 750 € el día del lanzamiento.</div><div><b>La app, con vuestra marca y lista para usar</b>Incluida mientras dure el servicio: servidor, mantenimiento y mejoras sin coste extra. Propuesta válida hasta el 30 de noviembre.</div></div>
+        <div class="cond"><div><b>Permanencia de 12 meses</b>Es el tiempo que necesita un sistema de captación para dar todo su resultado. Después, mes a mes.</div><div><b>Entrada en dos pagos</b>750 € al firmar y 750 € el día del lanzamiento.</div><div><b>La app incluida, sin pagarla aparte</b>Con la oferta de Black Friday la app va dentro de la puesta en marcha y la cuota, con la permanencia de 12 meses. Servidor, mantenimiento y mejoras incluidos.</div><div><b>Válido hasta el 30 de noviembre</b>Después, la puesta en marcha vuelve a 3.000 € y la app se paga aparte.</div></div>
       </div>
     </div>
   </div>
@@ -366,7 +394,7 @@ footer{padding:30px 0 40px;text-align:center;font-size:12.5px;color:var(--sub)}
   <div class="wrap">
     <div class="end">
       <img src="mark-w.png" alt="" style="height:64px;opacity:.95">
-      <h2 style="margin-top:16px">¿Empezamos el lunes?</h2>
+      <p style="display:inline-block;margin-top:14px;background:#fff;color:var(--t-dd);font-weight:800;font-size:12px;letter-spacing:.12em;text-transform:uppercase;padding:6px 12px;border-radius:99px">Black Friday · hasta el 30 de noviembre</p><h2 style="margin-top:12px">¿Empezamos el lunes?</h2>
       <p>Si os encaja, la próxima semana grabamos los ejercicios y los anuncios, y en 3 semanas estáis recibiendo clientes nuevos.</p>
       <div class="ctas"><a class="btn w" href="https://wa.me/?text=Hola%20Jon%2C%20hemos%20visto%20la%20propuesta%20para%20Restart%20y%20queremos%20empezar" target="_blank" rel="noopener">Quiero empezar</a><a class="btn o" href="#calc">Volver a la calculadora</a></div>
     </div>
@@ -396,6 +424,9 @@ footer{padding:30px 0 40px;text-align:center;font-size:12.5px;color:var(--sub)}
   ['cA', 'cO', 'cP', 'cS', 'cK'].forEach(function (i) { $(i).addEventListener('input', calc); });
   document.querySelectorAll('[data-sc]').forEach(function (b) { b.addEventListener('click', function () { document.querySelectorAll('[data-sc]').forEach(function (x) { x.classList.toggle('on', x === b); }); sc = +b.dataset.sc; calc(); }); });
   calc();
+  var end = new Date('2026-11-30T23:59:59+01:00').getTime();
+  function cd() { var el = $('bfCd'); if (!el) return; var ms = end - Date.now(); if (ms <= 0) { el.innerHTML = '<div><b>0</b><small>días</small></div>'; return; } var d = Math.floor(ms / 864e5), h = Math.floor(ms % 864e5 / 36e5), m = Math.floor(ms % 36e5 / 6e4); el.innerHTML = '<div><b>' + d + '</b><small>días</small></div><div><b>' + h + '</b><small>horas</small></div><div><b>' + m + '</b><small>min</small></div>'; }
+  cd(); setInterval(cd, 30000);
 })();
 </script>
 </body>
