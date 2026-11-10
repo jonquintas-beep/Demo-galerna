@@ -219,6 +219,50 @@ footer{padding:30px 0 40px;text-align:center;font-size:12.5px;color:var(--sub)}
 .vt-r.tot b{color:var(--t-d);font-size:22px}
 s.old{display:block;font-size:18px;color:#A33;opacity:.65;font-weight:600}
 @media (max-width:520px){.vt-r{grid-template-columns:1fr auto;gap:4px 12px}.vt-r s{grid-column:2;grid-row:1}.vt-r b{grid-column:2}.vt-r span{grid-row:1/3}}
+
+/* Galerna Partner */
+.gp-fab{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;align-items:center;gap:10px;height:56px;padding:0 18px 0 8px;border-radius:99px;border:0;background:#0F2A29;color:#fff;font-family:inherit;font-weight:700;font-size:14.5px;box-shadow:0 14px 34px rgba(15,42,41,.4);cursor:pointer}
+.gp-fab .av{width:40px;height:40px;border-radius:50%;background:var(--t);display:grid;place-items:center;position:relative}
+.gp-fab .av::after{content:"";position:absolute;right:0;bottom:2px;width:10px;height:10px;border-radius:50%;background:#4ADE80;border:2px solid #0F2A29}
+.gp-fab svg.gp-logo{width:26px;height:auto}
+.gp-fab[hidden]{display:none}
+.gp{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:70;width:min(400px,calc(100vw - 24px));height:min(640px,calc(100dvh - 36px));background:#fff;border-radius:24px;box-shadow:0 30px 80px rgba(15,42,41,.35);display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line);animation:gpin .25s ease}
+.gp[hidden]{display:none}
+@keyframes gpin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.gp-h{display:flex;align-items:center;gap:12px;padding:14px 14px 14px 16px;background:linear-gradient(150deg,#1E4E4C,#0F2A29);color:#fff}
+.gp-h .av{width:42px;height:42px;border-radius:50%;background:var(--t);display:grid;place-items:center;flex:none}
+.gp-h svg.gp-logo{width:28px;height:auto}
+.gp-h b{display:block;font-size:16px}
+.gp-h small{font-size:12px;opacity:.8}
+.gp-h small i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#4ADE80;margin-right:5px}
+.gp-x{margin-left:auto;width:36px;height:36px;border-radius:50%;border:0;background:rgba(255,255,255,.12);color:#fff;font-size:15px;cursor:pointer}
+.gp-b{flex:1;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:10px;background:var(--bg)}
+.gp-m{max-width:88%;padding:10px 13px;border-radius:16px;font-size:14.5px;line-height:1.5;animation:gpin .2s ease}
+.gp-m.b{align-self:flex-start;background:#fff;border:1px solid var(--line);border-radius:4px 16px 16px 16px}
+.gp-m.u{align-self:flex-end;background:var(--t-d);color:#fff;border-radius:16px 4px 16px 16px;font-weight:600}
+.gp-m ul{margin:6px 0 0 18px}
+.gp-m b{font-weight:700}
+.gp-m .acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.gp-m .acts a,.gp-m .acts button{display:inline-flex;align-items:center;height:34px;padding:0 12px;border-radius:10px;border:0;background:var(--t-s);color:var(--t-dd);font-family:inherit;font-weight:700;font-size:13px;text-decoration:none;cursor:pointer}
+.gp-t{align-self:flex-start;background:#fff;border:1px solid var(--line);border-radius:4px 16px 16px 16px;padding:12px 14px;display:flex;gap:5px}
+.gp-t i{width:7px;height:7px;border-radius:50%;background:var(--t);animation:gpb 1s infinite}
+.gp-t i:nth-child(2){animation-delay:.15s}.gp-t i:nth-child(3){animation-delay:.3s}
+@keyframes gpb{0%,80%{opacity:.25}40%{opacity:1}}
+.gp-s{display:flex;gap:6px;overflow-x:auto;padding:10px 12px 0;scrollbar-width:none;background:#fff;border-top:1px solid var(--line)}
+.gp-s::-webkit-scrollbar{display:none}
+.gp-s button{flex:none;height:32px;padding:0 12px;border-radius:99px;border:1.5px solid var(--line);background:#fff;font-family:inherit;font-weight:600;font-size:12.5px;color:var(--t-dd);cursor:pointer}
+.gp-f{display:flex;gap:8px;padding:10px 12px calc(12px + env(safe-area-inset-bottom,0px));background:#fff}
+.gp-f input{flex:1;min-width:0;height:46px;border-radius:14px;border:1.5px solid var(--line);padding:0 14px;font-family:inherit;font-size:15px;outline:none}
+.gp-f input:focus{border-color:var(--t)}
+.gp-f button{width:46px;height:46px;border-radius:14px;border:0;background:var(--t-d);color:#fff;cursor:pointer;display:grid;place-items:center}
+.gp-sec{display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:24px;padding:22px}
+.gp-sec .av{width:58px;height:58px;border-radius:18px;background:linear-gradient(150deg,#1E4E4C,#0F2A29);display:grid;place-items:center}
+.gp-sec svg.gp-logo{width:38px;height:auto}
+.gp-sec h3{font-size:20px;font-weight:800}
+.gp-sec p{font-size:14.5px;color:var(--sub);margin-top:4px}
+@media (max-width:640px){.gp{right:0;bottom:0;width:100vw;height:100dvh;border-radius:0}.gp-sec{grid-template-columns:auto 1fr}.gp-sec .btn{grid-column:1/-1}.gp-fab span.l{display:none}.gp-fab{padding:0 8px}}
+@media print{.gp,.gp-fab{display:none!important}}
+.gp-mono{color:#fff;font-weight:800;font-size:15px;letter-spacing:.02em}.gp-sec .gp-mono{font-size:20px}
 </style>
 </head>
 <body>
@@ -402,6 +446,12 @@ s.old{display:block;font-size:18px;color:#A33;opacity:.65;font-weight:600}
 
 <section style="padding-top:0">
   <div class="wrap">
+    <div class="gp-sec"><span class="av"><b class="gp-mono">GP</b></span><div><h3>¿Dudas? Pregúntale a Galerna Partner</h3><p>Nuestro asistente conoce la propuesta de arriba abajo: precios, garantía, anuncios, la app, lo que tenéis que hacer vosotros… Es el mismo tipo de asistente que atenderá a vuestros clientes.</p></div><button type="button" class="btn t" data-gpopen="1">Hacer una pregunta</button></div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
     <div class="end">
       <img src="mark-w.png" alt="" style="height:64px;opacity:.95">
       <p style="display:inline-block;margin-top:14px;background:#fff;color:var(--t-dd);font-weight:800;font-size:12px;letter-spacing:.12em;text-transform:uppercase;padding:6px 12px;border-radius:99px">Black Friday · hasta el 30 de noviembre</p><h2 style="margin-top:12px">¿Empezamos el lunes?</h2>
@@ -437,6 +487,75 @@ s.old{display:block;font-size:18px;color:#A33;opacity:.65;font-weight:600}
   var end = new Date('2026-11-30T23:59:59+01:00').getTime();
   function cd() { var el = $('bfCd'); if (!el) return; var ms = end - Date.now(); if (ms <= 0) { el.innerHTML = '<div><b>0</b><small>días</small></div>'; return; } var d = Math.floor(ms / 864e5), h = Math.floor(ms % 864e5 / 36e5), m = Math.floor(ms % 36e5 / 6e4); el.innerHTML = '<div><b>' + d + '</b><small>días</small></div><div><b>' + h + '</b><small>horas</small></div><div><b>' + m + '</b><small>min</small></div>'; }
   cd(); setInterval(cd, 30000);
+})();
+</script>
+<button type="button" class="gp-fab" id="gpFab" data-gpopen="1" aria-label="Abrir Galerna Partner"><span class="av"><b class="gp-mono">GP</b></span><span class="l">¿Dudas? Pregunta</span></button>
+<div class="gp" id="gp" hidden role="dialog" aria-label="Galerna Partner">
+  <div class="gp-h"><span class="av"><b class="gp-mono">GP</b></span><span><b>Galerna Partner</b><small><i></i>Responde al momento</small></span><button type="button" class="gp-x" id="gpX" aria-label="Cerrar">✕</button></div>
+  <div class="gp-b" id="gpB" aria-live="polite"></div>
+  <div class="gp-s" id="gpS"></div>
+  <form class="gp-f" id="gpF"><input id="gpI" placeholder="Escribe tu pregunta…" autocomplete="off" aria-label="Tu pregunta"><button type="submit" aria-label="Enviar"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 20l18-8L3 4l2 7 9 1-9 1z"/></svg></button></form>
+</div>
+
+<script>
+(function () {
+  function $(i) { return document.getElementById(i); }
+  function norm(t) { return String(t).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[¿?¡!.,;:]/g, ' '); }
+  var WA = 'https://wa.me/?text=' + encodeURIComponent('Hola Jon, tengo una duda sobre la propuesta de Restart: ');
+  var GO = function (id, txt) { return '<button type="button" data-gpgo="' + id + '">' + txt + '</button>'; };
+  var K = [
+    { k: ['cuanto cuesta', 'precio', 'cuesta', 'coste', 'pagar', 'total', 'inversion total', 'cuanto es', 'cuanto sale'], a: 'Todo junto queda así:<ul><li><b>Puesta en marcha:</b> 1.500 € (precio normal 3.000 €, oferta de Black Friday)</li><li><b>Cuota:</b> 449 €/mes, con la app incluida, todo el marketing y una reunión semanal</li><li><b>Anuncios:</b> desde 300 €/mes, que pagáis directamente a Meta</li></ul>Con unos <b>3 clientes nuevos al mes</b> se cubre todo. Desde el cuarto, es beneficio.', x: [GO('calc', 'Ver la calculadora'), GO('propuesta', 'Ver la oferta')] },
+    { k: ['permanencia', 'contrato', '12 meses', 'doce meses', 'darse de baja', 'dejarlo', 'cancelar', 'compromiso'], a: 'La permanencia es de <b>12 meses</b>. Es lo que tarda un sistema de captación en dar todo su resultado: el primer mes se aprende, el segundo se ajusta y a partir del tercero se escala. Después, seguís mes a mes y lo podéis dejar cuando queráis.' },
+    { k: ['garantia', 'si no funciona', 'no funciona', 'resultados', 'y si no', 'riesgo', 'asegurais'], a: 'Garantizamos <b>12 clientes nuevos en 3 meses</b>, sumando presencial y online, con un mínimo de 300 €/mes en anuncios. Si no llegamos, <b>el cuarto mes no pagáis la cuota</b> y seguimos trabajando gratis hasta conseguirlo.' },
+    { k: ['anuncio', 'publicidad', 'meta', 'instagram', 'facebook', 'presupuesto', 'invertir', 'cuanto meter'], a: 'Recomendamos empezar con <b>300 €/mes</b> (10 € al día): unos 220 € para traer clientes al centro en Vitoria y 80 € para probar el online. Lo pagáis directamente a Meta con vuestra tarjeta; nosotros no nos quedamos nada de esa parte. Cuando los números acompañan, desde el tercer mes, subimos a 500 €.' },
+    { k: ['segment', 'publico', 'a quien', 'rodilla', 'espalda', 'lumbar', 'hombro', 'toda espana', 'españa'], a: 'Meta no deja segmentar por dolencias, así que lo hacemos con el propio anuncio. Cada anuncio habla de <b>un solo problema</b> (rodilla, lumbar u hombro) y solo se para a verlo quien lo tiene. Meta aprende de quién reacciona y se lo enseña a gente parecida. En presencial, el público es Vitoria y 20 km; en online, toda España.' },
+    { k: ['app', 'aplicacion', 'nuestra', 'propiedad', 'de quien', 'logo', 'marca'], a: 'La app lleva <b>vuestro logo, vuestros colores y vuestro nombre</b>. Incluye ejercicios en vídeo, evolución del dolor, los informes de electromiografía y el cobro de los programas online. Normalmente vale 5.900 € aparte; con esta oferta va <b>incluida</b> mientras dure el servicio, con servidor, mantenimiento y mejoras.' },
+    { k: ['online', 'programa', 'producto', 'vender', 'vuelve sin dolor', 'valoracion online', 'distancia'], a: 'Os proponemos tres productos online:<ul><li><b>Valoración online:</b> 35 €</li><li><b>Programa "Vuelve sin dolor":</b> 8 semanas, 89 €</li><li><b>Entrenamiento online con seguimiento:</b> 59 €/mes</li></ul>Para entrar regalamos 3 días del programa en la app o una guía de ejercicios. Los dos primeros meses el online es una prueba: medimos y vemos qué funciona mejor. El que paga las cuentas al principio es el presencial.' },
+    { k: ['regalo', 'lead magnet', 'guia', 'gratis', 'pdf'], a: 'Incluimos dos regalos para conseguir contactos online: la guía <b>"5 ejercicios para tu rodilla"</b> (o espalda) y <b>3 días gratis del programa</b> en la app. Quien los prueba recibe durante 7 días mensajes que le llevan a la valoración online y al programa.' },
+    { k: ['llamada', 'llamar', 'asistente de voz', 'voz', '2 minutos', 'dos minutos', 'telefono'], a: 'Cuando alguien deja su teléfono en el anuncio, le llega un WhatsApp al instante y, a los 2 minutos, <b>nuestro asistente de voz le llama</b> para preguntarle qué le pasa y darle cita. Si no contesta, se reintenta y le escribe por WhatsApp. Incluye hasta <b>80 llamadas al mes</b>; siempre se presenta como asistente y solo llama a quien ha dado su permiso.' },
+    { k: ['whatsapp', 'mensajes', 'recordatorio'], a: 'El WhatsApp responde al momento, confirma la cita, la recuerda el día antes, pide la reseña y avisa a los 3 meses para la revisión. Los mensajes los cobra Meta directamente a Restart: unos <b>10–15 € al mes</b>.' },
+    { k: ['cuando', 'plazo', 'tiempo', 'empezar', 'semanas', 'listo', 'arrancar'], a: 'En <b>3 semanas</b> está todo funcionando:<ul><li><b>Semana 1:</b> app, página, test y WhatsApp</li><li><b>Semana 2:</b> grabación y edición de anuncios</li><li><b>Semana 3:</b> lanzamiento de las campañas</li></ul>Si firmáis esta semana, para mediados de diciembre ya os están llegando clientes nuevos.' },
+    { k: ['que tenemos que hacer', 'nosotros', 'nuestro tiempo', 'trabajo', 'cuanto tiempo nos', 'implicacion', 'hacer nosotros'], a: 'Vuestra parte es poca:<ul><li>Un día de grabación al principio (unas 3–4 horas)</li><li>La reunión semanal de 30–45 minutos</li><li>Atender las valoraciones que os entran en agenda</li></ul>Anuncios, respuestas, llamadas, recordatorios e informes los llevamos nosotros.' },
+    { k: ['grabar', 'video', 'contenido', 'fotos', 'creatividad'], a: 'Grabamos nosotros: un día en el centro con la electromiografía en directo, testimonios, consejos y el recorrido por la sala. Después editamos y os subimos <b>4 anuncios nuevos al mes</b>. Vosotros solo ponéis la cara un rato.' },
+    { k: ['datos', 'rgpd', 'privacidad', 'proteccion', 'ley', 'salud', 'legal', 'consentimiento'], a: 'Todo cumple el RGPD: consentimiento claro en los formularios (también para la llamada), servidores en la UE, solo los datos imprescindibles y un contrato de encargado del tratamiento entre Restart y Galerna. Como se habla de dolor y lesiones, se pide un consentimiento expreso.' },
+    { k: ['cuantos clientes', 'estimacion', 'cuanto ganar', 'retorno', 'rentable', 'compensa', 'ingresos'], a: 'Con 300 €/mes en anuncios esperamos <b>45–55 contactos y 4–6 clientes nuevos al mes</b>, y con 500 € de 8 a 12. Con 40 € la sesión y 8 sesiones por cliente, cada cliente nuevo vale unos 320 €. En la calculadora podéis poner vuestros números.', x: [GO('calc', 'Abrir la calculadora')] },
+    { k: ['plazos', 'como se paga', 'forma de pago', 'factura', 'iva', 'transferencia'], a: 'La puesta en marcha se paga en dos veces: <b>750 € al firmar y 750 € el día del lanzamiento</b>. La cuota se paga al principio de cada mes. Todos los precios son sin IVA y os llega factura de cada pago.' },
+    { k: ['electromiografia', 'emg', 'biofeedback', 'tecnologia'], a: 'Vuestra electromiografía es el mejor gancho que tenéis y nadie más en Vitoria lo ofrece. La usamos en los anuncios ("mira qué músculo no está trabajando") y en la app, donde el cliente ve sus resultados y cómo mejoran entre valoraciones.' },
+    { k: ['resena', 'google', 'opiniones', 'valoraciones en google'], a: 'Después de cada valoración y al terminar un programa, el WhatsApp pide la reseña en Google con el enlace directo. Más reseñas significa que salís más arriba en Google Maps y que los anuncios convierten mejor.' },
+    { k: ['black friday', 'oferta', 'descuento', 'hasta cuando', 'caduca'], a: 'La oferta de Black Friday vale <b>hasta el 30 de noviembre</b>: puesta en marcha a 1.500 € en lugar de 3.000 €, y la app incluida en vez de pagar 5.900 € aparte. En total, os ahorráis <b>7.400 €</b>.', x: [GO('propuesta', 'Ver la oferta')] },
+    { k: ['agenda llena', 'no tenemos hueco', 'capacidad', 'muchos clientes', 'no damos abasto', 'horas'], a: 'Buena señal si pasa 😉. Ajustamos los anuncios a las horas libres que tengáis y, si la sala se llena, pasamos más presupuesto al online, que crece sin ocupar horas de sala.' },
+    { k: ['por que vosotros', 'agencia', 'diferencia', 'otros', 'competencia'], a: 'Una agencia normal os pone anuncios y os manda un informe. Nosotros montamos el sistema completo: anuncios, test, <b>llamada en 2 minutos</b>, WhatsApp automático, <b>la app con vuestra marca</b> y los productos online, con una reunión cada semana para mejorar. Y con garantía.' },
+    { k: ['hola', 'buenas', 'kaixo', 'hey'], a: '¡Hola! Pregúntame lo que quieras sobre la propuesta: precio, garantía, anuncios, la app o lo que tendríais que hacer vosotros.' },
+    { k: ['gracias', 'genial', 'perfecto', 'vale'], a: '¡A vosotros! Si os encaja, el siguiente paso es fijar el día de grabación.', x: ['<a href="' + 'https://wa.me/?text=' + encodeURIComponent('Hola Jon, queremos empezar con Restart') + '" target="_blank" rel="noopener">Quiero empezar</a>'] }
+  ];
+  var SUG = ['¿Cuánto cuesta todo?', '¿Y si no funciona?', '¿Qué tenemos que hacer nosotros?', '¿Cómo funciona la llamada en 2 minutos?', '¿Cuánto metemos en anuncios?', '¿Cómo vendemos online?', '¿Hay permanencia?'];
+  var started = false, busy = false;
+  function add(cls, html) { var d = document.createElement('div'); d.className = 'gp-m ' + cls; d.innerHTML = html; $('gpB').appendChild(d); $('gpB').scrollTop = 1e6; return d; }
+  function reply(q) {
+    var n = ' ' + norm(q) + ' ', best = null, bs = 0;
+    K.forEach(function (it) { var sc = 0; it.k.forEach(function (k) { if (n.indexOf(norm(k)) >= 0) sc += k.length; }); if (sc > bs) { bs = sc; best = it; } });
+    if (!best) return { a: 'Buena pregunta. Esa prefiero que te la responda Jon directamente para no decirte nada inexacto.', x: ['<a href="' + WA + '" target="_blank" rel="noopener">Preguntar a Jon</a>'] };
+    return best;
+  }
+  function ask(q) {
+    q = String(q || '').trim(); if (!q || busy) return; busy = true;
+    add('u', q.replace(/[<>&]/g, '')); var t = document.createElement('div'); t.className = 'gp-t'; t.innerHTML = '<i></i><i></i><i></i>'; $('gpB').appendChild(t); $('gpB').scrollTop = 1e6;
+    setTimeout(function () { t.remove(); var r = reply(q); add('b', r.a + (r.x ? '<div class="acts">' + r.x.join('') + '</div>' : '')); busy = false; }, 600 + Math.random() * 500);
+  }
+  function open() {
+    $('gp').hidden = false; $('gpFab').hidden = true;
+    if (!started) { started = true; add('b', 'Hola 👋 Soy <b>Galerna Partner</b>. Conozco esta propuesta para Restart de arriba abajo. ¿Qué os gustaría saber?'); $('gpS').innerHTML = SUG.map(function (s) { return '<button type="button">' + s + '</button>'; }).join(''); }
+    setTimeout(function () { if (window.innerWidth > 640) $('gpI').focus(); }, 100);
+  }
+  function close() { $('gp').hidden = true; $('gpFab').hidden = false; }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-gpopen]'); if (b) { open(); return; }
+    var g = e.target.closest('[data-gpgo]'); if (g) { if (window.innerWidth <= 640) close(); var el = document.getElementById(g.dataset.gpgo); if (el) el.scrollIntoView({ behavior: 'smooth' }); return; }
+  });
+  $('gpX').addEventListener('click', close);
+  $('gpS').addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) ask(b.textContent); });
+  $('gpF').addEventListener('submit', function (e) { e.preventDefault(); ask($('gpI').value); $('gpI').value = ''; });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !$('gp').hidden) close(); });
 })();
 </script>
 </body>
