@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Restart · Plan de captación</title>
+<meta name="description" content="Propuesta de Galerna Method para Restart Vitoria: más clientes en el centro y un servicio online de readaptación.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#173D3C">
+<meta property="og:title" content="Restart · Plan de captación de pacientes">
+<meta property="og:description" content="Presencial en Vitoria y online en toda España. Propuesta de Galerna Method.">
+<meta property="og:image" content="https://app.galernamethod.com/restart/icon.png">
+<link rel="icon" type="image/png" href="icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap">
+<style>
+:root{--t:#4F999A;--t-d:#2F7C7A;--t-dd:#173D3C;--t-l:#7FBDB8;--t-s:#E6F2F1;--ink:#14292A;--sub:#557071;--line:#D7E6E5;--bg:#F6FAF9;--card:#fff;--ok:#2F9E6E;--warn:#C9822B}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Poppins",system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:clip}
+.wrap{max-width:1060px;margin:0 auto;padding:0 20px}
+h1,h2,h3{line-height:1.12;letter-spacing:-.015em}
+h2{font-size:clamp(28px,4.6vw,42px);font-weight:800}
+h2 em{font-style:normal;color:var(--t)}
+.kick{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--t-d)}
+.kick::before{content:"";width:22px;height:2px;background:currentColor}
+.lead{font-size:17.5px;color:var(--sub);max-width:62ch;margin-top:12px}
+section{padding:72px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px}
+/* hero */
+.hero{position:relative;background:radial-gradient(900px 500px at 85% -10%,rgba(127,189,184,.45),transparent 60%),linear-gradient(160deg,#1E4E4C 0%,var(--t-dd) 55%,#0F2A29 100%);color:#fff;padding:26px 0 70px;overflow:hidden}
+.hex{position:absolute;right:-120px;top:40px;width:560px;height:560px;opacity:.09}
+.hero nav{display:flex;justify-content:space-between;align-items:center}
+.hero nav .b{display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:.12em;font-size:14px}
+.hero nav img{width:46px;height:46px;border-radius:50%;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.hero nav span.g{font-size:12px;font-weight:600;letter-spacing:.08em;opacity:.75}
+.hero .in{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center;margin-top:64px;position:relative}
+.hero h1{font-size:clamp(38px,6.4vw,68px);font-weight:800}
+.hero h1 em{font-style:normal;color:var(--t-l)}
+.hero p.s{font-size:18px;opacity:.85;margin-top:18px;max-width:46ch}
+.hero .ctas{display:flex;gap:10px;margin-top:26px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:52px;padding:0 22px;border-radius:14px;font-weight:700;font-size:15.5px;text-decoration:none;border:0;cursor:pointer;font-family:inherit}
+.btn.w{background:#fff;color:var(--t-dd)}
+.btn.o{border:1.5px solid rgba(255,255,255,.35);color:#fff;background:transparent}
+.btn.t{background:var(--t-d);color:#fff}
+.hero .kpis{display:grid;gap:10px}
+.hero .kpi{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:16px 18px;backdrop-filter:blur(6px)}
+.hero .kpi b{display:block;font-size:34px;font-weight:800;line-height:1}
+.hero .kpi small{font-size:13.5px;opacity:.8}
+.hero .note{font-size:12px;opacity:.6;margin-top:6px}
+/* dijisteis */
+.said{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:stretch;margin-top:30px}
+.said .q{background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px;position:relative}
+.said .q.a{background:var(--t-dd);color:#fff;border-color:transparent}
+.said .q p.l{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sub);margin-bottom:8px}
+.said .q.a p.l{color:var(--t-l)}
+.said .q blockquote{font-size:19px;font-weight:600;line-height:1.4}
+.said .q ul{margin:10px 0 0 18px;display:grid;gap:6px}
+.said .arr{display:grid;place-items:center;color:var(--t);font-size:30px;font-weight:800}
+/* sistema */
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:34px;counter-reset:s}
+.st{position:relative;background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px 16px}
+.st::after{content:"";position:absolute;right:-12px;top:36px;width:12px;height:2px;background:var(--t-l)}
+.st:last-child::after{display:none}
+.st .n{width:38px;height:38px;border-radius:12px;background:var(--t-s);color:var(--t-d);display:grid;place-items:center;font-weight:800;margin-bottom:12px}
+.st h3{font-size:16px;font-weight:700}
+.st p{font-size:13.5px;color:var(--sub);margin-top:6px}
+/* dos vías */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:30px}
+.via{border-radius:24px;padding:26px;position:relative;overflow:hidden}
+.via.p{background:#fff;border:1px solid var(--line)}
+.via.o{background:linear-gradient(150deg,var(--t-d),var(--t-dd));color:#fff}
+.via .tag{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;border-radius:99px;background:var(--t-s);color:var(--t-d)}
+.via.o .tag{background:rgba(255,255,255,.14);color:#fff}
+.via h3{font-size:26px;font-weight:800;margin-top:12px}
+.via p.d{font-size:15px;margin-top:8px;opacity:.85}
+.via ul{list-style:none;margin-top:14px;display:grid;gap:8px}
+.via li{display:grid;grid-template-columns:22px 1fr;gap:8px;font-size:14.5px}
+.via li::before{content:"✓";font-weight:800;color:var(--t)}
+.via.o li::before{color:var(--t-l)}
+.prods{display:grid;gap:8px;margin-top:16px}
+.prod{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:12px 14px}
+.prod b{font-size:15px}
+.prod small{display:block;font-size:12.5px;opacity:.75}
+.prod em{font-style:normal;font-weight:800;font-size:20px;white-space:nowrap}
+.badge{position:absolute;top:18px;right:18px;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:#fff;color:var(--t-dd);padding:5px 10px;border-radius:99px}
+/* app */
+.appg{display:grid;grid-template-columns:.9fr 1.1fr;gap:34px;align-items:center;margin-top:20px}
+.phone{width:280px;margin:0 auto;border-radius:40px;background:#0E2221;padding:12px;box-shadow:0 30px 70px rgba(23,61,60,.35)}
+.scr{border-radius:30px;background:var(--bg);overflow:hidden;height:540px;display:flex;flex-direction:column}
+.scr .top{background:linear-gradient(150deg,var(--t-d),var(--t-dd));color:#fff;padding:22px 18px 18px}
+.scr .top small{opacity:.75;font-size:12px}
+.scr .top b{display:block;font-size:20px;font-weight:800;margin-top:2px}
+.scr .prg{height:8px;border-radius:9px;background:rgba(255,255,255,.2);margin-top:12px;overflow:hidden}
+.scr .prg i{display:block;height:100%;width:62%;background:var(--t-l)}
+.scr .body{padding:14px;display:grid;gap:10px}
+.ex{display:grid;grid-template-columns:44px 1fr auto;gap:10px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px}
+.ex .th{width:44px;height:44px;border-radius:10px;background:var(--t-s);display:grid;place-items:center;color:var(--t-d);font-weight:800}
+.ex b{font-size:13.5px;display:block}
+.ex small{font-size:11.5px;color:var(--sub)}
+.ex .ck{width:24px;height:24px;border-radius:7px;border:2px solid var(--line);display:grid;place-items:center;font-size:13px;color:#fff}
+.ex .ck.on{background:var(--ok);border-color:var(--ok)}
+.pain{background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+.pain small{font-size:11.5px;color:var(--sub);font-weight:600}
+.pain .sc{display:flex;gap:4px;margin-top:6px}
+.pain .sc i{flex:1;height:22px;border-radius:5px;background:var(--t-s)}
+.pain .sc i.on{background:var(--t)}
+.feat{display:grid;gap:12px}
+.feat div{display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:start}
+.feat .ic{width:44px;height:44px;border-radius:13px;background:var(--t-s);color:var(--t-d);display:grid;place-items:center}
+.feat b{font-size:16px}
+.feat p{font-size:14.5px;color:var(--sub)}
+/* inversion */
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
+.tier{background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px;position:relative}
+.tier.hl{border:2px solid var(--t);box-shadow:0 18px 40px rgba(79,153,154,.18)}
+.tier .rb{position:absolute;top:-12px;left:22px;background:var(--t);color:#fff;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:99px}
+.tier h3{font-size:15px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.08em}
+.tier .pr{font-size:40px;font-weight:800;margin-top:6px;line-height:1}
+.tier .pr small{font-size:15px;font-weight:600;color:var(--sub)}
+.tier .day{font-size:13px;color:var(--sub);margin-top:4px}
+.tier ul{list-style:none;margin-top:14px;display:grid;gap:7px;font-size:14px}
+.tier li{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed var(--line);padding-bottom:7px}
+.tier li b{white-space:nowrap}
+.small{font-size:12.5px;color:var(--sub);margin-top:14px}
+/* calc */
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:30px}
+.ctrl{display:grid;gap:18px}
+.rng label{display:flex;justify-content:space-between;font-weight:600;font-size:14.5px}
+.rng label b{color:var(--t-d);font-size:16px}
+.rng input{width:100%;margin-top:8px;accent-color:var(--t-d);height:28px}
+.seg{display:flex;gap:6px;background:var(--t-s);padding:4px;border-radius:12px}
+.seg button{flex:1;height:38px;border-radius:9px;border:0;background:transparent;font-family:inherit;font-weight:700;color:var(--sub);cursor:pointer}
+.seg button.on{background:#fff;color:var(--t-dd);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.res{background:var(--t-dd);color:#fff;border-radius:24px;padding:24px;display:grid;gap:14px;align-content:start}
+.res .big{font-size:52px;font-weight:800;line-height:1}
+.res .big small{font-size:16px;font-weight:600;opacity:.7}
+.res .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.res .grid div{background:rgba(255,255,255,.08);border-radius:14px;padding:12px}
+.res .grid b{display:block;font-size:24px;font-weight:800;line-height:1.1}
+.res .grid small{font-size:12px;opacity:.75}
+.res .roi{display:flex;justify-content:space-between;align-items:center;background:var(--t-l);color:var(--t-dd);border-radius:14px;padding:12px 16px;font-weight:800}
+.res .roi b{font-size:28px}
+.res p.f{font-size:12px;opacity:.65}
+.funnel{display:grid;gap:6px}
+.funnel div{display:grid;grid-template-columns:120px 1fr 54px;gap:10px;align-items:center;font-size:13px}
+.funnel .tr{height:10px;border-radius:9px;background:rgba(255,255,255,.1);overflow:hidden}
+.funnel .tr i{display:block;height:100%;background:var(--t-l);border-radius:9px;transition:width .4s}
+.funnel b{text-align:right}
+/* precio */
+.price{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;margin-top:30px;align-items:start}
+.pbox{background:#fff;border:2px solid var(--t);border-radius:26px;padding:28px;position:relative;overflow:hidden}
+.pbox::after{content:"";position:absolute;right:-60px;top:-60px;width:200px;height:200px;border-radius:50%;background:var(--t-s)}
+.pbox .row{display:flex;gap:26px;flex-wrap:wrap;position:relative;z-index:1}
+.pbox .amt{font-size:46px;font-weight:800;line-height:1}
+.pbox .amt small{font-size:16px;color:var(--sub);font-weight:600}
+.pbox .lb{font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sub)}
+.pbox ul{list-style:none;margin-top:18px;display:grid;gap:9px;position:relative;z-index:1}
+.pbox li{display:grid;grid-template-columns:24px 1fr;gap:8px;font-size:15px}
+.pbox li::before{content:"✓";color:var(--t-d);font-weight:800}
+.side{display:grid;gap:12px}
+.guar{background:linear-gradient(150deg,var(--t-d),var(--t-dd));color:#fff;border-radius:22px;padding:22px}
+.guar h3{font-size:20px;font-weight:800;margin-top:6px}
+.guar p{font-size:14.5px;opacity:.9;margin-top:8px}
+.cond{display:grid;gap:8px}
+.cond div{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 16px;font-size:14.5px}
+.cond b{display:block}
+/* timeline */
+.tl{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:30px}
+.tl div{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px;border-top:5px solid var(--t)}
+.tl div:nth-child(2){border-top-color:var(--t-l)}
+.tl div:nth-child(3){border-top-color:var(--t-d)}
+.tl div:nth-child(4){border-top-color:var(--t-dd)}
+.tl small{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--sub)}
+.tl b{display:block;font-size:17px;margin-top:4px}
+.tl p{font-size:14px;color:var(--sub);margin-top:6px}
+/* cierre */
+.end{background:linear-gradient(160deg,#1E4E4C,var(--t-dd));color:#fff;border-radius:30px;padding:44px 32px;text-align:center;position:relative;overflow:hidden}
+.end h2{color:#fff}
+.end p{opacity:.85;max-width:52ch;margin:12px auto 0}
+.end .ctas{display:flex;gap:10px;justify-content:center;margin-top:24px;flex-wrap:wrap}
+footer{padding:30px 0 40px;text-align:center;font-size:12.5px;color:var(--sub)}
+@media (max-width:860px){
+  .hero .in,.appg,.price,.calc,.two{grid-template-columns:1fr}
+  .flow{grid-template-columns:1fr 1fr}
+  .st::after{display:none}
+  .tiers,.tl{grid-template-columns:1fr}
+  .said{grid-template-columns:1fr}
+  .said .arr{transform:rotate(90deg);height:30px}
+  section{padding:54px 0}
+  .hex{width:380px;height:380px;right:-140px}
+}
+@media (max-width:480px){.flow{grid-template-columns:1fr}.funnel div{grid-template-columns:96px 1fr 44px}.res .big{font-size:42px}}
+@media print{.hero{-webkit-print-color-adjust:exact;print-color-adjust:exact}section{padding:30px 0;break-inside:avoid}.ctas{display:none!important}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <svg class="hex" viewBox="0 0 100 100" aria-hidden="true"><path d="M27 6h46l23 44-23 44H27L4 50z" fill="none" stroke="#fff" stroke-width="5"/><path d="M27 18h46l17 32-17 32H27L10 50z" fill="none" stroke="#fff" stroke-width="2"/></svg>
+  <div class="wrap">
+    <nav><span class="b"><img src="logo-circle.png" alt="Restart">RESTART · VITORIA</span><span class="g">Propuesta de Galerna Method · noviembre 2026</span></nav>
+    <div class="in">
+      <div>
+        <p class="kick" style="color:var(--t-l)">Plan de captación de pacientes</p>
+        <h1 style="margin-top:14px">Más clientes en el centro.<br><em>Y una readaptación online</em> que trabaja mientras entrenas.</h1>
+        <p class="s">No es una app más para gestionar a los que ya tenéis. Es un sistema que trae clientes nuevos a Restart: de Vitoria a vuestra sala, y de toda España a vuestro programa de readaptación online.</p>
+        <div class="ctas"><a class="btn w" href="#calc">Calcular vuestro retorno</a><a class="btn o" href="#propuesta">Ver la propuesta</a></div>
+      </div>
+      <div class="kpis">
+        <div class="kpi"><b>5–9</b><small>clientes nuevos al mes en Angulema, desde el segundo mes</small></div>
+        <div class="kpi"><b>Toda España</b><small>para vender readaptación online sin ocupar la sala</small></div>
+        <div class="kpi"><b>~3×</b><small>retorno estimado sobre lo invertido, una vez rodado</small></div>
+        <p class="note">Estimaciones con datos medios del sector. Las ajustamos con vuestros números en la reunión.</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <p class="kick">Lo que nos dijisteis</p>
+    <h2 style="margin-top:10px">Teníais razón: <em>una app sola no os hace falta.</em></h2>
+    <div class="said">
+      <div class="q"><p class="l">Restart</p><blockquote>“No tenemos suficientes pacientes online como para necesitar una app externa que los lleve.”</blockquote></div>
+      <div class="arr" aria-hidden="true">→</div>
+      <div class="q a"><p class="l">Por eso cambiamos el enfoque</p><blockquote>Primero os traemos los clientes. La app es solo la herramienta para atenderlos.</blockquote><ul><li>Anuncios que llenan la agenda en Vitoria</li><li>Un servicio online nuevo, con producto y precio</li><li>Todo con vuestra marca, no con la de otro</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <p class="kick">El sistema</p>
+    <h2 style="margin-top:10px">De un anuncio a un <em>cliente que vuelve.</em></h2>
+    <p class="lead">Cinco piezas conectadas. Vosotros solo atendéis: el resto va solo.</p>
+    <div class="flow">
+      <div class="st"><span class="n">1</span><h3>Anuncios</h3><p>Instagram y Facebook. En Vitoria para el centro, en toda España para online.</p></div>
+      <div class="st"><span class="n">2</span><h3>Test “¿Qué te duele?”</h3><p>Una página con vuestra marca: zona, tiempo con dolor y objetivo. Filtra curiosos y llega a la valoración.</p></div>
+      <div class="st"><span class="n">3</span><h3>WhatsApp al momento</h3><p>Respuesta en minutos y reserva de la valoración. El que contesta antes, se lleva al cliente.</p></div>
+      <div class="st"><span class="n">4</span><h3>App Restart</h3><p>Plan de readaptación, evolución del dolor e informes de EMG. Con vuestro logo.</p></div>
+      <div class="st"><span class="n">5</span><h3>Reseña y vuelta</h3><p>Petición de reseña en Google y aviso a los 3 meses para la revisión.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kick">Dos vías de ingresos</p>
+    <h2 style="margin-top:10px">Presencial para llenar agenda. <em>Online para crecer sin límite de horas.</em></h2>
+    <div class="two">
+      <div class="via p"><span class="tag">Presencial · Vitoria y 20 km</span><h3>Clientes en Angulema 7</h3><p class="d">Campañas por problema: lumbalgia, rodilla, hombro, vuelta al deporte tras una lesión y entrenamiento personal.</p>
+        <ul><li>Gancho diferencial: la valoración con electromiografía. “Descubre qué músculo no está trabajando”</li><li>Anuncios con vuestras caras y vuestra sala, no fotos de banco de imágenes</li><li>Primera valoración reservada por WhatsApp</li><li>Recordatorio de cita: menos huecos perdidos</li><li>Ejercicios en la app entre sesiones: mejor resultado y más recomendaciones</li></ul></div>
+      <div class="via o"><span class="badge">Foco principal</span><span class="tag">Online · toda España</span><h3>Readaptación online con producto</h3><p class="d">Lo que faltaba no era una app: era un producto online claro. Os proponemos tres:</p>
+        <div class="prods">
+          <div class="prod"><span><b>Valoración online de tu lesión</b><small>Videollamada de 40 min y plan de ejercicios</small></span><em>35 €</em></div>
+          <div class="prod"><span><b>Programa “Vuelve sin dolor”</b><small>8 semanas de readaptación (espalda, rodilla u hombro) en la app</small></span><em>89 €</em></div>
+          <div class="prod"><span><b>Entrenamiento online con seguimiento</b><small>Plan que se ajusta, chat y una videollamada al mes</small></span><em>59 €/mes</em></div>
+        </div>
+        <p class="d" style="font-size:13px;margin-top:12px">Los productos y precios los cerramos juntos. Se graban una vez y se venden muchas.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <p class="kick">La app Restart</p>
+    <h2 style="margin-top:10px">La herramienta que <em>atiende</em> a esos clientes.</h2>
+    <div class="appg">
+      <div class="phone" aria-hidden="true"><div class="scr"><div class="top"><small>Semana 5 de 8 · Vuelve sin dolor</small><b>Hola, Laura</b><div class="prg"><i></i></div></div><div class="body">
+        <div class="pain"><small>¿Cómo está hoy tu dolor?</small><div class="sc"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+        <div class="ex"><span class="th">1</span><span><b>Puente de glúteo</b><small>3 × 12 · vídeo de Restart</small></span><span class="ck on">✓</span></div>
+        <div class="ex"><span class="th">2</span><span><b>Bird dog</b><small>3 × 10 por lado</small></span><span class="ck on">✓</span></div>
+        <div class="ex"><span class="th">3</span><span><b>Plancha lateral</b><small>3 × 20 s</small></span><span class="ck"></span></div>
+        <div class="ex"><span class="th">4</span><span><b>Gato-camello</b><small>2 × 10 · movilidad</small></span><span class="ck"></span></div>
+      </div></div></div>
+      <div class="feat">
+        <div><span class="ic">▶</span><span><b>Vuestros ejercicios en vídeo</b><p>Se graban una vez y se asignan en segundos, a presenciales y a online.</p></span></div><div><span class="ic">⚡</span><span><b>Vuestra EMG, en el móvil del cliente</b><p>El resultado de la electromiografía, explicado y comparado entre valoraciones. Lo ve, lo entiende y lo enseña.</p></span></div>
+        <div><span class="ic">📉</span><span><b>Evolución del dolor</b><p>El paciente apunta su dolor y veis la mejora semana a semana. Es lo que más fideliza.</p></span></div>
+        <div><span class="ic">💬</span><span><b>Avisos automáticos</b><p>Recordatorio de cita, “¿has hecho tus ejercicios?”, petición de reseña y revisión a los 3 meses.</p></span></div>
+        <div><span class="ic">€</span><span><b>Cobro de los programas online</b><p>El paciente paga y entra. Sin transferencias ni perseguir a nadie.</p></span></div>
+        <div><span class="ic">R</span><span><b>Con la marca Restart</b><p>Vuestro logo, vuestros colores y vuestro nombre en el móvil del paciente.</p></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kick">Inversión en anuncios</p>
+    <h2 style="margin-top:10px">Empezamos con poco. <em>Subimos solo lo que funciona.</em></h2>
+    <p class="lead">El dinero de anuncios lo pagáis directamente a Meta, con vuestra tarjeta. Nosotros no nos quedamos nada de esa parte.</p>
+    <div class="tiers">
+      <div class="tier"><h3>Arranque</h3><div class="pr">300 €<small>/mes</small></div><p class="day">10 € al día</p><ul><li>Presencial Vitoria<b>200 €</b></li><li>Online España<b>100 €</b></li><li>Contactos esperados<b>45–55</b></li><li>Clientes nuevos<b>4–6</b></li></ul></div>
+      <div class="tier hl"><span class="rb">Recomendado</span><h3>Crecimiento</h3><div class="pr">500 €<small>/mes</small></div><p class="day">≈ 16 € al día</p><ul><li>Presencial Vitoria<b>250 €</b></li><li>Online España<b>250 €</b></li><li>Contactos esperados<b>85–100</b></li><li>Clientes y ventas online<b>8–12</b></li></ul></div>
+      <div class="tier"><h3>Escalar</h3><div class="pr">900 €<small>/mes</small></div><p class="day">Desde el mes 4, si los números acompañan</p><ul><li>Presencial Vitoria<b>350 €</b></li><li>Online España<b>550 €</b></li><li>Contactos esperados<b>170+</b></li><li>Clientes y ventas online<b>16–22</b></li></ul></div>
+    </div>
+    <p class="small">Cálculo con un coste por contacto de 7–10 € en Vitoria y 3–5 € en online, según datos habituales de centros de readaptación y fisioterapia en España. Los primeros 30 días sirven para medir los vuestros.</p>
+  </div>
+</section>
+
+<section id="calc" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <p class="kick">Calculadora</p>
+    <h2 style="margin-top:10px">Ponedle <em>vuestros números.</em></h2>
+    <div class="calc">
+      <div class="ctrl card">
+        <div class="rng"><label for="cA">Inversión en anuncios al mes <b id="vA"></b></label><input type="range" id="cA" min="150" max="1500" step="50" value="500"></div>
+        <div class="rng"><label for="cO">Parte para online <b id="vO"></b></label><input type="range" id="cO" min="0" max="100" step="5" value="50"></div>
+        <div class="rng"><label for="cP">Precio de la sesión <b id="vP"></b></label><input type="range" id="cP" min="25" max="80" step="5" value="40"></div>
+        <div class="rng"><label for="cS">Sesiones por cliente nuevo (primeros 3 meses) <b id="vS"></b></label><input type="range" id="cS" min="2" max="24" step="1" value="8"></div>
+        <div class="rng"><label for="cK">Precio del programa online <b id="vK"></b></label><input type="range" id="cK" min="29" max="199" step="5" value="89"></div>
+        <div><p style="font-weight:600;font-size:14.5px;margin-bottom:8px">Escenario</p><div class="seg" role="group" aria-label="Escenario"><button type="button" data-sc="0.75">Prudente</button><button type="button" class="on" data-sc="1">Realista</button><button type="button" data-sc="1.3">Bueno</button></div></div>
+      </div>
+      <div class="res" aria-live="polite">
+        <div><small style="opacity:.75;font-weight:600">Ingresos nuevos estimados al mes</small><div class="big" id="rI"></div></div>
+        <div class="funnel" id="rF"></div>
+        <div class="grid"><div><b id="rPac"></b><small>clientes nuevos en el centro</small></div><div><b id="rOn"></b><small>ventas online</small></div><div><b id="rC"></b><small>coste total al mes (anuncios + Galerna)</small></div><div><b id="rB"></b><small>beneficio estimado al mes</small></div></div>
+        <div class="roi"><span>Retorno por cada euro</span><b id="rR"></b></div>
+        <p class="f">Valor de cada cliente = sesiones × precio. En online sumamos un 25 % de compradores que siguen 3 meses con el entrenamiento online (59 €/mes). Son estimaciones para decidir, no una promesa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="propuesta">
+  <div class="wrap">
+    <p class="kick">La propuesta</p>
+    <h2 style="margin-top:10px">Todo montado y funcionando <em>en 3 semanas.</em></h2>
+    <div class="price">
+      <div class="pbox">
+        <div class="row"><div><p class="lb">Puesta en marcha · pago único</p><div class="amt">790 €</div></div><div><p class="lb">Cuota mensual</p><div class="amt">249 €<small>/mes</small></div></div></div>
+        <ul>
+          <li>App Restart con vuestra marca: ejercicios, evolución del dolor, informes de EMG, programas online y cobro</li>
+          <li>Página y test “¿Qué te duele?” para presencial y para online</li>
+          <li>Campañas en Instagram y Facebook: creación, gestión y optimización semanal</li>
+          <li>4 anuncios nuevos al mes (os grabamos o editamos los vídeos)</li>
+          <li>WhatsApp automático: respuesta, cita, recordatorio, reseña y revisión</li>
+          <li>Montaje de los 3 productos online con vosotros</li>
+          <li>Informe mensual claro y una reunión de 30 minutos</li>
+        </ul>
+        <p class="small">Precios sin IVA. Los anuncios se pagan aparte, directamente a Meta (recomendado: 500 €/mes).</p>
+      </div>
+      <div class="side">
+        <div class="guar"><p class="kick" style="color:var(--t-l)">Garantía</p><h3>15 clientes nuevos en 3 meses, o el cuarto mes es gratis.</h3><p>Sumando presencial y online, con la inversión recomendada en anuncios. Si no llegamos, seguimos trabajando sin cobraros la cuota hasta conseguirlo.</p></div>
+        <div class="cond"><div><b>Sin permanencia después del tercer mes</b>Si no os compensa, lo dejáis. La app y el contenido siguen siendo vuestros.</div><div><b>50 % al empezar, 50 % al lanzar</b>La puesta en marcha se divide en dos pagos.</div><div><b>Precio de lanzamiento</b>Esta propuesta es válida hasta el 30 de noviembre.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <p class="kick">Primeros 90 días</p>
+    <h2 style="margin-top:10px">Así avanzamos.</h2>
+    <div class="tl">
+      <div><small>Semanas 1–3</small><b>Montaje</b><p>App con vuestra marca, página y test, grabación de ejercicios y de los primeros anuncios.</p></div>
+      <div><small>Mes 1</small><b>Lanzamiento</b><p>Campañas en marcha. Medimos coste por contacto, citas y ventas online.</p></div>
+      <div><small>Mes 2</small><b>Ajuste</b><p>Apagamos lo que no funciona y subimos lo que sí. Primer programa online vendiéndose.</p></div>
+      <div><small>Mes 3</small><b>Decisión</b><p>Con datos reales decidimos juntos si escalar la inversión y en qué vía.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="end">
+      <img src="mark-w.png" alt="" style="height:64px;opacity:.95">
+      <h2 style="margin-top:16px">¿Empezamos el lunes?</h2>
+      <p>Si os encaja, la próxima semana grabamos los ejercicios y los anuncios, y en 3 semanas estáis recibiendo clientes nuevos.</p>
+      <div class="ctas"><a class="btn w" href="https://wa.me/?text=Hola%20Jon%2C%20hemos%20visto%20la%20propuesta%20para%20Restart%20y%20queremos%20empezar" target="_blank" rel="noopener">Quiero empezar</a><a class="btn o" href="#calc">Volver a la calculadora</a></div>
+    </div>
+  </div>
+</section>
+
+<footer>Propuesta preparada por <b>Galerna Method</b> para Restart Vitoria · Jon · galernamethod.com</footer>
+
+<script>
+(function () {
+  function $(i) { return document.getElementById(i); }
+  function eur(v) { return Math.round(v).toLocaleString('es-ES') + ' €'; }
+  var sc = 1, FEE = 249;
+  function calc() {
+    var A = +$('cA').value, O = +$('cO').value / 100, P = +$('cP').value, Sx = +$('cS').value, K = +$('cK').value;
+    $('vA').textContent = eur(A); $('vO').textContent = Math.round(O * 100) + ' %'; $('vP').textContent = eur(P); $('vS').textContent = Sx; $('vK').textContent = eur(K);
+    var aP = A * (1 - O), aO = A * O;
+    var lP = aP / 9, val = lP * 0.35 * sc, pac = val * 0.65;
+    var lO = aO / 4, ven = lO * 0.06 * sc, subs = ven * 0.25;
+    var ingP = pac * Sx * P, ingO = ven * K + subs * 59 * 3, I = ingP + ingO, C = A + FEE;
+    $('rI').innerHTML = eur(I) + '<small> /mes</small>';
+    $('rPac').textContent = pac.toFixed(1).replace('.', ','); $('rOn').textContent = ven.toFixed(1).replace('.', ',');
+    $('rC').textContent = eur(C); $('rB').textContent = (I - C >= 0 ? '+' : '') + eur(I - C); $('rR').textContent = (I / C).toFixed(1).replace('.', ',') + ' €';
+    var mx = Math.max(lP + lO, 1), rows = [['Contactos', lP + lO], ['Valoraciones', val], ['Clientes', pac], ['Ventas online', ven]];
+    $('rF').innerHTML = rows.map(function (r) { return '<div><span>' + r[0] + '</span><span class="tr"><i style="width:' + Math.max(2, r[1] / mx * 100) + '%"></i></span><b>' + Math.round(r[1]) + '</b></div>'; }).join('');
+  }
+  ['cA', 'cO', 'cP', 'cS', 'cK'].forEach(function (i) { $(i).addEventListener('input', calc); });
+  document.querySelectorAll('[data-sc]').forEach(function (b) { b.addEventListener('click', function () { document.querySelectorAll('[data-sc]').forEach(function (x) { x.classList.toggle('on', x === b); }); sc = +b.dataset.sc; calc(); }); });
+  calc();
+})();
+</script>
+</body>
+</html>
