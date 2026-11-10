@@ -265,6 +265,12 @@ s.old{display:block;font-size:18px;color:#A33;opacity:.65;font-weight:600}
 .gp-back{width:38px;height:38px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;display:grid;place-items:center;cursor:pointer;flex:none;margin-right:-4px}
 .gp-ret{border:0;background:#fff;color:var(--t-d);font-family:inherit;font-weight:700;font-size:13.5px;padding:8px 0 0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
 .gp-mono{color:#fff;font-weight:800;font-size:15px;letter-spacing:.02em}.gp-sec .gp-mono{font-size:20px}
+
+/* pantalla de inicio (modo app): respetar la barra de estado del móvil */
+.bf-top{padding-top:calc(9px + env(safe-area-inset-top,0px))}
+.gp-h{padding-top:calc(14px + env(safe-area-inset-top,0px))}
+@media (min-width:641px){.gp-h{padding-top:14px}.gp{bottom:calc(18px + env(safe-area-inset-bottom,0px));top:auto}}
+@media (max-width:640px){.gp{height:100vh;height:100dvh;top:0}}
 </style>
 </head>
 <body>
