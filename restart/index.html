@@ -262,6 +262,8 @@ s.old{display:block;font-size:18px;color:#A33;opacity:.65;font-weight:600}
 .gp-sec p{font-size:14.5px;color:var(--sub);margin-top:4px}
 @media (max-width:640px){.gp{right:0;bottom:0;width:100vw;height:100dvh;border-radius:0}.gp-sec{grid-template-columns:auto 1fr}.gp-sec .btn{grid-column:1/-1}.gp-fab span.l{display:none}.gp-fab{padding:0 8px}}
 @media print{.gp,.gp-fab{display:none!important}}
+.gp-back{width:38px;height:38px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;display:grid;place-items:center;cursor:pointer;flex:none;margin-right:-4px}
+.gp-ret{border:0;background:#fff;color:var(--t-d);font-family:inherit;font-weight:700;font-size:13.5px;padding:8px 0 0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
 .gp-mono{color:#fff;font-weight:800;font-size:15px;letter-spacing:.02em}.gp-sec .gp-mono{font-size:20px}
 </style>
 </head>
@@ -491,9 +493,10 @@ s.old{display:block;font-size:18px;color:#A33;opacity:.65;font-weight:600}
 </script>
 <button type="button" class="gp-fab" id="gpFab" data-gpopen="1" aria-label="Abrir Galerna Partner"><span class="av"><b class="gp-mono">GP</b></span><span class="l">¿Dudas? Pregunta</span></button>
 <div class="gp" id="gp" hidden role="dialog" aria-label="Galerna Partner">
-  <div class="gp-h"><span class="av"><b class="gp-mono">GP</b></span><span><b>Galerna Partner</b><small><i></i>Responde al momento</small></span><button type="button" class="gp-x" id="gpX" aria-label="Cerrar">✕</button></div>
+  <div class="gp-h"><button type="button" class="gp-back" id="gpBack" aria-label="Volver a la propuesta"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><span class="av"><b class="gp-mono">GP</b></span><span><b>Galerna Partner</b><small><i></i>Responde al momento</small></span><button type="button" class="gp-x" id="gpX" aria-label="Cerrar">✕</button></div>
   <div class="gp-b" id="gpB" aria-live="polite"></div>
   <div class="gp-s" id="gpS"></div>
+  <button type="button" class="gp-ret" id="gpRet">← Volver a la propuesta</button>
   <form class="gp-f" id="gpF"><input id="gpI" placeholder="Escribe tu pregunta…" autocomplete="off" aria-label="Tu pregunta"><button type="submit" aria-label="Enviar"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 20l18-8L3 4l2 7 9 1-9 1z"/></svg></button></form>
 </div>
 
@@ -543,16 +546,19 @@ s.old{display:block;font-size:18px;color:#A33;opacity:.65;font-weight:600}
     setTimeout(function () { t.remove(); var r = reply(q); add('b', r.a + (r.x ? '<div class="acts">' + r.x.join('') + '</div>' : '')); busy = false; }, 600 + Math.random() * 500);
   }
   function open() {
-    $('gp').hidden = false; $('gpFab').hidden = true;
+    $('gp').hidden = false; $('gpFab').hidden = true; if (!pushed) { try { history.pushState({ gp: 1 }, ''); pushed = true; } catch (x) {} }
     if (!started) { started = true; add('b', 'Hola 👋 Soy <b>Galerna Partner</b>. Conozco esta propuesta para Restart de arriba abajo. ¿Qué os gustaría saber?'); $('gpS').innerHTML = SUG.map(function (s) { return '<button type="button">' + s + '</button>'; }).join(''); }
     setTimeout(function () { if (window.innerWidth > 640) $('gpI').focus(); }, 100);
   }
-  function close() { $('gp').hidden = true; $('gpFab').hidden = false; }
+  var pushed = false;
+  function hide() { $('gp').hidden = true; $('gpFab').hidden = false; }
+  function close() { if (pushed) { pushed = false; history.back(); } else hide(); }
+  window.addEventListener('popstate', function () { if (!$('gp').hidden) { pushed = false; hide(); } });
   document.addEventListener('click', function (e) {
     var b = e.target.closest('[data-gpopen]'); if (b) { open(); return; }
     var g = e.target.closest('[data-gpgo]'); if (g) { if (window.innerWidth <= 640) close(); var el = document.getElementById(g.dataset.gpgo); if (el) el.scrollIntoView({ behavior: 'smooth' }); return; }
   });
-  $('gpX').addEventListener('click', close);
+  $('gpX').addEventListener('click', close); $('gpBack').addEventListener('click', close); $('gpRet').addEventListener('click', close);
   $('gpS').addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) ask(b.textContent); });
   $('gpF').addEventListener('submit', function (e) { e.preventDefault(); ask($('gpI').value); $('gpI').value = ''; });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !$('gp').hidden) close(); });
