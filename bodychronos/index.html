@@ -90,7 +90,7 @@ h2.t{font-size:24px;font-weight:900;color:var(--p-d);margin-top:22px}
 .wk small{display:block;font-size:14px;color:var(--sub);font-weight:600}
 .live{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center}
 .live .av{width:58px;height:58px;border-radius:50%;background:var(--p);color:#fff;display:grid;place-items:center;font-weight:900;font-size:20px;position:relative}
-.live .av::after{content:"EN DIRECTO";position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);background:var(--bad);color:#fff;font-size:8.5px;font-weight:900;padding:2px 5px;border-radius:5px;white-space:nowrap}
+.live .av::after{content:"NUEVO";position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);background:var(--bad);color:#fff;font-size:8.5px;font-weight:900;padding:2px 5px;border-radius:5px;white-space:nowrap}
 .up{background:var(--p-l);border:2px dashed var(--p-m)}
 /* ---------- panel ---------- */
 .a{display:grid;grid-template-columns:240px 1fr;min-height:calc(100vh - 56px)}
@@ -258,7 +258,7 @@ tr:last-child td{border-bottom:0}
       '<div class="card"><div class="row" style="justify-content:space-between"><b style="font-size:19px">Tus ejercicios para casa</b><span class="chip">' + dn + ' de 3</span></div><p class="sub" style="margin-top:4px">Grabados por Miguel. 10 minutos al día.</p><div class="prog"><i style="width:' + Math.round(dn / 3 * 100) + '%"></i></div><button type="button" class="btn p full" style="margin-top:14px" data-ct="ej">' + (dn === 3 ? '¡Hechos esta semana! Ver otra vez' : 'Hacer mis ejercicios') + '</button></div>' +
       '<div class="card"><b style="font-size:19px">Desde marzo has mejorado</b><div class="g2" style="margin-top:10px;grid-template-columns:1fr 1fr">' +
       '<div><strong style="font-size:30px;font-weight:900;color:var(--p-d)">+' + (l.sentar - f.sentar) + '</strong><p class="sub" style="font-size:14.5px;font-weight:700">veces más al levantarte de la silla</p></div><div><strong style="font-size:30px;font-weight:900;color:var(--p-d)">+' + (l.equil - f.equil) + ' s</strong><p class="sub" style="font-size:14.5px;font-weight:700">de equilibrio a una pierna</p></div></div><button type="button" class="btn o full" style="margin-top:12px" data-ct="prog">Ver mi progreso</button></div>' +
-      '<div class="card live"><span class="av">M</span><div><b style="font-size:18px">Directo con Miguel</b><p class="sub" style="font-size:15px">Este jueves a las 19:00 · “Cómo cuidar la espalda al levantar peso en casa”</p></div></div>';
+      '<div class="card live"><span class="av">M</span><div><b style="font-size:18px">Miguel responde</b><p class="sub" style="font-size:15px">Nuevo esta semana · “Cómo cuidar la espalda al levantar peso en casa” · 3 min</p></div></div>';
   }
   function vEj() {
     return '<h2 class="t">Tus ejercicios para casa</h2><p class="sub" style="margin-top:4px">Esta semana te los ha preparado Ane, con los vídeos de Miguel. Toca el vídeo para verlo.</p>' +
@@ -272,10 +272,10 @@ tr:last-child td{border-bottom:0}
   }
   function vCasa() {
     var c = me();
-    if (!c.casa) return '<h2 class="t">Bodychronos en casa</h2><div class="card up"><b style="font-size:19px">Sigue tu plan también en casa</b><p class="sub" style="margin-top:6px">El programa de Miguel “Fuerte después de los 50”, el directo semanal y los vídeos.</p><button type="button" class="btn p full" style="margin-top:14px" data-addcasa="1">Añadirlo por 25 € al mes</button></div>';
+    if (!c.casa) return '<h2 class="t">Bodychronos en casa</h2><div class="card up"><b style="font-size:19px">Sigue tu plan también en casa</b><p class="sub" style="margin-top:6px">El programa de Miguel “Fuerte después de los 50”, “Miguel responde” cada semana y los vídeos.</p><button type="button" class="btn p full" style="margin-top:14px" data-addcasa="1">Añadirlo por 25 € al mes</button></div>';
     return '<h2 class="t">Bodychronos en casa</h2><p class="sub" style="margin-top:4px">Programa “Fuerte después de los 50”, de Miguel. 3 sesiones de 20 minutos a la semana.</p>' +
       '<div class="card big-card"><span class="ring"></span><small>Semana 5 de 12</small><b>Subimos un poco</b><p>Hoy: sesión 2 de 3 · 20 minutos</p><button type="button" class="btn w" style="margin-top:12px" data-play="0">' + I.play + ' Empezar la sesión</button></div>' +
-      '<div class="card live"><span class="av">M</span><div><b style="font-size:18px">Directo con Miguel · jueves 19:00</b><p class="sub" style="font-size:15px">Para todos los de “En casa”. Pregúntale lo que quieras.</p></div></div>' +
+      '<div class="card live"><span class="av">M</span><div><b style="font-size:18px">Miguel responde</b><p class="sub" style="font-size:15px">Deja tu pregunta en Mensajes: cada semana Miguel contesta las más repetidas.</p></div></div>' +
       '<div class="week">' + PROG.map(function (p, i) { return '<div class="wk' + (i < 4 ? ' ok' : i === 4 ? ' cur' : '') + '"><span class="n">' + (i < 4 ? '✓' : i + 1) + '</span><span><b>' + esc(p) + '</b><small>' + (i < 4 ? 'Completada' : i === 4 ? 'Esta semana' : 'Próximamente') + '</small></span><span class="chip">' + (i === 8 ? '12 vídeos' : '3 vídeos') + '</span></div>'; }).join('') + '</div>';
   }
   function vChat() {
@@ -336,7 +336,7 @@ tr:last-child td{border-bottom:0}
   }
   function aCasa() {
     var casa = S.cl.filter(function (c) { return c.casa && !S.gone[c.id]; }).length * 10, tot = S.cl.filter(function (c) { return !S.gone[c.id]; }).length * 10;
-    return '<h1>Bodychronos en casa</h1><p class="lead">Ingresos nuevos sin una hora más de sala: tus clientes siguen tu método en casa entre sesión y sesión.</p><div class="kpis"><div class="kpi"><small>Clientes con “En casa”</small><b>' + casa + '</b><em>de ' + tot + '</em></div><div class="kpi"><small>Ingreso extra al mes</small><b>' + (casa * 25).toLocaleString('es-ES') + ' €</b><em>25 € por cliente</em></div><div class="kpi"><small>Horas de sala usadas</small><b>0</b><em>todo en vídeo y app</em></div><div class="kpi"><small>Tu tiempo a la semana</small><b>45 min</b><em>el directo del jueves</em></div></div>' +
+    return '<h1>Bodychronos en casa</h1><p class="lead">Ingresos nuevos sin una hora más de sala: tus clientes siguen tu método en casa entre sesión y sesión.</p><div class="kpis"><div class="kpi"><small>Clientes con “En casa”</small><b>' + casa + '</b><em>de ' + tot + '</em></div><div class="kpi"><small>Ingreso extra al mes</small><b>' + (casa * 25).toLocaleString('es-ES') + ' €</b><em>25 € por cliente</em></div><div class="kpi"><small>Horas de sala usadas</small><b>0</b><em>todo en vídeo y app</em></div><div class="kpi"><small>Tu tiempo a la semana</small><b>10 min</b><em>“Miguel responde”</em></div></div>' +
       '<div class="box" style="margin-top:14px"><h3>Si lo cogiera…</h3><div class="tw"><table><thead><tr><th>Clientes con “En casa”</th><th>Al mes</th><th>Al año</th></tr></thead><tbody>' + [0.15, 0.25, 0.35, 0.5].map(function (p) { var n = Math.round(tot * p); return '<tr><td><b>' + Math.round(p * 100) + ' %</b> · ' + n + ' clientes</td><td>' + (n * 25).toLocaleString('es-ES') + ' €</td><td><b>' + (n * 25 * 12).toLocaleString('es-ES') + ' €</b></td></tr>'; }).join('') + '</tbody></table></div></div>';
   }
   function renderA() {
