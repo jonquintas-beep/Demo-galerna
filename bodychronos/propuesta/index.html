@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bodychronos · Plan para crecer</title>
+<meta name="description" content="Propuesta de Galerna Method para Bodychronos Vitoria: que el centro gane más sin más horas.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#4E0F3E">
+<meta property="og:title" content="Bodychronos · Plan para crecer sin más horas">
+<meta property="og:description" content="Tu método, tu cara y tus clientes en una app de Bodychronos. Propuesta de Galerna Method.">
+<meta property="og:image" content="https://app.galernamethod.com/bodychronos/icons/icon-512.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../icons/icon-192.png">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Bodychronos">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap">
+<style>
+:root{--t:#9A3A83;--t-d:#7A1961;--t-dd:#4E0F3E;--t-l:#E9B3DA;--t-s:#F5E8F1;--ink:#2B2629;--sub:#6B6870;--line:#ECE2E8;--bg:#FAF7F9;--card:#fff;--ok:#2F9E6E;--warn:#C9822B}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Poppins",system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:clip}
+.wrap{max-width:1060px;margin:0 auto;padding:0 20px}
+h1,h2,h3{line-height:1.12;letter-spacing:-.015em}
+h2{font-size:clamp(28px,4.6vw,42px);font-weight:800}
+h2 em{font-style:normal;color:var(--t)}
+.kick{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--t-d)}
+.kick::before{content:"";width:22px;height:2px;background:currentColor}
+.lead{font-size:17.5px;color:var(--sub);max-width:62ch;margin-top:12px}
+section{padding:72px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px}
+/* hero */
+.hero{position:relative;background:radial-gradient(900px 500px at 85% -10%,rgba(233,179,218,.45),transparent 60%),linear-gradient(160deg,#6A1654 0%,var(--t-dd) 55%,#3A0B2E 100%);color:#fff;padding:26px 0 70px;overflow:hidden}
+.hex{position:absolute;right:-120px;top:40px;width:560px;height:560px;opacity:.09}
+.hero nav{display:flex;justify-content:space-between;align-items:center}
+.hero nav .b{display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:.12em;font-size:14px}
+.hero nav img{width:46px;height:46px;border-radius:50%;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.hero nav span.g{font-size:12px;font-weight:600;letter-spacing:.08em;opacity:.75}
+.hero .in{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center;margin-top:64px;position:relative}
+.hero h1{font-size:clamp(38px,6.4vw,68px);font-weight:800}
+.hero h1 em{font-style:normal;color:var(--t-l)}
+.hero p.s{font-size:18px;opacity:.85;margin-top:18px;max-width:46ch}
+.hero .ctas{display:flex;gap:10px;margin-top:26px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:52px;padding:0 22px;border-radius:14px;font-weight:700;font-size:15.5px;text-decoration:none;border:0;cursor:pointer;font-family:inherit}
+.btn.w{background:#fff;color:var(--t-dd)}
+.btn.o{border:1.5px solid rgba(255,255,255,.35);color:#fff;background:transparent}
+.btn.t{background:var(--t-d);color:#fff}
+.hero .kpis{display:grid;gap:10px}
+.hero .kpi{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:16px 18px;backdrop-filter:blur(6px)}
+.hero .kpi b{display:block;font-size:34px;font-weight:800;line-height:1}
+.hero .kpi small{font-size:13.5px;opacity:.8}
+.hero .note{font-size:12px;opacity:.6;margin-top:6px}
+/* dijisteis */
+.said{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:stretch;margin-top:30px}
+.said .q{background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px;position:relative}
+.said .q.a{background:var(--t-dd);color:#fff;border-color:transparent}
+.said .q p.l{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sub);margin-bottom:8px}
+.said .q.a p.l{color:var(--t-l)}
+.said .q blockquote{font-size:19px;font-weight:600;line-height:1.4}
+.said .q ul{margin:10px 0 0 18px;display:grid;gap:6px}
+.said .arr{display:grid;place-items:center;color:var(--t);font-size:30px;font-weight:800}
+/* sistema */
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:34px;counter-reset:s}
+.st{position:relative;background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px 16px}
+.st::after{content:"";position:absolute;right:-12px;top:36px;width:12px;height:2px;background:var(--t-l)}
+.st:last-child::after{display:none}
+.st .n{width:38px;height:38px;border-radius:12px;background:var(--t-s);color:var(--t-d);display:grid;place-items:center;font-weight:800;margin-bottom:12px}
+.st h3{font-size:16px;font-weight:700}
+.st p{font-size:13.5px;color:var(--sub);margin-top:6px}
+/* dos vías */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:30px}
+.via{border-radius:24px;padding:26px;position:relative;overflow:hidden}
+.via.p{background:#fff;border:1px solid var(--line)}
+.via.o{background:linear-gradient(150deg,var(--t-d),var(--t-dd));color:#fff}
+.via .tag{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;border-radius:99px;background:var(--t-s);color:var(--t-d)}
+.via.o .tag{background:rgba(255,255,255,.14);color:#fff}
+.via h3{font-size:26px;font-weight:800;margin-top:12px}
+.via p.d{font-size:15px;margin-top:8px;opacity:.85}
+.via ul{list-style:none;margin-top:14px;display:grid;gap:8px}
+.via li{display:grid;grid-template-columns:22px 1fr;gap:8px;font-size:14.5px}
+.via li::before{content:"✓";font-weight:800;color:var(--t)}
+.via.o li::before{color:var(--t-l)}
+.prods{display:grid;gap:8px;margin-top:16px}
+.prod{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:12px 14px}
+.prod b{font-size:15px}
+.prod small{display:block;font-size:12.5px;opacity:.75}
+.prod em{font-style:normal;font-weight:800;font-size:20px;white-space:nowrap}
+.badge{position:absolute;top:18px;right:18px;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:#fff;color:var(--t-dd);padding:5px 10px;border-radius:99px}
+/* app */
+.appg{display:grid;grid-template-columns:.9fr 1.1fr;gap:34px;align-items:center;margin-top:20px}
+.phone{width:280px;margin:0 auto;border-radius:40px;background:#2E0924;padding:12px;box-shadow:0 30px 70px rgba(78,15,62,.35)}
+.scr{border-radius:30px;background:var(--bg);overflow:hidden;height:540px;display:flex;flex-direction:column}
+.scr .top{background:linear-gradient(150deg,var(--t-d),var(--t-dd));color:#fff;padding:22px 18px 18px}
+.scr .top small{opacity:.75;font-size:12px}
+.scr .top b{display:block;font-size:20px;font-weight:800;margin-top:2px}
+.scr .prg{height:8px;border-radius:9px;background:rgba(255,255,255,.2);margin-top:12px;overflow:hidden}
+.scr .prg i{display:block;height:100%;width:62%;background:var(--t-l)}
+.scr .body{padding:14px;display:grid;gap:10px}
+.ex{display:grid;grid-template-columns:44px 1fr auto;gap:10px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px}
+.ex .th{width:44px;height:44px;border-radius:10px;background:var(--t-s);display:grid;place-items:center;color:var(--t-d);font-weight:800}
+.ex b{font-size:13.5px;display:block}
+.ex small{font-size:11.5px;color:var(--sub)}
+.ex .ck{width:24px;height:24px;border-radius:7px;border:2px solid var(--line);display:grid;place-items:center;font-size:13px;color:#fff}
+.ex .ck.on{background:var(--ok);border-color:var(--ok)}
+.pain{background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+.pain small{font-size:11.5px;color:var(--sub);font-weight:600}
+.pain .sc{display:flex;gap:4px;margin-top:6px}
+.pain .sc i{flex:1;height:22px;border-radius:5px;background:var(--t-s)}
+.pain .sc i.on{background:var(--t)}
+.feat{display:grid;gap:12px}
+.feat div{display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:start}
+.feat .ic{width:44px;height:44px;border-radius:13px;background:var(--t-s);color:var(--t-d);display:grid;place-items:center}
+.feat b{font-size:16px}
+.feat p{font-size:14.5px;color:var(--sub)}
+/* inversion */
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
+.tier{background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px;position:relative}
+.tier.hl{border:2px solid var(--t);box-shadow:0 18px 40px rgba(122,25,97,.18)}
+.tier .rb{position:absolute;top:-12px;left:22px;background:var(--t);color:#fff;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:99px}
+.tier h3{font-size:15px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.08em}
+.tier .pr{font-size:40px;font-weight:800;margin-top:6px;line-height:1}
+.tier .pr small{font-size:15px;font-weight:600;color:var(--sub)}
+.tier .day{font-size:13px;color:var(--sub);margin-top:4px}
+.tier ul{list-style:none;margin-top:14px;display:grid;gap:7px;font-size:14px}
+.tier li{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed var(--line);padding-bottom:7px}
+.tier li b{white-space:nowrap}
+.small{font-size:12.5px;color:var(--sub);margin-top:14px}
+/* calc */
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:30px}
+.ctrl{display:grid;gap:18px}
+.rng label{display:flex;justify-content:space-between;font-weight:600;font-size:14.5px}
+.rng label b{color:var(--t-d);font-size:16px}
+.rng input{width:100%;margin-top:8px;accent-color:var(--t-d);height:28px}
+.seg{display:flex;gap:6px;background:var(--t-s);padding:4px;border-radius:12px}
+.seg button{flex:1;height:38px;border-radius:9px;border:0;background:transparent;font-family:inherit;font-weight:700;color:var(--sub);cursor:pointer}
+.seg button.on{background:#fff;color:var(--t-dd);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.res{background:var(--t-dd);color:#fff;border-radius:24px;padding:24px;display:grid;gap:14px;align-content:start}
+.res .big{font-size:52px;font-weight:800;line-height:1}
+.res .big small{font-size:16px;font-weight:600;opacity:.7}
+.res .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.res .grid div{background:rgba(255,255,255,.08);border-radius:14px;padding:12px}
+.res .grid b{display:block;font-size:24px;font-weight:800;line-height:1.1}
+.res .grid small{font-size:12px;opacity:.75}
+.res .roi{display:flex;justify-content:space-between;align-items:center;background:var(--t-l);color:var(--t-dd);border-radius:14px;padding:12px 16px;font-weight:800}
+.res .roi b{font-size:28px}
+.res p.f{font-size:12px;opacity:.65}
+.funnel{display:grid;gap:6px}
+.funnel div{display:grid;grid-template-columns:120px 1fr 54px;gap:10px;align-items:center;font-size:13px}
+.funnel .tr{height:10px;border-radius:9px;background:rgba(255,255,255,.1);overflow:hidden}
+.funnel .tr i{display:block;height:100%;background:var(--t-l);border-radius:9px;transition:width .4s}
+.funnel b{text-align:right}
+/* precio */
+.price{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;margin-top:30px;align-items:start}
+.pbox{background:#fff;border:2px solid var(--t);border-radius:26px;padding:28px;position:relative;overflow:hidden}
+.pbox::after{content:"";position:absolute;right:-60px;top:-60px;width:200px;height:200px;border-radius:50%;background:var(--t-s)}
+.pbox .row{display:flex;gap:26px;flex-wrap:wrap;position:relative;z-index:1}
+.pbox .amt{font-size:46px;font-weight:800;line-height:1}
+.pbox .amt small{font-size:16px;color:var(--sub);font-weight:600}
+.pbox .lb{font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sub)}
+.pbox ul{list-style:none;margin-top:18px;display:grid;gap:9px;position:relative;z-index:1}
+.pbox li{display:grid;grid-template-columns:24px 1fr;gap:8px;font-size:15px}
+.pbox li::before{content:"✓";color:var(--t-d);font-weight:800}
+.side{display:grid;gap:12px}
+.guar{background:linear-gradient(150deg,var(--t-d),var(--t-dd));color:#fff;border-radius:22px;padding:22px}
+.guar h3{font-size:20px;font-weight:800;margin-top:6px}
+.guar p{font-size:14.5px;opacity:.9;margin-top:8px}
+.cond{display:grid;gap:8px}
+.cond div{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 16px;font-size:14.5px}
+.cond b{display:block}
+/* timeline */
+.tl{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:30px}
+.tl div{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px;border-top:5px solid var(--t)}
+.tl div:nth-child(2){border-top-color:var(--t-l)}
+.tl div:nth-child(3){border-top-color:var(--t-d)}
+.tl div:nth-child(4){border-top-color:var(--t-dd)}
+.tl small{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--sub)}
+.tl b{display:block;font-size:17px;margin-top:4px}
+.tl p{font-size:14px;color:var(--sub);margin-top:6px}
+/* cierre */
+.end{background:linear-gradient(160deg,#6A1654,var(--t-dd));color:#fff;border-radius:30px;padding:44px 32px;text-align:center;position:relative;overflow:hidden}
+.end h2{color:#fff}
+.end p{opacity:.85;max-width:52ch;margin:12px auto 0}
+.end .ctas{display:flex;gap:10px;justify-content:center;margin-top:24px;flex-wrap:wrap}
+footer{padding:30px 0 40px;text-align:center;font-size:12.5px;color:var(--sub)}
+@media (max-width:860px){
+  .hero .in,.appg,.price,.calc,.two{grid-template-columns:1fr}
+  .flow{grid-template-columns:1fr 1fr}
+  .st::after{display:none}
+  .tiers,.tl{grid-template-columns:1fr}
+  .said{grid-template-columns:1fr}
+  .said .arr{transform:rotate(90deg);height:30px}
+  section{padding:54px 0}
+  .hex{width:380px;height:380px;right:-140px}
+}
+@media (max-width:600px){.hero nav span.g{display:none}.hero nav .b{white-space:nowrap}}
+@media (max-width:480px){.flow{grid-template-columns:1fr}.funnel div{grid-template-columns:96px 1fr 44px}.res .big{font-size:42px}}
+@media print{.hero{-webkit-print-color-adjust:exact;print-color-adjust:exact}section{padding:30px 0;break-inside:avoid}.ctas{display:none!important}}
+.bf-top{margin:-26px -20px 20px;padding:9px 16px;background:#2E0924;color:#fff;font-size:13px;font-weight:600;text-align:center}
+.bf-top a{color:var(--t-l);font-weight:800}
+.bf{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-top:24px;background:#2E0924;color:#fff;border-radius:22px;padding:18px 22px}
+.bf-tag{display:inline-block;background:var(--t-l);color:var(--t-dd);font-size:11.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:5px 10px;border-radius:99px}
+.bf-l b{display:block;font-size:19px;margin-top:8px;line-height:1.3}
+.bf-l small{opacity:.7;font-size:13px}
+.bf-cd{display:flex;gap:6px}
+.bf-cd div{background:rgba(255,255,255,.1);border-radius:12px;padding:8px 10px;text-align:center;min-width:58px}
+.bf-cd b{display:block;font-size:24px;font-weight:800;line-height:1}
+.bf-cd small{font-size:10.5px;opacity:.7;text-transform:uppercase;letter-spacing:.08em}
+.vt{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:6px 20px}
+.vt-r{display:grid;grid-template-columns:1fr auto auto;gap:16px;align-items:center;padding:12px 0;border-bottom:1px dashed var(--line);font-size:15px}
+.vt-r small{color:var(--sub)}
+.vt-r s{color:#A33;opacity:.7;font-weight:600}
+.vt-r b{min-width:96px;text-align:right;font-size:18px}
+.vt-r b.inc{color:var(--ok)}
+.vt-r.tot{border-bottom:0;font-weight:800}
+.vt-r.tot b{color:var(--t-d);font-size:22px}
+s.old{display:block;font-size:18px;color:#A33;opacity:.65;font-weight:600}
+@media (max-width:520px){.vt-r{grid-template-columns:1fr auto;gap:4px 12px}.vt-r s{grid-column:2;grid-row:1}.vt-r b{grid-column:2}.vt-r span{grid-row:1/3}}
+
+/* Galerna Partner */
+.gp-fab{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;align-items:center;gap:10px;height:56px;padding:0 18px 0 8px;border-radius:99px;border:0;background:#3A0B2E;color:#fff;font-family:inherit;font-weight:700;font-size:14.5px;box-shadow:0 14px 34px rgba(58,11,46,.4);cursor:pointer}
+.gp-fab .av{width:40px;height:40px;border-radius:50%;background:var(--t);display:grid;place-items:center;position:relative}
+.gp-fab .av::after{content:"";position:absolute;right:0;bottom:2px;width:10px;height:10px;border-radius:50%;background:#4ADE80;border:2px solid #3A0B2E}
+.gp-fab svg.gp-logo{width:26px;height:auto}
+.gp-fab[hidden]{display:none}
+.gp{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:70;width:min(400px,calc(100vw - 24px));height:min(640px,calc(100dvh - 36px));background:#fff;border-radius:24px;box-shadow:0 30px 80px rgba(58,11,46,.35);display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line);animation:gpin .25s ease}
+.gp[hidden]{display:none}
+@keyframes gpin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.gp-h{display:flex;align-items:center;gap:12px;padding:14px 14px 14px 16px;background:linear-gradient(150deg,#6A1654,#3A0B2E);color:#fff}
+.gp-h .av{width:42px;height:42px;border-radius:50%;background:var(--t);display:grid;place-items:center;flex:none}
+.gp-h svg.gp-logo{width:28px;height:auto}
+.gp-h b{display:block;font-size:16px}
+.gp-h small{font-size:12px;opacity:.8}
+.gp-h small i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#4ADE80;margin-right:5px}
+.gp-x{margin-left:auto;width:36px;height:36px;border-radius:50%;border:0;background:rgba(255,255,255,.12);color:#fff;font-size:15px;cursor:pointer}
+.gp-b{flex:1;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:10px;background:var(--bg)}
+.gp-m{max-width:88%;padding:10px 13px;border-radius:16px;font-size:14.5px;line-height:1.5;animation:gpin .2s ease}
+.gp-m.b{align-self:flex-start;background:#fff;border:1px solid var(--line);border-radius:4px 16px 16px 16px}
+.gp-m.u{align-self:flex-end;background:var(--t-d);color:#fff;border-radius:16px 4px 16px 16px;font-weight:600}
+.gp-m ul{margin:6px 0 0 18px}
+.gp-m b{font-weight:700}
+.gp-m .acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.gp-m .acts a,.gp-m .acts button{display:inline-flex;align-items:center;height:34px;padding:0 12px;border-radius:10px;border:0;background:var(--t-s);color:var(--t-dd);font-family:inherit;font-weight:700;font-size:13px;text-decoration:none;cursor:pointer}
+.gp-t{align-self:flex-start;background:#fff;border:1px solid var(--line);border-radius:4px 16px 16px 16px;padding:12px 14px;display:flex;gap:5px}
+.gp-t i{width:7px;height:7px;border-radius:50%;background:var(--t);animation:gpb 1s infinite}
+.gp-t i:nth-child(2){animation-delay:.15s}.gp-t i:nth-child(3){animation-delay:.3s}
+@keyframes gpb{0%,80%{opacity:.25}40%{opacity:1}}
+.gp-s{display:flex;gap:6px;overflow-x:auto;padding:10px 12px 0;scrollbar-width:none;background:#fff;border-top:1px solid var(--line)}
+.gp-s::-webkit-scrollbar{display:none}
+.gp-s button{flex:none;height:32px;padding:0 12px;border-radius:99px;border:1.5px solid var(--line);background:#fff;font-family:inherit;font-weight:600;font-size:12.5px;color:var(--t-dd);cursor:pointer}
+.gp-f{display:flex;gap:8px;padding:10px 12px calc(12px + env(safe-area-inset-bottom,0px));background:#fff}
+.gp-f input{flex:1;min-width:0;height:46px;border-radius:14px;border:1.5px solid var(--line);padding:0 14px;font-family:inherit;font-size:15px;outline:none}
+.gp-f input:focus{border-color:var(--t)}
+.gp-f button{width:46px;height:46px;border-radius:14px;border:0;background:var(--t-d);color:#fff;cursor:pointer;display:grid;place-items:center}
+.gp-sec{display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:24px;padding:22px}
+.gp-sec .av{width:58px;height:58px;border-radius:18px;background:linear-gradient(150deg,#6A1654,#3A0B2E);display:grid;place-items:center}
+.gp-sec svg.gp-logo{width:38px;height:auto}
+.gp-sec h3{font-size:20px;font-weight:800}
+.gp-sec p{font-size:14.5px;color:var(--sub);margin-top:4px}
+@media (max-width:640px){.gp{right:0;bottom:0;width:100vw;height:100dvh;border-radius:0}.gp-sec{grid-template-columns:auto 1fr}.gp-sec .btn{grid-column:1/-1}.gp-fab span.l{display:none}.gp-fab{padding:0 8px}}
+@media print{.gp,.gp-fab{display:none!important}}
+.gp-back{width:38px;height:38px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;display:grid;place-items:center;cursor:pointer;flex:none;margin-right:-4px}
+.gp-ret{border:0;background:#fff;color:var(--t-d);font-family:inherit;font-weight:700;font-size:13.5px;padding:8px 0 0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.gp-mono{color:#fff;font-weight:800;font-size:15px;letter-spacing:.02em}.gp-sec .gp-mono{font-size:20px}
+
+/* pantalla de inicio (modo app): respetar la barra de estado del móvil */
+.bf-top{padding-top:calc(9px + env(safe-area-inset-top,0px))}
+.gp-h{padding-top:calc(14px + env(safe-area-inset-top,0px))}
+@media (min-width:641px){.gp-h{padding-top:14px}.gp{bottom:calc(18px + env(safe-area-inset-bottom,0px));top:auto}}
+@media (max-width:640px){.gp{height:100vh;height:100dvh;top:0}}
+.fears{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
+.fear{background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px}
+.fear .q{font-size:17px;font-weight:700;color:var(--sub)}
+.fear .q::before{content:"“";font-size:40px;line-height:0;vertical-align:-14px;color:var(--t);margin-right:4px}
+.fear .a{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);font-size:15.5px}
+.fear .a b{color:var(--t-d)}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:30px}
+.vs .side1,.vs .side2{border-radius:24px;padding:24px}
+.vs .side1{background:#fff;border:1px solid var(--line)}
+.vs .side2{background:linear-gradient(150deg,var(--t-d),var(--t-dd));color:#fff}
+.vs h3{font-size:22px;font-weight:800}
+.vs ul{list-style:none;margin-top:12px;display:grid;gap:9px;font-size:15px}
+.vs .side1 li::before{content:"✕";color:#C0392B;font-weight:800;margin-right:8px}
+.vs .side2 li::before{content:"✓";color:var(--t-l);font-weight:800;margin-right:8px}
+.phase{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
+.ph{background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px;position:relative}
+.ph.on{border:2px solid var(--t);box-shadow:0 18px 40px rgba(122,25,97,.14)}
+.ph .tag{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:99px;background:var(--t-s);color:var(--t-d)}
+.ph.on .tag{background:var(--t);color:#fff}
+.ph h3{font-size:21px;font-weight:800;margin-top:10px}
+.ph ul{margin:12px 0 0 18px;display:grid;gap:6px;font-size:14.5px}
+.ph .time{margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);font-size:14px;font-weight:700;color:var(--t-d)}
+@media (max-width:860px){.fears,.vs,.phase{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <svg class="hex" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="44" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="2 4"/><circle cx="50" cy="50" r="34" fill="none" stroke="#fff" stroke-width="1.5"/></svg>
+  <div class="wrap">
+    <div class="bf-top">Black Friday · App incluida y puesta en marcha a mitad de precio · <a href="#propuesta">Ver oferta</a></div>
+    <nav><span class="b"><img src="../logo-w.png" alt="Bodychronos" style="width:auto;height:44px;border-radius:0;box-shadow:none"></span><span class="g">Propuesta de Galerna Method para Miguel y Carlos · noviembre 2026</span></nav>
+    <div class="in">
+      <div>
+        <p class="kick" style="color:var(--t-l)">Plan para crecer sin más horas</p>
+        <h1 style="margin-top:14px">Que Bodychronos gane más <em>sin que tú trabajes más horas.</em></h1>
+        <p class="s">Tu método, tu cara y tus clientes, en una app de Bodychronos. Sin quitar una sola hora de entrenamiento personal y sin que nadie de tu equipo se lleve tu trabajo.</p>
+        <div class="ctas"><a class="btn w" href="../" target="_blank" rel="noopener">Ver la app de Bodychronos</a><a class="btn o" href="#calc">Calcular lo que gana el centro</a></div>
+      </div>
+      <div class="kpis">
+        <div class="kpi"><b>0 horas</b><small>de sala nuevas: tu método se graba una vez y trabaja solo</small></div>
+        <div class="kpi"><b>+25 €/mes</b><small>por cada cliente que sigue tu plan también en casa</small></div>
+        <div class="kpi"><b>100 %</b><small>de tus clientes en la app del centro, no en el móvil de cada entrenador</small></div>
+        <p class="note">Cifras de ejemplo. Las ajustamos con vuestros números en la reunión.</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <p class="kick">Lo que nos contaste</p>
+    <h2 style="margin-top:10px">Tus dudas son razonables. <em>Por eso lo hemos pensado así.</em></h2>
+    <div class="fears">
+      <div class="fear"><p class="q">No puedo quitar horas de entrenamiento para hacer online.</p><p class="a"><b>No hace falta.</b> Grabas tu método en 2 mañanas y, a partir de ahí, solo un directo de 45 minutos a la semana. Tu agenda no se toca.</p></div>
+      <div class="fear"><p class="q">Si mis empleados salen en los vídeos, la gente les conocerá a ellos.</p><p class="a"><b>La cara eres tú.</b> Todos los vídeos y el directo son tuyos. El equipo trabaja detrás y escribe como “Equipo Bodychronos”, sin nombre ni foto.</p></div>
+      <div class="fear"><p class="q">Llevo 12 años con esto y no sé cómo se hace el online.</p><p class="a"><b>Lo montamos y lo llevamos nosotros.</b> Tú pones el método; nosotros, la app, la grabación, la organización y una reunión cada semana.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <p class="kick">Lo que hoy no se ve</p>
+    <h2 style="margin-top:10px">Tus clientes ya están expuestos. <em>Esto los protege.</em></h2>
+    <div class="vs">
+      <div class="side1"><h3>Hoy</h3><ul><li>Cada entrenador habla con sus clientes por su WhatsApp personal</li><li>El historial de cada cliente está en la cabeza de su entrenador</li><li>Si un entrenador se va, puede llevarse a sus clientes con un mensaje</li><li>El centro solo gana dinero cuando hay alguien en la sala</li></ul></div>
+      <div class="side2"><h3>Con la app de Bodychronos</h3><ul><li>Los contactos, mediciones y mensajes son del centro</li><li>Los entrenadores solo ven a sus clientes, sin teléfonos ni opción de descargar nada</li><li>Si alguien se va, sus clientes pasan a otro con un clic y todo su historial</li><li>Tu método trabaja también cuando no estás: en casa de tus clientes</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kick">Paso a paso</p>
+    <h2 style="margin-top:10px">Empezamos pequeño, <em>con los clientes que ya tienes.</em></h2>
+    <p class="lead">Solo firmas la fase 1. Las otras dos llegan cuando quieras y si los números te convencen.</p>
+    <div class="phase">
+      <div class="ph on"><span class="tag">Fase 1 · Ahora</span><h3>Tu app y “En casa”</h3><ul><li>App con la marca Bodychronos para tus clientes</li><li><b>Mediciones</b> con su evolución y lo normal para su edad</li><li><b>Ejercicios para casa</b> con tus vídeos</li><li>“Bodychronos en casa”: 25 €/mes extra para quien quiera</li><li>“Pausa activa” en vacaciones en vez de darse de baja</li><li>Permisos: los clientes son del centro</li></ul><p class="time">Tu tiempo: 2 mañanas de grabación y 45 min a la semana</p></div>
+      <div class="ph"><span class="tag">Fase 2 · Cuando quieras</span><h3>Programa online “Fuerte después de los 50”</h3><ul><li>12 semanas de fuerza, equilibrio y movilidad en casa</li><li>Para antiguos clientes y familiares de los actuales</li><li>Lo atiende un empleado, siempre como “Equipo Bodychronos”</li></ul><p class="time">Tu tiempo: el mismo directo semanal</p></div>
+      <div class="ph"><span class="tag">Fase 3 · Si funciona</span><h3>Anuncios en Vitoria y en España</h3><ul><li>Más clientes de entrenamiento personal en Vitoria</li><li>El programa online, vendido en toda España</li><li>Con testimonios de tus propios clientes</li></ul><p class="time">Tu tiempo: la reunión semanal con nosotros</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="calc" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <p class="kick">Calculadora</p>
+    <h2 style="margin-top:10px">Lo que gana el centro <em>sin una hora más.</em></h2>
+    <div class="calc">
+      <div class="ctrl card">
+        <div class="rng"><label for="cN">Clientes de entrenamiento personal <b id="vN"></b></label><input type="range" id="cN" min="40" max="300" step="5" value="140"></div>
+        <div class="rng"><label for="cP">Cuántos cogen “Bodychronos en casa” <b id="vP"></b></label><input type="range" id="cP" min="5" max="60" step="5" value="25"></div>
+        <div class="rng"><label for="cE">Precio de “En casa” al mes <b id="vE"></b></label><input type="range" id="cE" min="15" max="49" step="1" value="25"></div>
+        <div class="rng"><label for="cB">Bajas que evitas al año con la “pausa activa” <b id="vB"></b></label><input type="range" id="cB" min="0" max="20" step="1" value="6"></div>
+        <div class="rng"><label for="cC">Cuota media de entrenamiento personal <b id="vC"></b></label><input type="range" id="cC" min="60" max="400" step="10" value="160"></div>
+      </div>
+      <div class="res" aria-live="polite">
+        <div><small style="opacity:.75;font-weight:600">Ingreso nuevo al año</small><div class="big" id="rY"></div></div>
+        <div class="grid"><div><b id="rM"></b><small>al mes con “En casa”</small></div><div><b id="rB"></b><small>al año por bajas evitadas</small></div><div><b id="rC"></b><small>coste al año (cuota + puesta en marcha)</small></div><div><b id="rH">0 h</b><small>horas de sala nuevas</small></div></div>
+        <div class="roi"><span>Beneficio el primer año</span><b id="rR"></b></div>
+        <p class="f">Cálculo con la oferta de Black Friday: 990 € de puesta en marcha y 249 €/mes. Una baja evitada = 3 meses más de cuota de ese cliente. Son estimaciones para decidir, no una promesa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="propuesta">
+  <div class="wrap">
+    <p class="kick">La propuesta · Black Friday</p>
+    <h2 style="margin-top:10px">Fase 1, montada y funcionando <em>en 4 semanas.</em></h2>
+    <div class="bf" id="bf"><div class="bf-l"><span class="bf-tag">Black Friday</span><b>La app con vuestra marca, incluida. Y la puesta en marcha, a menos de la mitad.</b><small>Solo si firmáis antes del 30 de noviembre</small></div><div class="bf-cd" id="bfCd" aria-label="Tiempo restante"></div></div>
+    <div class="vt">
+      <div class="vt-r"><span>Puesta en marcha (montaje, grabación y lanzamiento)</span><s>2.500 €</s><b>990 €</b></div>
+      <div class="vt-r"><span>App Bodychronos con vuestra marca <small>(clientes, mediciones, método y permisos)</small></span><s>5.900 €</s><b class="inc">Incluida</b></div>
+      <div class="vt-r tot"><span>Os ahorráis</span><s></s><b>7.410 €</b></div>
+    </div>
+    <div class="price">
+      <div class="pbox">
+        <div class="row"><div><p class="lb">Puesta en marcha · pago único</p><div class="amt"><s class="old">2.500 €</s>990 €</div></div><div><p class="lb">Cuota mensual · app incluida</p><div class="amt">249 €<small>/mes</small></div></div></div>
+        <ul>
+          <li><span><b>App Bodychronos con vuestra marca</b> para clientes y para el equipo</span></li>
+          <li>Mediciones con su evolución y lo normal para cada edad</li>
+          <li>Ejercicios para casa y la biblioteca “Método Miguel”</li>
+          <li><span><b>Grabación y edición de tus vídeos</b> (2 mañanas en el centro)</span></li>
+          <li>“Bodychronos en casa” y “pausa activa” montados y listos para vender</li>
+          <li>Permisos por persona: los clientes y los datos son del centro</li>
+          <li>Chat con los clientes como “Equipo Bodychronos”</li>
+          <li><span><b>Reunión semanal</b> de 30 minutos para revisar y mejorar</span></li>
+          <li>Servidor, mantenimiento y mejoras de la app</li>
+        </ul>
+        <p class="small">Precios sin IVA. Las fases 2 y 3 se presupuestan aparte cuando queráis; los anuncios los pagaríais directamente a Meta.</p>
+      </div>
+      <div class="side">
+        <div class="guar"><p class="kick" style="color:var(--t-l)">Garantía</p><h3>20 clientes con “En casa” en 3 meses, o el cuarto mes es gratis.</h3><p>Con 20 clientes a 25 € la app ya se paga sola y sobra. Si no llegamos, seguimos trabajando sin cobraros la cuota hasta conseguirlo.</p></div>
+        <div class="cond"><div><b>Permanencia de 12 meses</b>Después, mes a mes.</div><div><b>Entrada en dos pagos</b>495 € al firmar y 495 € el día del lanzamiento.</div><div><b>Válido hasta el 30 de noviembre</b>Después, la puesta en marcha vuelve a 2.500 € y la app se paga aparte.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <p class="kick">Primeras semanas</p>
+    <h2 style="margin-top:10px">Así avanzamos.</h2>
+    <div class="tl">
+      <div><small>Semanas 1–2</small><b>Montaje</b><p>App con vuestra marca, clientes cargados, mediciones y permisos del equipo.</p></div>
+      <div><small>Semana 3</small><b>Grabación</b><p>2 mañanas con Miguel: ejercicios para casa y primeras semanas del programa.</p></div>
+      <div><small>Semana 4</small><b>Lanzamiento</b><p>Se lo presentamos a vuestros clientes en el centro y por la app.</p></div>
+      <div><small>Meses 2–3</small><b>Crecer</b><p>Directo semanal, ajustes en la reunión y decisión sobre la fase 2.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="gp-sec"><span class="av"><b class="gp-mono">GP</b></span><div><h3>¿Dudas? Pregúntale a Galerna Partner</h3><p>Conoce esta propuesta de arriba abajo: tiempo, equipo, precios, garantía, la app… Es el mismo tipo de asistente que puede atender a vuestros clientes.</p></div><button type="button" class="btn t" data-gpopen="1">Hacer una pregunta</button></div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="end">
+      <img src="../logo-w.png" alt="" style="height:70px">
+      <p style="display:inline-block;margin-top:14px;background:#fff;color:var(--t-dd);font-weight:800;font-size:12px;letter-spacing:.12em;text-transform:uppercase;padding:6px 12px;border-radius:99px">Black Friday · hasta el 30 de noviembre</p>
+      <h2 style="margin-top:12px">¿Empezamos con tus clientes de ahora?</h2>
+      <p>Sin tocar tu agenda. En 4 semanas, tus clientes tienen tu método en el móvil y el centro gana sin más horas.</p>
+      <div class="ctas"><a class="btn w" href="https://wa.me/?text=Hola%20Jon%2C%20hemos%20visto%20la%20propuesta%20para%20Bodychronos%20y%20queremos%20empezar" target="_blank" rel="noopener">Quiero empezar</a><a class="btn o" href="../" target="_blank" rel="noopener">Ver la app</a></div>
+    </div>
+  </div>
+</section>
+
+<footer>Propuesta preparada por <b>Galerna Method</b> para Bodychronos Vitoria · Jon · galernamethod.com</footer>
+
+<script>
+(function () {
+  function $(i) { return document.getElementById(i); }
+  function eur(v) { return Math.round(v).toLocaleString('es-ES') + ' €'; }
+  function calc() {
+    var N = +$('cN').value, P = +$('cP').value / 100, E = +$('cE').value, B = +$('cB').value, C = +$('cC').value;
+    $('vN').textContent = N; $('vP').textContent = Math.round(P * 100) + ' % · ' + Math.round(N * P) + ' clientes'; $('vE').textContent = eur(E); $('vB').textContent = B; $('vC').textContent = eur(C) + '/mes';
+    var M = Math.round(N * P) * E, BY = B * C * 3, Y = M * 12 + BY, cost = 990 + 249 * 12;
+    $('rY').innerHTML = eur(Y) + '<small> /año</small>'; $('rM').textContent = eur(M); $('rB').textContent = eur(BY); $('rC').textContent = eur(cost);
+    $('rR').textContent = (Y - cost >= 0 ? '+' : '') + eur(Y - cost);
+  }
+  ['cN', 'cP', 'cE', 'cB', 'cC'].forEach(function (i) { $(i).addEventListener('input', calc); });
+  calc();
+  var end = new Date('2026-11-30T23:59:59+01:00').getTime();
+  function cd() { var el = $('bfCd'); if (!el) return; var ms = end - Date.now(); if (ms <= 0) { el.innerHTML = '<div><b>0</b><small>días</small></div>'; return; } var d = Math.floor(ms / 864e5), h = Math.floor(ms % 864e5 / 36e5), m = Math.floor(ms % 36e5 / 6e4); el.innerHTML = '<div><b>' + d + '</b><small>días</small></div><div><b>' + h + '</b><small>horas</small></div><div><b>' + m + '</b><small>min</small></div>'; }
+  cd(); setInterval(cd, 30000);
+})();
+</script>
+<button type="button" class="gp-fab" id="gpFab" data-gpopen="1" aria-label="Abrir Galerna Partner"><span class="av"><b class="gp-mono">GP</b></span><span class="l">¿Dudas? Pregunta</span></button>
+<div class="gp" id="gp" hidden role="dialog" aria-label="Galerna Partner">
+  <div class="gp-h"><button type="button" class="gp-back" id="gpBack" aria-label="Volver a la propuesta"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><span class="av"><b class="gp-mono">GP</b></span><span><b>Galerna Partner</b><small><i></i>Responde al momento</small></span><button type="button" class="gp-x" id="gpX" aria-label="Cerrar">✕</button></div>
+  <div class="gp-b" id="gpB" aria-live="polite"></div>
+  <div class="gp-s" id="gpS"></div>
+  <button type="button" class="gp-ret" id="gpRet">← Volver a la propuesta</button>
+  <form class="gp-f" id="gpF"><input id="gpI" placeholder="Escribe tu pregunta…" autocomplete="off" aria-label="Tu pregunta"><button type="submit" aria-label="Enviar"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 20l18-8L3 4l2 7 9 1-9 1z"/></svg></button></form>
+</div>
+
+<script>
+(function () {
+  function $(i) { return document.getElementById(i); }
+  function norm(t) { return String(t).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[¿?¡!.,;:]/g, ' '); }
+  var WA = 'https://wa.me/?text=' + encodeURIComponent('Hola Jon, tengo una duda sobre la propuesta de Bodychronos: ');
+  var GO = function (id, txt) { return '<button type="button" data-gpgo="' + id + '">' + txt + '</button>'; };
+  var K = [
+    { k: ['cuanto cuesta', 'precio', 'cuesta', 'coste', 'pagar', 'total', 'cuanto es', 'cuanto sale'], a: 'La fase 1 queda así:<ul><li><b>Puesta en marcha:</b> 990 € (normalmente 2.500 €, por Black Friday)</li><li><b>Cuota:</b> 249 €/mes, con la app incluida y una reunión semanal</li></ul>Sin anuncios en esta fase: empezamos con vuestros clientes de ahora. Con unos <b>10 clientes con “En casa”</b> la cuota ya se paga sola.', x: [GO('calc', 'Ver la calculadora'), GO('propuesta', 'Ver la oferta')] },
+    { k: ['horas', 'tiempo', 'agenda', 'quitar horas', 'no tengo tiempo', 'cuanto tiempo', 'mi tiempo'], a: 'Tu agenda no se toca. Tu tiempo es:<ul><li><b>2 mañanas</b> de grabación al principio</li><li><b>45 minutos a la semana</b> de directo con los clientes de “En casa”</li><li>30 minutos de reunión semanal con nosotros</li></ul>Todo lo demás lo llevamos nosotros y tu equipo.' },
+    { k: ['empleado', 'trabajador', 'robar', 'llevar clientes', 'se va', 'equipo', 'entrenadores', 'competencia', 'cara'], a: 'La cara eres <b>tú</b>: todos los vídeos y el directo son tuyos. El equipo atiende como <b>“Equipo Bodychronos”</b>, sin nombre ni foto. Los entrenadores solo ven a sus clientes, sin teléfonos ni opción de descargar nada. Y si alguien se va, sus clientes pasan a otro con un clic y todo su historial. Además, conviene que tu asesor revise las cláusulas de confidencialidad de los contratos.' },
+    { k: ['permanencia', 'contrato', '12 meses', 'baja', 'dejarlo', 'cancelar', 'compromiso'], a: 'La permanencia es de <b>12 meses</b>; después, mes a mes. La puesta en marcha se paga en dos veces: 495 € al firmar y 495 € el día del lanzamiento.' },
+    { k: ['garantia', 'si no funciona', 'no funciona', 'riesgo', 'y si no'], a: 'Garantizamos <b>20 clientes con “Bodychronos en casa” en 3 meses</b>. Con eso la app ya se paga sola. Si no llegamos, <b>el cuarto mes no pagáis la cuota</b> y seguimos trabajando hasta conseguirlo.' },
+    { k: ['en casa', 'extra', '25', 'que es en casa', 'programa', 'fuerte despues'], a: '“Bodychronos en casa” es tu plan para hacer en casa entre sesión y sesión: tus vídeos, un programa de 12 semanas y el directo semanal contigo. Lo ofrecéis por <b>25 €/mes</b> a quien quiera. Es dinero nuevo sin usar ni una hora de sala.' },
+    { k: ['pausa', 'vacaciones', 'verano', 'bajas'], a: 'La <b>“pausa activa”</b> es para quien se va de vacaciones o tiene que parar. En vez de darse de baja, sigue con el plan en casa por un precio menor y vuelve después. Así no pierdes al cliente.' },
+    { k: ['medicion', 'medir', 'progreso', 'pruebas', 'evolucion'], a: 'Medís en el centro en 1 minuto: levantarse de la silla, equilibrio, fuerza de agarre y cintura. El cliente lo ve al momento en su app, con su evolución y <b>lo normal para su edad</b>. A la gente de 50–70 años esto les motiva muchísimo.' },
+    { k: ['online', 'internet', 'no se hacer', 'como se hace', 'digital'], a: 'No tenéis que saber de online: lo montamos y lo llevamos nosotros. Empezamos solo con vuestros clientes de ahora, que ya os conocen y confían. El programa para toda España (fase 2) y los anuncios (fase 3) llegan solo si queréis.' },
+    { k: ['fase 2', 'fase 3', 'anuncios', 'publicidad', 'espana', 'despues'], a: 'Las fases 2 y 3 son opcionales. <b>Fase 2:</b> el programa “Fuerte después de los 50” para antiguos clientes y familiares. <b>Fase 3:</b> anuncios en Vitoria y en toda España. Se presupuestan aparte cuando lo decidáis, y los anuncios los pagáis directamente a Meta.' },
+    { k: ['clases', 'sala', 'grupales', 'zumba', 'bodyband', 'entrada libre'], a: 'La sala de entrada libre y las clases grupales siguen con la aplicación que ya usáis. Esta propuesta se centra en el <b>entrenamiento personal</b> y en lo que tus clientes hacen en casa, que es donde está tu método.' },
+    { k: ['carlos', 'socio', 'los dos'], a: 'Miguel y Carlos tenéis acceso completo como dueños: veis todos los clientes, los datos y los permisos del equipo. Los entrenadores solo ven lo que decidáis vosotros.' },
+    { k: ['grabar', 'video', 'contenido'], a: 'Grabamos nosotros: <b>2 mañanas</b> en el centro con Miguel. Ejercicios para casa y las primeras semanas del programa. Después editamos todo y lo subimos a la biblioteca “Método Miguel”.' },
+    { k: ['datos', 'rgpd', 'privacidad', 'proteccion', 'legal', 'salud'], a: 'Todo cumple el RGPD: servidores en la UE, consentimiento de los clientes, acceso por permisos y registro de quién consulta qué. Firmamos un contrato de encargado del tratamiento con Bodychronos.' },
+    { k: ['mayores', 'edad', 'tecnologia', 'movil', 'no saben usar', 'complicada'], a: 'La app está pensada para personas de 50–70 años: letra grande, botones grandes y solo 5 apartados. Y el día del lanzamiento se la instalamos en el centro a quien lo necesite.' },
+    { k: ['cuando', 'plazo', 'empezar', 'semanas', 'listo'], a: 'En <b>4 semanas</b> está funcionando: 2 de montaje, 1 de grabación y el lanzamiento con vuestros clientes en la cuarta.' },
+    { k: ['black friday', 'oferta', 'descuento', 'hasta cuando'], a: 'La oferta vale <b>hasta el 30 de noviembre</b>: puesta en marcha a 990 € en vez de 2.500 € y la app incluida (normalmente 5.900 €). En total os ahorráis <b>7.410 €</b>.', x: [GO('propuesta', 'Ver la oferta')] },
+    { k: ['hola', 'buenas', 'kaixo', 'hey'], a: '¡Hola! Pregúntame lo que quieras: tiempo, equipo, precio, garantía o cómo funciona “En casa”.' },
+    { k: ['gracias', 'genial', 'perfecto', 'vale'], a: '¡A vosotros! Si os encaja, el siguiente paso es fijar las 2 mañanas de grabación.', x: ['<a href="' + 'https://wa.me/?text=' + encodeURIComponent('Hola Jon, queremos empezar con Bodychronos') + '" target="_blank" rel="noopener">Quiero empezar</a>'] }
+  ];
+  var SUG = ['¿Cuánto tiempo me va a quitar?', '¿Y si mis empleados se llevan clientes?', '¿Cuánto cuesta?', '¿Qué es “En casa”?', '¿Y si no funciona?', '¿Mis clientes sabrán usarla?', '¿Hay permanencia?'];
+  var started = false, busy = false;
+  function add(cls, html) { var d = document.createElement('div'); d.className = 'gp-m ' + cls; d.innerHTML = html; $('gpB').appendChild(d); $('gpB').scrollTop = 1e6; return d; }
+  function reply(q) {
+    var n = ' ' + norm(q) + ' ', best = null, bs = 0;
+    K.forEach(function (it) { var sc = 0; it.k.forEach(function (k) { if (n.indexOf(norm(k)) >= 0) sc += k.length; }); if (sc > bs) { bs = sc; best = it; } });
+    if (!best) return { a: 'Buena pregunta. Esa prefiero que te la responda Jon directamente para no decirte nada inexacto.', x: ['<a href="' + WA + '" target="_blank" rel="noopener">Preguntar a Jon</a>'] };
+    return best;
+  }
+  function ask(q) {
+    q = String(q || '').trim(); if (!q || busy) return; busy = true;
+    add('u', q.replace(/[<>&]/g, '')); var t = document.createElement('div'); t.className = 'gp-t'; t.innerHTML = '<i></i><i></i><i></i>'; $('gpB').appendChild(t); $('gpB').scrollTop = 1e6;
+    setTimeout(function () { t.remove(); var r = reply(q); add('b', r.a + (r.x ? '<div class="acts">' + r.x.join('') + '</div>' : '')); busy = false; }, 600 + Math.random() * 500);
+  }
+  function open() {
+    $('gp').hidden = false; $('gpFab').hidden = true; if (!pushed) { try { history.pushState({ gp: 1 }, ''); pushed = true; } catch (x) {} }
+    if (!started) { started = true; add('b', 'Hola 👋 Soy <b>Galerna Partner</b>. Conozco esta propuesta para Bodychronos de arriba abajo. ¿Qué os gustaría saber?'); $('gpS').innerHTML = SUG.map(function (s) { return '<button type="button">' + s + '</button>'; }).join(''); }
+    setTimeout(function () { if (window.innerWidth > 640) $('gpI').focus(); }, 100);
+  }
+  var pushed = false;
+  function hide() { $('gp').hidden = true; $('gpFab').hidden = false; }
+  function close() { if (pushed) { pushed = false; history.back(); } else hide(); }
+  window.addEventListener('popstate', function () { if (!$('gp').hidden) { pushed = false; hide(); } });
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-gpopen]'); if (b) { open(); return; }
+    var g = e.target.closest('[data-gpgo]'); if (g) { if (window.innerWidth <= 640) close(); var el = document.getElementById(g.dataset.gpgo); if (el) el.scrollIntoView({ behavior: 'smooth' }); return; }
+  });
+  $('gpX').addEventListener('click', close); $('gpBack').addEventListener('click', close); $('gpRet').addEventListener('click', close);
+  $('gpS').addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) ask(b.textContent); });
+  $('gpF').addEventListener('submit', function (e) { e.preventDefault(); ask($('gpI').value); $('gpI').value = ''; });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !$('gp').hidden) close(); });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bodychronos · App</title>
+<meta name="description" content="Tu entrenamiento personal, tus mediciones y tus ejercicios para casa, con el método de Bodychronos.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#7A1961">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Bodychronos">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800;6..12,900&display=swap">
+<style>
+:root{--p:#7A1961;--p-d:#4E0F3E;--p-l:#F5E8F1;--p-m:#B04A95;--g:#414041;--sub:#6B6870;--line:#E7E1E5;--bg:#FAF8F9;--card:#fff;--ok:#2E8B57;--ok-l:#E4F4EA;--warn:#C27C0E;--warn-l:#FBF1DE;--bad:#C0392B}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg)}
+body{font-family:"Nunito Sans",system-ui,sans-serif;background:var(--bg);color:var(--g);font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:clip}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent}
+.sw{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:calc(8px + env(safe-area-inset-top,0px)) 14px 8px;background:#fff;border-bottom:1px solid var(--line)}
+.sw img{height:30px}
+.seg{display:flex;background:var(--p-l);border-radius:12px;padding:3px;gap:3px}
+.seg button{border:0;background:transparent;border-radius:9px;padding:7px 12px;font-weight:800;font-size:13.5px;color:var(--p-d)}
+.seg button.on{background:var(--p);color:#fff}
+/* ---------- app cliente ---------- */
+.c{max-width:520px;margin:0 auto;padding:0 18px calc(110px + env(safe-area-inset-bottom,0px))}
+.hello{margin-top:18px}
+.hello small{font-size:15px;color:var(--sub);font-weight:700}
+.hello h1{font-size:34px;font-weight:900;color:var(--p-d);line-height:1.1}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px;margin-top:14px}
+.big-card{background:linear-gradient(150deg,var(--p),var(--p-d));color:#fff;border:0;position:relative;overflow:hidden}
+.big-card .ring{position:absolute;right:-50px;top:-50px;width:200px;height:200px;border-radius:50%;border:2px dashed rgba(255,255,255,.28)}
+.big-card small{font-size:14px;font-weight:700;opacity:.85}
+.big-card b{display:block;font-size:26px;font-weight:900;line-height:1.15;margin-top:4px}
+.big-card p{margin-top:6px;font-size:16px;opacity:.92}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:56px;padding:0 22px;border-radius:16px;border:0;font-weight:800;font-size:17px}
+.btn.p{background:var(--p);color:#fff}
+.btn.w{background:#fff;color:var(--p-d)}
+.btn.o{background:transparent;border:2px solid var(--line);color:var(--g)}
+.btn.full{width:100%}
+.btn.sm{min-height:42px;padding:0 14px;font-size:15px;border-radius:12px;white-space:nowrap}
+h2.t{font-size:24px;font-weight:900;color:var(--p-d);margin-top:22px}
+.sub{color:var(--sub)}
+.row{display:flex;align-items:center;gap:12px}
+.hw{display:grid;grid-template-columns:96px 1fr;gap:14px;align-items:center}
+.vid{position:relative;width:96px;height:96px;border-radius:16px;background:linear-gradient(150deg,#8E2A75,#4E0F3E);display:grid;place-items:center;color:#fff;overflow:hidden;border:0}
+.vid::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.18),transparent 60%)}
+.vid .pl{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.95);display:grid;place-items:center;color:var(--p);position:relative}
+.vid .who{position:absolute;left:6px;right:6px;bottom:5px;font-size:10.5px;font-weight:800;text-align:center;opacity:.95}
+.hw b{display:block;font-size:18px;font-weight:800;color:var(--g)}
+.hw .meta{font-size:15px;color:var(--sub);font-weight:600}
+.done-b{margin-top:10px;width:100%;min-height:52px;border-radius:14px;border:2px solid var(--p);background:#fff;color:var(--p);font-weight:900;font-size:17px}
+.done-b.on{background:var(--ok);border-color:var(--ok);color:#fff}
+.prog{height:12px;border-radius:9px;background:var(--p-l);overflow:hidden;margin-top:10px}
+.prog i{display:block;height:100%;background:var(--p);border-radius:9px}
+.test{margin-top:14px}
+.test .hd{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.test .hd b{font-size:18px;font-weight:800}
+.test .hd small{display:block;font-size:14px;color:var(--sub);font-weight:600}
+.test .val{text-align:right}
+.test .val strong{display:block;font-size:30px;font-weight:900;color:var(--p-d);line-height:1}
+.test .val em{font-style:normal;font-size:14px;font-weight:800;color:var(--ok)}
+.test svg{width:100%;height:auto;display:block;margin-top:10px}
+.ref{display:inline-flex;margin-top:8px;font-size:14px;font-weight:700;border-radius:99px;padding:4px 10px;background:var(--ok-l);color:var(--ok)}
+.ref.mid{background:var(--warn-l);color:var(--warn)}
+.chat{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.msg{max-width:86%;padding:12px 15px;border-radius:18px;font-size:16.5px;line-height:1.45}
+.msg.t{align-self:flex-start;background:#fff;border:1px solid var(--line);border-radius:4px 18px 18px 18px}
+.msg.t small{display:block;font-size:12.5px;font-weight:800;color:var(--p);margin-bottom:3px}
+.msg.u{align-self:flex-end;background:var(--p);color:#fff;border-radius:18px 4px 18px 18px}
+.inrow{display:flex;gap:8px;margin-top:14px}
+.inrow input{flex:1;min-width:0;height:56px;border-radius:16px;border:2px solid var(--line);padding:0 16px;font-size:17px;background:#fff;outline:none}
+.inrow input:focus{border-color:var(--p)}
+.nav{position:fixed;left:50%;transform:translateX(-50%);bottom:0;z-index:30;width:100%;max-width:520px;display:grid;grid-template-columns:repeat(5,1fr);background:#fff;border-top:1px solid var(--line);padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px))}
+.nav button{border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0;font-size:12.5px;font-weight:800;color:var(--sub)}
+.nav button svg{width:28px;height:28px}
+.nav button.on{color:var(--p)}
+.week{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.wk{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;border-radius:16px;border:1px solid var(--line);background:#fff;padding:12px}
+.wk .n{width:44px;height:44px;border-radius:12px;background:var(--p-l);color:var(--p-d);display:grid;place-items:center;font-weight:900}
+.wk.ok .n{background:var(--ok);color:#fff}
+.wk.cur{border:2px solid var(--p)}
+.wk b{font-size:16.5px}
+.wk small{display:block;font-size:14px;color:var(--sub);font-weight:600}
+.live{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center}
+.live .av{width:58px;height:58px;border-radius:50%;background:var(--p);color:#fff;display:grid;place-items:center;font-weight:900;font-size:20px;position:relative}
+.live .av::after{content:"EN DIRECTO";position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);background:var(--bad);color:#fff;font-size:8.5px;font-weight:900;padding:2px 5px;border-radius:5px;white-space:nowrap}
+.up{background:var(--p-l);border:2px dashed var(--p-m)}
+/* ---------- panel ---------- */
+.a{display:grid;grid-template-columns:240px 1fr;min-height:calc(100vh - 56px)}
+.side{background:#fff;border-right:1px solid var(--line);padding:18px 12px;display:flex;flex-direction:column;gap:4px;position:sticky;top:56px;height:calc(100vh - 56px)}
+.side .who{display:flex;gap:10px;align-items:center;padding:6px 8px 14px;border-bottom:1px solid var(--line);margin-bottom:8px}
+.side .who .av{width:40px;height:40px;border-radius:50%;background:var(--p);color:#fff;display:grid;place-items:center;font-weight:900}
+.side .who b{display:block;font-size:15px}
+.side .who small{font-size:12.5px;color:var(--sub);font-weight:700}
+.side button.it{display:flex;align-items:center;gap:10px;border:0;background:none;border-radius:12px;padding:11px 12px;font-weight:700;font-size:15px;color:var(--g);text-align:left}
+.side button.it svg{width:20px;height:20px;color:var(--sub)}
+.side button.it.on{background:var(--p-l);color:var(--p-d)}
+.side button.it.on svg{color:var(--p)}
+.side button.it .lk{margin-left:auto;font-size:12px}
+.role{margin-top:auto;border-top:1px solid var(--line);padding-top:12px}
+.role p{font-size:12px;font-weight:800;color:var(--sub);text-transform:uppercase;letter-spacing:.08em;margin:0 0 6px 6px}
+.main{padding:24px 26px 60px;min-width:0}
+.main h1{font-size:28px;font-weight:900;color:var(--p-d)}
+.main .lead{color:var(--sub);font-size:15.5px;margin-top:4px;max-width:70ch}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px}
+.kpi small{font-size:13px;font-weight:700;color:var(--sub)}
+.kpi b{display:block;font-size:30px;font-weight:900;color:var(--p-d);line-height:1.1;margin-top:4px}
+.kpi em{font-style:normal;font-size:13px;font-weight:800;color:var(--ok)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.box{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px}
+.box h3{font-size:17px;font-weight:900;color:var(--p-d);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.box h3 small{font-size:13px;color:var(--sub);font-weight:700}
+.shield{background:linear-gradient(150deg,var(--p),var(--p-d));color:#fff;border:0}
+.shield h3{color:#fff}
+.shield ul{list-style:none;margin-top:12px;display:grid;gap:8px}
+.shield li{display:grid;grid-template-columns:26px 1fr;gap:8px;font-size:15px}
+.shield li::before{content:"✓";width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.2);display:grid;place-items:center;font-weight:900;font-size:13px}
+.tw{overflow-x:auto;margin-top:10px}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+th{text-align:left;font-size:12px;font-weight:800;color:var(--sub);text-transform:uppercase;letter-spacing:.06em;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:10px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:800;border-radius:99px;padding:3px 9px;background:var(--p-l);color:var(--p-d);white-space:nowrap}
+.chip.ok{background:var(--ok-l);color:var(--ok)}
+.chip.w{background:var(--warn-l);color:var(--warn)}
+.chip.g{background:#EEE;color:#666}
+.sel{height:36px;border-radius:10px;border:1.5px solid var(--line);padding:0 8px;background:#fff;font-size:14px;font-weight:700}
+.sel:disabled{opacity:.6}
+.tg{width:46px;height:26px;border-radius:99px;border:0;background:#D8D2D6;position:relative}
+.tg::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:left .15s}
+.tg.on{background:var(--p)}
+.tg.on::after{left:23px}
+.tg:disabled{opacity:.55;cursor:not-allowed}
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;margin-top:14px}
+.lv{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff}
+.lv .th{height:104px;background:linear-gradient(150deg,#8E2A75,#4E0F3E);display:grid;place-items:center;color:#fff;position:relative}
+.lv .th .pl{width:40px;height:40px;border-radius:50%;background:#fff;color:var(--p);display:grid;place-items:center}
+.lv .th span{position:absolute;left:8px;bottom:6px;font-size:11.5px;font-weight:800}
+.lv .bd{padding:10px 12px}
+.lv b{display:block;font-size:14.5px}
+.lv small{font-size:12.5px;color:var(--sub);font-weight:700}
+.banner{display:flex;gap:10px;align-items:center;background:var(--warn-l);color:#7A4E07;border-radius:14px;padding:12px 14px;font-weight:700;font-size:14.5px;margin-top:14px}
+.form{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.form label{display:flex;flex-direction:column;gap:4px;font-size:13px;font-weight:800;color:var(--sub)}
+.form input,.form select{height:44px;border-radius:12px;border:1.5px solid var(--line);padding:0 12px;font-size:15.5px;font-weight:700;background:#fff;color:var(--g)}
+.toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:90;background:var(--p-d);color:#fff;font-weight:800;font-size:15px;padding:13px 18px;border-radius:14px;max-width:92%;text-align:center;transition:.25s;box-shadow:0 14px 40px rgba(0,0,0,.25)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.modal{position:fixed;inset:0;z-index:80;background:rgba(30,10,25,.5);display:flex;align-items:center;justify-content:center;padding:16px}
+.modal .in{width:100%;max-width:460px;background:#fff;border-radius:22px;padding:22px}
+.modal h3{font-size:20px;font-weight:900;color:var(--p-d)}
+.modal p{color:var(--sub);margin-top:6px;font-size:15px}
+.mtabs{display:none}
+@media (max-width:900px){
+  .a{grid-template-columns:1fr}
+  .side{position:sticky;top:56px;height:auto;z-index:20;flex-direction:row;overflow-x:auto;padding:8px 10px;border-right:0;border-bottom:1px solid var(--line);scrollbar-width:none}
+  .side::-webkit-scrollbar{display:none}
+  .side .who{display:none}
+  .side button.it{flex:none;padding:9px 12px;font-size:14px}
+  .role{margin:0 0 0 6px;border:0;padding:0;display:flex;align-items:center}
+  .role p{display:none}
+  .main{padding:18px 16px 60px}
+  .kpis{grid-template-columns:1fr 1fr}
+  .g2{grid-template-columns:1fr}
+  .form{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<div class="sw"><img src="logo.png" alt="Bodychronos"><div class="seg" role="tablist" aria-label="Vista"><button type="button" data-view="c" id="vC">App del cliente</button><button type="button" data-view="a" id="vA">Panel del centro</button></div></div>
+<div id="root"></div>
+<div class="toast" id="toast" role="status"></div>
+<script>
+(function () {
+  'use strict';
+  var KEY = 'bodychronos-v2';
+  function $(i) { return document.getElementById(i); }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  var I = {
+    home: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5V21h-6v-6H9v6H3z"/></svg>',
+    ex: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6.5 7v10M3.5 9.5v5M17.5 7v10M20.5 9.5v5M6.5 12h11"/></svg>',
+    prog: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8M15 7h6v6"/></svg>',
+    casa: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M10 9l5 3-5 3z" fill="currentColor"/><path d="M8 21h8"/></svg>',
+    chat: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg>',
+    play: '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>',
+    grid: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg>',
+    users: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.5-3.5 3.2-5.5 6.5-5.5s6 2 6.5 5.5M16 4.5a3.5 3.5 0 0 1 0 7M18.5 14.5c1.8.6 3 2.4 3.3 5.5"/></svg>',
+    ruler: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 20L20 4M7 17l-2-2M10 14l-2-2M13 11l-2-2M16 8l-2-2"/></svg>',
+    video: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><rect x="2.5" y="6" width="13" height="12" rx="2"/><path d="M15.5 10l6-3v10l-6-3z"/></svg>',
+    lock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg>',
+    euro: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M17 6.5A6.5 6.5 0 1 0 17 17.5M4 10.5h9M4 13.5h9"/></svg>'
+  };
+  var TEAM = [
+    { id: 'miguel', n: 'Miguel', r: 'Dueño', own: true }, { id: 'carlos', n: 'Carlos', r: 'Socio', own: true },
+    { id: 'ane', n: 'Ane', r: 'Entrenadora' }, { id: 'iker', n: 'Iker', r: 'Entrenador' }, { id: 'leire', n: 'Leire', r: 'Entrenadora' }, { id: 'unai', n: 'Unai', r: 'Entrenador' }, { id: 'maite', n: 'Maite', r: 'Entrenadora' }
+  ];
+  var PERMS = [['all', 'Ver todos los clientes del centro'], ['phone', 'Ver teléfonos y datos de contacto'], ['export', 'Exportar o descargar clientes'], ['publish', 'Publicar vídeos del Método'], ['msg', 'Escribir a clientes como "Equipo Bodychronos"'], ['meds', 'Apuntar mediciones']];
+  var NAMES = ['Mari Carmen Ruiz', 'José Luis Ortiz', 'Begoña Larrea', 'Javier Etxeberria', 'Pilar Sáenz', 'Txema Uriarte', 'Rosa María Gil', 'Koldo Arana', 'Mercedes Pardo', 'Fernando Alday', 'Itziar Gorospe', 'Luis Ángel Mena', 'Conchi Herrero', 'Alfonso Ibarra'];
+  var EX = [
+    { n: 'Sentadilla a la silla', d: '3 series de 10 · despacio al bajar', t: '1:20' },
+    { n: 'Remo con banda elástica', d: '3 series de 12 · hombros abajo', t: '1:05' },
+    { n: 'Equilibrio a una pierna', d: '3 veces 20 segundos por pierna · cerca de una pared', t: '0:50' }
+  ];
+  var VIDS = [['Sentadilla a la silla', 'Piernas'], ['Remo con banda elástica', 'Espalda'], ['Equilibrio a una pierna', 'Equilibrio'], ['Puente de glúteo', 'Cadera'], ['Flexiones en la pared', 'Pecho y brazos'], ['Marcha con rodillas altas', 'Cardio suave'], ['Movilidad de hombros', 'Movilidad'], ['Levantarse del suelo', 'Autonomía'], ['Peso muerto con mochila', 'Espalda baja'], ['Paso lateral con banda', 'Cadera'], ['Respiración y core', 'Abdomen'], ['Estiramientos de cierre', 'Movilidad']];
+  var PROG = ['Semana 1 · Empezamos sin prisa', 'Semana 2 · Piernas fuertes', 'Semana 3 · Espalda sin dolor', 'Semana 4 · Equilibrio', 'Semana 5 · Subimos un poco', 'Semana 6 · Fuerza de agarre', 'Semana 7 · Levantarse del suelo', 'Semana 8 · Todo junto', 'Semanas 9–12 · Consolidar'];
+
+  var S;
+  function seed() {
+    var cl = NAMES.map(function (n, i) {
+      var tr = ['ane', 'iker', 'leire', 'unai', 'maite', 'miguel', 'carlos'][i % 7], age = 52 + (i * 7) % 19, f = /a$|Carmen|Pilar|Rosa|Itziar|Conchi|Begoña|Mercedes/.test(n.split(' ')[0] + ' ' + (n.split(' ')[1] || ''));
+      var base = { sentar: 9 + (i % 4), equil: 8 + (i % 6), agarre: (f ? 19 : 30) + (i % 5), cintura: (f ? 92 : 101) - (i % 4) };
+      var meds = [0, 1, 2, 3].map(function (k) { return { d: ['2026-03-10', '2026-05-12', '2026-07-14', '2026-10-13'][k], sentar: base.sentar + k * (i % 7 === 4 ? 0 : i % 3 === 2 ? 1 : 2), equil: base.equil + k * (i % 4 === 1 ? 2 : 4), agarre: base.agarre + k * (i % 2 ? 1 : 1.5), cintura: base.cintura - k * (i % 3 ? 1.5 : 1) }; });
+      return { id: 'c' + i, n: n, age: age, tr: tr, casa: i % 3 === 0, tel: '6' + String(10000000 + i * 3711913 % 89999999).slice(0, 8), meds: meds, hw: [1, 2, 3, 2, 3, 3][i % 6] };
+    });
+    cl[0].age = 62; cl[0].tr = 'ane'; cl[0].casa = true;
+    var perms = {}; TEAM.forEach(function (t) { perms[t.id] = t.own ? { all: 1, phone: 1, export: 1, publish: 1, msg: 1, meds: 1 } : { all: 0, phone: 0, export: 0, publish: 0, msg: 1, meds: 1 }; });
+    return { v: 2, view: 'c', ct: 'home', at: 'res', as: 'miguel', cl: cl, perms: perms, done: {}, chat: [{ t: 1, x: '¡Hola Mari Carmen! Te hemos dejado los ejercicios de esta semana. Si te molesta la rodilla en la sentadilla, baja menos y cuéntanoslo.' }, { t: 0, x: 'Gracias, el jueves voy. La espalda bastante mejor.' }, { t: 1, x: '¡Qué bien! El jueves Ane te repite las mediciones para ver cuánto has mejorado 💪' }], gone: {} };
+  }
+  try { S = JSON.parse(localStorage.getItem(KEY)); } catch (e) { S = null; }
+  if (!S || S.v !== 2 || !S.s3) { S = seed(); S.s3 = 1; }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+  var tT; function toast(m) { var t = $('toast'); t.textContent = m; t.classList.add('on'); clearTimeout(tT); tT = setTimeout(function () { t.classList.remove('on'); }, 2600); }
+  function tm(id) { return TEAM.filter(function (t) { return t.id === id; })[0]; }
+  function me() { var c = S.cl[0]; c.hw = EX.filter(function (e, i) { return S.done[i]; }).length; return c; }
+  function last(c) { return c.meds[c.meds.length - 1]; }
+  function first(c) { return c.meds[0]; }
+  function fmtD(d) { var x = new Date(d + 'T12:00'); return x.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' }); }
+  function nf(v) { return (Math.round(v * 10) / 10).toLocaleString('es-ES'); }
+
+  /* ---------- gráfico ---------- */
+  function line(vals, lo, hi, good) {
+    var w = 320, h = 110, pl = 22, pr = 22, pt = 10, pb = 22, mn = Math.min.apply(null, vals.map(function (v) { return v.v; }).concat([lo])), mx = Math.max.apply(null, vals.map(function (v) { return v.v; }).concat([hi])), pd = (mx - mn) * 0.15 || 1; mn -= pd; mx += pd;
+    var X = function (i) { return pl + i * (w - pl - pr) / (vals.length - 1); }, Y = function (v) { return pt + (1 - (v - mn) / (mx - mn)) * (h - pt - pb); };
+    var d = vals.map(function (p, i) { return (i ? 'L' : 'M') + X(i).toFixed(1) + ' ' + Y(p.v).toFixed(1); }).join(' '), L = vals.length - 1;
+    return '<svg viewBox="0 0 ' + w + ' ' + h + '" role="img" aria-label="Evolución"><rect x="' + pl + '" y="' + Y(hi).toFixed(1) + '" width="' + (w - pl - pr) + '" height="' + Math.abs(Y(lo) - Y(hi)).toFixed(1) + '" fill="#E4F4EA" rx="6"/><text x="' + (w - pr - 4) + '" y="' + (Y(hi) + 12).toFixed(1) + '" text-anchor="end" font-size="9.5" font-weight="700" fill="#2E8B57">lo normal para tu edad</text><path d="' + d + '" fill="none" stroke="#7A1961" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>' + vals.map(function (p, i) { return '<circle cx="' + X(i).toFixed(1) + '" cy="' + Y(p.v).toFixed(1) + '" r="' + (i === L ? 6 : 4) + '" fill="' + (i === L ? '#7A1961' : '#fff') + '" stroke="#7A1961" stroke-width="2.5"/><text x="' + X(i).toFixed(1) + '" y="' + (h - 6) + '" text-anchor="middle" font-size="10" font-weight="700" fill="#6B6870">' + fmtD(p.d) + '</text>'; }).join('') + '</svg>';
+  }
+  var TESTS = [
+    { k: 'sentar', n: 'Levantarse de la silla', s: 'Veces en 30 segundos', u: '', lo: 12, hi: 17, up: true },
+    { k: 'equil', n: 'Equilibrio a una pierna', s: 'Segundos sin apoyarte', u: ' s', lo: 20, hi: 30, up: true },
+    { k: 'agarre', n: 'Fuerza de agarre', s: 'Kilos con el dinamómetro', u: ' kg', lo: 20, hi: 27, up: true },
+    { k: 'cintura', n: 'Perímetro de cintura', s: 'Centímetros', u: ' cm', lo: 75, hi: 88, up: false }
+  ];
+
+  /* ---------- APP CLIENTE ---------- */
+  function cNav() { function b(k, l, ic) { return '<button type="button" class="' + (S.ct === k ? 'on' : '') + '" data-ct="' + k + '">' + ic + '<span>' + l + '</span></button>'; } return '<nav class="nav">' + b('home', 'Inicio', I.home) + b('ej', 'Ejercicios', I.ex) + b('prog', 'Progreso', I.prog) + b('casa', 'En casa', I.casa) + b('chat', 'Mensajes', I.chat) + '</nav>'; }
+  function hwDone() { return EX.filter(function (e, i) { return S.done[i]; }).length; }
+  function vHome() {
+    var c = me(), l = last(c), f = first(c), dn = hwDone();
+    return '<div class="hello"><small>Jueves 12 de noviembre</small><h1>Hola, Mari Carmen</h1></div>' +
+      '<div class="card big-card"><span class="ring"></span><small>Tu próxima sesión</small><b>Jueves a las 10:00<br>con Ane</b><p>Toca repetir tus mediciones: vas a ver cuánto has mejorado.</p></div>' +
+      '<div class="card"><div class="row" style="justify-content:space-between"><b style="font-size:19px">Tus ejercicios para casa</b><span class="chip">' + dn + ' de 3</span></div><p class="sub" style="margin-top:4px">Grabados por Miguel. 10 minutos al día.</p><div class="prog"><i style="width:' + Math.round(dn / 3 * 100) + '%"></i></div><button type="button" class="btn p full" style="margin-top:14px" data-ct="ej">' + (dn === 3 ? '¡Hechos esta semana! Ver otra vez' : 'Hacer mis ejercicios') + '</button></div>' +
+      '<div class="card"><b style="font-size:19px">Desde marzo has mejorado</b><div class="g2" style="margin-top:10px;grid-template-columns:1fr 1fr">' +
+      '<div><strong style="font-size:30px;font-weight:900;color:var(--p-d)">+' + (l.sentar - f.sentar) + '</strong><p class="sub" style="font-size:14.5px;font-weight:700">veces más al levantarte de la silla</p></div><div><strong style="font-size:30px;font-weight:900;color:var(--p-d)">+' + (l.equil - f.equil) + ' s</strong><p class="sub" style="font-size:14.5px;font-weight:700">de equilibrio a una pierna</p></div></div><button type="button" class="btn o full" style="margin-top:12px" data-ct="prog">Ver mi progreso</button></div>' +
+      '<div class="card live"><span class="av">M</span><div><b style="font-size:18px">Directo con Miguel</b><p class="sub" style="font-size:15px">Este jueves a las 19:00 · “Cómo cuidar la espalda al levantar peso en casa”</p></div></div>';
+  }
+  function vEj() {
+    return '<h2 class="t">Tus ejercicios para casa</h2><p class="sub" style="margin-top:4px">Esta semana te los ha preparado Ane, con los vídeos de Miguel. Toca el vídeo para verlo.</p>' +
+      EX.map(function (e, i) { var on = !!S.done[i]; return '<div class="card"><div class="hw"><button type="button" class="vid" data-play="' + i + '" aria-label="Ver vídeo de ' + esc(e.n) + '"><span class="pl">' + I.play + '</span><span class="who">Miguel · ' + e.t + '</span></button><div><b>' + esc(e.n) + '</b><p class="meta">' + esc(e.d) + '</p></div></div><button type="button" class="done-b' + (on ? ' on' : '') + '" data-done="' + i + '">' + (on ? '✓ Hecho' : 'Marcar como hecho') + '</button></div>'; }).join('') +
+      '<p class="sub" style="margin-top:14px;font-size:15px;text-align:center">Si algo te molesta, para y escríbenos en Mensajes.</p>';
+  }
+  function vProg() {
+    var c = me();
+    return '<h2 class="t">Tu progreso</h2><p class="sub" style="margin-top:4px">Las mediciones que te hacemos en el centro. La franja verde es lo normal para tu edad.</p>' +
+      TESTS.map(function (t) { var a = first(c)[t.k], b = last(c)[t.k], d = b - a, inR = t.up ? b >= t.lo : b <= t.hi; return '<div class="card test"><div class="hd"><div><b>' + t.n + '</b><small>' + t.s + '</small></div><div class="val"><strong>' + nf(b) + t.u + '</strong><em>' + (d > 0 ? '+' : '') + nf(d) + t.u + ' desde marzo</em></div></div>' + line(c.meds.map(function (m) { return { d: m.d, v: m[t.k] }; }), t.lo, t.hi) + '<span class="ref ' + (inR ? '' : 'mid') + '">' + (inR ? 'Dentro de lo normal para tu edad' : 'Vamos camino de lo normal para tu edad') + '</span></div>'; }).join('');
+  }
+  function vCasa() {
+    var c = me();
+    if (!c.casa) return '<h2 class="t">Bodychronos en casa</h2><div class="card up"><b style="font-size:19px">Sigue tu plan también en casa</b><p class="sub" style="margin-top:6px">El programa de Miguel “Fuerte después de los 50”, el directo semanal y los vídeos.</p><button type="button" class="btn p full" style="margin-top:14px" data-addcasa="1">Añadirlo por 25 € al mes</button></div>';
+    return '<h2 class="t">Bodychronos en casa</h2><p class="sub" style="margin-top:4px">Programa “Fuerte después de los 50”, de Miguel. 3 sesiones de 20 minutos a la semana.</p>' +
+      '<div class="card big-card"><span class="ring"></span><small>Semana 5 de 12</small><b>Subimos un poco</b><p>Hoy: sesión 2 de 3 · 20 minutos</p><button type="button" class="btn w" style="margin-top:12px" data-play="0">' + I.play + ' Empezar la sesión</button></div>' +
+      '<div class="card live"><span class="av">M</span><div><b style="font-size:18px">Directo con Miguel · jueves 19:00</b><p class="sub" style="font-size:15px">Para todos los de “En casa”. Pregúntale lo que quieras.</p></div></div>' +
+      '<div class="week">' + PROG.map(function (p, i) { return '<div class="wk' + (i < 4 ? ' ok' : i === 4 ? ' cur' : '') + '"><span class="n">' + (i < 4 ? '✓' : i + 1) + '</span><span><b>' + esc(p) + '</b><small>' + (i < 4 ? 'Completada' : i === 4 ? 'Esta semana' : 'Próximamente') + '</small></span><span class="chip">' + (i === 8 ? '12 vídeos' : '3 vídeos') + '</span></div>'; }).join('') + '</div>';
+  }
+  function vChat() {
+    return '<h2 class="t">Mensajes</h2><p class="sub" style="margin-top:4px">Te contesta el equipo de Bodychronos.</p><div class="chat">' + S.chat.map(function (m) { return '<div class="msg ' + (m.t ? 't' : 'u') + '">' + (m.t ? '<small>Equipo Bodychronos</small>' : '') + esc(m.x) + '</div>'; }).join('') + '</div><form class="inrow" id="cF"><input id="cI" placeholder="Escribe tu mensaje" aria-label="Mensaje"><button type="submit" class="btn p" style="min-height:56px">Enviar</button></form>';
+  }
+  function renderC() {
+    var V = { home: vHome, ej: vEj, prog: vProg, casa: vCasa, chat: vChat };
+    $('root').innerHTML = '<div class="c">' + (V[S.ct] || vHome)() + '</div>' + cNav();
+  }
+
+  /* ---------- PANEL ---------- */
+  function P(k) { return !!(S.perms[S.as] || {})[k]; }
+  function isOwner() { return tm(S.as).own; }
+  function visible() { return S.cl.filter(function (c) { return !S.gone[c.id] && (P('all') || c.tr === S.as); }); }
+  function aSide() {
+    var t = tm(S.as);
+    function b(k, l, ic, lock) { return '<button type="button" class="it' + (S.at === k ? ' on' : '') + '" data-at="' + k + '">' + ic + '<span>' + l + '</span>' + (lock ? '<span class="lk">🔒</span>' : '') + '</button>'; }
+    return '<aside class="side"><div class="who"><span class="av">' + t.n[0] + '</span><span><b>' + t.n + '</b><small>' + t.r + '</small></span></div>' +
+      b('res', 'Resumen', I.grid) + b('cli', 'Clientes', I.users) + b('med', 'Mediciones', I.ruler) + b('met', 'Método Miguel', I.video) + (isOwner() ? b('eq', 'Equipo y permisos', I.lock) + b('casa', 'En casa · ingresos', I.euro) : '') +
+      '<div class="role"><p>Ver como</p><select class="sel" id="asSel" aria-label="Ver el panel como">' + TEAM.filter(function (x) { return ['miguel', 'carlos', 'ane'].indexOf(x.id) >= 0; }).map(function (x) { return '<option value="' + x.id + '"' + (x.id === S.as ? ' selected' : '') + '>' + x.n + ' · ' + x.r + '</option>'; }).join('') + '</select></div></aside>';
+  }
+  function aRes() {
+    me(); var V = visible(), casa = V.filter(function (c) { return c.casa; }).length, hwp = Math.round(V.reduce(function (a, c) { return a + c.hw; }, 0) / (V.length * 3) * 100), up = V.filter(function (c) { return last(c).sentar > first(c).sentar; }).length;
+    var scale = isOwner() ? 10 : 1;
+    var h = '<h1>' + (isOwner() ? 'Buenos días, ' + tm(S.as).n : 'Hola, ' + tm(S.as).n) + '</h1><p class="lead">' + (isOwner() ? 'Todo Bodychronos de un vistazo. Los clientes, sus datos y su historial son del centro, no de cada entrenador.' : 'Tus clientes de esta semana. Solo ves los que tienes asignados.') + '</p>';
+    if (!isOwner()) h += '<div class="banner">' + I.lock.replace('<svg', '<svg width="20" height="20"') + 'Vista de entrenadora: no ve teléfonos, no puede exportar clientes ni publicar vídeos. Lo decide Miguel en “Equipo y permisos”.</div>';
+    h += '<div class="kpis"><div class="kpi"><small>Clientes de entrenamiento personal</small><b>' + (V.length * scale) + '</b><em>' + (isOwner() ? '+6 este trimestre' : 'asignados a ti') + '</em></div><div class="kpi"><small>Con “Bodychronos en casa”</small><b>' + (casa * scale) + '</b><em>' + (isOwner() ? '+' + (casa * scale * 25) + ' €/mes' : 'de tus clientes') + '</em></div><div class="kpi"><small>Ejercicios para casa hechos</small><b>' + hwp + ' %</b><em>esta semana</em></div><div class="kpi"><small>Han mejorado en sus mediciones</small><b>' + Math.round(up / V.length * 100) + ' %</b><em>desde marzo</em></div></div>';
+    h += '<div class="g2">';
+    if (isOwner()) h += '<div class="box shield"><h3>Tus clientes son de Bodychronos</h3><ul><li>' + (S.cl.length * 10) + ' clientes en la app del centro, ninguno en móviles personales</li><li>Los entrenadores escriben como “Equipo Bodychronos”</li><li>Solo tú y Carlos veis teléfonos y podéis exportar</li><li>Si alguien se va, sus clientes pasan a otro con un clic y todo su historial</li></ul><button type="button" class="btn w sm" style="margin-top:14px" data-at="eq">Ver equipo y permisos</button></div>';
+    h += '<div class="box"><h3>Esta semana <small>' + (isOwner() ? 'todo el centro' : 'tus clientes') + '</small></h3><div class="tw"><table><tbody>' + V.slice(0, 5).map(function (c) { return '<tr><td><b>' + esc(c.n) + '</b><br><small class="sub">' + c.age + ' años · con ' + tm(c.tr).n + '</small></td><td>' + (c.hw === 3 ? '<span class="chip ok">3 de 3 ejercicios</span>' : '<span class="chip w">' + c.hw + ' de 3 ejercicios</span>') + '</td></tr>'; }).join('') + '</tbody></table></div></div></div>';
+    return h;
+  }
+  function aCli() {
+    var V = visible(), own = isOwner();
+    return '<h1>Clientes</h1><p class="lead">' + (own ? 'Cambia el entrenador de cualquier cliente sin perder su historial.' : 'Solo ves a tus clientes. Los datos de contacto los gestiona el centro.') + '</p><div class="box" style="margin-top:16px"><div class="tw"><table><thead><tr><th>Cliente</th><th>Teléfono</th><th>Entrenador</th><th>Plan</th><th>Levantarse (30 s)</th></tr></thead><tbody>' +
+      V.map(function (c) { var d = last(c).sentar - first(c).sentar; return '<tr><td><b>' + esc(c.n) + '</b><br><small class="sub">' + c.age + ' años</small></td><td>' + (P('phone') ? c.tel.replace(/(\d{3})(\d{3})(\d{3})/, '$1 $2 $3') : '<span class="chip g">' + I.lock.replace('<svg', '<svg width="12" height="12"') + ' oculto</span>') + '</td><td>' + (own ? '<select class="sel" data-reas="' + c.id + '" aria-label="Entrenador de ' + esc(c.n) + '">' + TEAM.filter(function (t) { return !S.gone[t.id]; }).map(function (t) { return '<option value="' + t.id + '"' + (t.id === c.tr ? ' selected' : '') + '>' + t.n + '</option>'; }).join('') + '</select>' : tm(c.tr).n) + '</td><td>' + (c.casa ? '<span class="chip">Personal + En casa</span>' : '<span class="chip g">Personal</span>') + '</td><td><b>' + last(c).sentar + '</b> <span class="chip ok">+' + d + '</span></td></tr>'; }).join('') +
+      '</tbody></table></div></div>' + (P('export') ? '<button type="button" class="btn o sm" style="margin-top:12px" data-export="1">Exportar clientes (solo dueños)</button>' : '');
+  }
+  function aMed() {
+    var V = visible();
+    return '<h1>Mediciones</h1><p class="lead">Apunta las pruebas en 1 minuto. El cliente las ve al momento en su app, comparadas con lo normal para su edad.</p><form class="box" id="medF" style="margin-top:16px"><h3>Nueva medición</h3><div class="form"><label>Cliente<select name="c">' + V.map(function (c) { return '<option value="' + c.id + '">' + esc(c.n) + '</option>'; }).join('') + '</select></label><label>Levantarse (veces en 30 s)<input name="sentar" inputmode="numeric" placeholder="14"></label><label>Equilibrio (segundos)<input name="equil" inputmode="numeric" placeholder="22"></label><label>Fuerza de agarre (kg)<input name="agarre" inputmode="decimal" placeholder="24"></label><label>Cintura (cm)<input name="cintura" inputmode="decimal" placeholder="86"></label><label>&nbsp;<button type="submit" class="btn p" style="min-height:44px">Guardar medición</button></label></div></form>' +
+      '<div class="box" style="margin-top:14px"><h3>Últimas mediciones</h3><div class="tw"><table><thead><tr><th>Cliente</th><th>Fecha</th><th>Levantarse</th><th>Equilibrio</th><th>Agarre</th><th>Cintura</th></tr></thead><tbody>' + V.slice(0, 8).map(function (c) { var m = last(c); return '<tr><td><b>' + esc(c.n) + '</b></td><td>' + fmtD(m.d) + '</td><td>' + m.sentar + '</td><td>' + m.equil + ' s</td><td>' + nf(m.agarre) + ' kg</td><td>' + nf(m.cintura) + ' cm</td></tr>'; }).join('') + '</tbody></table></div></div>';
+  }
+  function aMet() {
+    var pub = P('publish');
+    return '<h1>Método Miguel</h1><p class="lead">Los vídeos los graba Miguel y son de Bodychronos. Los entrenadores los asignan a sus clientes, pero no pueden cambiarlos ni publicar los suyos.</p>' + (pub ? '' : '<div class="banner">' + I.lock.replace('<svg', '<svg width="20" height="20"') + 'Solo Miguel y Carlos pueden subir o publicar vídeos.</div>') +
+      '<div class="lib">' + VIDS.map(function (v, i) { return '<div class="lv"><div class="th"><span class="pl">' + I.play + '</span><span>Miguel · ' + (1 + i % 2) + ':' + (10 + i * 7 % 50) + '</span></div><div class="bd"><b>' + esc(v[0]) + '</b><small>' + esc(v[1]) + ' · asignado a ' + (8 + i * 5 % 30) + ' clientes</small></div></div>'; }).join('') + '</div>' +
+      (pub ? '<button type="button" class="btn p" style="margin-top:16px" data-newvid="1">+ Subir vídeo nuevo</button>' : '') +
+      '<div class="box" style="margin-top:16px"><h3>Programa online · “Fuerte después de los 50” <small>12 semanas · 36 vídeos</small></h3><p class="sub" style="margin-top:6px;font-size:15px">Grabado por Miguel en 2 mañanas. Lo siguen los clientes de “En casa” y, más adelante, gente de toda España.</p></div>';
+  }
+  function aEq() {
+    var h = '<h1>Equipo y permisos</h1><p class="lead">Tú decides qué ve y qué puede hacer cada persona del equipo. Los entrenadores trabajan con tus clientes, pero los clientes siguen siendo del centro.</p><div class="box" style="margin-top:16px"><div class="tw"><table><thead><tr><th>Persona</th>' + PERMS.map(function (p) { return '<th style="white-space:normal;min-width:110px">' + p[1] + '</th>'; }).join('') + '<th>Clientes</th><th></th></tr></thead><tbody>';
+    TEAM.forEach(function (t) {
+      if (S.gone[t.id]) return; var n = S.cl.filter(function (c) { return c.tr === t.id && !S.gone[c.id]; }).length;
+      h += '<tr><td><b>' + t.n + '</b><br><small class="sub">' + t.r + '</small></td>' + PERMS.map(function (p) { var on = !!S.perms[t.id][p[0]]; return '<td><button type="button" class="tg' + (on ? ' on' : '') + '" data-perm="' + t.id + '|' + p[0] + '"' + (t.own ? ' disabled' : '') + ' aria-label="' + p[1] + ' para ' + t.n + '"></button></td>'; }).join('') + '<td><b>' + n * 10 + '</b></td><td>' + (t.own ? '' : '<button type="button" class="btn o sm" data-leave="' + t.id + '">Se va del centro</button>') + '</td></tr>';
+    });
+    return h + '</tbody></table></div></div><p class="sub" style="margin-top:12px;font-size:14px">Cada acceso queda registrado: quién entra, cuándo y qué consulta.</p>';
+  }
+  function aCasa() {
+    var casa = S.cl.filter(function (c) { return c.casa && !S.gone[c.id]; }).length * 10, tot = S.cl.filter(function (c) { return !S.gone[c.id]; }).length * 10;
+    return '<h1>Bodychronos en casa</h1><p class="lead">Ingresos nuevos sin una hora más de sala: tus clientes siguen tu método en casa entre sesión y sesión.</p><div class="kpis"><div class="kpi"><small>Clientes con “En casa”</small><b>' + casa + '</b><em>de ' + tot + '</em></div><div class="kpi"><small>Ingreso extra al mes</small><b>' + (casa * 25).toLocaleString('es-ES') + ' €</b><em>25 € por cliente</em></div><div class="kpi"><small>Horas de sala usadas</small><b>0</b><em>todo en vídeo y app</em></div><div class="kpi"><small>Tu tiempo a la semana</small><b>45 min</b><em>el directo del jueves</em></div></div>' +
+      '<div class="box" style="margin-top:14px"><h3>Si lo cogiera…</h3><div class="tw"><table><thead><tr><th>Clientes con “En casa”</th><th>Al mes</th><th>Al año</th></tr></thead><tbody>' + [0.15, 0.25, 0.35, 0.5].map(function (p) { var n = Math.round(tot * p); return '<tr><td><b>' + Math.round(p * 100) + ' %</b> · ' + n + ' clientes</td><td>' + (n * 25).toLocaleString('es-ES') + ' €</td><td><b>' + (n * 25 * 12).toLocaleString('es-ES') + ' €</b></td></tr>'; }).join('') + '</tbody></table></div></div>';
+  }
+  function renderA() {
+    if (!isOwner() && (S.at === 'eq' || S.at === 'casa')) S.at = 'res';
+    var V = { res: aRes, cli: aCli, med: aMed, met: aMet, eq: aEq, casa: aCasa };
+    $('root').innerHTML = '<div class="a">' + aSide() + '<main class="main">' + (V[S.at] || aRes)() + '</main></div>';
+  }
+  function render() { $('vC').classList.toggle('on', S.view === 'c'); $('vA').classList.toggle('on', S.view === 'a'); if (S.view === 'a') renderA(); else renderC(); }
+
+  function modal(html, onClick) { var m = document.createElement('div'); m.className = 'modal'; m.innerHTML = '<div class="in">' + html + '</div>'; document.body.appendChild(m); m.addEventListener('click', function (e) { if (e.target === m) { m.remove(); return; } var b = e.target.closest('button'); if (b) onClick(b, m); }); return m; }
+
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b || b.closest('.modal')) return; var d = b.dataset;
+    if (d.view) { S.view = d.view; save(); render(); window.scrollTo(0, 0); return; }
+    if (d.ct) { S.ct = d.ct; save(); render(); window.scrollTo(0, 0); return; }
+    if (d.at) { S.at = d.at; save(); render(); window.scrollTo(0, 0); return; }
+    if (d.done) { S.done[d.done] = !S.done[d.done]; save(); render(); if (S.done[d.done]) toast(hwDone() === 3 ? '¡Los 3 hechos! Ane lo verá en su panel' : '¡Bien! Ejercicio hecho'); return; }
+    if (d.play) { toast('En la app real se abre el vídeo de Miguel explicándolo'); return; }
+    if (d.addcasa) { me().casa = true; save(); render(); toast('Añadido “Bodychronos en casa”. Se cobra con tu cuota'); return; }
+    if (d.perm) { var p = d.perm.split('|'); S.perms[p[0]][p[1]] = S.perms[p[0]][p[1]] ? 0 : 1; save(); render(); toast('Permiso actualizado'); return; }
+    if (d.export) { toast('Exportación preparada. Queda registrado quién la ha hecho'); return; }
+    if (d.newvid) { toast('Subes el vídeo desde el móvil y queda en el Método Miguel'); return; }
+    if (d.leave) {
+      var t = tm(d.leave), mine = S.cl.filter(function (c) { return c.tr === t.id && !S.gone[c.id]; });
+      modal('<h3>' + t.n + ' se va del centro</h3><p>Tiene ' + mine.length * 10 + ' clientes. ¿A quién se los pasamos? Se llevan todo su historial: mediciones, ejercicios y mensajes. ' + t.n + ' pierde el acceso al momento.</p><select class="sel" id="toSel" style="width:100%;margin-top:14px;height:46px">' + TEAM.filter(function (x) { return x.id !== t.id && !S.gone[x.id]; }).map(function (x) { return '<option value="' + x.id + '">' + x.n + ' · ' + x.r + '</option>'; }).join('') + '</select><div style="display:flex;gap:8px;margin-top:16px"><button type="button" class="btn o sm" data-x="1">Cancelar</button><button type="button" class="btn p sm" data-ok="1">Pasar clientes y quitar acceso</button></div>', function (bb, m) {
+        if (bb.dataset.x) { m.remove(); return; }
+        if (bb.dataset.ok) { var to = $('toSel').value; mine.forEach(function (c) { c.tr = to; }); S.gone[t.id] = 1; save(); m.remove(); render(); toast('Hecho: ' + mine.length * 10 + ' clientes pasan a ' + tm(to).n + '. ' + t.n + ' ya no tiene acceso'); }
+      });
+      return;
+    }
+  });
+  document.addEventListener('change', function (e) {
+    var t = e.target;
+    if (t.id === 'asSel') { S.as = t.value; S.at = 'res'; save(); render(); toast('Viendo el panel como ' + tm(S.as).n); return; }
+    if (t.dataset && t.dataset.reas) { var c = S.cl.filter(function (x) { return x.id === t.dataset.reas; })[0]; c.tr = t.value; save(); toast(c.n.split(' ')[0] + ' pasa a ' + tm(t.value).n + ' con todo su historial'); }
+  });
+  document.addEventListener('submit', function (e) {
+    e.preventDefault(); var f = e.target;
+    if (f.id === 'cF') { var v = $('cI').value.trim(); if (!v) return; S.chat.push({ t: 0, x: v }); save(); render(); setTimeout(function () { S.chat.push({ t: 1, x: 'Recibido, Mari Carmen. Te contestamos en un rato. ¡Gracias por contárnoslo!' }); save(); if (S.view === 'c' && S.ct === 'chat') render(); window.scrollTo(0, document.body.scrollHeight); }, 900); return; }
+    if (f.id === 'medF') {
+      var fd = new FormData(f), c = S.cl.filter(function (x) { return x.id === fd.get('c'); })[0], l = last(c), m = { d: '2026-11-12' };
+      ['sentar', 'equil', 'agarre', 'cintura'].forEach(function (k) { var v = parseFloat(String(fd.get(k) || '').replace(',', '.')); m[k] = isNaN(v) ? l[k] : v; });
+      c.meds.push(m); save(); render(); toast('Guardado. ' + c.n.split(' ')[0] + ' ya lo ve en su app');
+    }
+  });
+  render();
+  if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(function () {});
+})();
+</script>
+</body>
+</html>
