@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gorobel Fight · Propuesta</title>
+<meta name="description" content="Propuesta de Galerna Method para Gorobel Fight 24 h: app, agentes y captación.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0C0D0A">
+<meta property="og:title" content="Gorobel Fight · Propuesta">
+<meta property="og:description" content="Que no se vaya nadie. Que entre gente nueva.">
+<meta property="og:image" content="https://app.galernamethod.com/gorobel/icons/icon-512.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../icons/icon-192.png">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@500;600;700;800;900&display=swap">
+<style>
+:root{--bg:#0C0D0A;--bg2:#12140E;--card:#191C13;--card2:#222619;--line:rgba(237,234,224,.11);--bone:#EDEAE0;--sub:#A5A996;--sage:#93A06A;--sage-b:#BCCB86;--box:#E8483B;--kb:#F3A73F;--disp:"Anton",Impact,sans-serif;
+  --t:#93A06A;--t-d:#BCCB86;--t-dd:#0C0D0A;--t-l:#BCCB86;--t-s:#222619;--ink:#EDEAE0;--line2:rgba(237,234,224,.18);--ok:#8FD16A}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{font-family:"Montserrat",system-ui,sans-serif;background:var(--bg);color:var(--bone);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:clip}
+.wrap{max-width:1060px;margin:0 auto;padding:0 20px}
+section{padding:70px 0}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--sage-b)}
+.kick::before{content:"";width:24px;height:2px;background:currentColor}
+h2{font-family:var(--disp);font-weight:400;text-transform:uppercase;font-size:clamp(34px,5.6vw,58px);line-height:.95;margin-top:12px}
+h2 em{font-style:normal;color:var(--sage-b)}
+.lead{color:#CFCDBF;font-size:17px;max-width:62ch;margin-top:14px}
+.hero{position:relative;overflow:hidden;padding:calc(22px + env(safe-area-inset-top,0px)) 0 70px;background:radial-gradient(700px 420px at 90% 0%,rgba(147,160,106,.25),transparent 65%)}
+.hero .bgw{position:absolute;left:-10px;right:-10px;font-family:var(--disp);text-transform:uppercase;font-size:clamp(110px,22vw,260px);line-height:.8;color:transparent;-webkit-text-stroke:1.2px rgba(147,160,106,.16);white-space:nowrap;pointer-events:none}
+.hero nav{display:flex;justify-content:space-between;align-items:center;position:relative}
+.hero nav img{height:20px}
+.hero nav span{font-size:12px;font-weight:700;color:var(--sub);letter-spacing:.06em}
+.hero .in{position:relative;margin-top:80px;max-width:760px}
+.hero h1{font-family:var(--disp);font-weight:400;text-transform:uppercase;font-size:clamp(52px,9vw,104px);line-height:.88}
+.hero h1 em{font-style:normal;color:var(--sage-b)}
+.hero p{margin-top:18px;font-size:18px;color:#D8D6C8;max-width:52ch}
+.ctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:52px;padding:0 22px;border-radius:14px;font-weight:800;font-size:15px;text-decoration:none;border:0;cursor:pointer;font-family:inherit}
+.btn.p{background:var(--sage-b);color:#11140A}
+.btn.o{border:1.5px solid var(--line2);color:var(--bone);background:transparent}
+.btn.t{background:var(--sage-b);color:#11140A}
+.layers{display:grid;grid-template-columns:1fr 1.2fr 1fr;gap:12px;margin-top:34px;align-items:stretch}
+.ly{border-radius:22px;padding:22px;border:1px solid var(--line);background:var(--card)}
+.ly.mid{background:#1F1A12;border:1.5px dashed rgba(243,167,63,.5)}
+.ly .tag{font-size:11.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--sub)}
+.ly.us .tag{color:var(--sage-b)}
+.ly.mid .tag{color:var(--kb)}
+.ly h3{font-family:var(--disp);font-weight:400;text-transform:uppercase;font-size:30px;line-height:1;margin-top:8px}
+.ly ul{list-style:none;margin-top:12px;display:grid;gap:7px;font-size:14.5px}
+.ly li{display:grid;grid-template-columns:20px 1fr;gap:6px}
+.ly.us li::before{content:"+";color:var(--sage-b);font-weight:900}
+.ly.mid li::before{content:"✓";color:var(--kb);font-weight:900}
+.lines{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
+.ln{position:relative;overflow:hidden;border-radius:22px;border:1px solid var(--line);background:var(--card);padding:22px}
+.ln .n{font-family:var(--disp);font-size:56px;line-height:.8;color:transparent;-webkit-text-stroke:1.2px var(--c,var(--sage-b));position:absolute;right:16px;top:14px;opacity:.6}
+.ln .tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;border-radius:99px;background:color-mix(in srgb,var(--c,var(--sage-b)) 18%,transparent);color:var(--c,var(--sage-b))}
+.ln h3{font-size:20px;font-weight:900;margin-top:12px;line-height:1.2;max-width:85%}
+.ln p{font-size:14.5px;color:#CFCDBF;margin-top:8px}
+.ln .how{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);font-size:13.5px;color:var(--sub);font-weight:600}
+.ln .how b{color:var(--bone)}
+.flow{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:30px}
+.fs{border-radius:18px;padding:16px 14px;background:var(--card);border:1px solid var(--line);position:relative}
+.fs.aim{background:#1F1A12;border-color:rgba(243,167,63,.45)}
+.fs small{display:block;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--sage-b)}
+.fs.aim small{color:var(--kb)}
+.fs b{display:block;font-size:15px;margin-top:6px;line-height:1.25}
+.fs p{font-size:12.5px;color:var(--sub);margin-top:6px}
+.pl{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:30px}
+.pl div{border-radius:20px;background:var(--card);border:1px solid var(--line);padding:18px;border-top:4px solid var(--sage-b)}
+.pl div:nth-child(2){border-top-color:var(--kb)}.pl div:nth-child(3){border-top-color:var(--box)}.pl div:nth-child(4){border-top-color:var(--bone)}
+.pl small{font-size:11.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--sub)}
+.pl b{display:block;font-size:18px;margin-top:4px}
+.pl p{font-size:14px;color:#CFCDBF;margin-top:6px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}
+.kpis div{border-radius:16px;background:var(--bg2);border:1px solid var(--line);padding:14px}
+.kpis b{display:block;font-family:var(--disp);font-weight:400;font-size:26px}
+.kpis small{font-size:12.5px;color:var(--sub);font-weight:700}
+.ways{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
+.way{border-radius:22px;padding:22px;background:var(--card);border:1px solid var(--line)}
+.way.hl{border:2px solid var(--sage-b)}
+.way h3{font-family:var(--disp);font-weight:400;text-transform:uppercase;font-size:28px;line-height:1}
+.way p{font-size:14.5px;color:#CFCDBF;margin-top:10px}
+.way ul{margin:10px 0 0 18px;font-size:14px;color:#CFCDBF;display:grid;gap:5px}
+.need{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:24px}
+.need div{display:grid;grid-template-columns:36px 1fr;gap:12px;align-items:center;border-radius:16px;background:var(--card);border:1px solid var(--line);padding:14px}
+.need span{width:36px;height:36px;border-radius:10px;background:rgba(188,203,134,.15);color:var(--sage-b);display:grid;place-items:center;font-weight:900}
+.need p{font-size:14.5px}
+.end{border-radius:30px;padding:46px 30px;text-align:center;background:linear-gradient(150deg,#262B1A,#12140E);border:1px solid var(--line);position:relative;overflow:hidden}
+.end h2{margin-top:10px}
+.end p{color:#CFCDBF;max-width:52ch;margin:12px auto 0}
+.end .ctas{justify-content:center}
+footer{padding:30px 0 50px;text-align:center;font-size:12.5px;color:var(--sub)}
+/* asistente: adapta estilos de Galerna Partner al tema oscuro */
+.gp-sec{display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:22px}
+.gp-sec .av{width:58px;height:58px;border-radius:18px;background:var(--sage);display:grid;place-items:center}
+.gp-sec h3{font-size:20px;font-weight:900}
+.gp-sec p{font-size:14.5px;color:var(--sub);margin-top:4px}
+.gp-fab{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;align-items:center;gap:10px;height:56px;padding:0 18px 0 8px;border-radius:99px;border:0;background:var(--sage-b);color:#11140A;font-family:inherit;font-weight:800;font-size:14.5px;box-shadow:0 14px 34px rgba(0,0,0,.5);cursor:pointer}
+.gp-fab .av{width:40px;height:40px;border-radius:50%;background:#11140A;display:grid;place-items:center;position:relative}
+.gp-fab .av::after{content:"";position:absolute;right:0;bottom:2px;width:10px;height:10px;border-radius:50%;background:#4ADE80;border:2px solid var(--sage-b)}
+.gp-fab[hidden]{display:none}
+.gp{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:70;width:min(400px,calc(100vw - 24px));height:min(640px,calc(100dvh - 36px));background:var(--bg2);border-radius:24px;box-shadow:0 30px 80px rgba(0,0,0,.6);display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line2);animation:gpin .25s ease}
+.gp[hidden]{display:none}
+@keyframes gpin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.gp-h{display:flex;align-items:center;gap:12px;padding:calc(14px + env(safe-area-inset-top,0px)) 14px 14px 16px;background:#1C2014;color:var(--bone);border-bottom:1px solid var(--line)}
+.gp-h .av{width:42px;height:42px;border-radius:50%;background:var(--sage);display:grid;place-items:center;flex:none}
+.gp-h b{display:block;font-size:16px}
+.gp-h small{font-size:12px;color:var(--sub)}
+.gp-h small i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#4ADE80;margin-right:5px}
+.gp-x,.gp-back{width:38px;height:38px;border-radius:50%;border:0;background:rgba(237,234,224,.1);color:var(--bone);cursor:pointer;display:grid;place-items:center;flex:none}
+.gp-x{margin-left:auto;font-size:15px}
+.gp-back{margin-right:-4px}
+.gp-b{flex:1;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:10px}
+.gp-m{max-width:88%;padding:10px 13px;border-radius:16px;font-size:14.5px;line-height:1.5;animation:gpin .2s ease}
+.gp-m.b{align-self:flex-start;background:var(--card2);border-radius:4px 16px 16px 16px}
+.gp-m.u{align-self:flex-end;background:var(--sage-b);color:#11140A;border-radius:16px 4px 16px 16px;font-weight:700}
+.gp-m ul{margin:6px 0 0 18px}
+.gp-m b{font-weight:800}
+.gp-m .acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.gp-m .acts a,.gp-m .acts button{display:inline-flex;align-items:center;height:34px;padding:0 12px;border-radius:10px;border:0;background:var(--bone);color:#11140A;font-family:inherit;font-weight:800;font-size:13px;text-decoration:none;cursor:pointer}
+.gp-t{align-self:flex-start;background:var(--card2);border-radius:4px 16px 16px 16px;padding:12px 14px;display:flex;gap:5px}
+.gp-t i{width:7px;height:7px;border-radius:50%;background:var(--sage-b);animation:gpb 1s infinite}
+.gp-t i:nth-child(2){animation-delay:.15s}.gp-t i:nth-child(3){animation-delay:.3s}
+@keyframes gpb{0%,80%{opacity:.25}40%{opacity:1}}
+.gp-s{display:flex;gap:6px;overflow-x:auto;padding:10px 12px 0;scrollbar-width:none;border-top:1px solid var(--line)}
+.gp-s::-webkit-scrollbar{display:none}
+.gp-s button{flex:none;height:32px;padding:0 12px;border-radius:99px;border:1.5px solid var(--line2);background:transparent;font-family:inherit;font-weight:700;font-size:12.5px;color:var(--bone);cursor:pointer}
+.gp-ret{border:0;background:transparent;color:var(--sage-b);font-family:inherit;font-weight:800;font-size:13.5px;padding:8px 0 0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.gp-f{display:flex;gap:8px;padding:10px 12px calc(12px + env(safe-area-inset-bottom,0px))}
+.gp-f input{flex:1;min-width:0;height:46px;border-radius:14px;border:1.5px solid var(--line2);background:var(--card);color:var(--bone);padding:0 14px;font-family:inherit;font-size:15px;outline:none}
+.gp-f input:focus{border-color:var(--sage-b)}
+.gp-f button{width:46px;height:46px;border-radius:14px;border:0;background:var(--sage-b);color:#11140A;cursor:pointer;display:grid;place-items:center}
+.gp-mono{font-weight:900;font-size:15px;color:#11140A}
+.gp-fab .gp-mono{color:var(--sage-b)}
+.gp-sec .gp-mono{font-size:20px}
+@media (max-width:640px){.gp{right:0;bottom:0;top:0;width:100vw;height:100dvh;border-radius:0}.gp-sec{grid-template-columns:auto 1fr}.gp-sec .btn{grid-column:1/-1}.gp-fab span.l{display:none}.gp-fab{padding:0 8px}}
+@media (min-width:641px){.gp-h{padding-top:14px}}
+@media (max-width:900px){.layers,.lines,.ways{grid-template-columns:1fr}.flow{grid-template-columns:1fr 1fr}.pl,.kpis{grid-template-columns:1fr 1fr}.need{grid-template-columns:1fr}section{padding:54px 0}}
+@media (max-width:480px){.pl,.kpis{grid-template-columns:1fr}.hero nav span{display:none}}
+@media print{.gp,.gp-fab{display:none!important}}
+
+.sit{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:30px}
+.sit div{border-radius:20px;background:var(--card);border:1px solid var(--line);padding:18px}
+.sit b{display:block;font-family:var(--disp);font-weight:400;font-size:40px;line-height:1;color:var(--sage-b)}
+.sit div.red b{color:var(--box)}
+.sit small{display:block;font-size:13.5px;color:#CFCDBF;margin-top:6px;font-weight:600}
+.inc{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:30px}
+.inc .ln h3{max-width:none}
+.inc .ln ul{list-style:none;margin-top:10px;display:grid;gap:6px;font-size:14.5px;color:#CFCDBF}
+.inc .ln li{display:grid;grid-template-columns:18px 1fr;gap:6px}
+.inc .ln li::before{content:"+";color:var(--c,var(--sage-b));font-weight:900}
+.calc{display:grid;grid-template-columns:1.1fr 1fr;gap:18px;margin-top:30px;align-items:start}
+.cin{border-radius:22px;background:var(--card);border:1px solid var(--line);padding:22px;display:grid;gap:18px}
+.cin label{display:block;font-size:14px;font-weight:700}
+.cin label span{float:right;color:var(--sage-b);font-weight:900}
+.cin input[type=range]{width:100%;margin-top:8px;accent-color:var(--sage-b)}
+.cin .hint{font-size:12.5px;color:var(--sub);font-weight:600;margin-top:2px}
+.seg{display:flex;gap:6px;margin-top:8px}
+.seg button{flex:1;height:42px;border-radius:12px;border:1.5px solid var(--line2);background:transparent;color:var(--bone);font-family:inherit;font-weight:800;font-size:13.5px;cursor:pointer}
+.seg button.on{background:var(--sage-b);color:#11140A;border-color:var(--sage-b)}
+.cout{border-radius:22px;background:linear-gradient(160deg,#262B1A,#12140E);border:1px solid var(--line2);padding:22px}
+.cout .row{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px dashed var(--line);font-size:14.5px}
+.cout .row b{font-weight:900;white-space:nowrap}
+.cout .big{margin-top:14px;text-align:center}
+.cout .big small{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--sub)}
+.cout .big b{display:block;font-family:var(--disp);font-weight:400;font-size:clamp(46px,8vw,66px);line-height:1;color:var(--sage-b);margin-top:6px}
+.cout .note{font-size:12.5px;color:var(--sub);margin-top:10px;text-align:center}
+.bf{display:inline-flex;align-items:center;gap:8px;background:var(--box);color:#fff;font-weight:900;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;padding:7px 12px;border-radius:99px}
+.cd{display:flex;gap:8px;margin-top:16px}
+.cd div{min-width:64px;text-align:center;border-radius:14px;background:var(--card);border:1px solid var(--line);padding:10px 6px}
+.cd b{display:block;font-family:var(--disp);font-weight:400;font-size:30px;line-height:1}
+.cd small{font-size:11px;color:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.setup{margin-top:26px;border-radius:24px;border:2px solid var(--box);background:#1E1310;padding:22px;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center}
+.setup s{color:var(--sub);font-weight:700}
+.setup .p{font-family:var(--disp);font-size:54px;line-height:1;color:#fff}
+.setup p{font-size:14.5px;color:#E7D6CF;margin-top:6px}
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+.plan{border-radius:24px;padding:24px;background:var(--card);border:1px solid var(--line);position:relative}
+.plan.hl{border:2px solid var(--sage-b)}
+.plan .badge{position:absolute;top:-12px;right:18px;background:var(--sage-b);color:#11140A;font-size:11.5px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;padding:6px 10px;border-radius:99px}
+.plan h3{font-family:var(--disp);font-weight:400;text-transform:uppercase;font-size:30px;line-height:1}
+.plan .pr{margin-top:12px;font-family:var(--disp);font-size:52px;line-height:1}
+.plan .pr small{font-family:"Montserrat";font-size:15px;font-weight:700;color:var(--sub)}
+.plan ul{list-style:none;margin-top:14px;display:grid;gap:7px;font-size:14.5px}
+.plan li{display:grid;grid-template-columns:20px 1fr;gap:6px}
+.plan li::before{content:"✓";color:var(--sage-b);font-weight:900}
+.plan li.no{color:var(--sub)}
+.plan li.no::before{content:"–";color:var(--sub)}
+.terms{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.terms div{border-radius:16px;background:var(--bg2);border:1px solid var(--line);padding:14px;font-size:13.5px;color:#CFCDBF}
+.terms b{display:block;color:var(--bone);font-size:14.5px;margin-bottom:4px}
+@media (max-width:900px){.sit{grid-template-columns:1fr 1fr}.inc,.calc,.plans,.terms{grid-template-columns:1fr}.setup{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="bgw" style="top:150px">Gorobel</div><div class="bgw" style="top:350px;text-align:right">Fight 24h</div>
+  <div class="wrap">
+    <nav><img src="../logo-w.png" alt="Gorobel"><span>Propuesta de Galerna Method para Joseba · noviembre 2026</span></nav>
+    <div class="in">
+      <p class="kick">Gorobel Fight · Llodio</p>
+      <h1 style="margin-top:14px">Que no se vaya<br>nadie.<br><em>Que entre<br>gente nueva.</em></h1>
+      <p>La competencia ya está abierta y tú estás rehaciendo el gimnasio. Es el momento de cuidar a los que tienes y de que todo el valle vea el nuevo Gorobel Fight 24 h.</p>
+      <div class="ctas"><a class="btn p" href="#precio">Ver la propuesta</a><a class="btn o" href="../" target="_blank" rel="noopener">Abrir la app de Gorobel</a></div>
+    </div>
+  </div>
+</header>
+
+<section style="padding-top:20px">
+  <div class="wrap">
+    <p class="kick">Dónde estamos</p>
+    <h2>Lo que está en juego <em>en lucha.</em></h2>
+    <div class="sit">
+      <div><b>~100</b><small>alumnos de lucha hoy</small></div>
+      <div><b>~5.000 €</b><small>al mes que entran por cuotas</small></div>
+      <div class="red"><b>600 €</b><small>al año que pierdes por cada alumno que se va a la competencia</small></div>
+      <div><b>24 h</b><small>lo que nadie más ofrece en deportes de contacto en el valle</small></div>
+    </div>
+    <p class="lead">El plan tiene dos partes: <b>retener</b> a los que ya entrenan contigo durante la reforma, y <b>captar</b> con la reapertura. AimHarder se queda como está: cobros y reservas no se tocan.</p>
+  </div>
+</section>
+
+<section id="incluye" style="background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <p class="kick">Qué incluye</p>
+    <h2>Un sistema completo <em>con tu marca.</em></h2>
+    <div class="inc">
+      <div class="ln" style="--c:#BCCB86"><span class="n">01</span><span class="tag">App Gorobel</span><h3>La app de tus socios</h3><ul><li><b>Coach personal</b>: entrenamiento según objetivo y nivel, revisado por tus entrenadores</li><li><b>Nutrición</b> con tu nutricionista: plan firmado por ella, seguimiento desde la app</li><li><b>Acceso 24 h con QR</b>: quién entra y cuándo, y bloqueo automático a quien no paga</li><li>Sombra guiada con voz, cinturones, retos y test “¿Qué deporte es el tuyo?”</li><li><b>Gorobel+</b>: coach y nutrición como extra de pago para tus socios</li></ul></div>
+      <div class="ln" style="--c:#E8483B"><span class="n">02</span><span class="tag">Agentes</span><h3>Nadie se queda sin respuesta</h3><ul><li><b>Llamada en 2 minutos</b> a cada persona que deja su teléfono (hasta 100 al mes)</li><li><b>WhatsApp</b> que responde, da clase de prueba y recuerda la cita</li><li><b>Instagram</b>: responde mensajes y comentarios a cualquier hora</li><li>Todo con tu número y tu cuenta, a nombre de Gorobel</li></ul></div>
+      <div class="ln" style="--c:#F3A73F"><span class="n">03</span><span class="tag">Redes</span><h3>Tus entrenadores, protagonistas</h3><ul><li>Estrategia de contenido con cada entrenador como personaje</li><li>Serie de la reforma por capítulos hasta la reapertura</li><li><b>Edición de 8 vídeos al mes</b>, listos para publicar</li><li>Todo en la cuenta de Gorobel: los seguidores son del gimnasio</li></ul></div>
+      <div class="ln" style="--c:#ECE7D6"><span class="n">04</span><span class="tag">Captación</span><h3>Anuncios y reapertura</h3><ul><li>Campañas en Meta en Llodio y 15 km alrededor</li><li>Trae a un amigo y campaña de recuperar ex socios</li><li>Jornada de puertas abiertas en la reapertura</li><li>Reunión semanal con números: contactos, pruebas y altas</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="calc">
+  <div class="wrap">
+    <p class="kick">Haz tus números</p>
+    <h2>Lo que gana <em>Gorobel Fight.</em></h2>
+    <p class="lead">Mueve los valores. Cuenta solo el primer año y solo el centro de lucha.</p>
+    <div class="calc">
+      <div class="cin">
+        <div><label>Altas nuevas al mes <span id="vA">2</span></label><input type="range" id="iA" min="0" max="10" value="2"><p class="hint">Gente que entra por anuncios, Instagram y amigos</p></div>
+        <div><label>Bajas que evitamos al mes <span id="vB">1</span></label><input type="range" id="iB" min="0" max="5" value="1"><p class="hint">Alumnos que se quedan en vez de irse a la competencia</p></div>
+        <div><label>Cuota media <span id="vC">50 €</span></label><input type="range" id="iC" min="35" max="70" value="50"></div>
+        <div><label>Socios con Gorobel+ <span id="vG">20</span></label><input type="range" id="iG" min="0" max="60" value="20"><p class="hint">A 19 € al mes cada uno</p></div>
+        <div><label>Plan</label><div class="seg" id="seg"><button type="button" data-f="349">Sistema · 349 €</button><button type="button" class="on" data-f="649">Sistema + crecimiento · 649 €</button></div></div>
+      </div>
+      <div class="cout">
+        <div class="row"><span>Cuotas de socios nuevos y retenidos</span><b id="oS">0 €</b></div>
+        <div class="row"><span>Gorobel+</span><b id="oG">0 €</b></div>
+        <div class="row"><span>Inversión el primer año</span><b id="oC">0 €</b></div>
+        <div class="big"><small>Te queda el primer año</small><b id="oN">0 €</b></div>
+        <p class="note" id="oE"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="precio" style="background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <span class="bf">Oferta Black Friday</span>
+    <h2 style="margin-top:14px">Hasta el 30 de noviembre, <em>la app va incluida.</em></h2>
+    <div class="cd" id="cd"><div><b id="cdD">0</b><small>días</small></div><div><b id="cdH">0</b><small>horas</small></div><div><b id="cdM">0</b><small>min</small></div></div>
+    <div class="setup">
+      <div><small style="font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#E7D6CF">Puesta en marcha</small>
+        <p style="margin-top:8px;font-size:16px;color:var(--bone)"><s>App 5.900 €</s> + <s>montaje y agentes 3.000 €</s></p>
+        <p>Pagas la entrada en dos partes: <b>1.450 € al firmar</b> y <b>1.450 € al lanzar</b>. Te ahorras 6.000 €.</p></div>
+      <div class="p">2.900 €</div>
+    </div>
+    <div class="plans">
+      <div class="plan"><h3>Sistema</h3><div class="pr">349 €<small> /mes</small></div><ul><li>App Gorobel con coach, nutrición y acceso 24 h</li><li>Agente de llamadas (hasta 100 al mes)</li><li>Agentes de WhatsApp e Instagram</li><li>Mantenimiento, servidor y mejoras</li><li class="no">Redes y edición de vídeos</li><li class="no">Campañas en Meta</li><li class="no">Reunión semanal</li></ul></div>
+      <div class="plan hl"><span class="badge">Recomendado</span><h3>Sistema + crecimiento</h3><div class="pr">649 €<small> /mes</small></div><ul><li>Todo lo de Sistema</li><li>Estrategia de redes con tus entrenadores</li><li>Edición de 8 vídeos al mes</li><li>Campañas en Meta y reapertura</li><li>Trae a un amigo y recuperar ex socios</li><li>Reunión semanal con números</li></ul></div>
+    </div>
+    <div class="terms">
+      <div><b>Permanencia de 12 meses</b>La cuota empieza el mes siguiente al lanzamiento.</div>
+      <div><b>Más centros de la red: +149 €/mes</b>La misma app y sistema en cada centro, sin nueva puesta en marcha.</div>
+      <div><b>Lo que pagas aparte, directo a Meta</b>Los anuncios y los mensajes de WhatsApp. Llamada extra por encima de 100: 0,80 €.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kick">Cómo arrancamos</p>
+    <h2>De la reforma <em>a la reapertura.</em></h2>
+    <div class="pl">
+      <div><small>Semanas 1–2</small><b>Montaje</b><p>App con tu marca, agentes y acceso 24 h. Plan de contenido con cada entrenador.</p></div>
+      <div><small>Durante la reforma</small><b>Retener</b><p>Serie de la obra, avance para tus alumnos y trae a un amigo.</p></div>
+      <div><small>Reapertura</small><b>Captar</b><p>Puertas abiertas, anuncios en el valle y llamada en 2 minutos a cada interesado.</p></div>
+      <div><small>Cada semana</small><b>Mejorar</b><p>Contactos, pruebas, altas y bajas. Nos quedamos con lo que funciona.</p></div>
+    </div>
+    <p style="margin-top:34px;font-weight:800">Lo que necesitamos de ti:</p>
+    <div class="need">
+      <div><span>1</span><p>Que tus entrenadores graben con el móvil siguiendo nuestras pautas</p></div>
+      <div><span>2</span><p>Acceso a Instagram, a la cuenta de anuncios de Meta y al número de WhatsApp</p></div>
+      <div><span>3</span><p>Tu nutricionista para firmar los planes de nutrición</p></div>
+      <div><span>4</span><p>Una reunión corta cada semana</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="gp-sec"><span class="av"><b class="gp-mono">GP</b></span><div><h3>¿Dudas? Pregúntale a Galerna Partner</h3><p>Conoce esta propuesta: precio, qué incluye, el 24 h, la nutrición… Es el mismo tipo de asistente que atenderá a tus clientes por WhatsApp e Instagram.</p></div><button type="button" class="btn t" data-gpopen="1">Hacer una pregunta</button></div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="end">
+      <img src="../logo-w.png" alt="" style="height:22px">
+      <h2>¿Lo dejamos listo <em>para la reapertura?</em></h2>
+      <p>La oferta con la app incluida vale hasta el 30 de noviembre.</p>
+      <div class="ctas"><a class="btn p" href="https://wa.me/?text=Hola%20Jon%2C%20soy%20Joseba%20de%20Gorobel%3A%20quiero%20empezar" target="_blank" rel="noopener">Quiero empezar</a><a class="btn o" href="../" target="_blank" rel="noopener">Ver la app</a></div>
+    </div>
+  </div>
+</section>
+<footer>Propuesta preparada por <b>Galerna Method</b> para Gorobel · Jon · galernamethod.com</footer>
+<button type="button" class="gp-fab" id="gpFab" data-gpopen="1" aria-label="Abrir Galerna Partner"><span class="av"><b class="gp-mono">GP</b></span><span class="l">¿Dudas? Pregunta</span></button>
+<div class="gp" id="gp" hidden role="dialog" aria-label="Galerna Partner">
+  <div class="gp-h"><button type="button" class="gp-back" id="gpBack" aria-label="Volver a la propuesta"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><span class="av"><b class="gp-mono">GP</b></span><span><b>Galerna Partner</b><small><i></i>Responde al momento</small></span><button type="button" class="gp-x" id="gpX" aria-label="Cerrar">✕</button></div>
+  <div class="gp-b" id="gpB" aria-live="polite"></div>
+  <div class="gp-s" id="gpS"></div>
+  <button type="button" class="gp-ret" id="gpRet">← Volver a la propuesta</button>
+  <form class="gp-f" id="gpF"><input id="gpI" placeholder="Escribe tu pregunta…" autocomplete="off" aria-label="Tu pregunta"><button type="submit" aria-label="Enviar"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 20l18-8L3 4l2 7 9 1-9 1z"/></svg></button></form>
+</div>
+
+<script>
+(function(){
+  function $(i){return document.getElementById(i);}
+  var fee=649;
+  function eur(n){return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,'.')+'\u00a0€';}
+  function upd(){
+    var a=+$('iA').value,b=+$('iB').value,c=+$('iC').value,g=+$('iG').value;
+    $('vA').textContent=a;$('vB').textContent=b;$('vC').textContent=c+' €';$('vG').textContent=g;
+    var s=(a+b)*c*78, gp=g*19*12, cost=2900+fee*12;
+    $('oS').textContent=eur(s);$('oG').textContent=eur(gp);$('oC').textContent='−'+eur(cost);
+    var n=s+gp-cost;$('oN').textContent=(n<0?'−':'')+eur(Math.abs(n));$('oN').style.color=n<0?'var(--box)':'';
+    $('oE').textContent='La cuota de '+fee+' € equivale a '+Math.ceil(fee/c)+' socios. Sumamos socios mes a mes: 12 meses de altas y bajas evitadas.';
+  }
+  ['iA','iB','iC','iG'].forEach(function(i){$(i).addEventListener('input',upd);});
+  $('seg').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;fee=+b.dataset.f;[].forEach.call(this.children,function(x){x.classList.toggle('on',x===b);});upd();});
+  upd();
+  function cd(){var t=new Date('2026-11-30T23:59:59+01:00')-new Date();if(t<0)t=0;$('cdD').textContent=Math.floor(t/864e5);$('cdH').textContent=Math.floor(t/36e5)%24;$('cdM').textContent=Math.floor(t/6e4)%60;}
+  cd();setInterval(cd,30000);
+})();
+</script>
+<script>
+(function () {
+  function $(i) { return document.getElementById(i); }
+  function norm(t) { return String(t).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[¿?¡!.,;:]/g, ' '); }
+  var WA = 'https://wa.me/?text=' + encodeURIComponent('Hola Jon, tengo una duda sobre la propuesta de Gorobel: ');
+  var GO = function (id, txt) { return '<button type="button" data-gpgo="' + id + '">' + txt + '</button>'; };
+  var K = [
+    { k: ['precio', 'cuesta', 'cuanto', 'pagar', 'coste', 'entrada'], a: 'Con la oferta de Black Friday la entrada es de <b>2.900 €</b> en dos partes (1.450 al firmar y 1.450 al lanzar), con la app incluida, en vez de 8.900 €. Luego, <b>349 €/mes</b> (Sistema) o <b>649 €/mes</b> (Sistema + crecimiento), con 12 meses de permanencia.', x: [GO('precio', 'Ver el precio')] },
+    { k: ['diferencia', 'planes', 'sistema', 'crecimiento', 'cual'], a: '<b>Sistema</b> es la app y los tres agentes (llamadas, WhatsApp e Instagram). <b>Sistema + crecimiento</b> añade la estrategia de redes con tus entrenadores, la edición de 8 vídeos al mes, las campañas en Meta y una reunión semanal. Si lo que quieres es que entre gente, es el segundo.' },
+    { k: ['aimharder', 'aim harder', 'cambiar', 'dejar', 'reservas', 'cobros'], a: 'No tienes que dejar <b>AimHarder</b>. Cobros, reservas y socios siguen ahí. Nosotros nos encargamos de traer gente, de que nadie se quede sin respuesta y de la experiencia en la app.' },
+    { k: ['24', 'acceso', 'puerta', 'qr', 'abrir', 'noche'], a: 'Para el <b>24 h</b> la app da a cada socio un QR o PIN para abrir la puerta. Queda registrado quién entra y a qué hora, y si alguien no ha pagado se le bloquea solo. En horas sin entrenador: saco, técnica y máquinas; el sparring, solo en clase.' },
+    { k: ['nutricion', 'dieta', 'nutricionista', 'comida'], a: 'Los planes de nutrición los firma <b>tu nutricionista</b>, que es lo legal. La app recoge los datos y objetivos de cada socio, y él o ella hace el seguimiento desde ahí. La IA solo da hábitos generales, no pone dietas.' },
+    { k: ['coach', 'entrenamiento', 'personalizado', 'rutina'], a: 'El <b>coach</b> de la app prepara el entrenamiento según el objetivo (perder peso, competir, ponerse en forma) y el nivel de cada socio, con el material que hay en tu gimnasio. Tus entrenadores pueden revisarlo y ajustarlo.' },
+    { k: ['gorobel+', 'gorobel mas', 'extra', 'ganar', 'ingresos'], a: '<b>Gorobel+</b> es el coach personal y la nutrición como extra para tus socios, por ejemplo a 19 €/mes. Con 20 socios son unos 4.500 € al año. Ese dinero es tuyo y te ayuda a pagar la cuota.', x: [GO('calc', 'Hacer números')] },
+    { k: ['llamada', 'voz', 'llamar', 'agente', 'whatsapp', 'instagram'], a: 'Cuando alguien deja su teléfono, el agente le <b>llama en 2 minutos</b> y le da clase de prueba. En WhatsApp e Instagram responde a cualquier hora, resuelve dudas y recuerda la cita. Todo con tu número y tu cuenta. Solo llama a quien ha aceptado que le llamen.' },
+    { k: ['videos', 'redes', 'grabar', 'contenido', 'entrenadores', 'reforma'], a: 'Tus <b>entrenadores</b> graban con el móvil siguiendo nuestras pautas y nosotros editamos <b>8 vídeos al mes</b>. La reforma la contamos por capítulos hasta la reapertura. Todo va en la cuenta de Gorobel, así los seguidores son del gimnasio.' },
+    { k: ['competencia', 'otro gimnasio', 'se van', 'bajas', 'retener'], a: 'Cada alumno que se va son unos <b>600 € al año</b>. Por eso empezamos por los que ya tienes: que sepan antes que nadie lo que viene (24 h, app, coach), trae a un amigo y recuperar a los que se fueron. Y la reapertura para captar.' },
+    { k: ['centros', 'red', 'otros gimnasios', 'varios'], a: 'Cada centro más de la red cuesta <b>149 €/mes</b>, sin nueva puesta en marcha: la misma app y el mismo sistema con su sede.' },
+    { k: ['permanencia', 'contrato', 'compromiso', 'meses'], a: 'La permanencia es de <b>12 meses</b>. La cuota empieza el mes siguiente al lanzamiento, no al firmar.' },
+    { k: ['anuncios', 'meta', 'publicidad', 'presupuesto'], a: 'Los anuncios los pagas directo a Meta, con tu tarjeta. Para Llodio y alrededores recomendamos empezar con <b>10–15 € al día</b>. Nosotros los montamos y los ajustamos cada semana.' },
+    { k: ['hola', 'buenas', 'kaixo', 'hey'], a: '¡Kaixo, Joseba! Pregúntame por el precio, el 24 h, la nutrición o cómo arrancamos.' },
+    { k: ['gracias', 'genial', 'perfecto', 'vale'], a: '¡A ti! Si te encaja, lo dejamos montado para la reapertura.', x: ['<a href="' + 'https://wa.me/?text=' + encodeURIComponent('Hola Jon, soy Joseba de Gorobel: quiero empezar') + '" target="_blank" rel="noopener">Hablar con Jon</a>'] }
+  ];
+  var SUG = ['¿Cuánto cuesta?', '¿Qué diferencia hay entre los planes?', '¿Cómo funciona el 24 h?', '¿Y la nutrición?', '¿Qué es Gorobel+?', '¿Y los otros centros?'];
+  var started = false, busy = false;
+  function add(cls, html) { var d = document.createElement('div'); d.className = 'gp-m ' + cls; d.innerHTML = html; $('gpB').appendChild(d); $('gpB').scrollTop = 1e6; return d; }
+  function reply(q) {
+    var n = ' ' + norm(q) + ' ', best = null, bs = 0;
+    K.forEach(function (it) { var sc = 0; it.k.forEach(function (k) { if (n.indexOf(norm(k)) >= 0) sc += k.length; }); if (sc > bs) { bs = sc; best = it; } });
+    if (!best) return { a: 'Buena pregunta. Esa prefiero que te la responda Jon directamente para no decirte nada inexacto.', x: ['<a href="' + WA + '" target="_blank" rel="noopener">Preguntar a Jon</a>'] };
+    return best;
+  }
+  function ask(q) {
+    q = String(q || '').trim(); if (!q || busy) return; busy = true;
+    add('u', q.replace(/[<>&]/g, '')); var t = document.createElement('div'); t.className = 'gp-t'; t.innerHTML = '<i></i><i></i><i></i>'; $('gpB').appendChild(t); $('gpB').scrollTop = 1e6;
+    setTimeout(function () { t.remove(); var r = reply(q); add('b', r.a + (r.x ? '<div class="acts">' + r.x.join('') + '</div>' : '')); busy = false; }, 600 + Math.random() * 500);
+  }
+  function open() {
+    $('gp').hidden = false; $('gpFab').hidden = true; if (!pushed) { try { history.pushState({ gp: 1 }, ''); pushed = true; } catch (x) {} }
+    if (!started) { started = true; add('b', 'Hola 👋 Soy <b>Galerna Partner</b>. Conozco esta propuesta para Gorobel. Pregúntame lo que quieras, Joseba.'); $('gpS').innerHTML = SUG.map(function (s) { return '<button type="button">' + s + '</button>'; }).join(''); }
+    setTimeout(function () { if (window.innerWidth > 640) $('gpI').focus(); }, 100);
+  }
+  var pushed = false;
+  function hide() { $('gp').hidden = true; $('gpFab').hidden = false; }
+  function close() { if (pushed) { pushed = false; history.back(); } else hide(); }
+  window.addEventListener('popstate', function () { if (!$('gp').hidden) { pushed = false; hide(); } });
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-gpopen]'); if (b) { open(); return; }
+    var g = e.target.closest('[data-gpgo]'); if (g) { if (window.innerWidth <= 640) close(); var el = document.getElementById(g.dataset.gpgo); if (el) el.scrollIntoView({ behavior: 'smooth' }); return; }
+  });
+  $('gpX').addEventListener('click', close); $('gpBack').addEventListener('click', close); $('gpRet').addEventListener('click', close);
+  $('gpS').addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) ask(b.textContent); });
+  $('gpF').addEventListener('submit', function (e) { e.preventDefault(); ask($('gpI').value); $('gpI').value = ''; });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !$('gp').hidden) close(); });
+})();
+</script>
+</body>
+</html>
