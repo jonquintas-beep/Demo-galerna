@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gorobel · Cómo trabajar juntos</title>
+<meta name="description" content="Guía de Galerna Method para Gorobel: más clientes y mejor experiencia, sin dejar AimHarder.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0C0D0A">
+<meta property="og:title" content="Gorobel · Cómo podemos trabajar juntos">
+<meta property="og:description" content="Más clientes y mejor experiencia en tus centros, sin dejar AimHarder.">
+<meta property="og:image" content="https://app.galernamethod.com/gorobel/icons/icon-512.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../icons/icon-192.png">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@500;600;700;800;900&display=swap">
+<style>
+:root{--bg:#0C0D0A;--bg2:#12140E;--card:#191C13;--card2:#222619;--line:rgba(237,234,224,.11);--bone:#EDEAE0;--sub:#A5A996;--sage:#93A06A;--sage-b:#BCCB86;--box:#E8483B;--kb:#F3A73F;--disp:"Anton",Impact,sans-serif;
+  --t:#93A06A;--t-d:#BCCB86;--t-dd:#0C0D0A;--t-l:#BCCB86;--t-s:#222619;--ink:#EDEAE0;--line2:rgba(237,234,224,.18);--ok:#8FD16A}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{font-family:"Montserrat",system-ui,sans-serif;background:var(--bg);color:var(--bone);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:clip}
+.wrap{max-width:1060px;margin:0 auto;padding:0 20px}
+section{padding:70px 0}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--sage-b)}
+.kick::before{content:"";width:24px;height:2px;background:currentColor}
+h2{font-family:var(--disp);font-weight:400;text-transform:uppercase;font-size:clamp(34px,5.6vw,58px);line-height:.95;margin-top:12px}
+h2 em{font-style:normal;color:var(--sage-b)}
+.lead{color:#CFCDBF;font-size:17px;max-width:62ch;margin-top:14px}
+.hero{position:relative;overflow:hidden;padding:calc(22px + env(safe-area-inset-top,0px)) 0 70px;background:radial-gradient(700px 420px at 90% 0%,rgba(147,160,106,.25),transparent 65%)}
+.hero .bgw{position:absolute;left:-10px;right:-10px;font-family:var(--disp);text-transform:uppercase;font-size:clamp(110px,22vw,260px);line-height:.8;color:transparent;-webkit-text-stroke:1.2px rgba(147,160,106,.16);white-space:nowrap;pointer-events:none}
+.hero nav{display:flex;justify-content:space-between;align-items:center;position:relative}
+.hero nav img{height:20px}
+.hero nav span{font-size:12px;font-weight:700;color:var(--sub);letter-spacing:.06em}
+.hero .in{position:relative;margin-top:80px;max-width:760px}
+.hero h1{font-family:var(--disp);font-weight:400;text-transform:uppercase;font-size:clamp(52px,9vw,104px);line-height:.88}
+.hero h1 em{font-style:normal;color:var(--sage-b)}
+.hero p{margin-top:18px;font-size:18px;color:#D8D6C8;max-width:52ch}
+.ctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:52px;padding:0 22px;border-radius:14px;font-weight:800;font-size:15px;text-decoration:none;border:0;cursor:pointer;font-family:inherit}
+.btn.p{background:var(--sage-b);color:#11140A}
+.btn.o{border:1.5px solid var(--line2);color:var(--bone);background:transparent}
+.btn.t{background:var(--sage-b);color:#11140A}
+.layers{display:grid;grid-template-columns:1fr 1.2fr 1fr;gap:12px;margin-top:34px;align-items:stretch}
+.ly{border-radius:22px;padding:22px;border:1px solid var(--line);background:var(--card)}
+.ly.mid{background:#1F1A12;border:1.5px dashed rgba(243,167,63,.5)}
+.ly .tag{font-size:11.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--sub)}
+.ly.us .tag{color:var(--sage-b)}
+.ly.mid .tag{color:var(--kb)}
+.ly h3{font-family:var(--disp);font-weight:400;text-transform:uppercase;font-size:30px;line-height:1;margin-top:8px}
+.ly ul{list-style:none;margin-top:12px;display:grid;gap:7px;font-size:14.5px}
+.ly li{display:grid;grid-template-columns:20px 1fr;gap:6px}
+.ly.us li::before{content:"+";color:var(--sage-b);font-weight:900}
+.ly.mid li::before{content:"✓";color:var(--kb);font-weight:900}
+.lines{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
+.ln{position:relative;overflow:hidden;border-radius:22px;border:1px solid var(--line);background:var(--card);padding:22px}
+.ln .n{font-family:var(--disp);font-size:56px;line-height:.8;color:transparent;-webkit-text-stroke:1.2px var(--c,var(--sage-b));position:absolute;right:16px;top:14px;opacity:.6}
+.ln .tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;border-radius:99px;background:color-mix(in srgb,var(--c,var(--sage-b)) 18%,transparent);color:var(--c,var(--sage-b))}
+.ln h3{font-size:20px;font-weight:900;margin-top:12px;line-height:1.2;max-width:85%}
+.ln p{font-size:14.5px;color:#CFCDBF;margin-top:8px}
+.ln .how{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);font-size:13.5px;color:var(--sub);font-weight:600}
+.ln .how b{color:var(--bone)}
+.flow{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:30px}
+.fs{border-radius:18px;padding:16px 14px;background:var(--card);border:1px solid var(--line);position:relative}
+.fs.aim{background:#1F1A12;border-color:rgba(243,167,63,.45)}
+.fs small{display:block;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--sage-b)}
+.fs.aim small{color:var(--kb)}
+.fs b{display:block;font-size:15px;margin-top:6px;line-height:1.25}
+.fs p{font-size:12.5px;color:var(--sub);margin-top:6px}
+.pl{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:30px}
+.pl div{border-radius:20px;background:var(--card);border:1px solid var(--line);padding:18px;border-top:4px solid var(--sage-b)}
+.pl div:nth-child(2){border-top-color:var(--kb)}.pl div:nth-child(3){border-top-color:var(--box)}.pl div:nth-child(4){border-top-color:var(--bone)}
+.pl small{font-size:11.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--sub)}
+.pl b{display:block;font-size:18px;margin-top:4px}
+.pl p{font-size:14px;color:#CFCDBF;margin-top:6px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}
+.kpis div{border-radius:16px;background:var(--bg2);border:1px solid var(--line);padding:14px}
+.kpis b{display:block;font-family:var(--disp);font-weight:400;font-size:26px}
+.kpis small{font-size:12.5px;color:var(--sub);font-weight:700}
+.ways{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
+.way{border-radius:22px;padding:22px;background:var(--card);border:1px solid var(--line)}
+.way.hl{border:2px solid var(--sage-b)}
+.way h3{font-family:var(--disp);font-weight:400;text-transform:uppercase;font-size:28px;line-height:1}
+.way p{font-size:14.5px;color:#CFCDBF;margin-top:10px}
+.way ul{margin:10px 0 0 18px;font-size:14px;color:#CFCDBF;display:grid;gap:5px}
+.need{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:24px}
+.need div{display:grid;grid-template-columns:36px 1fr;gap:12px;align-items:center;border-radius:16px;background:var(--card);border:1px solid var(--line);padding:14px}
+.need span{width:36px;height:36px;border-radius:10px;background:rgba(188,203,134,.15);color:var(--sage-b);display:grid;place-items:center;font-weight:900}
+.need p{font-size:14.5px}
+.end{border-radius:30px;padding:46px 30px;text-align:center;background:linear-gradient(150deg,#262B1A,#12140E);border:1px solid var(--line);position:relative;overflow:hidden}
+.end h2{margin-top:10px}
+.end p{color:#CFCDBF;max-width:52ch;margin:12px auto 0}
+.end .ctas{justify-content:center}
+footer{padding:30px 0 50px;text-align:center;font-size:12.5px;color:var(--sub)}
+/* asistente: adapta estilos de Galerna Partner al tema oscuro */
+.gp-sec{display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:22px}
+.gp-sec .av{width:58px;height:58px;border-radius:18px;background:var(--sage);display:grid;place-items:center}
+.gp-sec h3{font-size:20px;font-weight:900}
+.gp-sec p{font-size:14.5px;color:var(--sub);margin-top:4px}
+.gp-fab{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;align-items:center;gap:10px;height:56px;padding:0 18px 0 8px;border-radius:99px;border:0;background:var(--sage-b);color:#11140A;font-family:inherit;font-weight:800;font-size:14.5px;box-shadow:0 14px 34px rgba(0,0,0,.5);cursor:pointer}
+.gp-fab .av{width:40px;height:40px;border-radius:50%;background:#11140A;display:grid;place-items:center;position:relative}
+.gp-fab .av::after{content:"";position:absolute;right:0;bottom:2px;width:10px;height:10px;border-radius:50%;background:#4ADE80;border:2px solid var(--sage-b)}
+.gp-fab[hidden]{display:none}
+.gp{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:70;width:min(400px,calc(100vw - 24px));height:min(640px,calc(100dvh - 36px));background:var(--bg2);border-radius:24px;box-shadow:0 30px 80px rgba(0,0,0,.6);display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line2);animation:gpin .25s ease}
+.gp[hidden]{display:none}
+@keyframes gpin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.gp-h{display:flex;align-items:center;gap:12px;padding:calc(14px + env(safe-area-inset-top,0px)) 14px 14px 16px;background:#1C2014;color:var(--bone);border-bottom:1px solid var(--line)}
+.gp-h .av{width:42px;height:42px;border-radius:50%;background:var(--sage);display:grid;place-items:center;flex:none}
+.gp-h b{display:block;font-size:16px}
+.gp-h small{font-size:12px;color:var(--sub)}
+.gp-h small i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#4ADE80;margin-right:5px}
+.gp-x,.gp-back{width:38px;height:38px;border-radius:50%;border:0;background:rgba(237,234,224,.1);color:var(--bone);cursor:pointer;display:grid;place-items:center;flex:none}
+.gp-x{margin-left:auto;font-size:15px}
+.gp-back{margin-right:-4px}
+.gp-b{flex:1;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:10px}
+.gp-m{max-width:88%;padding:10px 13px;border-radius:16px;font-size:14.5px;line-height:1.5;animation:gpin .2s ease}
+.gp-m.b{align-self:flex-start;background:var(--card2);border-radius:4px 16px 16px 16px}
+.gp-m.u{align-self:flex-end;background:var(--sage-b);color:#11140A;border-radius:16px 4px 16px 16px;font-weight:700}
+.gp-m ul{margin:6px 0 0 18px}
+.gp-m b{font-weight:800}
+.gp-m .acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.gp-m .acts a,.gp-m .acts button{display:inline-flex;align-items:center;height:34px;padding:0 12px;border-radius:10px;border:0;background:var(--bone);color:#11140A;font-family:inherit;font-weight:800;font-size:13px;text-decoration:none;cursor:pointer}
+.gp-t{align-self:flex-start;background:var(--card2);border-radius:4px 16px 16px 16px;padding:12px 14px;display:flex;gap:5px}
+.gp-t i{width:7px;height:7px;border-radius:50%;background:var(--sage-b);animation:gpb 1s infinite}
+.gp-t i:nth-child(2){animation-delay:.15s}.gp-t i:nth-child(3){animation-delay:.3s}
+@keyframes gpb{0%,80%{opacity:.25}40%{opacity:1}}
+.gp-s{display:flex;gap:6px;overflow-x:auto;padding:10px 12px 0;scrollbar-width:none;border-top:1px solid var(--line)}
+.gp-s::-webkit-scrollbar{display:none}
+.gp-s button{flex:none;height:32px;padding:0 12px;border-radius:99px;border:1.5px solid var(--line2);background:transparent;font-family:inherit;font-weight:700;font-size:12.5px;color:var(--bone);cursor:pointer}
+.gp-ret{border:0;background:transparent;color:var(--sage-b);font-family:inherit;font-weight:800;font-size:13.5px;padding:8px 0 0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.gp-f{display:flex;gap:8px;padding:10px 12px calc(12px + env(safe-area-inset-bottom,0px))}
+.gp-f input{flex:1;min-width:0;height:46px;border-radius:14px;border:1.5px solid var(--line2);background:var(--card);color:var(--bone);padding:0 14px;font-family:inherit;font-size:15px;outline:none}
+.gp-f input:focus{border-color:var(--sage-b)}
+.gp-f button{width:46px;height:46px;border-radius:14px;border:0;background:var(--sage-b);color:#11140A;cursor:pointer;display:grid;place-items:center}
+.gp-mono{font-weight:900;font-size:15px;color:#11140A}
+.gp-fab .gp-mono{color:var(--sage-b)}
+.gp-sec .gp-mono{font-size:20px}
+@media (max-width:640px){.gp{right:0;bottom:0;top:0;width:100vw;height:100dvh;border-radius:0}.gp-sec{grid-template-columns:auto 1fr}.gp-sec .btn{grid-column:1/-1}.gp-fab span.l{display:none}.gp-fab{padding:0 8px}}
+@media (min-width:641px){.gp-h{padding-top:14px}}
+@media (max-width:900px){.layers,.lines,.ways{grid-template-columns:1fr}.flow{grid-template-columns:1fr 1fr}.pl,.kpis{grid-template-columns:1fr 1fr}.need{grid-template-columns:1fr}section{padding:54px 0}}
+@media (max-width:480px){.pl,.kpis{grid-template-columns:1fr}.hero nav span{display:none}}
+@media print{.gp,.gp-fab{display:none!important}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="bgw" style="top:150px">Gorobel</div><div class="bgw" style="top:350px;text-align:right">Amurrio</div>
+  <div class="wrap">
+    <nav><img src="../logo-w.png" alt="Gorobel"><span>Guía de Galerna Method para Joseba · noviembre 2026</span></nav>
+    <div class="in">
+      <p class="kick">Cómo podemos trabajar juntos</p>
+      <h1 style="margin-top:14px">Más gente<br>entrando.<br><em>Menos gente<br>yéndose.</em></h1>
+      <p>Joseba, esto no es una oferta: es una guía de lo que podemos hacer por tus centros. Sin dejar AimHarder y sin cambiar cómo trabajas. Sumando lo que AimHarder no hace.</p>
+      <div class="ctas"><a class="btn p" href="#lineas">Ver las ideas</a><a class="btn o" href="../" target="_blank" rel="noopener">Abrir la app de Gorobel</a></div>
+    </div>
+  </div>
+</header>
+
+<section style="padding-top:20px">
+  <div class="wrap">
+    <p class="kick">Cómo encaja</p>
+    <h2>AimHarder se queda. <em>Nosotros sumamos.</em></h2>
+    <p class="lead">AimHarder hace muy bien lo de dentro: reservas, cobros y socios. Lo que no hace es traer gente nueva ni engancharla. Ahí entramos nosotros.</p>
+    <div class="layers">
+      <div class="ly us"><span class="tag">Antes · Galerna</span><h3>Traer gente</h3><ul><li>Anuncios e Instagram con el test “¿Qué deporte es el tuyo?”</li><li>WhatsApp al momento y llamada en 2 minutos</li><li>Seguimiento de la clase de prueba hasta el alta</li><li>Recuperar ex socios</li></ul></div>
+      <div class="ly mid"><span class="tag">Durante · AimHarder</span><h3>Lo que ya tienes</h3><ul><li>Reservas y aforo</li><li>Cobros y bonos</li><li>Ficha de socios</li><li>Todo sigue igual</li></ul></div>
+      <div class="ly us"><span class="tag">Después · Galerna</span><h3>Que se queden</h3><ul><li>App de experiencia: sombra guiada, cinturones, retos</li><li>Pase cruzado entre tus centros</li><li>Trae a un amigo</li><li>Contenido que les motiva a volver</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="lineas" style="background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <p class="kick">6 líneas de trabajo</p>
+    <h2>Lo que podemos hacer <em>por Gorobel.</em></h2>
+    <p class="lead">No hace falta hacerlo todo. Elegimos 2 o 3 y empezamos.</p>
+    <div class="lines">
+      <div class="ln" style="--c:#BCCB86"><span class="n">01</span><span class="tag">Captación</span><h3>El test “¿Qué deporte es el tuyo?” como imán</h3><p>El mismo test de la app, en tu Instagram y en los anuncios. En un minuto le dice a cada persona si le va jiu-jitsu, boxeo, kick o CrossFit, y le reserva la clase de prueba.</p><p class="how"><b>Cómo:</b> anuncios en Amurrio, Llodio y alrededores, con vídeos de tus clases.</p></div>
+      <div class="ln" style="--c:#E8483B"><span class="n">02</span><span class="tag">Conversión</span><h3>Clase de prueba que acaba en alta</h3><p>WhatsApp al instante, llamada del asistente en 2 minutos, recordatorio el día antes y, después de la clase, 3 días de seguimiento con oferta de alta.</p><p class="how"><b>Cómo:</b> la reserva se hace en AimHarder; nosotros nos encargamos del antes y el después.</p></div>
+      <div class="ln" style="--c:#F3A73F"><span class="n">03</span><span class="tag">Varios centros</span><h3>Pase cruzado entre tus centros</h3><p>Quien hace gimnasio prueba boxeo o kick. Quien hace CrossFit prueba jiu-jitsu. Son clientes que ya confían en ti: pasarles a dos actividades es más fácil y más barato que captar a uno nuevo.</p><p class="how"><b>Cómo:</b> campaña interna con 2 semanas gratis y el test de deporte.</p></div>
+      <div class="ln" style="--c:#ECE7D6"><span class="n">04</span><span class="tag">Experiencia</span><h3>La app de Gorobel</h3><p>Sombra guiada con voz, cinturones y grados, retos del mes y un coach para dudas. Lo que hace que el socio abra el móvil y piense en entrenar.</p><p class="how"><b>Cómo:</b> convive con AimHarder; para reservar, el botón lleva allí.</p></div>
+      <div class="ln" style="--c:#BCCB86"><span class="n">05</span><span class="tag">Recuperar</span><h3>Ex socios que vuelven</h3><p>En AimHarder tienes a todos los que se dieron de baja. Una campaña de “vuelve un mes” bien hecha suele ser la forma más barata de sumar altas.</p><p class="how"><b>Cómo:</b> WhatsApp o email, solo a quien dio su permiso.</p></div>
+      <div class="ln" style="--c:#E8483B"><span class="n">06</span><span class="tag">Comunidad</span><h3>Retos entre centros y “trae a un amigo”</h3><p>Un reto al mes entre Amurrio y tus otros centros, clasificación en la app y premio. Y cada socio puede invitar a un amigo a probar gratis.</p><p class="how"><b>Cómo:</b> desde la app, con contenido grabado en tus centros.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kick">El recorrido de un cliente nuevo</p>
+    <h2>De ver un anuncio <em>a quedarse.</em></h2>
+    <div class="flow">
+      <div class="fs"><small>1 · Galerna</small><b>Ve un vídeo de tus clases</b><p>En Instagram o en un anuncio</p></div>
+      <div class="fs"><small>2 · Galerna</small><b>Hace el test</b><p>Le recomienda deporte y centro</p></div>
+      <div class="fs"><small>3 · Galerna</small><b>WhatsApp y llamada en 2 min</b><p>Le damos clase de prueba</p></div>
+      <div class="fs aim"><small>4 · AimHarder</small><b>Reserva y viene</b><p>Como cualquier socio</p></div>
+      <div class="fs"><small>5 · Galerna</small><b>Seguimiento 3 días</b><p>Hasta que se da de alta</p></div>
+      <div class="fs"><small>6 · Galerna + AimHarder</small><b>Alta y app</b><p>Paga en AimHarder y se engancha con la app</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="piloto" style="background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <p class="kick">Cómo empezaríamos</p>
+    <h2>Un piloto de 90 días <em>en un solo centro.</em></h2>
+    <p class="lead">El centro con más plazas libres. Si funciona, lo llevamos al resto con los números en la mano.</p>
+    <div class="pl">
+      <div><small>Semanas 1–2</small><b>Montaje</b><p>Test, mensajes, llamada y app con la marca Gorobel. Una tarde de grabación en el centro.</p></div>
+      <div><small>Mes 1</small><b>Arranque</b><p>Anuncios en marcha y campaña interna de pase cruzado.</p></div>
+      <div><small>Mes 2</small><b>Ajuste</b><p>Nos quedamos con lo que trae altas. Campaña a ex socios.</p></div>
+      <div><small>Mes 3</small><b>Decisión</b><p>Con datos reales decidimos si lo llevamos a todos tus centros.</p></div>
+    </div>
+    <p style="margin-top:22px;font-weight:800">Lo que mediríamos cada semana:</p>
+    <div class="kpis"><div><b>Contactos</b><small>personas que hacen el test</small></div><div><b>Pruebas</b><small>clases de prueba reservadas y hechas</small></div><div><b>Altas</b><small>nuevas en AimHarder</small></div><div><b>Coste por alta</b><small>lo que cuesta cada socio nuevo</small></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kick">Formas de trabajar</p>
+    <h2>Tú eliges <em>el ritmo.</em></h2>
+    <div class="ways">
+      <div class="way hl"><h3>Piloto</h3><p>Un centro, 90 días y 2 o 3 líneas de trabajo. La forma más fácil de ver si funciona.</p><ul><li>Captación y clase de prueba</li><li>Pase cruzado</li><li>Informe semanal</li></ul></div>
+      <div class="way"><h3>Acompañamiento</h3><p>Todos tus centros, todas las líneas que quieras, con una reunión cada semana para mejorar.</p><ul><li>Anuncios y contenido</li><li>App de experiencia</li><li>Retos y comunidad</li></ul></div>
+      <div class="way"><h3>A resultados</h3><p>Una parte fija pequeña y otra por cada alta nueva que entre por el sistema. Si no traemos gente, no pagas esa parte.</p><ul><li>Riesgo compartido</li><li>Medido en AimHarder</li><li>Sin sorpresas</li></ul></div>
+    </div>
+    <p style="margin-top:34px;font-weight:800">Lo que necesitaríamos de ti:</p>
+    <div class="need">
+      <div><span>1</span><p>Elegir el centro para el piloto y sus horarios con plazas libres</p></div>
+      <div><span>2</span><p>Acceso a tu Instagram y a tu cuenta de anuncios de Meta</p></div>
+      <div><span>3</span><p>Una tarde de grabación en el centro (clases reales, sin guion)</p></div>
+      <div><span>4</span><p>Una reunión corta cada semana o cada 15 días</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="gp-sec"><span class="av"><b class="gp-mono">GP</b></span><div><h3>¿Dudas? Pregúntale a Galerna Partner</h3><p>Conoce esta guía: cómo encaja con AimHarder, cómo traer más gente, cómo empezar… Es el mismo tipo de asistente que puede atender a tus clientes.</p></div><button type="button" class="btn t" data-gpopen="1">Hacer una pregunta</button></div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="end">
+      <img src="../logo-w.png" alt="" style="height:22px">
+      <h2>¿Qué centro <em>probamos primero?</em></h2>
+      <p>Sin compromiso: lo hablamos, elegimos 2 o 3 líneas y te digo qué esperaría en 90 días.</p>
+      <div class="ctas"><a class="btn p" href="https://wa.me/?text=Hola%20Jon%2C%20soy%20Joseba%20de%20Gorobel%3A%20hablamos%20del%20piloto" target="_blank" rel="noopener">Hablamos</a><a class="btn o" href="../" target="_blank" rel="noopener">Ver la app</a></div>
+    </div>
+  </div>
+</section>
+<footer>Guía preparada por <b>Galerna Method</b> para Gorobel · Jon · galernamethod.com</footer>
+<button type="button" class="gp-fab" id="gpFab" data-gpopen="1" aria-label="Abrir Galerna Partner"><span class="av"><b class="gp-mono">GP</b></span><span class="l">¿Dudas? Pregunta</span></button>
+<div class="gp" id="gp" hidden role="dialog" aria-label="Galerna Partner">
+  <div class="gp-h"><button type="button" class="gp-back" id="gpBack" aria-label="Volver a la guía"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><span class="av"><b class="gp-mono">GP</b></span><span><b>Galerna Partner</b><small><i></i>Responde al momento</small></span><button type="button" class="gp-x" id="gpX" aria-label="Cerrar">✕</button></div>
+  <div class="gp-b" id="gpB" aria-live="polite"></div>
+  <div class="gp-s" id="gpS"></div>
+  <button type="button" class="gp-ret" id="gpRet">← Volver a la guía</button>
+  <form class="gp-f" id="gpF"><input id="gpI" placeholder="Escribe tu pregunta…" autocomplete="off" aria-label="Tu pregunta"><button type="submit" aria-label="Enviar"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 20l18-8L3 4l2 7 9 1-9 1z"/></svg></button></form>
+</div>
+
+<script>
+(function () {
+  function $(i) { return document.getElementById(i); }
+  function norm(t) { return String(t).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[¿?¡!.,;:]/g, ' '); }
+  var WA = 'https://wa.me/?text=' + encodeURIComponent('Hola Jon, tengo una duda sobre la guía para Gorobel: ');
+  var GO = function (id, txt) { return '<button type="button" data-gpgo="' + id + '">' + txt + '</button>'; };
+  var K = [
+    { k: ['aimharder', 'aim harder', 'cambiar', 'dejar', 'sustituir', 'reservas', 'pagos'], a: 'No tienes que dejar <b>AimHarder</b>. Reservas, cobros y socios siguen ahí. Nosotros trabajamos <b>antes</b> (traer gente nueva) y <b>después</b> (que se enganchen y no se vayan). Donde haga falta reservar, el botón lleva a AimHarder.' },
+    { k: ['clientes', 'captar', 'captacion', 'mas gente', 'anuncios', 'traer'], a: 'Con anuncios y con tu Instagram llevamos a la gente al test <b>“¿Qué deporte es el tuyo?”</b>. Quien lo hace recibe un WhatsApp al momento y una llamada en 2 minutos para darle clase de prueba. Después, 3 días de seguimiento hasta el alta.', x: [GO('lineas', 'Ver las líneas de trabajo')] },
+    { k: ['centros', 'varios', 'crossfit', 'gimnasio', 'cruzado', 'pase'], a: 'Con varios centros tienes una ventaja enorme: <b>el pase cruzado</b>. Quien hace gimnasio prueba boxeo o kick; quien hace CrossFit prueba jiu-jitsu. Son clientes que ya confían en ti, y mover a uno de un centro a dos cuesta mucho menos que captar a uno nuevo.' },
+    { k: ['app', 'aplicacion', 'sombra', 'cinturon', 'experiencia'], a: 'La app de Gorobel es para la <b>experiencia</b>: test de deporte, sombra guiada con voz, cinturones y grados, retos del mes y coach para dudas. Convive con AimHarder: no gestiona cobros, engancha.', x: ['<a href="../" target="_blank" rel="noopener">Abrir la app</a>'] },
+    { k: ['precio', 'cuesta', 'cuanto', 'pagar', 'coste'], a: 'Esta guía no es una oferta: es para ver juntos <b>qué te encaja</b>. Hay tres formas de trabajar: un piloto en un centro, acompañamiento mensual en todos o un modelo <b>a resultados</b>, donde se paga por cada alta. El precio lo cerramos cuando sepamos qué quieres hacer.' },
+    { k: ['resultados', 'por alta', 'riesgo', 'garantia'], a: 'Si prefieres no arriesgar, podemos trabajar <b>a resultados</b>: una parte fija pequeña y otra por cada alta nueva que entre por el sistema. Si no traemos gente, no pagas esa parte.' },
+    { k: ['piloto', 'empezar', 'como empezamos', 'primer paso', 'centro'], a: 'Lo más sensato es un <b>piloto de 90 días en un solo centro</b>, el que más plazas libres tenga. Medimos contactos, clases de prueba y altas. Si funciona, lo llevamos al resto.', x: [GO('piloto', 'Ver el piloto')] },
+    { k: ['ex socios', 'antiguos', 'bajas', 'recuperar', 'volver'], a: 'En AimHarder tienes a todos los que se dieron de baja. Con su permiso, les mandamos una campaña de <b>“vuelve un mes”</b> por WhatsApp o email. Suele ser la forma más barata de conseguir altas.' },
+    { k: ['referido', 'amigo', 'trae'], a: '<b>Trae a un amigo:</b> el socio invita desde la app, su amigo hace el test y prueba gratis. Si se apunta, los dos ganan algo (un mes a mitad de precio, unas vendas…).' },
+    { k: ['tiempo', 'que tengo que hacer', 'yo', 'trabajo', 'mi parte'], a: 'Tu parte: una reunión cada semana o cada 15 días, una tarde de grabación al mes en los centros y decirnos horarios y plazas libres. Anuncios, mensajes, seguimiento e informes los llevamos nosotros.' },
+    { k: ['datos', 'rgpd', 'privacidad', 'legal'], a: 'Solo usamos datos de socios con su consentimiento, en servidores de la UE, y firmamos contrato de encargado del tratamiento. Los socios siguen siendo tuyos y están en tu AimHarder.' },
+    { k: ['hola', 'buenas', 'kaixo', 'hey'], a: '¡Kaixo, Joseba! Pregúntame cómo encaja esto con AimHarder, cómo traer más gente o cómo empezaríamos.' },
+    { k: ['gracias', 'genial', 'perfecto', 'vale'], a: '¡A ti! Si te encaja, el siguiente paso es elegir el centro para el piloto.', x: ['<a href="' + 'https://wa.me/?text=' + encodeURIComponent('Hola Jon, soy Joseba de Gorobel: hablamos del piloto') + '" target="_blank" rel="noopener">Hablar con Jon</a>'] }
+  ];
+  var SUG = ['¿Tengo que dejar AimHarder?', '¿Cómo me traéis más clientes?', '¿Cómo empezamos?', '¿Qué hago con varios centros?', '¿Cuánto cuesta?', '¿Y si no funciona?'];
+  var started = false, busy = false;
+  function add(cls, html) { var d = document.createElement('div'); d.className = 'gp-m ' + cls; d.innerHTML = html; $('gpB').appendChild(d); $('gpB').scrollTop = 1e6; return d; }
+  function reply(q) {
+    var n = ' ' + norm(q) + ' ', best = null, bs = 0;
+    K.forEach(function (it) { var sc = 0; it.k.forEach(function (k) { if (n.indexOf(norm(k)) >= 0) sc += k.length; }); if (sc > bs) { bs = sc; best = it; } });
+    if (!best) return { a: 'Buena pregunta. Esa prefiero que te la responda Jon directamente para no decirte nada inexacto.', x: ['<a href="' + WA + '" target="_blank" rel="noopener">Preguntar a Jon</a>'] };
+    return best;
+  }
+  function ask(q) {
+    q = String(q || '').trim(); if (!q || busy) return; busy = true;
+    add('u', q.replace(/[<>&]/g, '')); var t = document.createElement('div'); t.className = 'gp-t'; t.innerHTML = '<i></i><i></i><i></i>'; $('gpB').appendChild(t); $('gpB').scrollTop = 1e6;
+    setTimeout(function () { t.remove(); var r = reply(q); add('b', r.a + (r.x ? '<div class="acts">' + r.x.join('') + '</div>' : '')); busy = false; }, 600 + Math.random() * 500);
+  }
+  function open() {
+    $('gp').hidden = false; $('gpFab').hidden = true; if (!pushed) { try { history.pushState({ gp: 1 }, ''); pushed = true; } catch (x) {} }
+    if (!started) { started = true; add('b', 'Hola 👋 Soy <b>Galerna Partner</b>. Conozco esta guía para Gorobel. Pregúntame lo que quieras, Joseba.'); $('gpS').innerHTML = SUG.map(function (s) { return '<button type="button">' + s + '</button>'; }).join(''); }
+    setTimeout(function () { if (window.innerWidth > 640) $('gpI').focus(); }, 100);
+  }
+  var pushed = false;
+  function hide() { $('gp').hidden = true; $('gpFab').hidden = false; }
+  function close() { if (pushed) { pushed = false; history.back(); } else hide(); }
+  window.addEventListener('popstate', function () { if (!$('gp').hidden) { pushed = false; hide(); } });
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-gpopen]'); if (b) { open(); return; }
+    var g = e.target.closest('[data-gpgo]'); if (g) { if (window.innerWidth <= 640) close(); var el = document.getElementById(g.dataset.gpgo); if (el) el.scrollIntoView({ behavior: 'smooth' }); return; }
+  });
+  $('gpX').addEventListener('click', close); $('gpBack').addEventListener('click', close); $('gpRet').addEventListener('click', close);
+  $('gpS').addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) ask(b.textContent); });
+  $('gpF').addEventListener('submit', function (e) { e.preventDefault(); ask($('gpI').value); $('gpI').value = ''; });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !$('gp').hidden) close(); });
+})();
+</script>
+</body>
+</html>
