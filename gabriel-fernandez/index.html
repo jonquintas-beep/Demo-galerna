@@ -20,7 +20,7 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:var(--f);color:var(--ink);background:var(--paper);line-height:1.55;padding-bottom:64px}
+body{font-family:var(--f);color:var(--ink);background:var(--paper);line-height:1.55;padding-bottom:64px;overflow-x:clip}
 h1,h2,h3{font-weight:800;letter-spacing:-.02em;line-height:1.1;text-wrap:balance}
 a{color:inherit}
 .wrap{max-width:1120px;margin:0 auto;padding-left:max(18px,env(safe-area-inset-left));padding-right:max(18px,env(safe-area-inset-right))}
@@ -76,9 +76,9 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--red);outli
 .result{display:none;text-align:left}
 .result .range{font-size:30px;font-weight:800;color:var(--red);margin:6px 0}
 
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-top:18px;padding-bottom:18px}
+.stats{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;padding-top:18px;padding-bottom:18px}
 .stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px}
-.stat b{display:block;font-size:24px;font-weight:800;color:var(--red)}
+.stat b{display:block;font-size:clamp(19px,5.4vw,24px);overflow-wrap:anywhere;font-weight:800;color:var(--red)}
 .stat span{font-size:13px;color:var(--muted)}
 
 section{padding:56px 0}
