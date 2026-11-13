@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gabriel Fernández · Demo de web</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#23262A">
+<link rel="icon" type="image/png" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-title" content="G. Fernández">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap">
+<style>
+:root{
+  --char:#23262A; --char2:#2F3337; --red:#B3212D; --red-d:#931A24; --pink:#DD969C; --pink-s:#F6E6E7;
+  --paper:#FBF9F8; --white:#FFFFFF; --ink:#1E2023; --muted:#6A6466; --line:#E8E1DF; --wa:#1faa59;
+  --f:'Raleway',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f);color:var(--ink);background:var(--paper);line-height:1.55;padding-bottom:64px}
+h1,h2,h3{font-weight:800;letter-spacing:-.02em;line-height:1.1;text-wrap:balance}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(18px,env(safe-area-inset-left));padding-right:max(18px,env(safe-area-inset-right))}
+.demo-bar{background:var(--ink);color:#fff;font-size:12.5px;text-align:center;padding:8px 14px}
+.demo-bar b{color:var(--pink)}
+.ej{display:inline-block;font:700 10px/1 var(--f);letter-spacing:.08em;text-transform:uppercase;background:#F3D36B;color:#3a2a00;padding:3px 6px;border-radius:3px;vertical-align:middle;margin-left:6px}
+header{background:var(--white);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:66px;gap:14px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.mark{width:34px;height:34px;position:relative;flex:none}
+.mark i{position:absolute;display:block}
+.mark .a{left:0;top:0;width:22px;height:22px;background:var(--red)}
+.mark .b{left:12px;top:12px;width:22px;height:22px;background:var(--char)}
+.logo b{font-weight:800;font-size:15px;letter-spacing:.12em;color:var(--red);text-transform:uppercase;line-height:1.1}
+.logo small{display:block;font-size:10px;letter-spacing:.18em;color:var(--muted);font-weight:600}
+nav{display:none;gap:26px;font-size:14.5px;font-weight:600}
+nav a{text-decoration:none;color:var(--muted)}
+nav a:hover{color:var(--red)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:999px;font:700 15px var(--f);text-decoration:none;border:1.5px solid var(--red);cursor:pointer;white-space:nowrap}
+.btn-p{background:var(--red);color:#fff}.btn-p:hover{background:var(--red-d)}
+.btn-o{background:transparent;color:var(--red)}
+.btn-w{background:#fff;color:var(--char);border-color:#fff}
+.btn-wa{background:var(--wa);border-color:var(--wa);color:#fff}
+.btn-s{padding:9px 15px;font-size:13.5px}
+.eyebrow{display:inline-block;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--red);background:var(--pink-s);padding:6px 12px;border-radius:999px;margin-bottom:14px}
+
+.hero{background:radial-gradient(900px 420px at 88% -10%,rgba(179,33,45,.45),transparent 60%),linear-gradient(160deg,#1B1D20,#2F3337 60%,#1F2124);color:#fff;padding:44px 0 50px}
+.hero-grid{display:grid;gap:30px}
+.hero .eyebrow{background:rgba(255,255,255,.1);color:var(--pink)}
+.hero h1{font-size:40px;margin-bottom:16px}
+.hero h1 em{font-style:normal;color:var(--pink)}
+.lead{font-size:17px;color:rgba(255,255,255,.82);max-width:540px;margin-bottom:18px}
+.ticks{list-style:none;font-size:15px;margin-bottom:22px}
+.ticks li{padding-left:26px;position:relative;margin-bottom:8px;color:rgba(255,255,255,.9)}
+.ticks li:before{content:"✓";position:absolute;left:0;color:var(--pink);font-weight:800}
+.since{display:flex;gap:14px;align-items:center;font-size:13.5px;color:rgba(255,255,255,.7)}
+.since b{font-size:28px;color:#fff;font-weight:800}
+
+.card{background:#fff;color:var(--ink);border-radius:20px;padding:24px;box-shadow:0 30px 60px -25px rgba(0,0,0,.6)}
+.card h2{font-size:24px;margin-bottom:4px}
+.card .sub{font-size:13.5px;color:var(--muted);margin-bottom:12px}
+.steps-dots{display:flex;gap:6px;margin-bottom:12px}
+.steps-dots i{flex:1;height:4px;border-radius:4px;background:var(--line)}
+.steps-dots i.on{background:var(--red)}
+label{display:block;font-size:12.5px;font-weight:700;margin:12px 0 5px}
+input,select{width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;font:500 16px var(--f);background:#FAF8F7;color:var(--ink)}
+input:focus,select:focus,button:focus-visible{outline:2px solid var(--red);outline-offset:1px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.opt{border:1.5px solid var(--line);border-radius:12px;padding:12px;background:#fff;font:700 14px var(--f);cursor:pointer;text-align:left;color:var(--ink)}
+.opt[aria-pressed="true"]{border-color:var(--red);background:var(--pink-s)}
+.card .btn{width:100%;margin-top:16px}
+.fine{font-size:12px;color:var(--muted);margin-top:10px;text-align:center}
+.result{display:none;text-align:left}
+.result .range{font-size:30px;font-weight:800;color:var(--red);margin:6px 0}
+
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-top:18px;padding-bottom:18px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px}
+.stat b{display:block;font-size:24px;font-weight:800;color:var(--red)}
+.stat span{font-size:13px;color:var(--muted)}
+
+section{padding:56px 0}
+section h2{font-size:30px;margin-bottom:10px}
+.intro{color:var(--muted);max-width:640px;margin-bottom:28px;font-size:16px}
+.grid{display:grid;gap:14px}
+.alt{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+
+.svc{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:6px;transition:transform .15s,box-shadow .15s}
+.svc:hover{transform:translateY(-3px);box-shadow:0 18px 30px -20px rgba(35,38,42,.45)}
+.svc .ic{width:40px;height:40px;border-radius:12px;background:var(--pink-s);color:var(--red);display:grid;place-items:center;margin-bottom:6px}
+.svc .ic svg{width:22px;height:22px}
+.svc h3{font-size:18px}
+.svc p{font-size:14.5px;color:#5b5557}
+
+.prop{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.ph{aspect-ratio:4/3;max-width:100%;background:linear-gradient(160deg,#3a3f44,#23262A);position:relative;display:flex;align-items:flex-end;padding:12px}
+.ph svg{position:absolute;inset:auto 0 0 0;width:100%;opacity:.5}
+.ph .tag{position:relative;background:var(--red);color:#fff;font-size:11.5px;font-weight:800;padding:4px 10px;border-radius:999px}
+.ph .tag.sold{background:var(--char)}
+.prop .b{padding:14px 16px;display:flex;flex-direction:column;gap:4px;flex:1}
+.prop h3{font-size:16px}
+.prop .loc{font-size:13px;color:var(--muted)}
+.prop .row{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:10px;border-top:1px dashed var(--line)}
+.prop .price{font-size:20px;font-weight:800;color:var(--red)}
+.prop .m2{font-size:13px;color:var(--muted);font-weight:600}
+
+.away{display:grid;gap:26px;align-items:center}
+.away-card{background:var(--char);color:#fff;border-radius:22px;padding:26px}
+.away-card h3{font-size:22px;margin-bottom:10px}
+.away-card li{list-style:none;padding:10px 0;border-top:1px solid rgba(255,255,255,.12);font-size:15px;color:rgba(255,255,255,.88)}
+.away-card li:first-child{border-top:0}
+.away-card li b{color:var(--pink)}
+
+.step{display:flex;gap:16px;padding:12px 0}
+.step .n{color:var(--red);background:var(--pink-s);border-radius:12px;min-width:48px;height:48px;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800}
+.step h3{font-size:18px}
+.step p{font-size:14.5px;color:#5b5557}
+
+.rev{background:#fff;border:1px dashed #d9cfcc;border-radius:18px;padding:18px}
+.rev .stars{color:var(--red);letter-spacing:2px}
+.rev p{font-size:14.5px;font-style:italic;color:#5b5557;margin:8px 0 10px}
+.rev .who{font-size:13px;color:var(--muted)}
+
+details{border:1px solid var(--line);border-radius:14px;padding:15px 16px;margin-bottom:8px;background:#fff}
+summary{cursor:pointer;font-weight:700;font-size:15.5px;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary:after{content:"+";color:var(--red);font-size:20px;line-height:1}
+details[open] summary:after{content:"–"}
+details p{margin-top:10px;font-size:14.5px;color:#5b5557}
+
+.cta{background:linear-gradient(160deg,#1B1D20,#2F3337);color:#fff;text-align:center;border-radius:24px;margin:0 12px 12px;padding:56px 18px}
+.cta h2{font-size:32px;margin-bottom:10px}
+.cta p{opacity:.85;margin-bottom:22px}
+.cta .row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+footer{padding:26px 0;font-size:13px;color:var(--muted);text-align:center}
+
+.sticky{position:fixed;bottom:0;left:0;right:0;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:9px max(12px,env(safe-area-inset-right)) calc(9px + env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));background:rgba(251,249,248,.96);backdrop-filter:blur(6px);border-top:1px solid var(--line);z-index:30}
+.sticky .btn{padding:12px}
+
+.as-btn{position:fixed;right:14px;bottom:76px;z-index:40;display:flex;align-items:center;gap:9px;background:var(--red);color:#fff;border:0;border-radius:999px;padding:8px 16px 8px 8px;font:700 14px var(--f);cursor:pointer;box-shadow:0 10px 24px -8px rgba(35,38,42,.55)}
+.as-av{width:32px;height:32px;border-radius:50%;background:var(--char);display:grid;place-items:center;font-size:12px;font-weight:800}
+.as-panel{position:fixed;right:12px;left:12px;bottom:76px;z-index:41;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 24px 50px -16px rgba(35,38,42,.5);display:none;flex-direction:column;max-height:72vh;overflow:hidden}
+.as-panel.open{display:flex}
+.as-head{background:var(--char);color:#fff;padding:12px 14px;display:flex;align-items:center;gap:10px}
+.as-head b{display:block;font-size:14.5px}.as-head small{opacity:.75;font-size:12px}
+.as-x{margin-left:auto;background:none;border:0;color:#fff;font-size:22px;cursor:pointer;padding:4px 8px}
+.as-log{padding:14px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;background:var(--paper);flex:1;min-height:160px}
+.m{max-width:85%;padding:9px 12px;border-radius:12px;font-size:14px;line-height:1.4}
+.m.b{background:#fff;border:1px solid var(--line);align-self:flex-start;border-bottom-left-radius:3px}
+.m.u{background:var(--red);color:#fff;align-self:flex-end;border-bottom-right-radius:3px}
+.as-chips{display:flex;flex-wrap:wrap;gap:6px;padding:10px 12px;border-top:1px solid var(--line)}
+.as-chips button{background:var(--pink-s);border:1px solid var(--line);border-radius:999px;padding:8px 12px;font:600 13px var(--f);color:var(--red);cursor:pointer}
+.as-foot{font-size:11px;color:var(--muted);text-align:center;padding:0 10px 9px}
+
+@media(min-width:820px){
+  body{padding-bottom:0}
+  nav{display:flex}
+  .sticky{display:none}
+  .hero{padding:72px 0}
+  .hero-grid{grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+  .hero h1{font-size:58px}
+  .stats{grid-template-columns:repeat(4,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .away{grid-template-columns:1.1fr .9fr;gap:48px}
+  section h2{font-size:40px}
+  section{padding:80px 0}
+  .cta{margin:0 24px 24px}
+  .as-btn{bottom:22px;right:22px}
+  .as-panel{left:auto;right:22px;bottom:22px;width:370px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<div class="demo-bar"><b>DEMO de propuesta · Galerna Method.</b> Las reseñas, cifras y textos marcados como <span class="ej" style="margin:0 2px">ejemplo</span> se sustituyen por los reales. Las viviendas son las publicadas en vuestra web.</div>
+
+<header>
+  <div class="wrap">
+    <a class="logo" href="#"><span class="mark"><i class="a"></i><i class="b"></i></span><span><b>Gabriel Fernández</b><small>INMOBILIARIA · DESDE 1992</small></span></a>
+    <nav>
+      <a href="#vender">Vender</a>
+      <a href="#viviendas">Viviendas</a>
+      <a href="#fuera">Si vives fuera</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#faq">Preguntas</a>
+    </nav>
+    <a class="btn btn-o btn-s" href="tel:+34947147400">947 147 400</a>
+  </div>
+</header>
+
+<div class="hero" id="vender">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Medina de Pomar · Las Merindades</div>
+      <h1>¿Cuánto vale tu casa <em>en Las Merindades?</em></h1>
+      <p class="lead">Te damos una primera estimación en 1 minuto y una valoración profesional sin compromiso. Arquitectura, financiación y venta bajo el mismo techo, desde 1992.</p>
+      <ul class="ticks">
+        <li>Valoración hecha por un equipo con estudio de arquitectura propio</li>
+        <li>Te ayudamos con certificado energético, papeles e hipoteca del comprador</li>
+        <li>¿Vives fuera? Lo gestionamos todo sin que tengas que venir</li>
+      </ul>
+      <div class="since"><b>+30</b> años vendiendo casas, pisos y fincas en la comarca</div>
+    </div>
+
+    <div class="card">
+      <div id="vstep1">
+        <div class="steps-dots"><i class="on"></i><i></i><i></i></div>
+        <h2>Valora tu vivienda</h2>
+        <div class="sub">Gratis y sin compromiso. Te respondemos hoy.</div>
+        <label>¿Qué quieres valorar?</label>
+        <div class="opts" role="group" aria-label="Tipo de inmueble">
+          <button class="opt" data-t="piso" aria-pressed="true">Piso</button>
+          <button class="opt" data-t="casa" aria-pressed="false">Casa o chalet</button>
+          <button class="opt" data-t="pueblo" aria-pressed="false">Casa de pueblo</button>
+          <button class="opt" data-t="finca" aria-pressed="false">Finca o terreno</button>
+        </div>
+        <label for="loc">Localidad</label>
+        <select id="loc">
+          <option>Medina de Pomar</option><option>Villarcayo</option><option>Trespaderne</option><option>Valle de Tobalina</option><option>Montija</option><option>Valle de Losa</option><option>Otra de Las Merindades</option>
+        </select>
+        <label for="m2">Metros aproximados</label>
+        <input id="m2" type="number" inputmode="numeric" value="90" min="20" max="2000">
+        <button class="btn btn-p" id="go1">Ver estimación</button>
+      </div>
+      <div id="vstep2" class="result">
+        <div class="steps-dots"><i class="on"></i><i class="on"></i><i></i></div>
+        <div class="sub">Estimación orientativa <span class="ej">ejemplo</span></div>
+        <div class="range" id="range">—</div>
+        <p style="font-size:14px;color:var(--muted)">Para afinarla necesitamos ver la vivienda. ¿Dónde te enviamos la valoración profesional?</p>
+        <label for="nm">Nombre</label><input id="nm" autocomplete="name">
+        <label for="tl">Teléfono o WhatsApp</label><input id="tl" type="tel" autocomplete="tel" inputmode="tel">
+        <label for="wh">¿Cuándo te plantearías vender?</label>
+        <select id="wh"><option>Lo antes posible</option><option>En los próximos 3 meses</option><option>En 6 meses o más</option><option>Solo quiero saber cuánto vale</option></select>
+        <button class="btn btn-p" id="go2">Quiero mi valoración</button>
+        <div class="fine">Solo usamos tus datos para responderte.</div>
+      </div>
+      <div id="vstep3" class="result">
+        <div class="steps-dots"><i class="on"></i><i class="on"></i><i class="on"></i></div>
+        <h2>¡Recibido!</h2>
+        <p style="margin:8px 0;color:var(--muted)">Te escribimos por WhatsApp en unos minutos para concretar la visita de valoración.</p>
+        <p style="font-size:13px;color:var(--muted)">(Demo: en la versión real, la solicitud entra directa a vuestra agenda y el asistente contesta al momento.)</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap stats">
+  <div class="stat"><b>Desde 1992</b><span>en Medina de Pomar</span></div>
+  <div class="stat"><b>Arquitectura</b><span>estudio propio y Passive House</span></div>
+  <div class="stat"><b>Financiación</b><span>asesoría hipotecaria con Macala</span></div>
+  <div class="stat"><b>&lt; 24 h</b><span>valoración sin compromiso <span class="ej">ejemplo</span></span></div>
+</div>
+
+<section id="viviendas">
+  <div class="wrap">
+    <div class="eyebrow">Viviendas en venta</div>
+    <h2>Lo último que tenemos en la comarca</h2>
+    <p class="intro">Una selección de nuestra cartera. En la web real se cargan solas desde vuestro programa de gestión, con sus fotos.</p>
+    <div class="grid g4" id="props"></div>
+  </div>
+</section>
+
+<section class="alt" id="fuera">
+  <div class="wrap away">
+    <div>
+      <div class="eyebrow">Si vives en Bilbao, Vitoria o Burgos</div>
+      <h2>Tu casa del pueblo, vendida sin tener que venir cada semana</h2>
+      <p class="intro">Muchas casas de Las Merindades son de familias que viven fuera. Nos encargamos de todo aquí: visitas, llaves, papeles y reformas si hacen falta. Tú lo sigues desde el móvil.</p>
+      <a class="btn btn-p" href="#vender">Valorar mi casa a distancia</a>
+    </div>
+    <div class="away-card">
+      <h3>Lo que hacemos por ti</h3>
+      <ul>
+        <li><b>Valoración</b> con visita, sin que estés presente</li>
+        <li><b>Fotos y anuncio</b> profesional de la vivienda</li>
+        <li><b>Visitas</b> con las llaves en nuestra oficina</li>
+        <li><b>Certificado energético</b> y documentación</li>
+        <li><b>Aviso de cada visita y oferta</b> en tu móvil</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="servicios">
+  <div class="wrap">
+    <div class="eyebrow">Servicio integral</div>
+    <h2>Todo lo que necesita tu patrimonio, en una sola oficina</h2>
+    <p class="intro">Inmobiliaria, arquitectura y asesoría financiera en el mismo equipo. Menos llamadas, menos intermediarios y una venta más segura.</p>
+    <div class="grid g3">
+      <div class="svc"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></span><h3>Venta y alquiler</h3><p>Valoración, anuncio, visitas y acompañamiento hasta la notaría.</p></div>
+      <div class="svc"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V8l8-4 8 4v12"/><path d="M9 20v-6h6v6"/></svg></span><h3>Obra nueva y promociones</h3><p>Viviendas a estrenar en la comarca, con planos y calidades.</p></div>
+      <div class="svc"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M6 21V9l6-5 6 5v12"/><path d="M10 13h4"/></svg></span><h3>Arquitectura y Passive House</h3><p>Proyectos, reformas y viviendas de consumo casi nulo.</p></div>
+      <div class="svc"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></span><h3>Certificados e ITE</h3><p>Certificado de eficiencia energética e inspección técnica de edificios.</p></div>
+      <div class="svc"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M17 7H9.5a3 3 0 0 0 0 6h5a3 3 0 0 1 0 6H6"/></svg></span><h3>Financiación e hipotecas</h3><p>Asesoría hipotecaria, financiera y de subvenciones con Macala.</p></div>
+      <div class="svc"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h5"/></svg></span><h3>Administración de fincas</h3><p>Gestión de comunidades y colectividades.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <div class="eyebrow">Cómo vendemos tu casa</div>
+    <h2>De la primera llamada a la notaría</h2>
+    <div style="max-width:700px;margin-top:14px">
+      <div class="step"><div class="n">01</div><div><h3>Valoración</h3><p>Visitamos la vivienda y te damos un precio realista para la comarca, con el análisis por escrito.</p></div></div>
+      <div class="step"><div class="n">02</div><div><h3>Preparación y anuncio</h3><p>Fotos, certificado energético y anuncio en los portales y en nuestra red de compradores.</p></div></div>
+      <div class="step"><div class="n">03</div><div><h3>Visitas y ofertas</h3><p>Filtramos a los compradores y te avisamos de cada visita y cada oferta.</p></div></div>
+      <div class="step"><div class="n">04</div><div><h3>Firma</h3><p>Ayudamos al comprador con la hipoteca y te acompañamos hasta la notaría.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Opiniones</div>
+    <h2>Lo que dicen quienes ya vendieron con nosotros</h2>
+    <p class="intro">Aquí irán las reseñas reales de Google, enlazadas para que se puedan comprobar.</p>
+    <div class="grid g3">
+      <div class="rev"><span class="stars">★★★★★</span><span class="ej">reseña de ejemplo</span><p>«Texto de muestra: vendieron la casa de mis padres sin que yo tuviera que bajar de Bilbao más que a firmar.»</p><div class="who">Nombre del cliente · Google</div></div>
+      <div class="rev"><span class="stars">★★★★★</span><span class="ej">reseña de ejemplo</span><p>«Texto de muestra: nos ayudaron con la hipoteca y el certificado, todo en la misma oficina.»</p><div class="who">Nombre del cliente · Google</div></div>
+      <div class="rev"><span class="stars">★★★★★</span><span class="ej">reseña de ejemplo</span><p>«Texto de muestra: precio realista desde el principio y nos avisaban de cada visita.»</p><div class="who">Nombre del cliente · Google</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="faq">
+  <div class="wrap" style="max-width:780px">
+    <div class="eyebrow">Preguntas frecuentes</div>
+    <h2>Antes de vender, nos preguntan…</h2>
+    <div style="margin-top:14px">
+      <details><summary>¿Cuánto cuesta la valoración?</summary><p>La primera valoración es gratuita y sin compromiso. Te decimos un precio realista y por qué.</p></details>
+      <details><summary>Vivo fuera, ¿tengo que venir para enseñar la casa?</summary><p>No. Nos dejas las llaves y hacemos las visitas por ti. Te avisamos en el móvil de cada visita y cada oferta.</p></details>
+      <details><summary>¿Qué papeles necesito para vender?</summary><p>Escrituras, nota simple, certificado energético y últimos recibos. Si falta algo, lo tramitamos nosotros.</p></details>
+      <details><summary>¿Podéis ayudar al comprador con la hipoteca?</summary><p>Sí. Con la asesoría financiera de Macala ayudamos al comprador a conseguir financiación, y eso acelera la venta.</p></details>
+    </div>
+  </div>
+</section>
+
+<div class="cta">
+  <h2>¿Pensando en vender en Las Merindades?</h2>
+  <p>Empieza por saber cuánto vale. Te contestamos hoy.</p>
+  <div class="row">
+    <a class="btn btn-p" href="#vender">Valorar mi vivienda</a>
+    <a class="btn btn-wa" href="https://wa.me/34629841067">WhatsApp 629 841 067</a>
+  </div>
+</div>
+
+<footer>Inmobiliaria Gabriel Fernández · Medina de Pomar (Burgos) · 947 147 400<br>Demo de propuesta preparada por Galerna Method</footer>
+
+<div class="sticky">
+  <a class="btn btn-o" href="tel:+34947147400">Llamar</a>
+  <a class="btn btn-p" href="#vender">Valorar mi casa</a>
+</div>
+
+<button class="as-btn" id="asb" aria-expanded="false"><span class="as-av">GF</span>¿Hablamos?</button>
+<div class="as-panel" id="asp" role="dialog" aria-label="Asistente">
+  <div class="as-head"><span class="as-av">GF</span><div><b>Gabriel Fernández</b><small>Responde al momento, también fuera de horario</small></div><button class="as-x" id="asx" aria-label="Cerrar">×</button></div>
+  <div class="as-log" id="aslog"></div>
+  <div class="as-chips" id="aschips"></div>
+  <div class="as-foot">Demo: conversación de ejemplo</div>
+</div>
+
+<script>
+(function(){
+const P=[
+ ['Casa con terreno','La Isa, Loma de Montija',381,'89.000 €'],
+ ['Casa de piedra','La Isa, Montija',244,'119.000 €'],
+ ['Piso con terraza','C/ Portugalete, Medina de Pomar',106,'99.000 €'],
+ ['Piso céntrico','C/ Juan de Medina, Medina de Pomar',97,'125.000 €'],
+ ['Piso con terraza','C/ Carreruela, Villarcayo',85,'70.000 €'],
+ ['Chalet','Ctra. de Bilbao, Trespaderne',381,'285.000 €'],
+ ['Casa de pueblo','Valle de Tobalina',329,'490.000 €'],
+ ['Casa reformada con jardín','Villaluenga de Losa',500,'Vendida']
+];
+const house='<svg viewBox="0 0 400 120" preserveAspectRatio="xMidYMax meet" aria-hidden="true"><path d="M110 120V66l70-44 70 44v54z" fill="#fff"/><path d="M98 70l82-54 82 54" fill="none" stroke="#DD969C" stroke-width="7" stroke-linejoin="round"/><rect x="166" y="80" width="28" height="40" fill="#23262A"/><path d="M262 120V86l46-30 46 30v34z" fill="#fff" opacity=".7"/></svg>';
+document.getElementById('props').innerHTML=P.map(p=>`<div class="prop"><div class="ph">${house}<span class="tag ${p[3]==='Vendida'?'sold':''}">${p[3]==='Vendida'?'Vendida':'En venta'}</span></div><div class="b"><h3>${p[0]}</h3><div class="loc">${p[1]}</div><div class="row"><span class="price">${p[3]}</span><span class="m2">${p[2]} m²</span></div></div></div>`).join('');
+
+let tipo='piso';
+document.querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>{tipo=b.dataset.t;document.querySelectorAll('.opt').forEach(x=>x.setAttribute('aria-pressed',x===b))}));
+const RATE={piso:1150,casa:780,pueblo:520,finca:35};
+const fmt=v=>String(Math.round(v/1000)*1000).replace(/\B(?=(\d{3})+(?!\d))/g,'.')+' €';
+document.getElementById('go1').addEventListener('click',()=>{
+ const m=Math.max(20,parseFloat(document.getElementById('m2').value)||90);const base=m*RATE[tipo];
+ document.getElementById('range').textContent=fmt(base*0.88)+' – '+fmt(base*1.1);
+ document.getElementById('vstep1').style.display='none';document.getElementById('vstep2').style.display='block';
+});
+document.getElementById('go2').addEventListener('click',()=>{document.getElementById('vstep2').style.display='none';document.getElementById('vstep3').style.display='block'});
+
+const log=document.getElementById('aslog'),chips=document.getElementById('aschips'),panel=document.getElementById('asp'),btn=document.getElementById('asb');
+const add=(t,w)=>{const d=document.createElement('div');d.className='m '+w;d.textContent=t;log.appendChild(d);log.scrollTop=log.scrollHeight};
+const FLOW={
+ start:{b:['¡Hola! Soy el asistente de Gabriel Fernández. ¿En qué te ayudo?'],c:[['Quiero vender mi casa','vender'],['Vivo fuera y tengo una casa aquí','fuera'],['Busco vivienda','buscar']]},
+ vender:{b:['Genial. ¿Dónde está la vivienda y qué tipo es?'],c:[['Piso en Medina de Pomar','plazo'],['Casa de pueblo en el valle','plazo']]},
+ fuera:{b:['Muy habitual por aquí. Nos encargamos de todo sin que tengas que venir. ¿Dónde está la casa?'],c:[['Cerca de Villarcayo','plazo'],['En Montija','plazo']]},
+ plazo:{b:['¿Para cuándo te gustaría vender?'],c:[['Lo antes posible','cita'],['En unos meses','seg']]},
+ cita:{b:['Perfecto. Podemos ir a valorarla esta semana. ¿Te viene bien el jueves por la mañana?','(En la versión real, la cita entra directa en la agenda de la oficina.)'],c:[['Empezar de nuevo','start']]},
+ seg:{b:['Sin prisa. Te enviamos una valoración orientativa y te escribimos más adelante para ver cómo lo llevas.'],c:[['Empezar de nuevo','start']]},
+ buscar:{b:['¡Claro! Cuéntame qué buscas y en qué zona, y te avisamos en cuanto entre algo que encaje.'],c:[['Empezar de nuevo','start']]}
+};
+const go=k=>{chips.innerHTML='';FLOW[k].b.forEach((t,i)=>setTimeout(()=>add(t,'b'),300+i*500));setTimeout(()=>{FLOW[k].c.forEach(([t,n])=>{const b=document.createElement('button');b.textContent=t;b.onclick=()=>{add(t,'u');go(n)};chips.appendChild(b)})},400+FLOW[k].b.length*500)};
+let started=false;
+btn.addEventListener('click',()=>{panel.classList.add('open');btn.style.display='none';btn.setAttribute('aria-expanded','true');if(!started){started=true;go('start')}});
+document.getElementById('asx').addEventListener('click',()=>{panel.classList.remove('open');btn.style.display='flex';btn.setAttribute('aria-expanded','false')});
+})();
+</script>
+</body>
+</html>
