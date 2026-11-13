@@ -248,7 +248,7 @@ footer{padding:30px 0 50px;text-align:center;font-size:12.5px;color:var(--sub)}
         <div><label>Bajas que evitamos al mes <span id="vB">1</span></label><input type="range" id="iB" min="0" max="5" value="1"><p class="hint">Alumnos que se quedan en vez de irse a la competencia</p></div>
         <div><label>Cuota media <span id="vC">50 €</span></label><input type="range" id="iC" min="35" max="70" value="50"></div>
         <div><label>Socios con Gorobel+ <span id="vG">20</span></label><input type="range" id="iG" min="0" max="60" value="20"><p class="hint">A 19 € al mes cada uno</p></div>
-        <div><label>Plan</label><div class="seg" id="seg"><button type="button" data-f="349">Sistema · 349 €</button><button type="button" class="on" data-f="549">Sistema + redes · 549 €</button></div></div>
+        <div><label>Plan</label><div class="seg" id="seg"><button type="button" data-f="449">Sistema · 449 €</button><button type="button" class="on" data-f="790">Sistema + redes · 790 €</button></div></div>
       </div>
       <div class="cout">
         <div class="row"><span>Cuotas de socios nuevos y retenidos</span><b id="oS">0 €</b></div>
@@ -269,12 +269,12 @@ footer{padding:30px 0 50px;text-align:center;font-size:12.5px;color:var(--sub)}
     <div class="setup">
       <div><small style="font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#E7D6CF">Puesta en marcha</small>
         <p style="margin-top:8px;font-size:16px;color:var(--bone)"><s>App 5.900 €</s> + <s>montaje y agentes 3.000 €</s></p>
-        <p>Pagas la entrada en dos partes: <b>1.450 € al firmar</b> y <b>1.450 € al lanzar</b>. Te ahorras 6.000 €.</p></div>
-      <div class="p">2.900 €</div>
+        <p>Pagas la entrada en dos partes: <b>750 € al firmar</b> y <b>750 € al lanzar</b>. Te ahorras 7.400 €.</p></div>
+      <div class="p">1.500 €</div>
     </div>
     <div class="plans">
-      <div class="plan"><h3>Sistema</h3><div class="pr">349 €<small> /mes</small></div><ul><li>App Gorobel con coach, nutrición y acceso 24 h</li><li>Agente de llamadas (hasta 100 al mes)</li><li>Agentes de WhatsApp e Instagram</li><li>Mantenimiento, servidor y mejoras</li><li class="no">Redes y edición de vídeos</li><li class="no">Plan de reapertura</li><li class="no">Reunión semanal</li></ul></div>
-      <div class="plan hl"><span class="badge">Recomendado</span><h3>Sistema + redes</h3><div class="pr">549 €<small> /mes</small></div><ul><li>Todo lo de Sistema</li><li>Estrategia de redes con tus entrenadores</li><li>Edición de 8 vídeos al mes</li><li>Plan de reapertura y puertas abiertas</li><li>Trae a un amigo y recuperar ex socios</li><li>Reunión semanal con números</li></ul><p style="margin-top:14px;font-size:13.5px;color:var(--sub);font-weight:600">¿Anuncios más adelante? Cuando quieras activarlos: <b style="color:var(--bone)">+150 €/mes</b> por la gestión de las campañas.</p></div>
+      <div class="plan"><h3>Sistema</h3><div class="pr">449 €<small> /mes</small></div><ul><li>App Gorobel con coach, nutrición y acceso 24 h</li><li>Agente de llamadas (hasta 100 al mes)</li><li>Agentes de WhatsApp e Instagram</li><li>Mantenimiento, servidor y mejoras</li><li class="no">Redes y edición de vídeos</li><li class="no">Plan de reapertura</li><li class="no">Reunión semanal</li></ul></div>
+      <div class="plan hl"><span class="badge">Recomendado</span><h3>Sistema + redes</h3><div class="pr">790 €<small> /mes</small></div><ul><li>Todo lo de Sistema</li><li>Estrategia de redes con tus entrenadores</li><li>Edición de 8 vídeos al mes</li><li>Plan de reapertura y puertas abiertas</li><li>Trae a un amigo y recuperar ex socios</li><li>Reunión semanal con números</li></ul><p style="margin-top:14px;font-size:13.5px;color:var(--sub);font-weight:600">¿Anuncios más adelante? Cuando quieras activarlos: <b style="color:var(--bone)">+150 €/mes</b> por la gestión de las campañas.</p></div>
     </div>
     <div class="terms">
       <div><b>Permanencia de 12 meses</b>La cuota empieza el mes siguiente al lanzamiento.</div>
@@ -333,12 +333,12 @@ footer{padding:30px 0 50px;text-align:center;font-size:12.5px;color:var(--sub)}
 <script>
 (function(){
   function $(i){return document.getElementById(i);}
-  var fee=549;
+  var fee=790;
   function eur(n){return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,'.')+'\u00a0€';}
   function upd(){
     var a=+$('iA').value,b=+$('iB').value,c=+$('iC').value,g=+$('iG').value;
     $('vA').textContent=a;$('vB').textContent=b;$('vC').textContent=c+' €';$('vG').textContent=g;
-    var s=(a+b)*c*78, gp=g*19*12, cost=2900+fee*12;
+    var s=(a+b)*c*78, gp=g*19*12, cost=1500+fee*12;
     $('oS').textContent=eur(s);$('oG').textContent=eur(gp);$('oC').textContent='−'+eur(cost);
     var n=s+gp-cost;$('oN').textContent=(n<0?'−':'')+eur(Math.abs(n));$('oN').style.color=n<0?'var(--box)':'';
     $('oE').textContent='La cuota de '+fee+' € equivale a '+Math.ceil(fee/c)+' socios. Sumamos socios mes a mes: 12 meses de altas y bajas evitadas.';
@@ -357,7 +357,7 @@ footer{padding:30px 0 50px;text-align:center;font-size:12.5px;color:var(--sub)}
   var WA = 'https://wa.me/?text=' + encodeURIComponent('Hola Jon, tengo una duda sobre la propuesta de Gorobel: ');
   var GO = function (id, txt) { return '<button type="button" data-gpgo="' + id + '">' + txt + '</button>'; };
   var K = [
-    { k: ['precio', 'cuesta', 'cuanto', 'pagar', 'coste', 'entrada'], a: 'Con la oferta de Black Friday la entrada es de <b>2.900 €</b> en dos partes (1.450 al firmar y 1.450 al lanzar), con la app incluida, en vez de 8.900 €. Luego, <b>349 €/mes</b> (Sistema) o <b>549 €/mes</b> (Sistema + redes), con 12 meses de permanencia.', x: [GO('precio', 'Ver el precio')] },
+    { k: ['precio', 'cuesta', 'cuanto', 'pagar', 'coste', 'entrada'], a: 'Con la oferta de Black Friday la entrada es de <b>1.500 €</b> en dos partes (750 al firmar y 750 al lanzar), con la app incluida, en vez de 8.900 €. Luego, <b>449 €/mes</b> (Sistema) o <b>790 €/mes</b> (Sistema + redes), con 12 meses de permanencia.', x: [GO('precio', 'Ver el precio')] },
     { k: ['diferencia', 'planes', 'sistema', 'crecimiento', 'cual'], a: '<b>Sistema</b> es la app y los tres agentes (llamadas, WhatsApp e Instagram). <b>Sistema + redes</b> añade la estrategia de redes con tus entrenadores, la edición de 8 vídeos al mes, el plan de reapertura y una reunión semanal. Si lo que quieres es que entre gente, es el segundo. Los anuncios, solo cuando tú quieras.' },
     { k: ['aimharder', 'aim harder', 'cambiar', 'dejar', 'reservas', 'cobros'], a: 'No tienes que dejar <b>AimHarder</b>. Cobros, reservas y socios siguen ahí. Nosotros nos encargamos de traer gente, de que nadie se quede sin respuesta y de la experiencia en la app.' },
     { k: ['24', 'acceso', 'puerta', 'qr', 'abrir', 'noche'], a: 'Para el <b>24 h</b> la app da a cada socio un QR o PIN para abrir la puerta. Queda registrado quién entra y a qué hora, y si alguien no ha pagado se le bloquea solo. En horas sin entrenador: saco, técnica y máquinas; el sparring, solo en clase.' },
