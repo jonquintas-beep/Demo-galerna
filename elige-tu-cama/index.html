@@ -936,11 +936,13 @@ function gateHTML(){
   if (S.phase === 'error') return `<div class="login">${hero()}<div><h1>${BRAND}</h1><p>${esc(S.err)}</p></div><button class="b pri full" data-act="retry">Reintentar</button><button class="b fill full" data-act="logout">Cerrar sesión</button></div>`;
   if (S.phase === 'noaccess') return `<div class="login">${hero()}<div><h1>Este correo no tiene acceso</h1><p>Has entrado como <b>${esc(S.user.email)}</b>, pero ese correo no está dado de alta. Pide a tu gestor que te añada con este mismo correo y vuelve a entrar.</p></div><button class="b pri full" data-act="retry">Volver a comprobar</button><button class="b fill full" data-act="logout">Entrar con otro correo</button></div>`;
   if (S.authStep === 'sent') return `<div class="login">
-    <div><h1>Escribe tu código</h1><p>${S.authVia === 'code' ? `Pide el código en la app donde ya has entrado: Cuenta &rsaquo; <b>Entrar en otro dispositivo</b>.` : `Hemos enviado un correo a <b>${esc(S.authEmail)}</b>. Si no llega en un par de minutos, mira en la carpeta de spam.`}</p></div>
+    <div><h1>Escribe tu código</h1><p>${S.authVia === 'code' ? `Pide el código en la app donde ya has entrado: Cuenta &rsaquo; <b>Entrar en otro dispositivo</b>.`
+      : S.authVia === 'link' ? `Hemos enviado un correo a <b>${esc(S.authEmail)}</b>. Ese correo trae un enlace: ábrelo en este mismo navegador. Si trae un código, escríbelo aquí.`
+      : `Hemos enviado un código a <b>${esc(S.authEmail)}</b>. Si no llega en un par de minutos, mira en la carpeta de spam.`}</p></div>
     <form id="codeForm" class="stack"><div class="inp-group"><label><span>Código</span><input id="lg-code" class="code-in" inputmode="numeric" autocomplete="one-time-code" placeholder="000000" required></label></div>
     <button class="b pri full" type="submit" ${S.busy ? 'disabled' : ''}>${S.busy ? 'Comprobando…' : 'Entrar'}</button></form>
     ${S.authMsg ? `<p class="errmsg">${esc(S.authMsg)}</p>` : ''}
-    ${S.authVia === 'code' ? '' : `<div class="helpbox"><b>¿El correo no trae código?</b><p>Abre el correo en el ordenador y pulsa el enlace, o pide un código desde otro dispositivo donde ya hayas entrado.</p></div>`}
+    ${S.authVia === 'link' ? `<div class="helpbox"><b>¿El correo solo trae un enlace?</b><p>Ábrelo en este mismo navegador. Si estás en la app instalada, pide un código desde otro dispositivo donde ya hayas entrado: Cuenta &rsaquo; Entrar en otro dispositivo.</p></div>` : ''}
     <button class="b fill full" data-act="auth-back">Volver</button></div>`;
   return `<div class="login">${hero()}
     <div><h1>Entra en tu cuenta</h1><p>Escribe el correo que diste al firmar el contrato. Te enviamos un código para entrar, sin contraseña.</p></div>
@@ -1579,10 +1581,22 @@ document.addEventListener('submit', async e => {
   if (e.target.id === 'staffForm') sendStaff($('staffIn').value);
   if (e.target.id === 'loginForm'){ const email = val('lg-mail').toLowerCase(); if (!email || S.busy) return;
     S.busy = true; S.authEmail = email; S.authMsg = ''; render();
-    const { error } = await sb.auth.signInWithOtp({ email, options:{ emailRedirectTo:location.origin + location.pathname } });
+    let ok = false;
+    try {
+      const { data, error } = await sb.functions.invoke('send-code', { body:{ email, redirect:location.origin + location.pathname } });
+      if (error) throw error;
+      if (data && data.ok){ ok = true; S.authVia = data.via === 'resend' ? 'mail' : 'link'; }
+      else if (data && data.error === 'not_registered') S.authMsg = 'Ese correo no está dado de alta. Pide a tu gestor que te añada con este mismo correo.';
+      else if (data && data.error === 'rate') S.authMsg = 'Has pedido demasiados códigos seguidos. Espera unos minutos y vuelve a intentarlo.';
+      else S.authMsg = 'No se ha podido enviar el código. Inténtalo de nuevo en un momento.';
+    } catch(err){
+      console.error(err);
+      const { error } = await sb.auth.signInWithOtp({ email, options:{ emailRedirectTo:location.origin + location.pathname } });
+      if (error) S.authMsg = /rate|seconds|limit/i.test(error.message) ? 'Has pedido demasiados códigos seguidos. Espera un minuto y vuelve a intentarlo.' : 'No se ha podido enviar el código. Revisa el correo e inténtalo de nuevo.';
+      else { ok = true; S.authVia = 'link'; }
+    }
     S.busy = false;
-    if (error) S.authMsg = /rate|seconds|limit/i.test(error.message) ? 'Has pedido demasiados códigos seguidos. Espera un minuto y vuelve a intentarlo.' : 'No se ha podido enviar el código. Revisa el correo e inténtalo de nuevo.';
-    else { S.authStep = 'sent'; S.authVia = 'mail'; }
+    if (ok){ S.authStep = 'sent'; S.authMsg = ''; }
     render(); }
   if (e.target.id === 'codeForm'){ const raw = val('lg-code'); if (!raw || S.busy) return;
     S.busy = true; S.authMsg = ''; render();
@@ -1594,8 +1608,10 @@ document.addEventListener('submit', async e => {
       else bad = 'Ese enlace no sirve para entrar. Copia el enlace del botón del correo, entero.';
     } else {
       const token = raw.replace(/\D/g, '');
-      if (token) ({ error } = await sb.auth.verifyOtp({ email:S.authEmail, token, type:'email' }));
-      else bad = 'Escribe el código del correo, o pega el enlace.';
+      if (token){
+        ({ error } = await sb.auth.verifyOtp({ email:S.authEmail, token, type:'email' }));
+        if (error) ({ error } = await sb.auth.verifyOtp({ email:S.authEmail, token, type:'invite' }));
+      } else bad = 'Escribe el código del correo, o pega el enlace.';
     }
     S.busy = false;
     if (bad || error){ S.authMsg = bad || 'No ha funcionado: puede que ya se haya usado o haya caducado. Pide otro correo y prueba de nuevo sin abrir el enlace.'; render(); const c = $('lg-code'); if (c) c.focus(); } }
