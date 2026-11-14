@@ -528,6 +528,9 @@ a.row{color:inherit}
 .mark{background:#333436!important;overflow:hidden}
 .mark img{width:74%;height:74%;object-fit:contain;display:block}
 .brandhero{background:#333436;border-radius:16px;padding:26px 20px;display:grid;place-items:center}
+.staff .thread{height:calc(100dvh - 300px);min-height:240px}
+.pre{white-space:pre-wrap;overflow-wrap:anywhere}
+.staff-form{display:flex;gap:8px}
 .brandhero img{width:min(230px,82%);height:auto;display:block}
 </style>
 </head>
@@ -596,7 +599,7 @@ const BUCKET = 'justificantes';
 const BRAND = 'Elige tu cama';
 
 const S = { phase:'loading', user:null, roles:[], role:null, tab:'home', adm:'resumen', q:'', sel:null, payFilter:'att', incFilter:'open', roomFilter:'all',
-  period:null, typing:false, draft:'', replyDraft:{}, noticeDraft:'', noticeHouse:'all', authStep:'email', authEmail:'', authMsg:'', busy:false, dirty:false, imp:null, err:'' };
+  period:null, typing:false, draft:'', replyDraft:{}, noticeDraft:'', noticeHouse:'all', authStep:'email', authEmail:'', authMsg:'', busy:false, dirty:false, imp:null, err:'', staffChat:[], staffDraft:'', staffBusy:false };
 const D = { org:null, houses:[], rooms:[], tenants:[], payments:[], incidents:[], tickets:[], messages:[], notices:[], audit:[], managers:[], me:null, mates:[], myOrgs:[] };
 
 /* ===================== Fechas ===================== */
@@ -640,11 +643,18 @@ const priC = p => p === 'urgent' || p === 'high' ? 'alta' : p === 'medium' ? 'me
 
 async function resolveRoles(){
   const uid = S.user.id;
-  const [mg, tn] = await Promise.all([ q(sb.from('managers').select('*').eq('user_id', uid)), q(sb.from('tenants').select('*').eq('user_id', uid).eq('active', true)) ]);
+  const [mg, tn, orgs] = await Promise.all([ q(sb.from('managers').select('*').eq('user_id', uid).order('created_at')), q(sb.from('tenants').select('*').eq('user_id', uid).eq('active', true)), q(sb.from('orgs').select('id,name').order('created_at')) ]);
+  let prefOrg = null, pref = null; try { prefOrg = localStorage.getItem('etc-org'); pref = localStorage.getItem('etc-role'); } catch(e){}
+  D.myManagers = mg; D.myTenants = tn; D.myOrgs = orgs;
+  D.myManager = mg.find(m => m.org_id === prefOrg) || mg[0] || null;
+  D.me = tn.find(t => D.myManager && t.org_id === D.myManager.org_id) || tn[0] || null;
   S.roles = [mg.length ? 'manager' : null, tn.length ? 'tenant' : null].filter(Boolean);
-  D.myManager = mg[0] || null; D.me = tn[0] || null;
-  let pref = null; try { pref = localStorage.getItem('etc-role'); } catch(e){}
   S.role = S.roles.includes(pref) ? pref : S.roles[0] || null;
+}
+async function switchView(){
+  $('root').innerHTML = ''; closeDialog(); S.phase = 'loading'; S.staffChat = []; S.sel = null; S.q = ''; render();
+  try { await loadData(); S.phase = 'app'; } catch(e){ console.error(e); S.phase = 'error'; S.err = 'No se han podido cargar los datos.'; }
+  render();
 }
 async function loadData(){
   if (S.role === 'manager'){
@@ -827,7 +837,7 @@ async function sendChat(text){
   const tmp = { id:'tmp', sender:'user', body:text, created_at:new Date().toISOString() };
   D.messages.push(tmp); S.draft = ''; S.typing = true; render();
   try {
-    const { data, error } = await sb.functions.invoke('assistant', { body:{ text } });
+    const { data, error } = await sb.functions.invoke('assistant', { body:{ text, tenant_id:D.me.id } });
     if (error) throw error;
     D.messages = D.messages.filter(m => m.id !== 'tmp');
     (data.messages || []).forEach(m => { if (!D.messages.some(x => x.id === m.id)) D.messages.push(m); });
@@ -888,14 +898,14 @@ function houseHTML(){
     <p class="gh">Cuenta</p><div class="group">
       <div class="row"><span class="av sm">${initials(t.full_name)}</span><span class="tx"><span class="t1">${esc(t.full_name)}</span><span class="t2">${esc(t.email || S.user.email)}</span></span></div>
       <button class="row ti" data-act="install">${tile('share','gray')}<span class="tx"><span class="t1">Añadir a la pantalla de inicio</span></span>${chev()}</button>
-      ${S.roles.includes('manager') ? `<button class="row center" data-act="role" data-v="manager"><span class="t1">Ir al panel de gestión</span></button>` : ''}
+      ${D.myManagers.some(m => m.org_id === D.me.org_id) ? `<button class="row center" data-act="role" data-v="manager"><span class="t1">Ir al panel de gestión</span></button>` : ''}
       <button class="row danger center" data-act="logout"><span class="t1" style="color:var(--red)">Cerrar sesión</span></button></div>
     <div style="height:28px"></div>`;
 }
 
 /* ===================== Panel del gestor ===================== */
-const NAV = [['resumen','Resumen','grid'],['bandeja','Bandeja','inbox'],['cobros','Cobros','euro'],['incidencias','Incidencias','wrench'],['pisos','Pisos','building'],['inquilinos','Inquilinos','people'],['avisos','Avisos','mega'],['ajustes','Ajustes','shield']];
-const TITLES = { resumen:'Resumen', bandeja:'Bandeja', cobros:'Cobros', incidencias:'Incidencias', pisos:'Pisos y habitaciones', inquilinos:'Inquilinos', avisos:'Avisos', ajustes:'Ajustes' };
+const NAV = [['resumen','Resumen','grid'],['bandeja','Bandeja','inbox'],['asistente','Asistente','bot'],['cobros','Cobros','euro'],['incidencias','Incidencias','wrench'],['pisos','Pisos','building'],['inquilinos','Inquilinos','people'],['avisos','Avisos','mega'],['ajustes','Ajustes','shield']];
+const TITLES = { resumen:'Resumen', bandeja:'Bandeja', asistente:'Asistente del equipo', cobros:'Cobros', incidencias:'Incidencias', pisos:'Pisos y habitaciones', inquilinos:'Inquilinos', avisos:'Avisos', ajustes:'Ajustes' };
 const active = () => D.tenants.filter(t => t.active);
 function matchQ(t){ if (!S.q.trim()) return true; const h = houseOfTenant(t), r = roomOf(t.room_id); return norm(`${t.full_name} ${h ? h.name + ' ' + addrShort(h) + ' ' + (h.postal_code || '') : ''} hab ${r ? r.number : ''} ${t.email || ''}`).includes(norm(S.q)); }
 function renderAdmin(){
@@ -906,7 +916,7 @@ function renderAdmin(){
   el.innerHTML = `
     <aside class="side">
       <div class="ws">${mark()}<div><b>${esc(D.org.name)}</b><small>Panel de gestión</small></div></div>
-      ${NAV.map(([k,l,i],idx) => `${idx===0?'<p class="nav-l">General</p>':''}${idx===2?'<p class="nav-l">Gestión</p>':''}${idx===7?'<p class="nav-l">Cuenta</p>':''}<button class="nav ${S.adm===k?'on':''}" data-act="adm" data-v="${k}">${ic(i)}${l}${c[k] ? `<span class="n ${k==='bandeja'?'hot':''}">${c[k]}</span>` : ''}</button>`).join('')}
+      ${NAV.map(([k,l,i],idx) => `${idx===0?'<p class="nav-l">General</p>':''}${idx===3?'<p class="nav-l">Gestión</p>':''}${idx===8?'<p class="nav-l">Cuenta</p>':''}<button class="nav ${S.adm===k?'on':''}" data-act="adm" data-v="${k}">${ic(i)}${l}${c[k] ? `<span class="n ${k==='bandeja'?'hot':''}">${c[k]}</span>` : ''}</button>`).join('')}
       <div class="side-foot"><span class="av sm">${initials(me.full_name || me.email)}</span><div style="min-width:0"><b>${esc(me.full_name || first(me.email.split('@')[0]))}</b><small>${esc(me.email)}</small></div></div>
     </aside>
     <section class="main">
@@ -914,15 +924,17 @@ function renderAdmin(){
         <label class="msearch">${ic('search')}<span class="sr">Buscar</span><input id="admQ" type="search" placeholder="Buscar inquilino o calle" value="${esc(S.q)}" autocomplete="off"></label>
         <button class="btn pri" data-act="alta-open">${ic('userplus')}Alta de inquilino</button>
       </div>
-      <div class="mbody">${({ resumen:admResumen, bandeja:admBandeja, cobros:admCobros, incidencias:admIncid, pisos:admPisos, inquilinos:admInquilinos, avisos:admAvisos, ajustes:admAjustes })[S.adm]()}</div>
+      <div class="mbody">${({ resumen:admResumen, bandeja:admBandeja, asistente:admAsistente, cobros:admCobros, incidencias:admIncid, pisos:admPisos, inquilinos:admInquilinos, avisos:admAvisos, ajustes:admAjustes })[S.adm]()}</div>
     </section>`;
   el.dataset.adm = S.adm;
   const m2 = el.querySelector('.main'); if (m2) m2.scrollTop = keep;
+  const stt = $('staffThread'); if (stt) stt.scrollTop = stt.scrollHeight;
 }
 const AUD = { payment_status:d => d.to === 'paid' ? `Pago confirmado · ${eur(d.amount)}` : d.to === 'review' ? `Aviso de pago recibido · ${eur(d.amount)}` : `Pago: ${PST[d.to] ? PST[d.to][0].toLowerCase() : d.to}`,
   incident_status:d => `${d.code}: ${INC[d.to] ? INC[d.to][0].toLowerCase() : d.to}`, tenant_added:d => `Alta de ${d.name}`, tenant_deactivated:d => `Baja de ${d.name}`, tenant_reactivated:d => `Reactivado ${d.name}` };
+const otherOrgs = () => (D.myManagers || []).filter(m => m.org_id !== D.myManager.org_id).map(m => ({ id:m.org_id, name:((D.myOrgs || []).find(o => o.id === m.org_id) || {}).name || 'Otra organización' }));
 function admResumen(){
-  if (!D.houses.length && !D.tenants.length) return `<div class="box"><div class="box-b" style="display:grid;gap:12px"><h3 style="font-size:16px">Empieza por cargar tus datos</h3>
+  if (!D.houses.length && !D.tenants.length) return `${otherOrgs().length ? `<div class="box"><div class="box-b" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><span style="font-size:14px;color:var(--ink-2);margin-right:auto">Esta organización está vacía. También gestionas:</span>${otherOrgs().map(o => `<button class="btn pri" data-act="org" data-v="${o.id}">Ir a ${esc(o.name)}</button>`).join('')}</div></div>` : ''}<div class="box"><div class="box-b" style="display:grid;gap:12px"><h3 style="font-size:16px">Empieza por cargar tus datos</h3>
     <p style="color:var(--ink-2);font-size:14px">Tienes dos formas: importar el listado de tu CRM de una vez, o crear los pisos y dar de alta a los inquilinos a mano.</p>
     <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn pri" data-act="adm" data-v="ajustes">${ic('inbox')}Importar listado</button><button class="btn sec" data-act="house-open">${ic('plus')}Añadir un piso</button></div></div></div>`;
   const per = curPeriod(), month = D.payments.filter(p => p.period === per), total = month.reduce((a,p) => a + Number(p.amount), 0), paid = month.filter(p => p.status === 'paid').reduce((a,p) => a + Number(p.amount), 0);
@@ -1041,6 +1053,29 @@ function admAvisos(){
   </div>`;
 }
 const fl = (id, label, v, extra='') => `<label class="fl">${label}<input id="${id}" value="${esc(v ?? '')}" autocomplete="off" ${extra}></label>`;
+const STAFF_ERR = { no_key:'El asistente con IA todavía no está activado: falta guardar la clave de Anthropic en Supabase.', bad_key:'La clave de Anthropic guardada en Supabase no es válida.' };
+function admAsistente(){
+  const chips = ['¿Quién tiene pendiente el alquiler de este mes?','Resume las incidencias abiertas','¿Qué habitaciones están libres?','Redacta un aviso: mañana cortan el agua de 10 a 12'];
+  const me = D.myManager;
+  const msgs = S.staffChat.length ? S.staffChat.map(m => m.role === 'user' ? `<div class="tm me"><span class="av">${initials(me.full_name || me.email)}</span><div class="c pre">${esc(m.text)}</div></div>`
+    : `<div class="tm bot"><span class="av">${ic('bot','style="width:14px;height:14px"')}</span><div class="c pre"><b>Asistente</b>${esc(m.text)}</div></div>`).join('')
+    : `<div class="empty" style="margin:auto;max-width:440px">Pregunta por cobros, ocupación, incidencias o inquilinos, o pídele que redacte un aviso o una respuesta. Consulta tus datos, pero no cambia nada.</div>`;
+  return `<div class="box staff"><div class="thread" id="staffThread">${msgs}${S.staffBusy ? '<div class="tm bot"><span class="av">' + ic('bot','style="width:14px;height:14px"') + '</span><div class="c"><div class="typing" style="margin:0;padding:6px 4px;background:none"><i></i><i></i><i></i></div></div></div>' : ''}</div>
+    <div class="reply"><div class="qr">${chips.map(c => `<button data-act="staff-chip" data-v="${esc(c)}">${esc(c)}</button>`).join('')}</div>
+    <form id="staffForm" class="staff-form"><label class="sr" for="staffIn">Pregunta</label><input id="staffIn" class="inl" placeholder="Pregunta al asistente" value="${esc(S.staffDraft)}" autocomplete="off" maxlength="2000"><button class="btn pri" type="submit" ${S.staffBusy ? 'disabled' : ''}>${ic('send')}Enviar</button></form></div></div>`;
+}
+async function sendStaff(text){
+  text = String(text || '').trim(); if (!text || S.staffBusy) return;
+  const history = S.staffChat.slice(-10).map(m => ({ role:m.role, content:m.text }));
+  S.staffChat.push({ role:'user', text }); S.staffDraft = ''; S.staffBusy = true; render();
+  let reply;
+  try {
+    const { data, error } = await sb.functions.invoke('staff-assistant', { body:{ org_id:D.org.id, question:text, history } });
+    if (error) throw error;
+    reply = data.reply || STAFF_ERR[data.error] || 'No he podido responder ahora. Inténtalo de nuevo en un momento.';
+  } catch(e){ console.error(e); reply = 'No he podido responder ahora. Inténtalo de nuevo en un momento.'; }
+  S.staffChat.push({ role:'assistant', text:reply }); S.staffBusy = false; render();
+}
 function admAjustes(){
   const o = D.org, imp = S.imp;
   return `<div class="cols">
@@ -1062,7 +1097,8 @@ function admAjustes(){
       <div class="box" data-form><div class="box-h"><h3>Quién gestiona</h3><span class="s">Entran al panel con su correo</span></div>
         <div>${D.managers.map(m => `<div class="lrow"><span class="av sm">${initials(m.full_name || m.email)}</span><div class="tx"><b>${esc(m.full_name || m.email)}</b><span>${esc(m.email)} · ${m.user_id ? 'ha entrado' : 'aún no ha entrado'}</span></div>${m.id !== D.myManager.id ? `<button class="btn ghost xs" data-act="mgr-del" data-v="${m.id}">Quitar</button>` : ''}</div>`).join('')}</div>
         <div class="box-b" style="display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid var(--sep)"><input id="mgr-mail" class="inl" type="email" placeholder="correo@empresa.com" autocomplete="off"><button class="btn sec" data-act="mgr-add">Dar acceso</button></div></div>
-      <div class="box"><div class="box-b" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span style="font-size:13.5px;color:var(--muted);margin-right:auto">${esc(S.user.email)}</span>${S.roles.includes('tenant') ? `<button class="btn sec" data-act="role" data-v="tenant">Ver mi app de inquilino</button>` : ''}<button class="btn sec" data-act="logout">${ic('logout')}Cerrar sesión</button></div></div>
+      ${otherOrgs().length ? `<div class="box"><div class="box-h"><h3>Organización</h3><span class="s">Estás en ${esc(D.org.name)}</span></div><div class="box-b" style="display:flex;gap:8px;flex-wrap:wrap">${otherOrgs().map(o => `<button class="btn sec" data-act="org" data-v="${o.id}">Cambiar a ${esc(o.name)}</button>`).join('')}</div></div>` : ''}
+      <div class="box"><div class="box-b" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span style="font-size:13.5px;color:var(--muted);margin-right:auto">${esc(S.user.email)}</span>${D.myTenants.some(t => t.org_id === D.org.id) ? `<button class="btn sec" data-act="role" data-v="tenant">Ver mi app de inquilino</button>` : ''}<button class="btn sec" data-act="logout">${ic('logout')}Cerrar sesión</button></div></div>
     </div></div>`;
 }
 
@@ -1217,7 +1253,13 @@ document.addEventListener('click', e => {
     case 'retry': sb.auth.getSession().then(({ data }) => boot(data.session)); break;
     case 'logout': if (channel){ try { sb.removeChannel(channel); } catch(err){} channel = null; } sb.auth.signOut().finally(() => { S.authStep = 'email'; S.authMsg = ''; boot(null); }); break;
     case 'auth-back': S.authStep = 'email'; S.authMsg = ''; render(); break;
-    case 'role': S.role = v; try { localStorage.setItem('etc-role', v); } catch(err){} $('root').innerHTML = ''; S.phase = 'loading'; render(); loadData().then(() => { S.phase = 'app'; render(); }).catch(() => { S.phase = 'error'; S.err = 'No se han podido cargar los datos.'; render(); }); break;
+    case 'role': S.role = v; try { localStorage.setItem('etc-role', v); } catch(err){}
+      if (v === 'tenant') D.me = D.myTenants.find(t => t.org_id === D.myManager.org_id) || D.myTenants[0];
+      if (v === 'manager') D.myManager = D.myManagers.find(m => m.org_id === D.me.org_id) || D.myManager;
+      S.tab = 'home'; S.adm = 'resumen'; switchView(); break;
+    case 'org': D.myManager = D.myManagers.find(m => m.org_id === v) || D.myManager; try { localStorage.setItem('etc-org', D.myManager.org_id); } catch(err){}
+      D.me = D.myTenants.find(t => t.org_id === D.myManager.org_id) || D.myTenants[0] || null; S.adm = 'resumen'; switchView(); break;
+    case 'staff-chip': sendStaff(v); break;
     case 'tab': S.tab = v; closeSheet(); render(); break;
     case 'chip': sendChat(v); break;
     case 'copy': if (v) copy(v, a.dataset.msg); break;
@@ -1297,6 +1339,7 @@ document.addEventListener('input', e => {
   if (el.id === 'chatIn'){ S.draft = el.value; const b = el.parentElement.querySelector('.send'); if (b) b.disabled = !el.value.trim() || S.typing; return; }
   if (el.dataset && el.dataset.inp === 'reply'){ S.replyDraft[el.dataset.v] = el.value; return; }
   if (el.id === 'noticeIn'){ S.noticeDraft = el.value; return; }
+  if (el.id === 'staffIn'){ S.staffDraft = el.value; return; }
   if (el.id === 'admQ'){ S.q = el.value; if (['resumen','avisos','ajustes','pisos'].includes(S.adm) && el.value.trim()) S.adm = 'inquilinos'; render(); return; }
   if (el.id === 'lg-mail'){ S.authEmail = el.value; }
 });
@@ -1313,6 +1356,7 @@ document.addEventListener('change', e => {
 document.addEventListener('submit', async e => {
   e.preventDefault();
   if (e.target.id === 'chatForm') sendChat($('chatIn').value);
+  if (e.target.id === 'staffForm') sendStaff($('staffIn').value);
   if (e.target.id === 'loginForm'){ const email = val('lg-mail').toLowerCase(); if (!email || S.busy) return;
     S.busy = true; S.authEmail = email; S.authMsg = ''; render();
     const { error } = await sb.auth.signInWithOtp({ email, options:{ emailRedirectTo:location.origin + location.pathname } });
