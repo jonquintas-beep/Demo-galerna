@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Elige tu cama</title>
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#17675A">
+<meta name="theme-color" content="#333436">
 <link rel="icon" type="image/png" href="icons/favicon.png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="manifest" href="manifest.webmanifest">
@@ -17,7 +17,7 @@
 :root{
   --page:#E6E8E6; --bg:#F2F3F1; --surface:#FFFFFF; --surface-2:#F8F9F8; --fill:rgba(116,124,120,.12); --fill-2:rgba(116,124,120,.2);
   --ink:#101413; --ink-2:#3B4240; --muted:#6C7471; --faint:#A0A7A4; --sep:rgba(16,20,19,.09); --sep-strong:rgba(16,20,19,.14);
-  --accent:#17675A; --accent-ink:#FFFFFF; --accent-tint:rgba(23,103,90,.10); --accent-tint-2:rgba(23,103,90,.16);
+  --accent:#2F3133; --accent-ink:#FFFFFF; --accent-tint:rgba(47,49,51,.08); --accent-tint-2:rgba(47,49,51,.14);
   --red:#D23B2C; --orange:#C26F06; --green:#1D8549; --blue:#2463CC; --red-tint:rgba(210,59,44,.10); --orange-tint:rgba(194,111,6,.11); --green-tint:rgba(29,133,73,.10); --blue-tint:rgba(36,99,204,.10);
   --t-blue:#2F7BF6; --t-green:#2EA45A; --t-orange:#EE8A1A; --t-red:#E4493C; --t-gray:#8C9390; --t-indigo:#5A5BD4; --t-teal:#1A9A8C; --t-yellow:#D9A10B;
   --bezel:#0B0C0C; --glass:rgba(255,255,255,.82); --scrim:rgba(8,12,11,.38);
@@ -31,7 +31,7 @@
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
   --page:#060707; --bg:#000000; --surface:#151817; --surface-2:#1C1F1E; --fill:rgba(130,140,136,.2); --fill-2:rgba(130,140,136,.3);
   --ink:#F1F4F3; --ink-2:#CDD3D1; --muted:#8E9693; --faint:#5F6764; --sep:rgba(255,255,255,.08); --sep-strong:rgba(255,255,255,.13);
-  --accent:#4DB89F; --accent-ink:#03140F; --accent-tint:rgba(77,184,159,.14); --accent-tint-2:rgba(77,184,159,.22);
+  --accent:#ECEDEE; --accent-ink:#17181A; --accent-tint:rgba(236,237,238,.12); --accent-tint-2:rgba(236,237,238,.2);
   --red:#FF6A5B; --orange:#F2A33A; --green:#46C47B; --blue:#72A2F6; --red-tint:rgba(255,106,91,.14); --orange-tint:rgba(242,163,58,.14); --green-tint:rgba(70,196,123,.14); --blue-tint:rgba(114,162,246,.14);
   --glass:rgba(21,24,23,.82); --scrim:rgba(0,0,0,.55);
   --shadow-dev:0 0 0 1px rgba(255,255,255,.06),0 30px 60px -20px rgba(0,0,0,.8);
@@ -40,7 +40,7 @@
 :root[data-theme="dark"]{
   --page:#060707; --bg:#000000; --surface:#151817; --surface-2:#1C1F1E; --fill:rgba(130,140,136,.2); --fill-2:rgba(130,140,136,.3);
   --ink:#F1F4F3; --ink-2:#CDD3D1; --muted:#8E9693; --faint:#5F6764; --sep:rgba(255,255,255,.08); --sep-strong:rgba(255,255,255,.13);
-  --accent:#4DB89F; --accent-ink:#03140F; --accent-tint:rgba(77,184,159,.14); --accent-tint-2:rgba(77,184,159,.22);
+  --accent:#ECEDEE; --accent-ink:#17181A; --accent-tint:rgba(236,237,238,.12); --accent-tint-2:rgba(236,237,238,.2);
   --red:#FF6A5B; --orange:#F2A33A; --green:#46C47B; --blue:#72A2F6; --red-tint:rgba(255,106,91,.14); --orange-tint:rgba(242,163,58,.14); --green-tint:rgba(70,196,123,.14); --blue-tint:rgba(114,162,246,.14);
   --glass:rgba(21,24,23,.82); --scrim:rgba(0,0,0,.55);
   --shadow-dev:0 0 0 1px rgba(255,255,255,.06),0 30px 60px -20px rgba(0,0,0,.8);
@@ -525,6 +525,10 @@ a.row{color:inherit}
 .cred .tag{margin:2px 2px 2px 0}
 .lrow .tx b{white-space:normal}
 @media (max-width:900px){ .mtop .btn.pri{order:2} .box-h{gap:8px} }
+.mark{background:#333436!important;overflow:hidden}
+.mark img{width:74%;height:74%;object-fit:contain;display:block}
+.brandhero{background:#333436;border-radius:16px;padding:26px 20px;display:grid;place-items:center}
+.brandhero img{width:min(230px,82%);height:auto;display:block}
 </style>
 </head>
 <body data-phase="loading">
@@ -712,7 +716,8 @@ async function act(fn, okMsg){
 /* ===================== Estructura ===================== */
 function safeRender(){ const ae = document.activeElement; if (ae && ae.closest && ae.closest('[data-form]')){ S.dirty = true; return; } render(); }
 document.addEventListener('focusout', () => setTimeout(() => { const ae = document.activeElement; if (S.dirty && !(ae && ae.closest && ae.closest('[data-form]'))){ S.dirty = false; render(); } }, 50));
-const mark = () => `<span class="mark">${ic('home')}</span>`;
+const mark = () => `<span class="mark"><img src="logo-symbol.png" alt=""></span>`;
+const hero = () => `<div class="brandhero"><img src="logo-full.png" alt="${BRAND}"></div>`;
 function render(){
   const root = $('root');
   const ae = document.activeElement, fid = ae && ae.id;
@@ -728,17 +733,17 @@ function render(){
   if (fid){ const n = $(fid); if (n && n !== document.activeElement){ n.focus(); if (n.setSelectionRange && n.value && (n.type === 'text' || n.type === 'search' || n.tagName === 'TEXTAREA')) try { n.setSelectionRange(n.value.length, n.value.length); } catch(e){} } }
 }
 function gateHTML(){
-  if (S.phase === 'loading') return `<div class="login center"><div class="mark">${ic('home')}</div><p>Cargando…</p></div>`;
-  if (S.phase === 'error') return `<div class="login"><div class="mark">${ic('home')}</div><div><h1>${BRAND}</h1><p>${esc(S.err)}</p></div><button class="b pri full" data-act="retry">Reintentar</button><button class="b fill full" data-act="logout">Cerrar sesión</button></div>`;
-  if (S.phase === 'noaccess') return `<div class="login"><div class="mark">${ic('home')}</div><div><h1>Este correo no tiene acceso</h1><p>Has entrado como <b>${esc(S.user.email)}</b>, pero ese correo no está dado de alta. Pide a tu gestor que te añada con este mismo correo y vuelve a entrar.</p></div><button class="b pri full" data-act="retry">Volver a comprobar</button><button class="b fill full" data-act="logout">Entrar con otro correo</button></div>`;
-  if (S.authStep === 'sent') return `<div class="login"><div class="mark">${ic('home')}</div>
+  if (S.phase === 'loading') return `<div class="login center">${hero()}<p>Cargando…</p></div>`;
+  if (S.phase === 'error') return `<div class="login">${hero()}<div><h1>${BRAND}</h1><p>${esc(S.err)}</p></div><button class="b pri full" data-act="retry">Reintentar</button><button class="b fill full" data-act="logout">Cerrar sesión</button></div>`;
+  if (S.phase === 'noaccess') return `<div class="login">${hero()}<div><h1>Este correo no tiene acceso</h1><p>Has entrado como <b>${esc(S.user.email)}</b>, pero ese correo no está dado de alta. Pide a tu gestor que te añada con este mismo correo y vuelve a entrar.</p></div><button class="b pri full" data-act="retry">Volver a comprobar</button><button class="b fill full" data-act="logout">Entrar con otro correo</button></div>`;
+  if (S.authStep === 'sent') return `<div class="login">${hero()}
     <div><h1>Revisa tu correo</h1><p>Hemos enviado un enlace de acceso a <b>${esc(S.authEmail)}</b>. Ábrelo en este mismo dispositivo para entrar. Si no llega en un par de minutos, mira en la carpeta de spam.</p></div>
     <form id="codeForm" class="stack"><div class="inp-group"><label><span>Código</span><input id="lg-code" inputmode="numeric" autocomplete="one-time-code" placeholder="Si el correo trae un código"></label></div>
     <button class="b pri full" type="submit">Entrar con el código</button></form>
     ${S.authMsg ? `<p class="errmsg">${esc(S.authMsg)}</p>` : ''}
     <button class="b fill full" data-act="auth-back">Usar otro correo</button></div>`;
-  return `<div class="login"><div class="mark">${ic('home')}</div>
-    <div><h1>${BRAND}</h1><p>Escribe el correo que diste al firmar el contrato. Te enviamos un enlace para entrar, sin contraseña.</p></div>
+  return `<div class="login">${hero()}
+    <div><h1>Entra en tu cuenta</h1><p>Escribe el correo que diste al firmar el contrato. Te enviamos un enlace para entrar, sin contraseña.</p></div>
     <form id="loginForm" class="stack"><div class="inp-group"><label><span>Correo</span><input id="lg-mail" type="email" autocomplete="email" inputmode="email" placeholder="tu@correo.com" value="${esc(S.authEmail)}" required></label></div>
     <button class="b pri full" type="submit" ${S.busy ? 'disabled' : ''}>${S.busy ? 'Enviando…' : 'Enviarme el enlace'}</button></form>
     ${S.authMsg ? `<p class="errmsg">${esc(S.authMsg)}</p>` : ''}
@@ -1115,7 +1120,7 @@ function dialog(title, body, foot=''){
   const f = $('dlg').querySelector('input,select,textarea'); if (f) f.focus();
 }
 function closeDialog(){ $('dlg').innerHTML = ''; }
-function toast(t){ const d = document.createElement('div'); d.className = 'toast'; d.innerHTML = `<span class="mark">${ic('home')}</span><span>${esc(t)}</span>`; $('toasts').appendChild(d); setTimeout(() => d.remove(), 4200); }
+function toast(t){ const d = document.createElement('div'); d.className = 'toast'; d.innerHTML = `${mark()}<span>${esc(t)}</span>`; $('toasts').appendChild(d); setTimeout(() => d.remove(), 4200); }
 function copy(v, msg){ const done = () => toast(msg || 'Copiado'); try { navigator.clipboard.writeText(v).then(done, () => toast(v)); } catch(e){ toast(v); } }
 
 function paySheet(id){
