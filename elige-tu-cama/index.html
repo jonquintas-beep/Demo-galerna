@@ -615,6 +615,10 @@ body[data-role="tenant"]{background:var(--page)}
 .code-in{font-size:22px!important;font-weight:600;letter-spacing:.28em;font-variant-numeric:tabular-nums}
 #lg-code{overflow-wrap:anywhere}
 .helpbox{background:var(--surface);border:1px solid var(--sep);border-radius:13px;padding:14px 16px}
+.rolebar{display:flex;justify-content:flex-end;padding:10px 16px 0}
+.rolebar .segm{background:var(--fill)}
+.mtop .rolebar{padding:0;margin-left:auto}
+@media (max-width:900px){ .mtop .rolebar{order:-1;width:100%;justify-content:flex-start;margin:0 0 2px} }
 .helpbox b{font-size:14px;display:block;margin-bottom:4px}
 .helpbox p{font-size:13.5px;color:var(--muted);line-height:1.45}
 @media (max-width:820px){
@@ -909,6 +913,8 @@ async function act(fn, okMsg){
 /* ===================== Estructura ===================== */
 function safeRender(){ const ae = document.activeElement; if (ae && ae.closest && ae.closest('[data-form]')){ S.dirty = true; return; } render(); }
 document.addEventListener('focusout', () => setTimeout(() => { const ae = document.activeElement; if (S.dirty && !(ae && ae.closest && ae.closest('[data-form]'))){ S.dirty = false; render(); } }, 50));
+const dual = () => (D.myManagers || []).some(m => D.org && m.org_id === D.org.id) && (D.myTenants || []).some(t => D.org && t.org_id === D.org.id);
+const roleBar = cur => !dual() ? '' : `<div class="rolebar"><div class="segm"><button class="${cur === 'manager' ? 'on' : ''}" data-act="role" data-v="manager">Gestor</button><button class="${cur === 'tenant' ? 'on' : ''}" data-act="role" data-v="tenant">Inquilino</button></div></div>`;
 const mark = () => `<span class="mark"><img src="logo-symbol.png" alt=""></span>`;
 const hero = () => '';
 function render(){
@@ -958,7 +964,7 @@ function renderTenant(){
   else scr.scrollTop = prevTab === S.tab ? prevScroll : 0;
 }
 function largeTitle(title, sub){
-  return `<div class="lt"><div>${sub ? `<p class="d">${sub}</p>` : ''}<h1>${title}</h1></div>
+  return roleBar('tenant') + `<div class="lt"><div>${sub ? `<p class="d">${sub}</p>` : ''}<h1>${title}</h1></div>
     <button class="avbtn" data-act="tab" data-v="house" aria-label="Mi casa"><span class="av">${initials(D.me.full_name)}</span></button></div>`;
 }
 function rentCard(t){
@@ -1107,7 +1113,7 @@ function renderAdmin(){
       <div class="side-foot"><span class="av sm">${initials(me.full_name || me.email)}</span><div style="min-width:0"><b>${esc(me.full_name || first(me.email.split('@')[0]))}</b><small>${esc(me.email)}</small></div><button class="tgl" data-act="theme" aria-label="Cambiar entre modo claro y oscuro">${ic(isDark() ? 'sun' : 'moon')}</button></div>
     </aside>
     <section class="main">
-      <div class="mtop"><h2>${TITLES[S.adm]}</h2>
+      <div class="mtop"><h2>${TITLES[S.adm]}</h2>${roleBar('manager')}
         <label class="msearch">${ic('search')}<span class="sr">Buscar</span><input id="admQ" type="search" placeholder="Buscar inquilino o calle" value="${esc(S.q)}" autocomplete="off"></label>
         <button class="btn pri" data-act="alta-open">${ic('userplus')}Alta de inquilino</button>
       </div>
