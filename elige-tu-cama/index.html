@@ -782,7 +782,7 @@ const BUCKET = 'justificantes';
 const BRAND = 'Elige tu cama';
 
 const S = { phase:'loading', user:null, roles:[], role:null, tab:'home', adm:'resumen', q:'', sel:null, payFilter:'att', incFilter:'open', roomFilter:'all',
-  period:null, typing:false, draft:'', replyDraft:{}, noticeDraft:'', noticeHouse:'all', authStep:'email', authEmail:'', authMsg:'', busy:false, dirty:false, imp:null, err:'', staffChat:[], staffDraft:'', staffBusy:false };
+  period:null, typing:false, draft:'', replyDraft:{}, noticeDraft:'', noticeHouse:'all', authStep:'email', authVia:'mail', authEmail:'', authMsg:'', busy:false, dirty:false, imp:null, err:'', staffChat:[], staffDraft:'', staffBusy:false };
 const D = { org:null, houses:[], rooms:[], tenants:[], payments:[], incidents:[], tickets:[], messages:[], notices:[], audit:[], managers:[], me:null, mates:[], myOrgs:[] };
 
 /* ===================== Fechas ===================== */
@@ -930,17 +930,18 @@ function gateHTML(){
   if (S.phase === 'error') return `<div class="login">${hero()}<div><h1>${BRAND}</h1><p>${esc(S.err)}</p></div><button class="b pri full" data-act="retry">Reintentar</button><button class="b fill full" data-act="logout">Cerrar sesión</button></div>`;
   if (S.phase === 'noaccess') return `<div class="login">${hero()}<div><h1>Este correo no tiene acceso</h1><p>Has entrado como <b>${esc(S.user.email)}</b>, pero ese correo no está dado de alta. Pide a tu gestor que te añada con este mismo correo y vuelve a entrar.</p></div><button class="b pri full" data-act="retry">Volver a comprobar</button><button class="b fill full" data-act="logout">Entrar con otro correo</button></div>`;
   if (S.authStep === 'sent') return `<div class="login">
-    <div><h1>Ya puedes entrar</h1><p>Hemos enviado un correo a <b>${esc(S.authEmail)}</b>. Si no llega en un par de minutos, mira en la carpeta de spam.</p></div>
+    <div><h1>Escribe tu código</h1><p>${S.authVia === 'code' ? `Pide el código en la app donde ya has entrado: Cuenta &rsaquo; <b>Entrar en otro dispositivo</b>.` : `Hemos enviado un correo a <b>${esc(S.authEmail)}</b>. Si no llega en un par de minutos, mira en la carpeta de spam.`}</p></div>
     <form id="codeForm" class="stack"><div class="inp-group"><label><span>Código</span><input id="lg-code" class="code-in" inputmode="numeric" autocomplete="one-time-code" placeholder="000000" required></label></div>
     <button class="b pri full" type="submit" ${S.busy ? 'disabled' : ''}>${S.busy ? 'Comprobando…' : 'Entrar'}</button></form>
     ${S.authMsg ? `<p class="errmsg">${esc(S.authMsg)}</p>` : ''}
-    <div class="helpbox"><b>¿El correo no trae código?</b><p>Mantén pulsado el botón del correo, elige <b>Copiar enlace</b> y pégalo aquí arriba. No lo abras antes: solo sirve una vez.</p></div>
-    <button class="b fill full" data-act="auth-back">Usar otro correo o pedir otro código</button></div>`;
+    ${S.authVia === 'code' ? '' : `<div class="helpbox"><b>¿El correo no trae código?</b><p>Abre el correo en el ordenador y pulsa el enlace, o pide un código desde otro dispositivo donde ya hayas entrado.</p></div>`}
+    <button class="b fill full" data-act="auth-back">Volver</button></div>`;
   return `<div class="login">${hero()}
     <div><h1>Entra en tu cuenta</h1><p>Escribe el correo que diste al firmar el contrato. Te enviamos un código para entrar, sin contraseña.</p></div>
     <form id="loginForm" class="stack"><div class="inp-group"><label><span>Correo</span><input id="lg-mail" type="email" autocomplete="email" inputmode="email" placeholder="tu@correo.com" value="${esc(S.authEmail)}" required></label></div>
     <button class="b pri full" type="submit" ${S.busy ? 'disabled' : ''}>${S.busy ? 'Enviando…' : 'Enviarme el código'}</button></form>
     ${S.authMsg ? `<p class="errmsg">${esc(S.authMsg)}</p>` : ''}
+    <button class="b fill full" data-act="have-code">Ya tengo un código</button>
     <p class="foot">${ic('lock','style="width:13px;height:13px;vertical-align:-2px"')} Solo pueden entrar los correos dados de alta por la gestora</p></div>`;
 }
 
@@ -1081,6 +1082,7 @@ function houseHTML(){
       <a class="row ti" href="tel:112">${tile('alert','red')}<span class="tx"><span class="t1">Emergencias</span></span><span class="val num">112</span></a></div>
     <p class="gh">Cuenta</p><div class="group">
       <div class="row"><span class="av sm">${initials(t.full_name)}</span><span class="tx"><span class="t1">${esc(t.full_name)}</span><span class="t2">${esc(t.email || S.user.email)}</span></span></div>
+      <button class="row ti" data-act="device-code">${tile('phone','blue')}<span class="tx"><span class="t1">Entrar en otro dispositivo</span></span>${chev()}</button>
       <button class="row ti" data-act="theme">${tile('moon','indigo')}<span class="tx"><span class="t1">Modo oscuro</span></span><span class="switch" aria-hidden="true"></span></button>
       <button class="row ti" data-act="install">${tile('share','gray')}<span class="tx"><span class="t1">Añadir a la pantalla de inicio</span></span>${chev()}</button>
       ${D.myManagers.some(m => m.org_id === D.me.org_id) ? `<button class="row center" data-act="role" data-v="manager"><span class="t1">Ir al panel de gestión</span></button>` : ''}
@@ -1292,7 +1294,7 @@ function admAjustes(){
         <div>${D.managers.map(m => `<div class="lrow"><span class="av sm">${initials(m.full_name || m.email)}</span><div class="tx"><b>${esc(m.full_name || m.email)}</b><span>${esc(m.email)} · ${m.user_id ? 'ha entrado' : 'aún no ha entrado'}</span></div>${m.id !== D.myManager.id ? `<button class="btn ghost xs" data-act="mgr-del" data-v="${m.id}">Quitar</button>` : ''}</div>`).join('')}</div>
         <div class="box-b" style="display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid var(--sep)"><input id="mgr-mail" class="inl" type="email" placeholder="correo@empresa.com" autocomplete="off"><button class="btn sec" data-act="mgr-add">Dar acceso</button></div></div>
       ${otherOrgs().length ? `<div class="box"><div class="box-h"><h3>Organización</h3><span class="s">Estás en ${esc(D.org.name)}</span></div><div class="box-b" style="display:flex;gap:8px;flex-wrap:wrap">${otherOrgs().map(o => `<button class="btn sec" data-act="org" data-v="${o.id}">Cambiar a ${esc(o.name)}</button>`).join('')}</div></div>` : ''}
-      <div class="box"><div class="box-b" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span style="font-size:13.5px;color:var(--muted);margin-right:auto">${esc(S.user.email)}</span>${D.myTenants.some(t => t.org_id === D.org.id) ? `<button class="btn sec" data-act="role" data-v="tenant">Ver mi app de inquilino</button>` : ''}<button class="btn sec" data-act="theme">${ic(isDark() ? 'sun' : 'moon')}${isDark() ? 'Modo claro' : 'Modo oscuro'}</button><button class="btn sec" data-act="logout">${ic('logout')}Cerrar sesión</button></div></div>
+      <div class="box"><div class="box-b" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span style="font-size:13.5px;color:var(--muted);margin-right:auto">${esc(S.user.email)}</span>${D.myTenants.some(t => t.org_id === D.org.id) ? `<button class="btn sec" data-act="role" data-v="tenant">Ver mi app de inquilino</button>` : ''}<button class="btn sec" data-act="device-code">${ic('phone')}Entrar en otro dispositivo</button><button class="btn sec" data-act="theme">${ic(isDark() ? 'sun' : 'moon')}${isDark() ? 'Modo claro' : 'Modo oscuro'}</button><button class="btn sec" data-act="logout">${ic('logout')}Cerrar sesión</button></div></div>
     </div></div>`;
 }
 
@@ -1431,6 +1433,18 @@ function altaDialog(id){
     <div class="f2"><label class="fl">Entrada<input id="al-since" type="date" value="${esc(t.since || '')}"></label><label class="fl">Salida<input id="al-until" type="date" value="${esc(t.until || '')}"></label></div>`,
     `${id ? `<button class="btn ghost" style="margin-right:auto;color:var(--red)" data-act="tenant-toggle" data-v="${id}">${t.active ? 'Dar de baja' : 'Reactivar'}</button>` : ''}<button class="btn sec" data-act="dlg-close">Cancelar</button><button class="btn pri" data-act="alta-submit" data-v="${id || ''}">${id ? 'Guardar' : 'Dar de alta'}</button>`);
 }
+async function act2(btn){
+  if (S.busy) return; S.busy = true; const old = btn.textContent; btn.textContent = 'Generando…';
+  try {
+    const { data, error } = await sb.functions.invoke('access-code', { body:{} });
+    if (error || !data || !data.code) throw error || new Error('sin código');
+    dialog('Entrar en otro dispositivo', `<p style="font-size:14px;color:var(--ink-2)">Abre la app en el otro dispositivo, escribe <b>${esc(data.email)}</b> y pulsa «Ya tengo un código». Después escribe este código:</p>
+      <p style="font-family:var(--sys);font-size:38px;font-weight:700;letter-spacing:.2em;text-align:center;margin:6px 0">${esc(data.code)}</p>
+      <p style="font-size:13px;color:var(--muted)">Caduca en una hora y solo sirve una vez.</p>`,
+      `<button class="btn sec" data-act="copy" data-v="${esc(data.code)}" data-msg="Código copiado">Copiar código</button><button class="btn pri" data-act="dlg-close">Hecho</button>`);
+  } catch(e){ console.error(e); toast('No se ha podido generar el código. Inténtalo de nuevo.'); }
+  S.busy = false; btn.textContent = old;
+}
 function installSheet(){
   const ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
   sheet('Añadir a inicio', `<div class="doc">${ios ? '<p>1. Abre esta página en <b>Safari</b>.</p><p>2. Pulsa el botón <b>Compartir</b>.</p><p>3. Elige <b>«Añadir a pantalla de inicio»</b>.</p>' : '<p>1. Abre el menú <b>⋮</b> de Chrome.</p><p>2. Elige <b>«Instalar aplicación»</b> o «Añadir a pantalla de inicio».</p>'}<p>Tendrás la app con su icono, a pantalla completa.</p></div>`, { left:'Cerrar' });
@@ -1447,6 +1461,10 @@ document.addEventListener('click', e => {
     case 'retry': sb.auth.getSession().then(({ data }) => boot(data.session)); break;
     case 'logout': if (channel){ try { sb.removeChannel(channel); } catch(err){} channel = null; } sb.auth.signOut().finally(() => { S.authStep = 'email'; S.authMsg = ''; boot(null); }); break;
     case 'auth-back': S.authStep = 'email'; S.authMsg = ''; render(); break;
+    case 'have-code': { const m = val('lg-mail').toLowerCase();
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(m)){ S.authMsg = 'Escribe primero tu correo.'; render(); const f = $('lg-mail'); if (f) f.focus(); break; }
+      S.authEmail = m; S.authVia = 'code'; S.authStep = 'sent'; S.authMsg = ''; render(); break; }
+    case 'device-code': act2(a); break;
     case 'role': S.role = v; try { localStorage.setItem('etc-role', v); } catch(err){}
       if (v === 'tenant') D.me = D.myTenants.find(t => t.org_id === D.myManager.org_id) || D.myTenants[0];
       if (v === 'manager') D.myManager = D.myManagers.find(m => m.org_id === D.me.org_id) || D.myManager;
@@ -1558,7 +1576,7 @@ document.addEventListener('submit', async e => {
     const { error } = await sb.auth.signInWithOtp({ email, options:{ emailRedirectTo:location.origin + location.pathname } });
     S.busy = false;
     if (error) S.authMsg = /rate|seconds|limit/i.test(error.message) ? 'Has pedido demasiados códigos seguidos. Espera un minuto y vuelve a intentarlo.' : 'No se ha podido enviar el código. Revisa el correo e inténtalo de nuevo.';
-    else S.authStep = 'sent';
+    else { S.authStep = 'sent'; S.authVia = 'mail'; }
     render(); }
   if (e.target.id === 'codeForm'){ const raw = val('lg-code'); if (!raw || S.busy) return;
     S.busy = true; S.authMsg = ''; render();
