@@ -1583,12 +1583,13 @@ document.addEventListener('submit', async e => {
     S.busy = true; S.authEmail = email; S.authMsg = ''; render();
     let ok = false;
     try {
-      const { data, error } = await sb.functions.invoke('send-code', { body:{ email, redirect:location.origin + location.pathname } });
+      let { data, error } = await sb.functions.invoke('send-code', { body:{ email, redirect:location.origin + location.pathname } });
+      if (error && error.context && typeof error.context.json === 'function'){ try { data = await error.context.json(); error = null; } catch(x){} }
       if (error) throw error;
       if (data && data.ok){ ok = true; S.authVia = data.via === 'resend' ? 'mail' : 'link'; }
       else if (data && data.error === 'not_registered') S.authMsg = 'Ese correo no está dado de alta. Pide a tu gestor que te añada con este mismo correo.';
       else if (data && data.error === 'rate') S.authMsg = 'Has pedido demasiados códigos seguidos. Espera unos minutos y vuelve a intentarlo.';
-      else S.authMsg = 'No se ha podido enviar el código. Inténtalo de nuevo en un momento.';
+      else S.authMsg = 'No se ha podido enviar el correo (' + ((data && (data.error + (data.detail ? ' ' + data.detail : ''))) || 'error') + '). Avisa al gestor.';
     } catch(err){
       console.error(err);
       const { error } = await sb.auth.signInWithOtp({ email, options:{ emailRedirectTo:location.origin + location.pathname } });
