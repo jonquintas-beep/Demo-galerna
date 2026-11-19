@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Asfaltokia · Baja a Mina Lucía (demo)</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0b0b0c">
+<link rel="icon" type="image/png" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-title" content="Asfaltokia">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --betun:#0b0b0c; --roca:#1a1918; --roca2:#26241f; --gris:#8c877d; --hueso:#ece6da;
+  --casco:#f2a23a; --casco2:#ffbf5e; --veta:#2b2a2a;
+  --x:50%; --y:45%; --r:210px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--betun);color:var(--hueso);font-family:"Open Sans",system-ui,sans-serif;line-height:1.6;overflow-x:hidden}
+h1,h2,h3,.cond{font-family:"Barlow Semi Condensed",sans-serif;letter-spacing:.01em}
+a{color:inherit}
+button{font:inherit;cursor:pointer}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+
+/* demo strip */
+.demo-strip{background:var(--casco);color:#1b1306;font-size:13px;text-align:center;padding:6px 12px;font-weight:600}
+
+/* nav */
+nav.top{position:sticky;top:0;z-index:40;background:rgba(11,11,12,.86);backdrop-filter:blur(8px);border-bottom:1px solid #222}
+nav.top .wrap{display:flex;align-items:center;gap:20px;height:62px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo b{font-family:"Barlow Semi Condensed";font-size:26px;font-weight:700;letter-spacing:.02em}
+.logo svg{width:22px;height:30px}
+.links{display:flex;gap:22px;margin-left:auto;font-family:"Barlow Semi Condensed";font-weight:600;text-transform:uppercase;font-size:15px}
+.links a{text-decoration:none;color:#cfc8ba}
+.links a:hover{color:var(--casco)}
+.lang{display:flex;border:1px solid #444;border-radius:20px;overflow:hidden}
+.lang button{background:none;border:0;color:#aaa;padding:4px 10px;font-size:13px;font-weight:700}
+.lang button.on{background:var(--hueso);color:var(--betun)}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:999px;padding:13px 24px;font-family:"Barlow Semi Condensed";font-weight:700;font-size:18px;text-transform:uppercase;letter-spacing:.03em;text-decoration:none;transition:transform .15s, box-shadow .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn-casco{background:var(--casco);color:#1b1306;box-shadow:0 0 0 0 rgba(242,162,58,.5)}
+.btn-casco:hover{box-shadow:0 8px 30px rgba(242,162,58,.35)}
+.btn-ghost{background:transparent;color:var(--hueso);border:1.5px solid #5a554c}
+.nav-cta{padding:9px 16px;font-size:15px}
+
+/* hero */
+.hero{position:relative;height:calc(100vh - 92px);min-height:560px;overflow:hidden;cursor:none;touch-action:pan-y}
+.hero .rock{position:absolute;inset:0}
+.hero .rock svg{width:100%;height:100%;display:block}
+.hero .dark{position:absolute;inset:0;background:#050505;
+  -webkit-mask-image:radial-gradient(circle var(--r) at var(--x) var(--y),transparent 0,transparent 35%,rgba(0,0,0,.75) 70%,#000 100%);
+          mask-image:radial-gradient(circle var(--r) at var(--x) var(--y),transparent 0,transparent 35%,rgba(0,0,0,.75) 70%,#000 100%)}
+.hero .glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle calc(var(--r)*1.1) at var(--x) var(--y),rgba(255,214,150,.13),transparent 70%);mix-blend-mode:screen}
+.hero .content{position:relative;z-index:3;height:100%;display:flex;flex-direction:column;justify-content:center;pointer-events:none}
+.hero .content *{pointer-events:auto}
+.kicker{font-family:"Barlow Semi Condensed";text-transform:uppercase;letter-spacing:.2em;color:var(--casco);font-weight:700;font-size:15px;margin-bottom:14px}
+.hero h1{font-size:clamp(56px,10vw,128px);line-height:.88;font-weight:800;text-transform:uppercase;text-shadow:0 2px 30px rgba(0,0,0,.6)}
+.hero h1 span{display:block;color:transparent;-webkit-text-stroke:2px var(--hueso)}
+.hero p.lead{max-width:520px;margin:22px 0 30px;font-size:18px;color:#d8d1c3;text-shadow:0 1px 10px #000}
+.hero .ctas{display:flex;gap:14px;flex-wrap:wrap}
+.hint{position:absolute;z-index:3;bottom:26px;left:50%;transform:translateX(-50%);font-size:13px;color:#8c877d;letter-spacing:.12em;text-transform:uppercase;font-family:"Barlow Semi Condensed";display:flex;align-items:center;gap:8px}
+.hint i{width:8px;height:8px;border-radius:50%;background:var(--casco);box-shadow:0 0 12px var(--casco);animation:blink 1.6s infinite}
+@keyframes blink{50%{opacity:.25}}
+.stat-pill{position:absolute;z-index:3;right:24px;bottom:120px;background:rgba(0,0,0,.6);border:1px solid #333;border-radius:14px;padding:12px 16px;font-size:13px;max-width:230px}
+.stat-pill b{font-family:"Barlow Semi Condensed";font-size:30px;color:var(--casco);display:block;line-height:1}
+
+/* depth gauge */
+.gauge{position:fixed;left:18px;top:50%;transform:translateY(-50%);z-index:30;height:46vh;width:64px;display:flex;flex-direction:column;align-items:center;opacity:0;transition:opacity .4s}
+.gauge.show{opacity:1}
+.gauge .line{flex:1;width:2px;background:linear-gradient(#444,#222);position:relative;border-radius:2px}
+.gauge .fill{position:absolute;top:0;left:0;width:2px;background:var(--casco);border-radius:2px}
+.gauge .dot{position:absolute;left:-6px;width:14px;height:14px;border-radius:50%;background:var(--casco);box-shadow:0 0 14px var(--casco)}
+.gauge .lbl{font-family:"Barlow Semi Condensed";font-size:13px;color:#a8a194;margin-top:8px;text-align:center;line-height:1.1}
+.gauge .lbl b{color:var(--hueso);font-size:18px;display:block;white-space:nowrap}
+
+/* galleries */
+section{position:relative}
+.gal{padding:110px 0;border-top:1px solid #1e1d1b}
+.gal:nth-of-type(even){background:linear-gradient(180deg,#0d0d0e,#121110)}
+.gal-tag{display:inline-flex;align-items:center;gap:10px;font-family:"Barlow Semi Condensed";text-transform:uppercase;letter-spacing:.18em;font-weight:700;color:var(--casco);font-size:14px;margin-bottom:12px}
+.gal-tag::before{content:"";width:34px;height:2px;background:var(--casco)}
+.gal h2{font-size:clamp(38px,5.5vw,64px);line-height:.95;text-transform:uppercase;font-weight:800;margin-bottom:22px}
+.grid2{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.gal p{color:#cbc4b6;font-size:17px;margin-bottom:16px;max-width:560px}
+.fact-row{display:flex;gap:28px;margin-top:26px;flex-wrap:wrap}
+.fact b{font-family:"Barlow Semi Condensed";font-size:44px;color:var(--hueso);line-height:1;display:block}
+.fact span{font-size:13px;color:#8c877d;text-transform:uppercase;letter-spacing:.08em}
+.peques{margin-top:24px;background:#1b1a17;border:1px dashed #5b4a2c;border-radius:16px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start;max-width:560px}
+.peques svg{flex:none;width:46px;height:46px}
+.peques b{color:var(--casco2);font-family:"Barlow Semi Condensed";font-size:18px;display:block}
+.peques p{font-size:15px;margin:0;color:#d8d1c3}
+
+.vid{display:flex;align-items:center;gap:16px;margin-top:28px;max-width:560px;text-decoration:none;background:linear-gradient(120deg,#1d1b17,#0e0e0e);border:1px solid #33302a;border-radius:18px;padding:14px;transition:border-color .15s,transform .15s}
+.vid:hover{border-color:var(--casco);transform:translateY(-2px)}
+.vid .pl{flex:none;width:120px;height:72px;border-radius:12px;position:relative;overflow:hidden;background:radial-gradient(circle at 30% 40%,#4a4337,#121110 70%)}
+.vid .pl::before{content:"";position:absolute;left:0;right:0;top:44%;height:10px;background:#050505;box-shadow:0 1px 0 rgba(255,255,255,.08)}
+.vid .pl i{position:absolute;inset:0;margin:auto;width:40px;height:40px;border-radius:50%;background:var(--casco);display:flex;align-items:center;justify-content:center;box-shadow:0 0 22px rgba(242,162,58,.5)}
+.vid .pl i::after{content:"";margin-left:4px;border-left:13px solid #1b1306;border-top:8px solid transparent;border-bottom:8px solid transparent}
+.vid b{font-family:"Barlow Semi Condensed";font-size:20px;display:block;line-height:1.1;color:var(--hueso)}
+.vid span{font-size:13.5px;color:#a8a194}
+
+.vmodal{position:fixed;inset:0;z-index:95;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;padding:18px}
+.vmodal.open{display:flex}
+.vmodal .vb{width:960px;max-width:100%;aspect-ratio:16/9;background:#000;border-radius:16px;overflow:hidden;position:relative}
+.vmodal iframe{width:100%;height:100%;border:0;display:block}
+.vmodal .vx{position:absolute;top:14px;right:14px;background:#24221e;border:0;color:#fff;width:40px;height:40px;border-radius:50%;font-size:20px}
+/* pan de asfalto visual */
+.panes{position:relative;height:380px}
+.pan{position:absolute;width:210px;height:120px;border-radius:10px;background:linear-gradient(145deg,#2c2b2a,#0e0e0e 60%,#1c1b1a);box-shadow:inset 0 2px 0 rgba(255,255,255,.07),0 22px 40px rgba(0,0,0,.6);display:flex;align-items:flex-end;padding:12px;font-family:"Barlow Semi Condensed";color:#6c675e;font-size:13px;letter-spacing:.1em;text-transform:uppercase}
+.pan::after{content:"";position:absolute;left:16px;right:30px;top:18px;height:6px;border-radius:6px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent)}
+.pan:nth-child(1){left:6%;top:30px;transform:rotate(-8deg)}
+.pan:nth-child(2){left:34%;top:120px;transform:rotate(5deg)}
+.pan:nth-child(3){left:12%;top:220px;transform:rotate(-2deg)}
+.tren{position:absolute;right:0;bottom:6px;width:58%;opacity:.9}
+
+/* diapiro */
+.diapiro{background:#121110;border:1px solid #2a2824;border-radius:22px;padding:18px;position:relative;overflow:hidden}
+.diapiro svg{width:100%;height:auto;display:block}
+.salt{transform-origin:50% 100%;animation:rise 7s ease-in-out infinite}
+@keyframes rise{0%,10%{transform:scaleY(.35)}55%,80%{transform:scaleY(1)}100%{transform:scaleY(.35)}}
+.oil{animation:ooze 7s ease-in-out infinite;opacity:0}
+@keyframes ooze{0%,35%{opacity:0;transform:translateY(16px)}60%,85%{opacity:1;transform:translateY(0)}100%{opacity:0}}
+.diapiro .cap{font-size:13px;color:#8c877d;margin-top:10px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.diapiro .cap i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+
+/* estación */
+.station-card{background:linear-gradient(160deg,#1f1d1a,#0f0f0f);border:1px solid #2c2a25;border-radius:22px;padding:28px;position:relative;overflow:hidden}
+.station-card svg{width:100%;height:auto}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.badge{border:1px solid #3d3a33;border-radius:999px;padding:7px 14px;font-size:14px;color:#d8d1c3;background:#151413}
+
+/* visita */
+.visit-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:30px}
+.vcard{background:#151413;border:1px solid #2a2824;border-radius:18px;padding:22px}
+.vcard svg{width:34px;height:34px;margin-bottom:10px}
+.vcard b{font-family:"Barlow Semi Condensed";font-size:21px;display:block;margin-bottom:4px}
+.vcard p{font-size:14.5px;color:#a8a194;margin:0}
+.prices{display:flex;gap:14px;margin-top:22px;flex-wrap:wrap}
+.price{flex:1;min-width:150px;background:#1b1a17;border-radius:16px;padding:16px 18px;border:1px solid #2c2a25}
+.price b{font-family:"Barlow Semi Condensed";font-size:34px;color:var(--casco)}
+.price span{display:block;color:#a8a194;font-size:14px}
+.example{font-size:12px;color:#8c877d;margin-top:10px}
+
+/* turnos */
+.days{display:flex;gap:10px;overflow-x:auto;padding:4px 2px 12px;margin-top:28px;scrollbar-width:thin}
+.day{flex:none;min-width:116px;background:#151413;border:1.5px solid #2c2a25;border-radius:16px;padding:12px 14px;text-align:left;color:var(--hueso)}
+.day small{display:block;text-transform:uppercase;letter-spacing:.1em;color:#8c877d;font-size:11px}
+.day b{font-family:"Barlow Semi Condensed";font-size:30px;line-height:1}
+.day em{font-style:normal;font-size:13px;color:#cbc4b6;display:block}
+.day.on{border-color:var(--casco);background:#21190d}
+.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}
+.slot{background:#151413;border:1.5px solid #2c2a25;border-radius:18px;padding:20px;text-align:left;color:var(--hueso);transition:border-color .15s,transform .15s}
+.slot:hover:not([disabled]){border-color:var(--casco);transform:translateY(-2px)}
+.slot b{font-family:"Barlow Semi Condensed";font-size:38px;line-height:1;display:block}
+.bar{height:6px;background:#2a2824;border-radius:6px;margin:12px 0 8px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--casco)}
+.slot span{font-size:14px;color:#a8a194}
+.slot[disabled]{opacity:.45;cursor:not-allowed}
+.slot .go{float:right;font-family:"Barlow Semi Condensed";font-weight:700;color:var(--casco);text-transform:uppercase;font-size:15px}
+
+/* rutas */
+.routes{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:30px}
+.route{background:#151413;border:1px solid #2a2824;border-radius:16px;padding:18px}
+.route b{font-family:"Barlow Semi Condensed";font-size:19px;line-height:1.1;display:block;min-height:44px}
+.route .km{font-family:"Barlow Semi Condensed";font-size:32px;color:var(--casco);margin-top:8px}
+.route span{font-size:13px;color:#a8a194;display:block}
+.diff{display:inline-block;margin-top:8px;font-size:12px;padding:3px 10px;border-radius:999px;background:#24221e;color:#d8d1c3}
+
+/* panel */
+.panel{background:#f3efe6;color:#1d1b17;border-radius:24px;padding:30px;margin-top:30px}
+.panel h3{font-size:26px;margin-bottom:4px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:20px 0}
+.kpi{background:#fff;border-radius:14px;padding:14px 16px;border:1px solid #e3ddd0}
+.kpi b{font-family:"Barlow Semi Condensed";font-size:34px;display:block;line-height:1}
+.kpi span{font-size:13px;color:#6b665c}
+table{width:100%;border-collapse:collapse;font-size:14.5px;background:#fff;border-radius:14px;overflow:hidden}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid #eee7da}
+th{background:#ebe5d8;font-weight:700;font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;color:#5d584e}
+td .st{font-size:12px;padding:3px 9px;border-radius:999px;background:#e5f4e3;color:#25632a;font-weight:700}
+td .src{font-size:12px;padding:3px 9px;border-radius:999px;background:#fbead0;color:#8a5a12;font-weight:700}
+tr.new{animation:hl 2.5s}
+@keyframes hl{0%{background:#fff3c9}100%{background:#fff}}
+.table-wrap{overflow-x:auto;border-radius:14px}
+
+/* footer */
+footer{padding:60px 0 120px;border-top:1px solid #1e1d1b;color:#8c877d;font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
+footer b{color:var(--hueso);font-family:"Barlow Semi Condensed";font-size:20px}
+
+/* Lucía chat */
+.lucia-fab{position:fixed;right:22px;bottom:22px;z-index:60;display:flex;align-items:center;gap:10px;background:#141312;border:1.5px solid var(--casco);border-radius:999px;padding:6px 18px 6px 6px;color:var(--hueso);box-shadow:0 10px 40px rgba(0,0,0,.6)}
+.lucia-fab .av{width:52px;height:52px}
+.lucia-fab b{font-family:"Barlow Semi Condensed";font-size:18px;display:block;line-height:1.1;text-align:left}
+.lucia-fab small{font-size:12px;color:#a8a194;display:block;text-align:left}
+.lucia-fab .ping{position:absolute;top:4px;left:44px;width:12px;height:12px;border-radius:50%;background:#46d06a;border:2px solid #141312}
+.chat{position:fixed;right:22px;bottom:22px;z-index:70;width:390px;max-width:calc(100vw - 24px);height:620px;max-height:calc(100vh - 44px);background:#121110;border:1px solid #34312b;border-radius:22px;display:none;flex-direction:column;overflow:hidden;box-shadow:0 20px 70px rgba(0,0,0,.7)}
+.chat.open{display:flex}
+.chat-head{display:flex;align-items:center;gap:12px;padding:12px 14px;background:linear-gradient(90deg,#1e1a12,#141312);border-bottom:1px solid #2c2a25}
+.chat-head .av{width:44px;height:44px}
+.chat-head b{font-family:"Barlow Semi Condensed";font-size:20px;display:block;line-height:1}
+.chat-head small{font-size:12px;color:#8fd9a2}
+.chat-head .x{margin-left:auto;background:#24221e;border:0;color:#cbc4b6;width:34px;height:34px;border-radius:50%;font-size:18px}
+.msgs{flex:1;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:10px;background:radial-gradient(circle at 80% 0%,#1d1912,#121110 60%)}
+.msgs>*{flex-shrink:0}
+.m{max-width:86%;padding:10px 13px;border-radius:16px;font-size:14.5px;line-height:1.45;white-space:pre-wrap;word-wrap:break-word}
+.m.bot{background:#22201b;border:1px solid #2f2c26;align-self:flex-start;border-bottom-left-radius:4px}
+.m.me{background:var(--casco);color:#1b1306;align-self:flex-end;border-bottom-right-radius:4px;font-weight:600}
+.m.typing{color:#8c877d;font-style:italic}
+.qr{display:flex;flex-wrap:wrap;gap:6px;align-self:flex-start}
+.qr button{background:transparent;border:1.5px solid #5b4a2c;color:var(--casco2);border-radius:999px;padding:6px 12px;font-size:13.5px;font-weight:600}
+.qr button:hover{background:#2a2112}
+.chat-in{display:flex;gap:8px;padding:10px;border-top:1px solid #2c2a25;background:#141312}
+.chat-in input{flex:1;background:#1f1d19;border:1px solid #34312b;border-radius:999px;padding:11px 15px;color:var(--hueso);font:inherit;font-size:14.5px;outline:none}
+.chat-in input:focus{border-color:var(--casco)}
+.chat-in button{background:var(--casco);border:0;border-radius:50%;width:44px;height:44px;color:#1b1306;font-size:18px;font-weight:800}
+.chat-foot{font-size:11px;color:#6f6a60;text-align:center;padding:0 10px 8px;background:#141312}
+
+/* ticket */
+.ticket{align-self:stretch;background:#f3efe6;color:#1d1b17;border-radius:14px;position:relative;overflow:hidden;font-size:14px}
+.ticket .tt{background:var(--casco);padding:10px 14px;font-family:"Barlow Semi Condensed";font-weight:800;font-size:18px;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center}
+.ticket .tb{padding:12px 14px;display:grid;grid-template-columns:1fr 1fr;gap:8px 12px;border-bottom:2px dashed #cfc6b3}
+.ticket .tb small{display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;color:#7a7468}
+.ticket .tb b{font-family:"Barlow Semi Condensed";font-size:19px}
+.ticket .tc{padding:10px 14px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.ticket .code{font-family:ui-monospace,monospace;font-weight:700;letter-spacing:.12em}
+.ticket::before,.ticket::after{content:"";position:absolute;width:18px;height:18px;border-radius:50%;background:#121110;bottom:36px}
+.ticket::before{left:-9px}.ticket::after{right:-9px}
+.mini-btn{background:#1d1b17;color:#f3efe6;border:0;border-radius:999px;padding:6px 12px;font-size:12.5px;font-weight:700}
+
+/* modal email */
+.modal{position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.72);display:none;align-items:center;justify-content:center;padding:18px}
+.modal.open{display:flex}
+.mbox{background:#f3efe6;color:#1d1b17;border-radius:22px;width:860px;max-width:100%;max-height:92vh;overflow:auto;display:grid;grid-template-columns:1.2fr .8fr}
+.mail{padding:26px;border-right:1px solid #e0d9ca;background:#fff}
+.mail .meta{font-size:13px;color:#6b665c;border-bottom:1px solid #eee7da;padding-bottom:12px;margin-bottom:16px}
+.mail .meta b{color:#1d1b17}
+.mail h3{font-size:28px;line-height:1.05;margin-bottom:10px}
+.mail p{font-size:15px;margin-bottom:12px;color:#3a3730}
+.mail ul{margin:0 0 12px 18px;font-size:14.5px;color:#3a3730}
+.mail .mhero{background:#0b0b0c;color:var(--hueso);border-radius:14px;padding:18px;margin-bottom:16px;display:flex;align-items:center;gap:14px}
+.mail .mhero svg{width:54px;height:54px;flex:none}
+.timeline{padding:26px}
+.timeline h4{font-family:"Barlow Semi Condensed";font-size:22px;margin-bottom:4px}
+.timeline .sub{font-size:13px;color:#6b665c;margin-bottom:16px}
+.tl{border-left:2px solid #d8cfbd;margin-left:8px;padding-left:18px}
+.tl div{position:relative;margin-bottom:16px;font-size:14px}
+.tl div::before{content:"";position:absolute;left:-25px;top:4px;width:12px;height:12px;border-radius:50%;background:#d8cfbd}
+.tl div.done::before{background:#3aa556}
+.tl div b{display:block;font-size:13px;color:#8a5a12;text-transform:uppercase;letter-spacing:.05em}
+.closeM{margin-top:8px;background:#1d1b17;color:#fff;border:0;border-radius:999px;padding:10px 18px;font-weight:700}
+
+@media (max-width:900px){
+  .links{display:none}
+  .grid2{grid-template-columns:1fr;gap:34px}
+  .visit-grid{grid-template-columns:1fr 1fr}
+  .routes{grid-template-columns:1fr 1fr}
+  .kpis{grid-template-columns:1fr 1fr}
+  .slots{grid-template-columns:1fr}
+  .gauge{display:none}
+  .stat-pill{display:none}
+  .mbox{grid-template-columns:1fr}
+  .mail{border-right:0;border-bottom:1px solid #e0d9ca}
+  .hero{cursor:auto}
+  .lucia-fab small{display:none}
+  .hint{display:none}
+}
+@media (max-width:480px){
+  .nav-cta{display:none}
+  nav.top .wrap{justify-content:space-between}
+  .chat{right:12px;bottom:12px;height:calc(100vh - 24px)}
+}
+@media (prefers-reduced-motion:reduce){.salt,.oil,.hint i{animation:none}.oil{opacity:1}}
+</style>
+</head>
+<body>
+
+<div class="demo-strip" data-eu="Galerna Method-en demoa · ordutegiak, lekuak eta prezioak adibide gisa">Demo de Galerna Method · horarios, plazas y precios de ejemplo</div>
+
+<nav class="top">
+  <div class="wrap">
+    <a class="logo" href="#inicio" aria-label="Asfaltokia">
+      <img src="data:image/png;base64,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" alt="asfaltokia" style="height:34px;width:auto;display:block">
+    </a>
+    <div class="links">
+      <a href="#historia" data-eu="Historia">Historia</a>
+      <a href="#geologia" data-eu="Geologia">Geología</a>
+      <a href="#estacion" data-eu="Geltokia">Estación</a>
+      <a href="#visita" data-eu="Bisita">Visita</a>
+      <a href="#rutas" data-eu="Ibilbideak">Rutas</a>
+    </div>
+    <div class="lang" role="group" aria-label="Idioma">
+      <button id="lang-es" class="on">ES</button><button id="lang-eu">EU</button>
+    </div>
+    <a class="btn btn-casco nav-cta" href="#turnos" data-eu="Erreserbatu">Reservar</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="rock">
+    <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <filter id="rockf" x="0" y="0" width="100%" height="100%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="5" seed="7" result="n"/>
+          <feDiffuseLighting in="n" surfaceScale="9" lighting-color="#c9b89c" result="l">
+            <feDistantLight azimuth="235" elevation="38"/>
+          </feDiffuseLighting>
+          <feColorMatrix in="l" type="matrix" values="0.55 0 0 0 0.02  0 0.5 0 0 0.02  0 0 0.44 0 0.02  0 0 0 1 0"/>
+        </filter>
+        <linearGradient id="veta" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#3a3a3a"/><stop offset=".35" stop-color="#050505"/><stop offset="1" stop-color="#121212"/>
+        </linearGradient>
+        <filter id="gloss"><feGaussianBlur stdDeviation="1.2"/></filter>
+      </defs>
+      <rect width="1600" height="900" filter="url(#rockf)"/>
+      <!-- vetas de asfalto -->
+      <path d="M-20 300 C 200 250, 380 360, 620 300 S 1000 210, 1250 290 S 1500 360, 1640 320 L1640 352 C1480 395,1330 330,1250 326 S 980 250, 625 338 S 210 290, -20 340Z" fill="url(#veta)"/>
+      <path d="M180 302 C 340 290, 470 340, 610 318" stroke="#9a948a" stroke-width="2" fill="none" opacity=".35" filter="url(#gloss)"/>
+      <path d="M-20 640 C 260 600, 420 700, 760 650 S 1200 590, 1640 660 L1640 690 C 1300 630, 1100 660, 760 690 S 260 650, -20 682Z" fill="url(#veta)"/>
+      <path d="M840 655 C 980 630, 1120 625, 1260 640" stroke="#9a948a" stroke-width="2" fill="none" opacity=".3" filter="url(#gloss)"/>
+      <ellipse cx="1180" cy="470" rx="70" ry="34" fill="url(#veta)"/>
+      <ellipse cx="360" cy="500" rx="46" ry="22" fill="url(#veta)"/>
+      <ellipse cx="900" cy="140" rx="90" ry="26" fill="url(#veta)"/>
+      <!-- gota que brota -->
+      <path d="M1180 504 q -6 26 0 40 q 6 -14 0 -40z" fill="#0a0a0a"><animate attributeName="d" dur="5s" repeatCount="indefinite" values="M1180 504 q -6 6 0 10 q 6 -4 0 -10z;M1180 504 q -7 30 0 46 q 7 -16 0 -46z;M1180 504 q -6 6 0 10 q 6 -4 0 -10z"/></path>
+      <!-- entibado -->
+      <g opacity=".85">
+        <rect x="70" y="0" width="34" height="900" fill="#3b2a18"/><rect x="1496" y="0" width="34" height="900" fill="#3b2a18"/>
+        <rect x="40" y="40" width="1520" height="30" fill="#2f2213"/>
+      </g>
+    </svg>
+  </div>
+  <div class="dark" id="dark"></div>
+  <div class="glow"></div>
+  <div class="content wrap">
+    <div class="kicker" data-eu="Mina Lucía · Atauri · 1872tik">Mina Lucía · Atauri · desde 1872</div>
+    <h1 data-eu="Jaitsi<span>meatzera</span>">Baja a<span>la mina</span></h1>
+    <p class="lead" data-eu="300 metroko galeria, asfaltoa oraindik harkaitzetik ateratzen den lekua. Familia osoarentzako bisita Ataurin, Arabako Mendialdean.">300 metros de galería donde el asfalto todavía brota de la roca. Una visita para toda la familia en Atauri, Montaña Alavesa.</p>
+    <div class="ctas">
+      <a class="btn btn-casco" href="#turnos">⛑ <span data-eu="Hartu zure kaskoa">Coge tu casco</span></a>
+      <button class="btn btn-ghost" id="openChatHero" data-eu="Hitz egin Luciarekin">Habla con Lucía</button>
+    </div>
+  </div>
+  <div class="stat-pill"><b>1872</b><span data-eu="Urte hartan hasi zen ustiapena. Oraindik ere asfaltoa ateratzen da hormetatik.">Año en que empezó a explotarse. Hoy el asfalto sigue saliendo de sus paredes.</span></div>
+  <div class="hint"><i></i><span data-eu="Mugitu linterna harkaitzean">Mueve la linterna por la roca</span></div>
+</section>
+
+<div class="gauge" id="gauge" aria-hidden="true">
+  <div class="line"><div class="fill" id="gfill"></div><div class="dot" id="gdot"></div></div>
+  <div class="lbl"><b id="gm">0 m</b><span data-eu="galeria">galería</span></div>
+</div>
+
+<!-- GALERÍA 1: HISTORIA -->
+<section class="gal" id="historia">
+  <div class="wrap grid2">
+    <div>
+      <div class="gal-tag" data-eu="1. galeria · Historia">Galería 1 · Historia</div>
+      <h2 data-eu="Hemendik irten zen kaleak asfaltatzeko asfaltoa">De aquí salió el asfalto de las calles</h2>
+      <p data-eu="Mina Lucía 1872an hasi zen ustiatzen. Biltegiak, tailerrak eta bulegoak zituen, baita Vasco-Navarro trenaren geltoki bat ere, asfaltozko «ogiak» garraiatzeko.">Mina Lucía empezó a explotarse en 1872. Tenía almacenes, talleres, oficinas y hasta una estación del tren Vasco-Navarro para llevarse los «panes» de asfalto.</p>
+      <p data-eu="Ogi horiekin kaleak eta instalazioak asfaltatu ziren. Gaur galerietan oraindik ikusten dira harkaitza bustitzen duten asfalto-mailak.">Con esos panes se asfaltaron calles e instalaciones. Hoy, dentro de las galerías, todavía se ven las vetas de asfalto empapando la roca.</p>
+      <div class="fact-row">
+        <div class="fact"><b>1872</b><span data-eu="Ustiapenaren hasiera">Inicio de la explotación</span></div>
+        <div class="fact"><b>300 m</b><span data-eu="Lurpeko galeria">De galería subterránea</span></div>
+        <div class="fact"><b>1927</b><span data-eu="Trena iristen da">Llega el tren</span></div>
+      </div>
+      <a class="vid" data-yt="X_T9pp24eW4" href="https://youtu.be/X_T9pp24eW4" target="_blank" rel="noopener"><div class="pl"><i></i></div><div><b data-eu="Bira bat Mina Lucían barrena">Demos una vuelta por Mina Lucía</b><span data-eu="Ikusi zer dagoen barruan · bideoa">Mira lo que hay dentro · vídeo</span></div></a>
+    </div>
+    <div class="panes" aria-hidden="true">
+      <div class="pan">Compañía de Asfaltos · Maestu</div>
+      <div class="pan">Pan de asfalto</div>
+      <div class="pan">Atauri</div>
+      <svg class="tren" viewBox="0 0 320 110"><g fill="#1e1d1b" stroke="#3d3a33" stroke-width="2"><rect x="10" y="30" width="120" height="52" rx="6"/><rect x="140" y="40" width="80" height="42" rx="5"/><rect x="230" y="40" width="80" height="42" rx="5"/><rect x="30" y="10" width="26" height="22"/></g><g fill="#f2a23a"><circle cx="40" cy="88" r="11"/><circle cx="100" cy="88" r="11"/><circle cx="160" cy="88" r="9"/><circle cx="200" cy="88" r="9"/><circle cx="250" cy="88" r="9"/><circle cx="290" cy="88" r="9"/></g><rect x="148" y="30" width="64" height="14" rx="3" fill="#0b0b0b"/><rect x="238" y="30" width="64" height="14" rx="3" fill="#0b0b0b"/><path d="M0 100 H320" stroke="#5a554c" stroke-width="3"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- GALERÍA 2: GEOLOGÍA -->
+<section class="gal" id="geologia">
+  <div class="wrap grid2">
+    <div class="diapiro" aria-label="Animación del diapiro de Maeztu">
+      <svg viewBox="0 0 520 320">
+        <rect width="520" height="320" fill="#0f0e0d"/>
+        <g>
+          <rect y="40" width="520" height="40" fill="#5b5245"/>
+          <rect y="80" width="520" height="40" fill="#4a4237"/>
+          <rect y="120" width="520" height="40" fill="#3c362e"/>
+          <rect y="160" width="520" height="40" fill="#302b25"/>
+          <rect y="200" width="520" height="40" fill="#26231e"/>
+        </g>
+        <path class="salt" d="M170 320 C 180 200, 200 90, 260 70 C 320 90, 340 200, 350 320Z" fill="#e7e1d6"/>
+        <g class="oil" fill="#050505">
+          <ellipse cx="185" cy="170" rx="22" ry="9"/><ellipse cx="335" cy="160" rx="22" ry="9"/>
+          <ellipse cx="200" cy="120" rx="16" ry="7"/><ellipse cx="322" cy="118" rx="16" ry="7"/>
+        </g>
+        <path d="M0 40 C 80 34, 160 46, 260 38 S 440 32, 520 40" stroke="#7b9b5a" stroke-width="6" fill="none"/>
+        <text x="260" y="300" text-anchor="middle" fill="#121110" font-family="Barlow Semi Condensed" font-weight="700" font-size="18">GATZA · SAL</text>
+      </svg>
+      <div class="cap"><span><i style="background:#e7e1d6"></i><span data-eu="Gatza gorantz">Sal que sube</span></span><span><i style="background:#050505;border:1px solid #444"></i><span data-eu="Ertzetan pilatzen den asfaltoa">Asfalto que se acumula en los bordes</span></span><span><i style="background:#5b5245"></i><span data-eu="Kareharri geruzak">Capas de roca caliza</span></span></div>
+    </div>
+    <div>
+      <div class="gal-tag" data-eu="2. galeria · Geologia">Galería 2 · Geología</div>
+      <h2 data-eu="Zergatik dago asfaltoa hemen?">¿Por qué hay asfalto aquí?</h2>
+      <p data-eu="Maeztuko diapiroagatik: milioika urtetan, gatza bezalako arroka arinago bat gorantz igo da, gaineko geruzak tolestuz eta zulatuz. Haren ertzetan hidrokarburoak pilatu ziren, asfaltoa barne.">Por el diapiro de Maeztu: durante millones de años, una roca más ligera, la sal, ha ido subiendo y empujando las capas de encima hasta atravesarlas. En sus bordes se acumularon hidrocarburos, entre ellos el asfalto.</p>
+      <div class="peques">
+        <svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="22" fill="#2a2112"/><path d="M11 22a12 12 0 0 1 24 0z" fill="#f2a23a"/><rect x="9" y="21" width="28" height="4" rx="2" fill="#f2a23a"/><circle cx="23" cy="15" r="3.5" fill="#fff6d8"/><circle cx="18" cy="30" r="1.8" fill="#ece6da"/><circle cx="28" cy="30" r="1.8" fill="#ece6da"/><path d="M18 35q5 4 10 0" stroke="#ece6da" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+        <div><b data-eu="Txikientzat">Para peques</b><p data-eu="Imajinatu kakao-burbuila bat edalontziaren hondotik gorantz igotzen. Igotzean, ertzetan zikinkeria pilatzen du. Hemen burbuila gatza da eta zikinkeria… asfaltoa!">Imagina una burbuja de cacao subiendo desde el fondo del vaso. Al subir, arrastra la «suciedad» hacia los lados. Aquí la burbuja es de sal y la suciedad… ¡es asfalto!</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERÍA 3: ESTACIÓN -->
+<section class="gal" id="estacion">
+  <div class="wrap grid2">
+    <div>
+      <div class="gal-tag" data-eu="3. galeria · Asfaltokia">Galería 3 · Asfaltokia</div>
+      <h2 data-eu="Atauriko geltoki zaharra, berriro bizirik">La vieja estación de Atauri, viva otra vez</h2>
+      <p data-eu="Vasco-Navarro trenaren geltokia orain Arabako Mendialdeko Asfalto Naturalen Interpretazio Zentroa da. Han hasten da bisita.">La estación del tren Vasco-Navarro es ahora el Centro de Interpretación de los Asfaltos Naturales de Montaña Alavesa. Aquí empieza la visita.</p>
+      <p data-eu="Errealitate birtualarekin meatzeak, lantegiak eta Maeztuko diapiroa airetik ikus ditzakezu, lurretik oinak altxatu gabe.">Con realidad virtual sobrevuelas las minas, las antiguas fábricas y el diapiro de Maeztu sin despegar los pies del suelo.</p>
+      <div class="badges">
+        <span class="badge" data-eu="🥽 Errealitate birtuala">🥽 Realidad virtual</span>
+        <span class="badge" data-eu="🔭 Begiratokiak">🔭 Miradores</span>
+        <span class="badge" data-eu="🚂 Trenaren erakusketa">🚂 Exposición del tren</span>
+        <span class="badge" data-eu="🎮 Joko interaktiboa">🎮 Juego interactivo</span>
+      </div>
+      <a class="vid" data-yt="LDoSuvM3NNU" href="https://www.youtube.com/watch?v=LDoSuvM3NNU" target="_blank" rel="noopener"><div class="pl"><i></i></div><div><b data-eu="Bira bat Atauriko geltokian">Una vuelta por la estación de Atauri</b><span data-eu="Asfaltokia barrutik · bideoa">Asfaltokia por dentro · vídeo</span></div></a>
+    </div>
+    <div class="station-card" aria-hidden="true">
+      <svg viewBox="0 0 420 260">
+        <rect x="0" y="230" width="420" height="30" fill="#1a1917"/>
+        <path d="M0 238 H420 M0 250 H420" stroke="#5a554c" stroke-width="3"/>
+        <g stroke="#3d3a33" stroke-width="3">
+          <path d="M20 244 V256 M60 244 V256 M100 244 V256 M140 244 V256 M180 244 V256 M220 244 V256 M260 244 V256 M300 244 V256 M340 244 V256 M380 244 V256"/>
+        </g>
+        <polygon points="70,95 210,40 350,95" fill="#5a2f1f"/>
+        <rect x="90" y="95" width="240" height="135" fill="#d9cfbd"/>
+        <rect x="90" y="95" width="240" height="14" fill="#bcae96"/>
+        <g fill="#1b1a17">
+          <rect x="112" y="130" width="34" height="56" rx="3"/><rect x="164" y="130" width="34" height="56" rx="3"/>
+          <rect x="222" y="130" width="34" height="56" rx="3"/><rect x="274" y="130" width="34" height="56" rx="3"/>
+        </g>
+        <g fill="#f2a23a" opacity=".85"><rect x="116" y="134" width="26" height="22"/><rect x="226" y="134" width="26" height="22"/></g>
+        <rect x="170" y="196" width="80" height="34" fill="#1b1a17"/>
+        <rect x="150" y="70" width="120" height="22" rx="3" fill="#0b0b0c"/>
+        <text x="210" y="86" text-anchor="middle" fill="#ece6da" font-family="Barlow Semi Condensed" font-weight="700" font-size="15">ATAURI</text>
+        <circle cx="210" cy="56" r="9" fill="#ece6da" stroke="#0b0b0c" stroke-width="2"/><path d="M210 50v6l4 2" stroke="#0b0b0c" stroke-width="2" fill="none"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- VISITA -->
+<section class="gal" id="visita">
+  <div class="wrap">
+    <div class="gal-tag" data-eu="4. galeria · Bisita">Galería 4 · La visita</div>
+    <h2 data-eu="Familian jaisten gara">Bajamos en familia</h2>
+    <p data-eu="Igandero, gidari batekin, talde txikitan. Ekarri jaka bat: barruan freskoa egiten du.">Todos los domingos, con guía y en grupos pequeños. Trae una chaqueta: dentro de la mina hace fresco.</p>
+    <div class="visit-grid">
+      <div class="vcard"><svg viewBox="0 0 34 34"><path d="M5 20a12 12 0 0 1 24 0z" fill="#f2a23a"/><rect x="3" y="19" width="28" height="4" rx="2" fill="#f2a23a"/><circle cx="17" cy="12" r="3" fill="#fff6d8"/></svg><b data-eu="Kaskoa eta linterna">Casco y linterna</b><p data-eu="Bisitan sartuta, txikientzako tamainekin.">Incluidos, también en tallas para peques.</p></div>
+      <div class="vcard"><svg viewBox="0 0 34 34" fill="none" stroke="#f2a23a" stroke-width="2.5"><circle cx="17" cy="17" r="13"/><path d="M17 9v8l6 4"/></svg><b data-eu="Ordu bat inguru">Aprox. 1 hora</b><p data-eu="Geltokia + meatzea. Txikiekin erritmo lasaia.">Estación + mina. A ritmo tranquilo con niños.</p></div>
+      <div class="vcard"><svg viewBox="0 0 34 34" fill="none" stroke="#f2a23a" stroke-width="2.5"><circle cx="11" cy="11" r="4"/><circle cx="24" cy="13" r="3"/><path d="M3 30c0-6 4-10 8-10s8 4 8 10M18 30c0-4 3-8 6-8s6 4 6 8"/></svg><b data-eu="Talde txikiak">Grupos pequeños</b><p data-eu="Txanda bakoitzean leku mugatuak. Erreserbatu aurretik.">Plazas limitadas por turno. Mejor reservar.</p></div>
+      <div class="vcard"><svg viewBox="0 0 34 34" fill="none" stroke="#f2a23a" stroke-width="2.5"><path d="M17 31s10-9 10-17a10 10 0 0 0-20 0c0 8 10 17 10 17z"/><circle cx="17" cy="14" r="3.5"/></svg><b data-eu="Ataurin">En Atauri</b><p data-eu="Arraia-Maeztu, Araba. Gasteiztik 40 bat minutura.">Arraia-Maeztu, Álava. A unos 40 min de Vitoria-Gasteiz.</p></div>
+    </div>
+    <div class="prices">
+      <div class="price"><b>6 €</b><span data-eu="Heldua">Adulto</span></div>
+      <div class="price"><b>3 €</b><span data-eu="Haurra (4–12 urte)">Niño/a (4–12 años)</span></div>
+      <div class="price"><b data-eu="Doan">Gratis</b><span data-eu="4 urtetik behera">Menores de 4</span></div>
+    </div>
+    <div class="example" data-eu="* Prezioak, iraupena eta lekuak adibide gisa. Zentroarekin egokitzen dira.">* Precios, duración y plazas de ejemplo. Se ajustan con el centro.</div>
+
+    <div id="turnos" style="scroll-margin-top:80px;margin-top:70px">
+      <div class="gal-tag" data-eu="Erreserbak">Reservas</div>
+      <h2 data-eu="Aukeratu zure igandea">Elige tu domingo</h2>
+      <div class="days" id="days"></div>
+      <div class="slots" id="slots"></div>
+    </div>
+  </div>
+</section>
+
+<!-- RUTAS -->
+<section class="gal" id="rutas">
+  <div class="wrap">
+    <div class="gal-tag" data-eu="Kanpora irten">Sal a la superficie</div>
+    <h2 data-eu="Jarraitu asfaltoen ibilbideari">Sigue la ruta de los asfaltos</h2>
+    <p data-eu="39 kilometro, hiru interpretazio-zentro lotzen dituztenak: Antoñana, Izki Parke Naturala (Korres) eta Atauri.">39 kilómetros que unen tres centros de interpretación: Antoñana, el Parque Natural de Izki en Korres y Atauri.</p>
+    <div class="routes">
+      <div class="route"><b>Atauri – Leorza</b><div class="km">3,96 km</div><span>+31 m / −25 m</span><span class="diff" data-eu="Erraza">Fácil</span></div>
+      <div class="route"><b>Antoñana – Atauri</b><div class="km">4,5 km</div><span>+39 m / 0 m</span><span class="diff" data-eu="Erraza">Fácil</span></div>
+      <div class="route"><b>Korres – Antoñana</b><div class="km">4,78 km</div><span>+104 m / −209 m</span><span class="diff" data-eu="Moderatua">Moderado</span></div>
+      <div class="route"><b data-eu="Atauri – Korres Mina Luciarekin">Atauri – Korres con Mina Lucía</b><div class="km">6,01 km</div><span>+194 m / −126 m</span><span class="diff" data-eu="Ertaina">Media</span></div>
+      <div class="route"><b>Korres – San Román – Antoñana</b><div class="km">17,34 km</div><span>+458 m / −566 m</span><span class="diff" data-eu="Ertaina">Media</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PANEL CENTRO -->
+<section class="gal" id="panel">
+  <div class="wrap">
+    <div class="gal-tag" data-eu="Zentroarentzat">Para el centro</div>
+    <h2 data-eu="Zentroak horrela ikusten du">Así lo ve el centro</h2>
+    <p data-eu="Lucíak erreserba bakoitza erregistratzen du, berrespena bidaltzen du eta gogorarazpenak programatzen ditu. Taldeak ez du posta eskuz erantzun beharrik.">Lucía registra cada reserva, envía la confirmación y programa los recordatorios. El equipo ya no tiene que contestar correos a mano.</p>
+    <div class="panel">
+      <h3 class="cond" data-eu="Erreserben panela · demoa">Panel de reservas · demo</h3>
+      <div style="font-size:14px;color:#6b665c" data-eu="Egin erreserba bat Luciarekin eta hemen agertuko da.">Haz una reserva con Lucía y aparecerá aquí al momento.</div>
+      <div class="kpis">
+        <div class="kpi"><b id="k1">0</b><span data-eu="Erreserbak (demo)">Reservas (demo)</span></div>
+        <div class="kpi"><b id="k2">0</b><span data-eu="Bisitariak">Visitantes</span></div>
+        <div class="kpi"><b id="k3">0</b><span data-eu="Bidalitako mezu automatikoak">Correos automáticos programados</span></div>
+        <div class="kpi"><b id="k4">0</b><span data-eu="Eskuz erantzun gabekoak">Respuestas a mano necesarias</span></div>
+      </div>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th data-eu="Kodea">Código</th><th data-eu="Izena">Nombre</th><th data-eu="Eguna">Día</th><th data-eu="Txanda">Turno</th><th data-eu="Pertsonak">Personas</th><th data-eu="Jatorria">Origen</th><th data-eu="Egoera">Estado</th></tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div><img src="data:image/png;base64,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" alt="asfaltokia" style="height:40px;width:auto;display:block;margin-bottom:10px;opacity:.9"><span data-eu="Atauriko geltoki zaharra · Arraia-Maeztu, Araba">Antigua estación de Atauri · Arraia-Maeztu, Álava</span></div>
+    <div><span data-eu="Informazioa eta erreserbak">Información y reservas</span><br>639 310 779 · info@asfaltokia.eus</div>
+    <div style="max-width:300px" data-eu="Demo hau Galerna Method-ek prestatu du. Lucía webgunean dago orain eta laster WhatsApp-en ere bai.">Demo preparada por Galerna Method. Lucía está ya en la web y, en la siguiente fase, también en WhatsApp.</div>
+  </div>
+</footer>
+
+<!-- Lucía -->
+<button class="lucia-fab" id="fab" aria-label="Abrir chat con Lucía">
+  <svg class="av" viewBox="0 0 52 52" id="avtpl"></svg>
+  <span class="ping"></span>
+  <span><b data-eu="Kaixo! Lucía naiz">¡Hola! Soy Lucía</b><small data-eu="Gidaria · erreserbak">La minera · reservas 24 h</small></span>
+</button>
+
+<div class="chat" id="chat" role="dialog" aria-label="Chat con Lucía">
+  <div class="chat-head">
+    <svg class="av" viewBox="0 0 52 52" id="avhead"></svg>
+    <div><b>Lucía la Minera</b><small data-eu="● Linean · bat-batean erantzuten du">● En línea · responde al momento</small></div>
+    <button class="x" id="closeChat" aria-label="Cerrar">×</button>
+  </div>
+  <div class="msgs" id="msgs"></div>
+  <form class="chat-in" id="chatForm" autocomplete="off">
+    <input id="chatInput" placeholder="Escribe a Lucía…" aria-label="Mensaje">
+    <button type="submit" aria-label="Enviar">➤</button>
+  </form>
+  <div class="chat-foot" data-eu="Demo · ez da benetako erreserbarik egiten">Demo · no se hacen reservas reales</div>
+</div>
+
+<!-- Modal correo -->
+<div class="modal" id="modal">
+  <div class="mbox">
+    <div class="mail" id="mailBody"></div>
+    <div class="timeline">
+      <h4 data-eu="Posta automatikoak">Correos automáticos</h4>
+      <div class="sub" data-eu="Lucíak bere kabuz bidaltzen ditu, inork ezer egin gabe.">Lucía los envía sola, sin que nadie toque nada.</div>
+      <div class="tl" id="tl"></div>
+      <button class="closeM" id="closeM" data-eu="Itxi">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+/* ---------- idioma ---------- */
+let LANG='es';
+const L=(es,eu)=>LANG==='eu'?eu:es;
+document.querySelectorAll('[data-eu]').forEach(el=>el.dataset.es=el.innerHTML);
+function setLang(l){
+  LANG=l;document.documentElement.lang=l;
+  document.getElementById('lang-es').classList.toggle('on',l==='es');
+  document.getElementById('lang-eu').classList.toggle('on',l==='eu');
+  document.querySelectorAll('[data-eu]').forEach(el=>el.innerHTML=l==='eu'?el.dataset.eu:el.dataset.es);
+  document.getElementById('chatInput').placeholder=L('Escribe a Lucía…','Idatzi Luciari…');
+  renderDays();renderSlots();renderTable();
+}
+document.getElementById('lang-es').onclick=()=>setLang('es');
+document.getElementById('lang-eu').onclick=()=>setLang('eu');
+
+/* ---------- avatar Lucía (original) ---------- */
+const AV=`<circle cx="26" cy="26" r="25" fill="#2a2112" stroke="#f2a23a" stroke-width="1.5"/>
+<path d="M14 40c2-6 7-8 12-8s10 2 12 8" fill="#3b5b7a"/>
+<circle cx="26" cy="27" r="10" fill="#e9c4a0"/>
+<path d="M15 26c0-8 5-12 11-12s11 4 11 12" fill="#5a3420"/>
+<path d="M13 22a13 12 0 0 1 26 0z" fill="#f2a23a"/><rect x="11" y="21" width="30" height="4" rx="2" fill="#e08e22"/>
+<circle cx="26" cy="15" r="3.6" fill="#fff6d8"/><path d="M26 11 l-14 -9 l28 0z" fill="#fff6d8" opacity=".18"/>
+<circle cx="22.5" cy="28" r="1.4" fill="#2b1d12"/><circle cx="29.5" cy="28" r="1.4" fill="#2b1d12"/>
+<path d="M22.5 32.2q3.5 2.8 7 0" stroke="#7a3b26" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+<circle cx="20" cy="31" r="1.6" fill="#f0a08a" opacity=".6"/><circle cx="32" cy="31" r="1.6" fill="#f0a08a" opacity=".6"/>
+<path d="M15 25c-2 3-2 8 0 11" stroke="#5a3420" stroke-width="3" fill="none" stroke-linecap="round"/>`;
+document.getElementById('avtpl').innerHTML=AV;document.getElementById('avhead').innerHTML=AV;
+
+/* ---------- linterna ---------- */
+const hero=document.querySelector('.hero');const root=document.documentElement;
+let moved=false,t0=performance.now();
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function setLight(x,y){hero.style.setProperty('--x',x+'px');hero.style.setProperty('--y',y+'px');}
+hero.addEventListener('pointermove',e=>{const r=hero.getBoundingClientRect();moved=true;setLight(e.clientX-r.left,e.clientY-r.top);});
+hero.addEventListener('pointerdown',e=>{const r=hero.getBoundingClientRect();moved=true;setLight(e.clientX-r.left,e.clientY-r.top);});
+hero.addEventListener('pointerleave',()=>{moved=false;});
+function wander(t){
+  if(!moved){const r=hero.getBoundingClientRect();const k=(t-t0)/1000;
+    setLight(r.width*(0.62+0.22*Math.sin(k*0.55)), r.height*(0.45+0.2*Math.sin(k*0.9+1)));}
+  requestAnimationFrame(wander);
+}
+function sizeLight(){hero.style.setProperty('--r',Math.max(170,Math.min(300,innerWidth*0.2))+'px');}
+sizeLight();addEventListener('resize',sizeLight);
+if(!reduce)requestAnimationFrame(wander);else{hero.style.setProperty('--r','900px');}
+
+/* ---------- medidor de profundidad ---------- */
+const g=document.getElementById('gauge'),gf=document.getElementById('gfill'),gd=document.getElementById('gdot'),gm=document.getElementById('gm');
+function onScroll(){
+  const h=document.documentElement.scrollHeight-innerHeight;const p=Math.min(1,Math.max(0,scrollY/h));
+  g.classList.toggle('show',scrollY>innerHeight*0.5);
+  const line=g.querySelector('.line').clientHeight;
+  gf.style.height=(p*100)+'%';gd.style.top=(p*line-7)+'px';gm.textContent=Math.round(p*300)+' m';
+}
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+/* ---------- turnos ---------- */
+const TIMES=['10:00','11:15','12:30'],CAP=20;
+const sundays=[];{const d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()+((7-d.getDay())%7||7));for(let i=0;i<8;i++){sundays.push(new Date(d));d.setDate(d.getDate()+7);}}
+const iso=d=>d.toISOString().slice(0,10);
+const taken={};
+function seed(s){let x=Math.sin(s)*10000;return x-Math.floor(x);}
+sundays.forEach((d,i)=>TIMES.forEach((t,j)=>{let v=Math.floor(seed(i*7+j*3+1)*(i<2?19:12));if(i===0&&j===1)v=CAP;taken[iso(d)+' '+t]=v;}));
+const free=(date,time)=>CAP-(taken[date+' '+time]||0);
+let selDay=iso(sundays[0]);
+const fmt=(isoD,opt)=>{const d=new Date(isoD+'T12:00:00');try{return d.toLocaleDateString(LANG==='eu'?'eu-ES':'es-ES',opt);}catch(e){return d.toLocaleDateString('es-ES',opt);}};
+function dayFree(dt){return TIMES.reduce((a,t)=>a+free(dt,t),0);}
+function renderDays(){
+  const box=document.getElementById('days');box.innerHTML='';
+  sundays.forEach(d=>{const k=iso(d);const b=document.createElement('button');b.className='day'+(k===selDay?' on':'');
+    b.innerHTML=`<small>${fmt(k,{weekday:'short'})}</small><b>${d.getDate()}</b><em>${fmt(k,{month:'short'})} · ${dayFree(k)} ${L('libres','libre')}</em>`;
+    b.onclick=()=>{selDay=k;renderDays();renderSlots();};box.appendChild(b);});
+}
+function renderSlots(){
+  const box=document.getElementById('slots');box.innerHTML='';
+  TIMES.forEach(t=>{const f=free(selDay,t);const b=document.createElement('button');b.className='slot';b.disabled=f<=0;
+    b.innerHTML=`<span class="go">${f>0?L('Reservar →','Erreserbatu →'):''}</span><b>${t}</b><div class="bar"><i style="width:${(CAP-f)/CAP*100}%"></i></div><span>${f>0?f+' '+L('plazas libres','leku libre'):L('Completo','Beteta')}</span>`;
+    b.onclick=()=>{openChat();startBooking({date:selDay,time:t},true);};box.appendChild(b);});
+}
+
+/* ---------- reservas / panel ---------- */
+const bookings=[
+  {code:'ATA-4821',name:'Familia Ruiz de Gauna',date:iso(sundays[0]),time:'10:00',adults:2,kids:2,src:'Web',seed:true},
+  {code:'ATA-4836',name:'Amaia Etxeberria',date:iso(sundays[0]),time:'12:30',adults:2,kids:1,src:'Web',seed:true},
+  {code:'ATA-4840',name:'Colegio San Viator',date:iso(sundays[1]),time:'11:15',adults:3,kids:18,src:'Correo',seed:true}
+];
+let lastNew=null;
+function renderTable(){
+  const tb=document.getElementById('tbody');tb.innerHTML='';
+  bookings.slice().reverse().forEach(b=>{const tr=document.createElement('tr');if(b.code===lastNew)tr.className='new';
+    tr.innerHTML=`<td><b>${b.code}</b></td><td>${esc(b.name)}</td><td>${fmt(b.date,{day:'numeric',month:'short'})}</td><td>${b.time}</td><td>${b.adults+b.kids}</td><td><span class="src">${b.src==='Web'?'Lucía · web':L('Correo','Posta')}</span></td><td><span class="st">${L('Confirmada','Berretsita')}</span></td>`;tb.appendChild(tr);});
+  const n=bookings.length;document.getElementById('k1').textContent=n;
+  document.getElementById('k2').textContent=bookings.reduce((a,b)=>a+b.adults+b.kids,0);
+  document.getElementById('k3').textContent=n*4;document.getElementById('k4').textContent=0;
+}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+
+/* ---------- chat ---------- */
+const chat=document.getElementById('chat'),fab=document.getElementById('fab'),msgs=document.getElementById('msgs'),input=document.getElementById('chatInput');
+let greeted=false;
+function openChat(){chat.classList.add('open');fab.style.display='none';if(!greeted){greeted=true;greet();}setTimeout(()=>input.focus(),50);}
+function closeChat(){chat.classList.remove('open');fab.style.display='flex';}
+fab.onclick=openChat;document.getElementById('openChatHero').onclick=openChat;document.getElementById('closeChat').onclick=closeChat;
+function scrollDown(){msgs.scrollTop=msgs.scrollHeight;}
+function bot(text,quick){const d=document.createElement('div');d.className='m bot';d.textContent=text;msgs.appendChild(d);if(quick)qr(quick);scrollDown();return d;}
+function me(text){const d=document.createElement('div');d.className='m me';d.textContent=text;msgs.appendChild(d);scrollDown();}
+function qr(items){const w=document.createElement('div');w.className='qr';items.forEach(([label,fn])=>{const b=document.createElement('button');b.type='button';b.textContent=label;b.onclick=()=>{w.remove();me(label);fn();};w.appendChild(b);});msgs.appendChild(w);scrollDown();}
+function clearQR(){msgs.querySelectorAll('.qr').forEach(q=>q.remove());}
+const MAIN=()=>[[L('⛑ Reservar visita','⛑ Bisita erreserbatu'),()=>startBooking({})],[L('Horarios y precios','Ordutegiak eta prezioak'),()=>faq('precio')],[L('¿Es para niños?','Haurrentzat da?'),()=>faq('ninos')],[L('Cómo llegar','Nola iritsi'),()=>faq('llegar')]];
+function greet(){
+  bot(L('¡Hola! Soy Lucía, la minera de Asfaltokia ⛑️\nTe ayudo a reservar tu bajada a la mina, o a resolver dudas sobre horarios, precios y cómo llegar.','Kaixo! Lucía naiz, Asfaltokiako meatzaria ⛑️\nMeatzera jaisteko erreserba egiten lagunduko dizut, edo ordutegi, prezio eta nola iritsi buruzko zalantzak argitzen.'),MAIN());
+}
+
+/* booking flow */
+let flow=null;
+function startBooking(pre,fromSlot){
+  clearQR();flow={step:null,data:Object.assign({},pre)};
+  if(fromSlot)bot(L(`¡Buena elección! ${fmt(pre.date,{weekday:'long',day:'numeric',month:'long'})} a las ${pre.time} ⛏️`,`Aukera ona! ${fmt(pre.date,{weekday:'long',day:'numeric',month:'long'})}, ${pre.time}etan ⛏️`));
+  next();
+}
+function next(){
+  const d=flow.data;
+  if(!d.date){flow.step='date';bot(L('¿Qué domingo os viene bien?','Zein igande datorkizue ondo?'),sundays.slice(0,5).filter(s=>dayFree(iso(s))>0).map(s=>[fmt(iso(s),{weekday:'short',day:'numeric',month:'short'}),()=>{d.date=iso(s);next();}]));return;}
+  if(!d.time||free(d.date,d.time)<=0){flow.step='time';d.time=null;
+    bot(L('¿A qué hora queréis bajar?','Zer ordutan jaitsi nahi duzue?'),TIMES.filter(t=>free(d.date,t)>0).map(t=>[`${t} · ${free(d.date,t)} ${L('plazas','leku')}`,()=>{d.time=t;next();}]));return;}
+  if(d.adults==null){flow.step='adults';bot(L('¿Cuántos adultos sois?','Zenbat heldu zarete?'),[1,2,3,4].map(n=>[String(n),()=>{d.adults=n;next();}]));return;}
+  if(d.kids==null){flow.step='kids';bot(L('¿Y cuántos niños o niñas? 🧒','Eta zenbat haur? 🧒'),[0,1,2,3].map(n=>[String(n),()=>{d.kids=n;next();}]));return;}
+  if(d.adults+d.kids>free(d.date,d.time)){bot(L(`Vaya, en ese turno solo quedan ${free(d.date,d.time)} plazas. Elige otro:`,`Txanda horretan ${free(d.date,d.time)} leku besterik ez dira geratzen. Aukeratu beste bat:`));d.time=null;d.adults=null;d.kids=null;next();return;}
+  if(!d.name){flow.step='name';bot(L('¿A nombre de quién hago la reserva?','Noren izenean egingo dut erreserba?'));return;}
+  if(!d.email){flow.step='email';bot(L(`Encantada, ${d.name.split(' ')[0]} 😊 ¿A qué correo te mando el billete?`,`Pozten naiz, ${d.name.split(' ')[0]} 😊 Zein helbide elektronikora bidaliko dizut txartela?`));return;}
+  if(!d.phone){flow.step='phone';bot(L('Y un móvil, por si hay que avisaros de algo el domingo:','Eta mugikor bat, igandean zerbait abisatu behar bada:'));return;}
+  flow.step='confirm';
+  const price=d.adults*6+d.kids*3;
+  bot(L(`Repasamos:\n📅 ${fmt(d.date,{weekday:'long',day:'numeric',month:'long'})} · ${d.time}\n👨‍👩‍👧 ${d.adults} adulto(s) + ${d.kids} niño(s)\n💶 ${price} € (pago en el centro)\n✉️ ${d.email}`,`Errepasa dezagun:\n📅 ${fmt(d.date,{weekday:'long',day:'numeric',month:'long'})} · ${d.time}\n👨‍👩‍👧 ${d.adults} heldu + ${d.kids} haur\n💶 ${price} € (zentroan ordaintzen da)\n✉️ ${d.email}`),
+    [[L('✅ Confirmar','✅ Berretsi'),confirmBooking],[L('Cambiar algo','Zerbait aldatu'),()=>{flow.data={};next();}]]);
+}
+function handleFlowText(t){
+  const d=flow.data;
+  if(flow.step==='adults'||flow.step==='kids'){const n=parseInt(t,10);if(isNaN(n)||n<0||n>30){bot(L('Dime un número, porfa 🙂','Esadazu zenbaki bat, mesedez 🙂'));return true;}clearQR();d[flow.step]=n;next();return true;}
+  if(flow.step==='name'){if(t.length<2){bot(L('¿Me dices tu nombre?','Esango didazu zure izena?'));return true;}d.name=t;next();return true;}
+  if(flow.step==='email'){if(!/^\S+@\S+\.\S+$/.test(t)){bot(L('Ese correo no me cuadra, ¿lo revisas?','Helbide hori ez zait ondo iruditzen, berrikusiko duzu?'));return true;}d.email=t;next();return true;}
+  if(flow.step==='phone'){if(t.replace(/\D/g,'').length<9){bot(L('Necesito un número de 9 cifras.','9 zifrako zenbaki bat behar dut.'));return true;}d.phone=t;next();return true;}
+  return false;
+}
+function confirmBooking(){
+  const d=flow.data;flow=null;
+  const code='ATA-'+Math.floor(4850+Math.random()*5000);
+  taken[d.date+' '+d.time]=(taken[d.date+' '+d.time]||0)+d.adults+d.kids;
+  const b={code,name:d.name,date:d.date,time:d.time,adults:d.adults,kids:d.kids,email:d.email,src:'Web'};
+  bookings.push(b);lastNew=code;renderTable();renderDays();renderSlots();
+  bot(L('¡Hecho! Tu casco te espera ⛑️ Te acabo de mandar el billete por correo.','Eginda! Zure kaskoa zain duzu ⛑️ Txartela bidali berri dizut postaz.'));
+  const tk=document.createElement('div');tk.className='ticket';
+  tk.innerHTML=`<div class="tt"><span>${L('Billete de vagoneta','Bagoneta-txartela')}</span><span>⛏</span></div>
+  <div class="tb"><div><small>${L('Día','Eguna')}</small><b>${fmt(d.date,{weekday:'short',day:'numeric',month:'short'})}</b></div><div><small>${L('Turno','Txanda')}</small><b>${d.time}</b></div>
+  <div><small>${L('Mineros','Meatzariak')}</small><b>${d.adults} + ${d.kids} ${L('peques','txiki')}</b></div><div><small>${L('Salida','Irteera')}</small><b>${L('Estación de Atauri','Atauriko geltokia')}</b></div></div>
+  <div class="tc"><span class="code">${code}</span><button class="mini-btn" type="button">${L('Ver el correo','Posta ikusi')}</button></div>`;
+  tk.querySelector('button').onclick=()=>showMail(b);
+  msgs.appendChild(tk);
+  bot(L('¿Te ayudo con algo más?','Beste zerbaitetan lagun zaitzaket?'),[[L('Ver el correo','Posta ikusi'),()=>showMail(b)],[L('Ver el panel del centro','Zentroaren panela ikusi'),()=>{closeChat();document.getElementById('panel').scrollIntoView();}],[L('Otra pregunta','Beste galdera bat'),()=>bot(L('¡Dime!','Esan!'))]]);
+}
+
+/* FAQ fallback */
+const FAQ={
+ precio:()=>L('Bajamos todos los domingos en tres turnos: 10:00, 11:15 y 12:30.\nAdultos 6 €, niños de 4 a 12 años 3 €, y menores de 4 gratis. (Datos de ejemplo de la demo)','Igande guztietan jaisten gara, hiru txandatan: 10:00, 11:15 eta 12:30.\nHelduak 6 €, 4-12 urteko haurrak 3 €, eta 4 urtetik beherakoak doan. (Demoaren adibide-datuak)'),
+ ninos:()=>L('¡Totalmente! Es una visita pensada para familias: cascos en tallas para peques, explicaciones a su altura y la realidad virtual del centro, que les encanta. Solo trae una chaqueta, que dentro hace fresco.','Bai, noski! Familientzako pentsatutako bisita da: txikientzako tamainako kaskoak, haien neurrira egindako azalpenak eta zentroko errealitate birtuala, asko gustatzen zaiena. Ekarri jaka bat, barruan freskoa egiten baitu.'),
+ llegar:()=>L('Quedamos en Asfaltokia, la antigua estación de tren de Atauri (Arraia-Maeztu, Álava). Desde Vitoria-Gasteiz son unos 40 minutos en coche. El domingo por la mañana te mando la ubicación exacta.','Asfaltokian geratzen gara, Atauriko tren-geltoki zaharrean (Arraia-Maeztu, Araba). Gasteiztik 40 bat minutu dira autoz. Igande goizean kokapen zehatza bidaliko dizut.'),
+ grupo:()=>L('Para colegios y grupos grandes preparamos visitas a medida. Déjame tu nombre y correo con «Reservar visita», o llama al 639 310 779.','Ikastetxe eta talde handientzat neurrira egindako bisitak prestatzen ditugu. Utzi zure izena eta posta «Bisita erreserbatu» atalean, edo deitu 639 310 779 zenbakira.'),
+ perro:()=>L('Dentro de la galería no pueden entrar mascotas, pero la ruta de los asfaltos por fuera es perfecta para ir con perro 🐕','Galerian ezin dira maskotak sartu, baina kanpoko asfaltoen ibilbidea ezin hobea da txakurrarekin joateko 🐕'),
+ cancelar:()=>L('Puedes cancelar o cambiar tu reserva desde el enlace del correo de confirmación, o escribiéndome aquí con tu código (ATA-…).','Erreserba bertan behera utzi edo aldatu dezakezu berrespen-postako estekatik, edo hemen zure kodearekin (ATA-…) idatziz.')
+};
+function faq(k){bot(FAQ[k](),k==='precio'||k==='ninos'?[[L('⛑ Reservar ahora','⛑ Erreserbatu orain'),()=>startBooking({})]]:null);}
+function keyword(q){
+  q=q.toLowerCase();
+  if(/reserv|apunt|entrad|billete|erreserb|txartel/.test(q))return startBooking({});
+  if(/preci|cuesta|cuánto|cuanto|€|euro|horar|hora|turno|prezio|ordu|txanda|domingo|igande/.test(q))return faq('precio');
+  if(/niñ|nin|peque|crío|hij|famil|haur|ume|txiki/.test(q))return faq('ninos');
+  if(/lleg|dónde|donde|dirección|direccion|parking|aparc|coche|iritsi|non|helbide/.test(q))return faq('llegar');
+  if(/colegio|grupo|escuel|ikastetx|talde/.test(q))return faq('grupo');
+  if(/perr|mascot|txakur/.test(q))return faq('perro');
+  if(/cancel|cambiar|anular|aldatu/.test(q))return faq('cancelar');
+  bot(L('Esa me la apunto para el equipo 📝 Te contestan en breve, o si prefieres llama al 639 310 779. ¿Te ayudo con otra cosa?','Hori taldearentzat apuntatzen dut 📝 Laster erantzungo dizute, edo nahiago baduzu deitu 639 310 779 zenbakira. Beste zerbaitetan lagun zaitzaket?'),MAIN());
+}
+
+/* IA (si el visor la permite) */
+let samplePromise=null;
+function warmAI(){if(!samplePromise&&window.claude&&window.claude.use)samplePromise=window.claude.use('sample').catch(()=>null);}
+setTimeout(warmAI,0);
+let aiOff=false;const hist=[];
+function availabilityText(){
+  return sundays.slice(0,6).map(s=>{const k=iso(s);return k+': '+TIMES.map(t=>t+' ('+free(k,t)+' plazas)').join(', ');}).join('\n');
+}
+async function ask(q){
+  warmAI();
+  const sample=(aiOff||!samplePromise)?null:await Promise.race([samplePromise,new Promise(r=>setTimeout(()=>r(null),4000))]);
+  if(!sample){keyword(q);return;}
+  const bubble=bot('…');bubble.classList.add('typing');
+  const today=new Date().toISOString().slice(0,10);
+  const sys=`Eres Lucía, "la minera", asistente de Asfaltokia: centro de interpretación de los asfaltos naturales en la antigua estación de tren de Atauri (Arraia-Maeztu, Álava) y visitas guiadas a Mina Lucía (explotada desde 1872, 300 m de galería, el asfalto aún brota de la roca; el asfalto aparece por el diapiro de Maeztu). El público son familias con niños. Tono: cercano, alegre, frases cortas, algún emoji minero (⛑️⛏️) sin pasarte. Responde SIEMPRE en el idioma del usuario (castellano o euskera). Máximo 3-4 frases.
+Datos (de ejemplo en esta demo): visitas todos los domingos a las 10:00, 11:15 y 12:30, 20 plazas por turno, duración aprox. 1 h, casco y linterna incluidos, adulto 6 €, niño 4-12 años 3 €, menores de 4 gratis, pago en el centro. Llevar chaqueta. Unos 40 min en coche desde Vitoria-Gasteiz. Teléfono 639 310 779, info@asfaltokia.eus. El centro tiene realidad virtual, miradores y exposición sobre el tren Vasco-Navarro. Ruta de los asfaltos naturales: 39 km entre Antoñana, Korres (Parque Natural de Izki) y Atauri. Grupos y colegios: visita a medida, contactar.
+Hoy es ${today}. Disponibilidad actual:\n${availabilityText()}
+Si el usuario quiere reservar, llama a la herramienta iniciar_reserva (con fecha AAAA-MM-DD y hora si las sabe) y dile en una frase que le abres el formulario. Nunca inventes que has hecho una reserva tú. Si no sabes algo, di que se lo pasas al equipo.`;
+  hist.push({role:'user',content:q});
+  const convo=hist.slice(-10);
+  const input=[{role:'user',content:sys+'\n\n--- Conversación ---\n'+convo.map(m=>(m.role==='user'?'Usuario: ':'Lucía: ')+m.content).join('\n')+'\nLucía:'}];
+  let started=null;
+  try{
+    const res=await sample(input,{modelTier:'quick',cache:false,
+      onText:({text})=>{bubble.classList.remove('typing');bubble.textContent=text;scrollDown();},
+      tools:[{name:'iniciar_reserva',description:'Abre el formulario de reserva guiado en el chat. Úsalo cuando el usuario quiera reservar.',
+        inputSchema:{type:'object',properties:{fecha:{type:'string',description:'Domingo en formato AAAA-MM-DD, si se conoce'},hora:{type:'string',enum:TIMES}}},
+        execute:(inp)=>{started={};if(inp&&inp.fecha&&sundays.some(s=>iso(s)===inp.fecha))started.date=inp.fecha;if(inp&&inp.hora&&TIMES.includes(inp.hora))started.time=inp.hora;return {ok:true,nota:'Formulario abierto en el chat'};}}]});
+    bubble.classList.remove('typing');
+    const txt=(res&&res.text||'').trim();
+    if(txt){bubble.textContent=txt;hist.push({role:'assistant',content:txt});}else bubble.remove();
+    if(started){startBooking(started,!!(started.date&&started.time));}
+  }catch(e){
+    bubble.remove();
+    if(e&&(e.code==='not_granted'||e.code==='rate_limited'))aiOff=true;
+    keyword(q);
+  }
+}
+
+document.getElementById('chatForm').addEventListener('submit',e=>{
+  e.preventDefault();const t=input.value.trim();if(!t)return;input.value='';me(t);
+  if(flow&&flow.step&&handleFlowText(t))return;
+  if(flow&&flow.step==='confirm'&&/^(s[ií]|vale|ok|bai|confirm)/i.test(t)){clearQR();confirmBooking();return;}
+  clearQR();ask(t);
+});
+
+/* correo */
+function showMail(b){
+  const dl=fmt(b.date,{weekday:'long',day:'numeric',month:'long'});
+  document.getElementById('mailBody').innerHTML=`
+  <div class="meta"><b>Lucía · Asfaltokia</b> &lt;reservas@asfaltokia.eus&gt;<br>${L('Para','Nori')}: ${esc(b.email||'')}<br>${L('Asunto','Gaia')}: <b>⛑️ ${L('Tu bajada a Mina Lucía está confirmada','Mina Luciara jaitsiera berretsita')} · ${b.code}</b></div>
+  <div class="mhero"><svg viewBox="0 0 52 52">${AV}</svg><div><div class="cond" style="font-size:22px;font-weight:800">${L('¡Nos vemos en la mina!','Meatzean ikusiko gara!')}</div><div style="font-size:13px;color:#a8a194">${L('Billete de vagoneta','Bagoneta-txartela')} ${b.code}</div></div></div>
+  <h3 class="cond">${esc(b.name.split(' ')[0])}, ${L('tu casco ya tiene nombre','zure kaskoak izena du jada')}</h3>
+  <p>${L(`Te esperamos el <b>${dl}</b> a las <b>${b.time}</b> en Asfaltokia, la antigua estación de Atauri. Llegad 10 minutos antes.`,`<b>${dl}</b>, <b>${b.time}</b>etan zain izango zaitugu Asfaltokian, Atauriko geltoki zaharrean. Etorri 10 minutu lehenago.`)}</p>
+  <ul><li>${b.adults} ${L('adulto(s)','heldu')} + ${b.kids} ${L('peque(s)','txiki')}</li><li>${L('Trae chaqueta: dentro hace fresco','Ekarri jaka: barruan freskoa egiten du')}</li><li>${L('Calzado cómodo','Oinetako erosoak')}</li></ul>
+  <p>${L('¿Te ha surgido algo? Responde a este correo o escríbeme y lo cambiamos en un minuto.','Zerbait gertatu zaizu? Erantzun posta honi edo idatzi niri, eta minutu batean aldatuko dugu.')}</p>
+  <p style="font-size:13px;color:#8c877d">Asfaltokia · 639 310 779</p>`;
+  const tl=[[L('Ahora','Orain'),L('Confirmación con el billete','Berrespena txartelarekin'),true],
+    [L('Jueves antes','Aurreko osteguna'),L('Recordatorio + qué llevar a la mina','Gogorarazpena + zer ekarri'),false],
+    [L('Domingo 8:00','Igandea 8:00'),L('Ubicación y cómo llegar (pronto también por WhatsApp)','Kokapena eta nola iritsi (laster WhatsAppen ere)'),false],
+    [L('Lunes','Astelehena'),L('Gracias + reseña en Google + ruta de los asfaltos','Eskerrik asko + Google iritzia + asfaltoen ibilbidea'),false],
+    [L('Si no aparece','Agertzen ez bada'),L('«¿Os buscamos otro domingo?»','«Beste igande bat bilatuko dizuegu?»'),false]];
+  document.getElementById('tl').innerHTML=tl.map(([w,t,d])=>`<div class="${d?'done':''}"><b>${w}</b>${t}</div>`).join('');
+  document.getElementById('modal').classList.add('open');
+}
+document.getElementById('closeM').onclick=()=>document.getElementById('modal').classList.remove('open');
+document.getElementById('modal').onclick=e=>{if(e.target.id==='modal')e.currentTarget.classList.remove('open');};
+
+renderDays();renderSlots();renderTable();
+setTimeout(()=>{if(!chat.classList.contains('open'))fab.animate([{transform:'scale(1)'},{transform:'scale(1.06)'},{transform:'scale(1)'}],{duration:700,iterations:2});},3500);
+})();
+</script>
+<div class="vmodal" id="vmodal"><button class="vx" id="vx" aria-label="Cerrar">×</button><div class="vb" id="vb"></div></div>
+<script>
+(function(){const m=document.getElementById('vmodal'),b=document.getElementById('vb');
+function close(){m.classList.remove('open');b.innerHTML='';}
+document.querySelectorAll('a[data-yt]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();
+b.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+a.dataset.yt+'?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen title="Vídeo"></iframe>';m.classList.add('open');}));
+document.getElementById('vx').onclick=close;m.onclick=e=>{if(e.target===m)close();};addEventListener('keydown',e=>{if(e.key==='Escape')close();});})();
+</script>
+</body>
+</html>
