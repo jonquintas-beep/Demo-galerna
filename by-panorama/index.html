@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Para By Panorama</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#F7F4EE">
+<link rel="icon" type="image/png" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-title" content="By Panorama">
+<meta property="og:title" content="Para By Panorama · Galerna Method">
+<meta property="og:description" content="Un puente entre vosotros y los propietarios de la Milla de Oro que ya quieren vender.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Manrope:wght@400;500;700&display=swap">
+<style>
+:root{
+  --bg:#F7F4EE; --paper:#FDFBF7; --ink:#1C2430; --mute:#5E6773; --stone:#CDB48A; --river:#1F5E86; --line:#E6DFD2;
+  --band:#10283A; --bandink:#F7F4EE; --bandmute:#B7C6D2;
+  --display:'Fraunces', Georgia, 'Times New Roman', serif;
+  --text:'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#17130F; --paper:#201A14; --ink:#F1E7D6; --mute:#B6A68E; --stone:#8C7550; --river:#8FB8D4; --line:#3A2F24;
+  --band:#0F171D; --bandink:#F1E7D6; --bandmute:#A7B3BC; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#17130F; --paper:#201A14; --ink:#F1E7D6; --mute:#B6A68E; --stone:#8C7550; --river:#8FB8D4; --line:#3A2F24;
+  --band:#0F171D; --bandink:#F1E7D6; --bandmute:#A7B3BC; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--text);font-size:17px;line-height:1.6;overflow-x:clip;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+header{padding-block:28px 0;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);font-weight:700}
+header b{color:var(--ink)}
+.hero{padding-block:56px 8px;display:flex;flex-direction:column;gap:20px}
+.eyebrow{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--river);font-weight:700}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(36px,6.4vw,60px);line-height:1.05;letter-spacing:-.01em;margin:0;text-wrap:balance}
+h1 em{font-style:italic;font-weight:500;color:var(--river)}
+.lead{font-size:19px;color:var(--mute);max-width:58ch;margin:0}
+.bridge{display:block;width:100%;height:auto;margin-top:28px}
+.bridge .arch{fill:none;stroke:var(--stone);stroke-width:3}
+.bridge .deck{stroke:var(--ink);stroke-width:3}
+.bridge .water{stroke:var(--river);stroke-width:2;opacity:.55;fill:none}
+.bridge .pier{fill:var(--stone);opacity:.5}
+@media (prefers-reduced-motion:no-preference){
+  .bridge .arch{stroke-dasharray:420;stroke-dashoffset:0;animation:draw 1.6s ease-out both}
+  .bridge .arch:nth-of-type(2){animation-delay:.15s}.bridge .arch:nth-of-type(3){animation-delay:.3s}.bridge .arch:nth-of-type(4){animation-delay:.45s}.bridge .arch:nth-of-type(5){animation-delay:.6s}
+  @keyframes draw{from{stroke-dashoffset:420}}
+}
+section{padding-block:48px}
+h2{font-family:var(--display);font-weight:700;font-size:clamp(26px,4vw,36px);line-height:1.15;margin:0 0 18px;text-wrap:balance}
+.monday{display:grid;gap:0;border-top:1px solid var(--line)}
+.monday div{display:grid;grid-template-columns:72px minmax(0,1fr);gap:16px;padding:18px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.monday time{font-family:var(--display);font-size:22px;color:var(--river);font-variant-numeric:tabular-nums}
+.monday p{margin:0}
+.monday small{display:block;color:var(--mute);font-size:15px}
+.note{color:var(--mute);font-size:15px;margin:14px 0 0}
+.band{background:var(--band);color:var(--bandink)}
+.band .wrap{padding-block:56px;display:flex;flex-direction:column;gap:16px}
+.band .eyebrow{color:var(--stone)}
+.band h2{color:var(--bandink);margin:0}
+.band p{color:var(--bandmute);margin:0;max-width:58ch}
+.veil{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.veil span{border:1px dashed var(--bandmute);color:var(--bandmute);border-radius:999px;padding:6px 14px;font-size:14px}
+.zone{display:flex;gap:20px;align-items:center;flex-wrap:wrap;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:24px}
+.cp{font-family:var(--display);font-size:44px;line-height:1;font-weight:700;color:var(--river);font-variant-numeric:tabular-nums}
+.zone p{margin:0;flex:1;min-width:0}
+.zone b{display:block;font-size:19px}
+.cta{display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+.btn{display:inline-block;background:var(--river);color:var(--paper);text-decoration:none;font-weight:700;padding:14px 22px;border-radius:10px}
+.btn:focus-visible{outline:3px solid var(--stone);outline-offset:3px}
+footer{padding-block:32px 48px;color:var(--mute);font-size:13px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><span><b>Galerna</b> Method</span><span>Para By Panorama · Puente Romano, Marbella</span></header>
+
+  <div class="hero">
+    <span class="eyebrow">Una propuesta, una sola inmobiliaria</span>
+    <h1>Un puente entre vosotros y los propietarios de la Milla de Oro <em>que ya quieren vender.</em></h1>
+    <p class="lead">No es una agencia de anuncios ni otro programa más que aprender. Es algo que hemos preparado para una sola agencia de la zona de Puente Romano, y hemos pensado en vosotros.</p>
+    <svg class="bridge" viewBox="0 0 720 150" role="img" aria-label="Dibujo de un puente de piedra de cinco arcos sobre el río">
+      <line class="deck" x1="0" y1="40" x2="720" y2="40"/>
+      <path class="arch" d="M20 130 Q92 40 164 130"/>
+      <path class="arch" d="M164 130 Q236 40 308 130"/>
+      <path class="arch" d="M308 130 Q380 40 452 130"/>
+      <path class="arch" d="M452 130 Q524 40 596 130"/>
+      <path class="arch" d="M596 130 Q658 52 720 130"/>
+      <rect class="pier" x="156" y="40" width="16" height="90"/><rect class="pier" x="300" y="40" width="16" height="90"/><rect class="pier" x="444" y="40" width="16" height="90"/><rect class="pier" x="588" y="40" width="16" height="90"/>
+      <path class="water" d="M0 138 Q60 132 120 138 T240 138 T360 138 T480 138 T600 138 T720 138"/>
+      <path class="water" d="M30 147 Q90 141 150 147 T270 147 T390 147 T510 147 T630 147"/>
+    </svg>
+  </div>
+
+  <section>
+    <span class="eyebrow">Imaginad un lunes cualquiera</span>
+    <h2>Abrís el móvil y ya está todo hecho.</h2>
+    <div class="monday">
+      <div><time>08:30</time><p>Tres propietarios de la zona han pedido valoración este fin de semana.<small>Cada uno con su ficha: qué vende, por qué y para cuándo, vivan en Marbella o fuera.</small></p></div>
+      <div><time>09:00</time><p>Dos de ellos ya tienen cita en vuestra agenda.<small>Confirmada y con recordatorio. Nadie ha tenido que llamar.</small></p></div>
+      <div><time>11:15</time><p>Un propietario mira la oferta que le entró ayer, desde su propia app.<small>Con vuestra marca, esté donde esté. Sin llamaros para preguntar.</small></p></div>
+    </div>
+    <p class="note">Ejemplo de un día con el sistema funcionando.</p>
+  </section>
+</div>
+
+<div class="band">
+  <div class="wrap">
+    <span class="eyebrow">Cómo se consigue</span>
+    <h2>Eso os lo enseñamos en 15 minutos, no por escrito.</h2>
+    <p>Solo os adelantamos dos cosas. Funciona sin que vuestro equipo cambie su forma de trabajar. Y si no recuperáis lo que invertís, seguimos trabajando gratis hasta que lo recuperéis.</p>
+    <div class="veil" aria-label="Lo que veréis en la llamada"><span>La app con vuestro nombre</span><span>De dónde salen los propietarios</span><span>Cuánto cuesta</span><span>Lo que hay hasta el 30 de noviembre</span></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <section>
+    <div class="zone">
+      <span class="cp">Milla de Oro</span>
+      <p><b>Una sola agencia por zona.</b>Puente Romano todavía está libre. Cuando una agencia de la zona dice que sí, ya no lo ofrecemos a ninguna otra.</p>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2>¿Lo vemos esta semana?</h2>
+    <p class="lead">Respondednos a este mensaje con un día y una hora. Mientras tanto, si tenéis curiosidad, aquí podéis abrir la app de ejemplo.</p>
+    <a class="btn" href="/app-inmobiliaria/" target="_blank" rel="noopener">Ver la app de ejemplo</a>
+  </section>
+
+  <footer>Galerna Method · galernamethod.com · Propuesta preparada para By Panorama. Los datos de la app de ejemplo son simulados.</footer>
+</div>
+</body>
+</html>
