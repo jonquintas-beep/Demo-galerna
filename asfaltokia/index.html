@@ -325,6 +325,7 @@ footer b{color:var(--hueso);font-family:"Barlow Semi Condensed";font-size:20px}
       <div class="dd"><button class="dd-b" aria-expanded="false">Asfaltokia <i>▾</i></button>
         <div class="dd-m">
           <a href="#rutas" data-eu="Natura- eta ondare-ingurunea">Entorno natural y patrimonial</a>
+          <a href="#vagon" data-ride data-eu="🚃 Igo bagoira">🚃 Súbete al vagón</a>
           <a href="#historia" data-eu="Historia">Historia</a>
           <a href="#geologia" data-eu="Geologia berezia">Geología singular</a>
         </div></div>
@@ -368,6 +369,19 @@ footer b{color:var(--hueso);font-family:"Barlow Semi Condensed";font-size:20px}
   <div class="line"><div class="fill" id="gfill"></div><div class="dot" id="gdot"></div></div>
   <div class="lbl"><b id="gm">0 m</b><span data-eu="galeria">galería</span></div>
 </div>
+
+<!-- SÚBETE AL VAGÓN -->
+<section class="ride-cta" id="vagon">
+  <div class="wrap">
+    <div>
+      <div class="gal-tag" data-eu="Historia, geltokiz geltoki">La historia, parada a parada</div>
+      <h2 data-eu="Igo bagoira">Súbete al vagón</h2>
+      <p data-eu="Zazpi geltoki, duela milioika urtetik gaur arte: gatza, meatzariak, asfaltozko ogiak eta Trenicoa. Sakatu bagoneta eta hasi bidaia.">Siete paradas, desde hace millones de años hasta hoy: la sal, los mineros, los panes de asfalto y el Trenico. Pulsa la vagoneta y empieza el viaje.</p>
+      <button class="btn btn-casco" data-ride>▶ <span data-eu="Bidaia hasi">Empezar el viaje</span></button>
+    </div>
+    <button class="ride-wbtn" data-ride id="rideWagon" aria-label="Súbete al vagón"><span class="tap" data-eu="Igo!">¡Súbete!</span></button>
+  </div>
+</section>
 
 <!-- GALERÍA 1: HISTORIA -->
 <section class="gal" id="historia">
@@ -824,6 +838,175 @@ reset();
 })();
 </script>
 
+<!-- ===== SÚBETE AL VAGÓN ===== -->
+<style>
+.ride-cta{padding:90px 0;border-top:1px solid #1e1d1b;background:radial-gradient(circle at 75% 50%,#2a2112,#0b0b0c 60%)}
+.ride-cta .wrap{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.ride-cta h2{font-size:clamp(42px,6vw,72px);line-height:.92;text-transform:uppercase;font-weight:800;margin-bottom:16px}
+.ride-cta p{color:#cbc4b6;font-size:17px;max-width:480px;margin-bottom:24px}
+.ride-wbtn{background:none;border:0;padding:0;position:relative;justify-self:center;width:min(420px,90%);filter:drop-shadow(0 30px 40px rgba(0,0,0,.6));transition:transform .2s}
+.ride-wbtn:hover{transform:translateY(-4px) rotate(-1deg)}
+.ride-wbtn svg{width:100%;height:auto;display:block}
+.ride-wbtn .tap{position:absolute;right:4%;top:6%;background:var(--casco);color:#1b1306;font-family:"Barlow Semi Condensed";font-weight:800;text-transform:uppercase;border-radius:999px;padding:8px 14px;font-size:15px;animation:pulse 1.8s infinite}
+@keyframes pulse{50%{transform:scale(1.08)}}
+.ride{position:fixed;inset:0;z-index:100;background:#0b0b0c;display:none;flex-direction:column;overscroll-behavior:contain;user-select:none;-webkit-user-select:none}
+.ride.open{display:flex}
+.r-head{display:flex;align-items:center;gap:14px;padding:12px 16px;border-bottom:1px solid #1f1e1c}
+.r-head b{font-family:"Barlow Semi Condensed";font-size:22px;text-transform:uppercase;white-space:nowrap}
+.r-stops{flex:1;display:flex;align-items:center;gap:0;overflow-x:auto;scrollbar-width:none;position:relative;padding:4px 0}
+.r-stops::-webkit-scrollbar{display:none}
+.r-stop{flex:1;min-width:58px;background:none;border:0;color:#7a7468;font-family:"Barlow Semi Condensed";font-weight:700;font-size:14px;display:flex;flex-direction:column;align-items:center;gap:4px;position:relative}
+.r-stop::before{content:"";position:absolute;top:7px;left:-50%;right:50%;height:2px;background:#33302a}
+.r-stop:first-child::before{display:none}
+.r-stop i{width:14px;height:14px;border-radius:50%;background:#33302a;border:2px solid #0b0b0c;position:relative;z-index:1}
+.r-stop.done{color:#cbc4b6}.r-stop.done i,.r-stop.done::before{background:var(--casco)}
+.r-stop.on{color:var(--casco)}.r-stop.on i{box-shadow:0 0 0 4px rgba(242,162,58,.3);background:var(--casco)}
+.r-card-wrap{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:18px;overflow:auto}
+.r-card{width:100%;max-width:880px;display:grid;grid-template-columns:1.1fr .9fr;gap:26px;align-items:center;transition:opacity .35s,transform .35s}
+.r-card.hide{opacity:0;transform:translateY(14px)}
+.r-year{font-family:"Barlow Semi Condensed";font-weight:800;font-size:clamp(34px,5vw,58px);color:var(--casco);line-height:1}
+.r-card h3{font-family:"Barlow Semi Condensed";font-size:clamp(24px,3.4vw,36px);line-height:1.05;text-transform:uppercase;margin:6px 0 12px}
+.r-card p{color:#d8d1c3;font-size:16.5px;line-height:1.6}
+.r-acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.r-vid{display:inline-flex;align-items:center;gap:8px;border:1.5px solid #5b4a2c;color:var(--casco2);border-radius:999px;padding:9px 16px;font-weight:700;text-decoration:none;font-size:15px}
+.r-vid:hover{background:#2a2112}
+.r-media{margin:0;border-radius:16px;overflow:hidden;border:1px solid #33302a;position:relative;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.r-media img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.r-media figcaption{position:absolute;left:0;right:0;bottom:0;padding:22px 12px 8px;font-size:12.5px;background:linear-gradient(transparent,rgba(0,0,0,.8))}
+.r-media.svg{background:#121110;padding:10px}.r-media.svg svg{width:100%;height:auto;display:block}
+.r-scene{position:relative;height:clamp(160px,30vh,270px);overflow:hidden;flex:none;border-top:1px solid #1f1e1c;touch-action:pan-y}
+.r-sky{position:absolute;inset:0;opacity:0;transition:opacity 1.2s}
+.r-scene[data-theme=deep] .sk-deep,.r-scene[data-theme=mine] .sk-deep,.r-scene[data-theme=old] .sk-old,.r-scene[data-theme=dusk] .sk-dusk,.r-scene[data-theme=now] .sk-now{opacity:1}
+.sk-deep{background:repeating-linear-gradient(180deg,#26211b 0 26px,#1c1814 26px 52px)}
+.sk-old{background:linear-gradient(#e2cfa9,#b49b72)}
+.sk-dusk{background:linear-gradient(#2f2340,#b9673f)}
+.sk-now{background:linear-gradient(#78bfe6,#d6eedc)}
+.r-l{position:absolute;left:0;right:0;background-repeat:repeat-x;transition:opacity 1.2s,filter 1.2s}
+.r-l.far{bottom:40px;height:62%;background-size:auto 100%}
+.r-l.mid{bottom:36px;height:42%;background-size:auto 100%}
+.r-l.in{inset:0 0 34px 0;background-size:auto 100%;opacity:0}
+.r-scene[data-theme=deep] .r-l.in,.r-scene[data-theme=mine] .r-l.in{opacity:1}
+.r-scene[data-theme=deep] .r-l.far,.r-scene[data-theme=deep] .r-l.mid,.r-scene[data-theme=mine] .r-l.far,.r-scene[data-theme=mine] .r-l.mid{opacity:0}
+.r-scene[data-theme=old] .r-l.far,.r-scene[data-theme=old] .r-l.mid{filter:sepia(1) brightness(.75) contrast(.9)}
+.r-scene[data-theme=dusk] .r-l.far,.r-scene[data-theme=dusk] .r-l.mid{filter:brightness(.45) saturate(.5)}
+.r-rails{position:absolute;left:0;right:0;bottom:0;height:40px;background:
+ linear-gradient(#8a8a8a,#8a8a8a) 0 8px/100% 4px no-repeat,
+ linear-gradient(#6d6d6d,#6d6d6d) 0 20px/100% 4px no-repeat,
+ repeating-linear-gradient(90deg,#4a3220 0 16px,transparent 16px 44px) 0 4px/100% 26px no-repeat,
+ linear-gradient(#3a332b,#1f1b17)}
+.r-wagon{position:absolute;left:50%;bottom:20px;width:clamp(150px,22vw,210px);transform:translateX(-50%)}
+.r-wagon svg{width:100%;height:auto;display:block}
+.r-wagon .wh{transform-box:fill-box;transform-origin:center}
+.r-scene.moving .r-wagon{animation:bob .32s ease-in-out infinite}
+.r-scene.moving .r-wagon .wh{animation:spin .5s linear infinite}
+@keyframes bob{50%{transform:translateX(-50%) translateY(-3px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.r-ctrl{display:flex;align-items:center;justify-content:center;gap:14px;padding:12px;padding-bottom:max(12px,env(safe-area-inset-bottom));border-top:1px solid #1f1e1c}
+.r-ctrl .rp{background:#24221e;border:0;color:#cbc4b6;width:48px;height:48px;border-radius:50%;font-size:18px}
+.r-ctrl .rp:disabled{opacity:.3}
+.r-count{font-family:ui-monospace,monospace;color:#8c877d;min-width:48px;text-align:center}
+@media (max-width:760px){
+  .ride-cta .wrap{grid-template-columns:1fr}
+  .r-head b{display:none}
+  .r-card{grid-template-columns:1fr;gap:14px}
+  .r-media img{aspect-ratio:16/9;max-height:24vh}
+  .r-card p{font-size:15.5px}
+  .r-card-wrap{align-items:flex-start;padding:14px}
+  .r-ctrl .btn{padding:12px 18px;font-size:16px}
+  .r-scene{height:clamp(130px,24vh,200px)}
+}
+</style>
+
+<div class="ride" id="ride" role="dialog" aria-label="Súbete al vagón">
+  <div class="r-head"><b data-eu="Igo bagoira">Súbete al vagón</b><div class="r-stops" id="rstops"></div><button class="g-x" id="rclose" aria-label="Cerrar">×</button></div>
+  <div class="r-card-wrap"><article class="r-card" id="rcard" aria-live="polite"></article></div>
+  <div class="r-scene" id="rscene" data-theme="deep">
+    <div class="r-sky sk-deep"></div><div class="r-sky sk-old"></div><div class="r-sky sk-dusk"></div><div class="r-sky sk-now"></div>
+    <div class="r-l far" id="rlfar"></div><div class="r-l mid" id="rlmid"></div><div class="r-l in" id="rlin"></div>
+    <div class="r-rails" id="rrails"></div>
+    <div class="r-wagon" id="rwagon"></div>
+  </div>
+  <div class="r-ctrl"><button class="rp" id="rprev" aria-label="Parada anterior">◀</button><span class="r-count" id="rcount"></span><button class="btn btn-casco" id="rnext"></button></div>
+</div>
+
+<script>
+(function(){
+const L=(es,eu)=>document.documentElement.lang==='eu'?eu:es;
+const WAGON=`<svg viewBox="0 0 220 150">
+ <g transform="translate(110 58)">
+  <circle cx="0" cy="0" r="30" fill="#0b0b0b"/><ellipse cx="-11" cy="-10" rx="5" ry="8" fill="#fff" opacity=".3" transform="rotate(-30 -11 -10)"/>
+  <ellipse cx="-9" cy="-2" rx="7" ry="9" fill="#fff"/><ellipse cx="9" cy="-2" rx="7" ry="9" fill="#fff"/>
+  <circle cx="-7" cy="-1" r="4.5" fill="#2f7bd6"/><circle cx="11" cy="-1" r="4.5" fill="#2f7bd6"/><circle cx="-7" cy="-1" r="2.2" fill="#000"/><circle cx="11" cy="-1" r="2.2" fill="#000"/>
+  <path d="M-8 11 q8 7 16 0" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M-26 -14 a26 24 0 0 1 52 0z" fill="#f2b51f"/><rect x="-31" y="-16" width="62" height="7" rx="3" fill="#e09b12"/><circle cx="10" cy="-30" r="6" fill="#fff6d8"/>
+  <path d="M28 4 l18 -14" stroke="#0b0b0b" stroke-width="7" stroke-linecap="round"/><circle cx="47" cy="-11" r="5" fill="#0b0b0b"/>
+ </g>
+ <path d="M30 70 H190 L176 122 H44 Z" fill="#7a3e22" stroke="#c9c9c9" stroke-width="4" stroke-linejoin="round"/>
+ <path d="M70 72 L66 120 M110 72 V120 M150 72 L154 120" stroke="#5a2c18" stroke-width="3"/>
+ <rect x="24" y="64" width="172" height="10" rx="4" fill="#9a9a9a"/>
+ <rect x="40" y="120" width="140" height="6" fill="#444"/>
+ <g class="wh"><circle cx="66" cy="132" r="15" fill="#3b3b3b" stroke="#bdbdbd" stroke-width="4"/><path d="M66 119 V145 M53 132 H79" stroke="#bdbdbd" stroke-width="3"/></g>
+ <g class="wh"><circle cx="154" cy="132" r="15" fill="#3b3b3b" stroke="#bdbdbd" stroke-width="4"/><path d="M154 119 V145 M141 132 H167" stroke="#bdbdbd" stroke-width="3"/></g>
+</svg>`;
+const svgURI=s=>`url("data:image/svg+xml,${encodeURIComponent(s)}")`;
+const FAR=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200" preserveAspectRatio="none"><path d="M0 200 V120 L60 80 L120 105 L190 40 L260 95 L330 70 L400 110 L470 55 L540 90 L610 30 L690 85 L750 65 L800 120 V200Z" fill="#5d6b5a"/><path d="M190 40 L210 60 L180 70Z M610 30 L630 52 L598 58Z" fill="#c9c2b0" opacity=".5"/></svg>`;
+const MID=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 120" preserveAspectRatio="none"><path d="M0 120 V70 Q80 40 160 62 T320 58 T480 66 T600 70 V120Z" fill="#35472f"/>${[30,70,95,180,210,260,330,360,420,470,520,560].map((x,i)=>`<path d="M${x} ${62-(i%3)*4} l12 -${30+(i%4)*6} l12 ${30+(i%4)*6}z" fill="#24331f"/>`).join('')}<rect x="250" y="40" width="34" height="22" fill="#d9cfbd"/><path d="M246 40 l21 -14 l21 14z" fill="#7a3a22"/></svg>`;
+const IN=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" preserveAspectRatio="none"><rect width="400" height="300" fill="#1d1a16"/>${[[40,60,40],[150,30,26],[300,80,46],[90,200,34],[240,180,40],[350,230,30],[190,110,22]].map(([x,y,r])=>`<ellipse cx="${x}" cy="${y}" rx="${r}" ry="${r*.7}" fill="#2a251f"/>`).join('')}<ellipse cx="300" cy="150" rx="40" ry="12" fill="#030303"/><path d="M300 160 q-4 22 0 34 q4 -12 0 -34" fill="#030303"/><rect x="0" y="0" width="22" height="300" fill="#5a3b22"/><rect x="0" y="0" width="400" height="22" fill="#4a3220"/><circle cx="120" cy="40" r="7" fill="#ffd27a"/><circle cx="120" cy="40" r="40" fill="#ffd27a" opacity=".12"/></svg>`;
+const DIAPIRO=`<svg viewBox="0 0 400 240"><rect width="400" height="240" fill="#0f0e0d"/><rect y="30" width="400" height="34" fill="#5b5245"/><rect y="64" width="400" height="34" fill="#4a4237"/><rect y="98" width="400" height="34" fill="#3c362e"/><rect y="132" width="400" height="34" fill="#302b25"/><rect y="166" width="400" height="34" fill="#26231e"/><path class="salt" d="M130 240 C140 150,160 70,200 55 C240 70,260 150,270 240Z" fill="#e7e1d6"/><g class="oil" fill="#050505"><ellipse cx="143" cy="130" rx="17" ry="7"/><ellipse cx="257" cy="122" rx="17" ry="7"/><ellipse cx="155" cy="92" rx="12" ry="5"/><ellipse cx="246" cy="90" rx="12" ry="5"/></g><path d="M0 30 C60 25,120 34,200 28 S340 24,400 30" stroke="#7b9b5a" stroke-width="5" fill="none"/></svg>`;
+const CH=[
+ {s:['Origen','Jatorria'],y:['Hace millones de años','Duela milioika urte'],t:['La sal que empuja','Bultzaka dabilen gatza'],theme:'deep',svg:DIAPIRO,cap:['El diapiro de Maeztu','Maeztuko diapiroa'],
+  p:['Bajo Maeztu, una masa de sal fue subiendo muy despacio y empujó las rocas de encima. En sus bordes quedó atrapado el petróleo, que con el tiempo se volvió asfalto y empapó la roca caliza.','Maeztu azpian, gatz-masa bat oso poliki igo zen eta gaineko harkaitzak bultzatu zituen. Haren ertzetan petrolioa harrapatuta geratu zen; denborarekin asfalto bihurtu eta kareharria busti zuen.']},
+ {s:['1856','1856'],y:['1856 – 1858','1856 – 1858'],t:['La primera fábrica de asfaltos de España','Espainiako lehen asfalto-fabrika'],theme:'old',img:'img/cantera.jpg',cap:['Paisaje minero de Montaña Alavesa','Arabako Mendialdeko meatze-paisaia'],
+  p:['Entre Korres y Atauri se registra la mina San Ildefonso. Allí, en 1858, arranca la primera fábrica de asfaltos de España, con su poblado minero y familias enteras trabajando.','Korres eta Atauri artean San Ildefonso meatzea erregistratzen da. Bertan, 1858an, Espainiako lehen asfalto-fabrika abiatzen da, bere meatze-herrixkarekin eta familia osoak lanean.']},
+ {s:['1872','1872'],y:['1872','1872'],t:['Pico, pala y Mina Lucía','Pikotxa, pala eta Mina Lucía'],theme:'mine',img:'img/asfalto.jpg',cap:['El asfalto sigue brotando de la pared','Asfaltoak hormatik ateratzen jarraitzen du'],yt:'X_T9pp24eW4',
+  p:['En la ladera de Atauri empieza Mina Lucía. Durante unos 50 años, los mineros excavan a mano casi 300 metros de galerías. Y el asfalto, todavía hoy, sigue brotando de sus paredes.','Atauriko mendi-hegalean Mina Lucía hasten da. 50 bat urtez, meatzariek eskuz zulatzen dituzte ia 300 metroko galeriak. Eta asfaltoak, gaur egun ere, hormetatik ateratzen jarraitzen du.']},
+ {s:['1892','1892'],y:['1892 – 1910','1892 – 1910'],t:['Panes de asfalto para el mundo','Asfaltozko ogiak mundu osorako'],theme:'old',
+  p:['Nace la Compañía de Asfaltos de Maestu. Con la roca se hacen «panes» y losetas que pavimentan calles de Vitoria y de París, el frontón de Maeztu y la Bolsa de Madrid. ¡Llegan a exportar a Brasil!','Compañía de Asfaltos de Maestu jaiotzen da. Harkaitzarekin «ogiak» eta lauzak egiten dira, eta Gasteizko eta Pariseko kaleak, Maeztuko pilotalekua eta Madrilgo Burtsa zolatzen dituzte. Brasilera ere esportatzen dute!']},
+ {s:['1927','1927'],y:['1927','1927'],t:['¡Llega el Trenico!','Trenicoa iritsi da!'],theme:'old',img:'img/estacion-1927.jpg',cap:['La estación de Atauri en sus primeros años','Atauriko geltokia bere lehen urteetan'],
+  p:['El 23 de septiembre de 1927 se inaugura el tramo Vitoria–Estella del Ferrocarril Vasco-Navarro. La estación de Atauri se construye con una vía especial para cargar el asfalto de las minas.','1927ko irailaren 23an Vasco-Navarro trenbidearen Gasteiz–Lizarra zatia inauguratzen da. Atauriko geltokia meatzeetako asfaltoa kargatzeko trenbide berezi batekin eraikitzen da.']},
+ {s:['1967','1967'],y:['1920 – 1967','1920 – 1967'],t:['El petróleo gana la partida','Petrolioak irabazten du'],theme:'dusk',img:'img/tunel.jpg',cap:['Un túnel del Trenico, hoy Vía Verde','Trenicoaren tunel bat, gaur Bide Berdea'],
+  p:['El asfalto del petróleo sale más barato y las minas se van apagando: Mina Lucía cierra en los años 20. El tren aguanta hasta el 31 de diciembre de 1967, cuando hace su último viaje.','Petrolioko asfaltoa merkeagoa da eta meatzeak itzaltzen doaz: Mina Lucía 20ko hamarkadan ixten da. Trenak 1967ko abenduaren 31ra arte eusten dio, azken bidaia egin arte.']},
+ {s:['Hoy','Gaur'],y:['Hoy','Gaur'],t:['La mina vuelve a abrirse','Meatzea berriro irekitzen da'],theme:'now',img:'img/estacion-hoy.jpg',cap:['Asfaltokia, en la estación de Atauri','Asfaltokia, Atauriko geltokian'],yt:'LDoSuvM3NNU',end:true,
+  p:['Las vías son ahora la Vía Verde, la vieja estación es Asfaltokia y Mina Lucía, una de las dos únicas minas de asfalto visitables de Europa, te espera. ¿Bajamos?','Trenbidea Bide Berdea da orain, geltoki zaharra Asfaltokia da, eta Mina Lucía, Europan bisita daitezkeen asfalto-meatze bakarretako bat, zure zain dago. Jaitsiko gara?']}
+];
+const ride=document.getElementById('ride'),scene=document.getElementById('rscene'),card=document.getElementById('rcard');
+document.getElementById('rwagon').innerHTML=WAGON;
+const lf=document.getElementById('rlfar'),lm=document.getElementById('rlmid'),li=document.getElementById('rlin'),lr=document.getElementById('rrails');
+lf.style.backgroundImage=svgURI(FAR);lm.style.backgroundImage=svgURI(MID);li.style.backgroundImage=svgURI(IN);
+const SEG=1400;let cur=0,pos=0,anim=null,open=false;
+function paint(){lf.style.backgroundPositionX=(-pos*.12)+'px';lm.style.backgroundPositionX=(-pos*.35)+'px';li.style.backgroundPositionX=(-pos*.8)+'px';lr.style.backgroundPositionX=(-pos)+'px';}
+function renderStops(){const box=document.getElementById('rstops');box.innerHTML='';CH.forEach((c,i)=>{const b=document.createElement('button');b.className='r-stop'+(i<cur?' done':'')+(i===cur?' on':'');b.innerHTML='<i></i>'+L(c.s[0],c.s[1]);b.onclick=()=>go(i);box.appendChild(b);});
+  const on=box.children[cur];if(on)on.scrollIntoView({inline:'center',block:'nearest'});}
+function renderCard(){const c=CH[cur];
+  let media='';if(c.svg)media=`<figure class="r-media svg">${c.svg}<figcaption>${L(c.cap[0],c.cap[1])}</figcaption></figure>`;else if(c.img)media=`<figure class="r-media"><img src="${c.img}" alt=""><figcaption>${L(c.cap[0],c.cap[1])}</figcaption></figure>`;
+  let acts='';if(c.yt)acts+=`<a class="r-vid" data-yt="${c.yt}" href="https://www.youtube.com/watch?v=${c.yt}" target="_blank" rel="noopener">▶ ${L('Ver vídeo','Bideoa ikusi')}</a>`;
+  if(c.end)acts+=`<button class="btn btn-casco" id="rbook">⛑ ${L('Reservar visita','Bisita erreserbatu')}</button>`;
+  card.innerHTML=`<div><div class="r-year">${L(c.y[0],c.y[1])}</div><h3>${L(c.t[0],c.t[1])}</h3><p>${L(c.p[0],c.p[1])}</p>${acts?`<div class="r-acts">${acts}</div>`:''}</div>${media}`;
+  const rb=document.getElementById('rbook');if(rb)rb.onclick=()=>{close();setTimeout(()=>window.startLuciaBooking&&window.startLuciaBooking(),300);};
+  document.getElementById('rcount').textContent=(cur+1)+' / '+CH.length;
+  document.getElementById('rprev').disabled=cur===0;
+  document.getElementById('rnext').innerHTML=cur===CH.length-1?L('↺ Volver a empezar','↺ Berriro hasi'):L('Siguiente parada ▶','Hurrengo geltokia ▶');
+  renderStops();}
+function go(i){if(i<0)return;if(i>=CH.length)i=0;if(anim)cancelAnimationFrame(anim);
+  const from=pos,to=i*SEG,dist=Math.abs(to-from),dur=Math.min(2600,Math.max(700,dist/1.1)),t0=performance.now();let switched=false;
+  card.classList.add('hide');scene.classList.add('moving');
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function f(now){let k=reduce?1:Math.min(1,(now-t0)/dur);const e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;pos=from+(to-from)*e;paint();
+    if(!switched&&k>.45){switched=true;scene.dataset.theme=CH[i].theme;}
+    if(k<1)anim=requestAnimationFrame(f);else{anim=null;cur=i;scene.classList.remove('moving');renderCard();card.classList.remove('hide');}}
+  anim=requestAnimationFrame(f);}
+function openRide(){ride.classList.add('open');open=true;document.body.style.overflow='hidden';cur=0;pos=-SEG*.6;paint();scene.dataset.theme='deep';renderCard();card.classList.add('hide');setTimeout(()=>go(0),150);}
+function close(){ride.classList.remove('open');open=false;document.body.style.overflow='';if(anim)cancelAnimationFrame(anim);}
+document.getElementById('rnext').onclick=()=>go(cur+1);document.getElementById('rprev').onclick=()=>go(cur-1);document.getElementById('rclose').onclick=close;
+addEventListener('keydown',e=>{if(!open)return;if(e.key==='ArrowRight'){e.preventDefault();go(cur+1);}if(e.key==='ArrowLeft'){e.preventDefault();go(cur-1);}if(e.key==='Escape'&&!document.querySelector('.vmodal.open'))close();});
+let sx=null;scene.addEventListener('pointerdown',e=>sx=e.clientX);scene.addEventListener('pointerup',e=>{if(sx==null)return;const d=e.clientX-sx;sx=null;if(Math.abs(d)>40)go(cur+(d<0?1:-1));});
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-ride]');if(b){e.preventDefault();openRide();}});
+['lang-es','lang-eu'].forEach(id=>document.getElementById(id).addEventListener('click',()=>{if(open)renderCard();}));
+window.openRide=openRide;
+const cta=document.getElementById('rideWagon');if(cta)cta.innerHTML=WAGON+cta.innerHTML;
+})();
+</script>
+
 <!-- Lucía -->
 <div class="fabs" id="fabs">
 <button class="game-fab" data-game aria-label="Jugar en la mina"><svg viewBox="0 0 30 30"><circle cx="15" cy="16" r="10" fill="#0b0b0c"/><path d="M6 13a9 8 0 0 1 18 0z" fill="#fff6d8" opacity=".25"/><path d="M7 12a8 7 0 0 1 16 0z" fill="#1b1306"/><circle cx="15" cy="7.5" r="2" fill="#fff6d8"/><circle cx="12" cy="17" r="2.2" fill="#fff"/><circle cx="18" cy="17" r="2.2" fill="#fff"/><circle cx="12.5" cy="17.3" r="1.1" fill="#2f7bd6"/><circle cx="18.5" cy="17.3" r="1.1" fill="#2f7bd6"/></svg><span data-eu="Jokoa">Juego</span></button>
@@ -971,7 +1154,7 @@ function bot(text,quick){const d=document.createElement('div');d.className='m bo
 function me(text){const d=document.createElement('div');d.className='m me';d.textContent=text;msgs.appendChild(d);scrollDown();}
 function qr(items){const w=document.createElement('div');w.className='qr';items.forEach(([label,fn])=>{const b=document.createElement('button');b.type='button';b.textContent=label;b.onclick=()=>{w.remove();me(label);fn();};w.appendChild(b);});msgs.appendChild(w);scrollDown();}
 function clearQR(){msgs.querySelectorAll('.qr').forEach(q=>q.remove());}
-const MAIN=()=>[[L('⛑ Reservar visita','⛑ Bisita erreserbatu'),()=>startBooking({})],[L('Horarios y precios','Ordutegiak eta prezioak'),()=>faq('precio')],[L('¿Es para niños?','Haurrentzat da?'),()=>faq('ninos')],[L('Cómo llegar','Nola iritsi'),()=>faq('llegar')],[L('🎮 Jugar en la mina','🎮 Jolastu meatzean'),()=>{closeChat();window.openMineGame&&window.openMineGame();}]];
+const MAIN=()=>[[L('⛑ Reservar visita','⛑ Bisita erreserbatu'),()=>startBooking({})],[L('Horarios y precios','Ordutegiak eta prezioak'),()=>faq('precio')],[L('¿Es para niños?','Haurrentzat da?'),()=>faq('ninos')],[L('Cómo llegar','Nola iritsi'),()=>faq('llegar')],[L('🚃 Súbete al vagón (historia)','🚃 Igo bagoira (historia)'),()=>{closeChat();window.openRide&&window.openRide();}],[L('🎮 Jugar en la mina','🎮 Jolastu meatzean'),()=>{closeChat();window.openMineGame&&window.openMineGame();}]];
 function greet(){
   bot(L('¡Hola! Soy Lucía, la minera de Asfaltokia ⛑️\nTe ayudo a reservar tu bajada a la mina, o a resolver dudas sobre horarios, precios y cómo llegar.','Kaixo! Lucía naiz, Asfaltokiako meatzaria ⛑️\nMeatzera jaisteko erreserba egiten lagunduko dizut, edo ordutegi, prezio eta nola iritsi buruzko zalantzak argitzen.'),MAIN());
 }
@@ -1147,8 +1330,8 @@ setTimeout(()=>{if(!chat.classList.contains('open'))document.getElementById('fab
 <script>
 (function(){const m=document.getElementById('vmodal'),b=document.getElementById('vb');
 function close(){m.classList.remove('open');b.innerHTML='';}
-document.querySelectorAll('a[data-yt]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();
-b.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+a.dataset.yt+'?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen title="Vídeo"></iframe>';m.classList.add('open');}));
+document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('a[data-yt]');if(!a)return;e.preventDefault();
+b.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+a.dataset.yt+'?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen title="Vídeo"></iframe>';m.classList.add('open');});
 document.getElementById('vx').onclick=close;m.onclick=e=>{if(e.target===m)close();};addEventListener('keydown',e=>{if(e.key==='Escape')close();});})();
 </script>
 </body>
