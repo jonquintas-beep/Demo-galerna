@@ -38,6 +38,28 @@ nav.top .wrap{display:flex;align-items:center;gap:20px;height:62px}
 .links{display:flex;gap:22px;margin-left:auto;font-family:"Barlow Semi Condensed";font-weight:600;text-transform:uppercase;font-size:15px}
 .links a{text-decoration:none;color:#cfc8ba}
 .links a:hover{color:var(--casco)}
+.links .dd{position:relative}
+.dd-b{background:none;border:0;color:#cfc8ba;font:inherit;text-transform:uppercase;display:flex;align-items:center;gap:4px;padding:0}
+.dd-b i{font-style:normal;font-size:11px;transition:transform .2s}
+.dd-b:hover,.dd.open .dd-b{color:var(--casco)}
+.dd.open .dd-b i{transform:rotate(180deg)}
+.dd-m{position:absolute;top:calc(100% + 14px);left:-14px;min-width:240px;background:#141312;border:1px solid #34312b;border-radius:14px;padding:8px;display:none;flex-direction:column;box-shadow:0 20px 50px rgba(0,0,0,.6);text-transform:none;font-family:"Open Sans";font-weight:600;font-size:14.5px}
+.dd.open .dd-m{display:flex}
+.dd-m a{padding:9px 12px;border-radius:9px;color:#d8d1c3}
+.dd-m a:hover{background:#221f1a;color:var(--casco2)}
+.burger{display:none;background:none;border:1px solid #444;border-radius:10px;width:42px;height:38px;flex-direction:column;justify-content:center;align-items:center;gap:5px;margin-left:auto}
+.burger span{width:18px;height:2px;background:#ece6da;border-radius:2px;transition:transform .2s,opacity .2s}
+.burger.x span:nth-child(1){transform:translateY(7px) rotate(45deg)}.burger.x span:nth-child(2){opacity:0}.burger.x span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+@media (max-width:900px){
+  .burger{display:flex}
+  .links{display:none!important;position:absolute;top:62px;left:0;right:0;background:#0f0f10;border-bottom:1px solid #2a2824;flex-direction:column;align-items:stretch;gap:0;padding:6px 16px 14px;max-height:calc(100dvh - 62px);overflow:auto}
+  .links.open{display:flex!important}
+  .links>a,.dd-b{padding:14px 4px;border-bottom:1px solid #1f1e1c;width:100%;justify-content:space-between;font-size:17px}
+  .dd-m{position:static;display:none;border:0;box-shadow:none;background:transparent;padding:0 0 8px 10px;min-width:0}
+  .dd-m a{font-size:15.5px;padding:11px 8px}
+  nav.top .wrap{position:relative}
+  .lang{margin-left:0}
+}
 .lang{display:flex;border:1px solid #444;border-radius:20px;overflow:hidden}
 .lang button{background:none;border:0;color:#aaa;padding:4px 10px;font-size:13px;font-weight:700}
 .lang button.on{background:var(--hueso);color:var(--betun)}
@@ -51,7 +73,7 @@ nav.top .wrap{display:flex;align-items:center;gap:20px;height:62px}
 /* hero */
 .hero{position:relative;height:calc(100vh - 92px);min-height:560px;overflow:hidden;cursor:none;touch-action:pan-y}
 .hero .rock{position:absolute;inset:0}
-.hero .rock svg{width:100%;height:100%;display:block}
+.hero .rock .rockimg{width:100%;height:100%;object-fit:cover;display:block;filter:contrast(1.1) saturate(.9)}
 .hero .dark{position:absolute;inset:0;background:#050505;
   -webkit-mask-image:radial-gradient(circle var(--r) at var(--x) var(--y),transparent 0,transparent 35%,rgba(0,0,0,.75) 70%,#000 100%);
           mask-image:radial-gradient(circle var(--r) at var(--x) var(--y),transparent 0,transparent 35%,rgba(0,0,0,.75) 70%,#000 100%)}
@@ -104,7 +126,21 @@ section{position:relative}
 .vid b{font-family:"Barlow Semi Condensed";font-size:20px;display:block;line-height:1.1;color:var(--hueso)}
 .vid span{font-size:13.5px;color:#a8a194}
 
-.vmodal{position:fixed;inset:0;z-index:95;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;padding:18px}
+.photo{position:relative;border-radius:22px;overflow:hidden;border:1px solid #2c2a25;margin:0;box-shadow:0 30px 60px rgba(0,0,0,.5)}
+.photo img{width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:16/10}
+.photo figcaption{position:absolute;left:0;right:0;bottom:0;padding:30px 16px 12px;font-size:13px;color:#ece6da;background:linear-gradient(transparent,rgba(0,0,0,.75))}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
+.ba{position:relative;border-radius:22px;overflow:hidden;aspect-ratio:16/10;border:1px solid #2c2a25;box-shadow:0 30px 60px rgba(0,0,0,.5);touch-action:pan-y}
+.ba>img,.ba-old img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ba-old{position:absolute;inset:0;clip-path:inset(0 calc(100% - var(--p)) 0 0)}
+.ba-old img{filter:sepia(.25)}
+.ba-line{position:absolute;top:0;bottom:0;left:var(--p);width:3px;margin-left:-1.5px;background:var(--casco);pointer-events:none}
+.ba-line i{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:42px;height:42px;border-radius:50%;background:var(--casco);color:#1b1306;display:flex;align-items:center;justify-content:center;font-style:normal;font-weight:800;box-shadow:0 4px 18px rgba(0,0,0,.5)}
+.ba-tag{position:absolute;top:12px;background:rgba(0,0,0,.65);border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;pointer-events:none}
+.ba-tag.l{left:12px}.ba-tag.r{right:12px}
+.ba input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+@media (max-width:900px){.duo{grid-template-columns:1fr}}
+.vmodal{position:fixed;inset:0;z-index:105;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;padding:18px}
 .vmodal.open{display:flex}
 .vmodal .vb{width:960px;max-width:100%;aspect-ratio:16/9;background:#000;border-radius:16px;overflow:hidden;position:relative}
 .vmodal iframe{width:100%;height:100%;border:0;display:block}
@@ -193,7 +229,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
 footer b{color:var(--hueso);font-family:"Barlow Semi Condensed";font-size:20px}
 
 /* Lucía chat */
-.lucia-fab{position:fixed;right:22px;bottom:22px;z-index:60;display:flex;align-items:center;gap:10px;background:#141312;border:1.5px solid var(--casco);border-radius:999px;padding:6px 18px 6px 6px;color:var(--hueso);box-shadow:0 10px 40px rgba(0,0,0,.6)}
+.lucia-fab{position:relative;display:flex;align-items:center;gap:10px;background:#141312;border:1.5px solid var(--casco);border-radius:999px;padding:6px 18px 6px 6px;color:var(--hueso);box-shadow:0 10px 40px rgba(0,0,0,.6)}
 .lucia-fab .av{width:52px;height:52px}
 .lucia-fab b{font-family:"Barlow Semi Condensed";font-size:18px;display:block;line-height:1.1;text-align:left}
 .lucia-fab small{font-size:12px;color:#a8a194;display:block;text-align:left}
@@ -255,7 +291,6 @@ footer b{color:var(--hueso);font-family:"Barlow Semi Condensed";font-size:20px}
 .closeM{margin-top:8px;background:#1d1b17;color:#fff;border:0;border-radius:999px;padding:10px 18px;font-weight:700}
 
 @media (max-width:900px){
-  .links{display:none}
   .grid2{grid-template-columns:1fr;gap:34px}
   .visit-grid{grid-template-columns:1fr 1fr}
   .routes{grid-template-columns:1fr 1fr}
@@ -286,13 +321,23 @@ footer b{color:var(--hueso);font-family:"Barlow Semi Condensed";font-size:20px}
     <a class="logo" href="#inicio" aria-label="Asfaltokia">
       <img src="data:image/png;base64,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" alt="asfaltokia" style="height:34px;width:auto;display:block">
     </a>
-    <div class="links">
-      <a href="#historia" data-eu="Historia">Historia</a>
-      <a href="#geologia" data-eu="Geologia">Geología</a>
-      <a href="#estacion" data-eu="Geltokia">Estación</a>
-      <a href="#visita" data-eu="Bisita">Visita</a>
-      <a href="#rutas" data-eu="Ibilbideak">Rutas</a>
+    <div class="links" id="links">
+      <div class="dd"><button class="dd-b" aria-expanded="false">Asfaltokia <i>▾</i></button>
+        <div class="dd-m">
+          <a href="#rutas" data-eu="Natura- eta ondare-ingurunea">Entorno natural y patrimonial</a>
+          <a href="#historia" data-eu="Historia">Historia</a>
+          <a href="#geologia" data-eu="Geologia berezia">Geología singular</a>
+        </div></div>
+      <a href="#estacion" data-eu="Atauriko geltokia">Estación de Atauri</a>
+      <div class="dd"><button class="dd-b" aria-expanded="false">Mina Lucía <i>▾</i></button>
+        <div class="dd-m">
+          <a href="#visita" data-eu="Bisita eta erreserbak">Visitas y reservas</a>
+          <a href="#" data-game data-eu="🎮 Joko interaktiboa">🎮 Juego interactivo</a>
+          <a href="#historia" data-vid="1" data-eu="▶ Bira bat meatzean (bideoa)">▶ Una vuelta por la mina (vídeo)</a>
+        </div></div>
+      <a href="#rutas" data-eu="Asfaltoen ibilbidea">Ruta de los asfaltos</a>
     </div>
+    <button class="burger" id="burger" aria-label="Menú" aria-expanded="false"><span></span><span></span><span></span></button>
     <div class="lang" role="group" aria-label="Idioma">
       <button id="lang-es" class="on">ES</button><button id="lang-eu">EU</button>
     </div>
@@ -302,39 +347,7 @@ footer b{color:var(--hueso);font-family:"Barlow Semi Condensed";font-size:20px}
 
 <!-- HERO -->
 <section class="hero" id="inicio">
-  <div class="rock">
-    <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-      <defs>
-        <filter id="rockf" x="0" y="0" width="100%" height="100%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="5" seed="7" result="n"/>
-          <feDiffuseLighting in="n" surfaceScale="9" lighting-color="#c9b89c" result="l">
-            <feDistantLight azimuth="235" elevation="38"/>
-          </feDiffuseLighting>
-          <feColorMatrix in="l" type="matrix" values="0.55 0 0 0 0.02  0 0.5 0 0 0.02  0 0 0.44 0 0.02  0 0 0 1 0"/>
-        </filter>
-        <linearGradient id="veta" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#3a3a3a"/><stop offset=".35" stop-color="#050505"/><stop offset="1" stop-color="#121212"/>
-        </linearGradient>
-        <filter id="gloss"><feGaussianBlur stdDeviation="1.2"/></filter>
-      </defs>
-      <rect width="1600" height="900" filter="url(#rockf)"/>
-      <!-- vetas de asfalto -->
-      <path d="M-20 300 C 200 250, 380 360, 620 300 S 1000 210, 1250 290 S 1500 360, 1640 320 L1640 352 C1480 395,1330 330,1250 326 S 980 250, 625 338 S 210 290, -20 340Z" fill="url(#veta)"/>
-      <path d="M180 302 C 340 290, 470 340, 610 318" stroke="#9a948a" stroke-width="2" fill="none" opacity=".35" filter="url(#gloss)"/>
-      <path d="M-20 640 C 260 600, 420 700, 760 650 S 1200 590, 1640 660 L1640 690 C 1300 630, 1100 660, 760 690 S 260 650, -20 682Z" fill="url(#veta)"/>
-      <path d="M840 655 C 980 630, 1120 625, 1260 640" stroke="#9a948a" stroke-width="2" fill="none" opacity=".3" filter="url(#gloss)"/>
-      <ellipse cx="1180" cy="470" rx="70" ry="34" fill="url(#veta)"/>
-      <ellipse cx="360" cy="500" rx="46" ry="22" fill="url(#veta)"/>
-      <ellipse cx="900" cy="140" rx="90" ry="26" fill="url(#veta)"/>
-      <!-- gota que brota -->
-      <path d="M1180 504 q -6 26 0 40 q 6 -14 0 -40z" fill="#0a0a0a"><animate attributeName="d" dur="5s" repeatCount="indefinite" values="M1180 504 q -6 6 0 10 q 6 -4 0 -10z;M1180 504 q -7 30 0 46 q 7 -16 0 -46z;M1180 504 q -6 6 0 10 q 6 -4 0 -10z"/></path>
-      <!-- entibado -->
-      <g opacity=".85">
-        <rect x="70" y="0" width="34" height="900" fill="#3b2a18"/><rect x="1496" y="0" width="34" height="900" fill="#3b2a18"/>
-        <rect x="40" y="40" width="1520" height="30" fill="#2f2213"/>
-      </g>
-    </svg>
-  </div>
+  <div class="rock"><img src="img/asfalto.jpg" alt="" class="rockimg"></div>
   <div class="dark" id="dark"></div>
   <div class="glow"></div>
   <div class="content wrap">
@@ -344,6 +357,7 @@ footer b{color:var(--hueso);font-family:"Barlow Semi Condensed";font-size:20px}
     <div class="ctas">
       <a class="btn btn-casco" href="#turnos">⛑ <span data-eu="Hartu zure kaskoa">Coge tu casco</span></a>
       <button class="btn btn-ghost" id="openChatHero" data-eu="Hitz egin Luciarekin">Habla con Lucía</button>
+      <button class="btn btn-ghost" data-game>🎮 <span data-eu="Jolastu meatzean">Juega en la mina</span></button>
     </div>
   </div>
   <div class="stat-pill"><b>1872</b><span data-eu="Urte hartan hasi zen ustiapena. Oraindik ere asfaltoa ateratzen da hormetatik.">Año en que empezó a explotarse. Hoy el asfalto sigue saliendo de sus paredes.</span></div>
@@ -370,12 +384,10 @@ footer b{color:var(--hueso);font-family:"Barlow Semi Condensed";font-size:20px}
       </div>
       <a class="vid" data-yt="X_T9pp24eW4" href="https://youtu.be/X_T9pp24eW4" target="_blank" rel="noopener"><div class="pl"><i></i></div><div><b data-eu="Bira bat Mina Lucían barrena">Demos una vuelta por Mina Lucía</b><span data-eu="Ikusi zer dagoen barruan · bideoa">Mira lo que hay dentro · vídeo</span></div></a>
     </div>
-    <div class="panes" aria-hidden="true">
-      <div class="pan">Compañía de Asfaltos · Maestu</div>
-      <div class="pan">Pan de asfalto</div>
-      <div class="pan">Atauri</div>
-      <svg class="tren" viewBox="0 0 320 110"><g fill="#1e1d1b" stroke="#3d3a33" stroke-width="2"><rect x="10" y="30" width="120" height="52" rx="6"/><rect x="140" y="40" width="80" height="42" rx="5"/><rect x="230" y="40" width="80" height="42" rx="5"/><rect x="30" y="10" width="26" height="22"/></g><g fill="#f2a23a"><circle cx="40" cy="88" r="11"/><circle cx="100" cy="88" r="11"/><circle cx="160" cy="88" r="9"/><circle cx="200" cy="88" r="9"/><circle cx="250" cy="88" r="9"/><circle cx="290" cy="88" r="9"/></g><rect x="148" y="30" width="64" height="14" rx="3" fill="#0b0b0b"/><rect x="238" y="30" width="64" height="14" rx="3" fill="#0b0b0b"/><path d="M0 100 H320" stroke="#5a554c" stroke-width="3"/></svg>
-    </div>
+    <figure class="photo">
+      <img src="img/cantera.jpg" alt="Antigua explotación minera de asfalto vista desde el aire" loading="lazy">
+      <figcaption data-eu="Asfalto naturalen meatze-paisaia · Arabako Mendialdea">Paisaje minero de asfaltos naturales · Montaña Alavesa</figcaption>
+    </figure>
   </div>
 </section>
 
@@ -430,26 +442,12 @@ footer b{color:var(--hueso);font-family:"Barlow Semi Condensed";font-size:20px}
       </div>
       <a class="vid" data-yt="LDoSuvM3NNU" href="https://www.youtube.com/watch?v=LDoSuvM3NNU" target="_blank" rel="noopener"><div class="pl"><i></i></div><div><b data-eu="Bira bat Atauriko geltokian">Una vuelta por la estación de Atauri</b><span data-eu="Asfaltokia barrutik · bideoa">Asfaltokia por dentro · vídeo</span></div></a>
     </div>
-    <div class="station-card" aria-hidden="true">
-      <svg viewBox="0 0 420 260">
-        <rect x="0" y="230" width="420" height="30" fill="#1a1917"/>
-        <path d="M0 238 H420 M0 250 H420" stroke="#5a554c" stroke-width="3"/>
-        <g stroke="#3d3a33" stroke-width="3">
-          <path d="M20 244 V256 M60 244 V256 M100 244 V256 M140 244 V256 M180 244 V256 M220 244 V256 M260 244 V256 M300 244 V256 M340 244 V256 M380 244 V256"/>
-        </g>
-        <polygon points="70,95 210,40 350,95" fill="#5a2f1f"/>
-        <rect x="90" y="95" width="240" height="135" fill="#d9cfbd"/>
-        <rect x="90" y="95" width="240" height="14" fill="#bcae96"/>
-        <g fill="#1b1a17">
-          <rect x="112" y="130" width="34" height="56" rx="3"/><rect x="164" y="130" width="34" height="56" rx="3"/>
-          <rect x="222" y="130" width="34" height="56" rx="3"/><rect x="274" y="130" width="34" height="56" rx="3"/>
-        </g>
-        <g fill="#f2a23a" opacity=".85"><rect x="116" y="134" width="26" height="22"/><rect x="226" y="134" width="26" height="22"/></g>
-        <rect x="170" y="196" width="80" height="34" fill="#1b1a17"/>
-        <rect x="150" y="70" width="120" height="22" rx="3" fill="#0b0b0c"/>
-        <text x="210" y="86" text-anchor="middle" fill="#ece6da" font-family="Barlow Semi Condensed" font-weight="700" font-size="15">ATAURI</text>
-        <circle cx="210" cy="56" r="9" fill="#ece6da" stroke="#0b0b0c" stroke-width="2"/><path d="M210 50v6l4 2" stroke="#0b0b0c" stroke-width="2" fill="none"/>
-      </svg>
+    <div class="ba" id="ba" style="--p:50%">
+      <img src="img/estacion-hoy.jpg" alt="Estación de Atauri hoy" loading="lazy">
+      <div class="ba-old"><img src="img/estacion-1927.jpg" alt="Estación de Atauri en sus primeros años" loading="lazy"></div>
+      <div class="ba-line"><i>⟷</i></div>
+      <span class="ba-tag l" data-eu="Lehen">Antes</span><span class="ba-tag r" data-eu="Gaur">Hoy</span>
+      <input type="range" min="0" max="100" value="50" aria-label="Comparar antes y ahora" id="baR">
     </div>
   </div>
 </section>
@@ -488,6 +486,10 @@ footer b{color:var(--hueso);font-family:"Barlow Semi Condensed";font-size:20px}
     <div class="gal-tag" data-eu="Kanpora irten">Sal a la superficie</div>
     <h2 data-eu="Jarraitu asfaltoen ibilbideari">Sigue la ruta de los asfaltos</h2>
     <p data-eu="39 kilometro, hiru interpretazio-zentro lotzen dituztenak: Antoñana, Izki Parke Naturala (Korres) eta Atauri.">39 kilómetros que unen tres centros de interpretación: Antoñana, el Parque Natural de Izki en Korres y Atauri.</p>
+    <div class="duo">
+      <figure class="photo"><img src="img/via-verde.jpg" alt="Vía Verde del Vasco-Navarro" loading="lazy"><figcaption data-eu="Vasco-Navarro Bide Berdea">Vía Verde del Vasco-Navarro</figcaption></figure>
+      <figure class="photo"><img src="img/tunel.jpg" alt="Túnel de la Vía Verde" loading="lazy"><figcaption data-eu="Trenbide zaharraren tunelak">Los túneles del antiguo tren</figcaption></figure>
+    </div>
     <div class="routes">
       <div class="route"><b>Atauri – Leorza</b><div class="km">3,96 km</div><span>+31 m / −25 m</span><span class="diff" data-eu="Erraza">Fácil</span></div>
       <div class="route"><b>Antoñana – Atauri</b><div class="km">4,5 km</div><span>+39 m / 0 m</span><span class="diff" data-eu="Erraza">Fácil</span></div>
@@ -531,12 +533,307 @@ footer b{color:var(--hueso);font-family:"Barlow Semi Condensed";font-size:20px}
   </div>
 </footer>
 
+<!-- ===== JUEGO: La mina de Lucía ===== -->
+<style>
+.fabs{position:fixed;right:22px;bottom:22px;z-index:60;display:flex;gap:10px;align-items:center}
+.game-fab{display:flex;align-items:center;gap:8px;background:#f2a23a;color:#1b1306;border:0;border-radius:999px;padding:10px 16px 10px 12px;font-family:"Barlow Semi Condensed";font-weight:800;font-size:17px;text-transform:uppercase;box-shadow:0 10px 40px rgba(0,0,0,.6)}
+.game-fab svg{width:30px;height:30px}
+.game{position:fixed;inset:0;z-index:100;background:linear-gradient(rgba(11,11,12,.86),rgba(11,11,12,.94)),url(img/asfalto.jpg) center/cover;display:none;touch-action:none;overscroll-behavior:contain;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
+.game.open{display:block}
+.g-wrap{height:100%;max-height:100dvh;display:flex;flex-direction:column;padding:12px;padding-bottom:max(12px,env(safe-area-inset-bottom))}
+.g-head{display:flex;align-items:center;gap:12px;max-width:1000px;width:100%;margin:0 auto 10px}
+.g-head b{font-family:"Barlow Semi Condensed";font-size:24px;text-transform:uppercase;letter-spacing:.02em}
+.g-time{margin-left:auto;font-family:ui-monospace,monospace;font-size:18px;background:#1f1d19;border:1px solid #34312b;border-radius:999px;padding:4px 12px;color:var(--casco2)}
+.g-x{background:#24221e;border:0;color:#cbc4b6;width:40px;height:40px;border-radius:50%;font-size:22px}
+.g-main{flex:1;min-height:0;display:flex;gap:18px;align-items:center;justify-content:center;max-width:1000px;width:100%;margin:0 auto}
+.g-stage{position:relative;aspect-ratio:1;height:min(100%,640px);max-width:100%;border-radius:18px;overflow:hidden;border:6px solid #4a3220;box-shadow:inset 0 0 0 2px #2d1e12,0 20px 60px rgba(0,0,0,.6);background:#000}
+.g-stage canvas{width:100%;height:100%;display:block}
+.g-side{display:flex;flex-direction:column;gap:16px;align-items:center;width:250px;flex:none}
+.g-items{background:linear-gradient(160deg,#c9a274,#b48a5c);border:4px solid #5a3b22;border-radius:14px;padding:10px 12px;display:grid;grid-template-columns:1fr;gap:4px;width:100%;color:#2b1d10;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.g-it{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px}
+.g-it canvas{width:38px;height:38px;flex:none}
+.g-it .n{margin-left:auto;font-family:ui-monospace,monospace}
+.g-it.done{color:#1d6b2a}
+.g-it.done .n::after{content:" ✓"}
+.dpad{display:grid;grid-template-columns:repeat(3,64px);grid-template-rows:repeat(2,64px);gap:6px}
+.dpad button{touch-action:none;background:linear-gradient(160deg,#6b4a2e,#4a3220);border:2px solid #2d1e12;border-radius:12px;color:#e6c79c;font-size:28px;line-height:1;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 2px 0 rgba(255,255,255,.12)}
+.dpad button:active,.dpad button.on{background:#f2a23a;color:#1b1306}
+.dpad .u{grid-column:2;grid-row:1}.dpad .l{grid-column:1;grid-row:2}.dpad .d{grid-column:2;grid-row:2}.dpad .r{grid-column:3;grid-row:2}
+.g-tip{font-size:12.5px;color:#8c877d;text-align:center}
+.g-ov{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px;background:rgba(5,5,5,.78);gap:12px}
+.g-ov h3{font-family:"Barlow Semi Condensed";font-size:clamp(26px,5vw,40px);text-transform:uppercase;line-height:1}
+.g-ov p{font-size:15px;color:#d8d1c3;max-width:360px}
+.g-ov .row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.g-toast{position:absolute;left:50%;top:14px;transform:translateX(-50%);background:#f2a23a;color:#1b1306;font-weight:800;border-radius:999px;padding:6px 14px;font-size:14px;opacity:0;transition:opacity .25s;pointer-events:none;white-space:nowrap}
+.g-toast.show{opacity:1}
+@media (max-width:760px){
+  .g-head b{font-size:19px}
+  .g-main{flex-direction:column;gap:10px;justify-content:flex-start}
+  .g-stage{height:auto;width:min(100%,56dvh);flex:none}
+  .g-side{width:100%;flex-direction:column;gap:10px}
+  .g-items{grid-template-columns:repeat(3,1fr);padding:6px 8px;gap:2px 8px}
+  .g-it{font-size:0;gap:4px}.g-it .n{font-size:13px;margin-left:0}
+  .g-it canvas{width:30px;height:30px}
+  .dpad{grid-template-columns:repeat(3,62px);grid-template-rows:repeat(2,58px)}
+  .g-tip{display:none}
+  .game-fab span{display:none}.game-fab{padding:10px}
+}
+</style>
+
+<div class="game" id="game" role="dialog" aria-label="Juego de la mina">
+  <div class="g-wrap">
+    <div class="g-head"><b data-eu="Luciaren meatzea">La mina de Lucía</b><span class="g-time" id="gtime">0:00</span><button class="g-x" id="gclose" aria-label="Cerrar">×</button></div>
+    <div class="g-main">
+      <div class="g-stage" id="gstage">
+        <canvas id="gc"></canvas>
+        <div class="g-toast" id="gtoast"></div>
+        <div class="g-ov" id="gintro">
+          <h3 data-eu="Pizt ezazu linterna!">¡Enciende la linterna!</h3>
+          <p data-eu="Meatzea ilun dago. Ibili galerietan eta aurkitu panelean dauden gauza guztiak. Irristatu hatza edo erabili geziak.">La mina está a oscuras. Recorre las galerías y encuentra todo lo del panel. Desliza el dedo o usa las flechas.</p>
+          <button class="btn btn-casco" id="gstart" data-eu="Meatzera!">¡A la mina!</button>
+        </div>
+        <div class="g-ov" id="gwin" style="display:none">
+          <h3 data-eu="Dena aurkitu duzu!">¡Lo has encontrado todo!</h3>
+          <p id="gwintxt"></p>
+          <div class="row"><button class="btn btn-casco" id="gbook" data-eu="Benetako bisita erreserbatu">Reservar la visita de verdad</button><button class="btn btn-ghost" id="gagain" data-eu="Berriro">Otra vez</button></div>
+        </div>
+      </div>
+      <div class="g-side">
+        <div class="g-items" id="gitems"></div>
+        <div class="dpad" id="dpad">
+          <button class="u" data-d="0,-1" aria-label="Arriba">▲</button>
+          <button class="l" data-d="-1,0" aria-label="Izquierda">◀</button>
+          <button class="d" data-d="0,1" aria-label="Abajo">▼</button>
+          <button class="r" data-d="1,0" aria-label="Derecha">▶</button>
+        </div>
+        <div class="g-tip" data-eu="Teklatuan: geziak edo WASD">En teclado: flechas o WASD</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+const LANGF=()=>document.documentElement.lang==='eu';
+const L=(es,eu)=>LANGF()?eu:es;
+const MAP=[
+"###############",
+"#.....#.......#",
+"#.###.#.#####.#",
+"#.#...#.....#.#",
+"#.#.#####.#.#.#",
+"#...#...#.#...#",
+"###.#.#.#.###.#",
+"#.....#...#...#",
+"#.#####.###.###",
+"#.#...#...#...#",
+"#.#.#.###.#.#.#",
+"#...#.....#.#.#",
+"#.###.#####.#.#",
+"#.....#.......#",
+"###############"];
+const R=MAP.length,C=MAP[0].length;
+const wall=(x,y)=>x<0||y<0||x>=C||y>=R||MAP[y][x]==='#';
+const ITEMS=[
+ {k:'bat',n:1,es:'Murciélago',eu:'Saguzarra'},
+ {k:'dyn',n:2,es:'Dinamita',eu:'Dinamita'},
+ {k:'pala',n:1,es:'Pala',eu:'Pala'},
+ {k:'casco',n:1,es:'Casco',eu:'Kaskoa'},
+ {k:'gota',n:4,es:'Gota de asfalto',eu:'Asfalto tanta'},
+ {k:'vag',n:1,es:'Vagoneta',eu:'Bagoneta'}];
+
+/* --- dibujos --- */
+function drawItem(c,k,x,y,s,t){
+  c.save();c.translate(x,y);c.lineJoin='round';c.lineCap='round';
+  if(k==='bat'){const f=Math.sin(t*12)*0.35;c.fillStyle='#141414';c.strokeStyle='#000';
+    for(const sd of[-1,1]){c.save();c.scale(sd,1);c.rotate(-f);c.beginPath();c.moveTo(s*.08,0);c.quadraticCurveTo(s*.3,-s*.38,s*.5,-s*.12);c.quadraticCurveTo(s*.42,0,s*.36,.02*s);c.quadraticCurveTo(s*.3,-s*.02,s*.24,s*.08);c.quadraticCurveTo(s*.16,0,s*.08,s*.1);c.fill();c.restore();}
+    c.beginPath();c.ellipse(0,s*.02,s*.12,s*.15,0,0,7);c.fill();
+    c.beginPath();c.moveTo(-s*.09,-s*.1);c.lineTo(-s*.06,-s*.22);c.lineTo(-s*.02,-s*.1);c.moveTo(s*.09,-s*.1);c.lineTo(s*.06,-s*.22);c.lineTo(s*.02,-s*.1);c.fill();
+    c.fillStyle='#ffd34d';c.beginPath();c.arc(-s*.045,-s*.01,s*.025,0,7);c.arc(s*.045,-s*.01,s*.025,0,7);c.fill();}
+  if(k==='dyn'){c.rotate(-.35);c.fillStyle='#c8202a';c.strokeStyle='#6d0f14';c.lineWidth=s*.03;
+    for(const dy of[-.13,0,.13]){c.beginPath();c.roundRect(-s*.32,dy*s-s*.065,s*.6,s*.13,s*.05);c.fill();c.stroke();}
+    c.fillStyle='#222';c.fillRect(-s*.12,-s*.21,s*.06,s*.42);c.fillRect(s*.1,-s*.21,s*.06,s*.42);
+    c.strokeStyle='#ddd';c.lineWidth=s*.025;c.beginPath();c.moveTo(s*.28,0);c.quadraticCurveTo(s*.45,-s*.05,s*.38,-s*.22);c.stroke();
+    const fl=0.6+0.4*Math.sin(t*20);c.fillStyle=`rgba(255,${180+60*fl|0},60,1)`;c.beginPath();c.arc(s*.38,-s*.25,s*.05*fl+s*.02,0,7);c.fill();}
+  if(k==='pala'){c.rotate(.7);c.strokeStyle='#d9a560';c.lineWidth=s*.07;c.beginPath();c.moveTo(0,-s*.4);c.lineTo(0,s*.1);c.stroke();
+    c.strokeStyle='#333';c.lineWidth=s*.05;c.beginPath();c.moveTo(-s*.09,-s*.42);c.lineTo(s*.09,-s*.42);c.stroke();
+    c.fillStyle='#3a3d42';c.strokeStyle='#ddd';c.lineWidth=s*.025;c.beginPath();c.moveTo(-s*.14,s*.08);c.lineTo(s*.14,s*.08);c.lineTo(s*.12,s*.3);c.quadraticCurveTo(0,s*.45,-s*.12,s*.3);c.closePath();c.fill();c.stroke();}
+  if(k==='casco'){c.fillStyle='#f2b51f';c.beginPath();c.arc(0,s*.08,s*.3,Math.PI,0);c.fill();c.fillStyle='#e09b12';c.beginPath();c.roundRect(-s*.38,s*.06,s*.76,s*.08,s*.04);c.fill();
+    c.fillStyle='#fff6d8';c.beginPath();c.arc(s*.12,-s*.08,s*.08,0,7);c.fill();
+    const g=c.createRadialGradient(s*.12,-s*.08,0,s*.12,-s*.08,s*.35);g.addColorStop(0,'rgba(255,240,170,.6)');g.addColorStop(1,'rgba(255,240,170,0)');c.fillStyle=g;c.beginPath();c.arc(s*.12,-s*.08,s*.35,0,7);c.fill();}
+  if(k==='gota'){const b=Math.sin(t*4)*s*.02;c.fillStyle='#050505';c.beginPath();c.moveTo(0,-s*.32+b);c.bezierCurveTo(s*.06,-s*.18,s*.22,0,s*.2,s*.12);c.arc(0,s*.12,s*.2,0,Math.PI);c.bezierCurveTo(-s*.22,0,-s*.06,-s*.18,0,-s*.32+b);c.fill();
+    c.strokeStyle='rgba(255,255,255,.55)';c.lineWidth=s*.035;c.beginPath();c.arc(-s*.06,s*.1,s*.09,Math.PI*.9,Math.PI*1.35);c.stroke();}
+  if(k==='vag'){c.fillStyle='#7a3e22';c.strokeStyle='#bbb';c.lineWidth=s*.035;c.beginPath();c.moveTo(-s*.36,-s*.14);c.lineTo(s*.36,-s*.14);c.lineTo(s*.28,s*.16);c.lineTo(-s*.28,s*.16);c.closePath();c.fill();c.stroke();
+    c.strokeStyle='#5a2c18';c.lineWidth=s*.02;for(const xx of[-.12,.12]){c.beginPath();c.moveTo(xx*s,-s*.12);c.lineTo(xx*s*.85,s*.14);c.stroke();}
+    c.fillStyle='#1a1a1a';c.beginPath();c.ellipse(0,-s*.16,s*.3,s*.07,0,0,7);c.fill();
+    c.fillStyle='#444';c.strokeStyle='#ccc';for(const xx of[-.18,.18]){c.beginPath();c.arc(xx*s,s*.22,s*.07,0,7);c.fill();c.stroke();}}
+  c.restore();
+}
+function drawPlayer(c,x,y,s,dir,t,moving){
+  c.save();c.translate(x,y);
+  const sq=moving?Math.sin(t*16)*.05:Math.sin(t*3)*.02;
+  c.scale(1+sq,1-sq);
+  // cuerpo
+  const g=c.createRadialGradient(-s*.1,-s*.1,s*.02,0,0,s*.36);g.addColorStop(0,'#3a3a3a');g.addColorStop(.5,'#0d0d0d');g.addColorStop(1,'#000');
+  c.fillStyle=g;c.beginPath();c.arc(0,s*.04,s*.3,0,7);c.fill();
+  c.fillStyle='rgba(255,255,255,.35)';c.beginPath();c.ellipse(-s*.12,-s*.06,s*.05,s*.08,-.5,0,7);c.fill();
+  // cara
+  const fx=dir.x*s*.08,fy=dir.y*s*.04;
+  for(const ex of[-.09,.09]){c.fillStyle='#fff';c.beginPath();c.ellipse(ex*s+fx,s*.02+fy,s*.075,s*.09,0,0,7);c.fill();
+    c.fillStyle='#2f7bd6';c.beginPath();c.arc(ex*s+fx*1.4,s*.03+fy*1.4,s*.045,0,7);c.fill();c.fillStyle='#000';c.beginPath();c.arc(ex*s+fx*1.4,s*.03+fy*1.4,s*.022,0,7);c.fill();}
+  c.strokeStyle='#fff';c.lineWidth=s*.03;c.lineCap='round';c.beginPath();c.arc(fx,s*.13+fy,s*.07,.2,Math.PI-.2);c.stroke();
+  // casco
+  c.fillStyle='#f2b51f';c.beginPath();c.arc(0,-s*.12,s*.25,Math.PI,0);c.fill();
+  c.fillStyle='#e09b12';c.beginPath();c.roundRect(-s*.3,-s*.14,s*.6,s*.07,s*.03);c.fill();
+  c.fillStyle='#fff6d8';c.beginPath();c.arc(dir.x*s*.12,-s*.26,s*.065,0,7);c.fill();
+  c.restore();
+}
+
+/* --- textura de roca precalculada --- */
+let rnd=1;const rand=()=>((rnd=rnd*16807%2147483647)/2147483647);
+const deco=[];for(let y=0;y<R;y++){deco[y]=[];for(let x=0;x<C;x++){const b=[];const n=wall(x,y)?5:2;for(let i=0;i<n;i++)b.push([rand(),rand(),.08+rand()*.16,rand()]);
+  deco[y][x]={b,asf:wall(x,y)&&rand()<.22,beam:!wall(x,y)&&rand()<.14,shade:rand()}}}
+
+/* --- estado --- */
+const cv=document.getElementById('gc'),ctx=cv.getContext('2d');
+const game=document.getElementById('game');
+let st,raf=0,last=0,running=false,tStart=0,elapsed=0;
+function placeItems(){
+  // BFS desde la salida
+  const dist={},q=[[1,1]];dist['1,1']=0;
+  while(q.length){const[x,y]=q.shift();for(const[dx,dy]of[[1,0],[-1,0],[0,1],[0,-1]]){const nx=x+dx,ny=y+dy,k=nx+','+ny;if(!wall(nx,ny)&&dist[k]==null){dist[k]=dist[x+','+y]+1;q.push([nx,ny]);}}}
+  let cells=Object.keys(dist).filter(k=>dist[k]>=4).map(k=>k.split(',').map(Number));
+  const ends=cells.filter(([x,y])=>[[1,0],[-1,0],[0,1],[0,-1]].filter(([a,b])=>!wall(x+a,y+b)).length===1);
+  const pool=[...ends.sort(()=>Math.random()-.5),...cells.sort(()=>Math.random()-.5)];
+  const list=[];ITEMS.forEach(it=>{for(let i=0;i<it.n;i++)list.push(it.k);});
+  const out=[];
+  for(const k of list){let pick=pool.find(p=>!out.some(o=>Math.abs(o.x-p[0])+Math.abs(o.y-p[1])<3));if(!pick)pick=pool.find(p=>!out.some(o=>o.x===p[0]&&o.y===p[1]));out.push({k,x:pick[0],y:pick[1],got:false,pop:0});}
+  return out;
+}
+function reset(){
+  st={cx:1,cy:1,tx:null,ty:null,p:0,dir:{x:1,y:0},want:null,face:{x:1,y:0},items:placeItems(),got:{},moving:false,done:false};
+  ITEMS.forEach(i=>st.got[i.k]=0);elapsed=0;tStart=0;renderItems();updTime();
+}
+const SPEED=4.2;
+function step(dt){
+  if(st.done)return;
+  if(st.tx!=null&&st.want&&st.want.x===-st.dir.x&&st.want.y===-st.dir.y&&(st.want.x||st.want.y)){
+    const ox=st.cx,oy=st.cy;st.cx=st.tx;st.cy=st.ty;st.tx=ox;st.ty=oy;st.p=1-st.p;st.dir=st.want;st.face=st.want;st.want=null;}
+  if(st.tx==null){
+    if(st.want&&!wall(st.cx+st.want.x,st.cy+st.want.y)){st.dir=st.want;st.want=null;}
+    if(!wall(st.cx+st.dir.x,st.cy+st.dir.y)&&st.started){st.tx=st.cx+st.dir.x;st.ty=st.cy+st.dir.y;st.p=0;st.face=st.dir;}
+  }
+  st.moving=st.tx!=null;
+  if(st.tx!=null){st.p+=SPEED*dt;if(st.p>=1){st.cx=st.tx;st.cy=st.ty;st.tx=null;st.p=0;collect();}}
+}
+function collect(){
+  for(const it of st.items){if(!it.got&&it.x===st.cx&&it.y===st.cy){it.got=true;it.pop=1;st.got[it.k]++;
+    const def=ITEMS.find(i=>i.k===it.k);toast(`${L(def.es,def.eu)} ${st.got[it.k]}/${def.n}`);renderItems();
+    if(navigator.vibrate)try{navigator.vibrate(30)}catch(e){}
+    if(st.items.every(i=>i.got))win();}}
+}
+function win(){st.done=true;const s=Math.round(elapsed);
+  document.getElementById('gwintxt').textContent=L(`¡Minero/a de primera! Lo has conseguido en ${fmtT(s)}. Ahora baja a la mina de verdad: es todavía más chula.`,`Lehen mailako meatzaria! ${fmtT(s)}-tan lortu duzu. Orain jaitsi benetako meatzera: are politagoa da.`);
+  setTimeout(()=>{document.getElementById('gwin').style.display='flex';},500);}
+const fmtT=s=>Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
+function updTime(){document.getElementById('gtime').textContent=fmtT(Math.floor(elapsed));}
+let toastT;function toast(t){const e=document.getElementById('gtoast');e.textContent='✨ '+t;e.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>e.classList.remove('show'),1300);}
+
+/* --- render --- */
+function draw(t){
+  const W=cv.width,H=cv.height,VIEW=7,T=W/VIEW;
+  const px=st.tx!=null?st.cx+(st.tx-st.cx)*st.p:st.cx, py=st.tx!=null?st.cy+(st.ty-st.cy)*st.p:st.cy;
+  const ox=W/2-(px+.5)*T, oy=H/2-(py+.5)*T;
+  ctx.fillStyle='#1f1c19';ctx.fillRect(0,0,W,H);
+  const x0=Math.floor(px-VIEW/2-1),x1=Math.ceil(px+VIEW/2+1),y0=Math.floor(py-VIEW/2-1),y1=Math.ceil(py+VIEW/2+1);
+  for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++){
+    const sx=ox+x*T,sy=oy+y*T;const inb=x>=0&&y>=0&&x<C&&y<R;const d=inb?deco[y][x]:{b:[[.3,.4,.2,.5],[.7,.7,.15,.2]],shade:.5};
+    if(!inb||wall(x,y)){ctx.fillStyle=`hsl(28,8%,${11+d.shade*4}%)`;ctx.fillRect(sx,sy,T+1,T+1);
+      for(const[a,b,r,l]of d.b){ctx.fillStyle=`rgba(${l>.5?'255,240,220,.07':'0,0,0,.25'})`;ctx.beginPath();ctx.ellipse(sx+a*T,sy+b*T,r*T,r*T*.7,l*3,0,7);ctx.fill();}
+      if(d.asf){const g=ctx.createLinearGradient(sx,sy+T*.4,sx,sy+T*.7);g.addColorStop(0,'#3a3a3a');g.addColorStop(.4,'#030303');g.addColorStop(1,'#111');ctx.fillStyle=g;ctx.beginPath();ctx.ellipse(sx+T*.5,sy+T*.5,T*.38,T*.14,d.shade,0,7);ctx.fill();
+        const dl=((t*0.6+d.shade*5)%2);if(dl<1){ctx.fillStyle='#050505';ctx.beginPath();ctx.ellipse(sx+T*.5,sy+T*(.6+dl*.25),T*.03,T*(.03+dl*.05),0,0,7);ctx.fill();}}
+    }else{
+      ctx.fillStyle=`hsl(34,10%,${44+d.shade*6}%)`;ctx.fillRect(sx,sy,T+1,T+1);
+      for(const[a,b,r]of d.b){ctx.fillStyle='rgba(60,40,20,.10)';ctx.beginPath();ctx.ellipse(sx+a*T,sy+b*T,r*T*.6,r*T*.4,0,0,7);ctx.fill();}
+      // bordes con pared
+      ctx.fillStyle='rgba(0,0,0,.45)';const e=T*.14;
+      if(wall(x,y-1))ctx.fillRect(sx,sy,T,e);if(wall(x,y+1))ctx.fillRect(sx,sy+T-e*.6,T,e*.6);
+      if(wall(x-1,y))ctx.fillRect(sx,sy,e*.8,T);if(wall(x+1,y))ctx.fillRect(sx+T-e*.8,sy,e*.8,T);
+      if(d.beam){ctx.fillStyle='#5a3b22';const hz=wall(x-1,y)&&wall(x+1,y);if(hz){ctx.fillRect(sx,sy+T*.45,T*.12,T*.12);ctx.fillRect(sx+T*.88,sy+T*.45,T*.12,T*.12);}}
+    }
+  }
+  for(const it of st.items){const sx=ox+(it.x+.5)*T,sy=oy+(it.y+.5)*T;
+    if(!it.got)drawItem(ctx,it.k,sx,sy+Math.sin(t*3+it.x)*T*.04,T*.8,t);
+    else if(it.pop>0){ctx.globalAlpha=it.pop;drawItem(ctx,it.k,sx,sy-(1-it.pop)*T*.8,T*.8*(1+(1-it.pop)*.4),t);ctx.globalAlpha=1;it.pop-=.03;}}
+  const cx=W/2,cy=H/2;
+  // haz de la linterna
+  ctx.save();ctx.globalCompositeOperation='lighter';const ang=Math.atan2(st.face.y,st.face.x);
+  const bg=ctx.createRadialGradient(cx,cy,T*.2,cx,cy,T*2.6);bg.addColorStop(0,'rgba(255,230,160,.25)');bg.addColorStop(1,'rgba(255,230,160,0)');
+  ctx.fillStyle=bg;ctx.beginPath();ctx.moveTo(cx,cy-T*.2);ctx.arc(cx,cy-T*.2,T*2.6,ang-.45,ang+.45);ctx.closePath();ctx.fill();ctx.restore();
+  drawPlayer(ctx,cx,cy,T,st.face,t,st.moving);
+  // oscuridad
+  const lx=cx+st.face.x*T*.7,ly=cy+st.face.y*T*.7;
+  const dk=ctx.createRadialGradient(lx,ly,T*1.1,lx,ly,T*2.7);dk.addColorStop(0,'rgba(0,0,0,0)');dk.addColorStop(.7,'rgba(0,0,0,.85)');dk.addColorStop(1,'rgba(0,0,0,.98)');
+  ctx.fillStyle=dk;ctx.fillRect(0,0,W,H);
+}
+function loop(now){
+  const t=now/1000;const dt=Math.min(.05,last?t-last:0);last=t;
+  if(st.started&&!st.done){elapsed+=dt;updTime();}
+  step(dt);draw(t);raf=requestAnimationFrame(loop);
+}
+function size(){const r=cv.getBoundingClientRect();const d=Math.min(2,window.devicePixelRatio||1);cv.width=Math.max(200,r.width*d|0);cv.height=Math.max(200,r.height*d|0);}
+
+/* --- panel --- */
+function renderItems(){
+  const box=document.getElementById('gitems');box.innerHTML='';
+  ITEMS.forEach(it=>{const row=document.createElement('div');row.className='g-it'+(st&&st.got[it.k]>=it.n?' done':'');
+    const c=document.createElement('canvas');c.width=c.height=76;drawItem(c.getContext('2d'),it.k,38,40,64,0.3);
+    row.appendChild(c);const nm=document.createElement('span');nm.textContent=L(it.es,it.eu);row.appendChild(nm);
+    const n=document.createElement('span');n.className='n';n.textContent=(st?st.got[it.k]:0)+'/'+it.n;row.appendChild(n);box.appendChild(row);});
+}
+
+/* --- controles (sin zoom ni scroll de página) --- */
+function go(x,y){if(!st.started)return;st.want={x,y};if(st.tx==null&&!wall(st.cx+x,st.cy+y)){st.dir={x,y};st.want=null;}}
+const KEYS={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0],w:[0,-1],s:[0,1],a:[-1,0],d:[1,0],W:[0,-1],S:[0,1],A:[-1,0],D:[1,0]};
+addEventListener('keydown',e=>{if(!running)return;if(e.key==='Escape'){close();return;}const k=KEYS[e.key];if(k){e.preventDefault();if(!st.started)start();go(...k);}},{passive:false});
+document.querySelectorAll('#dpad button').forEach(b=>{b.addEventListener('pointerdown',e=>{e.preventDefault();if(!st.started)start();const[x,y]=b.dataset.d.split(',').map(Number);go(x,y);b.classList.add('on');setTimeout(()=>b.classList.remove('on'),120);});b.addEventListener('contextmenu',e=>e.preventDefault());});
+let sw=null;const stage=document.getElementById('gstage');
+stage.addEventListener('pointerdown',e=>{sw={x:e.clientX,y:e.clientY};});
+stage.addEventListener('pointermove',e=>{if(!sw||!st.started)return;const dx=e.clientX-sw.x,dy=e.clientY-sw.y;if(Math.hypot(dx,dy)>24){Math.abs(dx)>Math.abs(dy)?go(Math.sign(dx),0):go(0,Math.sign(dy));sw={x:e.clientX,y:e.clientY};}});
+addEventListener('pointerup',()=>sw=null);
+game.addEventListener('touchmove',e=>e.preventDefault(),{passive:false});
+game.addEventListener('gesturestart',e=>e.preventDefault());
+let lastTap=0;game.addEventListener('touchend',e=>{const n=Date.now();if(n-lastTap<350)e.preventDefault();lastTap=n;},{passive:false});
+
+/* --- abrir / cerrar --- */
+let prevOverflow='';
+function open(){game.classList.add('open');running=true;prevOverflow=document.body.style.overflow;document.body.style.overflow='hidden';
+  reset();document.getElementById('gintro').style.display='flex';document.getElementById('gwin').style.display='none';
+  requestAnimationFrame(()=>{size();last=0;cancelAnimationFrame(raf);raf=requestAnimationFrame(loop);});}
+function close(){game.classList.remove('open');running=false;cancelAnimationFrame(raf);document.body.style.overflow=prevOverflow;}
+function start(){st.started=true;document.getElementById('gintro').style.display='none';}
+window.openMineGame=open;
+document.getElementById('gstart').onclick=start;
+document.getElementById('gclose').onclick=close;
+document.getElementById('gagain').onclick=()=>{reset();document.getElementById('gwin').style.display='none';start();};
+document.getElementById('gbook').onclick=()=>{close();document.getElementById('turnos').scrollIntoView({behavior:'smooth'});setTimeout(()=>{const b=document.getElementById('openChatHero');if(window.startLuciaBooking)window.startLuciaBooking();},600);};
+addEventListener('resize',()=>{if(running)size();});
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-game]');if(b){e.preventDefault();open();}});
+document.getElementById('lang-es').addEventListener('click',()=>{if(st)renderItems();});document.getElementById('lang-eu').addEventListener('click',()=>{if(st)renderItems();});
+reset();
+})();
+</script>
+
 <!-- Lucía -->
+<div class="fabs" id="fabs">
+<button class="game-fab" data-game aria-label="Jugar en la mina"><svg viewBox="0 0 30 30"><circle cx="15" cy="16" r="10" fill="#0b0b0c"/><path d="M6 13a9 8 0 0 1 18 0z" fill="#fff6d8" opacity=".25"/><path d="M7 12a8 7 0 0 1 16 0z" fill="#1b1306"/><circle cx="15" cy="7.5" r="2" fill="#fff6d8"/><circle cx="12" cy="17" r="2.2" fill="#fff"/><circle cx="18" cy="17" r="2.2" fill="#fff"/><circle cx="12.5" cy="17.3" r="1.1" fill="#2f7bd6"/><circle cx="18.5" cy="17.3" r="1.1" fill="#2f7bd6"/></svg><span data-eu="Jokoa">Juego</span></button>
 <button class="lucia-fab" id="fab" aria-label="Abrir chat con Lucía">
   <svg class="av" viewBox="0 0 52 52" id="avtpl"></svg>
   <span class="ping"></span>
   <span><b data-eu="Kaixo! Lucía naiz">¡Hola! Soy Lucía</b><small data-eu="Gidaria · erreserbak">La minera · reservas 24 h</small></span>
 </button>
+
+</div>
 
 <div class="chat" id="chat" role="dialog" aria-label="Chat con Lucía">
   <div class="chat-head">
@@ -666,15 +963,15 @@ function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','
 /* ---------- chat ---------- */
 const chat=document.getElementById('chat'),fab=document.getElementById('fab'),msgs=document.getElementById('msgs'),input=document.getElementById('chatInput');
 let greeted=false;
-function openChat(){chat.classList.add('open');fab.style.display='none';if(!greeted){greeted=true;greet();}setTimeout(()=>input.focus(),50);}
-function closeChat(){chat.classList.remove('open');fab.style.display='flex';}
+function openChat(){chat.classList.add('open');document.getElementById('fabs').style.display='none';if(!greeted){greeted=true;greet();}setTimeout(()=>input.focus(),50);}
+function closeChat(){chat.classList.remove('open');document.getElementById('fabs').style.display='flex';}
 fab.onclick=openChat;document.getElementById('openChatHero').onclick=openChat;document.getElementById('closeChat').onclick=closeChat;
 function scrollDown(){msgs.scrollTop=msgs.scrollHeight;}
 function bot(text,quick){const d=document.createElement('div');d.className='m bot';d.textContent=text;msgs.appendChild(d);if(quick)qr(quick);scrollDown();return d;}
 function me(text){const d=document.createElement('div');d.className='m me';d.textContent=text;msgs.appendChild(d);scrollDown();}
 function qr(items){const w=document.createElement('div');w.className='qr';items.forEach(([label,fn])=>{const b=document.createElement('button');b.type='button';b.textContent=label;b.onclick=()=>{w.remove();me(label);fn();};w.appendChild(b);});msgs.appendChild(w);scrollDown();}
 function clearQR(){msgs.querySelectorAll('.qr').forEach(q=>q.remove());}
-const MAIN=()=>[[L('⛑ Reservar visita','⛑ Bisita erreserbatu'),()=>startBooking({})],[L('Horarios y precios','Ordutegiak eta prezioak'),()=>faq('precio')],[L('¿Es para niños?','Haurrentzat da?'),()=>faq('ninos')],[L('Cómo llegar','Nola iritsi'),()=>faq('llegar')]];
+const MAIN=()=>[[L('⛑ Reservar visita','⛑ Bisita erreserbatu'),()=>startBooking({})],[L('Horarios y precios','Ordutegiak eta prezioak'),()=>faq('precio')],[L('¿Es para niños?','Haurrentzat da?'),()=>faq('ninos')],[L('Cómo llegar','Nola iritsi'),()=>faq('llegar')],[L('🎮 Jugar en la mina','🎮 Jolastu meatzean'),()=>{closeChat();window.openMineGame&&window.openMineGame();}]];
 function greet(){
   bot(L('¡Hola! Soy Lucía, la minera de Asfaltokia ⛑️\nTe ayudo a reservar tu bajada a la mina, o a resolver dudas sobre horarios, precios y cómo llegar.','Kaixo! Lucía naiz, Asfaltokiako meatzaria ⛑️\nMeatzera jaisteko erreserba egiten lagunduko dizut, edo ordutegi, prezio eta nola iritsi buruzko zalantzak argitzen.'),MAIN());
 }
@@ -734,6 +1031,9 @@ const FAQ={
  llegar:()=>L('Quedamos en Asfaltokia, la antigua estación de tren de Atauri (Arraia-Maeztu, Álava). Desde Vitoria-Gasteiz son unos 40 minutos en coche. El domingo por la mañana te mando la ubicación exacta.','Asfaltokian geratzen gara, Atauriko tren-geltoki zaharrean (Arraia-Maeztu, Araba). Gasteiztik 40 bat minutu dira autoz. Igande goizean kokapen zehatza bidaliko dizut.'),
  grupo:()=>L('Para colegios y grupos grandes preparamos visitas a medida. Déjame tu nombre y correo con «Reservar visita», o llama al 639 310 779.','Ikastetxe eta talde handientzat neurrira egindako bisitak prestatzen ditugu. Utzi zure izena eta posta «Bisita erreserbatu» atalean, edo deitu 639 310 779 zenbakira.'),
  perro:()=>L('Dentro de la galería no pueden entrar mascotas, pero la ruta de los asfaltos por fuera es perfecta para ir con perro 🐕','Galerian ezin dira maskotak sartu, baina kanpoko asfaltoen ibilbidea ezin hobea da txakurrarekin joateko 🐕'),
+ historia:()=>L('Mina Lucía se empezó a excavar en 1872, a mano, con pico y pala. Durante unos 50 años de aquí salió asfalto que acabó en calles de Vitoria y de París ¡y hasta en la Bolsa de Madrid! Cerró en los años 20, cuando el asfalto del petróleo salió más barato.','Mina Lucia 1872an hasi zen zulatzen, eskuz, pikotx eta palarekin. 50 bat urtez hemengo asfaltoa Gasteizko eta Pariseko kaleetara eta Madrilgo Burtsara ere iritsi zen! 20ko hamarkadan itxi zen, petrolioko asfaltoa merkeagoa zelako.'),
+ tren:()=>L('El «Trenico» (Ferrocarril Vasco-Navarro) unía Estella, Vitoria y Bergara. El tramo que pasa por Atauri se inauguró en 1927 y el tren dejó de funcionar el 31 de diciembre de 1967. La estación de Atauri tenía una vía especial para cargar el asfalto de las minas. ¡Hoy es Asfaltokia y la vía es una Vía Verde!','«Trenico»-k (Vasco-Navarro trenbidea) Lizarra, Gasteiz eta Bergara lotzen zituen. Ataurtik pasatzen den zatia 1927an inauguratu zen eta 1967ko abenduaren 31n itxi zen. Atauriko geltokiak meatzeetako asfaltoa kargatzeko trenbide berezi bat zuen. Gaur Asfaltokia da eta trenbidea Bide Berdea!'),
+ porque:()=>L('Por el diapiro de Maeztu: hace millones de años una masa de sal empezó a subir desde muy abajo, empujando las rocas. En sus bordes se quedó atrapado el petróleo, que con el tiempo se convirtió en asfalto y empapó la roca caliza. Por eso dentro de la mina todavía brota.','Maeztuko diapiroagatik: duela milioika urte gatz-masa bat behetik gora igotzen hasi zen, harkaitzak bultzatuz. Haren ertzetan petrolioa harrapatuta geratu zen, denborarekin asfalto bihurtu eta kareharria busti zuen. Horregatik meatzean oraindik ateratzen da.'),
  cancelar:()=>L('Puedes cancelar o cambiar tu reserva desde el enlace del correo de confirmación, o escribiéndome aquí con tu código (ATA-…).','Erreserba bertan behera utzi edo aldatu dezakezu berrespen-postako estekatik, edo hemen zure kodearekin (ATA-…) idatziz.')
 };
 function faq(k){bot(FAQ[k](),k==='precio'||k==='ninos'?[[L('⛑ Reservar ahora','⛑ Erreserbatu orain'),()=>startBooking({})]]:null);}
@@ -745,6 +1045,10 @@ function keyword(q){
   if(/lleg|dónde|donde|dirección|direccion|parking|aparc|coche|iritsi|non|helbide/.test(q))return faq('llegar');
   if(/colegio|grupo|escuel|ikastetx|talde/.test(q))return faq('grupo');
   if(/perr|mascot|txakur/.test(q))return faq('perro');
+  if(/tren|ferrocarril|estaci|vasco.?navarro|trenbide|geltoki/.test(q))return faq('tren');
+  if(/por qu|diapiro|sal |geolog|petr[oó]le|zergatik/.test(q))return faq('porque');
+  if(/histor|1872|cu[aá]ndo|antig|minero|pico|pala/.test(q))return faq('historia');
+  if(/juego|jugar|joko|jolas/.test(q)){bot(L('¡Claro! Pulsa «Juego» abajo a la derecha y busca todo lo que hay escondido en la mina 🎮','Noski! Sakatu «Jokoa» behean eskuinean eta bilatu meatzean ezkutatuta dagoen guztia 🎮'));return;}
   if(/cancel|cambiar|anular|aldatu/.test(q))return faq('cancelar');
   bot(L('Esa me la apunto para el equipo 📝 Te contestan en breve, o si prefieres llama al 639 310 779. ¿Te ayudo con otra cosa?','Hori taldearentzat apuntatzen dut 📝 Laster erantzungo dizute, edo nahiago baduzu deitu 639 310 779 zenbakira. Beste zerbaitetan lagun zaitzaket?'),MAIN());
 }
@@ -765,6 +1069,15 @@ async function ask(q){
   const today=new Date().toISOString().slice(0,10);
   const sys=`Eres Lucía, "la minera", asistente de Asfaltokia: centro de interpretación de los asfaltos naturales en la antigua estación de tren de Atauri (Arraia-Maeztu, Álava) y visitas guiadas a Mina Lucía (explotada desde 1872, 300 m de galería, el asfalto aún brota de la roca; el asfalto aparece por el diapiro de Maeztu). El público son familias con niños. Tono: cercano, alegre, frases cortas, algún emoji minero (⛑️⛏️) sin pasarte. Responde SIEMPRE en el idioma del usuario (castellano o euskera). Máximo 3-4 frases.
 Datos (de ejemplo en esta demo): visitas todos los domingos a las 10:00, 11:15 y 12:30, 20 plazas por turno, duración aprox. 1 h, casco y linterna incluidos, adulto 6 €, niño 4-12 años 3 €, menores de 4 gratis, pago en el centro. Llevar chaqueta. Unos 40 min en coche desde Vitoria-Gasteiz. Teléfono 639 310 779, info@asfaltokia.eus. El centro tiene realidad virtual, miradores y exposición sobre el tren Vasco-Navarro. Ruta de los asfaltos naturales: 39 km entre Antoñana, Korres (Parque Natural de Izki) y Atauri. Grupos y colegios: visita a medida, contactar.
+Conocimiento (úsalo para responder curiosidades; cuéntalo sencillo, sobre todo a niños):
+- El asfalto empapa rocas calizas (calizas bituminosas) por el diapiro de Maeztu: la sal sube durante millones de años y en sus bordes se acumularon hidrocarburos. Es la mayor concentración de asfalto del País Vasco. La roca es negra, huele a asfalto y mancha. Dentro de la mina el asfalto sigue brotando por la temperatura y humedad.
+- 1856-1857: se registra la mina San Ildefonso (entre Korres y Atauri). 1858: primera fábrica de asfaltos de España, en San Ildefonso (activa hasta 1913), con poblado minero.
+- 1872: empieza Mina Lucía; sus ~300 m de galerías se excavaron a mano con pico y pala durante unos 50 años; cerró en los años 20 cuando el asfalto del petróleo salió más barato. Es una de las dos minas de asfalto natural visitables de Europa (la otra está en Suiza).
+- 1892: nace la Compañía de Asfaltos de Maestu; hacia 1910 tenía 15 minas y exportaba a Brasil. 1895: Sociedad de Asfaltos de Maestu-Leorza. Otras minas: Teresa, Carmen, San Román de Campezo.
+- Se hacían «panes» y losetas de asfalto. Con asfalto de aquí se pavimentaron calles de Vitoria y de París, el frontón de Maeztu y el edificio de la Bolsa de Madrid.
+- Tren Vasco-Navarro («el Trenico»): vía estrecha Estella–Vitoria–Bergara (~140 km). Concesión 1882, obras desde 1887 con una compañía inglesa; tramo Vitoria-Estella inaugurado el 23 de septiembre de 1927; eléctrico; cerró el 31 de diciembre de 1967. La estación de Atauri tenía un apartadero para cargar el asfalto de las minas. Hoy es la Vía Verde del Vasco-Navarro.
+- Asfaltokia está en la antigua estación de Atauri, rehabilitada por la Diputación Foral de Álava; tiene realidad virtual, miradores y una exposición de la historia del edificio. Túnel de Laminoria: 2.194 m, ahora cerrado. En Antoñana hay un centro de interpretación con vagones del Trenico.
+- Juego: en esta web hay un juego de la mina (botón «Juego»), por si los peques quieren jugar.
 Hoy es ${today}. Disponibilidad actual:\n${availabilityText()}
 Si el usuario quiere reservar, llama a la herramienta iniciar_reserva (con fecha AAAA-MM-DD y hora si las sabe) y dile en una frase que le abres el formulario. Nunca inventes que has hecho una reserva tú. Si no sabes algo, di que se lo pasas al equipo.`;
   hist.push({role:'user',content:q});
@@ -817,8 +1130,17 @@ function showMail(b){
 document.getElementById('closeM').onclick=()=>document.getElementById('modal').classList.remove('open');
 document.getElementById('modal').onclick=e=>{if(e.target.id==='modal')e.currentTarget.classList.remove('open');};
 
+(function(){const b=document.getElementById('ba'),r=document.getElementById('baR');if(b&&r)r.addEventListener('input',()=>b.style.setProperty('--p',r.value+'%'));})();
+(function(){const links=document.getElementById('links'),bg=document.getElementById('burger');
+document.querySelectorAll('.dd-b').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();const d=b.parentElement,o=!d.classList.contains('open');document.querySelectorAll('.dd.open').forEach(x=>{x.classList.remove('open');x.querySelector('.dd-b').setAttribute('aria-expanded','false');});if(o){d.classList.add('open');b.setAttribute('aria-expanded','true');}}));
+document.addEventListener('click',e=>{if(!e.target.closest('.dd'))document.querySelectorAll('.dd.open').forEach(x=>x.classList.remove('open'));});
+bg.addEventListener('click',e=>{e.stopPropagation();const o=links.classList.toggle('open');bg.classList.toggle('x',o);bg.setAttribute('aria-expanded',o);});
+links.addEventListener('click',e=>{const a=e.target.closest('a');if(!a)return;links.classList.remove('open');bg.classList.remove('x');document.querySelectorAll('.dd.open').forEach(x=>x.classList.remove('open'));
+  if(a.dataset.vid){e.preventDefault();const v=document.querySelector('.vid');if(v){v.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>v.click(),500);}}});
+})();
+window.startLuciaBooking=()=>{openChat();startBooking({});};
 renderDays();renderSlots();renderTable();
-setTimeout(()=>{if(!chat.classList.contains('open'))fab.animate([{transform:'scale(1)'},{transform:'scale(1.06)'},{transform:'scale(1)'}],{duration:700,iterations:2});},3500);
+setTimeout(()=>{if(!chat.classList.contains('open'))document.getElementById('fabs').animate([{transform:'scale(1)'},{transform:'scale(1.06)'},{transform:'scale(1)'}],{duration:700,iterations:2});},3500);
 })();
 </script>
 <div class="vmodal" id="vmodal"><button class="vx" id="vx" aria-label="Cerrar">×</button><div class="vb" id="vb"></div></div>
