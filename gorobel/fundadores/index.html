@@ -98,7 +98,7 @@ nav span{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppe
 .steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:34px}
 .st{border-top:3px solid var(--sage-b);padding-top:14px}
 .st small{font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--sage-b)}
-.st b{display:block;font-family:var(--disp);font-weight:400;font-size:28px;text-transform:uppercase;margin-top:6px}
+.st b{display:block;font-family:var(--disp);font-weight:400;font-size:clamp(21px,5.6vw,28px);overflow-wrap:anywhere;text-transform:uppercase;margin-top:6px}
 .st p{font-size:14.5px;color:#CFCDBF;margin-top:4px}
 /* faq */
 details{border-radius:18px;background:var(--card);border:1px solid var(--line);padding:18px 20px;margin-bottom:10px}
@@ -206,6 +206,18 @@ footer{padding:30px 0 calc(110px + env(safe-area-inset-bottom));text-align:cente
   </div>
 </section>
 
+
+<section>
+  <div class="wrap">
+    <p class="k">Seguridad 24 h</p>
+    <h2>Entrena tranquilo<br><em>a las 3 de la mañana.</em></h2>
+    <div class="why">
+      <div class="w"><span class="n">QR</span><h3>Solo entra quien es socio</h3><p>La puerta se abre con tu móvil. Cada entrada queda registrada y nadie entra sin estar al día.</p></div>
+      <div class="w" style="--c:var(--box)"><span class="n">!</span><h3>Si alguien se cae, salta un aviso</h3><p>Si alguien se queda en el suelo, el equipo recibe una alerta en el móvil al momento.</p></div>
+      <div class="w" style="--c:var(--kb)"><span class="n">1:1</span><h3>Una persona, un acceso</h3><p>Si entran dos con un solo QR, el sistema lo detecta. Cámaras en sala, nunca en vestuarios ni baños.</p></div>
+    </div>
+  </div>
+</section>
 <section class="alt">
   <div class="wrap shirt">
     <svg viewBox="0 0 400 420" role="img" aria-label="Camiseta negra de socio fundador de Gorobel con el número 087">

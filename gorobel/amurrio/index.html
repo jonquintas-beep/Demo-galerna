@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Gorobel Amurrio · Propuesta</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0C0D0A">
+<meta property="og:title" content="Gorobel Amurrio · Propuesta">
+<meta property="og:description" content="Abrir Amurrio con 300 socios dentro.">
+<meta property="og:image" content="https://app.galernamethod.com/gorobel/icons/icon-512.png">
+<link rel="icon" type="image/png" href="../icons/icon-192.png">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@500;600;700;800;900&display=swap">
+<style>
+:root{--bg:#0C0D0A;--bg2:#12140E;--card:#191C13;--card2:#222619;--line:rgba(237,234,224,.10);--line2:rgba(237,234,224,.2);
+--bone:#EDEAE0;--sub:#A5A996;--sage:#93A06A;--sage-b:#BCCB86;--box:#E8483B;--kb:#F3A73F;
+--disp:"Anton",Impact,"Arial Narrow",sans-serif;color-scheme:dark}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--bone);font-family:"Montserrat",system-ui,sans-serif;font-size:16px;line-height:1.55;overflow-x:clip}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(18px,env(safe-area-inset-left));padding-right:max(18px,env(safe-area-inset-right))}
+.demo{background:var(--kb);color:#11140A;font-size:12.5px;font-weight:800;text-align:center;padding:7px 12px;padding-top:calc(7px + env(safe-area-inset-top))}
+h1,h2,h3{font-family:var(--disp);font-weight:400;text-transform:uppercase;line-height:.95;letter-spacing:.01em}
+h1{font-size:clamp(58px,13vw,138px)}
+h1 em,h2 em{font-style:normal;color:var(--sage-b)}
+h2{font-size:clamp(40px,7vw,72px)}
+.k{font-size:12.5px;font-weight:900;letter-spacing:.22em;text-transform:uppercase;color:var(--sage-b)}
+.lead{font-size:18px;color:#CFCDBF;max-width:600px}
+section{padding:80px 0}
+.alt{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:56px;padding:0 26px;border-radius:16px;font:800 16px "Montserrat",sans-serif;text-decoration:none;border:0;cursor:pointer}
+.btn.p{background:var(--sage-b);color:#11140A}.btn.r{background:var(--box);color:#fff}.btn.o{background:transparent;color:var(--bone);border:1.5px solid var(--line2)}
+/* hero */
+.hero{position:relative;overflow:hidden;padding:30px 0 70px}
+.bgw{position:absolute;font-family:var(--disp);font-size:clamp(150px,30vw,340px);line-height:.85;color:rgba(237,234,224,.035);white-space:nowrap;left:-20px;text-transform:uppercase;pointer-events:none}
+nav{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-bottom:50px;position:relative}
+nav img{height:26px}
+nav span{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--sub)}
+.hero .in{position:relative;display:grid;gap:26px}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{font-size:13px;font-weight:800;padding:8px 14px;border-radius:99px;border:1.5px solid var(--line2)}
+.tag.r{border-color:var(--box);color:var(--box)}.tag.g{border-color:var(--sage-b);color:var(--sage-b)}
+/* counter */
+.count{margin-top:12px;border-radius:24px;background:var(--card);border:1px solid var(--line2);padding:22px;max-width:620px}
+.count .row{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.count b{font-family:var(--disp);font-weight:400;font-size:54px;line-height:1;color:var(--sage-b)}
+.count b small{font-size:26px;color:var(--sub)}
+.count .m{text-align:right}
+.count .m b{font-size:34px;color:var(--bone)}
+.bar{height:14px;border-radius:99px;background:rgba(237,234,224,.08);margin:16px 0 10px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--sage),var(--sage-b));transition:width 1.6s cubic-bezier(.2,.7,.2,1)}
+.count p{font-size:13.5px;color:var(--sub);font-weight:600}
+.ej{display:inline-block;font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;background:var(--kb);color:#11140A;padding:3px 6px;border-radius:4px;vertical-align:middle}
+.cd{display:flex;gap:8px;margin-top:14px}
+.cd div{flex:1;text-align:center;border-radius:14px;background:var(--bg);border:1px solid var(--line);padding:10px 4px}
+.cd b{font-size:28px;color:var(--bone)}.cd small{display:block;font-size:10.5px;color:var(--sub);font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+/* why */
+.why{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:34px}
+.w{border-radius:22px;background:var(--card);border:1px solid var(--line);padding:24px;position:relative;overflow:hidden}
+.w .n{font-family:var(--disp);font-size:64px;line-height:1;color:var(--c,var(--sage-b))}
+.w h3{font-size:30px;margin-top:10px}
+.w p{color:#CFCDBF;font-size:15px;margin-top:8px}
+/* tiers */
+.tiers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:34px;align-items:stretch}
+.t{border-radius:26px;background:var(--card);border:1px solid var(--line);padding:26px;display:flex;flex-direction:column;gap:12px;position:relative}
+.t.hl{border:2px solid var(--sage-b);background:linear-gradient(170deg,#262B1A,#191C13)}
+.t .badge{position:absolute;top:-13px;left:22px;background:var(--sage-b);color:#11140A;font-size:11.5px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;padding:6px 11px;border-radius:99px}
+.t h3{font-size:32px}
+.t .pr{font-family:var(--disp);font-size:60px;line-height:1}
+.t .pr small{font-family:"Montserrat";font-size:15px;font-weight:700;color:var(--sub)}
+.t .eq{font-size:14px;font-weight:800;color:var(--sage-b)}
+.t ul{list-style:none;display:grid;gap:8px;font-size:15px;margin:4px 0 8px}
+.t li{display:grid;grid-template-columns:20px 1fr;gap:6px}
+.t li::before{content:"✓";color:var(--sage-b);font-weight:900}
+.t .btn{margin-top:auto;width:100%}
+.left{font-size:12.5px;color:var(--sub);font-weight:700;text-align:center}
+.biz{margin-top:14px;border-radius:24px;border:1.5px dashed var(--line2);padding:22px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center}
+.biz h3{font-size:28px}.biz p{color:#CFCDBF;font-size:15px;margin-top:6px}
+/* price compare */
+.cmp{margin-top:26px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-weight:700;color:#CFCDBF}
+.cmp s{color:var(--sub)}
+.cmp b{color:var(--sage-b)}
+/* shirt */
+.shirt{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:30px;align-items:center}
+.shirt svg{width:100%;max-width:420px;height:auto;display:block;margin:0 auto}
+.perks{display:grid;gap:12px;margin-top:22px}
+.perk{display:flex;gap:14px;align-items:flex-start;border-radius:18px;background:var(--card);border:1px solid var(--line);padding:16px}
+.perk i{flex:none;width:40px;height:40px;border-radius:12px;background:var(--sage-b);color:#11140A;display:grid;place-items:center;font-style:normal;font-weight:900}
+.perk b{display:block}.perk span{font-size:14.5px;color:#CFCDBF}
+/* wall */
+.wall{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.wall span{font-size:14px;font-weight:700;padding:8px 13px;border-radius:12px;background:var(--card);border:1px solid var(--line)}
+.wall span b{color:var(--sage-b);margin-right:6px;font-family:var(--disp);font-weight:400}
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:34px}
+.st{border-top:3px solid var(--sage-b);padding-top:14px}
+.st small{font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--sage-b)}
+.st b{display:block;font-family:var(--disp);font-weight:400;font-size:clamp(21px,5.6vw,28px);overflow-wrap:anywhere;text-transform:uppercase;margin-top:6px}
+.st p{font-size:14.5px;color:#CFCDBF;margin-top:4px}
+/* faq */
+details{border-radius:18px;background:var(--card);border:1px solid var(--line);padding:18px 20px;margin-bottom:10px}
+summary{cursor:pointer;font-weight:800;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--sage-b);font-size:22px;line-height:1}
+details[open] summary::after{content:"–"}
+details p{color:#CFCDBF;margin-top:10px;font-size:15px}
+.end{text-align:center;border-radius:30px;background:linear-gradient(160deg,#262B1A,#12140E);border:1px solid var(--line2);padding:56px 22px}
+.end p{color:#CFCDBF;margin:14px auto 26px;max-width:520px}
+footer{padding:30px 0 calc(110px + env(safe-area-inset-bottom));text-align:center;font-size:12.5px;color:var(--sub)}
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:10px max(14px,env(safe-area-inset-right)) calc(10px + env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left));background:rgba(12,13,10,.92);backdrop-filter:blur(10px);border-top:1px solid var(--line);display:flex;gap:10px;align-items:center}
+.sticky div{flex:1;font-size:13px;font-weight:700;color:var(--sub);line-height:1.3}
+.sticky div b{color:var(--bone);display:block;font-size:15px}
+.sticky .btn{height:48px;padding:0 20px}
+/* modal */
+.mod{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.7);display:none;align-items:flex-end;justify-content:center}
+.mod.on{display:flex}
+.sheet{width:100%;max-width:520px;background:var(--bg2);border:1px solid var(--line2);border-radius:26px 26px 0 0;padding:24px 22px calc(26px + env(safe-area-inset-bottom));max-height:92vh;overflow:auto}
+.sheet h3{font-size:34px}
+.sheet label{display:block;font-size:13px;font-weight:800;margin:14px 0 6px;color:var(--sub)}
+.sheet input,.sheet select{width:100%;height:50px;border-radius:14px;border:1px solid var(--line2);background:var(--card);color:var(--bone);font:600 16px "Montserrat",sans-serif;padding:0 14px}
+.sheet .sum{margin-top:16px;border-radius:16px;background:var(--card);padding:14px 16px;display:flex;justify-content:space-between;font-weight:800}
+.sheet .btn{width:100%;margin-top:16px}
+.sheet .x{float:right;background:none;border:0;color:var(--sub);font-size:28px;cursor:pointer;line-height:1}
+.ok{text-align:center;padding:20px 0}
+.ok .num{font-family:var(--disp);font-size:90px;color:var(--sage-b);line-height:1;margin:10px 0}
+@media(min-width:900px){.sticky{display:none}footer{padding-bottom:40px}}
+@media(max-width:860px){.why,.tiers{grid-template-columns:minmax(0,1fr)}.shirt{grid-template-columns:minmax(0,1fr)}.steps{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.biz{grid-template-columns:minmax(0,1fr)}.t.hl{order:-1}section{padding:64px 0}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+<style>
+section .lead{margin-top:18px}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;margin-top:30px}
+.box{border-radius:22px;background:var(--card);border:1px solid var(--line);padding:24px}
+.box h3{font-size:28px;margin-bottom:12px}
+table.tb{width:100%;border-collapse:collapse;font-size:15px}
+.tb td,.tb th{padding:11px 4px;border-bottom:1px dashed var(--line);text-align:left;vertical-align:top}
+.tb th{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--sub);font-weight:800}
+.tb td:last-child,.tb th:last-child{text-align:right;white-space:nowrap;font-weight:800}
+.tb tr.tot td{border-bottom:0;font-size:17px;color:var(--sage-b);font-weight:900}
+.tb small{display:block;color:var(--sub);font-size:12.5px;font-weight:600}
+.calc{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:16px;margin-top:30px;align-items:start}
+.cin{border-radius:22px;background:var(--card);border:1px solid var(--line);padding:22px;display:grid;gap:16px}
+.cin label{display:block;font-size:14px;font-weight:700}
+.cin label span{float:right;color:var(--sage-b);font-weight:900}
+.cin input{width:100%;margin-top:8px;accent-color:#BCCB86}
+.cin .h{font-size:12.5px;color:var(--sub);font-weight:600}
+.cout{border-radius:22px;background:linear-gradient(160deg,#262B1A,#12140E);border:1px solid var(--line2);padding:22px}
+.cout .big{font-family:var(--disp);font-size:clamp(46px,8vw,64px);line-height:1;color:var(--sage-b)}
+.cout .st2{font-weight:800;margin-top:8px}
+.ok2{color:var(--sage-b)}.ko2{color:var(--box)}
+.risk{display:grid;gap:12px;margin-top:30px}
+.rk{border-radius:20px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--box);padding:20px}
+.rk b{font-size:18px}.rk p{color:#CFCDBF;font-size:15px;margin-top:6px}
+.do{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:30px}
+.do div{border-radius:18px;background:var(--card);border:1px solid var(--line);padding:18px}
+.do b{display:block;font-size:17px}.do span{font-size:14.5px;color:#CFCDBF}
+.fee{margin-top:16px;border-radius:24px;border:2px solid var(--sage-b);padding:24px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center}
+.fee .p{font-family:var(--disp);font-size:56px;line-height:1;color:var(--sage-b)}
+@media(max-width:860px){.grid2,.calc,.do,.fee{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="bgw" style="top:60px">Amurrio</div><div class="bgw" style="top:330px">Fuerza 24h</div>
+  <div class="wrap">
+    <nav><img src="../logo-w.png" alt="Gorobel"><span>Propuesta para Joseba · Galerna Method</span></nav>
+    <div class="in">
+      <div class="tags"><span class="tag g">Nuevo gimnasio</span><span class="tag r">Antes que la competencia</span><span class="tag">200 m²</span></div>
+      <h1>Abrir Amurrio<br><em>con 300 socios</em><br>dentro.</h1>
+      <p class="lead">El plan para financiar la obra y las máquinas con los propios socios, antes de que abra el gimnasio de al lado. Sin pedir un préstamo: 50.000 € de socios fundadores antes de la apertura.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn p" href="../fundadores/" target="_blank" rel="noopener">Ver la campaña de fundadores</a><a class="btn o" href="#numeros">Hacer números</a></div>
+    </div>
+  </div>
+</header>
+
+<section class="alt">
+  <div class="wrap">
+    <p class="k">La idea</p>
+    <h2>Máquinas sencillas.<br><em>Lo fuerte es lo demás.</em></h2>
+    <div class="why">
+      <div class="w" style="--c:var(--box)"><span class="n">24h</span><h3>Abierto siempre</h3><p>Acceso con el móvil, a cualquier hora. Lo que un gimnasio de musculación normal no da.</p></div>
+      <div class="w"><span class="n">+</span><h3>Comunidad</h3><p>Fundadores con número, retos, quedadas y la gente de Gorobel. No compites en máquinas, compites en pertenencia.</p></div>
+      <div class="w" style="--c:var(--kb)"><span class="n">1</span><h3>Fuerza y lucha</h3><p>Una sola app para Amurrio y Gorobel. Quien entra por fuerza acaba probando boxeo, y al revés.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="k">Presupuesto</p>
+    <h2>Qué hay que <em>pagar.</em></h2>
+    <div class="grid2">
+      <div class="box"><h3>Gastos antes de abrir</h3>
+        <table class="tb"><tr><th>Concepto</th><th>Importe</th></tr>
+        <tr><td>Obra del local (200 m²)<small>Máximo</small></td><td>15.000 €</td></tr>
+        <tr><td>Máquinas · 1.er pago<small>Al encargarlas</small></td><td>15.000 €</td></tr>
+        <tr><td>Máquinas · 2.º pago<small>Al llegar</small></td><td>15.000 €</td></tr>
+        <tr><td>Camisetas de fundador<small>300 numeradas + 40 sudaderas · a presupuestar</small></td><td>~3.000 €</td></tr>
+        <tr><td>Anuncios de la campaña<small>4 semanas en Amurrio, Llodio y alrededores</small></td><td>~600 €</td></tr>
+        <tr class="tot"><td>Total</td><td>~48.600 €</td></tr></table>
+      </div>
+      <div class="box"><h3>Cómo se consigue</h3>
+        <table class="tb"><tr><th>Plan fundador</th><th>Recaudado</th></tr>
+        <tr><td>120 × Fundador (165 €)<small>3 meses + 55 €/mes de por vida</small></td><td>19.800 €</td></tr>
+        <tr><td>60 × Fundador 6 (300 €)<small>6 meses + 55 €/mes de por vida</small></td><td>18.000 €</td></tr>
+        <tr><td>20 × Fundador Oro (540 €)<small>12 meses + 55 €/mes de por vida</small></td><td>10.800 €</td></tr>
+        <tr><td>4 negocios apadrinan máquina (500 €)</td><td>2.000 €</td></tr>
+        <tr class="tot"><td>200 fundadores</td><td>50.600 €</td></tr></table>
+        <p class="h" style="margin-top:12px;color:var(--sub);font-size:13.5px">Los otros 100 socios hasta 300 entran en la apertura a 60 €/mes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="numeros">
+  <div class="wrap">
+    <p class="k">Haz tus números</p>
+    <h2>¿Llega? ¿Y qué pasa<br><em>después de abrir?</em></h2>
+    <p class="lead">Los fundadores pagan sus primeros meses por adelantado. Eso financia la obra, pero esos meses no entran cuotas suyas. Mueve los valores y mira cada fase.</p>
+    <div class="calc">
+      <div class="cin">
+        <div><label>Fundador · 165 € <span id="v1">120</span></label><input type="range" id="i1" min="0" max="250" value="120"></div>
+        <div><label>Fundador 6 · 300 € <span id="v2">60</span></label><input type="range" id="i2" min="0" max="150" value="60"></div>
+        <div><label>Fundador Oro · 540 € <span id="v3">20</span></label><input type="range" id="i3" min="0" max="80" value="20"></div>
+        <div><label>Negocios que apadrinan · 500 € <span id="v4">4</span></label><input type="range" id="i4" min="0" max="20" value="4"></div>
+        <div><label>Socios normales en la apertura · 60 € <span id="v5">100</span></label><input type="range" id="i5" min="0" max="200" value="100"></div>
+        <div><label>Gastos fijos al mes (alquiler, luz, personal…) <span id="v6">6.000 €</span></label><input type="range" id="i6" min="2000" max="15000" step="250" value="6000"><p class="h">Pon la cifra real de Joseba</p></div>
+      </div>
+      <div class="cout">
+        <p class="k">Recaudado antes de abrir</p>
+        <div class="big" id="oR">0 €</div>
+        <p class="st2" id="oC"></p>
+        <table class="tb" style="margin-top:18px"><tr><th>Tras abrir</th><th>Cuotas/mes</th></tr>
+          <tr><td>Meses 1–3</td><td id="m1"></td></tr>
+          <tr><td>Meses 4–6</td><td id="m2"></td></tr>
+          <tr><td>Meses 7–12</td><td id="m3"></td></tr>
+          <tr><td>Desde el mes 13</td><td id="m4"></td></tr>
+        </table>
+        <p class="st2" id="oF" style="margin-top:12px"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="k">Seguridad 24 h</p>
+    <h2>Abierto de noche,<br><em>sin sustos.</em></h2>
+    <div class="why">
+      <div class="w"><span class="n">QR</span><h3>Acceso con la app</h3><p>La puerta se abre con el móvil. Cada entrada queda registrada y quien no paga se bloquea solo. Si vuestro sistema actual lo permite, lo conectamos.</p></div>
+      <div class="w" style="--c:var(--box)"><span class="n">!</span><h3>Si pasa algo, sabéis quién</h3><p>Cámaras en sala con avisos de caída y de “dos personas con un QR”. Si hay un problema a las 3:12, se cruza la grabación con quién entró a esa hora.</p></div>
+      <div class="w" style="--c:var(--kb)"><span class="n">§</span><h3>Dentro de la ley</h3><p>Sin reconocimiento facial, que está multado. Carteles, nada en vestuarios ni baños, grabaciones borradas a los 30 días y evaluación de impacto hecha.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <p class="k">Calendario</p>
+    <h2>Cuatro semanas<br><em>de campaña.</em></h2>
+    <div class="steps">
+      <div class="st"><small>Semana 1</small><b>Los de casa</b><p>48 h de prioridad para socios y ex socios de Gorobel, por WhatsApp.</p></div>
+      <div class="st"><small>Semanas 2–3</small><b>Todo el valle</b><p>Anuncios, vídeos de la obra con los entrenadores y visitas a negocios de Amurrio.</p></div>
+      <div class="st"><small>Semana 4</small><b>Últimas plazas</b><p>Cuenta atrás y contador en directo. Cierre de la campaña.</p></div>
+      <div class="st"><small>Antes de abrir</small><b>Noche fundadores</b><p>Entrega de camisetas y primer entrenamiento solo para ellos.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="k">Antes de lanzar</p>
+    <h2>Lo que hay que <em>atar.</em></h2>
+    <div class="risk">
+      <div class="rk"><b>Cuotas de los primeros meses</b><p>Mientras los fundadores consumen sus meses ya pagados, entran menos cuotas. Hay que guardar parte de lo recaudado para cubrir los gastos fijos de los primeros meses (mira la calculadora).</p></div>
+      <div class="rk"><b>Licencia de actividad</b><p>Confirmar con el Ayuntamiento de Amurrio los plazos de la licencia antes de poner fecha de apertura.</p></div>
+      <div class="rk"><b>IVA de los cobros anticipados</b><p>Lo que se cobra por adelantado lleva IVA en el momento del cobro. Que lo revise el gestor.</p></div>
+      <div class="rk"><b>Devolución garantizada</b><p>Si no se llega al mínimo o no se abre, se devuelve todo. Da confianza y protege a Gorobel.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <p class="k">Qué hacemos nosotros</p>
+    <h2>Tú te ocupas de la obra.<br><em>Nosotros, de llenarlo.</em></h2>
+    <div class="do">
+      <div><b>Página de fundadores con pago real</b><span>Tarjeta y Bizum, contador en directo, número de fundador y confirmación por WhatsApp.</span></div>
+      <div><b>Campaña de anuncios</b><span>Amurrio, Llodio y alrededores, con cuenta atrás y retargeting a quien vio los vídeos.</span></div>
+      <div><b>Vídeos de la obra</b><span>Guiones y edición de la serie “abrimos Amurrio”, con tus entrenadores.</span></div>
+      <div><b>Socios, ex socios y negocios</b><span>Mensajes de WhatsApp, lista de prioridad y “Apadrina una máquina”.</span></div>
+      <div><b>Acceso 24 h con la app</b><span>QR desde la app de Gorobel, conectado a la puerta y bloqueo de impagos.</span></div>
+      <div><b>Noche de fundadores</b><span>Invitaciones, lista de tallas y entrega de camisetas organizada.</span></div>
+    </div>
+    <div class="fee">
+      <div><h3 style="font-size:30px">Solo cobramos si se recauda</h3><p style="color:#CFCDBF;margin-top:6px">Un porcentaje de lo que entre por la campaña, que sale de la propia campaña. No adelantas nada.</p></div>
+      <div class="p">8 %</div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:60px">
+  <div class="wrap">
+    <div class="end">
+      <img src="../logo-w.png" alt="" style="height:24px">
+      <h2 style="margin-top:18px">El otro gimnasio aún no ha abierto.<br><em>Tú puedes abrir con 300 socios.</em></h2>
+      <p>Si te encaja, en una semana está la campaña lista para lanzar.</p>
+      <a class="btn p" href="../fundadores/" target="_blank" rel="noopener">Ver la campaña de fundadores</a>
+    </div>
+  </div>
+</section>
+<footer style="padding-bottom:40px">Propuesta preparada por Galerna Method para Gorobel · Cifras orientativas, a ajustar con los datos reales</footer>
+<script>
+(function(){var $=function(i){return document.getElementById(i)};
+function eur(n){return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,'.')+'\u00a0€';}
+var COST=48600;
+function u(){var a=+$('i1').value,b=+$('i2').value,c=+$('i3').value,d=+$('i4').value,n=+$('i5').value,g=+$('i6').value;
+$('v1').textContent=a;$('v2').textContent=b;$('v3').textContent=c;$('v4').textContent=d;$('v5').textContent=n;$('v6').textContent=eur(g);
+var R=a*165+b*300+c*540+d*500;$('oR').textContent=eur(R);
+var diff=R-COST;$('oC').innerHTML=(a+b+c)+' fundadores · '+(diff>=0?'<span class="ok2">Cubre el presupuesto y sobran '+eur(diff)+'</span>':'<span class="ko2">Faltan '+eur(-diff)+' para el presupuesto</span>');
+var base=n*60,F=55,ms=[base,base+a*F,base+(a+b)*F,base+(a+b+c)*F];
+['m1','m2','m3','m4'].forEach(function(id,i){var ok=ms[i]>=g;$(id).innerHTML='<span class="'+(ok?'ok2':'ko2')+'">'+eur(ms[i])+'</span>';});
+var hole=0;[3,3,6].forEach(function(mm,i){hole+=Math.max(0,g-ms[i])*mm;});
+$('oF').innerHTML=hole>0?'<span class="ko2">Hay que reservar unos '+eur(hole)+' para cubrir los gastos fijos del primer año.</span>':'<span class="ok2">Las cuotas cubren los gastos fijos desde el primer mes.</span>';}
+['i1','i2','i3','i4','i5','i6'].forEach(function(i){$(i).addEventListener('input',u);});u();})();
+</script>
+</body>
+</html>
