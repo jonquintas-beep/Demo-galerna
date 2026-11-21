@@ -353,7 +353,7 @@ footer{padding:30px 0 calc(110px + env(safe-area-inset-bottom));text-align:cente
       '<label for="ft">Teléfono (WhatsApp)</label><input id="ft" type="tel" inputmode="tel" autocomplete="tel">'+
       (biz?'':'<label for="fs">Talla de camiseta</label><select id="fs"><option>S</option><option selected>M</option><option>L</option><option>XL</option><option>XXL</option></select>')+
       '<div class="sum"><span>Total</span><span>'+eur(+p[1])+'</span></div>'+
-      '<button type="button" class="btn p" id="pay">Pagar con tarjeta o Bizum</button><p class="left" style="margin-top:10px">Demo: no se realiza ningún cobro.</p>';
+      '<button type="button" class="btn p" id="pay">Pagar con tarjeta, Apple Pay o Google Pay</button><p class="left" style="margin-top:10px">Demo: no se realiza ningún cobro.</p>';
     sh.querySelector('.x').onclick=close;
     $('pay').onclick=function(){ if(!biz){F++;} E+=(+p[1]); paint(); sh.innerHTML='<div class="ok"><p class="k">'+(biz?'¡Gracias!':'¡Ya eres fundador!')+'</p>'+(biz?'<h3 style="margin-top:14px">Tu máquina, apadrinada</h3><p style="color:#CFCDBF;margin-top:10px">Te escribimos por WhatsApp para pedirte el logo.</p>':'<div class="num">#'+String(F).padStart(3,'0')+'</div><p style="color:#CFCDBF">Este es tu número. Te llegará la confirmación por WhatsApp y te avisaremos para recoger tu camiseta.</p>')+'<button type="button" class="btn o" style="margin-top:20px;width:100%">Cerrar</button></div>'; sh.querySelector('button').onclick=close; };
     mod.classList.add('on'); setTimeout(function(){$('fn').focus();},50);
