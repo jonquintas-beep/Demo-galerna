@@ -167,6 +167,29 @@ ol.shots li small{display:block;color:var(--sub);font-size:13px}
 .prog{font-size:13px;color:var(--sub);font-weight:800;margin-top:10px}
 @media(max-width:860px){.rules,.ep{grid-template-columns:minmax(0,1fr)}}
 </style>
+<style>
+.hooks{margin-top:14px;display:grid;gap:6px}
+.hooks div{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:start;font-size:15px;background:var(--bg);border-radius:12px;padding:10px 12px}
+.hooks b{font-size:11px;font-weight:900;letter-spacing:.08em;color:#11140A;background:var(--kb);border-radius:6px;padding:3px 7px;margin-top:2px}
+.tl{margin-top:14px;display:grid;gap:0;border-top:1px dashed var(--line2)}
+.tl div{display:grid;grid-template-columns:74px minmax(0,1fr);gap:12px;padding:10px 0;border-bottom:1px dashed var(--line2);font-size:15px}
+.tl time{font-family:var(--disp);font-size:19px;white-space:nowrap;color:var(--sage-b)}
+.tl small{display:block;color:var(--sub);font-size:13px;margin-top:2px}
+.tl .vo{display:block;margin-top:4px;color:var(--bone);font-weight:700}
+.adtx{margin-top:14px;border-radius:14px;border:1.5px solid var(--line2);padding:14px}
+.adtx .row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.adtx small{font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--sage-b)}
+.adtx pre{white-space:pre-wrap;font:500 15px/1.5 "Montserrat",sans-serif;color:#E2DFD3;margin-top:8px}
+.adtx .hd{margin-top:10px;font-size:14px;color:#CFCDBF}
+.adtx .hd b{color:var(--bone)}
+.why2{margin-top:10px;font-size:13.5px;color:var(--sub);font-style:italic}
+.formula{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:20px}
+.formula div{border-radius:14px;background:var(--card);border:1px solid var(--line);padding:12px;font-size:13.5px;color:#CFCDBF}
+.formula b{display:block;font-family:var(--disp);font-weight:400;font-size:20px;color:var(--sage-b);text-transform:uppercase}
+.test{margin-top:20px;border-radius:18px;border:1.5px dashed var(--line2);padding:16px;font-size:14.5px;color:#CFCDBF}
+.test b{color:var(--bone)}
+@media(max-width:860px){.formula{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+</style>
 </head>
 <body>
 <div class="demo">Kit interno de lanzamiento · Gorobel Amurrio</div>
@@ -194,21 +217,80 @@ ol.shots li small{display:block;color:var(--sub);font-size:13px}
   <p class="lead" style="font-size:15px;margin-top:18px">Cuando lo tengas, mándalo tal cual a Jon por WhatsApp (como documento, para que no pierda calidad). La edición y los textos los ponemos nosotros.</p>
 </div></section>
 <section id="videos"><div class="wrap">
-  <p class="k">Los 6 anuncios</p><h2>Guiones,<br><em>plano a plano.</em></h2>
+  <p class="k">Los 6 anuncios</p><h2>Guiones que<br><em>hacen tocar el botón.</em></h2>
+  <p class="lead" style="font-size:15.5px">Todos siguen la misma fórmula. Si un vídeo no tiene las cinco partes, no lo publicamos.</p>
+  <div class="formula"><div><b>1. Gancho</b>0–3 s. Para el dedo: nombra Amurrio o un problema.</div><div><b>2. Problema</b>Lo que le pasa hoy: horarios, coche, precio.</div><div><b>3. Oferta</b>24 h · 55 € para siempre · camiseta.</div><div><b>4. Escasez</b>Solo 300. Quedan [X].</div><div><b>5. Acción</b>“Toca el botón y elige tu plan en 1 minuto.”</div></div>
+  <div class="test"><b>Cómo los probamos:</b> cada vídeo con sus 3 ganchos sale a la vez. A los 3 días apagamos los ganchos que menos clics tienen y metemos el presupuesto en el que mejor funciona. Por eso hay que grabar el inicio 3 veces.</div>
   <p class="prog" id="vp"></p>
-  <div class="vid" data-id="v1"><div class="vh"><div><h3>Abrimos Amurrio</h3><div class="meta"><span>REEL · 20 s</span><span>Sale: alguien de Gorobel</span></div></div><label class="chk"><input type="checkbox">Grabado</label></div>
-<p class="goal"><b>Para qué:</b> Presentar el proyecto y la cifra: 300 fundadores.</p><ol class="shots"><li><div>Plano general del local vacío, entrando por la puerta<small>Móvil en vertical, a la altura del pecho, caminando despacio</small></div></li><li><div>Se gira a cámara en el centro del local<small>Fondo: paredes desnudas, cuanto más “obra”, mejor</small></div></li><li><div>Señala con la mano dónde irá cada zona<small>Racks aquí, peso libre allí, cardio al fondo</small></div></li><li><div>Cierra mirando a cámara<small>Plano medio, de cintura para arriba</small></div></li></ol>
-<div class="say"><small>Qué se dice</small>“Esto va a ser el nuevo gimnasio de Amurrio. Fuerza, 24 horas. Y buscamos a 300 fundadores que lo hagan posible con nosotros.”</div><p class="goal" style="margin-top:10px"><b>Texto en pantalla: ABRIMOS AMURRIO · 300 FUNDADORES</b></p></div><div class="vid" data-id="v2"><div class="vh"><div><h3>Tu número</h3><div class="meta"><span>REEL · 15 s</span><span>Sale: Cualquiera (solo manos)</span></div></div><label class="chk"><input type="checkbox">Grabado</label></div>
-<p class="goal"><b>Para qué:</b> Que se deseen la camiseta numerada.</p><ol class="shots"><li><div>Caja o bolsa cerrada sobre una mesa o el ring<small>Luz de ventana, sin flash</small></div></li><li><div>Manos sacando la camiseta y desplegándola<small>Movimiento lento</small></div></li><li><div>Primer plano del número a la espalda<small>Que se lea bien el #087</small></div></li><li><div>Plano final: camiseta colgada en la pared del local<small></small></div></li></ol>
-<div class="say"><small>Qué se dice</small>Sin voz. Música de la biblioteca de Instagram.</div><p class="goal" style="margin-top:10px"><b>Texto: SOLO 300 PERSONAS LA TENDRÁN · #001–#300</b></p></div><div class="vid" data-id="v3"><div class="vh"><div><h3>3:00 Abierto</h3><div class="meta"><span>REEL · 15 s</span><span>Sale: un socio</span></div></div><label class="chk"><input type="checkbox">Grabado</label></div>
-<p class="goal"><b>Para qué:</b> Enseñar el 24 h sin explicarlo.</p><ol class="shots"><li><div>Reloj del móvil marcando una hora de madrugada<small>Grabado en el móvil en vertical</small></div></li><li><div>Llega de noche a la puerta y la abre con el móvil<small>Si aún no hay puerta, simulad la entrada</small></div></li><li><div>Se encienden las luces del local<small>Plano desde dentro</small></div></li><li><div>Primera serie: sentadilla o peso muerto<small>Plano lateral, cuerpo entero</small></div></li></ol>
-<div class="say"><small>Qué se dice</small>Sin voz. Música intensa de la biblioteca de Instagram.</div><p class="goal" style="margin-top:10px"><b>Texto: 3:00 · ABIERTO · GOROBEL AMURRIO 24 H</b></p></div><div class="vid" data-id="v4"><div class="vh"><div><h3>55 € de por vida</h3><div class="meta"><span>IMAGEN / REEL 10 s</span><span>Sale: Nadie (diseño)</span></div></div><label class="chk"><input type="checkbox">Grabado</label></div>
-<p class="goal"><b>Para qué:</b> El precio claro. Lo preparamos nosotros.</p><ol class="shots"><li><div>Necesitamos solo 2–3 fotos buenas del local o de un socio entrenando<small>Vertical, sin gente borrosa detrás</small></div></li></ol>
-<div class="say"><small>Qué se dice</small>Lo montamos nosotros con las fotos.</div><p class="goal" style="margin-top:10px"><b>Texto: 60 € PARA TODOS · 55 € PARA SIEMPRE SI ERES FUNDADOR</b></p></div><div class="vid" data-id="v5"><div class="vh"><div><h3>Quedan X plazas</h3><div class="meta"><span>STORY · 10 s</span><span>Sale: alguien de Gorobel</span></div></div><label class="chk"><input type="checkbox">Grabado</label></div>
-<p class="goal"><b>Para qué:</b> Recordatorio. Se graba de nuevo cada semana con la cifra real.</p><ol class="shots"><li><div>Alguien de Gorobel con el móvil en la mano mostrando la página<small>O delante de la pizarra con el número escrito</small></div></li><li><div>Dice la cifra y señala abajo<small>Plano medio</small></div></li></ol>
-<div class="say"><small>Qué se dice</small>“Quedan [X] plazas de fundador. Cuando se acaben, se acabó el precio. El enlace, aquí abajo.”</div><p class="goal" style="margin-top:10px"><b>Texto: QUEDAN [X] PLAZAS</b></p></div><div class="vid" data-id="v6"><div class="vh"><div><h3>Ya soy fundador</h3><div class="meta"><span>REEL · 25 s</span><span>Sale: 2–3 socios de Gorobel</span></div></div><label class="chk"><input type="checkbox">Grabado</label></div>
-<p class="goal"><b>Para qué:</b> Prueba social: gente real del valle.</p><ol class="shots"><li><div>Cada socio, plano medio, en el local o en Gorobel<small>Fondo con algo reconocible del gimnasio</small></div></li><li><div>Dice su nombre, de dónde es y su número de fundador<small>“Soy Ane, de Amurrio, fundadora 012”</small></div></li><li><div>Una frase de por qué<small>Natural, sin leer</small></div></li><li><div>Todos juntos al final levantando la camiseta<small></small></div></li></ol>
-<div class="say"><small>Qué se dice</small>Pregunta para guiarles: “¿Por qué te has hecho fundador?”</div><p class="goal" style="margin-top:10px"><b>Texto: YA SOMOS [X] FUNDADORES</b></p></div>
+  <div class="vid" data-id="1"><div class="vh"><div><h3>1. Por fin, en Amurrio</h3><div class="meta"><span>REEL · 20–25 s</span><span>Sale: alguien de Gorobel</span></div></div><label class="chk"><input type="checkbox">Grabado</label></div>
+<p class="goal"><b>Para qué:</b> Orgullo local + oferta. El anuncio principal para gente nueva.</p>
+<p class="goal" style="margin-top:12px"><b>3 ganchos para probar</b> (graba el inicio 3 veces, el resto igual):</p>
+<div class="hooks"><div><b>A</b><span>“Amurrio, esto es para ti.” (mirando a cámara, en el local vacío)</span></div><div><b>B</b><span>“¿Sigues cogiendo el coche para ir a entrenar?”</span></div><div><b>C</b><span>“En este local va a abrir algo que Amurrio no tiene.”</span></div></div>
+<div class="tl"><div><time>0–3 s</time><span>Gancho, mirando a cámara en el local vacío<span class="vo">Uno de los 3 ganchos</span></span></div><div><time>3–8 s</time><span>Recorre el local señalando: “aquí los racks, aquí el peso libre”<span class="vo">“Vamos a abrir un gimnasio de fuerza, abierto 24 horas, aquí mismo.”</span></span></div><div><time>8–15 s</time><span>Plano corto, más cerca de cámara<span class="vo">“Pero antes buscamos a 300 fundadores. 55 € al mes para siempre. Cuando abramos, será 60.”</span></span></div><div><time>15–20 s</time><span>Señala hacia abajo (al botón)<span class="vo">“Toca el botón, elige tu plan y en un minuto tienes tu número de fundador. Cuando lleguemos a 300, se acabó.”</span></span></div></div>
+<div class="adtx"><div class="row"><small>Texto del anuncio en Meta</small><button type="button" class="cp">Copiar</button></div><pre>Amurrio va a tener gimnasio de fuerza 24 horas. 🏋️
+
+Y antes de abrir, buscamos a 300 fundadores:
+✅ 55 €/mes de por vida (después será 60 €)
+✅ Camiseta numerada del #001 al #300
+✅ Tu nombre en el muro de la entrada
+
+Cuando se acaben las 300 plazas, se acabó el precio.
+👇 Elige tu plan en 1 minuto</pre><p class="hd"><b>Título:</b> Sé uno de los 300 fundadores · <b>Botón:</b> Más información</p></div>
+<p class="why2">Funciona porque nombra el pueblo en el primer segundo: la gente de Amurrio se para.</p></div><div class="vid" data-id="2"><div class="vh"><div><h3>2. Entrenas cuando puedes</h3><div class="meta"><span>REEL · 15–20 s</span><span>Sale: un socio (mejor si trabaja a turnos)</span></div></div><label class="chk"><input type="checkbox">Grabado</label></div>
+<p class="goal"><b>Para qué:</b> Para los que trabajan a turnos o no llegan a los horarios de un gimnasio normal.</p>
+<p class="goal" style="margin-top:12px"><b>3 ganchos para probar</b> (graba el inicio 3 veces, el resto igual):</p>
+<div class="hooks"><div><b>A</b><span>“Salgo de trabajar a las 22:00. ¿Dónde entreno?” (texto grande en pantalla)</span></div><div><b>B</b><span>“¿Trabajas a turnos? Este gimnasio no cierra.”</span></div><div><b>C</b><span>Reloj del móvil marcando las 5:40, y la frase: “Mi hora de entrenar.”</span></div></div>
+<div class="tl"><div><time>0–3 s</time><span>Gancho. Plano del reloj o de la persona saliendo de trabajar, de noche<span class="vo">Texto o voz del gancho</span></span></div><div><time>3–8 s</time><span>Llega a la puerta, la abre con el móvil y se encienden las luces<span class="vo">“En Amurrio vamos a abrir un gimnasio que no cierra nunca. Entras con el móvil, a la hora que te venga bien.”</span></span></div><div><time>8–13 s</time><span>Primera serie, plano lateral<span class="vo">“Mañana, tarde, noche o madrugada. Tú decides.”</span></span></div><div><time>13–18 s</time><span>Plano de la persona mirando a cámara<span class="vo">“Los 300 primeros, 55 € para siempre. Toca el botón y reserva tu plaza.”</span></span></div></div>
+<div class="adtx"><div class="row"><small>Texto del anuncio en Meta</small><button type="button" class="cp">Copiar</button></div><pre>¿Trabajas a turnos? ¿Sales tarde? ⏰
+
+En Amurrio abrimos un gimnasio de fuerza que no cierra nunca: entras con el móvil, a cualquier hora, los 365 días.
+
+Los 300 primeros fundadores pagan 55 €/mes de por vida. Después será 60 €.
+👇 Reserva tu plaza</pre><p class="hd"><b>Título:</b> Abierto 24 h. Tú eliges la hora · <b>Botón:</b> Más información</p></div>
+<p class="why2">Ataca un problema real: los horarios. Es el motivo más fuerte para cambiar de gimnasio.</p></div><div class="vid" data-id="3"><div class="vh"><div><h3>3. 55 € para siempre</h3><div class="meta"><span>REEL · 12–15 s + IMAGEN</span><span>Sale: nadie (texto) o alguien de Gorobel</span></div></div><label class="chk"><input type="checkbox">Grabado</label></div>
+<p class="goal"><b>Para qué:</b> El anuncio de precio. Directo, para quien ya está pensando en apuntarse a un gimnasio.</p>
+<p class="goal" style="margin-top:12px"><b>3 ganchos para probar</b> (graba el inicio 3 veces, el resto igual):</p>
+<div class="hooks"><div><b>A</b><span>“60 € para todos. 55 € para siempre, solo para 300.”</span></div><div><b>B</b><span>“¿Pagar menos que nadie en tu gimnasio… para siempre?”</span></div><div><b>C</b><span>“Este precio solo lo van a tener 300 personas en Amurrio.”</span></div></div>
+<div class="tl"><div><time>0–3 s</time><span>Texto grande: 60 € tachado → 55 €<span class="vo">Gancho en texto</span></span></div><div><time>3–8 s</time><span>Fotos rápidas del local y la camiseta<span class="vo">Texto: ACCESO 24 H · CAMISETA NUMERADA · TU NOMBRE EN EL MURO</span></span></div><div><time>8–12 s</time><span>Contador: QUEDAN [X] PLAZAS<span class="vo">Texto: CUANDO SE ACABEN, SE ACABÓ EL PRECIO</span></span></div><div><time>12–15 s</time><span>Logo y botón<span class="vo">Texto: RESERVA TU PLAZA ↓</span></span></div></div>
+<div class="adtx"><div class="row"><small>Texto del anuncio en Meta</small><button type="button" class="cp">Copiar</button></div><pre>60 € al mes para todos.
+55 € al mes para siempre, solo para los 300 fundadores. 🔒
+
+Gimnasio de fuerza 24 h en Amurrio. Aunque la cuota suba, la tuya no se mueve mientras sigas.
+
+Quedan [X] plazas 👇</pre><p class="hd"><b>Título:</b> 55 €/mes de por vida · <b>Botón:</b> Más información</p></div>
+<p class="why2">La gente entiende el ahorro en 2 segundos y la escasez le empuja a decidir ya.</p></div><div class="vid" data-id="4"><div class="vh"><div><h3>4. Solo 300 la tendrán</h3><div class="meta"><span>REEL · 15 s</span><span>Sale: manos (camiseta)</span></div></div><label class="chk"><input type="checkbox">Grabado</label></div>
+<p class="goal"><b>Para qué:</b> Identidad y pertenencia. Lo que nadie más ofrece.</p>
+<p class="goal" style="margin-top:12px"><b>3 ganchos para probar</b> (graba el inicio 3 veces, el resto igual):</p>
+<div class="hooks"><div><b>A</b><span>“Solo 300 personas en Amurrio van a tener esta camiseta.”</span></div><div><b>B</b><span>“Este número no se vuelve a hacer.” (primer plano del #001)</span></div><div><b>C</b><span>“¿Cuál será tu número?”</span></div></div>
+<div class="tl"><div><time>0–3 s</time><span>Primer plano del número en la espalda<span class="vo">Gancho en voz o texto</span></span></div><div><time>3–8 s</time><span>Despliega la camiseta y se ve el logo<span class="vo">“Es la camiseta de los socios fundadores del nuevo Gorobel de Amurrio. Del 001 al 300.”</span></span></div><div><time>8–12 s</time><span>Plano del muro con nombres (o la pared donde irá)<span class="vo">“Tu nombre, en la entrada, para todos los que vengan detrás.”</span></span></div><div><time>12–15 s</time><span>Camiseta colgada<span class="vo">“Elige tu número antes de que se acaben. Botón abajo.”</span></span></div></div>
+<div class="adtx"><div class="row"><small>Texto del anuncio en Meta</small><button type="button" class="cp">Copiar</button></div><pre>Solo 300 personas en Amurrio van a tener esta camiseta. 🖤
+
+Es la de los socios fundadores del nuevo Gorobel, gimnasio de fuerza 24 h. Numerada del #001 al #300, con tu nombre en el muro de la entrada y 55 €/mes para siempre.
+
+¿Cuál será tu número? 👇</pre><p class="hd"><b>Título:</b> Elige tu número de fundador · <b>Botón:</b> Más información</p></div>
+<p class="why2">No vende un gimnasio, vende ser de los primeros. Muy fuerte para compartir entre amigos.</p></div><div class="vid" data-id="5"><div class="vh"><div><h3>5. ¿Y si al final no abre?</h3><div class="meta"><span>REEL · 15–20 s</span><span>Sale: alguien de Gorobel</span></div></div><label class="chk"><input type="checkbox">Grabado</label></div>
+<p class="goal"><b>Para qué:</b> Quitar el miedo a pagar por algo que aún no existe. Para el recordatorio.</p>
+<p class="goal" style="margin-top:12px"><b>3 ganchos para probar</b> (graba el inicio 3 veces, el resto igual):</p>
+<div class="hooks"><div><b>A</b><span>“¿Pagar un gimnasio que todavía no existe? Te entiendo.”</span></div><div><b>B</b><span>“La pregunta que más nos hacéis: ¿y si no abre?”</span></div><div><b>C</b><span>“Te lo pongo fácil: si no abrimos, te devolvemos todo.”</span></div></div>
+<div class="tl"><div><time>0–3 s</time><span>Mirando a cámara, en la obra<span class="vo">Gancho</span></span></div><div><time>3–10 s</time><span>Plano de la obra avanzando<span class="vo">“Tus meses empiezan a contar el día que abrimos, no el día que pagas. Y si no llegamos o no abrimos, te devolvemos el 100 %.”</span></span></div><div><time>10–15 s</time><span>Plano medio<span class="vo">“O sea: el riesgo es nuestro, el precio de fundador es tuyo.”</span></span></div><div><time>15–18 s</time><span>Señala abajo<span class="vo">“Quedan [X] plazas. Toca el botón.”</span></span></div></div>
+<div class="adtx"><div class="row"><small>Texto del anuncio en Meta</small><button type="button" class="cp">Copiar</button></div><pre>¿Pagar un gimnasio que todavía no existe? 🤔
+
+Tus meses empiezan a contar el día que abrimos, no el día que pagas.
+Y si no abrimos, te devolvemos el 100 %.
+
+El riesgo es nuestro. El precio de fundador (55 €/mes para siempre) es tuyo.
+Quedan [X] plazas 👇</pre><p class="hd"><b>Título:</b> Si no abrimos, te devolvemos todo · <b>Botón:</b> Más información</p></div>
+<p class="why2">Responde la objeción que frena al que ya visitó la página y no compró.</p></div><div class="vid" data-id="6"><div class="vh"><div><h3>6. Ya somos [X]</h3><div class="meta"><span>REEL · 20–25 s</span><span>Sale: 2–3 socios fundadores</span></div></div><label class="chk"><input type="checkbox">Grabado</label></div>
+<p class="goal"><b>Para qué:</b> Prueba social. Que vean a vecinos que ya se han apuntado.</p>
+<p class="goal" style="margin-top:12px"><b>3 ganchos para probar</b> (graba el inicio 3 veces, el resto igual):</p>
+<div class="hooks"><div><b>A</b><span>“Soy Ane, de Amurrio, y soy la fundadora número 12.”</span></div><div><b>B</b><span>“Ya somos [X] fundadores. ¿Te vienes?”</span></div><div><b>C</b><span>Tres caras conocidas del pueblo, una detrás de otra, diciendo su número.</span></div></div>
+<div class="tl"><div><time>0–4 s</time><span>Primer socio: nombre, pueblo y número<span class="vo">Gancho</span></span></div><div><time>4–12 s</time><span>Otros dos, cada uno una frase<span class="vo">“Por fin algo así en Amurrio”, “Entreno a la hora que quiero”, “55 € para siempre, no me lo pensé”</span></span></div><div><time>12–18 s</time><span>Los tres juntos con la camiseta<span class="vo">“Ya somos [X]. Quedan [Y] plazas.”</span></span></div><div><time>18–22 s</time><span>Mirando a cámara<span class="vo">“Toca el botón y sé el siguiente.”</span></span></div></div>
+<div class="adtx"><div class="row"><small>Texto del anuncio en Meta</small><button type="button" class="cp">Copiar</button></div><pre>Ya somos [X] fundadores en Amurrio. 🙌
+
+Vecinos que no han querido esperar: gimnasio de fuerza 24 h, 55 €/mes para siempre, camiseta numerada y su nombre en el muro.
+
+Quedan [Y] plazas. ¿Te vienes? 👇</pre><p class="hd"><b>Título:</b> Únete a los fundadores · <b>Botón:</b> Más información</p></div>
+<p class="why2">La gente se apunta cuando ve que otros como ellos ya lo han hecho.</p></div>
 </div></section>
 <section id="obra" class="alt"><div class="wrap">
   <p class="k">Serie de la obra</p><h2>Un capítulo<br><em>cada semana.</em></h2>
@@ -272,7 +354,7 @@ Te dejamos tu enlace personal. Por cada amigo que se haga fundador con él, te r
   document.querySelectorAll('.vid').forEach(function(d){var c=d.querySelector('input');var k='v'+d.dataset.id;c.checked=!!st[k];d.classList.toggle('done',c.checked);
     c.addEventListener('change',function(){st[k]=c.checked;d.classList.toggle('done',c.checked);save();prog();});});
   document.querySelectorAll('.todo input').forEach(function(c){var k='t'+c.dataset.t;c.checked=!!st[k];c.addEventListener('change',function(){st[k]=c.checked;save();prog();});});
-  document.querySelectorAll('.msg').forEach(function(m){var b=m.querySelector('.cp');b.addEventListener('click',function(){var t=m.querySelector('pre').textContent;
+  document.querySelectorAll('.msg,.adtx').forEach(function(m){var b=m.querySelector('.cp');b.addEventListener('click',function(){var t=m.querySelector('pre').textContent;
     var done=function(){b.textContent='Copiado';b.classList.add('ok');setTimeout(function(){b.textContent='Copiar';b.classList.remove('ok')},1600)};
     if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,function(){fallback(t);done()})}else{fallback(t);done()}});});
   function fallback(t){var a=document.createElement('textarea');a.value=t;a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}document.body.removeChild(a);}
