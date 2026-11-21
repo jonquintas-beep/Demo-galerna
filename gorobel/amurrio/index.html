@@ -196,7 +196,7 @@ table.tb{width:100%;border-collapse:collapse;font-size:15px}
 </style>
 <style>
 @media(max-width:860px){.terms3{grid-template-columns:minmax(0,1fr)!important}}
-.apps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:30px}
+.apps{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;margin-top:30px;max-width:560px}
 .apl{border-radius:26px;background:var(--card);border:1px solid var(--line);padding:26px;position:relative;display:flex;flex-direction:column;gap:10px}
 .apl.hl{border:2px solid var(--sage-b);background:linear-gradient(170deg,#262B1A,#191C13)}
 .apl .badge{position:absolute;top:-13px;left:22px;background:var(--sage-b);color:#11140A;font-size:11.5px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;padding:6px 11px;border-radius:99px}
@@ -406,11 +406,9 @@ Quedan [X] plazas 👇</div>
     <p class="lead">La app es la que abre la puerta las 24 horas, da las rutinas y bloquea a quien no paga. No pagas nada para ponerla en marcha: la cuota empieza el día de la apertura.</p>
     <div class="inc2"><span>Acceso 24 h con QR</span><span>Bloqueo automático de impagos</span><span>Rutinas según objetivo</span><span>Progreso de cada socio</span><span>Avisos de seguridad</span><span>Panel para ti</span><span>Mantenimiento y mejoras</span></div>
     <div class="apps">
-      <div class="apl hl"><span class="badge">Recomendado</span><h3>Por socio</h3><div class="pr">1,90 €<small> por socio activo / mes</small></div><p>Mínimo 299 €/mes. Al principio pagas poco; si al gimnasio le va bien, nos va bien a los dos.</p>
+      <div class="apl hl"><h3>Por socio</h3><div class="pr">1,90 €<small> por socio activo / mes</small></div><p>Mínimo 299 €/mes. Al principio pagas poco; si al gimnasio le va bien, nos va bien a los dos.</p>
         <table class="tb"><tr><th>Socios activos</th><th>Cuota</th></tr><tr><td>150</td><td>299 €</td></tr><tr><td>300</td><td>570 €</td></tr><tr><td>400</td><td>760 €</td></tr></table></div>
-      <div class="apl"><h3>Cuota fija</h3><div class="pr">449 €<small> / mes</small></div><p>Siempre lo mismo, tengas los socios que tengas.</p>
-        <table class="tb"><tr><th>Socios activos</th><th>Cuota</th></tr><tr><td>150</td><td>449 €</td></tr><tr><td>300</td><td>449 €</td></tr><tr><td>400</td><td>449 €</td></tr></table></div>
-    </div>
+        </div>
     <div class="terms3" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:16px">
       <div class="box" style="padding:16px"><b>0 € de entrada</b><p style="color:#CFCDBF;font-size:14px;margin-top:4px">La puesta en marcha va incluida.</p></div>
       <div class="box" style="padding:16px"><b>12 meses de permanencia</b><p style="color:#CFCDBF;font-size:14px;margin-top:4px">Desde el día de la apertura.</p></div>
