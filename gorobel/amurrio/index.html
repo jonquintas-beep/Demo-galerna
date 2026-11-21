@@ -160,6 +160,40 @@ table.tb{width:100%;border-collapse:collapse;font-size:15px}
 .fee .p{font-family:var(--disp);font-size:56px;line-height:1;color:var(--sage-b)}
 @media(max-width:860px){.grid2,.calc,.do,.fee{grid-template-columns:minmax(0,1fr)}}
 </style>
+<style>
+.ph{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:30px}
+.phc{border-radius:20px;background:var(--card);border:1px solid var(--line);padding:20px;display:flex;flex-direction:column;gap:8px}
+.phc small{font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--sage-b)}
+.phc b{font-family:var(--disp);font-weight:400;font-size:26px;text-transform:uppercase;line-height:1}
+.phc .eur{font-family:var(--disp);font-size:34px;color:var(--bone);line-height:1}
+.phc p{font-size:14.5px;color:#CFCDBF}
+.aud{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:22px}
+.au{border-radius:20px;padding:20px;border:1px solid var(--line);background:var(--card)}
+.au .tg{display:inline-block;font-size:11.5px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;border-radius:99px;background:var(--sage-b);color:#11140A}
+.au .tg.r{background:var(--box);color:#fff}
+.au h3{font-size:26px;margin:10px 0 6px}
+.au ul{list-style:none;display:grid;gap:6px;font-size:14.5px;color:#CFCDBF}
+.au li::before{content:"· ";color:var(--sage-b);font-weight:900}
+.cre{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
+.cr{border-radius:20px;overflow:hidden;background:var(--card);border:1px solid var(--line);display:flex;flex-direction:column}
+.cr .vis{aspect-ratio:9/12;background:linear-gradient(160deg,#2A3019,#0C0D0A);display:flex;flex-direction:column;justify-content:flex-end;padding:16px;position:relative}
+.cr .vis .ctit{font-family:var(--disp);font-size:30px;line-height:.95;text-transform:uppercase}
+.cr .vis .ctit em{font-style:normal;color:var(--sage-b)}
+.cr .vis .fmt{position:absolute;top:12px;left:12px;font-size:11px;font-weight:900;letter-spacing:.1em;background:rgba(0,0,0,.5);padding:5px 9px;border-radius:99px}
+.cr .tx{padding:14px 16px;font-size:14px;color:#CFCDBF}
+.cr .tx b{color:var(--bone);display:block;margin-bottom:4px}
+.copy{display:grid;gap:12px;margin-top:22px}
+.cp{border-radius:18px;background:var(--card);border:1px solid var(--line);padding:18px;font-size:15px;white-space:pre-line;color:#E2DFD3}
+.cp small{display:block;font-size:11.5px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--sage-b);margin-bottom:8px;white-space:normal}
+.kpi{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:22px}
+.kp{border-radius:18px;background:var(--card);border:1px solid var(--line);padding:16px}
+.kp b{display:block;font-family:var(--disp);font-weight:400;font-size:34px;color:var(--sage-b);line-height:1}
+.kp span{font-size:13.5px;color:#CFCDBF;font-weight:600}
+.need2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:22px}
+.need2 div{display:flex;gap:12px;align-items:flex-start;border-radius:16px;background:var(--card);border:1px solid var(--line);padding:14px 16px;font-size:14.5px}
+.need2 i{flex:none;width:30px;height:30px;border-radius:50%;background:var(--sage-b);color:#11140A;display:grid;place-items:center;font-style:normal;font-weight:900}
+@media(max-width:860px){.ph,.kpi{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.aud,.cre,.need2{grid-template-columns:minmax(0,1fr)}.cr .vis{aspect-ratio:16/10}}
+</style>
 </head>
 <body>
 <header class="hero">
@@ -170,7 +204,7 @@ table.tb{width:100%;border-collapse:collapse;font-size:15px}
       <div class="tags"><span class="tag g">Nuevo gimnasio</span><span class="tag r">Antes que la competencia</span><span class="tag">200 m²</span></div>
       <h1>Abrir Amurrio<br><em>con 300 socios</em><br>dentro.</h1>
       <p class="lead">El plan para financiar la obra y las máquinas con los propios socios, antes de que abra el gimnasio de al lado. Sin pedir un préstamo: 50.000 € de socios fundadores antes de la apertura.</p>
-      <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn p" href="../fundadores/" target="_blank" rel="noopener">Ver la campaña de fundadores</a><a class="btn o" href="#numeros">Hacer números</a></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn p" href="../fundadores/" target="_blank" rel="noopener">Ver la landing de fundadores</a><a class="btn o" href="#anuncios">Estrategia de anuncios</a><a class="btn o" href="#numeros">Hacer números</a></div>
     </div>
   </div>
 </header>
@@ -256,13 +290,72 @@ table.tb{width:100%;border-collapse:collapse;font-size:15px}
   </div>
 </section>
 
+
+<section id="anuncios">
+  <div class="wrap">
+    <p class="k">Estrategia de anuncios</p>
+    <h2>10–15 € al día,<br><em>bien usados.</em></h2>
+    <p class="lead">Con este presupuesto no buscamos “llegar a todo el mundo”: buscamos que la gente de Amurrio y alrededores vea la obra varias veces, conozca a los entrenadores y reserve su plaza. Unos 450 € en toda la campaña, pagados por Gorobel directamente a Meta.</p>
+
+    <div class="ph">
+      <div class="phc"><small>Semana 0</small><b>Calentar</b><span class="eur">5 €/día</span><p>Vídeos de la obra para que nos conozcan. Creamos el público de quien los ve.</p></div>
+      <div class="phc"><small>Semana 1</small><b>Los de casa</b><span class="eur">5 €/día</span><p>Socios y ex socios de Gorobel por WhatsApp, con prioridad. Los anuncios siguen calentando.</p></div>
+      <div class="phc"><small>Semanas 2–3</small><b>Captar</b><span class="eur">15 €/día</span><p>12 € para gente nueva y 3 € para quien ya vio los vídeos o visitó la página.</p></div>
+      <div class="phc"><small>Semana 4</small><b>Cerrar</b><span class="eur">15 €/día</span><p>Más peso al recordatorio: “quedan X plazas” y cuenta atrás.</p></div>
+    </div>
+
+    <div class="aud">
+      <div class="au"><span class="tg">Captar · ~70 %</span><h3>Gente nueva del valle</h3><ul><li>Amurrio y 15 km alrededor: Llodio, Artziniega, Ayala, Orozko</li><li>18–50 años, sin limitar intereses: que Meta busque a quien reserva</li><li>Objetivo: reservas en la página de fundadores</li><li>Excluimos a los socios actuales para no pagar por ellos</li></ul></div>
+      <div class="au"><span class="tg r">Recordar · ~30 %</span><h3>Los que ya nos conocen</h3><ul><li>Quien vio la mitad de un vídeo de la obra</li><li>Quien interactuó con Instagram o Facebook de Gorobel</li><li>Quien visitó la página y no reservó</li><li>Mensajes: plazas que quedan, camiseta, cuenta atrás</li></ul></div>
+    </div>
+
+    <h3 style="font-size:30px;margin-top:44px">Los 6 anuncios</h3>
+    <div class="cre">
+      <div class="cr"><div class="vis"><span class="fmt">REEL · 20 s</span><span class="ctit">Abrimos<br><em>Amurrio</em></span></div><div class="tx"><b>La obra, capítulo 1</b>Joseba o un entrenador en el local vacío: “aquí va a ir el gimnasio 24 h de Amurrio, y buscamos 300 fundadores”.</div></div>
+      <div class="cr"><div class="vis"><span class="fmt">REEL · 15 s</span><span class="ctit">Tu número<br><em>#087</em></span></div><div class="tx"><b>La camiseta</b>Unboxing de la camiseta numerada. “Solo 300 personas la tendrán”.</div></div>
+      <div class="cr"><div class="vis"><span class="fmt">REEL · 15 s</span><span class="ctit">3:00<br><em>Abierto</em></span></div><div class="tx"><b>24 horas</b>Alguien entra de noche con el móvil, se enciende la luz y entrena. Sin texto largo.</div></div>
+      <div class="cr"><div class="vis"><span class="fmt">IMAGEN</span><span class="ctit"><em>55 €</em><br>de por vida</span></div><div class="tx"><b>El precio</b>“60 € para todos. 55 € para siempre si eres fundador”. Claro y directo.</div></div>
+      <div class="cr"><div class="vis"><span class="fmt">STORY</span><span class="ctit">Quedan<br><em>87</em> plazas</span></div><div class="tx"><b>El contador</b>Para el recordatorio. Se actualiza cada pocos días con la cifra real.</div></div>
+      <div class="cr"><div class="vis"><span class="fmt">REEL · 25 s</span><span class="ctit">Ya soy<br><em>fundador</em></span></div><div class="tx"><b>Socios reales</b>Dos o tres socios de Gorobel contando por qué se han apuntado.</div></div>
+    </div>
+
+    <h3 style="font-size:30px;margin-top:44px">Textos de ejemplo</h3>
+    <div class="copy">
+      <div class="cp"><small>Captar · gente nueva</small>Amurrio va a tener gimnasio de fuerza abierto 24 horas. 💪
+Buscamos 300 socios fundadores: 55 €/mes de por vida (luego será 60 €), camiseta numerada y tu nombre en la pared.
+Plazas limitadas 👉 Reserva la tuya</div>
+      <div class="cp"><small>Recordar · ya nos conocen</small>Quedan 87 plazas de fundador en Gorobel Amurrio.
+Cuando se acaben, la cuota será la normal. La camiseta #001–#300 no se vuelve a hacer.
+👉 Asegura tu número</div>
+      <div class="cp"><small>Cierre · última semana</small>Últimos días para ser fundador de Gorobel Amurrio.
+24 h, comunidad y el mejor precio que habrá nunca. El domingo cerramos.</div>
+    </div>
+
+    <h3 style="font-size:30px;margin-top:44px">Qué esperamos</h3>
+    <div class="kpi">
+      <div class="kp"><b>~450 €</b><span>inversión en toda la campaña</span></div>
+      <div class="kp"><b>&lt; 0,50 €</b><span>por visita a la página</span></div>
+      <div class="kp"><b>5–8 €</b><span>por persona que deja sus datos</span></div>
+      <div class="kp"><b>40–70</b><span>fundadores que llegan por anuncios</span></div>
+    </div>
+    <p class="lead" style="font-size:15.5px">Siendo realistas: la mayoría de los 200 fundadores vendrán de los socios de Gorobel, sus amigos y el boca a boca. Los anuncios hacen que todo el valle se entere y empujan a los indecisos. Por eso cada fundador puede traer a un amigo y llevarse un regalo.</p>
+
+    <h3 style="font-size:30px;margin-top:44px">Lo que necesitamos de Gorobel</h3>
+    <div class="need2">
+      <div><i>1</i>Página de Facebook e Instagram de empresa, con acceso para nosotros</div>
+      <div><i>2</i>Cuenta publicitaria de Meta a nombre de Gorobel, con su tarjeta</div>
+      <div><i>3</i>Vídeos de la obra con el móvil, siguiendo nuestros guiones</div>
+      <div><i>4</i>2 o 3 socios que quieran salir contando por qué se apuntan</div>
+    </div>
+  </div>
+</section>
 <section class="alt">
   <div class="wrap">
     <p class="k">Calendario</p>
     <h2>Cuatro semanas<br><em>de campaña.</em></h2>
     <div class="steps">
       <div class="st"><small>Semana 1</small><b>Los de casa</b><p>48 h de prioridad para socios y ex socios de Gorobel, por WhatsApp.</p></div>
-      <div class="st"><small>Semanas 2–3</small><b>Todo el valle</b><p>Anuncios, vídeos de la obra con los entrenadores y visitas a negocios de Amurrio.</p></div>
+      <div class="st"><small>Semanas 2–3</small><b>Todo el valle</b><p>Anuncios a 15 €/día, vídeos de la obra con los entrenadores y visitas a negocios de Amurrio.</p></div>
       <div class="st"><small>Semana 4</small><b>Últimas plazas</b><p>Cuenta atrás y contador en directo. Cierre de la campaña.</p></div>
       <div class="st"><small>Antes de abrir</small><b>Noche fundadores</b><p>Entrega de camisetas y primer entrenamiento solo para ellos.</p></div>
     </div>
@@ -288,7 +381,7 @@ table.tb{width:100%;border-collapse:collapse;font-size:15px}
     <h2>Tú te ocupas de la obra.<br><em>Nosotros, de llenarlo.</em></h2>
     <div class="do">
       <div><b>Página de fundadores con pago real</b><span>Tarjeta y Bizum, contador en directo, número de fundador y confirmación por WhatsApp.</span></div>
-      <div><b>Campaña de anuncios</b><span>Amurrio, Llodio y alrededores, con cuenta atrás y retargeting a quien vio los vídeos.</span></div>
+      <div><b>Campaña de anuncios</b><span>Montaje, 6 anuncios, textos y ajustes cada semana. <a href="#anuncios" style="color:var(--sage-b)">Ver estrategia</a>.</span></div>
       <div><b>Vídeos de la obra</b><span>Guiones y edición de la serie “abrimos Amurrio”, con tus entrenadores.</span></div>
       <div><b>Socios, ex socios y negocios</b><span>Mensajes de WhatsApp, lista de prioridad y “Apadrina una máquina”.</span></div>
       <div><b>Acceso 24 h con la app</b><span>QR desde la app de Gorobel, conectado a la puerta y bloqueo de impagos.</span></div>

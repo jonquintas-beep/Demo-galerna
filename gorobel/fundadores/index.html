@@ -130,6 +130,22 @@ footer{padding:30px 0 calc(110px + env(safe-area-inset-bottom));text-align:cente
 @media(max-width:860px){.why,.tiers{grid-template-columns:minmax(0,1fr)}.shirt{grid-template-columns:minmax(0,1fr)}.steps{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.biz{grid-template-columns:minmax(0,1fr)}.t.hl{order:-1}section{padding:64px 0}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
+<!-- Meta Pixel: se añade aquí al lanzar (eventos ViewContent, Lead y Purchase) -->
+<style>
+.ref{margin-top:14px;border-radius:24px;background:linear-gradient(160deg,#2A1A17,#191C13);border:1.5px solid rgba(232,72,59,.5);padding:22px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:center}
+.ref .ic{width:64px;height:64px;border-radius:18px;background:var(--box);color:#fff;display:grid;place-items:center;font-family:var(--disp);font-size:30px}
+.ref h3{font-size:28px}.ref p{color:#CFCDBF;font-size:15px;margin-top:6px}
+.wait{border-radius:26px;background:var(--card);border:1px solid var(--line2);padding:26px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:center}
+.wait h3{font-size:36px}.wait p{color:#CFCDBF;margin-top:8px}
+.wait form{display:grid;gap:10px}
+.wait input,.wait select{width:100%;height:52px;border-radius:14px;border:1px solid var(--line2);background:var(--bg);color:var(--bone);font:600 16px "Montserrat",sans-serif;padding:0 14px}
+.wait .fine{font-size:12px;color:var(--sub)}
+.where{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:28px}
+.where div{border-radius:18px;background:var(--card);border:1px solid var(--line);padding:18px}
+.where b{display:block;font-family:var(--disp);font-weight:400;font-size:26px;text-transform:uppercase}
+.where span{font-size:14.5px;color:#CFCDBF}
+@media(max-width:860px){.wait,.where{grid-template-columns:minmax(0,1fr)}.ref{grid-template-columns:minmax(0,1fr)}}
+</style>
 </head>
 <body>
 <div class="demo">DEMO de campaña · las cifras, nombres y fechas son de ejemplo</div>
@@ -199,6 +215,7 @@ footer{padding:30px 0 calc(110px + env(safe-area-inset-bottom));text-align:cente
         <p class="left" id="l2">Plazas: 40</p>
       </div>
     </div>
+    <div class="ref"><span class="ic">+1</span><div><h3>Trae a un amigo fundador</h3><p>Al reservar recibes tu código. Por cada amigo que se haga fundador con él, un mes gratis. Si traes a dos, también la sudadera de fundador.</p></div></div>
     <div class="biz">
       <div><h3>¿Tienes un negocio en Amurrio?</h3><p>Apadrina una máquina: tu logo en ella durante un año, mención en redes y en la inauguración. 500 €.</p></div>
       <button type="button" class="btn r" data-buy="Apadrina una máquina|500">Apadrinar</button>
@@ -249,6 +266,26 @@ footer{padding:30px 0 calc(110px + env(safe-area-inset-bottom));text-align:cente
   </div>
 </section>
 
+
+<section>
+  <div class="wrap">
+    <div class="wait" id="lista">
+      <div><p class="k">¿Aún te lo estás pensando?</p><h3 style="margin-top:8px">Te guardamos<br>la noticia.</h3><p>Déjanos tu WhatsApp y te avisamos de cómo va la obra, cuántas plazas quedan y el día de la noche de fundadores. Sin compromiso.</p></div>
+      <form id="wf">
+        <input id="wn" placeholder="Nombre" autocomplete="name" required>
+        <input id="wt" type="tel" inputmode="tel" placeholder="Teléfono (WhatsApp)" autocomplete="tel" required>
+        <select id="wi" aria-label="Qué te interesa"><option>Me interesa la fuerza 24 h</option><option>Fuerza y también lucha</option><option>Solo quiero estar al tanto</option></select>
+        <button class="btn p" type="submit">Avisadme</button>
+        <p class="fine">Solo usamos tu teléfono para avisarte de la apertura de Gorobel Amurrio.</p>
+      </form>
+    </div>
+    <div class="where">
+      <div><b>Dónde</b><span>Amurrio · dirección exacta al anunciar la apertura</span></div>
+      <div><b>Horario</b><span>24 horas, 365 días. Acceso con el móvil.</span></div>
+      <div><b>200 m²</b><span>Zona de fuerza, peso libre, poleas y cardio.</span></div>
+    </div>
+  </div>
+</section>
 <section class="alt">
   <div class="wrap">
     <p class="k">Cómo va</p>
@@ -321,6 +358,7 @@ footer{padding:30px 0 calc(110px + env(safe-area-inset-bottom));text-align:cente
     $('pay').onclick=function(){ if(!biz){F++;} E+=(+p[1]); paint(); sh.innerHTML='<div class="ok"><p class="k">'+(biz?'¡Gracias!':'¡Ya eres fundador!')+'</p>'+(biz?'<h3 style="margin-top:14px">Tu máquina, apadrinada</h3><p style="color:#CFCDBF;margin-top:10px">Te escribimos por WhatsApp para pedirte el logo.</p>':'<div class="num">#'+String(F).padStart(3,'0')+'</div><p style="color:#CFCDBF">Este es tu número. Te llegará la confirmación por WhatsApp y te avisaremos para recoger tu camiseta.</p>')+'<button type="button" class="btn o" style="margin-top:20px;width:100%">Cerrar</button></div>'; sh.querySelector('button').onclick=close; };
     mod.classList.add('on'); setTimeout(function(){$('fn').focus();},50);
   });});
+  var wf=document.getElementById('wf'); if(wf){wf.addEventListener('submit',function(e){e.preventDefault();wf.innerHTML='<div style="text-align:center;padding:10px 0"><p class="k">¡Apuntado!</p><h3 style="font-size:32px;margin-top:8px">Te escribimos<br>por WhatsApp</h3><p style="color:#CFCDBF;margin-top:8px">Demo: en la versión real llega un mensaje al momento.</p></div>';});}
 })();
 </script>
 </body>
