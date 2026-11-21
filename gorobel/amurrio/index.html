@@ -194,6 +194,21 @@ table.tb{width:100%;border-collapse:collapse;font-size:15px}
 .need2 i{flex:none;width:30px;height:30px;border-radius:50%;background:var(--sage-b);color:#11140A;display:grid;place-items:center;font-style:normal;font-weight:900}
 @media(max-width:860px){.ph,.kpi{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.aud,.cre,.need2{grid-template-columns:minmax(0,1fr)}.cr .vis{aspect-ratio:16/10}}
 </style>
+<style>
+@media(max-width:860px){.terms3{grid-template-columns:minmax(0,1fr)!important}}
+.apps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:30px}
+.apl{border-radius:26px;background:var(--card);border:1px solid var(--line);padding:26px;position:relative;display:flex;flex-direction:column;gap:10px}
+.apl.hl{border:2px solid var(--sage-b);background:linear-gradient(170deg,#262B1A,#191C13)}
+.apl .badge{position:absolute;top:-13px;left:22px;background:var(--sage-b);color:#11140A;font-size:11.5px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;padding:6px 11px;border-radius:99px}
+.apl h3{font-size:30px}
+.apl .pr{font-family:var(--disp);font-size:54px;line-height:1}
+.apl .pr small{font-family:"Montserrat";font-size:15px;font-weight:700;color:var(--sub)}
+.apl p{color:#CFCDBF;font-size:15px}
+.apl table{margin-top:4px}
+.inc2{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.inc2 span{font-size:13.5px;font-weight:700;padding:8px 13px;border-radius:99px;background:var(--card);border:1px solid var(--line2)}
+@media(max-width:860px){.apps{grid-template-columns:minmax(0,1fr)}.apl.hl{order:-1}}
+</style>
 </head>
 <body>
 <header class="hero">
@@ -204,7 +219,7 @@ table.tb{width:100%;border-collapse:collapse;font-size:15px}
       <div class="tags"><span class="tag g">Nuevo gimnasio</span><span class="tag r">Antes que la competencia</span><span class="tag">200 m²</span></div>
       <h1>Abrir Amurrio<br><em>con 300 socios</em><br>dentro.</h1>
       <p class="lead">El plan para financiar la obra y las máquinas con los propios socios, antes de que abra el gimnasio de al lado. Sin pedir un préstamo: unos 57.000 € de socios fundadores antes de la apertura.</p>
-      <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn p" href="../fundadores/" target="_blank" rel="noopener">Ver la landing de fundadores</a><a class="btn o" href="#anuncios">Estrategia de anuncios</a><a class="btn o" href="#numeros">Hacer números</a></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn p" href="../fundadores/" target="_blank" rel="noopener">Ver la landing de fundadores</a><a class="btn o" href="#anuncios">Estrategia de anuncios</a><a class="btn o" href="#app">La app</a><a class="btn o" href="#numeros">Hacer números</a></div>
     </div>
   </div>
 </header>
@@ -383,6 +398,26 @@ Quedan [X] plazas 👇</div>
   </div>
 </section>
 
+
+<section id="app">
+  <div class="wrap">
+    <p class="k">La app de Gorobel Amurrio</p>
+    <h2>Sin entrada.<br><em>Pagas cuando abres.</em></h2>
+    <p class="lead">La app es la que abre la puerta las 24 horas, da las rutinas y bloquea a quien no paga. No pagas nada para ponerla en marcha: la cuota empieza el día de la apertura.</p>
+    <div class="inc2"><span>Acceso 24 h con QR</span><span>Bloqueo automático de impagos</span><span>Rutinas según objetivo</span><span>Progreso de cada socio</span><span>Avisos de seguridad</span><span>Panel para ti</span><span>Mantenimiento y mejoras</span></div>
+    <div class="apps">
+      <div class="apl hl"><span class="badge">Recomendado</span><h3>Por socio</h3><div class="pr">1,90 €<small> por socio activo / mes</small></div><p>Mínimo 299 €/mes. Al principio pagas poco; si al gimnasio le va bien, nos va bien a los dos.</p>
+        <table class="tb"><tr><th>Socios activos</th><th>Cuota</th></tr><tr><td>150</td><td>299 €</td></tr><tr><td>300</td><td>570 €</td></tr><tr><td>400</td><td>760 €</td></tr></table></div>
+      <div class="apl"><h3>Cuota fija</h3><div class="pr">449 €<small> / mes</small></div><p>Siempre lo mismo, tengas los socios que tengas.</p>
+        <table class="tb"><tr><th>Socios activos</th><th>Cuota</th></tr><tr><td>150</td><td>449 €</td></tr><tr><td>300</td><td>449 €</td></tr><tr><td>400</td><td>449 €</td></tr></table></div>
+    </div>
+    <div class="terms3" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:16px">
+      <div class="box" style="padding:16px"><b>0 € de entrada</b><p style="color:#CFCDBF;font-size:14px;margin-top:4px">La puesta en marcha va incluida.</p></div>
+      <div class="box" style="padding:16px"><b>12 meses de permanencia</b><p style="color:#CFCDBF;font-size:14px;margin-top:4px">Desde el día de la apertura.</p></div>
+      <div class="box" style="padding:16px"><b>Equipo de la puerta, aparte</b><p style="color:#CFCDBF;font-size:14px;margin-top:4px">Lector o cerradura y cámaras los compra Gorobel y se quedan en el local.</p></div>
+    </div>
+  </div>
+</section>
 <section class="alt">
   <div class="wrap">
     <p class="k">Qué hacemos nosotros</p>
