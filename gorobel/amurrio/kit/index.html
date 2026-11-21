@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Gorobel Amurrio · Kit de lanzamiento</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0C0D0A">
+<link rel="icon" type="image/png" href="../../icons/icon-192.png">
+<link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@500;600;700;800;900&display=swap">
+<style>
+:root{--bg:#0C0D0A;--bg2:#12140E;--card:#191C13;--card2:#222619;--line:rgba(237,234,224,.10);--line2:rgba(237,234,224,.2);
+--bone:#EDEAE0;--sub:#A5A996;--sage:#93A06A;--sage-b:#BCCB86;--box:#E8483B;--kb:#F3A73F;
+--disp:"Anton",Impact,"Arial Narrow",sans-serif;color-scheme:dark}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--bone);font-family:"Montserrat",system-ui,sans-serif;font-size:16px;line-height:1.55;overflow-x:clip}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(18px,env(safe-area-inset-left));padding-right:max(18px,env(safe-area-inset-right))}
+.demo{background:var(--kb);color:#11140A;font-size:12.5px;font-weight:800;text-align:center;padding:7px 12px;padding-top:calc(7px + env(safe-area-inset-top))}
+h1,h2,h3{font-family:var(--disp);font-weight:400;text-transform:uppercase;line-height:.95;letter-spacing:.01em}
+h1{font-size:clamp(58px,13vw,138px)}
+h1 em,h2 em{font-style:normal;color:var(--sage-b)}
+h2{font-size:clamp(40px,7vw,72px)}
+.k{font-size:12.5px;font-weight:900;letter-spacing:.22em;text-transform:uppercase;color:var(--sage-b)}
+.lead{font-size:18px;color:#CFCDBF;max-width:600px}
+section{padding:80px 0}
+.alt{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:56px;padding:0 26px;border-radius:16px;font:800 16px "Montserrat",sans-serif;text-decoration:none;border:0;cursor:pointer}
+.btn.p{background:var(--sage-b);color:#11140A}.btn.r{background:var(--box);color:#fff}.btn.o{background:transparent;color:var(--bone);border:1.5px solid var(--line2)}
+/* hero */
+.hero{position:relative;overflow:hidden;padding:30px 0 70px}
+.bgw{position:absolute;font-family:var(--disp);font-size:clamp(150px,30vw,340px);line-height:.85;color:rgba(237,234,224,.035);white-space:nowrap;left:-20px;text-transform:uppercase;pointer-events:none}
+nav{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-bottom:50px;position:relative}
+nav img{height:26px}
+nav span{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--sub)}
+.hero .in{position:relative;display:grid;gap:26px}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{font-size:13px;font-weight:800;padding:8px 14px;border-radius:99px;border:1.5px solid var(--line2)}
+.tag.r{border-color:var(--box);color:var(--box)}.tag.g{border-color:var(--sage-b);color:var(--sage-b)}
+/* counter */
+.count{margin-top:12px;border-radius:24px;background:var(--card);border:1px solid var(--line2);padding:22px;max-width:620px}
+.count .row{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.count b{font-family:var(--disp);font-weight:400;font-size:54px;line-height:1;color:var(--sage-b)}
+.count b small{font-size:26px;color:var(--sub)}
+.count .m{text-align:right}
+.count .m b{font-size:34px;color:var(--bone)}
+.bar{height:14px;border-radius:99px;background:rgba(237,234,224,.08);margin:16px 0 10px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--sage),var(--sage-b));transition:width 1.6s cubic-bezier(.2,.7,.2,1)}
+.count p{font-size:13.5px;color:var(--sub);font-weight:600}
+.ej{display:inline-block;font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;background:var(--kb);color:#11140A;padding:3px 6px;border-radius:4px;vertical-align:middle}
+.cd{display:flex;gap:8px;margin-top:14px}
+.cd div{flex:1;text-align:center;border-radius:14px;background:var(--bg);border:1px solid var(--line);padding:10px 4px}
+.cd b{font-size:28px;color:var(--bone)}.cd small{display:block;font-size:10.5px;color:var(--sub);font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+/* why */
+.why{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:34px}
+.w{border-radius:22px;background:var(--card);border:1px solid var(--line);padding:24px;position:relative;overflow:hidden}
+.w .n{font-family:var(--disp);font-size:64px;line-height:1;color:var(--c,var(--sage-b))}
+.w h3{font-size:30px;margin-top:10px}
+.w p{color:#CFCDBF;font-size:15px;margin-top:8px}
+/* tiers */
+.tiers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:34px;align-items:stretch}
+.t{border-radius:26px;background:var(--card);border:1px solid var(--line);padding:26px;display:flex;flex-direction:column;gap:12px;position:relative}
+.t.hl{border:2px solid var(--sage-b);background:linear-gradient(170deg,#262B1A,#191C13)}
+.t .badge{position:absolute;top:-13px;left:22px;background:var(--sage-b);color:#11140A;font-size:11.5px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;padding:6px 11px;border-radius:99px}
+.t h3{font-size:32px}
+.t .pr{font-family:var(--disp);font-size:60px;line-height:1}
+.t .pr small{font-family:"Montserrat";font-size:15px;font-weight:700;color:var(--sub)}
+.t .eq{font-size:14px;font-weight:800;color:var(--sage-b)}
+.t ul{list-style:none;display:grid;gap:8px;font-size:15px;margin:4px 0 8px}
+.t li{display:grid;grid-template-columns:20px 1fr;gap:6px}
+.t li::before{content:"✓";color:var(--sage-b);font-weight:900}
+.t .btn{margin-top:auto;width:100%}
+.left{font-size:12.5px;color:var(--sub);font-weight:700;text-align:center}
+.biz{margin-top:14px;border-radius:24px;border:1.5px dashed var(--line2);padding:22px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center}
+.biz h3{font-size:28px}.biz p{color:#CFCDBF;font-size:15px;margin-top:6px}
+/* price compare */
+.cmp{margin-top:26px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-weight:700;color:#CFCDBF}
+.cmp s{color:var(--sub)}
+.cmp b{color:var(--sage-b)}
+/* shirt */
+.shirt{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:30px;align-items:center}
+.shirt svg{width:100%;max-width:420px;height:auto;display:block;margin:0 auto}
+.perks{display:grid;gap:12px;margin-top:22px}
+.perk{display:flex;gap:14px;align-items:flex-start;border-radius:18px;background:var(--card);border:1px solid var(--line);padding:16px}
+.perk i{flex:none;width:40px;height:40px;border-radius:12px;background:var(--sage-b);color:#11140A;display:grid;place-items:center;font-style:normal;font-weight:900}
+.perk b{display:block}.perk span{font-size:14.5px;color:#CFCDBF}
+/* wall */
+.wall{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.wall span{font-size:14px;font-weight:700;padding:8px 13px;border-radius:12px;background:var(--card);border:1px solid var(--line)}
+.wall span b{color:var(--sage-b);margin-right:6px;font-family:var(--disp);font-weight:400}
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:34px}
+.st{border-top:3px solid var(--sage-b);padding-top:14px}
+.st small{font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--sage-b)}
+.st b{display:block;font-family:var(--disp);font-weight:400;font-size:clamp(21px,5.6vw,28px);overflow-wrap:anywhere;text-transform:uppercase;margin-top:6px}
+.st p{font-size:14.5px;color:#CFCDBF;margin-top:4px}
+/* faq */
+details{border-radius:18px;background:var(--card);border:1px solid var(--line);padding:18px 20px;margin-bottom:10px}
+summary{cursor:pointer;font-weight:800;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--sage-b);font-size:22px;line-height:1}
+details[open] summary::after{content:"–"}
+details p{color:#CFCDBF;margin-top:10px;font-size:15px}
+.end{text-align:center;border-radius:30px;background:linear-gradient(160deg,#262B1A,#12140E);border:1px solid var(--line2);padding:56px 22px}
+.end p{color:#CFCDBF;margin:14px auto 26px;max-width:520px}
+footer{padding:30px 0 calc(110px + env(safe-area-inset-bottom));text-align:center;font-size:12.5px;color:var(--sub)}
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:10px max(14px,env(safe-area-inset-right)) calc(10px + env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left));background:rgba(12,13,10,.92);backdrop-filter:blur(10px);border-top:1px solid var(--line);display:flex;gap:10px;align-items:center}
+.sticky div{flex:1;font-size:13px;font-weight:700;color:var(--sub);line-height:1.3}
+.sticky div b{color:var(--bone);display:block;font-size:15px}
+.sticky .btn{height:48px;padding:0 20px}
+/* modal */
+.mod{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.7);display:none;align-items:flex-end;justify-content:center}
+.mod.on{display:flex}
+.sheet{width:100%;max-width:520px;background:var(--bg2);border:1px solid var(--line2);border-radius:26px 26px 0 0;padding:24px 22px calc(26px + env(safe-area-inset-bottom));max-height:92vh;overflow:auto}
+.sheet h3{font-size:34px}
+.sheet label{display:block;font-size:13px;font-weight:800;margin:14px 0 6px;color:var(--sub)}
+.sheet input,.sheet select{width:100%;height:50px;border-radius:14px;border:1px solid var(--line2);background:var(--card);color:var(--bone);font:600 16px "Montserrat",sans-serif;padding:0 14px}
+.sheet .sum{margin-top:16px;border-radius:16px;background:var(--card);padding:14px 16px;display:flex;justify-content:space-between;font-weight:800}
+.sheet .btn{width:100%;margin-top:16px}
+.sheet .x{float:right;background:none;border:0;color:var(--sub);font-size:28px;cursor:pointer;line-height:1}
+.ok{text-align:center;padding:20px 0}
+.ok .num{font-family:var(--disp);font-size:90px;color:var(--sage-b);line-height:1;margin:10px 0}
+@media(min-width:900px){.sticky{display:none}footer{padding-bottom:40px}}
+@media(max-width:860px){.why,.tiers{grid-template-columns:minmax(0,1fr)}.shirt{grid-template-columns:minmax(0,1fr)}.steps{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.biz{grid-template-columns:minmax(0,1fr)}.t.hl{order:-1}section{padding:64px 0}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+<style>
+.toc{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
+.toc a{font-size:13.5px;font-weight:800;padding:10px 14px;border-radius:99px;border:1.5px solid var(--line2);color:var(--bone);text-decoration:none}
+.rules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:24px}
+.rules div{border-radius:16px;background:var(--card);border:1px solid var(--line);padding:16px;font-size:14.5px;color:#CFCDBF}
+.rules b{display:block;color:var(--bone);font-size:16px;margin-bottom:4px}
+.vid{border-radius:24px;background:var(--card);border:1px solid var(--line);padding:22px;margin-top:16px}
+.vid.done{border-color:var(--sage-b);opacity:.75}
+.vh{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.vh h3{font-size:30px}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.meta span{font-size:12px;font-weight:800;padding:5px 10px;border-radius:99px;background:var(--bg);border:1px solid var(--line2);color:#CFCDBF}
+.chk{flex:none;display:flex;align-items:center;gap:8px;font-size:13px;font-weight:800;color:var(--sub);cursor:pointer;user-select:none}
+.chk input{width:22px;height:22px;accent-color:#BCCB86}
+.vid .goal{margin-top:12px;font-size:15px;color:#CFCDBF}
+ol.shots{margin:14px 0 0;padding-left:0;list-style:none;counter-reset:s;display:grid;gap:8px}
+ol.shots li{counter-increment:s;display:grid;grid-template-columns:34px minmax(0,1fr);gap:10px;font-size:15px;align-items:start}
+ol.shots li::before{content:counter(s);width:28px;height:28px;border-radius:9px;background:var(--sage-b);color:#11140A;display:grid;place-items:center;font-weight:900;font-size:14px}
+ol.shots li small{display:block;color:var(--sub);font-size:13px}
+.say{margin-top:14px;border-left:3px solid var(--box);padding:8px 14px;background:var(--bg);border-radius:0 12px 12px 0;font-size:15px}
+.say small{display:block;font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--box);margin-bottom:4px}
+.ep{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:22px}
+.ep div{border-radius:18px;background:var(--card);border:1px solid var(--line);padding:16px}
+.ep small{font-size:11.5px;font-weight:900;letter-spacing:.12em;color:var(--sage-b)}
+.ep b{display:block;font-family:var(--disp);font-weight:400;font-size:24px;text-transform:uppercase;margin:4px 0}
+.ep p{font-size:14px;color:#CFCDBF}
+.msg{border-radius:20px;background:var(--card);border:1px solid var(--line);padding:18px;margin-top:12px}
+.msg .mh{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.msg .mh b{font-size:16px}
+.msg .mh small{display:block;font-size:12.5px;color:var(--sub);font-weight:600}
+.msg pre{white-space:pre-wrap;font:500 15px/1.5 "Montserrat",sans-serif;color:#E2DFD3;margin-top:12px;background:var(--bg);border-radius:14px;padding:14px}
+.cp{flex:none;height:40px;padding:0 14px;border-radius:12px;border:1.5px solid var(--sage-b);background:transparent;color:var(--sage-b);font:800 13.5px "Montserrat",sans-serif;cursor:pointer}
+.cp.ok{background:var(--sage-b);color:#11140A}
+.todo{display:grid;gap:8px;margin-top:22px}
+.todo label{display:flex;gap:12px;align-items:flex-start;border-radius:16px;background:var(--card);border:1px solid var(--line);padding:14px 16px;font-size:15px;cursor:pointer}
+.todo input{width:22px;height:22px;flex:none;margin-top:1px;accent-color:#BCCB86}
+.todo small{display:block;color:var(--sub);font-size:13px}
+.todo .who{font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:99px;background:var(--bg);color:var(--sage-b);margin-left:6px}
+.prog{font-size:13px;color:var(--sub);font-weight:800;margin-top:10px}
+@media(max-width:860px){.rules,.ep{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body>
+<div class="demo">Kit interno de lanzamiento · Gorobel Amurrio</div>
+<header class="hero" style="padding-bottom:40px">
+  <div class="wrap">
+    <nav><img src="../../logo-w.png" alt="Gorobel"><span>Kit de lanzamiento</span></nav>
+    <div class="in">
+      <p class="k">Para los entrenadores y Joseba</p>
+      <h1 style="font-size:clamp(52px,11vw,110px)">Lo que hay<br><em>que grabar.</em></h1>
+      <p class="lead">Guiones de los 6 anuncios, la serie de la obra, los mensajes de WhatsApp y lo que falta para lanzar. Marca lo que vayas haciendo: se guarda en tu móvil.</p>
+      <div class="toc"><a href="#reglas">Antes de grabar</a><a href="#videos">6 anuncios</a><a href="#obra">Serie de la obra</a><a href="#whatsapp">WhatsApp</a><a href="#falta">Lo que falta</a></div>
+    </div>
+  </div>
+</header>
+<section id="reglas" class="alt"><div class="wrap">
+  <p class="k">Antes de grabar</p><h2>Seis reglas.<br><em>Siempre.</em></h2>
+  <div class="rules">
+    <div><b>Vertical</b>Móvil en vertical, siempre. Cámara de atrás, no la del selfie.</div>
+    <div><b>Luz de frente</b>Ventana o luz delante de quien habla, nunca detrás.</div>
+    <div><b>Lo bueno, primero</b>Los 2 primeros segundos deciden si alguien se queda. Empieza con acción.</div>
+    <div><b>Corto</b>15–30 segundos. Mejor grabar de más y que recortemos nosotros.</div>
+    <div><b>Sonido limpio</b>Sin música de fondo al grabar. La ponemos después.</div>
+    <div><b>Nada de vestuarios</b>Ni baños ni gente que no quiera salir. Pide permiso siempre.</div>
+  </div>
+  <p class="lead" style="font-size:15px;margin-top:18px">Cuando lo tengas, mándalo tal cual a Jon por WhatsApp (como documento, para que no pierda calidad). La edición y los textos los ponemos nosotros.</p>
+</div></section>
+<section id="videos"><div class="wrap">
+  <p class="k">Los 6 anuncios</p><h2>Guiones,<br><em>plano a plano.</em></h2>
+  <p class="prog" id="vp"></p>
+  <div class="vid" data-id="v1"><div class="vh"><div><h3>Abrimos Amurrio</h3><div class="meta"><span>REEL · 20 s</span><span>Sale: Un entrenador</span></div></div><label class="chk"><input type="checkbox">Grabado</label></div>
+<p class="goal"><b>Para qué:</b> Presentar el proyecto y la cifra: 300 fundadores.</p><ol class="shots"><li><div>Plano general del local vacío, entrando por la puerta<small>Móvil en vertical, a la altura del pecho, caminando despacio</small></div></li><li><div>El entrenador se gira a cámara en el centro del local<small>Fondo: paredes desnudas, cuanto más “obra”, mejor</small></div></li><li><div>Señala con la mano dónde irá cada zona<small>Racks aquí, peso libre allí, cardio al fondo</small></div></li><li><div>Cierra mirando a cámara<small>Plano medio, de cintura para arriba</small></div></li></ol>
+<div class="say"><small>Qué se dice</small>“Esto va a ser el nuevo gimnasio de Amurrio. Fuerza, 24 horas. Y buscamos a 300 fundadores que lo hagan posible con nosotros.”</div><p class="goal" style="margin-top:10px"><b>Texto en pantalla: ABRIMOS AMURRIO · 300 FUNDADORES</b></p></div><div class="vid" data-id="v2"><div class="vh"><div><h3>Tu número</h3><div class="meta"><span>REEL · 15 s</span><span>Sale: Cualquiera (solo manos)</span></div></div><label class="chk"><input type="checkbox">Grabado</label></div>
+<p class="goal"><b>Para qué:</b> Que se deseen la camiseta numerada.</p><ol class="shots"><li><div>Caja o bolsa cerrada sobre una mesa o el ring<small>Luz de ventana, sin flash</small></div></li><li><div>Manos sacando la camiseta y desplegándola<small>Movimiento lento</small></div></li><li><div>Primer plano del número a la espalda<small>Que se lea bien el #087</small></div></li><li><div>Plano final: camiseta colgada en la pared del local<small></small></div></li></ol>
+<div class="say"><small>Qué se dice</small>Sin voz. Música de la biblioteca de Instagram.</div><p class="goal" style="margin-top:10px"><b>Texto: SOLO 300 PERSONAS LA TENDRÁN · #001–#300</b></p></div><div class="vid" data-id="v3"><div class="vh"><div><h3>3:00 Abierto</h3><div class="meta"><span>REEL · 15 s</span><span>Sale: Un socio o entrenador</span></div></div><label class="chk"><input type="checkbox">Grabado</label></div>
+<p class="goal"><b>Para qué:</b> Enseñar el 24 h sin explicarlo.</p><ol class="shots"><li><div>Reloj del móvil marcando una hora de madrugada<small>Grabado en el móvil en vertical</small></div></li><li><div>Llega de noche a la puerta y la abre con el móvil<small>Si aún no hay puerta, simulad la entrada</small></div></li><li><div>Se encienden las luces del local<small>Plano desde dentro</small></div></li><li><div>Primera serie: sentadilla o peso muerto<small>Plano lateral, cuerpo entero</small></div></li></ol>
+<div class="say"><small>Qué se dice</small>Sin voz. Música intensa de la biblioteca de Instagram.</div><p class="goal" style="margin-top:10px"><b>Texto: 3:00 · ABIERTO · GOROBEL AMURRIO 24 H</b></p></div><div class="vid" data-id="v4"><div class="vh"><div><h3>55 € de por vida</h3><div class="meta"><span>IMAGEN / REEL 10 s</span><span>Sale: Nadie (diseño)</span></div></div><label class="chk"><input type="checkbox">Grabado</label></div>
+<p class="goal"><b>Para qué:</b> El precio claro. Lo preparamos nosotros.</p><ol class="shots"><li><div>Necesitamos solo 2–3 fotos buenas del local o de un entrenador<small>Vertical, sin gente borrosa detrás</small></div></li></ol>
+<div class="say"><small>Qué se dice</small>Lo montamos nosotros con las fotos.</div><p class="goal" style="margin-top:10px"><b>Texto: 60 € PARA TODOS · 55 € PARA SIEMPRE SI ERES FUNDADOR</b></p></div><div class="vid" data-id="v5"><div class="vh"><div><h3>Quedan X plazas</h3><div class="meta"><span>STORY · 10 s</span><span>Sale: Un entrenador</span></div></div><label class="chk"><input type="checkbox">Grabado</label></div>
+<p class="goal"><b>Para qué:</b> Recordatorio. Se graba de nuevo cada semana con la cifra real.</p><ol class="shots"><li><div>Entrenador con el móvil en la mano mostrando la página<small>O delante de la pizarra con el número escrito</small></div></li><li><div>Dice la cifra y señala abajo<small>Plano medio</small></div></li></ol>
+<div class="say"><small>Qué se dice</small>“Quedan [X] plazas de fundador. Cuando se acaben, se acabó el precio. El enlace, aquí abajo.”</div><p class="goal" style="margin-top:10px"><b>Texto: QUEDAN [X] PLAZAS</b></p></div><div class="vid" data-id="v6"><div class="vh"><div><h3>Ya soy fundador</h3><div class="meta"><span>REEL · 25 s</span><span>Sale: 2–3 socios de Gorobel</span></div></div><label class="chk"><input type="checkbox">Grabado</label></div>
+<p class="goal"><b>Para qué:</b> Prueba social: gente real del valle.</p><ol class="shots"><li><div>Cada socio, plano medio, en el local o en Gorobel<small>Fondo con algo reconocible del gimnasio</small></div></li><li><div>Dice su nombre, de dónde es y su número de fundador<small>“Soy Ane, de Amurrio, fundadora 012”</small></div></li><li><div>Una frase de por qué<small>Natural, sin leer</small></div></li><li><div>Todos juntos al final levantando la camiseta<small></small></div></li></ol>
+<div class="say"><small>Qué se dice</small>Pregunta para guiarles: “¿Por qué te has hecho fundador?”</div><p class="goal" style="margin-top:10px"><b>Texto: YA SOMOS [X] FUNDADORES</b></p></div>
+</div></section>
+<section id="obra" class="alt"><div class="wrap">
+  <p class="k">Serie de la obra</p><h2>Un capítulo<br><em>cada semana.</em></h2>
+  <p class="lead">Además de los anuncios, un vídeo corto por semana en Instagram contando la obra. Es lo que hace que la gente lo siga y se apunte.</p>
+  <div class="ep">
+    <div><small>CAP. 1</small><b>La nave vacía</b><p>Así está el local hoy. “Dentro de unas semanas, esto será…”</p></div>
+    <div><small>CAP. 2</small><b>Manos a la obra</b><p>Obreros trabajando, suelo, paredes. Un antes y después rápido.</p></div>
+    <div><small>CAP. 3</small><b>Llegan las máquinas</b><p>El camión, las cajas, montarlas. El momento más fuerte.</p></div>
+    <div><small>CAP. 4</small><b>El muro</b><p>Se pintan los primeros nombres de fundadores en la pared.</p></div>
+    <div><small>CAP. 5</small><b>Primera serie</b><p>Un entrenador estrena el gimnasio. “Ya casi está”.</p></div>
+    <div><small>CAP. 6</small><b>Noche fundadores</b><p>La inauguración solo para fundadores. Entrega de camisetas.</p></div>
+  </div>
+</div></section>
+<section id="whatsapp"><div class="wrap">
+  <p class="k">Mensajes de WhatsApp</p><h2>Listos para<br><em>copiar.</em></h2>
+  <p class="lead" style="font-size:15px">Cambia lo que va entre [corchetes]. Mejor enviarlos uno a uno, desde el WhatsApp de Gorobel, que en una lista de difusión impersonal.</p>
+  <div class="msg"><div class="mh"><div><b>Socios actuales de Gorobel</b><small>Semana 1 · 48 h de prioridad</small></div><button type="button" class="cp">Copiar</button></div><pre>¡Hola [nombre]! 👊
+
+Te escribo antes que a nadie porque eres de la familia Gorobel.
+
+Vamos a abrir un gimnasio de fuerza 24 horas en Amurrio y buscamos 300 socios fundadores. Durante 48 horas, las plazas son solo para socios de Gorobel:
+
+✅ 55 €/mes de por vida (luego será 60 €)
+✅ Camiseta de fundador numerada
+✅ Tu nombre en el muro de la entrada
+
+Aquí tienes los planes 👉 [enlace]
+
+Y si se lo pasas a un amigo y se hace fundador, te llevas un mes gratis.</pre></div><div class="msg"><div class="mh"><div><b>Ex socios</b><small>Semana 1</small></div><button type="button" class="cp">Copiar</button></div><pre>¡Hola [nombre]! Soy [entrenador], de Gorobel.
+
+Te escribo porque estamos preparando algo que igual te interesa: abrimos un gimnasio de fuerza 24 horas en Amurrio, para entrenar cuando te venga bien, a cualquier hora.
+
+Estamos buscando a los 300 primeros, con precio de fundador para siempre. Te dejo la info por si te apetece volver 👉 [enlace]</pre></div><div class="msg"><div class="mh"><div><b>Recordatorio</b><small>Semanas 3–4</small></div><button type="button" class="cp">Copiar</button></div><pre>Quedan [X] plazas de fundador en Gorobel Amurrio 🔥
+
+Cuando se acaben, la cuota será la normal y la camiseta numerada no se vuelve a hacer.
+
+Si lo estabas pensando, este es el momento 👉 [enlace]</pre></div><div class="msg"><div class="mh"><div><b>Negocios: apadrina una máquina</b><small>Semanas 2–3 · mejor en persona</small></div><button type="button" class="cp">Copiar</button></div><pre>¡Hola! Soy [nombre], de Gorobel.
+
+Vamos a abrir un gimnasio 24 horas en Amurrio y queremos que las máquinas lleven el nombre de negocios del pueblo.
+
+Por 500 € al año, tu logo va en una máquina, sales en nuestras redes y te nombramos en la inauguración. Lo verán cientos de personas de la zona todas las semanas.
+
+¿Te paso una foto de cómo quedaría?</pre></div><div class="msg"><div class="mh"><div><b>Fundador que trae a un amigo</b><small>Tras cada pago</small></div><button type="button" class="cp">Copiar</button></div><pre>¡Ya eres fundador #[número]! 🙌
+
+Te dejamos tu enlace personal. Por cada amigo que se haga fundador con él, te regalamos un mes. Si traes a dos, también la sudadera:
+
+👉 [enlace personal]</pre></div>
+</div></section>
+<section id="falta" class="alt"><div class="wrap">
+  <p class="k">Antes de lanzar</p><h2>Lo que<br><em>falta.</em></h2>
+  <p class="prog" id="tp"></p>
+  <div class="todo"><label><input type="checkbox" data-t="0"><span>Cuenta de Stripe de Gorobel e invitación a Jon<span class="who">Joseba</span></span></label><label><input type="checkbox" data-t="1"><span>Página de empresa de Facebook e Instagram, con acceso para Jon<span class="who">Joseba</span></span></label><label><input type="checkbox" data-t="2"><span>Cuenta publicitaria de Meta con la tarjeta de Gorobel<span class="who">Joseba</span></span></label><label><input type="checkbox" data-t="3"><span>Lista de socios y ex socios con teléfono (para los WhatsApp)<span class="who">Joseba</span></span></label><label><input type="checkbox" data-t="4"><span>Presupuesto de imprenta: 300 camisetas numeradas y 40 sudaderas<span class="who">Joseba</span></span></label><label><input type="checkbox" data-t="5"><span>Confirmar licencia de actividad y fecha aproximada de apertura<span class="who">Joseba</span></span></label><label><input type="checkbox" data-t="6"><span>Gastos fijos mensuales reales (alquiler, luz, personal)<span class="who">Joseba</span></span></label><label><input type="checkbox" data-t="7"><span>Dominio para la landing (o usar el de Galerna)<span class="who">Jon</span></span></label><label><input type="checkbox" data-t="8"><span>Enlaces de pago, contador y página de “ya eres fundador”<span class="who">Jon</span></span></label><label><input type="checkbox" data-t="9"><span>Píxel de Meta y campañas montadas<span class="who">Jon</span></span></label><label><input type="checkbox" data-t="10"><span>Grabar los vídeos 1, 2 y 3 antes de lanzar<span class="who">Entrenadores</span></span></label></div>
+</div></section>
+<footer style="padding-bottom:40px">Kit preparado por Galerna Method para Gorobel · <a href="../" style="color:var(--sage-b)">Ver la propuesta</a> · <a href="../../fundadores/" style="color:var(--sage-b)">Ver la landing</a></footer>
+<script>
+(function(){
+  var K='gorobel-kit';var st={};try{st=JSON.parse(localStorage.getItem(K)||'{}')}catch(e){}
+  function save(){try{localStorage.setItem(K,JSON.stringify(st))}catch(e){}}
+  function prog(){var v=document.querySelectorAll('.vid input:checked').length,t=document.querySelectorAll('.todo input:checked').length;
+    document.getElementById('vp').textContent=v+' de 6 grabados';document.getElementById('tp').textContent=t+' de 11 hechos';}
+  document.querySelectorAll('.vid').forEach(function(d){var c=d.querySelector('input');var k='v'+d.dataset.id;c.checked=!!st[k];d.classList.toggle('done',c.checked);
+    c.addEventListener('change',function(){st[k]=c.checked;d.classList.toggle('done',c.checked);save();prog();});});
+  document.querySelectorAll('.todo input').forEach(function(c){var k='t'+c.dataset.t;c.checked=!!st[k];c.addEventListener('change',function(){st[k]=c.checked;save();prog();});});
+  document.querySelectorAll('.msg').forEach(function(m){var b=m.querySelector('.cp');b.addEventListener('click',function(){var t=m.querySelector('pre').textContent;
+    var done=function(){b.textContent='Copiado';b.classList.add('ok');setTimeout(function(){b.textContent='Copiar';b.classList.remove('ok')},1600)};
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,function(){fallback(t);done()})}else{fallback(t);done()}});});
+  function fallback(t){var a=document.createElement('textarea');a.value=t;a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}document.body.removeChild(a);}
+  prog();
+})();
+</script>
+</body>
+</html>
