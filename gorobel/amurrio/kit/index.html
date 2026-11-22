@@ -190,6 +190,36 @@ ol.shots li small{display:block;color:var(--sub);font-size:13px}
 .test b{color:var(--bone)}
 @media(max-width:860px){.formula{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
 </style>
+<style>
+.wk{display:grid;gap:12px;margin-top:22px}
+.wkc{border-radius:22px;background:var(--card);border:1px solid var(--line);padding:20px}
+.wkc .hd{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.wkc small{font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--sage-b)}
+.wkc h3{font-size:28px;margin-top:4px}
+.wkc .goal{font-size:14.5px;color:#CFCDBF;margin-top:6px}
+.seq{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:14px}
+.st2{border-radius:14px;background:var(--bg);border:1px solid var(--line2);padding:12px;font-size:13.5px;min-height:120px;display:flex;flex-direction:column;gap:6px}
+.st2 b{font-size:11px;font-weight:900;letter-spacing:.1em;color:#11140A;background:var(--sage-b);border-radius:6px;padding:3px 7px;align-self:flex-start}
+.st2 .stk{margin-top:auto;font-size:11.5px;font-weight:800;color:var(--kb)}
+.day{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:22px}
+.dy{border-radius:18px;background:var(--card);border:1px solid var(--line);padding:18px}
+.dy small{font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--sage-b)}
+.dy b{display:block;font-family:var(--disp);font-weight:400;font-size:26px;text-transform:uppercase;margin:4px 0}
+.dy p{font-size:14.5px;color:#CFCDBF}
+.wkl{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:22px}
+.wkl div{border-radius:16px;background:var(--card);border:1px solid var(--line);padding:16px}
+.wkl b{display:block;font-size:16px}.wkl span{font-size:14px;color:#CFCDBF}
+.hl{display:flex;gap:14px;flex-wrap:wrap;margin-top:22px}
+.hl div{display:flex;flex-direction:column;align-items:center;gap:8px;width:110px;text-align:center;font-size:13px;font-weight:800}
+.hl i{width:84px;height:84px;border-radius:50%;border:3px solid var(--sage-b);display:grid;place-items:center;font-style:normal;font-family:var(--disp);font-size:26px;color:var(--sage-b);background:var(--card)}
+.dm{margin-top:22px;border-radius:22px;border:2px solid var(--kb);padding:20px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px}
+.dm h3{font-size:28px}.dm p{color:#CFCDBF;font-size:15px;margin-top:6px}
+.chat{display:grid;gap:8px}
+.bub{max-width:88%;padding:10px 14px;border-radius:16px;font-size:14.5px}
+.bub.u{justify-self:end;background:var(--kb);color:#11140A;font-weight:800}
+.bub.g{background:var(--bg);border:1px solid var(--line2)}
+@media(max-width:860px){.seq{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.day,.dm{grid-template-columns:minmax(0,1fr)}.wkl{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+</style>
 </head>
 <body>
 <div class="demo">Kit interno de lanzamiento · Gorobel Amurrio</div>
@@ -200,7 +230,7 @@ ol.shots li small{display:block;color:var(--sub);font-size:13px}
       <p class="k">Para el equipo de Gorobel</p>
       <h1 style="font-size:clamp(52px,11vw,110px)">Lo que hay<br><em>que grabar.</em></h1>
       <p class="lead">Guiones de los 6 anuncios, la serie de la obra, los mensajes de WhatsApp y lo que falta para lanzar. Marca lo que vayas haciendo: se guarda en tu móvil.</p>
-      <div class="toc"><a href="#reglas">Antes de grabar</a><a href="#videos">6 anuncios</a><a href="#obra">Serie de la obra</a><a href="#whatsapp">WhatsApp</a><a href="#falta">Lo que falta</a></div>
+      <div class="toc"><a href="#reglas">Antes de grabar</a><a href="#videos">6 anuncios</a><a href="#obra">Serie de la obra</a><a href="#historias">Historias</a><a href="#whatsapp">WhatsApp</a><a href="#falta">Lo que falta</a></div>
     </div>
   </div>
 </header>
@@ -302,6 +332,57 @@ Quedan [Y] plazas. ¿Te vienes? 👇</pre><p class="hd"><b>Título:</b> Únete a
     <div><small>CAP. 4</small><b>El muro</b><p>Se pintan los primeros nombres de fundadores en la pared.</p></div>
     <div><small>CAP. 5</small><b>Primera serie</b><p>Un socio fundador estrena el gimnasio. “Ya casi está”.</p></div>
     <div><small>CAP. 6</small><b>Noche fundadores</b><p>La inauguración solo para fundadores. Entrega de camisetas.</p></div>
+  </div>
+</div></section>
+
+<section id="historias" class="alt"><div class="wrap">
+  <p class="k">Historias de Instagram</p><h2>Todos los días,<br><em>sin pagar.</em></h2>
+  <p class="lead">Los anuncios traen gente nueva; las historias convencen a los que ya nos siguen y a quien llega desde un anuncio y mira el perfil antes de reservar. De 3 a 5 historias al día en la cuenta de Gorobel, con las <a href="https://claude.ai/artifact/ASgfGCfLtHaacMNYc1eksN#page-historias" style="color:var(--sage-b)" target="_blank" rel="noopener">plantillas</a>.</p>
+
+  <h3 style="font-size:30px;margin-top:40px">Las fases</h3>
+  <div class="wk">
+    <div class="wkc"><div class="hd"><div><small>Semana 0 · 4–5 días</small><h3>Intriga</h3></div></div><p class="goal">Que la gente se pregunte qué va a abrir. No se dice nada del gimnasio todavía.</p>
+      <div class="seq"><div class="st2"><b>1</b>Foto de la persiana o del local cerrado: “Algo se cuece en Amurrio 👀”<span class="stk">Plantilla Intriga</span></div><div class="st2"><b>2</b>Detalle desenfocado de la obra o una caja de material<span class="stk">Sticker encuesta: ¿Qué crees que es?</span></div><div class="st2"><b>3</b>“Lo contamos el [día]”<span class="stk">Sticker cuenta atrás</span></div><div class="st2"><b>4</b>Repost de respuestas a la encuesta (las más graciosas)<span class="stk">—</span></div><div class="st2"><b>5</b>“¿Quieres enterarte antes que nadie? Escribe AMURRIO por privado”<span class="stk">Palabra clave por DM</span></div></div></div>
+    <div class="wkc"><div class="hd"><div><small>Día del anuncio</small><h3>La revelación</h3></div></div><p class="goal">Se cuenta todo de una vez, en una secuencia que termina en el enlace.</p>
+      <div class="seq"><div class="st2"><b>1</b>Vídeo en el local vacío: “Abrimos gimnasio de fuerza 24 h en Amurrio”<span class="stk">Plantilla Revelación</span></div><div class="st2"><b>2</b>“Entras con el móvil a cualquier hora, los 365 días”<span class="stk">—</span></div><div class="st2"><b>3</b>“Precio fundador. Queremos que seas tú.”<span class="stk">Plantilla Precio fundador</span></div><div class="st2"><b>4</b>La camiseta numerada<span class="stk">—</span></div><div class="st2"><b>5</b>“Reserva tu plaza aquí 👇”<span class="stk">Sticker de enlace</span></div></div></div>
+    <div class="wkc"><div class="hd"><div><small>Semana 1</small><h3>Los de casa</h3></div></div><p class="goal">Los socios de Gorobel tienen 48 h de prioridad. Las historias les meten prisa y presumen de los primeros fundadores.</p>
+      <div class="seq"><div class="st2"><b>1</b>“48 h solo para socios de Gorobel”<span class="stk">Sticker cuenta atrás</span></div><div class="st2"><b>2</b>Bienvenida a cada fundador nuevo (con su permiso)<span class="stk">Plantilla Bienvenida + mención</span></div><div class="st2"><b>3</b>Repost de fundadores que suben su reserva<span class="stk">—</span></div><div class="st2"><b>4</b>“¿A qué hora entrenarías?”<span class="stk">Plantilla Encuesta</span></div><div class="st2"><b>5</b>Enlace para reservar<span class="stk">Sticker de enlace</span></div></div></div>
+    <div class="wkc"><div class="hd"><div><small>Semanas 2–3</small><h3>Todo el valle</h3></div></div><p class="goal">La rutina diaria de abajo. Cada semana, un capítulo de la obra y las preguntas respondidas.</p></div>
+    <div class="wkc"><div class="hd"><div><small>Semana 4</small><h3>Últimas plazas</h3></div></div><p class="goal">Cuenta atrás todos los días, “quedan [X]”, y la última noche un directo o una historia desde el local.</p>
+      <div class="seq"><div class="st2"><b>1</b>“Quedan [X] plazas”<span class="stk">Plantilla Quedan</span></div><div class="st2"><b>2</b>Fundadores de la semana<span class="stk">Menciones</span></div><div class="st2"><b>3</b>“El domingo cerramos”<span class="stk">Sticker cuenta atrás</span></div><div class="st2"><b>4</b>Respuesta a la última duda<span class="stk">Caja de preguntas</span></div><div class="st2"><b>5</b>Enlace para reservar<span class="stk">Sticker de enlace</span></div></div></div>
+  </div>
+
+  <h3 style="font-size:30px;margin-top:40px">La rutina de cada día</h3>
+  <div class="day">
+    <div class="dy"><small>Mañana</small><b>La obra</b><p>1–2 historias de cómo va: alguien trabajando, una máquina que llega, una pared pintada. Real, sin editar mucho.</p></div>
+    <div class="dy"><small>Mediodía</small><b>Que participen</b><p>Una encuesta, un quiz o la caja de preguntas. Lo que más hace que Instagram enseñe las siguientes historias.</p></div>
+    <div class="dy"><small>Tarde</small><b>La acción</b><p>Fundador nuevo, plazas que quedan o una duda respondida, y SIEMPRE el sticker de enlace para reservar.</p></div>
+  </div>
+
+  <h3 style="font-size:30px;margin-top:40px">Cada semana</h3>
+  <div class="wkl">
+    <div><b>Lunes</b><span>Capítulo nuevo de la obra (Reel) y compartirlo en historias</span></div>
+    <div><b>Miércoles</b><span>“Nos preguntáis…”: 3 dudas de la caja respondidas</span></div>
+    <div><b>Viernes</b><span>Fundadores de la semana, mencionándolos</span></div>
+    <div><b>Domingo</b><span>Cuenta atrás de la campaña y resumen</span></div>
+  </div>
+
+  <h3 style="font-size:30px;margin-top:40px">Historias destacadas del perfil</h3>
+  <div class="hl"><div><i>★</i>Fundadores</div><div><i>24</i>24 horas</div><div><i>⚒</i>La obra</div><div><i>?</i>Preguntas</div></div>
+  <p class="lead" style="font-size:15px">Quien llega desde un anuncio mira el perfil antes de reservar: que encuentre ahí la oferta, la obra y las dudas resueltas.</p>
+
+  <div class="dm">
+    <div><p class="k">Palabra clave por privado</p><h3>“Escribe FUNDADOR”</h3><p>En las historias, además del enlace: “Escríbenos FUNDADOR por privado y te pasamos la info”. Cada mensaje es una persona interesada a la que se le contesta con el enlace y queda guardada para escribirle más adelante. Cuando montemos el asistente de Instagram, lo contestará solo, al momento.</p></div>
+    <div class="chat"><div class="bub u">FUNDADOR</div><div class="bub g">¡Hola! 💪 Abrimos gimnasio de fuerza 24 h en Amurrio. Con precio de fundador pagas menos para siempre. Aquí tienes los planes: app.galernamethod.com/gorobel/qr</div><div class="bub g">¿Te guardo una plaza? Cualquier duda, dímela por aquí.</div></div>
+  </div>
+
+  <div class="rules" style="margin-top:22px">
+    <div><b>Texto grande y corto</b>Que se lea en 2 segundos, sin tapar caras.</div>
+    <div><b>Subtítulos siempre</b>Casi todo el mundo ve las historias sin sonido.</div>
+    <div><b>Mencionar</b>A cada fundador (con permiso) y a los negocios que apadrinan: lo comparten y llega a sus seguidores.</div>
+    <div><b>Compartir lo de otros</b>Si un fundador sube su reserva, se comparte siempre.</div>
+    <div><b>Mismo enlace siempre</b>app.galernamethod.com/gorobel/qr, para medir lo que llega desde Instagram.</div>
+    <div><b>Euskera también</b>Alterna historias en castellano y euskera. Hay plantillas en los dos.</div>
   </div>
 </div></section>
 <section id="whatsapp"><div class="wrap">
