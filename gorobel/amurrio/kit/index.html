@@ -220,6 +220,27 @@ ol.shots li small{display:block;color:var(--sub);font-size:13px}
 .bub.g{background:var(--bg);border:1px solid var(--line2)}
 @media(max-width:860px){.seq{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.day,.dm{grid-template-columns:minmax(0,1fr)}.wkl{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
 </style>
+<style>
+.camp{display:grid;gap:14px;margin-top:22px}
+.cpg{border-radius:24px;background:var(--card);border:1px solid var(--line);padding:22px}
+.cpg .tag{display:inline-block;font-size:11.5px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;border-radius:99px;background:var(--sage-b);color:#11140A}
+.cpg .tag.r{background:var(--box);color:#fff}.cpg .tag.o{background:var(--kb);color:#11140A}
+.cpg h3{font-size:30px;margin:10px 0 4px}
+.cpg .goal{color:#CFCDBF;font-size:15px}
+.kv{display:grid;grid-template-columns:170px minmax(0,1fr);gap:0;margin-top:14px;border-top:1px dashed var(--line2)}
+.kv div{padding:10px 0;border-bottom:1px dashed var(--line2);font-size:14.5px}
+.kv div:nth-child(odd){font-weight:800;color:var(--sub);font-size:13px;letter-spacing:.04em;text-transform:uppercase;padding-right:10px}
+.steps2{counter-reset:p;display:grid;gap:10px;margin-top:22px}
+.steps2 li{list-style:none;counter-increment:p;display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;border-radius:16px;background:var(--card);border:1px solid var(--line);padding:14px 16px;font-size:15px}
+.steps2 li::before{content:counter(p);width:36px;height:36px;border-radius:10px;background:var(--sage-b);color:#11140A;display:grid;place-items:center;font-weight:900}
+.steps2 small{display:block;color:var(--sub);font-size:13px;margin-top:3px}
+.rule3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:22px}
+.rule3 div{border-radius:16px;padding:16px;border:1px solid var(--line);background:var(--card);font-size:14.5px;color:#CFCDBF}
+.rule3 b{display:block;color:var(--bone);font-size:16px;margin-bottom:4px}
+.rule3 .bad{border-color:rgba(232,72,59,.5)}.rule3 .good{border-color:rgba(188,203,134,.5)}
+.code{font:600 13.5px/1.5 ui-monospace,Menlo,monospace;background:var(--bg);border:1px solid var(--line2);border-radius:12px;padding:12px;word-break:break-all;margin-top:8px;color:#E2DFD3}
+@media(max-width:860px){.kv{grid-template-columns:minmax(0,1fr)}.kv div:nth-child(odd){padding-bottom:0;border-bottom:0}.rule3{grid-template-columns:minmax(0,1fr)}}
+</style>
 </head>
 <body>
 <div class="demo">Kit interno de lanzamiento · Gorobel Amurrio</div>
@@ -230,7 +251,7 @@ ol.shots li small{display:block;color:var(--sub);font-size:13px}
       <p class="k">Para el equipo de Gorobel</p>
       <h1 style="font-size:clamp(52px,11vw,110px)">Lo que hay<br><em>que grabar.</em></h1>
       <p class="lead">Guiones de los 6 anuncios, la serie de la obra, los mensajes de WhatsApp y lo que falta para lanzar. Marca lo que vayas haciendo: se guarda en tu móvil.</p>
-      <div class="toc"><a href="#reglas">Antes de grabar</a><a href="#videos">6 anuncios</a><a href="#obra">Serie de la obra</a><a href="#historias">Historias</a><a href="#whatsapp">WhatsApp</a><a href="#falta">Lo que falta</a></div>
+      <div class="toc"><a href="#reglas">Antes de grabar</a><a href="#videos">6 anuncios</a><a href="#meta">Campaña en Meta</a><a href="#obra">Serie de la obra</a><a href="#historias">Historias</a><a href="#whatsapp">WhatsApp</a><a href="#falta">Lo que falta</a></div>
     </div>
   </div>
 </header>
@@ -321,6 +342,59 @@ Vecinos que no han querido esperar: gimnasio de fuerza 24 h, 55 €/mes para sie
 
 Quedan [Y] plazas. ¿Te vienes? 👇</pre><p class="hd"><b>Título:</b> Únete a los fundadores · <b>Botón:</b> Más información</p></div>
 <p class="why2">La gente se apunta cuando ve que otros como ellos ya lo han hecho.</p></div>
+</div></section>
+
+<section id="meta"><div class="wrap">
+  <p class="k">Campaña en Meta</p><h2>Cómo se monta,<br><em>paso a paso.</em></h2>
+  <p class="lead">Dos campañas. La primera puede salir mañana mismo, aunque los pagos todavía no estén conectados: la gente escribe “FUNDADOR” por privado y se le contesta. Cuando esté Stripe, se añade la de reservas en la web.</p>
+
+  <div class="camp">
+    <div class="cpg"><span class="tag o">Ya · sin esperar a Stripe</span><h3>1. Mensajes “FUNDADOR”</h3><p class="goal">El anuncio abre un chat de Instagram o WhatsApp con el mensaje escrito. Ideal en un pueblo: la gente pregunta antes de pagar.</p>
+      <div class="kv">
+        <div>Objetivo</div><div>Interacción → Mensajes (Instagram y WhatsApp)</div>
+        <div>Presupuesto</div><div>10 €/día en el conjunto de anuncios</div>
+        <div>Ubicación</div><div>Amurrio + 15 km (o por pueblos: Amurrio, Llodio, Artziniega, Ayala, Orozko, Okondo)</div>
+        <div>Edad</div><div>18–55 · público Advantage+ (que Meta busque)</div>
+        <div>Ubicaciones</div><div>Advantage+ (automáticas)</div>
+        <div>Mensaje inicial</div><div>“FUNDADOR, quiero info del gimnasio de Amurrio”</div>
+        <div>Anuncios</div><div>Las 4 imágenes “Anuncios” del diseño + los vídeos cuando estén</div>
+      </div></div>
+    <div class="cpg"><span class="tag">Cuando esté Stripe</span><h3>2. Reservas en la web</h3><p class="goal">Lleva a la landing y Meta optimiza para que la gente pague su plaza.</p>
+      <div class="kv">
+        <div>Objetivo</div><div>Ventas → sitio web · evento “Compra” del píxel</div>
+        <div>Presupuesto</div><div>Pasar 7–8 €/día de la campaña 1 a esta</div>
+        <div>Ubicación y edad</div><div>Igual que la campaña 1</div>
+        <div>Enlace</div><div><div class="code">https://app.galernamethod.com/gorobel/fundadores/?utm_source=meta&amp;utm_medium=paid&amp;utm_campaign=fundadores</div></div>
+      </div></div>
+    <div class="cpg"><span class="tag r">Desde la semana 2</span><h3>3. Recordatorio</h3><p class="goal">A quien ya nos vio pero no ha dado el paso.</p>
+      <div class="kv">
+        <div>Presupuesto</div><div>3–5 €/día</div>
+        <div>Público</div><div>Vio el 50 % de un vídeo (30 días) · interactuó con Instagram o Facebook de Gorobel (30 días) · visitó la landing (30 días)</div>
+        <div>Excluir</div><div>Quien ya pagó (evento Compra)</div>
+        <div>Anuncios</div><div>“¿Y si no abre?”, “Quedan [X] plazas”, “Ya somos [X]”</div>
+      </div></div>
+  </div>
+
+  <h3 style="font-size:30px;margin-top:40px">Montaje, en orden</h3>
+  <ol class="steps2">
+    <li><div>Joseba añade a Jon como socio en su Business Manager (Meta Business Suite → Configuración → Socios)<small>Con acceso a la página de Facebook, a Instagram y a la cuenta publicitaria</small></div></li>
+    <li><div>Comprobar que la cuenta publicitaria tiene la tarjeta de Gorobel y la moneda en euros</div></li>
+    <li><div>Conectar WhatsApp Business de Gorobel a la página (para los anuncios de mensajes)</div></li>
+    <li><div>Crear la campaña 1 con los datos de arriba y las 4 imágenes</div></li>
+    <li><div>Dejar escrita la respuesta automática a “FUNDADOR” en Instagram y WhatsApp<small>El texto está en la sección de historias</small></div></li>
+    <li><div>Cuando esté Stripe: instalar el píxel en la landing y crear la campaña 2</div></li>
+    <li><div>A los 7 días, crear los públicos del recordatorio y lanzar la campaña 3</div></li>
+  </ol>
+
+  <h3 style="font-size:30px;margin-top:40px">Cómo se lleva cada semana</h3>
+  <div class="rule3">
+    <div class="good"><b>Los 3 primeros días, no tocar</b>Meta aprende. Cambiar cosas antes reinicia el aprendizaje.</div>
+    <div class="bad"><b>Apagar un anuncio si…</b>tras 1.000 impresiones tiene menos de 0,8 % de clics, o tras 25 € no ha traído ni un mensaje.</div>
+    <div class="good"><b>Subir lo que funciona</b>Si un anuncio trae mensajes a menos de 3 €, se le da más presupuesto (máximo +20 % cada 2 días).</div>
+    <div><b>Responder rápido</b>Un mensaje contestado en 5 minutos convierte mucho más que uno contestado al día siguiente.</div>
+    <div><b>Imágenes nuevas cada 2 semanas</b>En un pueblo la gente ve los anuncios muchas veces; hay que renovarlos.</div>
+    <div><b>Revisión semanal</b>Gasto, mensajes, reservas y coste por fundador, en la reunión de cada semana.</div>
+  </div>
 </div></section>
 <section id="obra" class="alt"><div class="wrap">
   <p class="k">Serie de la obra</p><h2>Un capítulo<br><em>cada semana.</em></h2>
