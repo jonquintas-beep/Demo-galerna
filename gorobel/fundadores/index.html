@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#0C0D0A">
 <meta name="description" content="Nuevo gimnasio de fuerza 24 h en Amurrio. Hazte socio fundador antes de la apertura.">
 <meta property="og:title" content="Gorobel Amurrio · Socios Fundadores">
-<meta property="og:description" content="Fuerza 24 h y comunidad. Solo 300 plazas de fundador.">
+<meta property="og:description" content="Fuerza 24 h y comunidad en Amurrio. Precio fundador: queremos que seas tú.">
 <meta property="og:image" content="https://app.galernamethod.com/gorobel/icons/icon-512.png">
 <link rel="icon" type="image/png" href="../icons/icon-192.png">
 <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
@@ -130,7 +130,7 @@ footer{padding:30px 0 calc(110px + env(safe-area-inset-bottom));text-align:cente
 @media(max-width:860px){.why,.tiers{grid-template-columns:minmax(0,1fr)}.shirt{grid-template-columns:minmax(0,1fr)}.steps{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.biz{grid-template-columns:minmax(0,1fr)}.t.hl{order:-1}section{padding:64px 0}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
-<!-- Meta Pixel: se añade aquí al lanzar (eventos ViewContent, Lead y Purchase) -->
+<!-- Meta Pixel: se añade aquí al lanzar (eventos ViewContent, InitiateCheckout y Lead ya se disparan con fbq si existe) -->
 <style>
 .ref{margin-top:14px;border-radius:24px;background:linear-gradient(160deg,#2A1A17,#191C13);border:1.5px solid rgba(232,72,59,.5);padding:22px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:center}
 .ref .ic{width:64px;height:64px;border-radius:18px;background:var(--box);color:#fff;display:grid;place-items:center;font-family:var(--disp);font-size:30px}
@@ -146,169 +146,176 @@ footer{padding:30px 0 calc(110px + env(safe-area-inset-bottom));text-align:cente
 .where span{font-size:14.5px;color:#CFCDBF}
 @media(max-width:860px){.wait,.where{grid-template-columns:minmax(0,1fr)}.ref{grid-template-columns:minmax(0,1fr)}}
 </style>
+<style>
+.lang{display:flex;border:1.5px solid var(--line2);border-radius:99px;overflow:hidden}
+.lang button{background:none;border:0;color:var(--sub);font:900 12px "Montserrat",sans-serif;letter-spacing:.12em;padding:8px 12px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--sage-b);color:#11140A}
+nav .r{display:flex;align-items:center;gap:14px}
+.hb{margin-top:6px;border-radius:24px;background:var(--card);border:1px solid var(--line2);padding:20px 22px;max-width:620px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:center}
+.hb .ic{width:58px;height:58px;border-radius:16px;background:var(--box);color:#fff;display:grid;place-items:center;font-family:var(--disp);font-size:26px}
+.hb b{display:block;font-family:var(--disp);font-weight:400;font-size:28px;text-transform:uppercase;line-height:1}
+.hb span{font-size:14.5px;color:#CFCDBF}
+.hb .live{display:none;margin-top:6px;font-weight:800;color:var(--sage-b)}
+.chk{display:grid!important;grid-template-columns:22px minmax(0,1fr);gap:10px;align-items:start;font-size:13px!important;font-weight:600!important;color:#CFCDBF!important;line-height:1.45;margin-top:14px}
+.chk input{width:20px!important;height:20px!important;margin-top:1px;accent-color:var(--sage-b);padding:0!important}
+.chk a,footer a,.fine a{color:var(--sage-b)}
+.err{color:#FF8A80;font-size:13.5px;font-weight:700;margin-top:10px;min-height:1px}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.btn[disabled]{opacity:.6;cursor:wait}
+.priv h3{font-size:30px}.priv p{color:#CFCDBF;font-size:14.5px;margin-top:10px}
+.sheet .pv{font-size:13px;color:var(--sub);font-weight:700;margin-top:4px}
+</style>
 </head>
 <body>
-<div class="demo">DEMO de campaña · las cifras, nombres y fechas son de ejemplo</div>
 
 <header class="hero">
   <div class="bgw" style="top:60px">Fundadores</div><div class="bgw" style="top:330px">Amurrio 24h</div>
   <div class="wrap">
-    <nav><img src="../logo-w.png" alt="Gorobel"><span>Amurrio · Nuevo gimnasio</span></nav>
+    <nav><img src="../logo-w.png" alt="Gorobel"><div class="r"><span data-i="nav">Amurrio · Nuevo gimnasio</span><div class="lang" role="group" aria-label="Idioma / Hizkuntza"><button type="button" data-lang="es" aria-pressed="true">ES</button><button type="button" data-lang="eu" aria-pressed="false">EU</button></div></div></nav>
     <div class="in">
-      <div class="tags"><span class="tag g">Fuerza</span><span class="tag r">24 horas</span><span class="tag">Comunidad</span><span class="tag">App</span></div>
-      <h1>Sé de los<br><em>300 primeros.</em></h1>
-      <p class="lead">Abrimos en Amurrio un gimnasio de fuerza abierto 24 horas, con la comunidad de Gorobel. Antes de abrir buscamos a 300 socios fundadores que lo hagan posible. A cambio, el mejor precio que habrá nunca, para siempre.</p>
-      <div class="count">
-        <div class="row">
-          <div><b id="cF">0<small>/300</small></b><p>socios fundadores <span class="ej">ejemplo</span></p></div>
-          <div class="m"><b id="cE">0</b><p>plazas libres</p></div>
-        </div>
-        <div class="bar"><i id="cB"></i></div>
-        <p>La campaña cierra en:</p>
-        <div class="cd"><div><b id="dD">0</b><small>días</small></div><div><b id="dH">0</b><small>horas</small></div><div><b id="dM">0</b><small>min</small></div><div><b id="dS">0</b><small>seg</small></div></div>
+      <div class="tags"><span class="tag g" data-i="tg1">Fuerza</span><span class="tag r" data-i="tg2">24 horas</span><span class="tag" data-i="tg3">Comunidad</span><span class="tag">App</span></div>
+      <h1 data-i="h1">Precio<br><em>fundador.</em></h1>
+      <p class="lead" data-i="lead">Abrimos en Amurrio un gimnasio de fuerza abierto 24 horas, con la comunidad de Gorobel. Antes de abrir buscamos a los socios fundadores que lo hagan posible. Queremos que seas tú.</p>
+      <div class="hb">
+        <span class="ic">!</span>
+        <div><b data-i="hb1">Plazas de fundador limitadas</b><span data-i="hb2">Reserva hoy sin pagar nada. Te escribimos por WhatsApp para confirmar tu plaza.</span><p class="live" id="live"></p></div>
       </div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn p" href="#planes">Quiero ser fundador</a><a class="btn o" href="#por-que">¿Qué tiene de diferente?</a></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn p" href="#planes" data-i="cta">Quiero ser fundador</a><a class="btn o" href="#por-que" data-i="cta2">¿Qué tiene de diferente?</a></div>
     </div>
   </div>
 </header>
 
 <section id="por-que" class="alt">
   <div class="wrap">
-    <p class="k">No es otro gimnasio de máquinas</p>
-    <h2>Las máquinas, sencillas.<br><em>Lo fuerte es lo demás.</em></h2>
+    <p class="k" data-i="pk">No es otro gimnasio de máquinas</p>
+    <h2 data-i="ph">Las máquinas, sencillas.<br><em>Lo fuerte es lo demás.</em></h2>
     <div class="why">
-      <div class="w" style="--c:var(--box)"><span class="n">24h</span><h3>Entras cuando quieras</h3><p>A las 6 de la mañana o a las 11 de la noche. Con tu móvil abres la puerta y la app te dice qué entrenar hoy.</p></div>
-      <div class="w"><span class="n">+</span><h3>Una comunidad, no una cuota</h3><p>Retos mensuales, quedadas, entrenamientos en grupo y la gente de Gorobel. Aquí te saludan por tu nombre.</p></div>
-      <div class="w" style="--c:var(--kb)"><span class="n">App</span><h3>Tu entrenamiento en el móvil</h3><p>Rutinas según tu objetivo, tu progreso y la puerta del gimnasio, todo en la app de Gorobel.</p></div>
+      <div class="w" style="--c:var(--box)"><span class="n">24h</span><h3 data-i="w1h">Entras cuando quieras</h3><p data-i="w1p">A las 6 de la mañana o a las 11 de la noche. Con tu móvil abres la puerta y la app te dice qué entrenar hoy.</p></div>
+      <div class="w"><span class="n">+</span><h3 data-i="w2h">Una comunidad, no una cuota</h3><p data-i="w2p">Retos mensuales, quedadas, entrenamientos en grupo y la gente de Gorobel. Aquí te saludan por tu nombre.</p></div>
+      <div class="w" style="--c:var(--kb)"><span class="n">App</span><h3 data-i="w3h">Tu entrenamiento en el móvil</h3><p data-i="w3p">Rutinas según tu objetivo, tu progreso y la puerta del gimnasio, todo en la app de Gorobel.</p></div>
     </div>
   </div>
 </section>
 
 <section id="planes">
   <div class="wrap">
-    <p class="k">Elige cómo ser fundador</p>
-    <h2>Precio de fundador,<br><em>para siempre.</em></h2>
-    <div class="cmp"><span>Cuota normal tras la apertura: <s>60 €/mes</s></span><span>·</span><span>Fundadores: <b>55 €/mes ilimitado, de por vida</b></span></div>
+    <p class="k" data-i="tk">Elige cómo ser fundador</p>
+    <h2 data-i="th">Precio de fundador,<br><em>para siempre.</em></h2>
+    <div class="cmp"><span data-i="c1">Cuota normal tras la apertura: <s>60 €/mes</s></span><span>·</span><span data-i="c2">Fundadores: <b>55 €/mes ilimitado, de por vida</b></span></div>
     <div class="tiers">
       <div class="t">
-        <h3>Fundador</h3>
-        <div class="pr">165 €<small> · 3 meses</small></div>
-        <span class="eq">55 €/mes · después, 55 € para siempre</span>
-        <ul><li>3 primeros meses incluidos</li><li>Precio de fundador de por vida</li><li>Camiseta de fundador numerada</li><li>Tu nombre en el muro de fundadores</li></ul>
-        <button type="button" class="btn o" data-buy="Fundador|165">Reservar plaza</button>
-        <p class="left" id="l0">Plazas: 160</p>
+        <h3 data-i="t1">Fundador</h3>
+        <div class="pr">165 €<small data-i="m3"> · 3 meses</small></div>
+        <span class="eq" data-i="t1e">55 €/mes · después, 55 € para siempre</span>
+        <ul><li data-i="t1a">3 primeros meses incluidos</li><li data-i="lv">Precio de fundador de por vida</li><li data-i="sh">Camiseta de fundador numerada</li><li data-i="wl">Tu nombre en el muro de fundadores</li></ul>
+        <button type="button" class="btn o" data-buy="fundador|165|t1" data-i="rs">Reservar plaza</button>
+        <p class="left" data-i="lim">Plazas limitadas · hoy no pagas nada</p>
       </div>
-      <div class="t hl"><span class="badge">El más elegido</span>
-        <h3>Fundador 6</h3>
-        <div class="pr">300 €<small> · 6 meses</small></div>
-        <span class="eq">Sale a 50 €/mes · después, 55 € para siempre</span>
-        <ul><li>6 primeros meses incluidos</li><li>Precio de fundador de por vida</li><li>Camiseta de fundador numerada</li><li>Tu nombre en el muro de fundadores</li><li>Rutina personalizada en la app</li></ul>
-        <button type="button" class="btn p" data-buy="Fundador 6|300">Reservar plaza</button>
-        <p class="left" id="l1">Plazas: 100</p>
+      <div class="t hl"><span class="badge" data-i="rec">Recomendado</span>
+        <h3 data-i="t2">Fundador 6</h3>
+        <div class="pr">300 €<small data-i="m6"> · 6 meses</small></div>
+        <span class="eq" data-i="t2e">Sale a 50 €/mes · después, 55 € para siempre</span>
+        <ul><li data-i="t2a">6 primeros meses incluidos</li><li data-i="lv2">Precio de fundador de por vida</li><li data-i="sh2">Camiseta de fundador numerada</li><li data-i="wl2">Tu nombre en el muro de fundadores</li><li data-i="t2b">Rutina personalizada en la app</li></ul>
+        <button type="button" class="btn p" data-buy="fundador6|300|t2" data-i="rs2">Reservar plaza</button>
+        <p class="left" data-i="lim2">Plazas limitadas · hoy no pagas nada</p>
       </div>
       <div class="t">
-        <h3>Fundador Oro</h3>
-        <div class="pr">540 €<small> · 12 meses</small></div>
-        <span class="eq">Sale a 45 €/mes · después, 55 € para siempre</span>
-        <ul><li>Un año completo incluido</li><li>Precio de fundador de por vida</li><li>Camiseta y sudadera de fundador</li><li>Tu nombre en el muro, en dorado</li><li>Plan de entrenamiento en la app</li><li>Prioridad para la noche de fundadores</li></ul>
-        <button type="button" class="btn o" data-buy="Fundador Oro|540">Reservar plaza</button>
-        <p class="left" id="l2">Plazas: 40</p>
+        <h3 data-i="t3">Fundador Oro</h3>
+        <div class="pr">540 €<small data-i="m12"> · 12 meses</small></div>
+        <span class="eq" data-i="t3e">Sale a 45 €/mes · después, 55 € para siempre</span>
+        <ul><li data-i="t3a">Un año completo incluido</li><li data-i="lv3">Precio de fundador de por vida</li><li data-i="t3b">Camiseta y sudadera de fundador</li><li data-i="t3c">Tu nombre en el muro, en dorado</li><li data-i="t3d">Plan de entrenamiento en la app</li><li data-i="t3f">Prioridad para la noche de fundadores</li></ul>
+        <button type="button" class="btn o" data-buy="oro|540|t3" data-i="rs3">Reservar plaza</button>
+        <p class="left" data-i="lim3">Plazas limitadas · hoy no pagas nada</p>
       </div>
     </div>
-    <div class="ref"><span class="ic">+1</span><div><h3>Trae a un amigo fundador</h3><p>Al reservar recibes tu código. Por cada amigo que se haga fundador con él, un mes gratis. Si traes a dos, también la sudadera de fundador.</p></div></div>
+    <div class="ref"><span class="ic">+1</span><div><h3 data-i="rfh">Trae a un amigo fundador</h3><p data-i="rfp">Al confirmar tu plaza te damos tu código. Por cada amigo que se haga fundador con él, un mes gratis. Si traes a dos, también la sudadera de fundador.</p></div></div>
     <div class="biz">
-      <div><h3>¿Tienes un negocio en Amurrio?</h3><p>Apadrina una máquina: tu logo en ella durante un año, mención en redes y en la inauguración. 500 €.</p></div>
-      <button type="button" class="btn r" data-buy="Apadrina una máquina|500">Apadrinar</button>
+      <div><h3 data-i="bzh">¿Tienes un negocio en Amurrio?</h3><p data-i="bzp">Apadrina una máquina: tu logo en ella durante un año, mención en redes y en la inauguración. 500 €.</p></div>
+      <button type="button" class="btn r" data-buy="empresa|500|bz" data-i="bzb">Apadrinar</button>
     </div>
   </div>
 </section>
-
 
 <section>
   <div class="wrap">
-    <p class="k">Seguridad 24 h</p>
-    <h2>Entrena tranquilo<br><em>a las 3 de la mañana.</em></h2>
+    <p class="k" data-i="sk">Seguridad 24 h</p>
+    <h2 data-i="sh2t">Entrena tranquilo<br><em>a las 3 de la mañana.</em></h2>
     <div class="why">
-      <div class="w"><span class="n">QR</span><h3>Solo entra quien es socio</h3><p>La puerta se abre con tu móvil. Cada entrada queda registrada y nadie entra sin estar al día.</p></div>
-      <div class="w" style="--c:var(--box)"><span class="n">!</span><h3>Si alguien se cae, salta un aviso</h3><p>Si alguien se queda en el suelo, el equipo recibe una alerta en el móvil al momento.</p></div>
-      <div class="w" style="--c:var(--kb)"><span class="n">1:1</span><h3>Una persona, un acceso</h3><p>Si entran dos con un solo QR, el sistema lo detecta. Cámaras en sala, nunca en vestuarios ni baños.</p></div>
+      <div class="w"><span class="n">QR</span><h3 data-i="s1h">Solo entra quien es socio</h3><p data-i="s1p">La puerta se abre con tu móvil. Cada entrada queda registrada y nadie entra sin estar al día.</p></div>
+      <div class="w" style="--c:var(--box)"><span class="n">!</span><h3 data-i="s2h">Si alguien se cae, salta un aviso</h3><p data-i="s2p">Si alguien se queda en el suelo, el equipo recibe una alerta en el móvil al momento.</p></div>
+      <div class="w" style="--c:var(--kb)"><span class="n">1:1</span><h3 data-i="s3h">Una persona, un acceso</h3><p data-i="s3p">Si entran dos con un solo QR, el sistema lo detecta. Cámaras en sala, nunca en vestuarios ni baños.</p></div>
     </div>
   </div>
 </section>
+
 <section class="alt">
   <div class="wrap shirt">
-    <svg viewBox="0 0 400 420" role="img" aria-label="Camiseta negra de socio fundador de Gorobel con el número 087">
+    <svg viewBox="0 0 400 420" role="img" aria-label="Camiseta negra de socio fundador de Gorobel numerada">
       <path d="M120 40 L160 20 Q200 50 240 20 L280 40 L370 95 L335 165 L295 145 L295 400 L105 400 L105 145 L65 165 L30 95 Z" fill="#1A1D13" stroke="#3A4029" stroke-width="3"/>
       <path d="M160 20 Q200 50 240 20" fill="none" stroke="#BCCB86" stroke-width="4"/>
       <text x="200" y="175" text-anchor="middle" font-family="Anton,Impact,sans-serif" font-size="40" fill="#EDEAE0" letter-spacing="2">GOROBEL</text>
-      <text x="200" y="205" text-anchor="middle" font-family="Montserrat,sans-serif" font-weight="900" font-size="13" fill="#BCCB86" letter-spacing="5">SOCIO FUNDADOR</text>
-      <text x="200" y="300" text-anchor="middle" font-family="Anton,Impact,sans-serif" font-size="96" fill="#BCCB86">#087</text>
+      <text x="200" y="205" text-anchor="middle" font-family="Montserrat,sans-serif" font-weight="900" font-size="13" fill="#BCCB86" letter-spacing="5" data-i="svg1">SOCIO FUNDADOR</text>
+      <text x="200" y="300" text-anchor="middle" font-family="Anton,Impact,sans-serif" font-size="96" fill="#BCCB86">#001</text>
       <text x="200" y="340" text-anchor="middle" font-family="Montserrat,sans-serif" font-weight="800" font-size="12" fill="#A5A996" letter-spacing="4">AMURRIO · 24H</text>
     </svg>
     <div>
-      <p class="k">Lo que te llevas</p>
-      <h2>Tu número.<br><em>Para siempre.</em></h2>
+      <p class="k" data-i="ok1">Lo que te llevas</p>
+      <h2 data-i="ok2">Tu número.<br><em>Para siempre.</em></h2>
       <div class="perks">
-        <div class="perk"><i>#</i><div><b>Camiseta numerada</b><span>Del 001 al 300. Solo la tienen los fundadores.</span></div></div>
-        <div class="perk"><i>✦</i><div><b>Tu nombre en el muro</b><span>En la entrada del gimnasio, para todos los que vengan detrás.</span></div></div>
-        <div class="perk"><i>€</i><div><b>55 € ilimitado de por vida</b><span>Aunque la cuota suba, la tuya no se mueve mientras sigas.</span></div></div>
-        <div class="perk"><i>★</i><div><b>Noche de fundadores</b><span>Entras antes que nadie, en una inauguración solo para ti.</span></div></div>
+        <div class="perk"><i>#</i><div><b data-i="p1b">Camiseta numerada</b><span data-i="p1s">Solo la tienen los fundadores. Cuanto antes reservas, más bajo tu número.</span></div></div>
+        <div class="perk"><i>✦</i><div><b data-i="p2b">Tu nombre en el muro</b><span data-i="p2s">En la entrada del gimnasio, para todos los que vengan detrás.</span></div></div>
+        <div class="perk"><i>€</i><div><b data-i="p3b">55 € ilimitado de por vida</b><span data-i="p3s">Aunque la cuota suba, la tuya no se mueve mientras sigas.</span></div></div>
+        <div class="perk"><i>★</i><div><b data-i="p4b">Noche de fundadores</b><span data-i="p4s">Entras antes que nadie, en una inauguración solo para fundadores.</span></div></div>
       </div>
     </div>
   </div>
 </section>
-
-<section>
-  <div class="wrap">
-    <p class="k">Muro de fundadores <span class="ej">ejemplo</span></p>
-    <h2>Ya están <em>dentro.</em></h2>
-    <div class="wall" id="wall"></div>
-  </div>
-</section>
-
 
 <section>
   <div class="wrap">
     <div class="wait" id="lista">
-      <div><p class="k">¿Aún te lo estás pensando?</p><h3 style="margin-top:8px">Te guardamos<br>la noticia.</h3><p>Déjanos tu WhatsApp y te avisamos de cómo va la obra, cuántas plazas quedan y el día de la noche de fundadores. Sin compromiso.</p></div>
-      <form id="wf">
-        <input id="wn" placeholder="Nombre" autocomplete="name" required>
-        <input id="wt" type="tel" inputmode="tel" placeholder="Teléfono (WhatsApp)" autocomplete="tel" required>
-        <select id="wi" aria-label="Qué te interesa"><option>Me interesa ser fundador</option><option>Solo quiero estar al tanto</option></select>
-        <button class="btn p" type="submit">Avisadme</button>
-        <p class="fine">Solo usamos tu teléfono para avisarte de la apertura de Gorobel Amurrio.</p>
+      <div><p class="k" data-i="wk">¿Aún te lo estás pensando?</p><h3 style="margin-top:8px" data-i="wh">Te guardamos<br>la noticia.</h3><p data-i="wp">Déjanos tu WhatsApp y te avisamos de cómo va la obra y del día de la noche de fundadores. Sin compromiso.</p></div>
+      <form id="wf" novalidate>
+        <input id="wn" placeholder="Nombre" data-ph="phn" autocomplete="name" maxlength="120">
+        <input id="wt" type="tel" inputmode="tel" placeholder="Teléfono (WhatsApp)" data-ph="pht" autocomplete="tel" maxlength="30">
+        <select id="wi" aria-label="Qué te interesa"><option value="fundador" data-i="wo1">Me interesa ser fundador</option><option value="info" data-i="wo2">Solo quiero estar al tanto</option></select>
+        <div class="hp" aria-hidden="true"><input id="wh" tabindex="-1" autocomplete="off"></div>
+        <label class="chk"><input type="checkbox" id="wc"><span data-i="cons">Acepto que Gorobel me escriba por WhatsApp sobre la apertura. <a href="#" data-priv>Privacidad</a></span></label>
+        <button class="btn p" type="submit" data-i="wb">Avisadme</button>
+        <p class="err" id="we" role="alert"></p>
       </form>
     </div>
     <div class="where">
-      <div><b>Dónde</b><span>Amurrio · dirección exacta al anunciar la apertura</span></div>
-      <div><b>Horario</b><span>24 horas, 365 días. Acceso con el móvil.</span></div>
-      <div><b>200 m²</b><span>Zona de fuerza, peso libre, poleas y cardio.</span></div>
+      <div><b data-i="d1b">Dónde</b><span data-i="d1s">Amurrio · dirección exacta al anunciar la apertura</span></div>
+      <div><b data-i="d2b">Horario</b><span data-i="d2s">24 horas, 365 días. Acceso con el móvil.</span></div>
+      <div><b>200 m²</b><span data-i="d3s">Zona de fuerza, peso libre, poleas y cardio.</span></div>
     </div>
   </div>
 </section>
+
 <section class="alt">
   <div class="wrap">
-    <p class="k">Cómo va</p>
-    <h2>De hoy <em>a la apertura.</em></h2>
+    <p class="k" data-i="stk">Cómo va</p>
+    <h2 data-i="sth">De hoy <em>a la apertura.</em></h2>
     <div class="steps">
-      <div class="st"><small>Hoy</small><b>Reservas</b><p>Eliges tu plan y pagas tu plaza de fundador.</p></div>
-      <div class="st"><small>Con tu ayuda</small><b>La obra</b><p>Reforma y máquinas. Lo verás todo en vídeo, capítulo a capítulo.</p></div>
-      <div class="st"><small>Antes de abrir</small><b>Noche fundadores</b><p>Recoges tu camiseta y entrenas antes que nadie.</p></div>
-      <div class="st"><small>Apertura</small><b>24 horas</b><p>Empiezan a contar tus meses incluidos.</p></div>
+      <div class="st"><small data-i="st1s">Hoy</small><b data-i="st1b">Reservas</b><p data-i="st1p">Eliges tu plan y reservas tu plaza, sin pagar todavía.</p></div>
+      <div class="st"><small data-i="st2s">En unos días</small><b data-i="st2b">Confirmas</b><p data-i="st2p">Te escribimos por WhatsApp, pagas tu plaza y recibes tu número de fundador.</p></div>
+      <div class="st"><small data-i="st3s">Antes de abrir</small><b data-i="st3b">Noche fundadores</b><p data-i="st3p">Recoges tu camiseta y entrenas antes que nadie.</p></div>
+      <div class="st"><small data-i="st4s">Apertura</small><b data-i="st4b">24 horas</b><p data-i="st4p">Empiezan a contar tus meses incluidos.</p></div>
     </div>
   </div>
 </section>
 
 <section>
   <div class="wrap" style="max-width:780px">
-    <p class="k">Preguntas</p>
-    <h2 style="margin-bottom:24px">Lo que nos <em>preguntáis.</em></h2>
-    <details><summary>¿Cuándo empiezan a contar mis meses?</summary><p>El día que abrimos, no el día que pagas. Si pagas 6 meses, tienes 6 meses desde la apertura.</p></details>
-    <details><summary>¿Y si no se llega al objetivo o no se abre?</summary><p>Si la campaña no llega al mínimo antes del cierre, te devolvemos el dinero íntegro. Y si por cualquier motivo no abriéramos, también.</p></details>
-    <details><summary>¿Qué significa “55 € de por vida”?</summary><p>Que mientras sigas siendo socio, tu cuota será siempre de 55 € al mes con acceso ilimitado 24 h, aunque la tarifa normal suba.</p></details>
-    <details><summary>¿Puedo regalar una plaza?</summary><p>Sí. Al reservar, pon el nombre de la persona y le llegará su número de fundador.</p></details>
-    <details><summary>¿Qué máquinas tendrá?</summary><p>Lo necesario para entrenar fuerza de verdad: racks, barras, mancuernas, poleas y cardio. Sencillo y bien elegido. Lo diferente es la comunidad, el 24 h y la app.</p></details>
-    <details><summary>Soy de Gorobel, ¿puedo ser fundador?</summary><p>Claro. Los socios de Gorobel tenéis 48 horas de prioridad para coger plaza antes que nadie.</p></details>
+    <p class="k" data-i="fk">Preguntas</p>
+    <h2 style="margin-bottom:24px" data-i="fh">Lo que nos <em>preguntáis.</em></h2>
+    <details><summary data-i="q1">¿Tengo que pagar ahora?</summary><p data-i="a1">No. Hoy solo reservas tu plaza. En los próximos días te escribimos por WhatsApp con el enlace de pago (tarjeta, Apple Pay o Google Pay) y tu número de fundador.</p></details>
+    <details><summary data-i="q2">¿Cuándo empiezan a contar mis meses?</summary><p data-i="a2">El día que abrimos, no el día que pagas. Si eliges 6 meses, tienes 6 meses desde la apertura.</p></details>
+    <details><summary data-i="q3">¿Y si al final no se abre?</summary><p data-i="a3">Te devolvemos el dinero íntegro.</p></details>
+    <details><summary data-i="q4">¿Qué significa “55 € de por vida”?</summary><p data-i="a4">Que mientras sigas siendo socio, tu cuota será siempre de 55 € al mes con acceso ilimitado 24 h, aunque la tarifa normal suba.</p></details>
+    <details><summary data-i="q5">¿Puedo regalar una plaza?</summary><p data-i="a5">Sí. Reserva con el nombre de la persona y tu teléfono, y lo terminamos contigo por WhatsApp.</p></details>
+    <details><summary data-i="q6">¿Qué máquinas tendrá?</summary><p data-i="a6">Lo necesario para entrenar fuerza de verdad: racks, barras, mancuernas, poleas y cardio. Sencillo y bien elegido. Lo diferente es la comunidad, el 24 h y la app.</p></details>
   </div>
 </section>
 
@@ -316,49 +323,183 @@ footer{padding:30px 0 calc(110px + env(safe-area-inset-bottom));text-align:cente
   <div class="wrap">
     <div class="end">
       <img src="../logo-w.png" alt="" style="height:24px">
-      <h2 style="margin-top:18px">Solo 300 <em>plazas.</em></h2>
-      <p>Cuando se acaben, la cuota será la normal. Asegura la tuya hoy.</p>
-      <a class="btn p" href="#planes">Quiero ser fundador</a>
+      <h2 style="margin-top:18px" data-i="eh">Queremos que <em>seas tú.</em></h2>
+      <p data-i="ep">Las plazas de fundador son limitadas. Cuando se acaben, la cuota será la normal.</p>
+      <a class="btn p" href="#planes" data-i="ecta">Quiero ser fundador</a>
     </div>
   </div>
 </section>
-<footer>Gorobel · Amurrio · Campaña de socios fundadores · Demo preparada por Galerna Method</footer>
+<footer data-i="ft">Gorobel · Amurrio · Socios fundadores · <a href="#" data-priv>Privacidad</a></footer>
 
-<div class="sticky"><div><b id="sL">Quedan 213 plazas</b>Precio de fundador de por vida</div><a class="btn p" href="#planes">Ser fundador</a></div>
+<div class="sticky"><div><b data-i="sb">Precio fundador</b><span data-i="ss">55 €/mes de por vida</span></div><a class="btn p" href="#planes" data-i="sc">Ser fundador</a></div>
 
-<div class="mod" id="mod" role="dialog" aria-modal="true" aria-label="Reservar plaza">
+<div class="mod" id="mod" role="dialog" aria-modal="true" aria-label="Gorobel">
   <div class="sheet" id="sheet"></div>
 </div>
 
 <script>
 (function(){
+  var SB='https://hhygriqkhlcmeicjqqbp.supabase.co/rest/v1/';
+  var KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhoeWdyaXFraGxjbWVpY2pxcWJwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ2MzMyMDQsImV4cCI6MjExMDIwOTIwNH0.bDYyCQcXgkm6zsWe9MmXMlKdrZ-_ECVtNQP9ONsbUeE';
+  var SHOW_FROM=25; // el contador solo se enseña a partir de este número de reservas
   var $=function(i){return document.getElementById(i)};
-  var F=87, E=21450, GOAL=50000, MAX=300;
-  function eur(n){return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,'.')+' €';}
-  function paint(){ $('cF').innerHTML=F+'<small>/300</small>'; $('cE').textContent=(MAX-F); $('cB').style.width=Math.min(100,F/MAX*100)+'%'; $('sL').textContent='Quedan '+(MAX-F)+' plazas'; }
-  setTimeout(paint,250);
-  var end=new Date(); end.setDate(end.getDate()+23); end.setHours(23,59,0,0);
-  function cd(){var t=Math.max(0,end-new Date());$('dD').textContent=Math.floor(t/864e5);$('dH').textContent=Math.floor(t/36e5)%24;$('dM').textContent=Math.floor(t/6e4)%60;$('dS').textContent=Math.floor(t/1e3)%60;}
-  cd(); setInterval(cd,1000);
-  var N=['Ane','Iker','Leire','Mikel','Nerea','Unai','Ainhoa','Jon','Maialen','Asier','Irati','Gorka','Naiara','Ibai','Amaia','Xabi','Uxue','Eneko','Garazi','Oier'];
-  $('wall').innerHTML=N.map(function(n,i){return '<span><b>#'+String(i+1).padStart(3,'0')+'</b>'+n+' '+String.fromCharCode(65+(i*7)%26)+'.</span>';}).join('')+'<span style="color:var(--sub)">+ 67 más</span>';
+  var q=new URLSearchParams(location.search);
+  var ORIGEN=(q.get('utm_source')||'directo').slice(0,80), CAMP=(q.get('utm_campaign')||'').slice(0,80)||null;
+
+  var EU={
+    nav:'Amurrio · Gimnasio berria',tg1:'Indarra',tg2:'24 orduz',tg3:'Komunitatea',
+    h1:'Sortzaile<br><em>prezioa.</em>',
+    lead:'Amurrion indar-gimnasio bat irekiko dugu, 24 orduz zabalik, Gorobeleko komunitatearekin. Ireki aurretik, hori posible egingo duten bazkide sortzaileen bila gabiltza. Zu izatea nahi dugu.',
+    hb1:'Sortzaile plaza mugatuak',hb2:'Erreserbatu gaur, ezer ordaindu gabe. WhatsApp bidez idatziko dizugu zure plaza baieztatzeko.',
+    cta:'Sortzaile izan nahi dut',cta2:'Zer du berezia?',
+    pk:'Ez da makina-gimnasio bat gehiago',ph:'Makinak, sinpleak.<br><em>Indarra, gainerakoan.</em>',
+    w1h:'Nahi duzunean sartu',w1p:'Goizeko 6etan edo gaueko 11etan. Mugikorrarekin irekitzen duzu atea, eta appak esaten dizu gaur zer entrenatu.',
+    w2h:'Komunitate bat, ez kuota bat',w2p:'Hileko erronkak, elkarretaratzeak, taldeko entrenamenduak eta Gorobeleko jendea. Hemen zure izenez agurtzen zaituzte.',
+    w3h:'Zure entrenamendua mugikorrean',w3p:'Zure helburuaren araberako errutinak, zure aurrerapena eta gimnasioko atea, dena Gorobelen appean.',
+    tk:'Aukeratu nola izan sortzaile',th:'Sortzaile prezioa,<br><em>betiko.</em>',
+    c1:'Ohiko kuota irekieraren ondoren: <s>60 €/hilean</s>',c2:'Sortzaileak: <b>55 €/hilean mugarik gabe, betiko</b>',
+    t1:'Sortzailea',m3:' · 3 hilabete',t1e:'55 €/hilean · gero, 55 € betiko',t1a:'Lehen 3 hilabeteak barne',
+    lv:'Sortzaile prezioa betiko',lv2:'Sortzaile prezioa betiko',lv3:'Sortzaile prezioa betiko',
+    sh:'Sortzaile kamiseta zenbakiduna',sh2:'Sortzaile kamiseta zenbakiduna',wl:'Zure izena sortzaileen horman',wl2:'Zure izena sortzaileen horman',
+    rs:'Plaza erreserbatu',rs2:'Plaza erreserbatu',rs3:'Plaza erreserbatu',
+    lim:'Plaza mugatuak · gaur ez duzu ezer ordaintzen',lim2:'Plaza mugatuak · gaur ez duzu ezer ordaintzen',lim3:'Plaza mugatuak · gaur ez duzu ezer ordaintzen',
+    rec:'Gomendatua',t2:'Sortzailea 6',m6:' · 6 hilabete',t2e:'50 €/hilean ateratzen da · gero, 55 € betiko',t2a:'Lehen 6 hilabeteak barne',t2b:'Errutina pertsonalizatua appean',
+    t3:'Urrezko sortzailea',m12:' · 12 hilabete',t3e:'45 €/hilean ateratzen da · gero, 55 € betiko',t3a:'Urte oso bat barne',t3b:'Sortzaile kamiseta eta izerditakoa',t3c:'Zure izena horman, urre-kolorez',t3d:'Entrenamendu-plana appean',t3f:'Lehentasuna sortzaileen gauean',
+    rfh:'Ekarri lagun bat sortzaile',rfp:'Zure plaza baieztatzean zure kodea emango dizugu. Harekin sortzaile egiten den lagun bakoitzeko, hilabete bat doan. Bi ekartzen badituzu, sortzaile izerditakoa ere bai.',
+    bzh:'Negozio bat duzu Amurrion?',bzp:'Babestu makina bat: zure logoa bertan urtebetez, aipamena sare sozialetan eta inaugurazioan. 500 €.',bzb:'Babestu',
+    sk:'Segurtasuna 24 h',sh2t:'Entrenatu lasai<br><em>goizaldeko 3etan.</em>',
+    s1h:'Bazkideak bakarrik sartzen dira',s1p:'Atea zure mugikorrarekin irekitzen da. Sarrera bakoitza erregistratuta geratzen da, eta inor ez da sartzen kuota egunean izan gabe.',
+    s2h:'Norbait erortzen bada, abisua',s2p:'Norbait lurrean geratzen bada, taldeak berehala jasotzen du alerta mugikorrean.',
+    s3h:'Pertsona bat, sarbide bat',s3p:'QR bakar batekin bi sartzen badira, sistemak detektatzen du. Kamerak aretoan, inoiz ez aldageletan edo komunetan.',
+    svg1:'BAZKIDE SORTZAILEA',ok1:'Zer eramaten duzu',ok2:'Zure zenbakia.<br><em>Betiko.</em>',
+    p1b:'Kamiseta zenbakiduna',p1s:'Sortzaileek bakarrik dute. Zenbat eta lehenago erreserbatu, orduan eta zenbaki txikiagoa.',
+    p2b:'Zure izena horman',p2s:'Gimnasioaren sarreran, atzetik datozen guztientzat.',
+    p3b:'55 € mugarik gabe, betiko',p3s:'Kuota igotzen bada ere, zurea ez da mugituko jarraitzen duzun bitartean.',
+    p4b:'Sortzaileen gaua',p4s:'Inor baino lehen sartuko zara, sortzaileentzat bakarrik den inaugurazio batean.',
+    wk:'Oraindik pentsatzen?',wh:'Berri izango<br>duzu.',wp:'Utzi zure WhatsAppa eta obraren berri eta sortzaileen gauaren eguna jakinaraziko dizugu. Konpromisorik gabe.',
+    wo1:'Sortzaile izan nahi dut',wo2:'Berri izan nahi dut bakarrik',
+    cons:'Onartzen dut Gorobelek WhatsApp bidez idaztea irekierari buruz. <a href="#" data-priv>Pribatutasuna</a>',wb:'Abisatu',
+    d1b:'Non',d1s:'Amurrio · helbide zehatza irekiera iragartzean',d2b:'Ordutegia',d2s:'24 ordu, 365 egun. Sarbidea mugikorrarekin.',d3s:'Indar-gunea, pisu librea, poleak eta kardioa.',
+    stk:'Nola doan',sth:'Gaurtik <em>irekierara.</em>',
+    st1s:'Gaur',st1b:'Erreserba',st1p:'Plana aukeratu eta plaza erreserbatzen duzu, oraindik ordaindu gabe.',
+    st2s:'Egun gutxitan',st2b:'Baieztapena',st2p:'WhatsApp bidez idatziko dizugu, plaza ordaindu eta zure sortzaile zenbakia jasoko duzu.',
+    st3s:'Ireki aurretik',st3b:'Sortzaileen gaua',st3p:'Kamiseta jaso eta inor baino lehen entrenatuko duzu.',
+    st4s:'Irekiera',st4b:'24 orduz',st4p:'Barne dituzun hilabeteak orduan hasten dira kontatzen.',
+    fk:'Galderak',fh:'Galdetzen <em>diguzuna.</em>',
+    q1:'Orain ordaindu behar dut?',a1:'Ez. Gaur plaza erreserbatu besterik ez duzu egiten. Hurrengo egunetan WhatsApp bidez idatziko dizugu ordainketa-estekarekin (txartela, Apple Pay edo Google Pay) eta zure sortzaile zenbakiarekin.',
+    q2:'Noiz hasten dira nire hilabeteak kontatzen?',a2:'Irekitzen dugun egunean, ez ordaintzen duzun egunean. 6 hilabete aukeratzen badituzu, 6 hilabete dituzu irekieratik aurrera.',
+    q3:'Eta azkenean irekitzen ez bada?',a3:'Diru guztia itzuliko dizugu.',
+    q4:'Zer esan nahi du “55 € betiko”?',a4:'Bazkide izaten jarraitzen duzun bitartean, zure kuota beti izango dela 55 € hilean, 24 orduko sarbide mugagabearekin, ohiko tarifa igotzen bada ere.',
+    q5:'Plaza bat opari egin dezaket?',a5:'Bai. Erreserbatu pertsona horren izenarekin eta zure telefonoarekin, eta WhatsApp bidez amaituko dugu zurekin.',
+    q6:'Zer makina izango ditu?',a6:'Indarra benetan entrenatzeko behar dena: rackak, barrak, mankuernak, poleak eta kardioa. Sinplea eta ondo aukeratua. Desberdina komunitatea, 24 orduak eta appa dira.',
+    eh:'Zu izatea <em>nahi dugu.</em>',ep:'Sortzaile plazak mugatuak dira. Amaitzen direnean, kuota arrunta izango da.',ecta:'Sortzaile izan nahi dut',
+    ft:'Gorobel · Amurrio · Bazkide sortzaileak · <a href="#" data-priv>Pribatutasuna</a>',
+    sb:'Sortzaile prezioa',ss:'55 €/hilean betiko',sc:'Sortzaile izan',
+    phn:'Izena',pht:'Telefonoa (WhatsApp)'
+  };
+  var T={
+    es:{res:'Reserva de plaza',biz:'Para negocios',name:'Nombre y apellido',bname:'Nombre del negocio y persona de contacto',tel:'Teléfono (WhatsApp)',size:'Talla de camiseta',code:'Código de un amigo (opcional)',
+      price:'Precio de la plaza',today:'Hoy no pagas nada',send:'Reservar mi plaza',bsend:'Quiero apadrinar',sending:'Enviando…',
+      cons:'Acepto que Gorobel guarde estos datos y me escriba por WhatsApp para confirmar mi plaza. <a href="#" data-priv>Privacidad</a>',
+      eName:'Escribe tu nombre.',eTel:'Revisa el teléfono: necesitamos un número de WhatsApp.',eCons:'Marca la casilla para poder escribirte.',eNet:'No se ha podido enviar. Revisa la conexión e inténtalo otra vez.',
+      okK:'¡Plaza reservada!',okH:'Ya casi eres fundador',okP:'Te escribimos por WhatsApp en los próximos días para confirmar tu plaza, el pago y tu número de camiseta.',
+      okBK:'¡Gracias!',okBH:'Te escribimos',okBP:'Te contactamos por WhatsApp para contarte cómo apadrinar la máquina y pedirte el logo.',close:'Cerrar',
+      wOkK:'¡Apuntado!',wOkH:'Te avisamos<br>por WhatsApp',wOkP:'Serás de los primeros en saber cómo va todo.',
+      live:function(n){return 'Ya somos '+n+' fundadores.'},
+      privH:'Privacidad',privP:'<p><b>Responsable:</b> Gorobel, Amurrio.</p><p><b>Para qué:</b> gestionar tu reserva de plaza de socio fundador o avisarte de la apertura, y escribirte por WhatsApp para ello.</p><p><b>Base:</b> tu consentimiento, que puedes retirar cuando quieras.</p><p><b>Cuánto tiempo:</b> hasta la apertura y, si te haces socio, mientras lo seas.</p><p><b>Quién más los ve:</b> nadie. Se guardan en servidores de la Unión Europea. No los vendemos ni los cedemos.</p><p><b>Tus derechos:</b> puedes pedir verlos, corregirlos o borrarlos escribiéndonos por WhatsApp o en el gimnasio.</p>',
+      plans:{t1:'Fundador · 3 meses',t2:'Fundador 6 · 6 meses',t3:'Fundador Oro · 12 meses',bz:'Apadrina una máquina'}},
+    eu:{res:'Plaza erreserbatu',biz:'Negozioentzat',name:'Izen-abizenak',bname:'Negozioaren izena eta harremanetarako pertsona',tel:'Telefonoa (WhatsApp)',size:'Kamisetaren neurria',code:'Lagun baten kodea (aukerakoa)',
+      price:'Plazaren prezioa',today:'Gaur ez duzu ezer ordaintzen',send:'Nire plaza erreserbatu',bsend:'Babestu nahi dut',sending:'Bidaltzen…',
+      cons:'Onartzen dut Gorobelek datu hauek gordetzea eta WhatsApp bidez idaztea nire plaza baieztatzeko. <a href="#" data-priv>Pribatutasuna</a>',
+      eName:'Idatzi zure izena.',eTel:'Begiratu telefonoa: WhatsApp zenbaki bat behar dugu.',eCons:'Markatu laukia idatzi ahal izateko.',eNet:'Ezin izan da bidali. Begiratu konexioa eta saiatu berriro.',
+      okK:'Plaza erreserbatuta!',okH:'Ia sortzaile zara',okP:'Hurrengo egunetan WhatsApp bidez idatziko dizugu zure plaza, ordainketa eta kamisetaren zenbakia baieztatzeko.',
+      okBK:'Eskerrik asko!',okBH:'Idatziko dizugu',okBP:'WhatsApp bidez jarriko gara harremanetan makina nola babestu azaltzeko eta logoa eskatzeko.',close:'Itxi',
+      wOkK:'Apuntatuta!',wOkH:'WhatsApp bidez<br>abisatuko dizugu',wOkP:'Lehenengoen artean jakingo duzu dena nola doan.',
+      live:function(n){return 'Dagoeneko '+n+' sortzaile gara.'},
+      privH:'Pribatutasuna',privP:'<p><b>Arduraduna:</b> Gorobel, Amurrio.</p><p><b>Zertarako:</b> bazkide sortzaile plazaren erreserba kudeatzeko edo irekieraren berri emateko, eta horretarako WhatsApp bidez idazteko.</p><p><b>Oinarria:</b> zure baimena; nahi duzunean ken dezakezu.</p><p><b>Zenbat denbora:</b> irekiera arte eta, bazkide egiten bazara, bazkide zaren bitartean.</p><p><b>Nork gehiagok ikusten ditu:</b> inork ez. Europar Batasuneko zerbitzarietan gordetzen dira. Ez ditugu saltzen ezta lagatzen ere.</p><p><b>Zure eskubideak:</b> ikusteko, zuzentzeko edo ezabatzeko eska dezakezu, WhatsApp bidez edo gimnasioan.</p>',
+      plans:{t1:'Sortzailea · 3 hilabete',t2:'Sortzailea 6 · 6 hilabete',t3:'Urrezko sortzailea · 12 hilabete',bz:'Babestu makina bat'}}
+  };
+
+  var L='es', ES={}, ESPH={}, liveN=null;
+  document.querySelectorAll('[data-i]').forEach(function(el){ES[el.dataset.i]=el.innerHTML;});
+  document.querySelectorAll('[data-ph]').forEach(function(el){ESPH[el.dataset.ph]=el.placeholder;});
+  function setLang(l){
+    L=l; document.documentElement.lang=l;
+    document.querySelectorAll('[data-i]').forEach(function(el){var k=el.dataset.i; var v=(l==='eu'&&EU[k]!=null)?EU[k]:ES[k]; if(v!=null) el.innerHTML=v;});
+    document.querySelectorAll('[data-ph]').forEach(function(el){var k=el.dataset.ph; el.placeholder=(l==='eu'&&EU[k])?EU[k]:ESPH[k];});
+    document.querySelectorAll('[data-lang]').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.lang===l?'true':'false');});
+    paintLive(); try{localStorage.setItem('gor-lang',l);}catch(e){}
+  }
+  document.querySelectorAll('[data-lang]').forEach(function(b){b.addEventListener('click',function(){setLang(b.dataset.lang);});});
+  var start='es'; try{start=localStorage.getItem('gor-lang')||'';}catch(e){start='';}
+  if(q.get('lang')==='eu'||q.get('lang')==='es') start=q.get('lang');
+  if(!start) start=/^eu/i.test(navigator.language||'')?'eu':'es';
+  if(start==='eu') setLang('eu');
+
+  function api(path,body){
+    return fetch(SB+path,{method:'POST',headers:{'apikey':KEY,'Authorization':'Bearer '+KEY,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify(body)})
+      .then(function(r){ if(!r.ok) throw new Error(r.status); return r; });
+  }
+  function paintLive(){ var el=$('live'); if(liveN!=null&&liveN>=SHOW_FROM){el.textContent=T[L].live(liveN);el.style.display='block';} else el.style.display='none'; }
+  fetch(SB+'rpc/gor_contador',{method:'POST',headers:{'apikey':KEY,'Authorization':'Bearer '+KEY,'Content-Type':'application/json'},body:'{}'})
+    .then(function(r){return r.ok?r.json():null}).then(function(n){ if(typeof n==='number'){liveN=n;paintLive();} }).catch(function(){});
+
+  function telOk(t){ var d=t.replace(/[^\d]/g,''); return d.length>=9&&d.length<=15; }
+  function fire(ev,data){ try{ if(window.fbq) fbq('track',ev,data||{}); }catch(e){} }
+
   var mod=$('mod'), sh=$('sheet');
   function close(){mod.classList.remove('on');}
   mod.addEventListener('click',function(e){if(e.target===mod)close();});
   document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  document.addEventListener('click',function(e){var a=e.target.closest('[data-priv]'); if(!a)return; e.preventDefault();
+    var t=T[L]; sh.innerHTML='<button class="x" aria-label="'+t.close+'">×</button><div class="priv"><h3>'+t.privH+'</h3>'+t.privP+'</div><button type="button" class="btn o" id="pc">'+t.close+'</button>';
+    sh.querySelector('.x').onclick=close; $('pc').onclick=close; mod.classList.add('on');});
+
   document.querySelectorAll('[data-buy]').forEach(function(b){b.addEventListener('click',function(){
-    var p=b.dataset.buy.split('|'), biz=p[0].indexOf('Apadrina')===0;
-    sh.innerHTML='<button class="x" aria-label="Cerrar">×</button><p class="k">'+(biz?'Para negocios':'Reserva de plaza')+'</p><h3 style="margin-top:8px">'+p[0]+'</h3>'+
-      '<label for="fn">'+(biz?'Nombre del negocio':'Nombre y apellido')+'</label><input id="fn" autocomplete="name">'+
-      '<label for="ft">Teléfono (WhatsApp)</label><input id="ft" type="tel" inputmode="tel" autocomplete="tel">'+
-      (biz?'':'<label for="fs">Talla de camiseta</label><select id="fs"><option>S</option><option selected>M</option><option>L</option><option>XL</option><option>XXL</option></select>')+
-      '<div class="sum"><span>Total</span><span>'+eur(+p[1])+'</span></div>'+
-      '<button type="button" class="btn p" id="pay">Pagar con tarjeta, Apple Pay o Google Pay</button><p class="left" style="margin-top:10px">Demo: no se realiza ningún cobro.</p>';
+    var p=b.dataset.buy.split('|'), plan=p[0], price=+p[1], biz=plan==='empresa', t=T[L];
+    sh.innerHTML='<button class="x" aria-label="'+t.close+'">×</button><p class="k">'+(biz?t.biz:t.res)+'</p><h3 style="margin-top:8px">'+t.plans[p[2]]+'</h3>'+
+      '<form id="rf" novalidate>'+
+      '<label for="fn">'+(biz?t.bname:t.name)+'</label><input id="fn" autocomplete="'+(biz?'organization':'name')+'" maxlength="120">'+
+      '<label for="ft">'+t.tel+'</label><input id="ft" type="tel" inputmode="tel" autocomplete="tel" maxlength="30">'+
+      (biz?'':'<label for="fs">'+t.size+'</label><select id="fs"><option>S</option><option selected>M</option><option>L</option><option>XL</option><option>XXL</option></select>'+
+      '<label for="fc">'+t.code+'</label><input id="fc" maxlength="40" autocomplete="off">')+
+      '<div class="hp" aria-hidden="true"><input id="fh" tabindex="-1" autocomplete="off"></div>'+
+      '<div class="sum"><span>'+t.price+'</span><span>'+price+' €</span></div><p class="pv">'+t.today+'</p>'+
+      '<label class="chk"><input type="checkbox" id="fk"><span>'+t.cons+'</span></label>'+
+      '<button type="submit" class="btn p" id="pay">'+(biz?t.bsend:t.send)+'</button><p class="err" id="fe" role="alert"></p></form>';
     sh.querySelector('.x').onclick=close;
-    $('pay').onclick=function(){ if(!biz){F++;} E+=(+p[1]); paint(); sh.innerHTML='<div class="ok"><p class="k">'+(biz?'¡Gracias!':'¡Ya eres fundador!')+'</p>'+(biz?'<h3 style="margin-top:14px">Tu máquina, apadrinada</h3><p style="color:#CFCDBF;margin-top:10px">Te escribimos por WhatsApp para pedirte el logo.</p>':'<div class="num">#'+String(F).padStart(3,'0')+'</div><p style="color:#CFCDBF">Este es tu número. Te llegará la confirmación por WhatsApp y te avisaremos para recoger tu camiseta.</p>')+'<button type="button" class="btn o" style="margin-top:20px;width:100%">Cerrar</button></div>'; sh.querySelector('button').onclick=close; };
+    fire('InitiateCheckout',{content_name:plan,value:price,currency:'EUR'});
+    $('rf').addEventListener('submit',function(e){
+      e.preventDefault(); var er=$('fe'), n=$('fn').value.trim(), tel=$('ft').value.trim(), btn=$('pay');
+      if($('fh').value) return;
+      if(n.length<2){er.textContent=t.eName;$('fn').focus();return;}
+      if(!telOk(tel)){er.textContent=t.eTel;$('ft').focus();return;}
+      if(!$('fk').checked){er.textContent=t.eCons;return;}
+      er.textContent=''; btn.disabled=true; var lbl=btn.textContent; btn.textContent=t.sending;
+      api('gor_reservas',{plan:plan,nombre:n,telefono:tel,talla:biz?null:$('fs').value,codigo_amigo:biz?null:($('fc').value.trim()||null),idioma:L,origen:ORIGEN,campana:CAMP,acepta_privacidad:true})
+        .then(function(){
+          fire('Lead',{content_name:plan,value:price,currency:'EUR'});
+          if(!biz&&liveN!=null){liveN++;paintLive();}
+          sh.innerHTML='<div class="ok"><p class="k">'+(biz?t.okBK:t.okK)+'</p><h3 style="margin-top:14px">'+(biz?t.okBH:t.okH)+'</h3><p style="color:#CFCDBF;margin-top:12px">'+(biz?t.okBP:t.okP)+'</p><button type="button" class="btn o" style="margin-top:20px;width:100%">'+t.close+'</button></div>';
+          sh.querySelector('button').onclick=close;
+        })
+        .catch(function(){ btn.disabled=false; btn.textContent=lbl; er.textContent=t.eNet; });
+    });
     mod.classList.add('on'); setTimeout(function(){$('fn').focus();},50);
   });});
-  var wf=document.getElementById('wf'); if(wf){wf.addEventListener('submit',function(e){e.preventDefault();wf.innerHTML='<div style="text-align:center;padding:10px 0"><p class="k">¡Apuntado!</p><h3 style="font-size:32px;margin-top:8px">Te escribimos<br>por WhatsApp</h3><p style="color:#CFCDBF;margin-top:8px">Demo: en la versión real llega un mensaje al momento.</p></div>';});}
+
+  var wf=$('wf');
+  wf.addEventListener('submit',function(e){
+    e.preventDefault(); var t=T[L], er=$('we'), n=$('wn').value.trim(), tel=$('wt').value.trim(), btn=wf.querySelector('button');
+    if($('wh').value) return;
+    if(n.length<2){er.textContent=t.eName;$('wn').focus();return;}
+    if(!telOk(tel)){er.textContent=t.eTel;$('wt').focus();return;}
+    if(!$('wc').checked){er.textContent=t.eCons;return;}
+    er.textContent=''; btn.disabled=true;
+    api('gor_avisos',{nombre:n,telefono:tel,interes:$('wi').value,idioma:L,origen:ORIGEN,campana:CAMP,acepta_privacidad:true})
+      .then(function(){ fire('Lead',{content_name:'aviso'}); wf.innerHTML='<div style="text-align:center;padding:10px 0"><p class="k">'+t.wOkK+'</p><h3 style="font-size:32px;margin-top:8px">'+t.wOkH+'</h3><p style="color:#CFCDBF;margin-top:8px">'+t.wOkP+'</p></div>'; })
+      .catch(function(){ btn.disabled=false; er.textContent=t.eNet; });
+  });
 })();
 </script>
 </body>
