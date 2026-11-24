@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Garaje Trujillo · Taller mecánico en Vitoria-Gasteiz desde 1985</title>
+<meta name="description" content="Taller de mecánica y electromecánica en Fermín Lasuen 15, Vitoria-Gasteiz. Desde 1985. Llámanos al 945 28 29 39.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#16263b">
+<link rel="icon" type="image/png" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-title" content="Garaje Trujillo">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap" rel="stylesheet">
+<style>
+:root{
+ --steel:#e3e6e9;   /* fondo: chapa de acero */
+ --paper:#f6f7f8;   /* superficies claras */
+ --navy:#16263b;    /* azul mono de trabajo */
+ --ink:#0f151c;     /* texto */
+ --mute:#5b6672;    /* texto secundario */
+ --red:#c8281f;     /* aguja / rodillo del cuentakilómetros */
+ --line:#c9ced4;
+ --w-cond:"wdth" 68;--w-norm:"wdth" 100;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--steel);color:var(--ink);font-family:Archivo,"Arial Narrow",Arial,sans-serif;font-size:17px;line-height:1.55;font-variation-settings:var(--w-norm);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.cond{font-variation-settings:var(--w-cond)}
+/* barra */
+.bar{position:sticky;top:0;z-index:20;background:rgba(227,230,233,.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;gap:22px;height:68px}
+.mark{display:flex;align-items:baseline;gap:8px;text-decoration:none;font-variation-settings:var(--w-cond);font-weight:850;font-size:26px;letter-spacing:-.01em;color:var(--navy);line-height:1}
+.mark small{font-weight:500;font-size:15px;color:var(--mute)}
+.bar nav{display:flex;gap:22px;margin-left:auto;font-size:15.5px}
+.bar nav a{text-decoration:none;color:var(--mute)}
+.bar nav a:hover{color:var(--ink)}
+.tel{display:inline-flex;align-items:center;gap:9px;background:var(--navy);color:#fff;text-decoration:none;font-weight:700;padding:11px 16px;border-radius:10px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tel:hover{background:#0d1a2b}
+.tel svg{flex:none}
+@media(max-width:880px){.bar nav{display:none}.bar .tel{margin-left:auto}.mark small{display:none}}
+@media(max-width:420px){.tel .num{display:none}}
+/* hero */
+.hero{padding:56px 0 40px}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:48px;align-items:center}
+.hero h1{font-variation-settings:var(--w-cond);font-weight:850;font-size:clamp(46px,7.4vw,96px);line-height:.9;letter-spacing:-.015em;color:var(--navy)}
+.hero p{font-size:19px;color:#2c3640;max-width:30em;margin-top:22px}
+.open{display:inline-flex;align-items:center;gap:9px;font-weight:600;font-size:15px;margin-top:26px;padding:7px 12px 7px 10px;border-radius:999px;background:var(--paper);border:1px solid var(--line)}
+.open i{width:9px;height:9px;border-radius:50%;background:#9aa3ac}
+.open.si i{background:#1f9d55;box-shadow:0 0 0 4px rgba(31,157,85,.18)}
+.ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:700;font-size:17px;padding:15px 22px;border-radius:12px;text-decoration:none;border:2px solid var(--navy);transition:background .15s,color .15s}
+.btn.pri{background:var(--red);border-color:var(--red);color:#fff}
+.btn.pri:hover{background:#a71f17;border-color:#a71f17}
+.btn.sec{color:var(--navy)}
+.btn.sec:hover{background:var(--navy);color:#fff}
+/* cuentakilómetros */
+.dash{background:radial-gradient(130% 120% at 30% 0%,#22364f 0%,var(--navy) 55%,#0c1726 100%);border-radius:28px;padding:34px 30px 30px;color:#cfd6de;position:relative;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06),0 30px 60px -30px rgba(15,21,28,.55)}
+.dash .ring{position:absolute;inset:14px;border-radius:20px;border:1px solid rgba(255,255,255,.07);pointer-events:none}
+.odo-cap{display:flex;justify-content:space-between;align-items:baseline;font-size:15px;margin-bottom:14px;color:#9fb0c2}
+.odo-cap b{color:#fff;font-weight:600}
+.odo{display:flex;justify-content:center;gap:6px;background:#070b10;border-radius:12px;padding:12px;box-shadow:inset 0 3px 10px rgba(0,0,0,.8),0 1px 0 rgba(255,255,255,.08)}
+.drum{width:clamp(44px,8.4vw,74px);height:clamp(64px,12vw,104px);overflow:hidden;border-radius:6px;background:linear-gradient(#1c232c,#2b333d 18%,#39424d 50%,#2b333d 82%,#1c232c);position:relative}
+.drum:after{content:'';position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.55),transparent 28%,transparent 72%,rgba(0,0,0,.55));pointer-events:none}
+.drum .col{display:flex;flex-direction:column;transition:transform 2.2s cubic-bezier(.17,.84,.25,1)}
+.drum .col span{height:clamp(64px,12vw,104px);display:grid;place-items:center;font-variation-settings:var(--w-cond);font-weight:700;font-size:clamp(46px,8.6vw,78px);color:#eef2f6;font-variant-numeric:tabular-nums;line-height:1}
+.drum.dim .col span{color:#58626e}
+.drum.red{background:linear-gradient(#7a1510,#b8241c 18%,#d4352b 50%,#b8241c 82%,#7a1510)}
+.drum.red .col span{color:#fff}
+.odo-unit{display:flex;justify-content:space-between;align-items:center;margin-top:16px;font-size:15px}
+.odo-unit strong{font-variation-settings:var(--w-cond);font-size:28px;color:#fff;font-weight:800;letter-spacing:.01em}
+.needle{display:flex;gap:4px;align-items:flex-end}
+.needle i{width:6px;border-radius:2px;background:#33475e}
+.needle i.on{background:#e8eef4}
+.dash-foot{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:22px;border-top:1px solid rgba(255,255,255,.1);padding-top:18px}
+.dash-foot div{font-size:14px;color:#9fb0c2;line-height:1.35}
+.dash-foot b{display:block;font-variation-settings:var(--w-cond);font-size:24px;color:#fff;font-weight:750;line-height:1.1}
+@media(max-width:900px){.hero .wrap{grid-template-columns:minmax(0,1fr);gap:34px}.hero{padding-top:34px}}
+/* secciones */
+section{padding:84px 0 0}
+.h2{font-variation-settings:var(--w-cond);font-weight:850;font-size:clamp(36px,5vw,60px);line-height:.95;letter-spacing:-.01em;color:var(--navy);max-width:14em}
+.lede{color:#3a4550;max-width:36em;margin-top:14px;font-size:18px}
+/* selector de síntomas */
+.sym{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:0;margin-top:34px;background:var(--paper);border-radius:22px;overflow:hidden;border:1px solid var(--line)}
+.sym-list{padding:12px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:2px}
+.sym-list button{text-align:left;padding:15px 16px;border-radius:12px;font-size:17.5px;font-weight:600;display:flex;align-items:center;gap:12px;color:#26313c}
+.sym-list button:hover{background:#eceff2}
+.sym-list button[aria-selected=true]{background:var(--navy);color:#fff}
+.sym-list button .k{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:#e3e7eb;color:var(--navy);flex:none}
+.sym-list button[aria-selected=true] .k{background:var(--red);color:#fff}
+.sym-panel{padding:38px 40px;display:flex;flex-direction:column}
+.sym-panel h3{font-variation-settings:var(--w-cond);font-weight:800;font-size:clamp(30px,3.4vw,42px);line-height:1;color:var(--navy)}
+.sym-panel p{margin-top:14px;color:#2c3640;max-width:32em}
+.sym-panel ul{list-style:none;margin-top:18px;display:grid;gap:9px}
+.sym-panel li{display:flex;gap:10px;align-items:flex-start}
+.sym-panel li svg{color:var(--red);flex:none;margin-top:4px}
+.sym-panel .go{margin-top:auto;padding-top:26px;display:flex;gap:12px;flex-wrap:wrap}
+.sym-panel .btn{font-size:16px;padding:12px 18px}
+@media(max-width:820px){.sym{grid-template-columns:minmax(0,1fr)}.sym-list{border-right:0;border-bottom:1px solid var(--line);flex-direction:row;overflow-x:auto;scroll-snap-type:x mandatory}.sym-list button{flex:none;white-space:nowrap;scroll-snap-align:start}.sym-panel{padding:26px 22px}}
+/* forma de trabajar */
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:34px;border-top:3px solid var(--navy)}
+.step{padding:24px 26px 6px 0}
+.step+.step{padding-left:26px;border-left:1px solid var(--line)}
+.step .n{font-variation-settings:var(--w-cond);font-weight:850;font-size:64px;line-height:1;color:var(--red);font-variant-numeric:tabular-nums}
+.step h3{font-size:21px;margin:10px 0 6px;color:var(--navy)}
+.step p{color:#3a4550;font-size:16.5px}
+@media(max-width:820px){.steps{grid-template-columns:minmax(0,1fr)}.step,.step+.step{padding:22px 0;border-left:0;border-bottom:1px solid var(--line)}}
+/* equipo */
+.team{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:end;margin-top:6px}
+.big3{font-variation-settings:"wdth" 62;font-weight:900;font-size:clamp(160px,26vw,330px);line-height:.78;color:var(--navy);letter-spacing:-.04em}
+.team-txt p{color:#2c3640;margin-top:14px;max-width:32em}
+.team-txt .h2{max-width:none}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 24px;margin-top:26px}
+.facts div{border-top:2px solid var(--navy);padding-top:10px;font-size:15.5px;color:#3a4550}
+.facts b{display:block;color:var(--ink);font-size:17px}
+@media(max-width:820px){.team{grid-template-columns:minmax(0,1fr);gap:10px}}
+/* cita */
+.cita{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:30px;margin-top:30px}
+.call{background:var(--navy);color:#fff;border-radius:22px;padding:32px;display:flex;flex-direction:column;gap:14px}
+.call .tag{color:#9fb0c2;font-size:15px}
+.call a.num{font-variation-settings:var(--w-cond);font-weight:850;font-size:clamp(44px,6vw,64px);line-height:1;text-decoration:none;color:#fff;font-variant-numeric:tabular-nums;letter-spacing:.005em}
+.call a.num:hover{color:#ffd9d6}
+.call p{color:#c3cdd8;font-size:16px}
+.call .mail{color:#fff;font-weight:600;word-break:break-all}
+form.f{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:30px}
+.f h3{font-size:22px;color:var(--navy)}
+.f .sub{color:var(--mute);font-size:15.5px;margin:4px 0 18px}
+.fr{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+@media(max-width:560px){.fr{grid-template-columns:minmax(0,1fr)}}
+.fl{margin-bottom:14px}
+.fl label{display:block;font-size:14.5px;font-weight:600;margin-bottom:6px}
+.fl input,.fl select,.fl textarea{width:100%;font:inherit;font-size:16.5px;background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:12px 13px;color:var(--ink)}
+.fl input:focus,.fl select:focus,.fl textarea:focus{outline:none;border-color:var(--navy)}
+.when{display:flex;gap:8px}
+.when label{flex:1;margin:0}
+.when input{position:absolute;opacity:0;width:1px;height:1px}
+.when span{display:block;text-align:center;padding:11px 8px;border:1.5px solid var(--line);border-radius:10px;background:#fff;font-weight:600;font-size:15.5px;cursor:pointer}
+.when input:checked+span{background:var(--navy);border-color:var(--navy);color:#fff}
+.when input:focus-visible+span{outline:3px solid var(--red);outline-offset:2px}
+.f .note{font-size:14px;color:var(--mute);margin-top:10px}
+.f .err{color:var(--red);font-weight:600;font-size:15px;margin-top:8px}
+@media(max-width:860px){.cita{grid-template-columns:minmax(0,1fr)}}
+/* visita */
+.visit{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:30px;margin-top:30px;align-items:stretch}
+.hours{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:28px}
+.hours h3{font-size:22px;color:var(--navy)}
+.hours address{font-style:normal;margin:6px 0 20px;color:#2c3640}
+.hours table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.hours td{padding:9px 0;border-bottom:1px solid var(--line);font-size:16px}
+.hours td:last-child{text-align:right;color:#2c3640}
+.hours tr.hoy td{font-weight:700;color:var(--ink)}
+.hours tr.hoy td:first-child:after{content:' (hoy)';font-weight:500;color:var(--red)}
+.map{border-radius:22px;overflow:hidden;border:1px solid var(--line);min-height:340px;background:#d6dbe0}
+.map iframe{width:100%;height:100%;min-height:340px;border:0;display:block;filter:grayscale(.35) contrast(1.05)}
+.revs{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap}
+@media(max-width:860px){.visit{grid-template-columns:minmax(0,1fr)}}
+footer{margin-top:90px;background:var(--navy);color:#9fb0c2;padding:44px 0 56px;font-size:15px}
+footer .wrap{display:grid;grid-template-columns:minmax(0,1.3fr) repeat(2,minmax(0,1fr));gap:26px}
+footer .mark{color:#fff;font-size:30px}
+footer b{color:#fff;display:block;margin-bottom:6px;font-size:15px}
+footer a{color:#dbe3ea}
+@media(max-width:760px){footer .wrap{grid-template-columns:minmax(0,1fr)}}
+.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,20px);opacity:0;background:var(--ink);color:#fff;padding:12px 18px;border-radius:12px;font-weight:600;font-size:15px;transition:.25s;z-index:50;max-width:92vw;text-align:center}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+<header class="bar"><div class="wrap">
+ <a class="mark" href="#top" aria-label="Garaje Trujillo, inicio">Garaje Trujillo <small>Vitoria-Gasteiz</small></a>
+ <nav aria-label="Secciones"><a href="#averias">Averías</a><a href="#como">Cómo trabajamos</a><a href="#taller">El taller</a><a href="#visita">Dónde estamos</a></nav>
+ <a class="tel" href="tel:+34945282939"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><span class="num">945 28 29 39</span><span class="sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Llamar</span></a>
+</div></header>
+
+<main id="top">
+<section class="hero" style="padding-top:56px"><div class="wrap">
+ <div>
+  <h1>Arreglando coches en Fermín Lasuen desde 1985.</h1>
+  <p>Taller de mecánica y electromecánica en Vitoria-Gasteiz. Te decimos qué tiene tu coche y lo que cuesta antes de ponernos con él.</p>
+  <div class="open" id="open" role="status"><i></i><span>Comprobando horario…</span></div>
+  <div class="ctas"><a class="btn pri" href="tel:+34945282939">Llamar al taller</a><a class="btn sec" href="#cita">Pedir cita</a></div>
+ </div>
+ <div class="dash" aria-label="Cuentakilómetros: años que lleva abierto el taller">
+  <span class="ring"></span>
+  <div class="odo-cap"><span>Abierto desde <b>1985</b></span><span>Fermín Lasuen, 15</span></div>
+  <div class="odo" id="odo" aria-hidden="true"></div>
+  <div class="odo-unit"><div><strong id="anos">41 años</strong><br><span>reparando coches de todas las marcas</span></div><div class="needle" aria-hidden="true"><i style="height:10px" class="on"></i><i style="height:16px" class="on"></i><i style="height:22px" class="on"></i><i style="height:28px" class="on"></i><i style="height:34px"></i></div></div>
+  <div class="dash-foot"><div><b>3</b>profesionales en el taller</div><div><b>Mecánica</b>y electromecánica</div><div><b>Multimarca</b>coches de todo tipo</div></div>
+ </div>
+</div></section>
+
+<section id="averias"><div class="wrap">
+ <h2 class="h2">¿Qué le pasa a tu coche?</h2>
+ <p class="lede">Elige lo que notas y te contamos qué hacemos. Si no aparece, llámanos y lo vemos.</p>
+ <div class="sym">
+  <div class="sym-list" role="tablist" aria-label="Síntomas" id="sym-list"></div>
+  <div class="sym-panel" role="tabpanel" id="sym-panel" aria-live="polite"></div>
+ </div>
+</div></section>
+
+<section id="como"><div class="wrap">
+ <h2 class="h2">Así trabajamos con tu coche</h2>
+ <p class="lede">Nada se cambia sin que tú lo sepas y lo apruebes.</p>
+ <div class="steps">
+  <div class="step"><div class="n">1</div><h3>Lo revisamos</h3><p>Buscamos el origen de la avería, no solo el síntoma, con diagnosis electrónica cuando hace falta.</p></div>
+  <div class="step"><div class="n">2</div><h3>Te lo explicamos</h3><p>El jefe de taller lo revisa y te llamamos con lo que hay que hacer y el precio. Solo seguimos si estás de acuerdo.</p></div>
+  <div class="step"><div class="n">3</div><h3>Lo reparamos y lo probamos</h3><p>Hacemos la reparación, montamos las piezas y comprobamos que todo funciona antes de devolverte el coche.</p></div>
+ </div>
+</div></section>
+
+<section id="taller"><div class="wrap">
+ <div class="team">
+  <div class="big3" aria-hidden="true">3</div>
+  <div class="team-txt">
+   <h2 class="h2">Un taller de barrio con oficio de sobra</h2>
+   <p>Somos tres profesionales de mecánica y electromecánica. Llevamos desde 1985 en la misma calle, reparando coches de todos los modelos y marcas, y muchos de nuestros clientes vienen desde hace años.</p>
+   <div class="facts">
+    <div><b>Desde 1985</b>en Fermín Lasuen, 15</div>
+    <div><b>Todas las marcas</b>turismos y furgonetas</div>
+    <div><b>Mecánica y electricidad</b>en el mismo taller</div>
+    <div><b>Asociados a ADEADA</b>empresarios de automoción de Álava</div>
+   </div>
+  </div>
+ </div>
+</div></section>
+
+<section id="cita"><div class="wrap">
+ <h2 class="h2">Pide cita</h2>
+ <p class="lede">Lo más rápido es llamarnos. Si prefieres, déjanos los datos y te llamamos nosotros para darte hora.</p>
+ <div class="cita">
+  <div class="call">
+   <span class="tag">Llámanos en horario de taller</span>
+   <a class="num" href="tel:+34945282939">945 28 29 39</a>
+   <p>De lunes a viernes, de 9:00 a 13:00 y de 15:00 a 20:00.</p>
+   <p>También por correo:<br><a class="mail" href="mailto:garajetrujillo@gmail.com">garajetrujillo@gmail.com</a></p>
+  </div>
+  <form class="f" id="f" novalidate>
+   <h3>Te llamamos nosotros</h3>
+   <p class="sub">Se abre tu correo con el mensaje ya escrito; solo tienes que enviarlo.</p>
+   <div class="fr"><div class="fl"><label for="f-n">Nombre</label><input id="f-n" name="n" autocomplete="name"></div><div class="fl"><label for="f-t">Teléfono</label><input id="f-t" name="t" type="tel" autocomplete="tel" inputmode="tel"></div></div>
+   <div class="fr"><div class="fl"><label for="f-c">Coche</label><input id="f-c" name="c" placeholder="Marca y modelo"></div><div class="fl"><label for="f-m">Matrícula</label><input id="f-m" name="m" style="text-transform:uppercase" placeholder="1234 ABC"></div></div>
+   <div class="fl"><label for="f-q">Qué le pasa</label><textarea id="f-q" name="q" rows="3"></textarea></div>
+   <div class="fl"><span style="display:block;font-size:14.5px;font-weight:600;margin-bottom:6px">Cuándo te viene mejor</span><div class="when"><label><input type="radio" name="w" value="por la mañana" checked><span>Mañana</span></label><label><input type="radio" name="w" value="por la tarde"><span>Tarde</span></label><label><input type="radio" name="w" value="cuando sea"><span>Me da igual</span></label></div></div>
+   <button class="btn pri" style="width:100%">Enviar solicitud</button>
+   <p class="err" id="f-err" role="alert"></p>
+   <p class="note">Usamos tus datos solo para llamarte por esta cita.</p>
+  </form>
+ </div>
+</div></section>
+
+<section id="visita"><div class="wrap">
+ <h2 class="h2">Dónde estamos</h2>
+ <div class="visit">
+  <div class="hours">
+   <h3>Garaje Trujillo</h3>
+   <address>Fermín Lasuen Kalea, 15<br>01013 Vitoria-Gasteiz, Álava</address>
+   <table aria-label="Horario"><tbody id="hrs"></tbody></table>
+   <div class="revs"><a class="btn sec" style="font-size:15.5px;padding:11px 16px" href="https://www.google.com/maps/search/?api=1&query=Garaje+Trujillo+Fermin+Lasuen+15+Vitoria-Gasteiz" target="_blank" rel="noopener">Cómo llegar</a><a class="btn sec" style="font-size:15.5px;padding:11px 16px" href="https://www.google.com/maps/search/?api=1&query=Garaje+Trujillo+Vitoria-Gasteiz+opiniones" target="_blank" rel="noopener">Reseñas en Google</a></div>
+  </div>
+  <div class="map"><iframe title="Mapa: Garaje Trujillo, Fermín Lasuen 15, Vitoria-Gasteiz" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Garaje+Trujillo,+Fermin+Lasuen+Kalea+15,+01013+Vitoria-Gasteiz&z=16&output=embed"></iframe></div>
+ </div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+ <div><span class="mark" style="display:block">Garaje Trujillo</span><p style="margin-top:10px;max-width:24em">Taller de mecánica y electromecánica en Vitoria-Gasteiz desde 1985.</p></div>
+ <div><b>Contacto</b><a href="tel:+34945282939">945 28 29 39</a><br><a href="mailto:garajetrujillo@gmail.com">garajetrujillo@gmail.com</a></div>
+ <div><b>Taller</b>Fermín Lasuen Kalea, 15<br>01013 Vitoria-Gasteiz<br>Lunes a viernes</div>
+</div></footer>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const $=s=>document.querySelector(s);
+const ic=d=>`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+const CHECK=ic('<path d="M20 6 9 17l-5-5"/>');
+const REDUCE=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---- cuentakilómetros: años abiertos ---- */
+(function(){
+ const years=Math.max(0,new Date().getFullYear()-1985),digits=String(years).padStart(5,'0').split('');
+ $('#anos').textContent=years+' años';
+ const odo=$('#odo');
+ odo.innerHTML=digits.map((d,i)=>{const lead=i<digits.length-String(years).length;const red=i===digits.length-1;
+  return `<div class="drum ${lead?'dim':''} ${red?'red':''}"><div class="col">${Array.from({length:20},(_,k)=>`<span>${k%10}</span>`).join('')}</div></div>`}).join('');
+ const cols=[...odo.querySelectorAll('.col')];
+ const set=()=>cols.forEach((c,i)=>{const d=+digits[i];const target=(i>=digits.length-2?10:0)+d;c.style.transform=`translateY(-${target*100/20}%)`});
+ if(REDUCE){cols.forEach(c=>c.style.transition='none');set()}
+ else{cols.forEach(c=>c.style.transform='translateY(0)');requestAnimationFrame(()=>requestAnimationFrame(()=>setTimeout(set,250)))}
+})();
+
+/* ---- horario y "abierto ahora" ---- */
+const H={1:[[540,780],[900,1200]],2:[[540,780],[900,1200]],3:[[540,780],[900,1200]],4:[[540,780],[900,1200]],5:[[540,780],[900,1200]],6:[],0:[]};
+const DN=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+const fm=m=>Math.floor(m/60)+':'+String(m%60).padStart(2,'0');
+function horario(){
+ const now=new Date(),d=now.getDay(),m=now.getHours()*60+now.getMinutes();
+ $('#hrs').innerHTML=[1,2,3,4,5,6,0].map(k=>`<tr class="${k===d?'hoy':''}"><td>${DN[k]}</td><td>${H[k].length?H[k].map(r=>fm(r[0])+' – '+fm(r[1])).join(' y '):'Cerrado'}</td></tr>`).join('');
+ const el=$('#open'),cur=H[d].find(r=>m>=r[0]&&m<r[1]);
+ let txt;
+ if(cur){txt='Abierto ahora, hasta las '+fm(cur[1]);el.classList.add('si')}
+ else{el.classList.remove('si');const later=H[d].find(r=>m<r[0]);
+  if(later)txt='Cerrado ahora. Abrimos hoy a las '+fm(later[0]);
+  else{let k=1;while(k<8&&!H[(d+k)%7].length)k++;const nd=(d+k)%7;txt='Cerrado ahora. Abrimos el '+(k===1?'mañana':DN[nd].toLowerCase())+' a las '+fm(H[nd][0][0])}}
+ el.querySelector('span').textContent=txt;
+}
+horario();setInterval(horario,60000);
+
+/* ---- selector de síntomas ---- */
+const S=[
+ {k:'Hace ruido al frenar',i:'<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/>',t:'Frenos',p:'Un chirrido, una vibración en el volante o un pedal más blando suelen ser pastillas o discos gastados. Es lo primero que conviene mirar.',l:['Revisión de pastillas, discos y líquido de frenos','Cambio de lo que esté gastado, con tu aprobación','Prueba del coche antes de entregarlo']},
+ {k:'Se ha encendido un testigo',i:'<path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h0"/>',t:'Diagnosis',p:'Conectamos la máquina de diagnosis para leer qué avería ha guardado el coche y buscamos la causa real, que no siempre es lo que marca el código.',l:['Lectura de averías de la centralita','Comprobación de la pieza o del circuito afectado','Presupuesto antes de reparar']},
+ {k:'No arranca o le cuesta',i:'<rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 11v2M6 10v4M10 10v4"/>',t:'Arranque y carga',p:'Puede ser la batería, el motor de arranque o el alternador. Como hacemos mecánica y electricidad, lo vemos todo aquí.',l:['Prueba de batería y del circuito de carga','Revisión de motor de arranque y alternador','Sustitución si hace falta, con presupuesto previo']},
+ {k:'Le toca la revisión',i:'<path d="M12 2v6M12 22v-6M4.9 4.9l4.2 4.2M19.1 19.1l-4.2-4.2M2 12h6M22 12h-6"/>',t:'Mantenimiento',p:'Aceite, filtros y repaso general según los kilómetros de tu coche, para que no te deje tirado.',l:['Cambio de aceite y filtros','Revisión de niveles, correas, luces y neumáticos','Te avisamos de lo que conviene vigilar']},
+ {k:'Tiene que pasar la ITV',i:'<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>',t:'Pre-ITV',p:'Repasamos lo que suelen mirar en la estación para que la pases a la primera y no tengas que volver.',l:['Luces, frenos, dirección y suspensión','Neumáticos, escape y testigos','Arreglo de lo que no pasaría, si quieres']},
+ {k:'Hace un ruido raro',i:'<path d="M3 12h3l3-8 4 16 3-8h5"/>',t:'Ruidos y vibraciones',p:'Golpes al pasar baches, silbidos o vibraciones suelen venir de la suspensión, la dirección o la transmisión. Lo probamos contigo si hace falta.',l:['Prueba en carretera para localizar el ruido','Revisión de suspensión, rótulas y transmisión','Te explicamos qué es urgente y qué puede esperar']}
+];
+let SEL=0;
+function renderSym(){
+ $('#sym-list').innerHTML=S.map((s,i)=>`<button role="tab" id="t${i}" aria-selected="${i===SEL}" aria-controls="sym-panel" tabindex="${i===SEL?0:-1}" data-i="${i}"><span class="k">${ic(s.i)}</span>${s.k}</button>`).join('');
+ const s=S[SEL];
+ $('#sym-panel').setAttribute('aria-labelledby','t'+SEL);
+ $('#sym-panel').innerHTML=`<h3>${s.t}</h3><p>${s.p}</p><ul>${s.l.map(x=>`<li>${CHECK}<span>${x}</span></li>`).join('')}</ul><div class="go"><a class="btn pri" href="#cita" data-motivo="${s.k}">Pedir cita para esto</a><a class="btn sec" href="tel:+34945282939">Llamar</a></div>`;
+}
+renderSym();
+$('#sym-list').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;SEL=+b.dataset.i;renderSym();$('#t'+SEL).focus()});
+$('#sym-list').addEventListener('keydown',e=>{if(!['ArrowDown','ArrowUp','ArrowLeft','ArrowRight'].includes(e.key))return;e.preventDefault();SEL=(SEL+(e.key==='ArrowDown'||e.key==='ArrowRight'?1:S.length-1))%S.length;renderSym();$('#t'+SEL).focus()});
+document.addEventListener('click',e=>{const a=e.target.closest('[data-motivo]');if(a){const q=$('#f-q');if(!q.value.trim())q.value=a.dataset.motivo+'. ';setTimeout(()=>q.focus({preventScroll:true}),500)}});
+
+/* ---- formulario → correo ---- */
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('on'),3200)}
+$('#f').addEventListener('submit',e=>{
+ e.preventDefault();const f=e.target,v=k=>(f.elements[k].value||'').trim(),err=$('#f-err');err.textContent='';
+ if(!v('n'))return err.textContent='Escribe tu nombre.';
+ if(v('t').replace(/\D/g,'').length<9)return err.textContent='Escribe un teléfono de 9 cifras para poder llamarte.';
+ const w=f.querySelector('input[name=w]:checked').value;
+ const body=`Hola, me gustaría pedir cita.\n\nNombre: ${v('n')}\nTeléfono: ${v('t')}\nCoche: ${v('c')||'-'}\nMatrícula: ${(v('m')||'-').toUpperCase()}\nQué le pasa: ${v('q')||'-'}\nMejor ${w}.\n\nGracias.`;
+ location.href='mailto:garajetrujillo@gmail.com?subject='+encodeURIComponent('Cita para mi coche · '+v('n'))+'&body='+encodeURIComponent(body);
+ toast('Envía el correo que se ha abierto y te llamamos para darte hora.');
+});
+</script>
+</body>
+</html>
