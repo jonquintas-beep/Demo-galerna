@@ -235,6 +235,12 @@ body.as-open .as-btn{display:none}
 .as-f input:focus{outline:none;border-color:var(--navy)}
 .as-f button{width:48px;border-radius:12px;background:var(--red);color:#fff;display:grid;place-items:center;flex:none}
 .as-f button:disabled{opacity:.5}
+.pz{background:var(--navy);color:#c3cdd8;border-radius:26px;padding:40px;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:26px;align-items:center}
+.pz p{margin-top:12px;font-size:18px;max-width:34em}
+.pz-b{display:flex;flex-direction:column;gap:10px;align-items:stretch}
+.btn.ghostw{border-color:rgba(255,255,255,.35);color:#fff}
+.btn.ghostw:hover{background:rgba(255,255,255,.1)}
+@media(max-width:820px){.pz{grid-template-columns:minmax(0,1fr);padding:28px 22px}}
 </style>
 </head>
 <body>
@@ -250,7 +256,7 @@ body.as-open .as-btn{display:none}
   <h1>El taller de Fermín Lasuen, en nuevas manos.</h1>
   <p>Taller de mecánica y electromecánica en Vitoria-Gasteiz. Nueva gestión en el mismo sitio de siempre: te decimos qué tiene tu coche y lo que cuesta antes de ponernos con él.</p>
   <div class="open" id="open" role="status"><i></i><span>Comprobando horario…</span></div>
-  <div class="ctas"><a class="btn pri" href="tel:+34945282939">Llamar al taller</a><a class="btn sec" href="#cita">Pedir cita</a></div>
+  <div class="ctas"><a class="btn pri" href="#cita">Pedir cita</a><a class="btn sec" href="#" data-presu="">Pedir presupuesto</a></div>
  </div>
  <div class="dash" aria-label="Cuentakilómetros: años que lleva abierto el taller">
   <span class="ring"></span>
@@ -267,6 +273,13 @@ body.as-open .as-btn{display:none}
  <div class="sym">
   <div class="sym-list" role="tablist" aria-label="Síntomas" id="sym-list"></div>
   <div class="sym-panel" role="tabpanel" id="sym-panel" aria-live="polite"></div>
+ </div>
+</div></section>
+
+<section id="presupuesto"><div class="wrap">
+ <div class="pz">
+  <div><h2 class="h2" style="color:#fff">¿Cuánto me costaría?</h2><p>Cuéntaselo al asistente: te hace unas preguntas rápidas sobre tu coche y lo que le pasa, y el taller te llama con el precio. Sin compromiso.</p></div>
+  <div class="pz-b"><a class="btn pri" href="#" data-presu="">Pedir presupuesto</a><a class="btn ghostw" href="tel:+34945282939">O llama al 945 28 29 39</a></div>
  </div>
 </div></section>
 
@@ -403,7 +416,7 @@ function renderSym(){
  $('#sym-list').innerHTML=S.map((s,i)=>`<button role="tab" id="t${i}" aria-selected="${i===SEL}" aria-controls="sym-panel" tabindex="${i===SEL?0:-1}" data-i="${i}"><span class="k">${ic(s.i)}</span>${s.k}</button>`).join('');
  const s=S[SEL];
  $('#sym-panel').setAttribute('aria-labelledby','t'+SEL);
- $('#sym-panel').innerHTML=`<h3>${s.t}</h3><p>${s.p}</p><ul>${s.l.map(x=>`<li>${CHECK}<span>${x}</span></li>`).join('')}</ul><div class="go"><a class="btn pri" href="#cita" data-motivo="${s.k}">Pedir cita para esto</a><a class="btn sec" href="tel:+34945282939">Llamar</a></div>`;
+ $('#sym-panel').innerHTML=`<h3>${s.t}</h3><p>${s.p}</p><ul>${s.l.map(x=>`<li>${CHECK}<span>${x}</span></li>`).join('')}</ul><div class="go"><a class="btn pri" href="#cita" data-motivo="${s.k}">Pedir cita para esto</a><a class="btn sec" href="#" data-presu="${s.k}">Pedir presupuesto</a></div>`;
 }
 renderSym();
 $('#sym-list').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;SEL=+b.dataset.i;renderSym();$('#t'+SEL).focus()});
@@ -481,56 +494,90 @@ $('#f-est').addEventListener('submit',async e=>{
  }else el.textContent='No hay ningún coche con esa matrícula en el taller. Revisa que esté bien escrita o llámanos.';
 });
 
-/* ===================== asistente con cita en el chat ===================== */
-const AS={open:false,msgs:[],busy:false,book:null};
-const AS_CH=['Quiero pedir cita','Hace ruido al frenar','Se me ha encendido un testigo','¿Cuánto cuesta una revisión?'];
+/* ===================== asistente: cita y presupuesto en el chat ===================== */
+const AS={open:false,mode:'chat',msgs:[],busy:false,book:null,presu:null,sent:false};
+const AS_CH=['Quiero pedir cita','Quiero un presupuesto','Hace ruido al frenar','Se me ha encendido un testigo'];
+const PR_CH=['Hace ruido al frenar','Se ha encendido un testigo','No arranca o le cuesta','Le toca la revisión','Tiene que pasar la ITV','Hace un ruido raro'];
 function asLocal(t){const n=t.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase(),h=k=>k.some(x=>n.includes(x));
- if(h(['fren','pastilla']))return{reply:'Un ruido al frenar suele ser pastillas o discos gastados. Mejor revisarlo pronto.',servicio:'Hace ruido al frenar',cita:true};
- if(h(['testigo']))return{reply:'Lo conectamos a la máquina de diagnosis y buscamos la causa.',servicio:'Se ha encendido un testigo',cita:true};
- if(h(['precio','cuesta','cuanto']))return{reply:'Primero revisamos el coche y te llamamos con el precio antes de reparar nada.',servicio:'Le toca la revisión',cita:true};
- return{reply:'Cuéntame qué le pasa a tu coche o reserva cita aquí mismo.',servicio:'Otro',cita:true}}
+ if(h(['presupuesto','precio','cuesta','cuanto']))return{reply:'Te preparo la solicitud de presupuesto aquí mismo y el taller te llama con el precio.',presupuesto:true};
+ if(h(['fren','pastilla']))return{reply:'Un ruido al frenar suele ser pastillas o discos gastados. Mejor revisarlo pronto.',servicio:'Hace ruido al frenar',cita:true,presupuesto:true};
+ if(h(['testigo']))return{reply:'Lo conectamos a la máquina de diagnosis y buscamos la causa.',servicio:'Se ha encendido un testigo',cita:true,presupuesto:true};
+ return{reply:'Cuéntame qué le pasa a tu coche, reserva cita aquí mismo o pide presupuesto.',servicio:'Otro',cita:true,presupuesto:true}}
+function asLocalPresu(){const us=AS.msgs.filter(x=>x.role==='user').map(x=>x.content);
+ if(us.length<=1)return{reply:'¿Qué coche es (marca, modelo y año) y cuántos kilómetros tiene más o menos?'};
+ if(us.length===2)return{reply:'¿Desde cuándo le pasa y hay algo más que debamos saber (testigos, ruidos, si se puede conducir)?'};
+ return{reply:'Perfecto, ya lo tengo. Revisa el resumen y déjanos tu nombre y móvil para llamarte.',listo:true,resumen:us.join(' · ')}}
+function asStart(mode,first){AS.mode=mode;AS.msgs=[];AS.book=null;AS.presu=null;AS.sent=false;AS.open=true;asRender();loadHue();if(first)asSend(first)}
 function asRender(){
  let el=$('#as');
  if(!AS.open){if(el)el.remove();document.body.classList.remove('as-open');return}
  document.body.classList.add('as-open');
  if(!el){el=document.createElement('div');el.id='as';el.className='as';el.setAttribute('role','dialog');el.setAttribute('aria-label','Asistente de Garaje Trujillo');document.body.appendChild(el);
-  el.innerHTML=`<div class="as-h"><span class="av">T</span><div><b>Asistente del taller</b><small>● Responde al momento</small></div><button id="as-x" aria-label="Cerrar">${ic('<path d="M18 6 6 18M6 6l12 12"/>')}</button></div><div class="as-m" id="as-m"></div><div class="as-chips" id="as-chips"></div><form class="as-f" id="as-f"><input id="as-in" placeholder="Escribe tu mensaje…" autocomplete="off" maxlength="500"><button id="as-send" aria-label="Enviar">${ic('<path d="M5 12h14M13 6l6 6-6 6"/>')}</button></form>`}
+  el.innerHTML=`<div class="as-h"><span class="av">T</span><div><b id="as-t">Asistente del taller</b><small>● Responde al momento</small></div><button id="as-x" aria-label="Cerrar">${ic('<path d="M18 6 6 18M6 6l12 12"/>')}</button></div><div class="as-m" id="as-m"></div><div class="as-chips" id="as-chips"></div><form class="as-f" id="as-f"><input id="as-in" placeholder="Escribe tu mensaje…" autocomplete="off" maxlength="500"><button id="as-send" aria-label="Enviar">${ic('<path d="M5 12h14M13 6l6 6-6 6"/>')}</button></form>`}
+ const pr=AS.mode==='presu';
+ $('#as-t').textContent=pr?'Pedir presupuesto':'Asistente del taller';
  const m=$('#as-m'),last=AS.msgs.length-1;
- let h=`<div class="bub bot">¡Hola! Soy el asistente de Garaje Trujillo. Cuéntame qué le pasa a tu coche, o te doy cita ahora mismo.</div>`;
- h+=AS.msgs.map((x,i)=>x.role==='user'?`<div class="bub usr">${esc(x.content)}</div>`:`<div class="bub bot">${esc(x.content)}</div>${x.cita&&i===last&&!AS.book?`<div class="as-cta"><button class="btn pri" data-asbook="${esc(x.servicio||'Otro')}">Reservar cita aquí</button></div>`:''}`).join('');
+ let h=pr?`<div class="bub bot">Te preparo el presupuesto. Te haré unas preguntas rápidas para que el mecánico sepa qué le pasa a tu coche y te llamamos con el precio. ¿Qué le pasa o qué quieres hacerle?</div>`:`<div class="bub bot">¡Hola! Soy el asistente de Garaje Trujillo. Cuéntame qué le pasa a tu coche, te doy cita o te preparo un presupuesto.</div>`;
+ h+=AS.msgs.map((x,i)=>{if(x.role==='user')return `<div class="bub usr">${esc(x.content)}</div>`;
+  const ctas=(!pr&&i===last&&!AS.book)?[x.cita?`<button class="btn pri" data-asbook="${esc(x.servicio||'Otro')}">Reservar cita aquí</button>`:'',x.presupuesto?`<button class="btn sec" data-aspresu>Pedir presupuesto</button>`:''].join(''):'';
+  return `<div class="bub bot">${esc(x.content)}</div>${ctas?`<div class="as-cta" style="display:flex;gap:8px;flex-wrap:wrap">${ctas}</div>`:''}`}).join('');
  if(AS.busy)h+='<div class="bub bot typ">Escribiendo…</div>';
  if(AS.book){const B=AS.book;if(!B.day||!free(B.day))B.day=firstFree();
   h+=`<div class="bkc"><b style="color:var(--navy)">Cita: ${esc(B.serv)}</b><span class="lab">Día</span><div class="days">${daysHTML(B.day,'data-asday')}</div><span class="lab">Hora</span><div class="slots">${slotsHTML(B.day,B.slot,'data-asslot')}</div>
   <span class="lab">Tus datos</span><input data-asf="nombre" placeholder="Nombre" value="${esc(B.nombre||'')}" autocomplete="name"><input data-asf="telefono" placeholder="Móvil" type="tel" inputmode="tel" value="${esc(B.telefono||'')}" autocomplete="tel"><input data-asf="matricula" placeholder="Matrícula" style="text-transform:uppercase" value="${esc(B.matricula||'')}"><input data-asf="vehiculo" placeholder="Coche (marca y modelo)" value="${esc(B.vehiculo||'')}">
   <button class="btn pri" style="width:100%;margin-top:4px" data-asconf ${B.sending?'disabled':''}>${B.sending?'Reservando…':'Confirmar cita'}</button><button class="btn sec" style="width:100%;margin-top:8px;font-size:15px;padding:10px" data-ascancel>Ahora no</button><p class="err">${esc(B.err||'')}</p></div>`}
+ if(AS.presu){const P=AS.presu;
+  h+=`<div class="bkc"><b style="color:var(--navy)">Esto es lo que le pasamos al taller</b><span class="lab">Resumen (puedes corregirlo)</span><textarea data-asp="resumen" rows="4" style="width:100%;font:inherit;font-size:15.5px;border:1.5px solid var(--line);border-radius:10px;padding:10px 11px;margin-bottom:8px">${esc(P.resumen||'')}</textarea>
+  <span class="lab">Tu coche</span><input data-asp="vehiculo" placeholder="Marca, modelo y año" value="${esc(P.vehiculo||'')}"><input data-asp="km" placeholder="Kilómetros aproximados" inputmode="numeric" value="${esc(P.km||'')}"><input data-asp="matricula" placeholder="Matrícula (opcional)" style="text-transform:uppercase" value="${esc(P.matricula||'')}">
+  <span class="lab">¿A quién llamamos?</span><input data-asp="nombre" placeholder="Nombre" autocomplete="name" value="${esc(P.nombre||'')}"><input data-asp="telefono" placeholder="Móvil" type="tel" inputmode="tel" autocomplete="tel" value="${esc(P.telefono||'')}">
+  <label style="display:flex;gap:9px;font-size:14px;color:var(--mute);margin:4px 0 10px"><input type="checkbox" data-asp="ok" ${P.ok?'checked':''} style="width:17px;height:17px;flex:none;margin-top:3px;accent-color:var(--navy)"> Acepto que el taller use mis datos para llamarme por este presupuesto.</label>
+  <button class="btn pri" style="width:100%" data-aspsend ${P.sending?'disabled':''}>${P.sending?'Enviando…':'Enviar y que me llamen'}</button><p class="err">${esc(P.err||'')}</p></div>`}
  m.innerHTML=h;if(!AS.keepScroll)m.scrollTop=m.scrollHeight;AS.keepScroll=false;
- $('#as-chips').innerHTML=AS.msgs.length?'':AS_CH.map(c=>`<button class="chipb" data-asch="${esc(c)}">${esc(c)}</button>`).join('');
- $('#as-send').disabled=AS.busy;
+ $('#as-chips').innerHTML=AS.msgs.length?'':(pr?PR_CH:AS_CH).map(c=>`<button class="chipb" data-asch="${esc(c)}">${esc(c)}</button>`).join('');
+ const dis=AS.busy||(pr&&(!!AS.presu||AS.sent));$('#as-send').disabled=dis;$('#as-in').disabled=pr&&(!!AS.presu||AS.sent);
 }
 async function asSend(t){
- t=String(t||'').trim();if(!t||AS.busy)return;AS.msgs.push({role:'user',content:t});AS.busy=true;asRender();
- let r=null;
- try{const res=await fetch(SB_URL+'/functions/v1/trj-asistente',{method:'POST',headers:{'Content-Type':'application/json',apikey:SB_KEY,Authorization:'Bearer '+SB_KEY},body:JSON.stringify({messages:AS.msgs.slice(-8).map(x=>({role:x.role,content:x.content}))})});if(res.ok)r=await res.json()}catch(e){}
- if(!r||!r.reply)r=asLocal(t);
- AS.msgs.push({role:'assistant',content:r.reply,servicio:r.servicio||null,cita:!!r.cita});AS.busy=false;asRender();
+ t=String(t||'').trim();if(!t||AS.busy)return;
+ if(AS.mode==='chat'&&/presupuesto/i.test(t)&&!AS.msgs.length){asStart('presu');return}
+ AS.msgs.push({role:'user',content:t});AS.busy=true;asRender();
+ const pr=AS.mode==='presu';let r=null;
+ try{const res=await fetch(SB_URL+'/functions/v1/trj-asistente',{method:'POST',headers:{'Content-Type':'application/json',apikey:SB_KEY,Authorization:'Bearer '+SB_KEY},body:JSON.stringify({modo:pr?'presupuesto':'chat',messages:AS.msgs.slice(pr?-16:-8).map(x=>({role:x.role,content:x.content}))})});if(res.ok)r=await res.json()}catch(e){}
+ if(!r||!r.reply)r=pr?asLocalPresu():asLocal(t);
+ AS.msgs.push({role:'assistant',content:r.reply,servicio:r.servicio||null,cita:!!r.cita,presupuesto:!!r.presupuesto});
+ if(pr&&r.listo)AS.presu={resumen:r.resumen||'',vehiculo:r.vehiculo||'',km:r.km||'',servicio:r.servicio||'Otro',matricula:'',nombre:'',telefono:'',ok:false};
+ AS.busy=false;asRender();
 }
 document.addEventListener('click',async e=>{
- if(e.target.closest('#as-open')){AS.open=true;asRender();loadHue();return}
+ if(e.target.closest('#as-open')){if(!AS.msgs.length)AS.mode='chat';AS.open=true;asRender();loadHue();return}
+ const pz=e.target.closest('[data-presu]');if(pz){e.preventDefault();asStart('presu',pz.dataset.presu||'');return}
+ if(e.target.closest('[data-aspresu]')){asStart('presu');return}
  if(e.target.closest('#as-x')){AS.open=false;asRender();return}
- const ch=e.target.closest('[data-asch]');if(ch){asSend(ch.dataset.asch);return}
+ const ch=e.target.closest('[data-asch]');if(ch){if(ch.dataset.asch==='Quiero un presupuesto'){asStart('presu');return}asSend(ch.dataset.asch);return}
  const bk=e.target.closest('[data-asbook]');if(bk){AS.book={serv:bk.dataset.asbook,day:'',slot:''};asRender();return}
  const d=e.target.closest('[data-asday]');if(d&&!d.disabled){AS.book.day=d.dataset.asday;AS.book.slot='';AS.keepScroll=true;asRender();return}
- const s=e.target.closest('[data-asslot]');if(s&&!s.disabled){AS.book.slot=s.dataset.asslot;AS.keepScroll=true;asRender();return}
+ const sl=e.target.closest('[data-asslot]');if(sl&&!sl.disabled){AS.book.slot=sl.dataset.asslot;AS.keepScroll=true;asRender();return}
  if(e.target.closest('[data-ascancel]')){AS.book=null;asRender();return}
  if(e.target.closest('[data-asconf]')){
   const B=AS.book,c={servicio:B.serv,fecha:B.day,hora:B.slot,nombre:(B.nombre||'').trim(),telefono:(B.telefono||'').trim(),vehiculo:(B.vehiculo||'').trim(),matricula:(B.matricula||'').trim().toUpperCase(),descripcion:AS.msgs.filter(x=>x.role==='user').map(x=>x.content).join(' · ').slice(0,500)};
   B.err=valid(c);if(B.err){AS.keepScroll=true;asRender();return}
   B.sending=true;asRender();
   try{await reservar(c)}catch(x){B.sending=false;B.err=x.message;asRender();return}
-  AS.book=null;AS.msgs.push({role:'assistant',content:`¡Listo! Tienes cita el ${fL(c.fecha)} a las ${c.hora} en Fermín Lasuen 15. Si te surge algo, llámanos al 945 28 29 39.`});asRender();
- }
+  AS.book=null;AS.msgs.push({role:'assistant',content:`¡Listo! Tienes cita el ${fL(c.fecha)} a las ${c.hora} en Fermín Lasuen 15. Si te surge algo, llámanos al 945 28 29 39.`});asRender();return}
+ if(e.target.closest('[data-aspsend]')){
+  const P=AS.presu;P.err='';
+  if(!(P.resumen||'').trim())P.err='Escribe qué le pasa al coche.';
+  else if(!(P.nombre||'').trim())P.err='Escribe tu nombre.';
+  else if((P.telefono||'').replace(/\D/g,'').length<9)P.err='Escribe un móvil de 9 cifras.';
+  else if(!P.ok)P.err='Acepta el uso de tus datos para que podamos llamarte.';
+  if(P.err){AS.keepScroll=true;asRender();return}
+  if(!SB){P.err='Sin conexión. Llámanos al 945 28 29 39.';asRender();return}
+  P.sending=true;asRender();
+  const {error}=await SB.rpc('trj_pedir_presupuesto',{p:{nombre:P.nombre.trim(),telefono:P.telefono.trim(),vehiculo:(P.vehiculo||'').trim(),km:(P.km||'').trim(),matricula:(P.matricula||'').trim().toUpperCase(),servicio:P.servicio,resumen:P.resumen.trim(),conversacion:AS.msgs.map(x=>({role:x.role,content:x.content}))}});
+  if(error){P.sending=false;P.err=/demasiadas/.test(error.message)?'Ya nos has enviado varias solicitudes. Te llamaremos enseguida.':'No se ha podido enviar. Llámanos al 945 28 29 39.';asRender();return}
+  AS.presu=null;AS.sent=true;AS.msgs.push({role:'assistant',content:`¡Enviado, ${P.nombre.trim().split(' ')[0]}! El taller ya tiene tu solicitud y te llamará al ${P.telefono.trim()} con el presupuesto, de lunes a viernes de 9:00 a 13:00 y de 15:00 a 20:00.`});asRender();return}
 });
-document.addEventListener('input',e=>{const f=e.target.closest('[data-asf]');if(f&&AS.book)AS.book[f.dataset.asf]=f.value});
+document.addEventListener('input',e=>{const f=e.target.closest('[data-asf]');if(f&&AS.book)AS.book[f.dataset.asf]=f.value;const q=e.target.closest('[data-asp]');if(q&&AS.presu)AS.presu[q.dataset.asp]=q.type==='checkbox'?q.checked:q.value});
+document.addEventListener('change',e=>{const q=e.target.closest('[data-asp]');if(q&&AS.presu&&q.type==='checkbox')AS.presu.ok=q.checked});
 document.addEventListener('submit',e=>{if(e.target.id==='as-f'){e.preventDefault();const i=$('#as-in'),v=i.value;i.value='';asSend(v)}});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&AS.open){AS.open=false;asRender()}});
 
