@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Tu Inmobiliaria · Web de demostración</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#16302A">
+<link rel="icon" type="image/png" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-title" content="Tu Inmobiliaria">
+<meta name="description" content="Web de inmobiliaria con buscador de viviendas, valoración al momento y asistente 24 h. Demo de Galerna Method.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Hanken+Grotesk:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: web de inmobiliaria de barrio. Hero con buscador y modo vender, rejilla de viviendas, cómo vendemos con la app del propietario, preguntas y contacto. El asistente flotante sustituye a cualquier formulario. */
+:root{
+  --bg:#F5F6F3; --surface:#FFFFFF; --ink:#18211D; --mute:#5A6660; --line:#DDE2DC;
+  --accent:#1F5A47; --accentInk:#F3F7F4; --accentSoft:#E3EEE8; --brass:#A8741F; --brassSoft:#F6ECD9;
+  --hero:#16302A; --heroInk:#EEF3EF; --heroMute:#AFC2B9;
+  --display:'Young Serif', Georgia, 'Times New Roman', serif; --text:'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --shadow:0 18px 40px rgba(22,48,42,.12);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#101614; --surface:#18201D; --ink:#E9EFEB; --mute:#9DABA4; --line:#28332F;
+  --accent:#6FC4A3; --accentInk:#0F1A16; --accentSoft:#1B2E27; --brass:#E2B15E; --brassSoft:#2E2618;
+  --hero:#0C1512; --heroInk:#EEF3EF; --heroMute:#9DB2A8; --shadow:0 18px 40px rgba(0,0,0,.4); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#101614; --surface:#18201D; --ink:#E9EFEB; --mute:#9DABA4; --line:#28332F;
+  --accent:#6FC4A3; --accentInk:#0F1A16; --accentSoft:#1B2E27; --brass:#E2B15E; --brassSoft:#2E2618;
+  --hero:#0C1512; --heroInk:#EEF3EF; --heroMute:#9DB2A8; --shadow:0 18px 40px rgba(0,0,0,.4); color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--text);font-size:16px;line-height:1.6}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+a{color:inherit}
+.wrap{max-width:1160px;margin:0 auto;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.12;margin:0;text-wrap:balance}
+h2{font-size:clamp(30px,4vw,42px)}
+.kicker{font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--brass)}
+.lede{color:var(--mute);max-width:60ch;margin:0}
+:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+
+.demo{background:var(--brassSoft);color:var(--ink);font-size:13px;text-align:center;padding:7px 0;border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:30;background:var(--surface)}
+header.top{position:sticky;top:env(safe-area-inset-top, 0px);z-index:20;background:color-mix(in srgb, var(--surface) 92%, transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;gap:20px;padding-block:12px}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-size:21px;text-decoration:none}
+.logo i{width:34px;height:34px;border-radius:9px;background:var(--accent);display:grid;place-items:center;flex:none}
+.logo i svg{width:20px;height:20px}
+.menu{display:flex;gap:22px;margin-left:auto;font-weight:600;font-size:15px}
+.menu a{text-decoration:none;color:var(--mute)}
+.menu a:hover{color:var(--ink)}
+.cta{border:0;border-radius:999px;background:var(--accent);color:var(--accentInk);font-weight:700;padding:10px 18px;white-space:nowrap}
+.ghost{border:1px solid var(--line);border-radius:999px;background:var(--surface);font-weight:700;padding:10px 18px}
+
+.hero{background:var(--hero);color:var(--heroInk)}
+.hero .wrap{padding-block:64px 72px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:48px;align-items:center}
+.hero h1{font-size:clamp(38px,5.4vw,64px)}
+.hero h1 em{font-style:normal;color:var(--brass)}
+.hero .lede{color:var(--heroMute);margin-top:16px;font-size:18px}
+.mode{display:inline-flex;margin-top:28px;background:rgba(255,255,255,.08);border-radius:999px;padding:4px}
+.mode button{border:0;background:none;color:var(--heroMute);font-weight:700;padding:9px 18px;border-radius:999px}
+.mode button[aria-pressed="true"]{background:var(--heroInk);color:var(--hero)}
+.searchbox{margin-top:14px;background:var(--surface);color:var(--ink);border-radius:18px;padding:14px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) auto;gap:10px;box-shadow:var(--shadow)}
+.searchbox label{display:flex;flex-direction:column;gap:3px;font-size:12px;font-weight:700;color:var(--mute);text-transform:uppercase;letter-spacing:.08em;min-width:0}
+.searchbox select{border:1px solid var(--line);border-radius:10px;padding:9px 10px;background:var(--bg);font-size:15px;text-transform:none;letter-spacing:0;font-weight:500;color:var(--ink);min-width:0;width:100%}
+.searchbox .cta{align-self:end;padding:11px 22px}
+.sellbox{margin-top:14px;background:var(--surface);color:var(--ink);border-radius:18px;padding:20px;box-shadow:var(--shadow);display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.sellbox p{margin:0;flex:1;min-width:220px}
+.sellbox b{font-family:var(--display);font-weight:400;font-size:22px;display:block;line-height:1.2}
+.promises{display:flex;flex-wrap:wrap;gap:18px;margin-top:22px;color:var(--heroMute);font-size:14px}
+.promises span{display:flex;gap:8px;align-items:center}
+.promises span::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--brass)}
+.phone{justify-self:center;width:min(300px,100%);background:var(--surface);color:var(--ink);border-radius:30px;padding:14px;box-shadow:0 30px 60px rgba(0,0,0,.35);border:6px solid #0A0F0D}
+.phone .bar{display:flex;align-items:center;gap:10px;padding:6px 6px 12px;border-bottom:1px solid var(--line)}
+.phone .bar i{width:32px;height:32px;border-radius:50%;background:var(--accent);flex:none}
+.phone .bar b{font-size:14px;display:block;line-height:1.2}
+.phone .bar small{font-size:12px;color:var(--accent);font-weight:700}
+.phone .msgs{display:flex;flex-direction:column;gap:8px;padding:12px 2px 4px;font-size:13.5px;min-height:300px}
+.phone .m{max-width:85%;padding:8px 11px;border-radius:14px;line-height:1.4;opacity:0;transform:translateY(6px);animation:pop .4s ease forwards}
+.phone .m.b{background:var(--accentSoft);border-bottom-left-radius:4px}
+.phone .m.u{background:var(--accent);color:var(--accentInk);align-self:flex-end;border-bottom-right-radius:4px}
+.phone .m.ok{background:var(--brassSoft);font-weight:700}
+.phone .time{font-size:11px;color:var(--mute);text-align:center}
+@keyframes pop{to{opacity:1;transform:none}}
+
+section.block{padding-block:72px}
+.head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:26px}
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;font-weight:600;font-size:14px}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.card .pic{position:relative;aspect-ratio:4/3;max-width:100%}
+.card .pic svg{display:block;width:100%;height:100%}
+.badge{position:absolute;left:12px;top:12px;background:var(--surface);color:var(--ink);font-size:12px;font-weight:700;border-radius:999px;padding:4px 10px}
+.badge.new{background:var(--brass);color:#1A1205}
+.card .body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px;flex:1}
+.price{font-family:var(--display);font-size:26px;line-height:1}
+.card h3{font-family:var(--text);font-weight:700;font-size:16px}
+.meta{display:flex;gap:14px;color:var(--mute);font-size:14px;flex-wrap:wrap;font-variant-numeric:tabular-nums}
+.card .act{margin-top:auto;display:flex;gap:8px;padding-top:8px}
+.card .act button{flex:1;border-radius:10px;padding:9px;font-weight:700;font-size:14px}
+.card .act .ask{border:0;background:var(--accent);color:var(--accentInk)}
+.card .act .fav{flex:0 0 auto;border:1px solid var(--line);background:var(--surface);width:42px}
+.card .act .fav[aria-pressed="true"]{color:var(--brass);border-color:var(--brass)}
+.empty{grid-column:1/-1;background:var(--surface);border:1px dashed var(--line);border-radius:18px;padding:28px;text-align:center;color:var(--mute)}
+.empty button{margin-top:12px}
+
+.sell{background:var(--surface);border-block:1px solid var(--line)}
+.sell .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center}
+.steps{display:flex;flex-direction:column;gap:20px;margin-top:28px;counter-reset:s}
+.steps div{display:grid;grid-template-columns:44px minmax(0,1fr);gap:14px}
+.steps div::before{counter-increment:s;content:counter(s);width:44px;height:44px;border-radius:50%;background:var(--accentSoft);color:var(--accent);display:grid;place-items:center;font-family:var(--display);font-size:20px}
+.steps b{display:block;font-size:17px}
+.steps span{color:var(--mute)}
+.owner{background:var(--bg);border:1px solid var(--line);border-radius:24px;padding:22px;display:flex;flex-direction:column;gap:14px}
+.owner .top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.owner .top b{font-family:var(--display);font-weight:400;font-size:20px}
+.pill{font-size:12px;font-weight:700;border-radius:999px;padding:4px 10px;background:var(--accentSoft);color:var(--accent)}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.kpis div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px}
+.kpis b{display:block;font-family:var(--display);font-size:28px;font-weight:400;line-height:1.1;font-variant-numeric:tabular-nums}
+.kpis span{font-size:13px;color:var(--mute)}
+.tl{display:flex;flex-direction:column;gap:0;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:6px 14px}
+.tl div{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+.tl div:last-child{border-bottom:0}
+.tl time{color:var(--mute);min-width:62px;font-variant-numeric:tabular-nums}
+.tl .dot{width:10px;height:10px;border-radius:50%;background:var(--accent);margin-top:6px;flex:none}
+.tl .dot.br{background:var(--brass)}
+.small{font-size:13px;color:var(--mute)}
+
+.faq{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:48px}
+details{border-bottom:1px solid var(--line);padding:4px 0}
+summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:12px;padding:14px 0;font-weight:700;font-size:17px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--brass);font-size:22px;line-height:1}
+details[open] summary::after{content:"−"}
+details p{margin:0 0 16px;color:var(--mute)}
+
+.contact{background:var(--hero);color:var(--heroInk)}
+.contact .wrap{padding-block:64px;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:40px;align-items:center}
+.contact .lede{color:var(--heroMute);margin-top:12px}
+.contact .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.contact .ghost{background:transparent;color:var(--heroInk);border-color:rgba(255,255,255,.25)}
+.info{display:flex;flex-direction:column;gap:12px;font-size:15px}
+.info div{border-top:1px solid rgba(255,255,255,.15);padding-top:12px}
+.info span{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--heroMute);font-weight:700}
+footer{padding-block:22px;font-size:13px;color:var(--mute)}
+
+/* Asistente */
+.fab{position:fixed;right:calc(20px + env(safe-area-inset-right, 0px));bottom:calc(20px + env(safe-area-inset-bottom, 0px));z-index:40;display:flex;align-items:center;gap:10px;border:0;border-radius:999px;background:var(--accent);color:var(--accentInk);font-weight:700;padding:13px 20px 13px 14px;box-shadow:var(--shadow)}
+.fab i{width:28px;height:28px;border-radius:50%;background:var(--accentInk);display:grid;place-items:center}
+.fab i svg{width:16px;height:16px}
+.fab .live{width:8px;height:8px;border-radius:50%;background:var(--brass)}
+.chat{position:fixed;right:calc(20px + env(safe-area-inset-right, 0px));bottom:calc(20px + env(safe-area-inset-bottom, 0px));z-index:41;width:min(390px, calc(100vw - 32px));height:min(620px, calc(100vh - 40px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)));background:var(--surface);border:1px solid var(--line);border-radius:22px;box-shadow:0 30px 70px rgba(0,0,0,.25);display:flex;flex-direction:column;overflow:hidden}
+.chat .ch{display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--hero);color:var(--heroInk)}
+.chat .ch i{width:36px;height:36px;border-radius:50%;background:var(--accent);display:grid;place-items:center;flex:none}
+.chat .ch i svg{width:18px;height:18px}
+.chat .ch b{display:block;line-height:1.2}
+.chat .ch small{color:var(--heroMute);font-size:12px}
+.chat .ch button{margin-left:auto;border:0;background:rgba(255,255,255,.1);color:var(--heroInk);width:34px;height:34px;border-radius:50%;font-size:18px;line-height:1}
+.log{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:var(--bg)}
+.msg{max-width:86%;padding:10px 13px;border-radius:16px;font-size:14.5px;line-height:1.45;white-space:pre-line}
+.msg.b{background:var(--surface);border:1px solid var(--line);border-bottom-left-radius:5px}
+.msg.u{background:var(--accent);color:var(--accentInk);align-self:flex-end;border-bottom-right-radius:5px}
+.typing{display:flex;gap:4px;padding:12px 14px;background:var(--surface);border:1px solid var(--line);border-radius:16px;align-self:flex-start}
+.typing span{width:7px;height:7px;border-radius:50%;background:var(--mute);animation:bl 1s infinite}
+.typing span:nth-child(2){animation-delay:.15s}.typing span:nth-child(3){animation-delay:.2s}
+@keyframes bl{50%{opacity:.25}}
+.mini{display:flex;flex-direction:column;gap:8px;align-self:stretch}
+.mini button{display:flex;gap:10px;align-items:center;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px;font-size:13.5px}
+.mini button svg{width:64px;height:48px;border-radius:8px;flex:none}
+.mini b{display:block}
+.ficha{align-self:stretch;background:var(--surface);border:1px solid var(--brass);border-radius:14px;padding:12px 14px;font-size:13.5px}
+.ficha .k{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--brass);font-weight:700}
+.ficha div{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px solid var(--line)}
+.ficha div:last-child{border-bottom:0}
+.ficha span{color:var(--mute)}
+.ficha b{text-align:right}
+.quick{display:flex;flex-wrap:wrap;gap:6px;padding:10px 12px 0;background:var(--surface);border-top:1px solid var(--line)}
+.quick:empty{display:none}
+.quick button{border:1px solid var(--accent);color:var(--accent);background:var(--surface);border-radius:999px;padding:6px 12px;font-size:13.5px;font-weight:600}
+.composer{display:flex;gap:8px;padding:10px 12px 12px;background:var(--surface)}
+.composer input{flex:1;min-width:0;border:1px solid var(--line);border-radius:999px;padding:10px 14px;background:var(--bg)}
+.composer button{border:0;border-radius:50%;width:42px;height:42px;background:var(--accent);color:var(--accentInk);display:grid;place-items:center;flex:none}
+.composer button svg{width:18px;height:18px}
+.chat .note{font-size:11px;color:var(--mute);text-align:center;padding:0 12px 10px;background:var(--surface)}
+
+@media (max-width:960px){
+  .hero .wrap,.sell .wrap,.faq,.contact .wrap{grid-template-columns:1fr}
+  .phone{display:none}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .menu{order:3;flex-basis:100%;margin:0;gap:18px;overflow-x:auto;padding-top:4px;scrollbar-width:none}
+  .menu::-webkit-scrollbar{display:none}
+  header.top .wrap{flex-wrap:wrap;row-gap:6px}
+  header.top .cta{margin-left:auto}
+}
+@media (max-width:640px){
+  .searchbox{grid-template-columns:1fr 1fr}
+  .searchbox .cta{grid-column:1/-1}
+  .grid{grid-template-columns:1fr}
+  .hero .wrap{padding-block:44px 52px}
+  section.block{padding-block:52px}
+  .chat{right:0;bottom:0;width:100vw;height:calc(100% - env(safe-area-inset-top, 0px));height:calc(100dvh - env(safe-area-inset-top, 0px));border-radius:22px 22px 0 0;padding-bottom:env(safe-area-inset-bottom, 0px)}
+  .fab .lbl{display:none}
+  .fab{padding:13px}
+}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}.phone .m{animation:none;opacity:1;transform:none}.typing span{animation:none}}
+</style>
+
+</head>
+<body>
+<div class="demo">Demo de Galerna Method · inmobiliaria, viviendas y precios de ejemplo</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#inicio"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accentInk)" aria-hidden="true"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg></i>Tu Inmobiliaria</a>
+    <nav class="menu" aria-label="Principal"><a href="#viviendas">Comprar</a><a href="#vender">Vender</a><a href="#preguntas">Preguntas</a><a href="#contacto">Contacto</a></nav>
+    <button class="cta" data-open="inicio">Hablar ahora</button>
+  </div>
+</header>
+
+<section class="hero" id="inicio">
+  <div class="wrap">
+    <div>
+      <span class="kicker">Inmobiliaria de barrio · desde siempre aquí</span>
+      <h1>La casa que buscas, o quien compre la tuya, <em>en tu barrio.</em></h1>
+      <p class="lede">Sin formularios ni esperas: pregúntanos lo que quieras y te contestamos al momento, también por la noche y en fin de semana.</p>
+      <div class="mode" role="group" aria-label="Qué quieres hacer">
+        <button id="m-buy" aria-pressed="true">Quiero comprar</button>
+        <button id="m-sell" aria-pressed="false">Quiero vender</button>
+      </div>
+      <form class="searchbox" id="search" aria-label="Buscar vivienda">
+        <label for="s-zona">Zona<select id="s-zona"><option value="">Todas</option></select></label>
+        <label for="s-tipo">Tipo<select id="s-tipo"><option value="">Todos</option><option>Piso</option><option>Ático</option><option>Casa</option><option>Bajo con jardín</option></select></label>
+        <label for="s-hab">Habitaciones<select id="s-hab"><option value="0">Todas</option><option value="1">1+</option><option value="2">2+</option><option value="3">3+</option><option value="4">4+</option></select></label>
+        <label for="s-max">Hasta<select id="s-max"><option value="0">Todo</option><option value="150000">150.000 €</option><option value="200000">200.000 €</option><option value="250000">250.000 €</option><option value="350000">350.000 €</option></select></label>
+        <button class="cta" type="submit">Ver viviendas</button>
+      </form>
+      <div class="sellbox" id="sellbox" hidden>
+        <p><b>¿Cuánto vale tu casa?</b><span class="small">Cuatro preguntas al asistente y te da una horquilla orientativa. Si quieres, te deja la visita de valoración en la agenda.</span></p>
+        <button class="cta" data-open="vender">Valorar mi casa</button>
+      </div>
+      <div class="promises"><span>Respuesta al momento, 7 días</span><span>Valoración en casa en 48 h</span><span>Sigues tu venta desde el móvil</span></div>
+    </div>
+    <div class="phone" aria-label="Ejemplo de conversación con el asistente">
+      <div class="bar"><i></i><div><b>Tu Inmobiliaria</b><small>en línea</small></div></div>
+      <div class="msgs">
+        <div class="time">Domingo, 23:47</div>
+        <div class="m u" style="animation-delay:.2s">Hola, estamos pensando vender el piso de mi madre. ¿Cuánto podría valer?</div>
+        <div class="m b" style="animation-delay:.6s">Hola. Te ayudo ahora mismo. ¿En qué zona está y cuántas habitaciones tiene?</div>
+        <div class="m u" style="animation-delay:1s">Ensanche, 3 habitaciones</div>
+        <div class="m b" style="animation-delay:1.4s">Por la zona, la horquilla orientativa está entre 180.000 y 215.000 €. ¿Te viene bien que pasemos a verlo el martes a las 17:00?</div>
+        <div class="m ok" style="animation-delay:1.8s">Valoración confirmada · martes 17:00</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="viviendas">
+  <div class="wrap">
+    <div class="head">
+      <div><span class="kicker">En venta ahora</span><h2>Viviendas en la zona</h2></div>
+      <div class="filters" id="chips" role="group" aria-label="Filtrar por zona"></div>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<section class="block sell" id="vender">
+  <div class="wrap">
+    <div>
+      <span class="kicker">Si vendes</span>
+      <h2>Vender con nosotros es saber en todo momento cómo va tu venta.</h2>
+      <div class="steps">
+        <div><p style="margin:0"><b>Nos escribes cuando quieras</b><span>El asistente te contesta al momento y te da una primera horquilla de precio.</span></p></div>
+        <div><p style="margin:0"><b>Vamos a verla en 48 horas</b><span>Valoración en persona, con los precios reales de tu calle.</span></p></div>
+        <div><p style="margin:0"><b>Lo sigues todo desde el móvil</b><span>Visitas, opiniones de los compradores y ofertas, en tu propia app. Sin tener que llamarnos para preguntar.</span></p></div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:28px"><button class="cta" data-open="vender">Valorar mi casa</button></div>
+    </div>
+    <div class="owner" aria-label="Ejemplo de la app del propietario">
+      <div class="top"><b>Piso en Ensanche · 3 hab.</b><span class="pill">Ejemplo</span></div>
+      <div class="kpis"><div><b>14</b><span>personas interesadas</span></div><div><b>6</b><span>visitas hechas</span></div><div><b>1</b><span>oferta recibida</span></div></div>
+      <div class="tl">
+        <div><span class="dot br"></span><time>Hoy</time><span><b>Oferta de 198.000 €</b>. Tu agente te llama a las 18:00 para comentarla.</span></div>
+        <div><span class="dot"></span><time>Ayer</time><span>Visita de una pareja con hijos. Les encantó la luz del salón.</span></div>
+        <div><span class="dot"></span><time>Lun</time><span>Nuevo reportaje de fotos publicado.</span></div>
+        <div><span class="dot"></span><time>Sáb</time><span>Dos visitas. Comentario: «la cocina, para reformar».</span></div>
+      </div>
+      <p class="small" style="margin:0">Así ve su venta cada propietario, con el nombre de la inmobiliaria. <a href="../tuinmobiliaria/" style="color:var(--accent);font-weight:700">Ver la app del propietario →</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="preguntas">
+  <div class="wrap faq">
+    <div><span class="kicker">Preguntas</span><h2>Lo que nos preguntan antes de llamar</h2><p class="lede" style="margin-top:14px">Y si tienes otra, el asistente te la responde ahora mismo.</p><button class="ghost" style="margin-top:20px" data-open="pregunta">Preguntar otra cosa</button></div>
+    <div>
+      <details><summary>¿Cuánto cuesta la valoración?</summary><p>Nada. Vamos a ver tu vivienda, te explicamos los precios reales de tu zona y decides sin compromiso.</p></details>
+      <details><summary>¿Cuánto tardáis en vender?</summary><p>Depende de la zona y del precio. En la valoración te damos un plazo realista con lo que se ha vendido cerca de ti.</p></details>
+      <details><summary>¿Qué es la app del propietario?</summary><p>Una aplicación con tu vivienda donde ves cada visita, lo que opinan los compradores y las ofertas que llegan. Sin llamar para preguntar.</p></details>
+      <details><summary>¿Atendéis fuera de horario?</summary><p>El asistente contesta siempre, también de noche y en fin de semana, y te deja la cita en la agenda. El equipo te llama en horario de oficina.</p></details>
+      <details><summary>¿Tengo que vender para comprar?</summary><p>No siempre. Si vendes y compras con nosotros, coordinamos las dos operaciones para que no te quedes sin casa entre una y otra.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contacto">
+  <div class="wrap">
+    <div><span class="kicker">Hablemos</span><h2>¿Vendes, compras o solo quieres saber cuánto vale tu casa?</h2><p class="lede">Escríbenos ahora. Te contestamos al momento y, si quieres, te reservamos visita.</p>
+      <div class="btns"><button class="cta" data-open="inicio">Hablar con el asistente</button><button class="ghost" data-open="vender">Valorar mi casa</button></div></div>
+    <div class="info">
+      <div><span>Oficina</span>Calle Mayor, 12 · bajo</div>
+      <div><span>Horario</span>Lunes a viernes, 9:30 a 14:00 y 17:00 a 20:00</div>
+      <div><span>Teléfono</span>900 000 000</div>
+    </div>
+  </div>
+</section>
+<footer><div class="wrap">Tu Inmobiliaria es una inmobiliaria de ejemplo. Página de demostración hecha por Galerna Method.</div></footer>
+
+<button class="fab" id="fab" data-open="inicio" aria-label="Abrir el asistente"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent)" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/></svg></i><span class="lbl">¿Te ayudo?</span><span class="live" aria-hidden="true"></span></button>
+
+<div class="chat" id="chat" role="dialog" aria-label="Asistente de Tu Inmobiliaria" hidden>
+  <div class="ch"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accentInk)" aria-hidden="true"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/></svg></i><div><b>Asistente de Tu Inmobiliaria</b><small>Responde al momento</small></div><button id="close" aria-label="Cerrar">×</button></div>
+  <div class="log" id="log" aria-live="polite"></div>
+  <div class="quick" id="quick"></div>
+  <form class="composer" id="composer"><input id="say" autocomplete="off" placeholder="Escribe aquí…" aria-label="Escribe tu mensaje"><button type="submit" aria-label="Enviar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></form>
+  <div class="note">Demo: respuestas de ejemplo, no se guarda nada.</div>
+</div>
+
+<script>
+(function(){
+const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
+const eur=n=>String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,'.')+' €';
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const ZONAS=['Centro','Casco Antiguo','Ensanche','Zona Norte','Afueras'];
+const M2={'Centro':2400,'Casco Antiguo':2600,'Ensanche':2200,'Zona Norte':1800,'Afueras':1500};
+const H=[
+ {id:1,t:'Piso',z:'Ensanche',p:189000,m:92,h:3,b:2,x:'Luminoso, con ascensor y balcón a la calle',n:true,c:['#8FB8A8','#E8D9B5']},
+ {id:2,t:'Ático',z:'Centro',p:265000,m:84,h:2,b:2,x:'Terraza de 30 m² con vistas',n:false,c:['#B8A88F','#D9E2E8']},
+ {id:3,t:'Casa',z:'Afueras',p:238000,m:165,h:4,b:3,x:'Parcela de 400 m² y garaje para dos coches',n:false,c:['#A0B38A','#F0E2C6']},
+ {id:4,t:'Piso',z:'Casco Antiguo',p:172000,m:68,h:2,b:1,x:'Edificio rehabilitado, techos altos',n:true,c:['#C9A27E','#E6DCCF']},
+ {id:5,t:'Bajo con jardín',z:'Zona Norte',p:154000,m:78,h:2,b:1,x:'Jardín privado de 45 m²',n:false,c:['#7FA6A0','#EADFC8']},
+ {id:6,t:'Piso',z:'Zona Norte',p:129000,m:70,h:3,b:1,x:'Para reformar a tu gusto, muy buen precio',n:false,c:['#9DAAB8','#EEE5D3']},
+ {id:7,t:'Piso',z:'Centro',p:215000,m:88,h:3,b:2,x:'Junto a la plaza, con trastero',n:false,c:['#B59A86','#DDE6E1']},
+ {id:8,t:'Casa',z:'Ensanche',p:342000,m:190,h:5,b:3,x:'Adosada, con patio y bodega',n:true,c:['#8E9F86','#EFE0C9']},
+ {id:9,t:'Ático',z:'Ensanche',p:224000,m:76,h:2,b:2,x:'Dúplex con terraza y garaje',n:false,c:['#A9B4C2','#F2E6CF']}
+];
+
+// Ilustración SVG de cada vivienda
+function pic(h,w,ht){w=w||400;ht=ht||300;const [a,g]=h.c;let s=`<svg viewBox="0 0 400 300" width="${w}" height="${ht}" preserveAspectRatio="xMidYMid slice" role="img" aria-label="${h.t} en ${h.z}"><defs><linearGradient id="sk${h.id}${w}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${g}"/><stop offset="1" stop-color="#FFFFFF"/></linearGradient></defs><rect width="400" height="300" fill="url(#sk${h.id}${w})"/><rect y="250" width="400" height="50" fill="#C9D3C4"/>`;
+  if(h.t==='Casa'){s+=`<polygon points="90,140 200,70 310,140" fill="#5B4636"/><rect x="105" y="138" width="190" height="112" fill="${a}"/><rect x="185" y="190" width="32" height="60" fill="#3E3328"/>`;[[125,160],[240,160],[125,205],[240,205]].forEach(([x,y])=>s+=`<rect x="${x}" y="${y}" width="36" height="28" fill="#F7F3E8" stroke="#3E3328" stroke-width="2"/>`);s+=`<circle cx="345" cy="215" r="30" fill="#6E8F62"/><rect x="341" y="235" width="8" height="18" fill="#5B4636"/>`}
+  else if(h.t==='Bajo con jardín'){s+=`<rect x="70" y="80" width="260" height="170" fill="${a}"/>`;for(let r=0;r<3;r++)for(let c=0;c<4;c++)s+=`<rect x="${90+c*60}" y="${98+r*48}" width="36" height="28" fill="#F7F3E8"/>`;s+=`<rect x="40" y="225" width="320" height="25" fill="#7FA36E"/><circle cx="60" cy="215" r="24" fill="#6E8F62"/><circle cx="350" cy="210" r="28" fill="#6E8F62"/>`}
+  else{const top=h.t==='Ático'?60:50;s+=`<rect x="110" y="${top}" width="180" height="${250-top}" fill="${a}"/>`;if(h.t==='Ático')s+=`<rect x="140" y="38" width="120" height="24" fill="${a}" opacity=".85"/><rect x="130" y="58" width="140" height="4" fill="#3E3328"/>`;for(let r=0;r<5;r++)for(let c=0;c<3;c++)s+=`<rect x="${128+c*52}" y="${top+16+r*36}" width="32" height="22" fill="#F7F3E8"/>`;s+=`<rect x="185" y="222" width="30" height="28" fill="#3E3328"/><rect x="20" y="150" width="80" height="100" fill="#C7BBA8"/><rect x="300" y="120" width="80" height="130" fill="#BCC3B8"/>`}
+  return s+'</svg>'}
+
+// Buscador
+const sz=$('#s-zona');ZONAS.forEach(z=>sz.insertAdjacentHTML('beforeend',`<option>${z}</option>`));
+let F={z:'',t:'',h:0,max:0};let favs=new Set();
+function chipsZ(){$('#chips').innerHTML=['Todas',...ZONAS].map(z=>`<button class="chip" data-z="${z==='Todas'?'':z}" aria-pressed="${(z==='Todas'?'':z)===F.z}">${z}</button>`).join('')}
+function render(){const list=H.filter(h=>(!F.z||h.z===F.z)&&(!F.t||h.t===F.t)&&h.h>=F.h&&(!F.max||h.p<=F.max));
+  $('#grid').innerHTML=list.map(h=>`<article class="card"><div class="pic">${pic(h)}${h.n?'<span class="badge new">Nueva</span>':`<span class="badge">${h.z}</span>`}</div><div class="body"><div class="price">${eur(h.p)}</div><h3>${h.t} en ${h.z}</h3><div class="meta"><span>${h.m} m²</span><span>${h.h} hab.</span><span>${h.b} baño${h.b>1?'s':''}</span></div><p class="small" style="margin:0">${h.x}</p><div class="act"><button class="ask" data-ask="${h.id}">Quiero visitarla</button><button class="fav" data-fav="${h.id}" aria-pressed="${favs.has(h.id)}" aria-label="Guardar">♥</button></div></div></article>`).join('')||`<div class="empty">Ahora mismo no hay ninguna con esos filtros.<br>Dile al asistente qué buscas y te avisamos cuando entre una.<br><button class="cta" data-open="comprar">Avisarme</button></div>`;
+  chipsZ()}
+$('#chips').addEventListener('click',e=>{const b=e.target.closest('[data-z]');if(!b)return;F.z=b.dataset.z;sz.value=F.z;render()});
+$('#search').addEventListener('submit',e=>{e.preventDefault();F={z:sz.value,t:$('#s-tipo').value,h:+$('#s-hab').value,max:+$('#s-max').value};render();document.getElementById('viviendas').scrollIntoView({behavior:reduce?'auto':'smooth'})});
+$('#grid').addEventListener('click',e=>{const f=e.target.closest('[data-fav]');if(f){const id=+f.dataset.fav;favs.has(id)?favs.delete(id):favs.add(id);f.setAttribute('aria-pressed',favs.has(id));return}
+  const a=e.target.closest('[data-ask]');if(a)openChat('visita',H.find(h=>h.id===+a.dataset.ask))});
+render();
+const setMode=sell=>{$('#m-buy').setAttribute('aria-pressed',!sell);$('#m-sell').setAttribute('aria-pressed',sell);$('#search').hidden=sell;$('#sellbox').hidden=!sell};
+$('#m-buy').onclick=()=>setMode(false);$('#m-sell').onclick=()=>setMode(true);
+
+// Asistente
+const log=$('#log'),quick=$('#quick');let D={},step=null,busy=false;
+function scroll(){log.scrollTop=log.scrollHeight}
+function add(cls,html){const d=document.createElement('div');d.className=cls;d.innerHTML=html;log.appendChild(d);scroll();return d}
+function user(t){add('msg u',esc(t))}
+function esc(t){return String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function bot(lines,opts,next){busy=true;quick.innerHTML='';const arr=Array.isArray(lines)?lines:[lines];let i=0;
+  const one=()=>{if(i>=arr.length){busy=false;setQuick(opts||[]);step=next||null;$('#say').focus({preventScroll:true});return}
+    const t=add('typing','<span></span><span></span><span></span>');
+    setTimeout(()=>{t.remove();const v=arr[i++];if(typeof v==='function')v();else add('msg b',v);one()},reduce?60:550)};one()}
+function setQuick(opts){quick.innerHTML=opts.map(o=>`<button type="button">${esc(o)}</button>`).join('')}
+quick.addEventListener('click',e=>{const b=e.target.closest('button');if(b&&!busy)handle(b.textContent)});
+$('#composer').addEventListener('submit',e=>{e.preventDefault();const v=$('#say').value.trim();if(!v||busy)return;$('#say').value='';handle(v)});
+
+function slots(){const out=[],d=new Date();const hrs=['10:00','12:30','17:00'];const dn=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+  for(let k=1;out.length<3&&k<10;k++){const x=new Date(d);x.setDate(d.getDate()+k);const w=x.getDay();if(w===0||w===6)continue;out.push(`${dn[w][0].toUpperCase()+dn[w].slice(1)} ${x.getDate()} · ${hrs[out.length]}`)}return out}
+
+function start(mode,h){D={};if(mode==='vender')return vender0();if(mode==='comprar')return comprar0();if(mode==='visita'&&h)return visita0(h);if(mode==='pregunta')return bot('Claro, dime qué quieres saber.',['¿Cuánto cobráis?','¿Atendéis el sábado?','Quiero vender','Quiero comprar'],'libre');
+  bot(['Hola, soy el asistente de Tu Inmobiliaria. Te contesto al momento, a cualquier hora.','¿Qué te trae por aquí?'],['Quiero vender','Quiero comprar','Solo quiero saber cuánto vale mi casa','Otra pregunta'],'inicio')}
+function vender0(){D.f='vender';bot(['Perfecto, te ayudo con la venta.','¿Qué tipo de vivienda es?'],['Piso','Ático','Casa','Bajo con jardín'],'v_tipo')}
+function comprar0(){D.f='comprar';bot('Genial. ¿En qué zona te gustaría vivir?',[...ZONAS,'Me da igual'],'c_zona')}
+function visita0(h){D.f='visita';D.h=h;bot([`Buena elección: ${h.t.toLowerCase()} en ${h.z}, ${h.m} m² y ${h.h} habitaciones por ${eur(h.p)}.`,'¿Cuándo te viene bien verla?'],slots(),'vis_slot')}
+
+const yes=t=>/^(s[ií]|vale|ok|claro|perfecto|venga)/i.test(t);
+function handle(t){user(t);const s=step;const tl=t.toLowerCase();
+  if(s==='inicio'||s==='libre'||!s){
+    if(/vend|valor|cu[aá]nto vale|tasa/.test(tl))return vender0();
+    if(/compr|busc|piso|casa|vivienda|alquil/.test(tl))return comprar0();
+    if(/cobr|comisi|honorari|precio/.test(tl))return bot(['Los honorarios dependen de la vivienda y se cierran en la valoración, siempre por escrito y antes de empezar.','La valoración en casa no cuesta nada. ¿Quieres que te la reserve?'],['Sí, quiero vender','No, gracias'],'libre');
+    if(/s[aá]bado|horario|abr|domingo|noche/.test(tl))return bot(['La oficina abre de lunes a viernes, 9:30 a 14:00 y 17:00 a 20:00.','Yo contesto siempre, y si quieres te dejo una cita reservada con el equipo.'],['Quiero vender','Quiero comprar'],'libre');
+    if(/otra/.test(tl))return bot('Claro, dime.',[],'libre');
+    if(/no,? gracias|nada/.test(tl))return bot('Perfecto. Aquí estoy si me necesitas.',['Quiero vender','Quiero comprar'],'libre');
+    return bot(['Te paso la pregunta al equipo para que te conteste una persona.','Mientras tanto, ¿te ayudo con algo de esto?'],['Quiero vender','Quiero comprar'],'libre')}
+  switch(s){
+    case 'v_tipo':D.tipo=t;return bot('¿En qué zona está?',ZONAS,'v_zona');
+    case 'v_zona':D.zona=ZONAS.find(z=>tl.includes(z.toLowerCase()))||t;return bot('¿Cuántas habitaciones tiene?',['1','2','3','4 o más'],'v_hab');
+    case 'v_hab':D.hab=Math.min(5,parseInt(t)||3);return bot('¿Para cuándo te gustaría vender?',['Cuanto antes','En unos 3 meses','Dentro de 6 meses o más','Solo quiero saber el precio'],'v_plazo');
+    case 'v_plazo':D.plazo=t;return bot('¿Decides tú la venta o sois varios?',['Lo decido yo','Con mi pareja','Es una herencia, somos varios'],'v_dec');
+    case 'v_dec':D.dec=t;return bot('Última: ¿la tienes ya con otra inmobiliaria?',['No','Sí, sin exclusiva','Sí, en exclusiva'],'v_ag');
+    case 'v_ag':{D.ag=t;const base=M2[D.zona]||1900;let m=[0,50,70,90,115,140][D.hab]||90;if(/casa/i.test(D.tipo))m*=1.6;if(/bajo/i.test(D.tipo))m*=1.05;let v=base*m*(/[aá]tico/i.test(D.tipo)?1.1:1);
+      const lo=Math.round(v*.92/5000)*5000,hi=Math.round(v*1.08/5000)*5000;D.rango=`${eur(lo)} – ${eur(hi)}`;
+      return bot([`Gracias. Por lo que me cuentas, un ${D.tipo.toLowerCase()} de ${D.hab} habitaciones en ${D.zona} está ahora entre <b>${eur(lo)} y ${eur(hi)}</b>.`,'Es orientativo: el precio bueno lo damos al verla, con lo que se ha vendido en tu calle. Va sin compromiso y no cuesta nada.','¿Te reservo la visita de valoración?'],[...slots(),'Ahora no, gracias'],'v_slot')}
+    case 'v_slot':case 'vis_slot':if(/ahora no|no,? gracias/.test(tl))return bot('Sin problema. Si quieres retomarlo, escríbeme cuando sea, a cualquier hora.',['Quiero comprar','Otra pregunta'],'libre');
+      D.slot=t;return bot(`Te guardo el ${t}. ¿Cómo te llamas?`,[],'nombre');
+    case 'nombre':if(t.length<2)return bot('¿Me dices tu nombre?',[],'nombre');D.nom=t.split(' ')[0];return bot(`Encantado, ${esc(D.nom)}. ¿A qué teléfono te llamamos para confirmar?`,[],'tel');
+    case 'tel':if(t.replace(/\D/g,'').length<9)return bot('Creo que falta algún número. ¿Me lo escribes otra vez?',[],'tel');D.tel=t;return fin();
+    case 'c_zona':D.zona=ZONAS.find(z=>tl.includes(z.toLowerCase()))||'';return bot('¿Hasta qué precio quieres llegar?',['150.000 €','200.000 €','250.000 €','350.000 €','Sin límite'],'c_max');
+    case 'c_max':D.max=parseInt(t.replace(/\D/g,''))||0;return bot('¿Cuántas habitaciones necesitas como mínimo?',['1','2','3','4'],'c_hab');
+    case 'c_hab':{D.hab=parseInt(t)||1;const r=H.filter(h=>(!D.zona||h.z===D.zona)&&(!D.max||h.p<=D.max)&&h.h>=D.hab);
+      if(!r.length)return bot(['Ahora mismo no tengo ninguna así, pero entran viviendas cada semana y muchas no llegan a publicarse.','¿Quieres que te avise en cuanto entre una?'],['Sí, avísame','No, gracias'],'c_aviso');
+      return bot([`Tengo ${r.length===1?'esta':'estas '+r.length} que encajan:`,()=>{const box=add('mini','');box.innerHTML=r.slice(0,4).map(h=>`<button type="button" data-v="${h.id}">${pic(h,64,48)}<span><b>${eur(h.p)}</b>${h.t} en ${h.z} · ${h.h} hab.</span></button>`).join('');box.addEventListener('click',e=>{const b=e.target.closest('[data-v]');if(b&&!busy){user('Quiero ver esta');visita0(H.find(h=>h.id===+b.dataset.v))}})},'Toca la que quieras ver y te busco hueco. Por cierto, ¿tienes que vender tu casa actual para comprar?'],['Sí, también vendo','No'],'c_vende')}
+    case 'c_vende':if(yes(t)||/vendo/.test(tl)){D.vendeTambien=true;return bot(['Entonces coordinamos las dos cosas para que no te quedes sin casa entre una y otra.','Empezamos por la tuya, ¿vale?'],['Vale','Mejor luego'],'c_v2')}return bot('Perfecto. Toca la vivienda que quieras visitar y te busco hueco.',[],'c_wait');
+    case 'c_v2':if(yes(t))return vender0();return bot('Sin problema. Toca la vivienda que quieras visitar.',[],'c_wait');
+    case 'c_wait':return bot('Toca una de las viviendas de arriba y te doy horas para verla.',[],'c_wait');
+    case 'c_aviso':if(yes(t)){D.slot='Aviso de nuevas viviendas';return bot('Perfecto. ¿Cómo te llamas?',[],'nombre')}return bot('Sin problema. Aquí estoy si me necesitas.',['Quiero vender','Otra pregunta'],'libre');
+  }
+  bot('Perdona, no te he entendido bien. ¿Me lo dices de otra forma?',[],s)}
+function fin(){const v=D.f==='vender',vis=D.f==='visita';
+  const rows=v?[['Quiere','Vender'],['Vivienda',`${D.tipo}, ${D.hab} hab.`],['Zona',D.zona],['Plazo',D.plazo],['Decide',D.dec],['Otra agencia',D.ag],['Horquilla',D.rango],['Cita',D.slot]]:
+   vis?[['Quiere','Visitar'],['Vivienda',`${D.h.t} en ${D.h.z}`],['Precio',eur(D.h.p)],['Cita',D.slot]].concat(D.vendeTambien?[['También vende','Sí']]:[]):[['Quiere','Comprar'],['Zona',D.zona||'Cualquiera'],['Hasta',D.max?eur(D.max):'Sin límite'],['Habitaciones',`${D.hab} o más`],['También vende',D.vendeTambien?'Sí':'No'],['Siguiente paso',D.slot]];
+  rows.push(['Contacto',`${D.nom} · ${D.tel}`]);
+  bot([D.slot==='Aviso de nuevas viviendas'?`Listo, ${esc(D.nom)}. Te avisamos en cuanto entre una que encaje.`:`Hecho, ${esc(D.nom)}. Tienes la cita el <b>${esc(D.slot)}</b>. Te llamamos para confirmarla.`,
+   ()=>{add('ficha',`<span class="k">Así le llega al agente</span>${rows.map(r=>`<div><span>${r[0]}</span><b>${esc(r[1])}</b></div>`).join('')}`)},
+   'Esto es una demo: así recibe la inmobiliaria cada contacto, ya filtrado y con la cita en su agenda. <a href="../app-inmobiliaria/" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">Ver el panel del agente →</a>'],['Empezar de nuevo'],'reinicio')}
+const _h=handle;handle=function(t){if(step==='reinicio'){user(t);log.innerHTML='';return start()}return _h(t)};
+
+function openChat(mode,h){$('#chat').hidden=false;$('#fab').hidden=true;
+  if(busy)return;
+  if(mode&&mode!=='inicio'){start(mode,h);return}
+  if(!log.children.length)start()}
+$$('[data-open]').forEach(b=>b.addEventListener('click',()=>openChat(b.dataset.open)));
+$('#close').onclick=()=>{$('#chat').hidden=true;$('#fab').hidden=false};
+document.addEventListener('click',e=>{const b=e.target.closest('.empty [data-open]');if(b)openChat(b.dataset.open)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#chat').hidden)$('#close').click()});
+})();
+</script>
+
+</body></html>
