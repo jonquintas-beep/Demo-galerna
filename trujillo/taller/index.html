@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Garaje Trujillo · Taller</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0c1520">
+<link rel="icon" type="image/png" href="../icons/favicon.png">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-title" content="Taller Trujillo">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="../supabase.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{color-scheme:dark;--bg:#0b0c0e;--p1:#131518;--p2:#1a1d21;--ln:#262a30;--tx:#eef0f2;--mu:#8b929b;--y:#f5b82e;--y2:#ffcf4a;--g:#3fbf5f;--b:#3b82f6;--r:#ef4444;--rad:16px}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{background:var(--bg);color:var(--tx);font:15px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+[hidden]{display:none!important}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+input,select,textarea{font:inherit;color:var(--tx)}
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+.bb{font-family:'Bebas Neue',Impact,sans-serif;letter-spacing:.5px;font-weight:400;line-height:.95}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:10px;font-weight:600;text-decoration:none;border:1px solid var(--ln);background:var(--p2);transition:.15s;white-space:nowrap}
+.btn:hover{border-color:#3a4048}
+.btn:disabled{opacity:.6;cursor:wait}
+.btn.y{background:var(--y);color:#111;border-color:var(--y)}.btn.y:hover{background:var(--y2)}
+.btn.g{background:var(--g);color:#06210f;border-color:var(--g)}
+.btn.bl{background:var(--b);border-color:var(--b);color:#fff}
+.btn.big{padding:15px 22px;font-size:16px;width:100%}
+.btn.sm{padding:8px 12px;font-size:13px;border-radius:8px}
+.btn.danger{color:#ff8a8a;border-color:#4a2224;background:transparent}
+.lk{color:var(--y);text-decoration:underline;font-size:inherit}
+.hint{color:var(--mu);font-size:13.5px}
+.plate{display:inline-flex;align-items:stretch;background:#fff;color:#111;border-radius:4px;font-weight:700;font-size:12px;letter-spacing:.8px;overflow:hidden;line-height:1;font-family:ui-monospace,Menlo,Consolas,monospace;vertical-align:middle}
+.plate:before{content:'';width:5px;background:#1d4ed8}
+.plate span{padding:3px 6px}
+/* NAV */
+.nav{position:sticky;top:0;z-index:20;background:rgba(11,12,14,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--ln)}
+.nav .wrap{display:flex;align-items:center;gap:20px;height:64px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-ic{width:34px;height:34px;border-radius:9px;background:var(--y);display:grid;place-items:center;color:#111;flex:none}
+.logo b{font-family:'Bebas Neue';font-weight:400;font-size:22px;letter-spacing:.8px;line-height:1;display:block}
+.logo small{display:block;font-size:9.5px;color:var(--mu);letter-spacing:1.5px;text-transform:uppercase}
+.nav-links{display:flex;gap:22px;margin-left:auto;font-size:14px;color:var(--mu)}
+.nav-links a{text-decoration:none}.nav-links a:hover{color:var(--tx)}
+.nav .btn{padding:9px 16px}
+.nav-taller{font-size:13px;color:var(--mu);text-decoration:none;display:flex;gap:6px;align-items:center;border:1px solid var(--ln);border-radius:9px;padding:8px 11px}
+.nav-taller:hover{color:var(--tx)}
+@media(max-width:520px){.logo .lg-l{display:none}.logo b{font-size:20px}}
+@media(max-width:900px){.nav-links{display:none}.nav .wrap{gap:10px}.nav-taller span{display:none}.nav .btn.y{margin-left:auto}.logo small{display:none}}
+/* HERO */
+.hero{padding:26px 0 0}
+.hero-card{position:relative;overflow:hidden;border-radius:28px;background:radial-gradient(120% 120% at 85% 30%,#24211a 0,#121316 45%,#0e0f11 100%);border:1px solid var(--ln);padding:56px;display:grid;grid-template-columns:1.25fr .9fr;gap:30px;align-items:center}
+.hero-card:before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:36px 36px;-webkit-mask-image:radial-gradient(ellipse at 70% 50%,#000 20%,transparent 75%);mask-image:radial-gradient(ellipse at 70% 50%,#000 20%,transparent 75%);pointer-events:none}
+.hero-card>*{position:relative}
+.kicker{display:flex;align-items:center;gap:8px;font-size:11.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--mu);font-weight:600}
+.kicker i{width:8px;height:8px;border-radius:50%;background:var(--y);box-shadow:0 0 12px var(--y);flex:none}
+.hero h1{font-size:clamp(50px,7.2vw,94px);margin:18px 0 20px}
+.hero h1 em,.s-h h2 em{font-style:normal;color:var(--y)}
+.lead{color:#b4bac2;max-width:540px;font-size:16.5px}
+.hero-cta{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+.gauge-w{position:relative;justify-self:center;width:min(360px,100%)}
+.gauge-w svg{width:100%;height:auto;display:block}
+.chip-f{position:absolute;background:rgba(20,22,25,.92);border:1px solid var(--ln);border-radius:10px;padding:7px 11px;font-size:12.5px;color:#cfd4da;white-space:nowrap}
+.chip-f b{color:var(--tx)}
+.chip-f.ok{color:var(--g)}
+@media(max-width:860px){.hero-card{grid-template-columns:1fr;padding:34px 22px;border-radius:22px}.gauge-w{width:min(290px,88%)}}
+/* SECTIONS */
+section.s{padding:76px 0 0}
+.s-h{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:26px;flex-wrap:wrap}
+.s-h h2{font-size:clamp(40px,5vw,60px)}
+.s-h p{color:var(--mu);max-width:440px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:860px){.grid3{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.grid3{grid-template-columns:1fr}}
+.svc{background:var(--p1);border:1px solid var(--ln);border-radius:var(--rad);padding:22px;transition:.2s}
+.svc:hover{border-color:#40391f;transform:translateY(-2px)}
+.ic-b{width:44px;height:44px;border-radius:12px;background:rgba(245,184,46,.12);color:var(--y);display:grid;place-items:center;margin-bottom:16px}
+.svc h3{font-size:17px;margin-bottom:6px}
+.svc p{color:var(--mu);font-size:14px}
+.camper{margin-top:14px;border-radius:22px;border:1px solid #3a3320;background:linear-gradient(120deg,#1d1a10,#131416 60%);padding:34px;display:grid;grid-template-columns:1.1fr 1fr;gap:26px;align-items:center}
+.camper h3{font-size:44px;margin:12px 0 10px}
+.camper p{color:#b4bac2}
+.camper ul{list-style:none;display:grid;gap:12px}
+.camper li{display:flex;gap:10px;align-items:center;color:#d6dadf}
+.camper li svg{color:var(--y);flex:none}
+@media(max-width:760px){.camper{grid-template-columns:1fr;padding:24px}}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.step{background:var(--p1);border:1px solid var(--ln);border-radius:var(--rad);padding:24px}
+.step .n{font-family:'Bebas Neue';font-size:54px;color:var(--y);line-height:1}
+.step h3{font-size:18px;margin:6px 0}
+.step p{color:var(--mu);font-size:14px}
+@media(max-width:760px){.steps{grid-template-columns:1fr}}
+/* BOOKING */
+.book{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:18px}
+.book-side{background:var(--p1);border:1px solid var(--ln);border-radius:22px;padding:28px;align-self:start;position:sticky;top:84px}
+.book-side h2{font-size:54px;margin-bottom:12px}
+.book-side h2 em{font-style:normal;color:var(--y)}
+.book-side ul{list-style:none;display:grid;gap:12px;margin-top:20px;color:#cfd4da;font-size:14.5px}
+.book-side li{display:flex;gap:10px}
+.book-side li svg{color:var(--g);flex:none;margin-top:2px}
+.form{background:var(--p1);border:1px solid var(--ln);border-radius:22px;padding:28px}
+.fld{margin-bottom:18px}
+.lbl{display:block;font-size:13px;font-weight:600;color:#c9ced4;margin-bottom:8px}
+.inp,.form input[type=text],.form input[type=tel],.form textarea{width:100%;background:var(--bg);border:1px solid var(--ln);border-radius:10px;padding:12px 14px;outline:none;transition:.15s}
+.inp:focus,.form input:focus,.form textarea:focus{border-color:var(--y)}
+textarea{resize:vertical}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.grid2{grid-template-columns:1fr}.form,.book-side{padding:20px}}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chipb{padding:9px 13px;border-radius:999px;border:1px solid var(--ln);background:var(--bg);font-size:13.5px;color:#cfd4da}
+.chipb.on{background:var(--y);color:#111;border-color:var(--y);font-weight:600}
+.days{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
+.day{flex:none;width:66px;padding:10px 0;border-radius:12px;border:1px solid var(--ln);background:var(--bg);text-align:center}
+.day small{display:block;font-size:11px;text-transform:uppercase;color:var(--mu);letter-spacing:1px}
+.day b{display:block;font-size:24px;font-family:'Bebas Neue';font-weight:400;letter-spacing:1px;line-height:1.1}
+.day.on{border-color:var(--y);background:rgba(245,184,46,.12)}
+.day.on small{color:var(--y)}
+.day:disabled{opacity:.35;cursor:not-allowed}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px}
+.slot{padding:10px 0;border-radius:10px;border:1px solid var(--ln);background:var(--bg);font-weight:600;font-size:14px}
+.slot small{display:block;font-weight:500;font-size:11px;color:var(--mu)}
+.slot.on{background:var(--y);color:#111;border-color:var(--y)}
+.slot.on small{color:#3a2c00}
+.slot:disabled{opacity:.35;cursor:not-allowed}
+.chk{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--mu);margin:4px 0 18px}
+.chk input{margin-top:3px;accent-color:var(--y);width:16px;height:16px;flex:none}
+.err{color:#ff8a8a;font-size:14px;margin-top:10px}
+.ok-card{text-align:center;padding:16px 4px}
+.ok-ic{width:64px;height:64px;border-radius:50%;background:rgba(63,191,95,.15);color:var(--g);display:grid;place-items:center;margin:0 auto 14px}
+.ok-card h3{font-family:'Bebas Neue';font-size:44px;font-weight:400}
+.sum{background:var(--bg);border:1px solid var(--ln);border-radius:14px;padding:16px;margin:18px 0;text-align:left;display:grid;gap:8px;font-size:14px}
+.sum div{display:flex;justify-content:space-between;gap:12px}
+.sum div>span{color:var(--mu)}
+@media(max-width:860px){.book{grid-template-columns:minmax(0,1fr)}.book-side{position:static}}
+/* ESTADO */
+.estado{background:var(--p1);border:1px solid var(--ln);border-radius:22px;padding:30px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:28px;align-items:start}
+.estado h2{font-size:clamp(40px,5vw,54px);margin:12px 0 10px}
+.estado h2 em{font-style:normal;color:var(--y)}
+.estado-f{display:flex;gap:10px;margin-top:20px}
+.estado-f input{flex:1;min-width:0;text-transform:uppercase;font-weight:600;letter-spacing:1px}
+.res-box{background:var(--bg);border:1px solid var(--ln);border-radius:16px;padding:22px;min-height:150px}
+.res-box h4{font-size:17px;margin-bottom:4px}
+.tl{margin-top:18px}
+.tl-i{display:flex;gap:14px;position:relative;padding-bottom:22px}
+.tl-i:last-child{padding-bottom:0}
+.tl-i:not(:last-child):after{content:'';position:absolute;left:13px;top:30px;bottom:2px;width:2px;background:var(--ln)}
+.tl-i.done:not(:last-child):after{background:var(--g)}
+.tl-dot{width:28px;height:28px;border-radius:50%;border:2px solid var(--ln);display:grid;place-items:center;flex:none;background:var(--bg)}
+.tl-i.done .tl-dot{background:var(--g);border-color:var(--g);color:#06210f}
+.tl-i.now .tl-dot{border-color:var(--b);box-shadow:0 0 0 5px rgba(59,130,246,.18)}
+.tl-i.now .tl-dot:before{content:'';width:10px;height:10px;border-radius:50%;background:var(--b)}
+.tl-i b{display:block;font-size:15px}
+.tl-i small{color:var(--mu)}
+.ready{margin-top:18px;background:rgba(63,191,95,.12);border:1px solid #1f4a2e;color:#7be59b;border-radius:12px;padding:12px 14px;font-weight:600;font-size:14px}
+@media(max-width:760px){.estado{grid-template-columns:minmax(0,1fr);padding:22px}}
+/* FOOTER */
+.foot{margin-top:84px;border-top:1px solid var(--ln);padding:40px 0 70px;color:var(--mu);font-size:14px}
+.foot .wrap{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:26px}
+.foot h4{color:var(--tx);font-size:12px;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:10px}
+.foot p{margin-bottom:6px}
+.foot a{text-decoration:none}.foot a:hover{color:var(--tx)}
+@media(max-width:760px){.foot .wrap{grid-template-columns:1fr}}
+.wa-float{position:fixed;right:18px;bottom:18px;z-index:30;width:56px;height:56px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.45);color:#fff}
+body.in-app .wa-float{display:none}
+/* APP */
+.app-loading{display:grid;place-items:center;min-height:100vh;color:var(--mu)}
+.app-h{position:sticky;top:0;z-index:20;background:rgba(11,12,14,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--ln);display:flex;align-items:center;gap:16px;padding:10px 20px}
+.app-brand{display:flex;align-items:center;gap:10px}
+.app-brand b{font-family:'Bebas Neue';font-weight:400;font-size:21px;letter-spacing:.8px;display:block;line-height:1}
+.app-brand small{font-size:11px;color:var(--mu)}
+.tabs{display:flex;gap:4px;margin:0 auto}
+.tab{display:flex;align-items:center;gap:7px;padding:8px 12px;border-radius:9px;font-size:13.5px;color:var(--mu);position:relative}
+.tab:hover{color:var(--tx)}
+.tab.on{background:rgba(245,184,46,.12);color:var(--y)}
+.badge{font-style:normal;background:var(--r);color:#fff;font-size:11px;font-weight:700;border-radius:999px;padding:1px 6px;line-height:1.4}
+.app-h-r{display:flex;align-items:center;gap:12px}
+.lnk{font-size:13px;color:var(--mu);text-decoration:none}.lnk:hover{color:var(--tx)}
+.me{width:36px;height:36px;border-radius:50%;background:var(--c);color:#111;font-weight:700}
+.app-main{max-width:1240px;margin:0 auto;padding:22px 20px 110px}
+@media(max-width:860px){
+ .app-h{backdrop-filter:none;-webkit-backdrop-filter:none;background:var(--bg)}
+ .tabs{position:fixed;bottom:0;left:0;right:0;margin:0;background:rgba(15,16,19,.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--ln);justify-content:space-around;padding:6px 4px calc(6px + env(safe-area-inset-bottom));z-index:25}
+ .tab{flex-direction:column;gap:3px;font-size:10.5px;padding:6px 2px;flex:1}
+ .tab .badge{position:absolute;top:0;left:calc(50% + 4px)}
+ .app-h-r{margin-left:auto}
+ .app-h{padding:10px 16px}
+ .app-main{padding:18px 14px 110px}
+}
+.v-h{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+.v-h h1{font-family:'Bebas Neue';font-weight:400;font-size:42px;letter-spacing:.6px;line-height:1}
+.v-h p{color:var(--mu);font-size:14px;margin-top:2px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:6px}
+.stat{background:var(--p1);border:1px solid var(--ln);border-radius:14px;padding:14px 16px}
+.stat b{display:block;font-family:'Bebas Neue';font-size:42px;line-height:1;font-weight:400}
+.stat span{color:var(--mu);font-size:13.5px}
+.sec-t{display:flex;align-items:center;gap:8px;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mu);margin:24px 0 10px;font-weight:600}
+.sec-t i{font-style:normal;background:var(--p2);border-radius:999px;padding:0 8px;font-size:12px}
+.list{display:grid;gap:10px}
+.list.cols{grid-template-columns:repeat(auto-fill,minmax(310px,1fr))}
+.job{background:var(--p1);border:1px solid var(--ln);border-left:4px solid var(--y);border-radius:14px;padding:14px 16px;cursor:pointer;transition:border-color .15s}
+.job:hover{border-color:#3a4048;border-left-color:var(--y)}
+.job.st-en_curso,.job.st-en_curso:hover{border-left-color:var(--b)}
+.job.urg,.job.urg:hover{border-left-color:var(--r)}
+.job.st-hecho,.job.st-hecho:hover{border-left-color:var(--g);opacity:.78}
+.job-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.job-top b{font-size:16px;line-height:1.3}
+.tag-urg{font-size:11px;font-weight:700;letter-spacing:.8px;color:#ff8a8a;background:rgba(239,68,68,.13);border-radius:6px;padding:3px 7px;flex:none}
+.job-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;color:var(--mu);font-size:13px;margin-top:8px}
+.job-meta>span{display:inline-flex;align-items:center;gap:5px}
+.st-pill{font-weight:600}
+.st-pill.por_hacer{color:var(--y)}.st-pill.en_curso{color:#5b9bff}.st-pill.hecho{color:var(--g)}
+.st-pill:before{content:'';display:inline-block;width:7px;height:7px;border-radius:50%;background:currentColor}
+.job-acts{display:flex;gap:8px;margin-top:12px}
+.job-acts .btn{flex:1;padding:10px}
+.empty{border:1px dashed var(--ln);border-radius:14px;padding:20px;text-align:center;color:var(--mu);font-size:14px}
+.board{display:flex;gap:12px;overflow-x:auto;padding-bottom:12px;align-items:flex-start;scroll-snap-type:x mandatory}
+.col{flex:0 0 300px;background:#101114;border:1px solid var(--ln);border-radius:16px;padding:12px;scroll-snap-align:start}
+@media(max-width:560px){.col{flex-basis:86%}}
+.col-h{display:flex;align-items:center;gap:8px;margin-bottom:10px;font-weight:600}
+.col-h small{margin-left:auto;color:var(--mu);font-weight:400;font-size:12px}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--c,#666);flex:none}
+.col .job{padding:12px}
+.col .job-top b{font-size:14.5px}
+.cita{background:var(--p1);border:1px solid var(--ln);border-radius:14px;padding:16px;display:grid;gap:10px}
+.cita-when{display:flex;align-items:center;gap:12px}
+.when{background:rgba(245,184,46,.12);color:var(--y);border-radius:10px;padding:6px 10px;text-align:center;line-height:1.1;flex:none;min-width:70px}
+.when b{display:block;font-family:'Bebas Neue';font-size:24px;font-weight:400}
+.when small{font-size:11px;text-transform:uppercase;letter-spacing:1px}
+.cita p{color:#c9ced4;font-size:14px}
+.cita .job-meta{margin-top:0}
+.hist{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--ln);font-size:14px}
+.hist:last-child{border-bottom:0}
+.hist span{color:var(--mu);font-size:13px;margin-left:auto;white-space:nowrap}
+.hist-w{background:var(--p1);border:1px solid var(--ln);border-radius:14px;overflow:hidden}
+.worker{background:var(--p1);border:1px solid var(--ln);border-radius:14px;padding:16px;display:flex;align-items:center;gap:14px}
+.av{width:44px;height:44px;border-radius:50%;background:var(--c);color:#111;font-weight:700;display:grid;place-items:center;flex:none;font-size:17px}
+.w-n{font-weight:600}
+.w-n small{font-weight:600;font-size:11px;color:var(--y);background:rgba(245,184,46,.12);border-radius:6px;padding:2px 6px;margin-left:6px;letter-spacing:.5px}
+.w-st{display:flex;gap:14px;color:var(--mu);font-size:13px;margin-top:3px;flex-wrap:wrap}
+.w-st b{color:var(--tx)}
+.worker .btn{margin-left:auto}
+.add-w{display:flex;gap:8px;margin-top:14px}
+.add-w .inp{flex:1;min-width:0}
+.login{min-height:100vh;display:grid;place-items:center;padding:24px}
+.login-box{width:min(460px,100%);text-align:center}
+.login-box h1{font-family:'Bebas Neue';font-weight:400;font-size:48px;margin:18px 0 4px}
+.login-box>p{color:var(--mu);margin-bottom:24px}
+.who{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
+.who button{background:var(--p1);border:1px solid var(--ln);border-radius:16px;padding:18px 10px;display:grid;justify-items:center;gap:8px;font-weight:600}
+.who button:hover{border-color:var(--y)}
+.who small{color:var(--mu);font-weight:400;font-size:12px}
+/* MODAL */
+.ov{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.62);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;padding:20px;animation:fi .15s}
+.sheet{width:min(560px,100%);max-height:90vh;overflow:auto;background:var(--p1);border:1px solid var(--ln);border-radius:20px;padding:22px;animation:up .2s}
+@media(max-width:640px){.ov{align-items:flex-end;padding:0}.sheet{border-radius:20px 20px 0 0;max-height:92vh;padding:20px 16px calc(20px + env(safe-area-inset-bottom))}}
+@keyframes fi{from{opacity:0}}@keyframes up{from{transform:translateY(20px);opacity:0}}
+.sh-h{display:flex;align-items:flex-start;gap:10px;margin-bottom:16px}
+.sh-h h2{font-size:22px;flex:1;line-height:1.25}
+.x{width:34px;height:34px;border-radius:50%;background:var(--p2);display:grid;place-items:center;flex:none}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;background:var(--bg);border:1px solid var(--ln);border-radius:12px;padding:4px;margin-bottom:16px}
+.seg button{padding:10px 4px;border-radius:9px;font-size:13.5px;font-weight:600;color:var(--mu)}
+.seg button.on.por_hacer{background:rgba(245,184,46,.15);color:var(--y)}
+.seg button.on.en_curso{background:rgba(59,130,246,.18);color:#7fb0ff}
+.seg button.on.hecho{background:rgba(63,191,95,.18);color:var(--g)}
+.rows{border:1px solid var(--ln);border-radius:14px;overflow:hidden;margin-bottom:16px}
+.row{display:flex;align-items:center;gap:12px;padding:10px 14px;border-bottom:1px solid var(--ln);font-size:14px;min-height:46px}
+.row:last-child{border-bottom:0}
+.row>span:first-child{color:var(--mu);width:92px;flex:none}
+.r-v{flex:1;display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0}
+.row select,.row input{background:var(--bg);border:1px solid var(--ln);border-radius:8px;padding:7px 10px;width:100%}
+.mini{font-size:12.5px;padding:5px 9px;border-radius:7px;border:1px solid var(--ln);text-decoration:none;color:#cfd4da;background:var(--p2)}
+.mini.wa{color:#5ee08a;border-color:#1f4a2e}
+.notes{display:grid;gap:8px;margin:8px 0 10px}
+.note{background:var(--bg);border:1px solid var(--ln);border-radius:12px;padding:10px 12px;font-size:14px;white-space:pre-wrap}
+.note small{color:var(--mu);display:block;margin-bottom:2px;font-size:12px}
+.note-f{display:flex;gap:8px;align-items:flex-end}
+.note-f textarea{flex:1;background:var(--bg);border:1px solid var(--ln);border-radius:10px;padding:10px;min-height:44px;outline:none}
+.sh-foot{display:flex;justify-content:space-between;gap:10px;margin-top:18px;flex-wrap:wrap}
+.form-m .fld{margin-bottom:14px}
+.form-m input[type=text],.form-m input[type=tel],.form-m input[type=date],.form-m textarea,.form-m select{width:100%;background:var(--bg);border:1px solid var(--ln);border-radius:10px;padding:11px 13px;outline:none}
+.form-m input:focus,.form-m textarea:focus,.form-m select:focus{border-color:var(--y)}
+.toggle{display:flex;align-items:center;gap:10px;font-size:14px}
+.toggle input{width:18px;height:18px;accent-color:var(--r)}
+.urg-btn{font-size:12px;font-weight:700;letter-spacing:.6px;padding:7px 10px;border-radius:8px;border:1px solid var(--ln);color:var(--mu);flex:none}
+.urg-btn.on{color:#ff8a8a;border-color:#5a2426;background:rgba(239,68,68,.12)}
+.wa-big{display:flex;align-items:center;justify-content:center;gap:8px;background:#1f8f4a;color:#fff;text-decoration:none;border-radius:12px;padding:13px;font-weight:600;margin-bottom:16px}
+.info-c{background:var(--bg);border:1px solid var(--ln);border-radius:14px;padding:14px;margin-bottom:16px;display:grid;gap:6px;font-size:14px}
+#toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(16px);background:#fff;color:#111;font-weight:600;font-size:14px;padding:10px 16px;border-radius:12px;opacity:0;pointer-events:none;transition:.25s;z-index:80;box-shadow:0 10px 30px rgba(0,0,0,.45);white-space:nowrap}
+#toast.on{opacity:1;transform:translateX(-50%)}
+.demo-note{position:fixed;left:12px;bottom:12px;font-size:11.5px;color:var(--mu);background:var(--p1);border:1px solid var(--ln);border-radius:8px;padding:5px 9px;z-index:10}
+@media(max-width:860px){.demo-note{display:none}}
+/* ASISTENTE */
+.as-btn{position:fixed;right:18px;bottom:18px;z-index:31;display:flex;align-items:center;gap:9px;background:var(--y);color:#111;font-weight:700;font-size:14.5px;border-radius:999px;padding:13px 18px 13px 14px;box-shadow:0 10px 28px rgba(0,0,0,.5)}
+.as-btn i{width:28px;height:28px;border-radius:50%;background:#111;color:var(--y);display:grid;place-items:center;flex:none}
+.wa-float{bottom:84px!important;width:50px!important;height:50px!important}
+body.in-app .as-btn,body.as-open .as-btn{display:none}
+.as{position:fixed;right:18px;bottom:18px;z-index:40;width:380px;max-width:calc(100vw - 24px);height:min(600px,calc(100vh - 36px));background:var(--p1);border:1px solid var(--ln);border-radius:20px;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.6);animation:up .2s}
+@media(max-width:560px){.as{right:0;left:0;bottom:0;width:100%;max-width:none;height:88vh;border-radius:20px 20px 0 0}}
+.as-h{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--ln)}
+.as-h b{display:block;font-size:15px}.as-h small{color:var(--g);font-size:12px}
+.as-m{flex:1;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+.bub{max-width:86%;padding:10px 13px;border-radius:14px;font-size:14.5px;line-height:1.45;white-space:pre-wrap}
+.bub.bot{background:var(--p2);border:1px solid var(--ln);border-bottom-left-radius:4px;align-self:flex-start}
+.bub.usr{background:var(--y);color:#111;border-bottom-right-radius:4px;align-self:flex-end}
+.bub.typ{color:var(--mu)}
+.as-cta{align-self:flex-start;display:flex;gap:8px;flex-wrap:wrap}
+.as-chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 10px}
+.as-f{display:flex;gap:8px;padding:12px;border-top:1px solid var(--ln);padding-bottom:calc(12px + env(safe-area-inset-bottom))}
+.as-f input{flex:1;min-width:0;background:var(--bg);border:1px solid var(--ln);border-radius:12px;padding:11px 13px;outline:none;font-size:15px}
+.as-f input:focus{border-color:var(--y)}
+.as-f button{width:46px;border-radius:12px;background:var(--y);color:#111;display:grid;place-items:center;flex:none}
+.as-f button:disabled{opacity:.5}
+@media print{.as,.as-btn{display:none}}
+
+/* ===== Garaje Trujillo ===== */
+:root{--bg:#0c1520;--p1:#132030;--p2:#1a2a3d;--ln:#26384e;--tx:#eef2f6;--mu:#8fa1b5;--y:#e5483e;--y2:#f0625a}
+body{font-family:Inter,"Noto Sans Arabic",system-ui,sans-serif}
+.btn.y,.btn.y:hover{color:#fff}
+.logo-ic{color:#fff}
+.tab.on{background:rgba(229,72,62,.15);color:#ff8f88}
+.stat b[style*="--y"]{color:#ff8f88!important}
+.job:hover{border-left-color:var(--y)}
+.who button:hover{border-color:var(--y)}
+.lang select{background:var(--p2);color:var(--tx);border:1px solid var(--ln);border-radius:9px;padding:7px 8px;font:inherit;font-size:13px;font-weight:600}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.login{position:relative}
+.login-lang{position:absolute;top:16px;right:16px}
+.langs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.plate{direction:ltr;unicode-bidi:isolate}
+@media(max-width:560px){.hide-m{display:none}}
+[dir=rtl] body{font-family:"Noto Sans Arabic",Inter,system-ui,sans-serif}
+[dir=rtl] .job{border-left:1px solid var(--ln);border-right:4px solid var(--y)}
+[dir=rtl] .job.st-en_curso{border-right-color:var(--b)}
+[dir=rtl] .job.urg{border-right-color:var(--r)}
+[dir=rtl] .job.st-hecho{border-right-color:var(--g)}
+[dir=rtl] .login-lang{right:auto;left:16px}
+[dir=rtl] .col-h small{margin-left:0;margin-right:auto}
+[dir=rtl] .worker .btn{margin-left:0;margin-right:auto}
+[dir=rtl] .tab .badge{left:auto;right:calc(50% + 4px)}
+[dir=rtl] .row>span:first-child{text-align:right}
+[dir=rtl] .v-h h1,[dir=rtl] .login-box h1{font-family:"Noto Sans Arabic",sans-serif;font-weight:700;letter-spacing:0;font-size:32px}
+</style>
+</head>
+<body>
+<div id="web"></div>
+<div id="app" hidden></div>
+<div id="modal-root"></div>
+<div id="toast"></div>
+<script>
+/* ====== CONFIGURACIÓN DEL TALLER (cambiar por los datos reales) ====== */
+const CONFIG={
+  nombre:'Garaje Trujillo',
+  telefono:'945 28 29 39',            // teléfono del taller
+  whatsapp:'34600000000',            // WhatsApp del taller con prefijo 34
+  direccion:'Dirección del taller',
+  horarioTexto:['Lunes a viernes','9:00 – 13:30 y 15:30 – 19:00'],
+  horas:['09:00','10:00','11:00','12:00','15:30','16:30','17:30'], // huecos de cita
+  diasLaborables:[1,2,3,4,5],        // 1=lunes … 5=viernes
+  capacidadPorHora:2,                // coches que pueden entrar a la misma hora
+  diasVista:12
+};
+const SERVICIOS=['Diagnosis / testigo encendido','No arranca / batería','Alternador / no carga','Motor de arranque','Climatización / aire','Luces / iluminación','Furgoneta / camper','Otro'];
+
+/* ====== servidor (Supabase de Galerna Method) ====== */
+const SB_URL='https://hhygriqkhlcmeicjqqbp.supabase.co',SB_KEY='sb_publishable__qWkQiiWPohi6r3Te_GFQg_hm69zIDm';
+const ON_SITE=/(^|\.)galernamethod\.com$|^localhost$|^127\.0\.0\.1$/.test(location.hostname);
+const TALLER_PATH=/\/taller\/?(index\.html)?$/.test(location.pathname);
+const URL_TALLER=ON_SITE?'taller/':'#taller',URL_WEB=ON_SITE?'../':'#inicio',URL_FORM=ON_SITE?'../#cita':'#reservar';
+let SB=null,SESSION=null,HUECOS={},CHAN=null,STAFF=null;
+/* ====== utilidades ====== */
+const $=(s,r=document)=>r.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid=p=>p+Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+const pad=n=>String(n).padStart(2,'0');
+const ymd=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const today=()=>ymd(new Date());
+const addDays=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x};
+const parseYmd=s=>{const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)};
+const DIAS=['dom','lun','mar','mié','jue','vie','sáb'],DIAS_L=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+const MESES=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'],MESES_L=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+function fmtFecha(s){if(!s)return '—';if(s===today())return T('Hoy');if(s===ymd(addDays(new Date(),1)))return T('Mañana');if(s===ymd(addDays(new Date(),-1)))return T('Ayer');if(typeof LANG!=='undefined'&&LANG!=='es'){const d=parseYmd(s);return DIAS_I[LANG][d.getDay()]+' '+d.getDate()+' '+MES_I[LANG][d.getMonth()]}const d=parseYmd(s);return DIAS[d.getDay()]+' '+d.getDate()+' '+MESES[d.getMonth()]}
+function fechaLarga(s){const d=s?parseYmd(s):new Date();if(typeof LANG!=='undefined'&&LANG!=='es')return DIASL_I[LANG][d.getDay()]+' '+d.getDate()+' '+MESL_I[LANG][d.getMonth()];return DIAS_L[d.getDay()]+', '+d.getDate()+' de '+MESES_L[d.getMonth()]}
+const hm=iso=>{const d=new Date(iso);return pad(d.getHours())+':'+pad(d.getMinutes())};
+const isToday=iso=>!!iso&&ymd(new Date(iso))===today();
+const normPlate=s=>String(s||'').toUpperCase().replace(/[^A-Z0-9]/g,'');
+const digits=s=>String(s||'').replace(/\D/g,'');
+const waNum=d=>d.length===9?'34'+d:d;
+const plate=p=>`<span class="plate"><span>${esc(String(p).toUpperCase())}</span></span>`;
+const initial=w=>esc((w.nombre||'?').trim().charAt(0).toUpperCase());
+function lsGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function lsSet(k,v){try{v==null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch(e){}}
+let toastT;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('on'),2400)}
+
+/* ====== iconos ====== */
+const sv=(d,s=16)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+const P={
+ bolt:'<path d="M13 2 4 14h7l-1 8 9-12h-7z" fill="currentColor" stroke="none"/>',
+ car:'<path d="M5 11l1.5-4.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 11"/><rect x="3" y="11" width="18" height="6" rx="2"/><circle cx="7.5" cy="14" r="1"/><circle cx="16.5" cy="14" r="1"/><path d="M5 17v2M19 17v2"/>',
+ user:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+ cal:'<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/>',
+ msg:'<path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12z"/>',
+ check:'<path d="M20 6 9 17l-5-5"/>',
+ phone:'<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>',
+ list:'<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>',
+ wrench:'<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/>',
+ grid:'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
+ team:'<circle cx="9" cy="8" r="3.5"/><path d="M2 21a7 7 0 0 1 14 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M22 21a7 7 0 0 0-4-6.3"/>',
+ x:'<path d="M18 6 6 18M6 6l12 12"/>',
+ plus:'<path d="M12 5v14M5 12h14"/>',
+ battery:'<rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 11v2M6 10v4M10 10v4"/>',
+ scan:'<path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M7 12h3l2-4 2 8 2-4h1"/>',
+ cog:'<circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2"/>',
+ key:'<circle cx="7.5" cy="15.5" r="4.5"/><path d="m10.7 12.3 9.3-9.3M17 6l3 3M14 9l2 2"/>',
+ snow:'<path d="M12 2v20M4.9 4.9l14.2 14.2M2 12h20M4.9 19.1 19.1 4.9"/>',
+ bulb:'<path d="M9 18h6M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>',
+ sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+ search:'<circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>',
+ clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+ pin:'<path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/>',
+ plug:'<path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/>',
+ arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>'
+};
+const LOGO=`<span class="logo-ic" style="font-weight:800;font-size:18px">T</span>`;
+
+/* ====== datos ====== */
+const S={citas:[],trabajos:[],equipo:[]};
+let MODE='local',DB=null,READY=false;
+const LSKEY='trj_demo_v1',USERKEY='trj_user';
+
+function nextWorkday(n){let d=new Date(),c=0;while(c<n){d=addDays(d,1);if(CONFIG.diasLaborables.includes(d.getDay()))c++}return ymd(d)}
+function seedData(){
+ const t=today(),d1=nextWorkday(1),d2=nextWorkday(2),now=new Date().toISOString();
+ return{
+  equipo:[{id:'w_roberto',nombre:'Roberto',rol:'jefe',color:'#f5b82e',orden:0},{id:'w_luis',nombre:'Luis',rol:'tecnico',color:'#3fbf5f',orden:1},{id:'w_pepe',nombre:'Pepe',rol:'tecnico',color:'#3b82f6',orden:2}],
+  trabajos:[
+   {id:'t_demo1',titulo:'Cambiar alternador',vehiculo:'Seat León 2015',matricula:'1234 ABC',cliente:'Manolo',telefono:'600555444',asignado:'w_pepe',estado:'en_curso',urgente:true,fecha:t,notas:[{autor:'Roberto',texto:'No carga: 12,1 V con el motor en marcha. Alternador pedido.',ts:now}],creado:now,presupuesto:'380'},
+   {id:'t_demo2',titulo:'Batería',vehiculo:'Renault Clio 2018',matricula:'5678 DFG',cliente:'Ana García',telefono:'611222333',asignado:'w_pepe',estado:'por_hacer',urgente:false,fecha:t,notas:[],creado:now},
+   {id:'t_demo3',titulo:'Testigo de motor encendido',vehiculo:'Ford Transit 2019',matricula:'9012 KLM',cliente:'Iñaki',telefono:'622333444',asignado:'w_luis',estado:'por_hacer',urgente:false,fecha:t,notas:[],creado:now},
+   {id:'t_demo4',titulo:'Instalación solar camper',vehiculo:'VW California 2017',matricula:'3456 HJK',cliente:'Leire',telefono:'633444555',asignado:'',estado:'por_hacer',urgente:false,fecha:d1,notas:[{autor:'Roberto',texto:'Placa 200 W + regulador MPPT + batería de litio 100 Ah.',ts:now}],creado:now},
+   {id:'t_demo5',titulo:'Luces de cruce no encienden',vehiculo:'Peugeot 308 2016',matricula:'7788 GBN',cliente:'Javi',telefono:'644555666',asignado:'w_luis',estado:'hecho',urgente:false,fecha:t,notas:[],creado:now,hechoEn:now}],
+  citas:[
+   {id:'c_demo1',nombre:'Marta López',telefono:'655666777',vehiculo:'Citroën Berlingo 2020',matricula:'4321 LMN',servicio:'No arranca / batería',descripcion:'Por las mañanas le cuesta arrancar y a veces no arranca.',fecha:d1,hora:'09:00',estado:'pendiente',creada:now},
+   {id:'c_demo2',nombre:'Gorka',telefono:'666777888',vehiculo:'Toyota Auris 2014',matricula:'1122 FFH',servicio:'Climatización / aire',descripcion:'El aire no enfría.',fecha:d2,hora:'16:30',estado:'pendiente',creada:now}]
+ };
+}
+function loadLocal(){let d=null;try{d=JSON.parse(localStorage.getItem(LSKEY))}catch(e){}
+ if(!d||!Array.isArray(d.equipo)){d=seedData();try{localStorage.setItem(LSKEY,JSON.stringify(d))}catch(e){}}
+ S.citas=d.citas||[];S.trabajos=d.trabajos||[];S.equipo=d.equipo||[]}
+function saveLocal(){try{localStorage.setItem(LSKEY,JSON.stringify(S))}catch(e){}}
+
+async function writeDoc(col,id,data,merge){
+ if(MODE==='sb'){
+  const cur=S[col].find(x=>x.id===id);
+  const body={...(merge&&cur?cur:{}),...data};delete body.id;
+  const {error}=await SB.from('trj_'+col).upsert({id,data:body});
+  if(error){toast(T('No se pudo guardar. Revisa la conexión.'));throw error}
+  const arr=S[col],i=arr.findIndex(x=>x.id===id);if(i>=0)arr[i]={...body,id};else arr.push({...body,id});
+  onData();return;
+ }
+ if(MODE==='db'){
+  const body={...data};delete body.id;
+  const ref=DB.collection(col).doc(id);
+  try{merge?await ref.update(body):await ref.set(body)}
+  catch(e){toast(e&&e.code==='invalid_argument'?'No tienes permiso para guardar cambios':'No se pudo guardar. Reintenta.');throw e}
+  return;
+ }
+ const arr=S[col],i=arr.findIndex(x=>x.id===id);
+ if(merge&&i>=0)arr[i]={...arr[i],...data};else if(i>=0)arr[i]={...data,id};else arr.push({...data,id});
+ saveLocal();onData();
+}
+const patch=(col,id,d)=>writeDoc(col,id,d,true);
+async function removeDoc(col,id){
+ if(MODE==='sb'){const {error}=await SB.from('trj_'+col).delete().eq('id',id);if(error){toast(T('No se pudo borrar'));throw error}S[col]=S[col].filter(x=>x.id!==id);onData();return}
+ if(MODE==='db'){try{await DB.collection(col).doc(id).delete()}catch(e){toast(T('No se pudo borrar'));throw e}return}
+ S[col]=S[col].filter(x=>x.id!==id);saveLocal();onData();
+}
+
+async function loadHuecos(){
+ if(!SB)return;
+ const {data,error}=await SB.rpc('trj_huecos',{desde:today(),hasta:ymd(addDays(new Date(),45))});
+ if(error)return;
+ HUECOS={};(data||[]).forEach(r=>HUECOS[r.fecha+'|'+r.hora]=r.n);onData();
+}
+async function sbLoadAll(){
+ const tabs=['citas','trabajos','equipo'];
+ const rs=await Promise.all(tabs.map(t=>SB.from('trj_'+t).select('id,data')));
+ rs.forEach((r,i)=>{if(!r.error)S[tabs[i]]=(r.data||[]).map(x=>({...x.data,id:x.id}))});
+}
+async function sbStart(){
+ const {data:ok}=await SB.rpc('trj_es_staff');STAFF=!!ok;
+ if(!STAFF)return;
+ await sbLoadAll();
+ if(!CHAN){
+  CHAN=SB.channel('trj-taller');
+  ['citas','trabajos','equipo'].forEach(t=>CHAN.on('postgres_changes',{event:'*',schema:'public',table:'trj_'+t},p=>{
+   if(p.eventType==='DELETE'){S[t]=S[t].filter(x=>x.id!==(p.old&&p.old.id))}
+   else if(p.new&&p.new.id){const row={...p.new.data,id:p.new.id},i=S[t].findIndex(x=>x.id===row.id);if(i>=0)S[t][i]=row;else S[t].push(row)}
+   onData();
+  }));
+  CHAN.subscribe();
+  setInterval(()=>{if(SESSION&&STAFF&&!document.hidden)sbLoadAll().then(onData)},60000);
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden&&SESSION&&STAFF)sbLoadAll().then(onData)});
+ }
+}
+async function sbInit(){
+ MODE='sb';
+ if(!window.supabase){READY=true;onData();toast('No se pudo cargar. Revisa la conexión.');return}
+ SB=window.supabase.createClient(SB_URL,SB_KEY);
+ if(!TALLER_PATH){await loadHuecos();READY=true;onData();setInterval(loadHuecos,60000);window.addEventListener('focus',loadHuecos);return}
+ const {data}=await SB.auth.getSession();SESSION=data.session;
+ SB.auth.onAuthStateChange((ev,s)=>{SESSION=s;if(ev==='SIGNED_OUT'){S.citas=[];S.trabajos=[];S.equipo=[];STAFF=null;onData()}});
+ if(SESSION)await sbStart();
+ READY=true;onData();
+}
+async function initStore(){
+ if(ON_SITE)return sbInit();
+ let db=null;
+ if(window.claude&&typeof window.claude.use==='function'){
+  try{db=await Promise.race([window.claude.use('db'),new Promise(r=>setTimeout(()=>r(null),10000))])}catch(e){db=null}
+ }
+ if(db){
+  DB=db;MODE='db';
+  const timer=setTimeout(()=>{if(!READY){READY=true;onData();toast('Sin conexión: los datos pueden no estar al día')}},10000);
+  ['citas','trabajos','equipo'].forEach(c=>{
+   db.collection(c).onSnapshot(snap=>{
+    S[c]=snap.docs.map(d=>({...d.data(),id:d.id}));
+    if(!READY&&!snap.metadata.fromCache){READY=true;clearTimeout(timer)}
+    onData();
+   },()=>{READY=true;clearTimeout(timer);onData()});
+  });
+ }else{
+  MODE='local';loadLocal();READY=true;onData();
+  window.addEventListener('storage',e=>{if(e.key===LSKEY){loadLocal();onData()}});
+ }
+}
+function onData(){
+ if(!$('#app').hidden){renderApp();if(MODAL)renderModal()}
+ else{renderDays();renderSlots();if(EST_Q)renderEstado()}
+}
+
+/* ====================== WEB ====================== */
+const BK={serv:'',day:'',slot:''};let EST_Q='';
+function webHTML(){
+ const svc=[
+  [P.scan,'Diagnosis electrónica','Leemos las centralitas con equipos actualizados y buscamos el origen del fallo, no solo el código.'],
+  [P.battery,'Baterías','Comprobamos batería, carga y consumos parásitos. Si hay que cambiarla, ponemos la adecuada para tu coche.'],
+  [P.cog,'Alternadores','Revisión, reparación o sustitución cuando el coche no carga o se enciende el testigo de batería.'],
+  [P.key,'Motores de arranque','Si le cuesta arrancar o hace clic y no arranca, lo revisamos y lo dejamos fino.'],
+  [P.snow,'Climatización','Carga de gas, fugas y fallos eléctricos del aire acondicionado y el climatizador.'],
+  [P.bulb,'Iluminación','Faros, pilotos y luces que fallan, cableados y adaptaciones.']];
+ const ok=sv(P.check,18);
+ return `
+<nav class="nav"><div class="wrap">
+ <a class="logo" href="#inicio">${LOGO}<div><b><span class="lg-l">AUTOELECTRICIDAD </span>ROBERTO</b><small>Electricidad y electrónica del automóvil</small></div></a>
+ <div class="nav-links"><a href="#servicios">Servicios</a><a href="#como">Cómo trabajamos</a><a href="#estado">¿Cómo va mi coche?</a><a href="#contacto">Contacto</a></div>
+ <a class="btn y" href="#reservar">Pedir cita</a>
+ <a class="nav-taller" href="${URL_TALLER}" title="Acceso para el equipo del taller">${sv(P.wrench,15)}<span>Taller</span></a>
+</div></nav>
+<header class="hero" id="inicio"><div class="wrap"><div class="hero-card">
+ <div>
+  <div class="kicker"><i></i>Especialistas en electricidad y electrónica del automóvil</div>
+  <h1 class="bb">Si tu coche tiene un fallo eléctrico, <em>lo encontramos.</em></h1>
+  <p class="lead">Diagnosis con equipos actualizados, baterías, alternadores, arranques, climatización e iluminación. Coches, furgonetas y campers. Te explicamos qué tiene el coche y cuánto cuesta antes de tocar nada.</p>
+  <div class="hero-cta"><a class="btn y" href="#reservar">Pedir cita ${sv(P.arrow,16)}</a><a class="btn" href="tel:${digits(CONFIG.telefono)}">${sv(P.phone,16)} Llamar al taller</a></div>
+ </div>
+ <div class="gauge-w">
+  <svg viewBox="0 0 240 240" role="img" aria-label="Voltímetro: 14,2 voltios, carga correcta">
+   <defs><linearGradient id="gg" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#f0571f"/><stop offset=".55" stop-color="#f08a24"/><stop offset="1" stop-color="#f5b82e"/></linearGradient></defs>
+   <circle cx="120" cy="120" r="112" fill="#0f1012" stroke="#23262b" stroke-width="2"/>
+   <circle cx="120" cy="120" r="88" fill="none" stroke="#24272c" stroke-width="12" stroke-linecap="round" stroke-dasharray="414.7 552.9" transform="rotate(135 120 120)"/>
+   <circle id="g-arc" cx="120" cy="120" r="88" fill="none" stroke="url(#gg)" stroke-width="12" stroke-linecap="round" stroke-dasharray="0 552.9" transform="rotate(135 120 120)" style="transition:stroke-dasharray 1.6s cubic-bezier(.2,.8,.2,1)"/>
+   <g id="g-ticks" stroke="#3a3f46" stroke-width="2" stroke-linecap="round"></g>
+   <text id="g-val" x="120" y="130" text-anchor="middle" font-family="Bebas Neue, Impact, sans-serif" font-size="66" fill="#fff">12.6</text>
+   <text x="120" y="153" text-anchor="middle" font-size="9.5" letter-spacing="2" fill="#9aa1a9" font-family="Inter, sans-serif" font-weight="600">VOLTIOS · CARGA OK</text>
+   <path d="M126 164 l-14 19 h9 l-4 15 l15-21 h-9 l4-13z" fill="#f5b82e"/>
+  </svg>
+  <div class="chip-f" style="top:6%;left:-4%">Batería <b>12.6 V</b></div>
+  <div class="chip-f ok" style="bottom:8%;right:-4%">Sin códigos de avería ✓</div>
+ </div>
+</div></div></header>
+
+<section class="s" id="servicios"><div class="wrap">
+ <div class="s-h"><h2 class="bb">Lo que <em>arreglamos</em></h2><p>Todo lo que lleva corriente en tu vehículo. Si no sabes qué le pasa, empezamos por la diagnosis.</p></div>
+ <div class="grid3">${svc.map(s=>`<div class="svc"><div class="ic-b">${sv(s[0],22)}</div><h3>${s[1]}</h3><p>${s[2]}</p></div>`).join('')}</div>
+ <div class="camper">
+  <div><div class="kicker"><i></i>Furgonetas y campers</div><h3 class="bb">Tu furgo, con <em style="font-style:normal;color:var(--y)">energía de verdad</em></h3><p>Montamos y reparamos la instalación eléctrica de furgonetas de trabajo y campers, para que tengas luz, nevera y enchufes sin quedarte tirado.</p><div style="margin-top:20px"><a class="btn y" href="#reservar" data-serv-pre="Furgoneta / camper">Pedir presupuesto</a></div></div>
+  <ul>${['Placas solares y reguladores','Baterías auxiliares y de litio','Cargadores e inversores 230 V','Iluminación, tomas USB y nevera','Revisión de instalaciones que fallan'].map(x=>`<li>${sv(P.check,18)}${x}</li>`).join('')}</ul>
+ </div>
+</div></section>
+
+<section class="s" id="como"><div class="wrap">
+ <div class="s-h"><h2 class="bb">Cómo <em>trabajamos</em></h2><p>Sin sorpresas en la factura.</p></div>
+ <div class="steps">
+  <div class="step"><div class="n">01</div><h3>Diagnosis</h3><p>Revisamos el vehículo con equipos actualizados hasta dar con el origen del fallo.</p></div>
+  <div class="step"><div class="n">02</div><h3>Te lo explicamos</h3><p>Te contamos qué tiene y cuánto cuesta antes de tocar nada. Tú decides.</p></div>
+  <div class="step"><div class="n">03</div><h3>Reparamos y te avisamos</h3><p>Lo arreglamos y te escribimos cuando esté listo. Puedes seguir el estado desde esta web.</p></div>
+ </div>
+</div></section>
+
+<section class="s" id="reservar"><div class="wrap"><div class="book">
+ <div class="book-side">
+  <div class="kicker"><i></i>Cita online</div>
+  <h2 class="bb" style="margin-top:12px">Pide cita en <em>1 minuto</em></h2>
+  <p class="hint" style="font-size:15px">Elige día y hora entre los huecos libres del taller. Sin llamadas ni esperas.</p>
+  <ul><li>${ok}Solo ves horas disponibles de verdad</li><li>${ok}Presupuesto antes de reparar</li><li>${ok}Sigue tu reparación con la matrícula</li></ul>
+ </div>
+ <div class="form">
+  <form id="bk" novalidate>
+   <div class="fld"><span class="lbl">¿Qué le pasa al vehículo?</span><div class="chips" id="bk-serv">${SERVICIOS.map(s=>`<button type="button" class="chipb" data-serv="${esc(s)}">${esc(s)}</button>`).join('')}</div></div>
+   <div class="grid2"><div class="fld"><label class="lbl" for="bk-veh">Marca y modelo</label><input id="bk-veh" type="text" name="vehiculo" placeholder="Ej. Seat León 2015" autocomplete="off"></div><div class="fld"><label class="lbl" for="bk-mat">Matrícula</label><input id="bk-mat" type="text" name="matricula" placeholder="1234 ABC" autocomplete="off" style="text-transform:uppercase"></div></div>
+   <div class="fld"><label class="lbl" for="bk-desc">Cuéntanos el problema <span class="hint">(opcional)</span></label><textarea id="bk-desc" name="descripcion" rows="3" placeholder="Ej. le cuesta arrancar por las mañanas y se enciende el testigo de batería"></textarea></div>
+   <div class="fld"><span class="lbl">Elige día</span><div class="days" id="bk-days"></div></div>
+   <div class="fld"><span class="lbl">Elige hora</span><div class="slots" id="bk-slots"></div></div>
+   <div class="grid2"><div class="fld"><label class="lbl" for="bk-nom">Tu nombre</label><input id="bk-nom" type="text" name="nombre" autocomplete="name"></div><div class="fld"><label class="lbl" for="bk-tel">Teléfono</label><input id="bk-tel" type="tel" name="telefono" autocomplete="tel" placeholder="6XX XXX XXX"></div></div>
+   <label class="chk"><input type="checkbox" name="rgpd" value="1"> Acepto que el taller use mis datos solo para gestionar esta cita y avisarme del estado del vehículo.</label>
+   <button type="submit" class="btn y big">Confirmar cita</button>
+   <p class="err" id="bk-err" role="alert"></p>
+  </form>
+  <div id="bk-ok" hidden></div>
+ </div>
+</div></div></section>
+
+<section class="s" id="estado"><div class="wrap"><div class="estado">
+ <div>
+  <div class="kicker"><i></i>Seguimiento</div>
+  <h2 class="bb">¿Cómo va <em>mi coche?</em></h2>
+  <p class="hint" style="font-size:15px">Escribe la matrícula y mira en qué punto está la reparación, sin tener que llamar.</p>
+  <form class="estado-f" id="f-estado"><input class="inp" name="q" placeholder="1234 ABC" autocomplete="off" aria-label="Matrícula"><button class="btn y">${sv(P.search,16)} Ver</button></form>
+ </div>
+ <div class="res-box" id="estado-res"><p class="hint">Aquí verás el estado: recibido en el taller, en reparación o listo para recoger.</p><p class="hint" style="margin-top:8px">Prueba con <button type="button" class="lk" data-try="1234 ABC">1234 ABC</button>.</p></div>
+</div></div></section>
+
+<footer class="foot" id="contacto"><div class="wrap">
+ <div><a class="logo" href="#inicio">${LOGO}<div><b>AUTOELECTRICIDAD ROBERTO</b></div></a><p style="margin-top:14px;max-width:320px">Electricidad y electrónica del automóvil. Coches, furgonetas y campers.</p></div>
+ <div><h4>Contacto</h4><p>${sv(P.phone,14)} <a href="tel:${digits(CONFIG.telefono)}">${esc(CONFIG.telefono)}</a></p><p>${sv(P.msg,14)} <a href="https://wa.me/${CONFIG.whatsapp}" target="_blank" rel="noopener">WhatsApp</a></p><p>${sv(P.pin,14)} ${esc(CONFIG.direccion)}</p></div>
+ <div><h4>Horario</h4>${CONFIG.horarioTexto.map(h=>`<p>${esc(h)}</p>`).join('')}<p style="margin-top:14px"><a href="${URL_TALLER}">Acceso taller →</a></p></div>
+</div></footer>
+<button class="as-btn" id="as-open" type="button"><i>${sv(P.bolt,16)}</i>¿Qué le pasa a tu coche?</button>
+<a class="wa-float" href="https://wa.me/${CONFIG.whatsapp}" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">${sv(P.msg,26)}</a>`;
+}
+
+function slotCount(day,h){if(MODE==='sb')return HUECOS[day+'|'+h]||0;return S.citas.filter(c=>c.fecha===day&&c.hora===h&&c.estado!=='rechazada').length}
+function slotPast(day,h){if(day!==today())return false;const[H,M]=h.split(':').map(Number);const n=new Date();return H*60+M<=n.getHours()*60+n.getMinutes()+60}
+function freeSlots(day){return CONFIG.horas.filter(h=>!slotPast(day,h)&&slotCount(day,h)<CONFIG.capacidadPorHora).length}
+function bookDays(){const out=[];let d=new Date();for(let i=0;out.length<CONFIG.diasVista&&i<40;i++){if(CONFIG.diasLaborables.includes(d.getDay()))out.push(ymd(d));d=addDays(d,1)}return out}
+function renderDays(){
+ const el=$('#bk-days');if(!el)return;
+ const days=bookDays();
+ if(!BK.day||!days.includes(BK.day)||!freeSlots(BK.day))BK.day=days.find(d=>freeSlots(d))||'';
+ el.innerHTML=days.map(d=>{const dt=parseYmd(d),full=!freeSlots(d);return `<button type="button" class="day ${BK.day===d?'on':''}" data-day="${d}" ${full?'disabled':''}><small>${d===today()?'hoy':DIAS[dt.getDay()]}</small><b>${dt.getDate()}</b><small>${full?'lleno':MESES[dt.getMonth()]}</small></button>`}).join('');
+}
+function renderSlots(){
+ const el=$('#bk-slots');if(!el)return;
+ if(!BK.day){el.innerHTML='<p class="hint">No quedan huecos libres estos días. Llámanos.</p>';return}
+ if(BK.slot&&(slotPast(BK.day,BK.slot)||slotCount(BK.day,BK.slot)>=CONFIG.capacidadPorHora))BK.slot='';
+ el.innerHTML=CONFIG.horas.map(h=>{const n=slotCount(BK.day,h),past=slotPast(BK.day,h),full=n>=CONFIG.capacidadPorHora,dis=past||full;
+  return `<button type="button" class="slot ${BK.slot===h?'on':''}" data-slot="${h}" ${dis?'disabled':''}>${h}<small>${past?'—':full?'Completo':'Libre'}</small></button>`}).join('');
+}
+function renderServ(){document.querySelectorAll('#bk-serv .chipb').forEach(b=>b.classList.toggle('on',b.dataset.serv===BK.serv))}
+
+async function submitBooking(f){
+ const err=$('#bk-err');err.textContent='';
+ const fd=new FormData(f),v=k=>String(fd.get(k)||'').trim();
+ const fail=m=>{err.textContent=m};
+ if(!BK.serv)return fail('Elige qué le pasa al vehículo.');
+ if(!v('vehiculo')||normPlate(v('matricula')).length<4)return fail('Indica el vehículo y la matrícula.');
+ if(!BK.day||!BK.slot)return fail('Elige día y hora.');
+ if(!v('nombre')||digits(v('telefono')).length<9)return fail('Pon tu nombre y un teléfono válido.');
+ if(!fd.get('rgpd'))return fail('Acepta el uso de tus datos para gestionar la cita.');
+ if(slotCount(BK.day,BK.slot)>=CONFIG.capacidadPorHora){BK.slot='';renderSlots();return fail('Esa hora se acaba de llenar. Elige otra.')}
+ const btn=f.querySelector('button[type=submit]');btn.disabled=true;btn.textContent='Enviando…';
+ const c={nombre:v('nombre'),telefono:v('telefono'),vehiculo:v('vehiculo'),matricula:v('matricula').toUpperCase(),servicio:BK.serv,descripcion:v('descripcion'),fecha:BK.day,hora:BK.slot,estado:'pendiente',creada:new Date().toISOString()};
+ try{
+  if(MODE==='sb'){const {error}=await SB.rpc('trj_reservar',{c});if(error){const full=/completo/.test(error.message);if(full){BK.slot='';await loadHuecos()}throw new Error(full?'Esa hora se acaba de llenar. Elige otra.':'')}loadHuecos()}
+  else await writeDoc('citas',uid('c'),c);
+ }catch(e){btn.disabled=false;btn.textContent='Confirmar cita';return fail(e&&e.message?e.message:`No se pudo enviar la reserva. Llámanos al ${CONFIG.telefono}.`)}
+ f.hidden=true;
+ const ok=$('#bk-ok');ok.hidden=false;
+ ok.innerHTML=`<div class="ok-card"><div class="ok-ic">${sv(P.check,30)}</div><h3>¡Cita reservada!</h3><p class="hint">Te esperamos. Si necesitas cambiarla, llámanos al ${esc(CONFIG.telefono)}.</p>
+  <div class="sum"><div><span>Día</span><b>${fechaLarga(c.fecha)}</b></div><div><span>Hora</span><b>${c.hora}</b></div><div><span>Vehículo</span><b>${esc(c.vehiculo)} ${plate(c.matricula)}</b></div><div><span>Motivo</span><b>${esc(c.servicio)}</b></div></div>
+  <p class="hint">Cuando el coche esté en el taller podrás ver cómo va en <a class="lk" href="#estado">¿Cómo va mi coche?</a> con tu matrícula.</p>
+  <button type="button" class="btn" style="margin-top:18px" id="bk-new">Pedir otra cita</button></div>`;
+ ok.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+let EST_SEQ=0;
+async function renderEstado(){
+ const el=$('#estado-res');if(!el||!EST_Q)return;
+ const p=normPlate(EST_Q),seq=++EST_SEQ;
+ if(p.length<4){el.innerHTML='<p class="hint">Escribe la matrícula completa.</p>';return}
+ let t=null,c=null;
+ if(MODE==='sb'){
+  el.innerHTML='<p class="hint">Buscando…</p>';
+  const {data,error}=await SB.rpc('trj_estado',{mat:EST_Q});if(seq!==EST_SEQ)return;
+  if(error){el.innerHTML='<p class="hint">No se pudo consultar ahora. Inténtalo en un momento.</p>';return}
+  if(data&&data.tipo==='trabajo')t=data;else if(data&&data.tipo==='cita')c=data;
+ }else{
+  t=S.trabajos.filter(x=>normPlate(x.matricula)===p).sort((a,b)=>(b.creado||'').localeCompare(a.creado||''))[0];
+  c=S.citas.filter(x=>normPlate(x.matricula)===p&&x.estado==='pendiente').sort((a,b)=>(a.fecha+a.hora).localeCompare(b.fecha+b.hora))[0];
+ }
+ if(t){
+  const idx={por_hacer:0,en_curso:1,hecho:2}[t.estado]??0;
+  const steps=[['Recibido en el taller','Lo tenemos en cola para revisarlo.'],['En reparación','Un técnico está trabajando en tu vehículo.'],['Listo para recoger','Ya puedes pasar a por él.']];
+  el.innerHTML=`<h4>${esc(t.vehiculo||'Tu vehículo')} ${plate(t.matricula)}</h4><p class="hint">${esc(t.titulo)}</p>
+  <div class="tl">${steps.map((s,i)=>{const cls=i<idx||idx===2?'done':i===idx?'now':'';return `<div class="tl-i ${cls}"><div class="tl-dot">${cls==='done'?sv(P.check,14):''}</div><div><b>${s[0]}</b><small>${i===idx?s[1]:i<idx?'Hecho':'Pendiente'}</small></div></div>`}).join('')}</div>
+  ${idx===2?`<div class="ready">✓ Tu vehículo está listo. Horario: ${esc(CONFIG.horarioTexto.join(', '))}.</div>`:''}`;
+ }else if(c){
+  el.innerHTML=`<h4>${esc(c.vehiculo)} ${plate(c.matricula)}</h4><p class="hint" style="margin-top:6px">Tenemos tu cita para el <b style="color:var(--tx)">${fechaLarga(c.fecha)}</b> a las <b style="color:var(--tx)">${esc(c.hora)}</b>. Cuando dejes el vehículo verás aquí cómo avanza la reparación.</p>`;
+ }else{
+  el.innerHTML=`<h4>No encontramos esa matrícula</h4><p class="hint" style="margin-top:6px">Revisa que esté bien escrita o llámanos al ${esc(CONFIG.telefono)}.</p>`;
+ }
+}
+
+function initGauge(){
+ const g=$('#g-ticks');if(!g)return;
+ let h='';for(let i=0;i<=8;i++){const a=(135+i*33.75)*Math.PI/180,r1=70,r2=i%2?74:78;h+=`<line x1="${120+r1*Math.cos(a)}" y1="${120+r1*Math.sin(a)}" x2="${120+r2*Math.cos(a)}" y2="${120+r2*Math.sin(a)}"/>`}
+ g.innerHTML=h;
+ setTimeout(()=>{$('#g-arc').setAttribute('stroke-dasharray',(414.7*0.8).toFixed(1)+' 552.9');
+  const v=$('#g-val'),t0=performance.now();
+  (function step(t){const k=Math.min(1,(t-t0)/1600),e=1-Math.pow(1-k,3);v.textContent=(12.6+1.6*e).toFixed(1);if(k<1)requestAnimationFrame(step)})(t0);
+ },350);
+}
+
+function bindWeb(){
+ const w=$('#web');w.innerHTML=webHTML();
+ w.addEventListener('click',e=>{
+  const s=e.target.closest('[data-serv]');if(s){BK.serv=s.dataset.serv;renderServ();return}
+  const pre=e.target.closest('[data-serv-pre]');if(pre){BK.serv=pre.dataset.servPre;renderServ();return}
+  const d=e.target.closest('[data-day]');if(d&&!d.disabled){BK.day=d.dataset.day;BK.slot='';renderDays();renderSlots();return}
+  const sl=e.target.closest('[data-slot]');if(sl&&!sl.disabled){BK.slot=sl.dataset.slot;renderSlots();return}
+  const tr=e.target.closest('[data-try]');if(tr){$('#f-estado [name=q]').value=tr.dataset.try;EST_Q=tr.dataset.try;renderEstado();return}
+  if(e.target.closest('#bk-new')){const f=$('#bk');f.reset();BK.serv='';BK.slot='';renderServ();renderDays();renderSlots();f.hidden=false;$('#bk-ok').hidden=true;const b=f.querySelector('button[type=submit]');b.disabled=false;b.textContent='Confirmar cita';}
+ });
+ w.addEventListener('submit',e=>{
+  e.preventDefault();
+  if(e.target.id==='bk')submitBooking(e.target);
+  if(e.target.id==='f-estado'){EST_Q=e.target.q.value;renderEstado()}
+ });
+ renderDays();renderSlots();initGauge();
+}
+
+
+/* ====================== IDIOMAS (ES / FR / AR) ====================== */
+const I18N={"Mis trabajos": ["Mes travaux", "خدمتي"], "Libres": ["Libres", "بلا صاحب"], "Taller": ["Atelier", "الگاراج"], "Citas web": ["RDV web", "المواعيد"], "Equipo": ["Équipe", "الفريق"], "Por hacer": ["À faire", "باقي"], "En curso": ["En cours", "خدامين فيها"], "Hecho": ["Terminé", "سالات"], "Hecho!": ["Terminé", "ساليت"], "Hechos hoy": ["Terminés aujourd'hui", "سالاو اليوم"], "Empezar": ["Commencer", "بدا"], "Me lo quedo": ["Je le prends", "غادي ندّيها"], "URGENTE": ["URGENT", "مستعجلة"], "Hola, ": ["Bonjour, ", "السلام، "], "Nuevo trabajo": ["Nouveau travail", "خدمة جديدة"], "Nuevo": ["Nouveau", "جديد"], "No tienes nada en marcha ahora mismo.": ["Rien en cours pour l'instant.", "ما عندك حتى خدمة دابا."], "No tienes trabajos pendientes.": ["Aucun travail en attente.", "ما عندك حتى خدمة باقية."], "Mira en": ["Regarde dans", "شوف ف"], "Trabajos libres": ["Travaux libres", "خدمات بلا صاحب"], "Sin asignar. Quédate uno y pasa a tu lista.": ["Non attribués. Prends-en un et il passe dans ta liste.", "ما معطيين لحتى واحد. خود وحدة وتدوز للخدمة ديالك."], "No hay trabajos libres. Todo está repartido 👌": ["Aucun travail libre. Tout est réparti 👌", "ما كاين حتى خدمة بلا صاحب. كلشي مقسوم 👌"], "Sin asignar": ["Non attribué", "بلا صاحب"], "abierto": ["ouvert", "مفتوحة"], "abiertos": ["ouverts", "مفتوحين"], "hecho": ["terminé", "سالات"], "hechos": ["terminés", "سالاو"], " hoy": [" aujourd'hui", " اليوم"], "Sin trabajos abiertos": ["Aucun travail ouvert", "ما كاين حتى خدمة مفتوحة"], "Lo que reservan los clientes desde la web. Conviértelas en trabajo con un toque.": ["Les rendez-vous pris sur le site. Transforme-les en travail en un clic.", "المواعيد اللي خداو الكليان من الويب. ردّها خدمة بكليكة وحدة."], "Ver formulario": ["Voir le formulaire", "شوف الفورمولير"], "Pendientes": ["En attente", "كيتسناو"], "Crear trabajo": ["Créer le travail", "دير خدمة"], "Llamar": ["Appeler", "عيّط"], "No hay citas nuevas.": ["Pas de nouveaux rendez-vous.", "ما كاين حتى موعد جديد."], "Últimas gestionadas": ["Derniers traités", "آخر اللي تقاداو"], "Trabajo creado": ["Travail créé", "تدارت الخدمة"], "Rechazada": ["Refusé", "ترفض"], "Quién lleva qué y cómo va el día.": ["Qui fait quoi et comment se passe la journée.", "شكون خدام على شنو وكيف داير النهار."], "JEFE": ["CHEF", "المعلم"], "(tú)": ["(toi)", "(نتا)"], "por hacer": ["à faire", "باقي"], "en curso": ["en cours", "خدامين فيها"], "hechos hoy": ["terminés aujourd'hui", "سالاو اليوم"], "en 7 días": ["en 7 jours", "ف 7 أيام"], "¿Seguro? Pulsa otra vez": ["Sûr ? Appuie encore", "متأكد؟ ورك مرة أخرى"], "Quitar": ["Retirer", "حيّد"], "Nombre del nuevo técnico": ["Nom du nouveau mécanicien", "سمية الميكانيسيان الجديد"], "Añadir": ["Ajouter", "زيد"], "Al quitar a alguien, sus trabajos abiertos pasan a “Libres”.": ["Si tu retires quelqu’un, ses travaux ouverts passent dans « Libres ».", "إلا حيّدتي شي واحد، الخدمة ديالو كترجع ل«بلا صاحب»."], "¿Quién eres?": ["Qui es-tu ?", "شكون نتا؟"], "Elige tu nombre para ver tus trabajos.": ["Choisis ton nom pour voir tes travaux.", "ختار سميتك باش تشوف الخدمة ديالك."], "Jefe de taller": ["Chef d'atelier", "معلم الگاراج"], "Técnico": ["Mécanicien", "ميكانيسيان"], "Tu nombre": ["Ton nom", "سميتك"], "Aún no hay nadie en el equipo. El primero será el jefe de taller.": ["Personne dans l'équipe pour l'instant. Le premier sera le chef d'atelier.", "مازال ما كاين حتى واحد ف الفريق. اللول غادي يكون هو المعلم."], "← Volver a la web": ["← Retour au site", "← رجع للويب"], "Acceso taller": ["Accès atelier", "الدخول للگاراج"], "Entra con la cuenta del taller. Solo hace falta una vez en cada móvil.": ["Connecte-toi avec le compte de l'atelier. Une seule fois par téléphone.", "دخل بالكونط ديال الگاراج. مرة وحدة ف كل تيليفون."], "Correo": ["E-mail", "الإيميل"], "Contraseña": ["Mot de passe", "كلمة السر"], "Entrar": ["Entrer", "دخل"], "Entrando…": ["Connexion…", "كيدخل…"], "Correo o contraseña incorrectos.": ["E-mail ou mot de passe incorrect.", "الإيميل ولا كلمة السر غالطين."], "Esta cuenta no tiene acceso al taller.": ["Ce compte n'a pas accès à l'atelier.", "هاد الكونط ما عندوش الحق يدخل للگاراج."], "Cargando el taller…": ["Chargement de l'atelier…", "كيتحمّل الگاراج…"], "Ver web": ["Voir le site", "شوف الويب"], "Este trabajo ya no existe": ["Ce travail n'existe plus", "هاد الخدمة ما بقاتش"], "Avisar al cliente: ya está listo": ["Prévenir le client : c’est prêt", "علّم الكليان: الطوموبيل واجدة"], "Asignado": ["Attribué à", "عند"], "Vehículo": ["Véhicule", "الطوموبيل"], "Cliente": ["Client", "الكليان"], "Teléfono": ["Téléphone", "التيليفون"], "Fecha": ["Date", "النهار"], "Cita web": ["RDV web", "موعد ويب"], "Presupuesto": ["Devis", "الديفي"], "Terminado": ["Terminé le", "سالات"], "Notas del trabajo": ["Notes du travail", "الملاحظات"], "Sin notas. Apunta lo que vayas viendo: mediciones, piezas pedidas…": ["Pas de notes. Note ce que tu vois : mesures, pièces commandées…", "ما كاين حتى ملاحظة. كتب شنو لقيتي: القياسات، البياسات اللي طلبتي…"], "Añadir nota…": ["Ajouter une note…", "زيد ملاحظة…"], "Pulsa otra vez para borrar": ["Appuie encore pour supprimer", "ورك مرة أخرى باش تمسح"], "Eliminar trabajo": ["Supprimer le travail", "مسح الخدمة"], "Cerrar": ["Fermer", "سد"], "¿Qué hay que hacer?": ["Que faut-il faire ?", "شنو خاص يتدار؟"], "Ej. Cambiar pastillas de freno": ["Ex. Changer les plaquettes", "مثلا: بدّل البلاكيط ديال الفران"], "Matrícula": ["Immatriculation", "الماتريكولا"], "Asignar a": ["Attribuer à", "عطيها ل"], "Día": ["Jour", "النهار"], "Nota inicial": ["Note", "ملاحظة"], "Opcional": ["Facultatif", "إلا بغيتي"], "Marcar como urgente": ["Marquer comme urgent", "مستعجلة"], "Cita de ": ["RDV de ", "موعد ديال "], "Esta cita ya no existe": ["Ce rendez-vous n'existe plus", "هاد الموعد ما بقاش"], "Trabajo": ["Travail", "الخدمة"], "Rechazar cita": ["Refuser le RDV", "رفض الموعد"], "Cambiar de usuario": ["Changer d'utilisateur", "بدّل المستعمل"], "Cambiar de técnico": ["Changer de mécanicien", "بدّل الميكانيسيان"], "Salir de la cuenta del taller": ["Se déconnecter de l'atelier", "خرج من الكونط ديال الگاراج"], "Idioma": ["Langue", "اللغة"], "Trabajo en curso": ["Travail en cours", "بديتي الخدمة"], "✓ Trabajo marcado como hecho": ["✓ Travail terminé", "✓ الخدمة سالات"], "Añadido a tus trabajos": ["Ajouté à tes travaux", "تزادت للخدمة ديالك"], "Trabajo eliminado": ["Travail supprimé", "تمسحات الخدمة"], "Cita rechazada": ["RDV refusé", "ترفض الموعد"], "Técnico quitado del equipo": ["Mécanicien retiré", "تحيّد من الفريق"], "Guardado": ["Enregistré", "تسجّل"], "Trabajo creado a partir de la cita": ["Travail créé depuis le RDV", "تدارت الخدمة من الموعد"], " añadido al equipo": [" ajouté à l’équipe", " تزاد للفريق"], "No se pudo guardar. Revisa la conexión.": ["Impossible d'enregistrer. Vérifie la connexion.", "ما تسجلش. شوف الكونيكسيون."], "No se pudo borrar": ["Impossible de supprimer", "ما تمسحش"], "Hoy": ["Aujourd'hui", "اليوم"], "Mañana": ["Demain", "غدا"], "Ayer": ["Hier", "البارح"], "Hace ruido al frenar": ["Bruit au freinage", "صوت ف الفران"], "Se ha encendido un testigo": ["Un voyant s’est allumé", "شعل شي ضو ف التابلو"], "No arranca o le cuesta": ["Ne démarre pas", "ما بغاتش تناض"], "Le toca la revisión": ["Révision à faire", "جا وقت الريفيزيون"], "Tiene que pasar la ITV": ["Contrôle technique (ITV)", "خاصها تدوز الفيزيت (ITV)"], "Hace un ruido raro": ["Bruit bizarre", "كتصوّن شي صوت غريب"], "Otro": ["Autre", "حاجة أخرى"], "Taller mecánico": ["Atelier mécanique", "گاراج ميكانيك"]};
+let LANG=(()=>{try{return localStorage.getItem('trj_lang')||'es'}catch(e){return 'es'}})();
+const T=k=>{if(LANG==='es')return k;const v=I18N[k];return v?(LANG==='fr'?v[0]:v[1]):k};
+const DIAS_I={es:['dom','lun','mar','mié','jue','vie','sáb'],fr:['dim','lun','mar','mer','jeu','ven','sam'],ar:['الحد','التنين','التلات','لاربع','الخميس','الجمعة','السبت']};
+const DIASL_I={es:['domingo','lunes','martes','miércoles','jueves','viernes','sábado'],fr:['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'],ar:DIAS_I.ar};
+const MES_I={es:['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'],fr:['janv','févr','mars','avr','mai','juin','juil','août','sept','oct','nov','déc'],ar:['يناير','فبراير','مارس','أبريل','ماي','يونيو','يوليوز','غشت','شتنبر','أكتوبر','نونبر','دجنبر']};
+const MESL_I={es:['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'],fr:['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'],ar:MES_I.ar};
+function applyLang(){const h=document.documentElement,inApp=!document.getElementById('app').hidden;h.lang=inApp?LANG:'es';h.dir=inApp&&LANG==='ar'?'rtl':'ltr'}
+function setLang(l){LANG=l;try{localStorage.setItem('trj_lang',l)}catch(e){}applyLang();renderApp();if(MODAL)renderModal()}
+const langSel=()=>`<label class="lang"><span class="sr">${T('Idioma')}</span><select data-lang aria-label="Idioma / Langue / اللغة"><option value="es" ${LANG==='es'?'selected':''}>ES</option><option value="fr" ${LANG==='fr'?'selected':''}>FR</option><option value="ar" ${LANG==='ar'?'selected':''}>عربي</option></select></label>`;
+document.addEventListener('change',e=>{if(e.target.matches('[data-lang]'))setLang(e.target.value)});
+
+/* ====================== APP TALLER ====================== */
+const TABS=[{id:'mis',label:'Mis trabajos',ic:P.list},{id:'libres',label:'Libres',ic:P.wrench},{id:'taller',label:'Taller',ic:P.grid},{id:'citas',label:'Citas web',ic:P.cal},{id:'equipo',label:'Equipo',ic:P.team}];
+let TAB=lsGet('trj_tab')||'mis';if(!TABS.some(t=>t.id===TAB))TAB='mis';
+let ME_ID=lsGet(USERKEY),MODAL=null,DEL_ARM=null,RM_ARM=null;
+const EST={por_hacer:'Por hacer',en_curso:'En curso',hecho:'Hecho'};
+const currentUser=()=>S.equipo.find(w=>w.id===ME_ID)||null;
+const worker=id=>id?S.equipo.find(w=>w.id===id):null;
+const asig=t=>worker(t.asignado)?t.asignado:'';
+const sortedEquipo=()=>S.equipo.slice().sort((a,b)=>(a.rol==='jefe'?-1:0)-(b.rol==='jefe'?-1:0)||(a.orden??99)-(b.orden??99)||a.nombre.localeCompare(b.nombre));
+const sortJobs=a=>a.slice().sort((x,y)=>(y.urgente?1:0)-(x.urgente?1:0)||(x.fecha||'').localeCompare(y.fecha||'')||(x.hora||'').localeCompare(y.hora||'')||(x.creado||'').localeCompare(y.creado||''));
+const isOpen=t=>t.estado!=='hecho';
+const pl=(n,a,b)=>n+' '+T(n===1?a:b);
+
+function jobCard(t,mode){
+ const w=worker(t.asignado),n=(t.notas||[]).length;let acts='';
+ if(mode==='free')acts=`<button class="btn y sm" data-act="take" data-id="${t.id}">${T('Me lo quedo')}</button>`;
+ else if(t.estado==='por_hacer')acts=`<button class="btn bl sm" data-act="start" data-id="${t.id}">${T('Empezar')}</button><button class="btn g sm" data-act="done" data-id="${t.id}">${sv(P.check,14)} ${T('Hecho!')}</button>`;
+ else if(t.estado==='en_curso')acts=`<button class="btn g sm" data-act="done" data-id="${t.id}">${sv(P.check,14)} ${T('Hecho!')}</button>`;
+ return `<div class="job st-${t.estado} ${t.urgente&&isOpen(t)?'urg':''}" data-open="${t.id}">
+ <div class="job-top"><b>${esc(t.titulo)}</b>${t.urgente&&isOpen(t)?`<span class="tag-urg">${T('URGENTE')}</span>`:''}</div>
+ <div class="job-meta"><span>${sv(P.car,14)} ${esc(t.vehiculo||'—')}</span>${t.matricula?plate(t.matricula):''}${t.cliente?`<span>${sv(P.user,14)} ${esc(t.cliente)}</span>`:''}</div>
+ <div class="job-meta"><span>${sv(P.cal,14)} ${fmtFecha(t.fecha)}${t.hora?' '+esc(t.hora):''}</span>${n?`<span>${sv(P.msg,14)} ${n}</span>`:''}<span class="st-pill ${t.estado}">${T(EST[t.estado]||'')}</span>${mode==='other'&&w?`<span>· ${esc(w.nombre)}</span>`:''}</div>
+ ${acts?`<div class="job-acts">${acts}</div>`:''}</div>`;
+}
+const sec=(title,arr,mode,empty,cls='')=>`<div class="sec-t">${title} <i>${arr.length}</i></div>${arr.length?`<div class="list ${cls}">${arr.map(x=>jobCard(x,mode)).join('')}</div>`:`<div class="empty">${empty}</div>`}`;
+
+function viewMis(){
+ const me=currentUser(),mine=S.trabajos.filter(t=>t.asignado===me.id);
+ const cur=sortJobs(mine.filter(t=>t.estado==='en_curso')),hac=sortJobs(mine.filter(t=>t.estado==='por_hacer')),hec=mine.filter(t=>t.estado==='hecho'&&isToday(t.hechoEn));
+ const lib=S.trabajos.filter(t=>!asig(t)&&isOpen(t)).length;
+ return `<div class="v-h"><div><h1>${T('Hola, ')}${esc(me.nombre)}</h1><p>${fechaLarga()}</p></div><button class="btn y sm" data-act="new">${sv(P.plus,14)} ${T('Nuevo trabajo')}</button></div>
+ <div class="stats"><div class="stat"><b style="color:var(--y)">${hac.length}</b><span>${T('Por hacer')}</span></div><div class="stat"><b style="color:#5b9bff">${cur.length}</b><span>${T('En curso')}</span></div><div class="stat"><b style="color:var(--g)">${hec.length}</b><span>${T('Hechos hoy')}</span></div></div>
+ ${sec(T('En curso'),cur,'mine',T('No tienes nada en marcha ahora mismo.'),'cols')}
+ ${sec(T('Por hacer'),hac,'mine',lib?`${T('No tienes trabajos pendientes.')} ${T('Mira en')} <button class="lk" data-tab="libres">${T('Libres')} (${lib})</button>`:T('No tienes trabajos pendientes.'),'cols')}
+ ${hec.length?sec(T('Hechos hoy'),hec,'mine','','cols'):''}`;
+}
+function viewLibres(){
+ const free=sortJobs(S.trabajos.filter(t=>!asig(t)&&isOpen(t)));
+ return `<div class="v-h"><div><h1>${T('Trabajos libres')}</h1><p>${T('Sin asignar. Quédate uno y pasa a tu lista.')}</p></div><button class="btn y sm" data-act="new">${sv(P.plus,14)} ${T('Nuevo')}</button></div>
+ ${free.length?`<div class="list cols">${free.map(t=>jobCard(t,'free')).join('')}</div>`:`<div class="empty">${T('No hay trabajos libres. Todo está repartido 👌')}</div>`}`;
+}
+function viewTaller(){
+ const cols=[{id:'',nombre:T('Sin asignar'),color:'#6b7280'},...sortedEquipo()];
+ const open=S.trabajos.filter(isOpen).length,hh=S.trabajos.filter(t=>t.estado==='hecho'&&isToday(t.hechoEn)).length;
+ return `<div class="v-h"><div><h1>${T('Taller')}</h1><p>${pl(open,'abierto','abiertos')} · ${pl(hh,'hecho','hechos')}${T(' hoy')}</p></div><button class="btn y sm" data-act="new">${sv(P.plus,14)} ${T('Nuevo')}</button></div>
+ <div class="board">${cols.map(c=>{const js=S.trabajos.filter(t=>asig(t)===c.id),ab=sortJobs(js.filter(isOpen)),h=js.filter(t=>t.estado==='hecho'&&isToday(t.hechoEn)).length;
+  return `<div class="col"><div class="col-h"><i class="dot" style="--c:${c.color}"></i>${esc(c.nombre)}<small>${pl(ab.length,'abierto','abiertos')} · ${pl(h,'hecho','hechos')}</small></div>${ab.length?`<div class="list">${ab.map(t=>jobCard(t,'board')).join('')}</div>`:`<div class="empty" style="padding:14px">${T('Sin trabajos abiertos')}</div>`}</div>`}).join('')}</div>`;
+}
+function viewCitas(){
+ const pend=S.citas.filter(c=>c.estado==='pendiente').sort((a,b)=>(a.fecha+a.hora).localeCompare(b.fecha+b.hora));
+ const hist=S.citas.filter(c=>c.estado!=='pendiente').sort((a,b)=>(b.creada||'').localeCompare(a.creada||'')).slice(0,10);
+ return `<div class="v-h"><div><h1>${T('Citas web')}</h1><p>${T('Lo que reservan los clientes desde la web. Conviértelas en trabajo con un toque.')}</p></div><a class="btn sm" href="${URL_FORM}">${T('Ver formulario')}</a></div>
+ <div class="sec-t">${T('Pendientes')} <i>${pend.length}</i></div>
+ ${pend.length?`<div class="list cols">${pend.map(c=>{const tel=digits(c.telefono);return `<div class="cita">
+  <div class="cita-when"><div class="when"><small>${fmtFecha(c.fecha)}</small><b>${esc(c.hora)}</b></div><div><b>${esc(T(c.servicio))}</b><div class="job-meta" style="margin-top:4px"><span>${sv(P.car,14)} ${esc(c.vehiculo)}</span>${c.matricula?plate(c.matricula):''}</div></div></div>
+  ${c.descripcion?`<p>“${esc(c.descripcion)}”</p>`:''}
+  <div class="job-meta"><span>${sv(P.user,14)} ${esc(c.nombre)}</span>${tel?`<span>${sv(P.phone,14)} ${esc(c.telefono)}</span>`:''}</div>
+  <div class="job-acts"><button class="btn y sm" data-act="cita" data-id="${c.id}">${T('Crear trabajo')}</button>${tel?`<a class="btn sm" href="tel:${tel}">${T('Llamar')}</a>`:''}</div></div>`}).join('')}</div>`:`<div class="empty">${T('No hay citas nuevas.')}</div>`}
+ ${hist.length?`<div class="sec-t">${T('Últimas gestionadas')}</div><div class="hist-w">${hist.map(c=>`<div class="hist"><b>${esc(c.nombre)}</b> ${c.matricula?plate(c.matricula):''}<span>${fmtFecha(c.fecha)} ${esc(c.hora)} · ${c.estado==='convertida'?`<b style="color:var(--g)">${T('Trabajo creado')}</b>`:`<b style="color:#ff8a8a">${T('Rechazada')}</b>`}</span></div>`).join('')}</div>`:''}`;
+}
+function viewEquipo(){
+ const me=currentUser(),jefe=me.rol==='jefe',week=Date.now()-7*864e5;
+ return `<div class="v-h"><div><h1>${T('Equipo')}</h1><p>${T('Quién lleva qué y cómo va el día.')}</p></div></div>
+ <div class="list">${sortedEquipo().map(w=>{const js=S.trabajos.filter(t=>t.asignado===w.id);
+  const ab=js.filter(t=>t.estado==='por_hacer').length,cu=js.filter(t=>t.estado==='en_curso').length,hh=js.filter(t=>t.estado==='hecho'&&isToday(t.hechoEn)).length,hs=js.filter(t=>t.estado==='hecho'&&t.hechoEn&&new Date(t.hechoEn).getTime()>week).length;
+  return `<div class="worker"><span class="av" style="--c:${w.color}">${initial(w)}</span><div><div class="w-n">${esc(w.nombre)}${w.rol==='jefe'?`<small>${T('JEFE')}</small>`:''}${w.id===me.id?` <span class="hint">${T('(tú)')}</span>`:''}</div>
+  <div class="w-st"><span><b>${ab}</b> ${T('por hacer')}</span><span><b>${cu}</b> ${T('en curso')}</span><span><b>${hh}</b> ${T('hechos hoy')}</span><span><b>${hs}</b> ${T('en 7 días')}</span></div></div>
+  ${jefe&&w.id!==me.id?`<button class="btn danger sm" data-act="rm-worker" data-id="${w.id}">${RM_ARM===w.id?T('¿Seguro? Pulsa otra vez'):T('Quitar')}</button>`:''}</div>`}).join('')}</div>
+ ${jefe?`<form class="add-w" id="f-addw"><input class="inp" name="n" placeholder="${T('Nombre del nuevo técnico')}" required><button class="btn y">${sv(P.plus,14)} ${T('Añadir')}</button></form><p class="hint" style="margin-top:8px">${T('Al quitar a alguien, sus trabajos abiertos pasan a “Libres”.')}</p>`:''}`;
+}
+const VIEWS={mis:viewMis,libres:viewLibres,taller:viewTaller,citas:viewCitas,equipo:viewEquipo};
+
+function loginHTML(){
+ return `<div class="login"><div class="login-lang">${langSel()}</div><div class="login-box"><span class="logo-ic" style="width:58px;height:58px;border-radius:15px;margin:0 auto">T</span>
+ <h1>${T('¿Quién eres?')}</h1><p>${T('Elige tu nombre para ver tus trabajos.')}</p>
+ ${S.equipo.length?`<div class="who">${sortedEquipo().map(w=>`<button data-login="${w.id}"><span class="av" style="--c:${w.color}">${initial(w)}</span>${esc(w.nombre)}<small>${w.rol==='jefe'?T('Jefe de taller'):T('Técnico')}</small></button>`).join('')}</div>`
+ :`<form id="f-first" class="add-w"><input class="inp" name="n" placeholder="${T('Tu nombre')}" required><button class="btn y">${T('Empezar')}</button></form><p class="hint" style="margin-top:10px">${T('Aún no hay nadie en el equipo. El primero será el jefe de taller.')}</p>`}
+ <p style="margin-top:28px"><a class="lnk" href="${URL_WEB}">${T('← Volver a la web')}</a></p></div></div>`;
+}
+function sbLoginHTML(msg){
+ return `<div class="login"><div class="login-lang">${langSel()}</div><div class="login-box"><span class="logo-ic" style="width:58px;height:58px;border-radius:15px;margin:0 auto">T</span>
+ <h1>${T('Acceso taller')}</h1><p>${T('Entra con la cuenta del taller. Solo hace falta una vez en cada móvil.')}</p>
+ <form id="f-sblogin" class="form-m" style="text-align:left"><div class="fld"><label class="lbl">${T('Correo')}</label><input type="text" name="email" autocomplete="username" inputmode="email" required></div>
+ <div class="fld"><label class="lbl">${T('Contraseña')}</label><input type="password" name="pass" autocomplete="current-password" required style="width:100%;background:var(--bg);border:1px solid var(--ln);border-radius:10px;padding:11px 13px;outline:none"></div>
+ <button class="btn y big">${T('Entrar')}</button><p class="err">${msg||''}</p></form>
+ <p style="margin-top:22px"><a class="lnk" href="${URL_WEB}">${T('← Volver a la web')}</a></p></div></div>`;
+}
+function renderApp(){
+ const root=$('#app');
+ if(!READY){root.innerHTML=`<div class="app-loading">${T('Cargando el taller…')}</div>`;return}
+ if(MODE==='sb'&&!SESSION){root.innerHTML=sbLoginHTML();return}
+ if(MODE==='sb'&&STAFF===false){root.innerHTML=sbLoginHTML(T('Esta cuenta no tiene acceso al taller.'));SB.auth.signOut();return}
+ const me=currentUser();
+ if(!me){root.innerHTML=loginHTML();return}
+ const pend=S.citas.filter(c=>c.estado==='pendiente').length;
+ root.innerHTML=`<header class="app-h"><div class="app-brand">${LOGO}<div><b>GARAJE TRUJILLO</b><small>${T('Taller mecánico')}</small></div></div>
+ <nav class="tabs">${TABS.map(t=>`<button class="tab ${TAB===t.id?'on':''}" data-tab="${t.id}">${sv(t.ic,18)}<span>${T(t.label)}</span>${t.id==='citas'&&pend?`<i class="badge">${pend}</i>`:''}</button>`).join('')}</nav>
+ <div class="app-h-r">${langSel()}<a class="lnk hide-m" href="${URL_WEB}">${T('Ver web')}</a><button class="me" style="--c:${me.color}" data-act="cuenta" aria-label="Cuenta">${initial(me)}</button></div></header>
+ <main class="app-main">${VIEWS[TAB]()}</main>
+ ${MODE==='local'?'<div class="demo-note">Modo demo · los datos se guardan en este navegador</div>':''}`;
+}
+
+/* ---- modales ---- */
+const xBtn=`<button class="x" data-act="close" aria-label="Cerrar">${sv(P.x)}</button>`;
+const workerOpts=sel=>`<option value="">Sin asignar</option>${sortedEquipo().map(w=>`<option value="${w.id}" ${w.id===sel?'selected':''}>${esc(w.nombre)}</option>`).join('')}`;
+function modalJob(t){
+ if(!t)return `<div class="sh-h"><h2>${T('Este trabajo ya no existe')}</h2>${xBtn}</div>`;
+ const tel=digits(t.telefono),w=worker(t.asignado);
+ const waTxt=`Hola${t.cliente?' '+t.cliente:''}, te escribimos de ${CONFIG.nombre}. Tu ${t.vehiculo||'vehículo'}${t.matricula?' ('+t.matricula+')':''} ya está listo, puedes pasar a recogerlo cuando quieras.${t.presupuesto?' Importe: '+t.presupuesto+' €.':''}`;
+ return `<div class="sh-h"><h2>${esc(t.titulo)}</h2><button class="urg-btn ${t.urgente?'on':''}" data-act="urg" data-id="${t.id}">${T('URGENTE')}</button>${xBtn}</div>
+ <div class="seg">${['por_hacer','en_curso','hecho'].map(s=>`<button class="${s} ${t.estado===s?'on':''}" data-act="set-estado" data-id="${t.id}" data-v="${s}">${T(EST[s])}</button>`).join('')}</div>
+ ${t.estado==='hecho'&&tel?`<a class="wa-big" href="https://wa.me/${waNum(tel)}?text=${encodeURIComponent(waTxt)}" target="_blank" rel="noopener">${sv(P.msg,18)} ${T('Avisar al cliente: ya está listo')}</a>`:''}
+ <div class="rows">
+  <div class="row"><span>${T('Asignado')}</span><div class="r-v"><select data-field="asignado" data-id="${t.id}">${workerOpts(asig(t))}</select></div></div>
+  <div class="row"><span>${T('Vehículo')}</span><div class="r-v">${esc(t.vehiculo||'—')} ${t.matricula?plate(t.matricula):''}</div></div>
+  <div class="row"><span>${T('Cliente')}</span><div class="r-v">${esc(t.cliente||'—')}</div></div>
+  <div class="row"><span>${T('Teléfono')}</span><div class="r-v">${tel?`${esc(t.telefono)} <a class="mini" href="tel:${tel}">${T('Llamar')}</a><a class="mini wa" href="https://wa.me/${waNum(tel)}" target="_blank" rel="noopener">WhatsApp</a>`:'—'}</div></div>
+  <div class="row"><span>${T('Fecha')}</span><div class="r-v">${fmtFecha(t.fecha)}${t.hora?' · '+esc(t.hora):''}${t.origen==='web'?` <span class="mini">${T('Cita web')}</span>`:''}</div></div>
+  <div class="row"><span>${T('Presupuesto')}</span><div class="r-v"><input type="text" inputmode="decimal" placeholder="€" value="${esc(t.presupuesto||'')}" data-field="presupuesto" data-id="${t.id}"></div></div>
+  ${t.estado==='hecho'&&t.hechoEn?`<div class="row"><span>${T('Terminado')}</span><div class="r-v">${fmtFecha(ymd(new Date(t.hechoEn)))} · ${hm(t.hechoEn)}${w?' · '+esc(w.nombre):''}</div></div>`:''}
+ </div>
+ <span class="lbl">${T('Notas del trabajo')}</span>
+ <div class="notes">${(t.notas||[]).map(n=>`<div class="note"><small>${esc(n.autor)} · ${fmtFecha(ymd(new Date(n.ts)))} ${hm(n.ts)}</small>${esc(n.texto)}</div>`).join('')||`<p class="hint">${T('Sin notas. Apunta lo que vayas viendo: mediciones, piezas pedidas…')}</p>`}</div>
+ <div class="note-f"><textarea data-keep="nota" rows="2" placeholder="${T('Añadir nota…')}"></textarea><button class="btn y sm" data-act="nota" data-id="${t.id}">${T('Añadir')}</button></div>
+ <div class="sh-foot"><button class="btn danger sm" data-act="del" data-id="${t.id}">${DEL_ARM===t.id?T('Pulsa otra vez para borrar'):T('Eliminar trabajo')}</button><button class="btn sm" data-act="close">${T('Cerrar')}</button></div>`;
+}
+function modalNew(){
+ return `<div class="sh-h"><h2>${T('Nuevo trabajo')}</h2>${xBtn}</div>
+ <form class="form-m" id="f-new">
+  <div class="fld"><label class="lbl">${T('¿Qué hay que hacer?')}</label><input type="text" name="titulo" required placeholder="${T('Ej. Cambiar pastillas de freno')}"></div>
+  <div class="grid2"><div class="fld"><label class="lbl">${T('Vehículo')}</label><input type="text" name="vehiculo" placeholder="Seat León 2015"></div><div class="fld"><label class="lbl">${T('Matrícula')}</label><input type="text" name="matricula" placeholder="1234 ABC" style="text-transform:uppercase"></div></div>
+  <div class="grid2"><div class="fld"><label class="lbl">${T('Cliente')}</label><input type="text" name="cliente"></div><div class="fld"><label class="lbl">${T('Teléfono')}</label><input type="tel" name="telefono"></div></div>
+  <div class="grid2"><div class="fld"><label class="lbl">${T('Asignar a')}</label><select name="asignado">${workerOpts(ME_ID)}</select></div><div class="fld"><label class="lbl">${T('Día')}</label><input type="date" name="fecha" value="${today()}"></div></div>
+  <div class="fld"><label class="lbl">${T('Nota inicial')}</label><textarea name="nota" rows="2" placeholder="${T('Opcional')}"></textarea></div>
+  <label class="toggle"><input type="checkbox" name="urgente"> ${T('Marcar como urgente')}</label>
+  <button class="btn y big" style="margin-top:16px">${T('Crear trabajo')}</button>
+ </form>`;
+}
+function modalCita(c){
+ if(!c)return `<div class="sh-h"><h2>${T('Esta cita ya no existe')}</h2>${xBtn}</div>`;
+ return `<div class="sh-h"><h2>${T('Cita de ')}${esc(c.nombre)}</h2>${xBtn}</div>
+ <div class="info-c"><div><b>${fechaLarga(c.fecha)} · ${esc(c.hora)}</b></div><div>${esc(c.vehiculo)} ${c.matricula?plate(c.matricula):''}</div><div class="hint">${esc(T(c.servicio))}${c.descripcion?' — “'+esc(c.descripcion)+'”':''}</div><div class="hint">${esc(c.telefono)}</div></div>
+ <form class="form-m" id="f-cita" data-id="${c.id}">
+  <div class="fld"><label class="lbl">${T('Trabajo')}</label><input type="text" name="titulo" value="${esc(c.servicio)}" required></div>
+  <div class="fld"><label class="lbl">${T('Asignar a')}</label><select name="asignado">${workerOpts('')}</select></div>
+  <label class="toggle"><input type="checkbox" name="urgente"> ${T('Marcar como urgente')}</label>
+  <button class="btn y big" style="margin-top:16px">${T('Crear trabajo')}</button>
+ </form>
+ <div class="sh-foot"><button class="btn danger sm" data-act="cita-rech" data-id="${c.id}">${T('Rechazar cita')}</button></div>`;
+}
+function modalCuenta(){
+ const me=currentUser();
+ return `<div class="sh-h"><h2>${T('Hola, ')}${esc(me?me.nombre:'')}</h2>${xBtn}</div><span class="lbl">${T('Idioma')}</span><div class="langs">${['es','fr','ar'].map(l=>`<button class="btn sm ${LANG===l?'y':''}" data-setlang="${l}">${{es:'Español',fr:'Français',ar:'العربية (الدارجة)'}[l]}</button>`).join('')}</div><span class="lbl">${T('Cambiar de usuario')}</span>
+ <div class="who" style="margin-bottom:18px">${sortedEquipo().map(w=>`<button data-login="${w.id}" style="${w.id===ME_ID?'border-color:var(--y)':''}"><span class="av" style="--c:${w.color}">${initial(w)}</span>${esc(w.nombre)}</button>`).join('')}</div>
+ <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" data-act="logout">${T('Cambiar de técnico')}</button>${MODE==='sb'?`<button class="btn danger sm" data-act="sb-out">${T('Salir de la cuenta del taller')}</button>`:''}</div>`;
+}
+function openModal(m){MODAL=m;DEL_ARM=null;renderModal()}
+function closeModal(){MODAL=null;DEL_ARM=null;$('#modal-root').innerHTML=''}
+function renderModal(){
+ if(!MODAL)return;const root=$('#modal-root');
+ const keep={};root.querySelectorAll('[data-keep]').forEach(el=>keep[el.dataset.keep]=el.value);
+ const prevScroll=root.querySelector('.sheet')?.scrollTop||0;
+ const fresh=!root.firstChild;
+ let html='';
+ if(MODAL.kind==='job')html=modalJob(S.trabajos.find(x=>x.id===MODAL.id));
+ else if(MODAL.kind==='new'){if(!fresh)return;html=modalNew()}
+ else if(MODAL.kind==='cita'){if(!fresh&&S.citas.some(x=>x.id===MODAL.id))return;html=modalCita(S.citas.find(x=>x.id===MODAL.id))}
+ else if(MODAL.kind==='cuenta')html=modalCuenta();
+ root.innerHTML=`<div class="ov"><div class="sheet" role="dialog" aria-modal="true">${html}</div></div>`;
+ if(!fresh)root.querySelector('.ov').style.animation='none',root.querySelector('.sheet').style.animation='none';
+ root.querySelectorAll('[data-keep]').forEach(el=>{if(keep[el.dataset.keep])el.value=keep[el.dataset.keep]});
+ root.querySelector('.sheet').scrollTop=prevScroll;
+}
+
+/* ---- acciones ---- */
+function setUser(id){ME_ID=id;lsSet(USERKEY,id);closeModal();renderApp();const w=worker(id);if(w)toast(T('Hola, ')+w.nombre)}
+async function act(k,ds){
+ const me=currentUser(),now=new Date().toISOString();
+ const t=ds.id?S.trabajos.find(x=>x.id===ds.id):null;
+ const needT=['start','done','take','set-estado','urg','nota','del'];
+ if(needT.includes(k)&&!t)return;
+ switch(k){
+  case 'close':closeModal();break;
+  case 'new':openModal({kind:'new'});break;
+  case 'start':await patch('trabajos',t.id,{estado:'en_curso',asignado:asig(t)||me.id});toast(T('Trabajo en curso'));break;
+  case 'done':await patch('trabajos',t.id,{estado:'hecho',hechoEn:now,asignado:asig(t)||me.id});toast(T('✓ Trabajo marcado como hecho'));break;
+  case 'take':await patch('trabajos',t.id,{asignado:me.id});toast(T('Añadido a tus trabajos'));break;
+  case 'set-estado':{const v=ds.v;if(v===t.estado)break;const d={estado:v,hechoEn:v==='hecho'?now:null};if(v!=='por_hacer'&&!asig(t))d.asignado=me.id;await patch('trabajos',t.id,d);break}
+  case 'urg':await patch('trabajos',t.id,{urgente:!t.urgente});break;
+  case 'nota':{const ta=$('#modal-root textarea[data-keep="nota"]'),txt=ta?ta.value.trim():'';if(!txt)return;ta.value='';await patch('trabajos',t.id,{notas:[...(t.notas||[]),{autor:me.nombre,texto:txt,ts:now}]});break}
+  case 'del':
+   if(DEL_ARM!==t.id){DEL_ARM=t.id;renderModal();setTimeout(()=>{if(DEL_ARM===t.id){DEL_ARM=null;renderModal()}},4000);return}
+   DEL_ARM=null;closeModal();await removeDoc('trabajos',t.id);toast(T('Trabajo eliminado'));break;
+  case 'cita':openModal({kind:'cita',id:ds.id});break;
+  case 'cita-rech':closeModal();await patch('citas',ds.id,{estado:'rechazada'});toast(T('Cita rechazada'));break;
+  case 'cuenta':openModal({kind:'cuenta'});break;
+  case 'logout':ME_ID=null;lsSet(USERKEY,null);closeModal();renderApp();break;
+  case 'sb-out':ME_ID=null;lsSet(USERKEY,null);closeModal();await SB.auth.signOut();renderApp();break;
+  case 'rm-worker':{
+   if(RM_ARM!==ds.id){RM_ARM=ds.id;renderApp();setTimeout(()=>{if(RM_ARM===ds.id){RM_ARM=null;renderApp()}},4000);return}
+   RM_ARM=null;const open=S.trabajos.filter(x=>x.asignado===ds.id&&isOpen(x));
+   for(const x of open)await patch('trabajos',x.id,{asignado:''});
+   await removeDoc('equipo',ds.id);toast(T('Técnico quitado del equipo'));break}
+ }
+}
+document.addEventListener('click',e=>{
+ if(e.target.classList&&e.target.classList.contains('ov')){closeModal();return}
+ const tab=e.target.closest('[data-tab]');
+ if(tab){TAB=tab.dataset.tab;lsSet('trj_tab',TAB);RM_ARM=null;renderApp();window.scrollTo(0,0);return}
+ const sl=e.target.closest('[data-setlang]');if(sl){setLang(sl.dataset.setlang);return}
+ const lg=e.target.closest('[data-login]');if(lg){setUser(lg.dataset.login);return}
+ const a=e.target.closest('[data-act]');
+ if(a){act(a.dataset.act,a.dataset).catch(()=>{});return}
+ const o=e.target.closest('[data-open]');
+ if(o)openModal({kind:'job',id:o.dataset.open});
+});
+document.addEventListener('change',e=>{
+ const f=e.target.closest('[data-field]');if(!f)return;
+ const t=S.trabajos.find(x=>x.id===f.dataset.id);if(!t)return;
+ const v=f.value.trim();if((t[f.dataset.field]||'')===v)return;
+ patch('trabajos',t.id,{[f.dataset.field]:v}).then(()=>toast(T('Guardado'))).catch(()=>{});
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&MODAL)closeModal()});
+document.addEventListener('submit',async e=>{
+ const f=e.target;
+ if(f.id==='f-sblogin'){e.preventDefault();const b=f.querySelector('button');b.disabled=true;b.textContent=T('Entrando…');
+  const {data,error}=await SB.auth.signInWithPassword({email:f.email.value.trim().toLowerCase(),password:f.pass.value});
+  if(error){b.disabled=false;b.textContent=T('Entrar');f.querySelector('.err').textContent=T('Correo o contraseña incorrectos.');return}
+  SESSION=data.session;READY=false;renderApp();await sbStart();READY=true;renderApp();return}
+ if(!['f-new','f-cita','f-addw','f-first'].includes(f.id))return;
+ e.preventDefault();
+ const fd=new FormData(f),v=k=>String(fd.get(k)||'').trim(),now=new Date().toISOString();
+ const btn=f.querySelector('button');if(btn)btn.disabled=true;
+ try{
+  if(f.id==='f-new'){
+   if(!v('titulo')){btn.disabled=false;return}
+   const me=currentUser();
+   await writeDoc('trabajos',uid('t'),{titulo:v('titulo'),vehiculo:v('vehiculo'),matricula:v('matricula').toUpperCase(),cliente:v('cliente'),telefono:v('telefono'),asignado:v('asignado'),estado:'por_hacer',urgente:!!fd.get('urgente'),fecha:v('fecha')||today(),notas:v('nota')?[{autor:me.nombre,texto:v('nota'),ts:now}]:[],creado:now});
+   closeModal();toast(T('Trabajo creado'));
+  }
+  if(f.id==='f-cita'){
+   const c=S.citas.find(x=>x.id===f.dataset.id);if(!c)return closeModal();
+   const notas=c.descripcion?[{autor:c.nombre+' (cliente, web)',texto:c.descripcion,ts:c.creada||now}]:[];
+   await writeDoc('trabajos',uid('t'),{titulo:v('titulo')||c.servicio,vehiculo:c.vehiculo,matricula:c.matricula,cliente:c.nombre,telefono:c.telefono,asignado:v('asignado'),estado:'por_hacer',urgente:!!fd.get('urgente'),fecha:c.fecha,hora:c.hora,origen:'web',citaId:c.id,notas,creado:now});
+   await patch('citas',c.id,{estado:'convertida'});
+   closeModal();toast(T('Trabajo creado a partir de la cita'));
+  }
+  if(f.id==='f-addw'){
+   const n=v('n');if(!n){btn.disabled=false;return}
+   await writeDoc('equipo',uid('w'),{nombre:n,rol:'tecnico',color:['#e879f9','#f97316','#22d3ee','#a3e635','#f472b6','#3fbf5f','#3b82f6'][S.equipo.length%7],orden:S.equipo.length});
+   toast(n+T(' añadido al equipo'));
+  }
+  if(f.id==='f-first'){
+   const n=v('n');if(!n){btn.disabled=false;return}
+   const id=uid('w');await writeDoc('equipo',id,{nombre:n,rol:'jefe',color:'#e5483e',orden:0});setUser(id);
+  }
+ }catch(err){if(btn)btn.disabled=false}
+});
+
+
+/* ====================== ASISTENTE ====================== */
+const AS={open:false,msgs:[],busy:false};
+const AS_CHIPS=['Mi coche no arranca','Se enciende un testigo','¿Instaláis placas en campers?','El aire no enfría','¿Cuánto cuesta?'];
+function asReglas(t){
+ const n=t.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase(),h=ks=>ks.some(k=>n.includes(k));
+ if(h(['humo','quemado','chispa']))return{reply:`Si hay humo, chispas u olor a quemado, para el vehículo, quita el contacto y no lo uses hasta revisarlo. Llámanos al ${CONFIG.telefono}.`,servicio:'Diagnosis / testigo encendido'};
+ if(h(['precio','cuesta','cuanto','presupuesto']))return{reply:'Depende de lo que tenga: primero lo diagnosticamos y te damos el presupuesto antes de tocar nada.',servicio:null};
+ if(h(['no arranca','bateria']))return{reply:'Suele ser la batería, un consumo que la descarga o el motor de arranque. Tráelo y lo comprobamos.',servicio:'No arranca / batería'};
+ if(h(['alternador','no carga']))return{reply:'Si se enciende el testigo de batería o no carga, lo normal es revisar el alternador y la correa.',servicio:'Alternador / no carga'};
+ if(h(['aire','clima','enfria']))return{reply:'Revisamos el aire acondicionado: carga de gas, fugas y fallos eléctricos.',servicio:'Climatización / aire'};
+ if(h(['luz','luces','faro','piloto']))return{reply:'Arreglamos faros, pilotos y cableados de iluminación.',servicio:'Luces / iluminación'};
+ if(h(['camper','furgo','placa','solar','litio']))return{reply:'Montamos la instalación eléctrica de furgonetas y campers: placas solares, baterías auxiliares y de litio, inversores y más.',servicio:'Furgoneta / camper'};
+ if(h(['testigo','centralita','fallo','averia']))return{reply:'Hacemos diagnosis electrónica con equipos actualizados para encontrar el origen del fallo.',servicio:'Diagnosis / testigo encendido'};
+ return{reply:'Somos especialistas en electricidad del automóvil: diagnosis, baterías, alternadores, arranques, climatización, luces y campers. Cuéntame qué le pasa.',servicio:null};
+}
+function asRender(){
+ let el=$('#as');
+ if(!AS.open){if(el)el.remove();document.body.classList.remove('as-open');return}
+ document.body.classList.add('as-open');
+ if(!el){el=document.createElement('div');el.id='as';el.className='as';el.setAttribute('role','dialog');el.setAttribute('aria-label','Asistente del taller');document.body.appendChild(el);
+  el.innerHTML=`<div class="as-h"><span class="logo-ic">${sv(P.bolt,18)}</span><div style="flex:1"><b>Asistente de Roberto</b><small>● Responde al momento</small></div><button class="x" id="as-x" aria-label="Cerrar">${sv(P.x,16)}</button></div><div class="as-m" id="as-m"></div><div class="as-chips" id="as-chips"></div><form class="as-f" id="as-f"><input id="as-in" placeholder="Cuéntame qué le pasa…" autocomplete="off" maxlength="500"><button id="as-send" aria-label="Enviar">${sv(P.arrow,18)}</button></form>`;}
+ const m=$('#as-m');
+ m.innerHTML=`<div class="bub bot">¡Hola! Soy el asistente de ${esc(CONFIG.nombre)}. Cuéntame qué le pasa a tu coche, furgo o camper y te digo si te podemos ayudar.</div>`+
+  AS.msgs.map(x=>x.role==='user'?`<div class="bub usr">${esc(x.content)}</div>`:`<div class="bub bot">${esc(x.content)}</div>${x.servicio?`<div class="as-cta"><button class="btn y sm" data-as-cita="${esc(x.servicio)}">${sv(P.cal,15)} Pedir cita: ${esc(x.servicio)}</button></div>`:''}`).join('')+
+  (AS.busy?'<div class="bub bot typ">Escribiendo…</div>':'');
+ m.scrollTop=m.scrollHeight;
+ $('#as-chips').innerHTML=AS.msgs.length?'':AS_CHIPS.map(c=>`<button class="chipb" data-as-chip="${esc(c)}">${esc(c)}</button>`).join('');
+ $('#as-send').disabled=AS.busy;
+}
+async function asSend(t){
+ t=String(t||'').trim();if(!t||AS.busy)return;
+ AS.msgs.push({role:'user',content:t});AS.busy=true;asRender();
+ let r=null;
+ if(ON_SITE){try{const res=await fetch(SB_URL+'/functions/v1/aer-asistente',{method:'POST',headers:{'Content-Type':'application/json',apikey:SB_KEY,Authorization:'Bearer '+SB_KEY},body:JSON.stringify({messages:AS.msgs.slice(-8).map(x=>({role:x.role,content:x.content}))}),signal:AbortSignal.timeout?AbortSignal.timeout(30000):undefined});if(res.ok)r=await res.json()}catch(e){}}
+ if(!r||!r.reply)r=asReglas(t);
+ AS.msgs.push({role:'assistant',content:r.reply,servicio:r.servicio||null});AS.busy=false;asRender();
+ const i=$('#as-in');if(i&&window.matchMedia('(min-width:561px)').matches)i.focus();
+}
+document.addEventListener('click',e=>{
+ if(e.target.closest('#as-open')){AS.open=true;asRender();setTimeout(()=>{if(window.matchMedia('(min-width:561px)').matches)$('#as-in')?.focus()},50);return}
+ if(e.target.closest('#as-x')){AS.open=false;asRender();return}
+ const ch=e.target.closest('[data-as-chip]');if(ch){asSend(ch.dataset.asChip);return}
+ const ci=e.target.closest('[data-as-cita]');if(ci){BK.serv=ci.dataset.asCita;renderServ();AS.open=false;asRender();document.getElementById('reservar').scrollIntoView({behavior:'smooth'});toast('Elige día y hora para tu cita');return}
+});
+document.addEventListener('submit',e=>{if(e.target.id==='as-f'){e.preventDefault();const i=$('#as-in');const v=i.value;i.value='';asSend(v)}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&AS.open){AS.open=false;asRender()}});
+
+/* ---- rutas ---- */
+function route(){
+ const h=location.hash.slice(1);if(ON_SITE&&!TALLER_PATH&&h==='taller'){location.replace('taller/');return}const inApp=TALLER_PATH||h==='taller';
+ const was=!$('#app').hidden;
+ $('#web').hidden=inApp;$('#app').hidden=!inApp;document.body.classList.toggle('in-app',inApp);
+ if(inApp){AS.open=false;asRender();applyLang();renderApp();if(!was)window.scrollTo(0,0)}
+ else{closeModal();if(was){renderDays();renderSlots();const el=h&&document.getElementById(h);setTimeout(()=>el?el.scrollIntoView():window.scrollTo(0,0),20)}}
+}
+window.addEventListener('hashchange',route);
+bindWeb();route();initStore();
+</script>
+</body>
+</html>
