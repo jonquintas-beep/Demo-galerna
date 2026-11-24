@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="20261124134542">
+<meta name="app-version" content="20261124135324">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Garaje Trujillo · Taller mecánico en Vitoria-Gasteiz desde 1985</title>
 <meta name="description" content="Taller de mecánica y electromecánica en Fermín Lasuen 15, Vitoria-Gasteiz. Desde 1985. Llámanos al 945 28 29 39.">
@@ -504,10 +504,17 @@ function asLocal(t){const n=t.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCas
  if(h(['fren','pastilla']))return{reply:'Un ruido al frenar suele ser pastillas o discos gastados. Mejor revisarlo pronto.',servicio:'Hace ruido al frenar',cita:true,presupuesto:true};
  if(h(['testigo']))return{reply:'Lo conectamos a la máquina de diagnosis y buscamos la causa.',servicio:'Se ha encendido un testigo',cita:true,presupuesto:true};
  return{reply:'Cuéntame qué le pasa a tu coche, reserva cita aquí mismo o pide presupuesto.',servicio:'Otro',cita:true,presupuesto:true}}
-function asLocalPresu(){const us=AS.msgs.filter(x=>x.role==='user').map(x=>x.content);
- if(us.length<=1)return{reply:'¿Qué coche es (marca, modelo y año) y cuántos kilómetros tiene más o menos?'};
- if(us.length===2)return{reply:'¿Desde cuándo le pasa y hay algo más que debamos saber (testigos, ruidos, si se puede conducir)?'};
- return{reply:'Perfecto, ya lo tengo. Revisa el resumen y déjanos tu nombre y móvil para llamarte.',listo:true,resumen:us.join(' · ')}}
+function asLocalPresu(){const us=AS.msgs.filter(x=>x.role==='user').map(x=>x.content),n=(us[0]||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+ const t=/revision|aceite|filtro|distribuc/.test(n)?'rev':/itv/.test(n)?'itv':/fren|pastilla|disco/.test(n)?'fre':/testigo/.test(n)?'tes':/arranc|bateria/.test(n)?'arr':/ruido|vibra|golpe/.test(n)?'rui':'otro';
+ const F={rev:[['¿Qué quieres que te hagamos?',['Aceite y filtros','Revisión completa del fabricante','Cambio de distribución','No lo sé, aconsejadme']]],
+  itv:[['¿Cómo está la ITV?',['Me toca este mes','Ya está caducada','Me la dieron desfavorable','Quiero adelantarme']]],
+  fre:[['¿Qué notas exactamente al frenar?',['Chirrido','Roce metálico','Vibra el volante','El pedal baja o está blando']]],
+  tes:[['¿Qué testigo se ha encendido?',['Motor (naranja)','Batería','Aceite','Temperatura','ABS / frenos','Otro']]],
+  arr:[['¿Qué hace al girar la llave o pulsar el botón?',['No hace nada','Hace clic','Gira pero no arranca','Arranca y se apaga']]],
+  rui:[['¿Cuándo suena?',['Al pasar baches','Al girar','Al acelerar','A cierta velocidad','Con el coche parado']]],
+  otro:[]}[t].concat([['¿Qué coche es? Marca, modelo, año y si es gasolina, diésel o híbrido.',[]],['¿Cuántos kilómetros tiene, más o menos?',[]]]);
+ const i=us.length-1;if(i<F.length)return{reply:F[i][0],opciones:F[i][1]};
+ return{reply:'Perfecto, ya lo tengo. Revisa el resumen y déjanos tu nombre y móvil para llamarte.',listo:true,resumen:us.join('. '),vehiculo:us[us.length-2]||'',km:us[us.length-1]||''}}
 function asStart(mode,first){AS.mode=mode;AS.msgs=[];AS.book=null;AS.presu=null;AS.sent=false;AS.open=true;asRender();loadHue();if(first)asSend(first)}
 function asRender(){
  let el=$('#as');
@@ -534,7 +541,8 @@ function asRender(){
   <label style="display:flex;gap:9px;font-size:14px;color:var(--mute);margin:4px 0 10px"><input type="checkbox" data-asp="ok" ${P.ok?'checked':''} style="width:17px;height:17px;flex:none;margin-top:3px;accent-color:var(--navy)"> Acepto que el taller use mis datos para llamarme por este presupuesto.</label>
   <button class="btn pri" style="width:100%" data-aspsend ${P.sending?'disabled':''}>${P.sending?'Enviando…':'Enviar y que me llamen'}</button><p class="err">${esc(P.err||'')}</p></div>`}
  m.innerHTML=h;if(!AS.keepScroll)m.scrollTop=m.scrollHeight;AS.keepScroll=false;
- $('#as-chips').innerHTML=AS.msgs.length?'':(pr?PR_CH:AS_CH).map(c=>`<button class="chipb" data-asch="${esc(c)}">${esc(c)}</button>`).join('');
+ const lm=AS.msgs[last],qo=(pr&&!AS.busy&&!AS.presu&&!AS.sent&&lm&&lm.role==='assistant'&&lm.opciones)||[];
+ $('#as-chips').innerHTML=(AS.msgs.length?qo:(pr?PR_CH:AS_CH)).map(c=>`<button class="chipb" data-asch="${esc(c)}">${esc(c)}</button>`).join('');
  const dis=AS.busy||(pr&&(!!AS.presu||AS.sent));$('#as-send').disabled=dis;$('#as-in').disabled=pr&&(!!AS.presu||AS.sent);
 }
 async function asSend(t){
@@ -544,7 +552,7 @@ async function asSend(t){
  const pr=AS.mode==='presu';let r=null;
  try{const res=await fetch(SB_URL+'/functions/v1/trj-asistente',{method:'POST',headers:{'Content-Type':'application/json',apikey:SB_KEY,Authorization:'Bearer '+SB_KEY},body:JSON.stringify({modo:pr?'presupuesto':'chat',messages:AS.msgs.slice(pr?-16:-8).map(x=>({role:x.role,content:x.content}))})});if(res.ok)r=await res.json()}catch(e){}
  if(!r||!r.reply)r=pr?asLocalPresu():asLocal(t);
- AS.msgs.push({role:'assistant',content:r.reply,servicio:r.servicio||null,cita:!!r.cita,presupuesto:!!r.presupuesto});
+ AS.msgs.push({role:'assistant',content:r.reply,servicio:r.servicio||null,cita:!!r.cita,presupuesto:!!r.presupuesto,opciones:Array.isArray(r.opciones)?r.opciones.slice(0,6):[]});
  if(pr&&r.listo)AS.presu={resumen:r.resumen||'',vehiculo:r.vehiculo||'',km:r.km||'',servicio:r.servicio||'Otro',matricula:'',nombre:'',telefono:'',ok:false};
  AS.busy=false;asRender();
 }
