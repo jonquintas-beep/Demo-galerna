@@ -295,6 +295,28 @@ body.in-app .wa-float{display:none}
 #toast.on{opacity:1;transform:translateX(-50%)}
 .demo-note{position:fixed;left:12px;bottom:12px;font-size:11.5px;color:var(--mu);background:var(--p1);border:1px solid var(--ln);border-radius:8px;padding:5px 9px;z-index:10}
 @media(max-width:860px){.demo-note{display:none}}
+/* ASISTENTE */
+.as-btn{position:fixed;right:18px;bottom:18px;z-index:31;display:flex;align-items:center;gap:9px;background:var(--y);color:#111;font-weight:700;font-size:14.5px;border-radius:999px;padding:13px 18px 13px 14px;box-shadow:0 10px 28px rgba(0,0,0,.5)}
+.as-btn i{width:28px;height:28px;border-radius:50%;background:#111;color:var(--y);display:grid;place-items:center;flex:none}
+.wa-float{bottom:84px!important;width:50px!important;height:50px!important}
+body.in-app .as-btn,body.as-open .as-btn{display:none}
+.as{position:fixed;right:18px;bottom:18px;z-index:40;width:380px;max-width:calc(100vw - 24px);height:min(600px,calc(100vh - 36px));background:var(--p1);border:1px solid var(--ln);border-radius:20px;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.6);animation:up .2s}
+@media(max-width:560px){.as{right:0;left:0;bottom:0;width:100%;max-width:none;height:88vh;border-radius:20px 20px 0 0}}
+.as-h{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--ln)}
+.as-h b{display:block;font-size:15px}.as-h small{color:var(--g);font-size:12px}
+.as-m{flex:1;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+.bub{max-width:86%;padding:10px 13px;border-radius:14px;font-size:14.5px;line-height:1.45;white-space:pre-wrap}
+.bub.bot{background:var(--p2);border:1px solid var(--ln);border-bottom-left-radius:4px;align-self:flex-start}
+.bub.usr{background:var(--y);color:#111;border-bottom-right-radius:4px;align-self:flex-end}
+.bub.typ{color:var(--mu)}
+.as-cta{align-self:flex-start;display:flex;gap:8px;flex-wrap:wrap}
+.as-chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 10px}
+.as-f{display:flex;gap:8px;padding:12px;border-top:1px solid var(--ln);padding-bottom:calc(12px + env(safe-area-inset-bottom))}
+.as-f input{flex:1;min-width:0;background:var(--bg);border:1px solid var(--ln);border-radius:12px;padding:11px 13px;outline:none;font-size:15px}
+.as-f input:focus{border-color:var(--y)}
+.as-f button{width:46px;border-radius:12px;background:var(--y);color:#111;display:grid;place-items:center;flex:none}
+.as-f button:disabled{opacity:.5}
+@media print{.as,.as-btn{display:none}}
 </style>
 </head>
 <body>
@@ -591,6 +613,7 @@ function webHTML(){
  <div><h4>Contacto</h4><p>${sv(P.phone,14)} <a href="tel:${digits(CONFIG.telefono)}">${esc(CONFIG.telefono)}</a></p><p>${sv(P.msg,14)} <a href="https://wa.me/${CONFIG.whatsapp}" target="_blank" rel="noopener">WhatsApp</a></p><p>${sv(P.pin,14)} ${esc(CONFIG.direccion)}</p></div>
  <div><h4>Horario</h4>${CONFIG.horarioTexto.map(h=>`<p>${esc(h)}</p>`).join('')}<p style="margin-top:14px"><a href="${URL_TALLER}">Acceso taller →</a></p></div>
 </div></footer>
+<button class="as-btn" id="as-open" type="button"><i>${sv(P.bolt,16)}</i>¿Qué le pasa a tu coche?</button>
 <a class="wa-float" href="https://wa.me/${CONFIG.whatsapp}" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">${sv(P.msg,26)}</a>`;
 }
 
@@ -952,12 +975,60 @@ document.addEventListener('submit',async e=>{
  }catch(err){if(btn)btn.disabled=false}
 });
 
+
+/* ====================== ASISTENTE ====================== */
+const AS={open:false,msgs:[],busy:false};
+const AS_CHIPS=['Mi coche no arranca','Se enciende un testigo','¿Instaláis placas en campers?','El aire no enfría','¿Cuánto cuesta?'];
+function asReglas(t){
+ const n=t.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase(),h=ks=>ks.some(k=>n.includes(k));
+ if(h(['humo','quemado','chispa']))return{reply:`Si hay humo, chispas u olor a quemado, para el vehículo, quita el contacto y no lo uses hasta revisarlo. Llámanos al ${CONFIG.telefono}.`,servicio:'Diagnosis / testigo encendido'};
+ if(h(['precio','cuesta','cuanto','presupuesto']))return{reply:'Depende de lo que tenga: primero lo diagnosticamos y te damos el presupuesto antes de tocar nada.',servicio:null};
+ if(h(['no arranca','bateria']))return{reply:'Suele ser la batería, un consumo que la descarga o el motor de arranque. Tráelo y lo comprobamos.',servicio:'No arranca / batería'};
+ if(h(['alternador','no carga']))return{reply:'Si se enciende el testigo de batería o no carga, lo normal es revisar el alternador y la correa.',servicio:'Alternador / no carga'};
+ if(h(['aire','clima','enfria']))return{reply:'Revisamos el aire acondicionado: carga de gas, fugas y fallos eléctricos.',servicio:'Climatización / aire'};
+ if(h(['luz','luces','faro','piloto']))return{reply:'Arreglamos faros, pilotos y cableados de iluminación.',servicio:'Luces / iluminación'};
+ if(h(['camper','furgo','placa','solar','litio']))return{reply:'Montamos la instalación eléctrica de furgonetas y campers: placas solares, baterías auxiliares y de litio, inversores y más.',servicio:'Furgoneta / camper'};
+ if(h(['testigo','centralita','fallo','averia']))return{reply:'Hacemos diagnosis electrónica con equipos actualizados para encontrar el origen del fallo.',servicio:'Diagnosis / testigo encendido'};
+ return{reply:'Somos especialistas en electricidad del automóvil: diagnosis, baterías, alternadores, arranques, climatización, luces y campers. Cuéntame qué le pasa.',servicio:null};
+}
+function asRender(){
+ let el=$('#as');
+ if(!AS.open){if(el)el.remove();document.body.classList.remove('as-open');return}
+ document.body.classList.add('as-open');
+ if(!el){el=document.createElement('div');el.id='as';el.className='as';el.setAttribute('role','dialog');el.setAttribute('aria-label','Asistente del taller');document.body.appendChild(el);
+  el.innerHTML=`<div class="as-h"><span class="logo-ic">${sv(P.bolt,18)}</span><div style="flex:1"><b>Asistente de Roberto</b><small>● Responde al momento</small></div><button class="x" id="as-x" aria-label="Cerrar">${sv(P.x,16)}</button></div><div class="as-m" id="as-m"></div><div class="as-chips" id="as-chips"></div><form class="as-f" id="as-f"><input id="as-in" placeholder="Cuéntame qué le pasa…" autocomplete="off" maxlength="500"><button id="as-send" aria-label="Enviar">${sv(P.arrow,18)}</button></form>`;}
+ const m=$('#as-m');
+ m.innerHTML=`<div class="bub bot">¡Hola! Soy el asistente de ${esc(CONFIG.nombre)}. Cuéntame qué le pasa a tu coche, furgo o camper y te digo si te podemos ayudar.</div>`+
+  AS.msgs.map(x=>x.role==='user'?`<div class="bub usr">${esc(x.content)}</div>`:`<div class="bub bot">${esc(x.content)}</div>${x.servicio?`<div class="as-cta"><button class="btn y sm" data-as-cita="${esc(x.servicio)}">${sv(P.cal,15)} Pedir cita: ${esc(x.servicio)}</button></div>`:''}`).join('')+
+  (AS.busy?'<div class="bub bot typ">Escribiendo…</div>':'');
+ m.scrollTop=m.scrollHeight;
+ $('#as-chips').innerHTML=AS.msgs.length?'':AS_CHIPS.map(c=>`<button class="chipb" data-as-chip="${esc(c)}">${esc(c)}</button>`).join('');
+ $('#as-send').disabled=AS.busy;
+}
+async function asSend(t){
+ t=String(t||'').trim();if(!t||AS.busy)return;
+ AS.msgs.push({role:'user',content:t});AS.busy=true;asRender();
+ let r=null;
+ if(ON_SITE){try{const res=await fetch(SB_URL+'/functions/v1/aer-asistente',{method:'POST',headers:{'Content-Type':'application/json',apikey:SB_KEY,Authorization:'Bearer '+SB_KEY},body:JSON.stringify({messages:AS.msgs.slice(-8).map(x=>({role:x.role,content:x.content}))}),signal:AbortSignal.timeout?AbortSignal.timeout(30000):undefined});if(res.ok)r=await res.json()}catch(e){}}
+ if(!r||!r.reply)r=asReglas(t);
+ AS.msgs.push({role:'assistant',content:r.reply,servicio:r.servicio||null});AS.busy=false;asRender();
+ const i=$('#as-in');if(i&&window.matchMedia('(min-width:561px)').matches)i.focus();
+}
+document.addEventListener('click',e=>{
+ if(e.target.closest('#as-open')){AS.open=true;asRender();setTimeout(()=>{if(window.matchMedia('(min-width:561px)').matches)$('#as-in')?.focus()},50);return}
+ if(e.target.closest('#as-x')){AS.open=false;asRender();return}
+ const ch=e.target.closest('[data-as-chip]');if(ch){asSend(ch.dataset.asChip);return}
+ const ci=e.target.closest('[data-as-cita]');if(ci){BK.serv=ci.dataset.asCita;renderServ();AS.open=false;asRender();document.getElementById('reservar').scrollIntoView({behavior:'smooth'});toast('Elige día y hora para tu cita');return}
+});
+document.addEventListener('submit',e=>{if(e.target.id==='as-f'){e.preventDefault();const i=$('#as-in');const v=i.value;i.value='';asSend(v)}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&AS.open){AS.open=false;asRender()}});
+
 /* ---- rutas ---- */
 function route(){
  const h=location.hash.slice(1);if(ON_SITE&&!TALLER_PATH&&h==='taller'){location.replace('taller/');return}const inApp=TALLER_PATH||h==='taller';
  const was=!$('#app').hidden;
  $('#web').hidden=inApp;$('#app').hidden=!inApp;document.body.classList.toggle('in-app',inApp);
- if(inApp){renderApp();if(!was)window.scrollTo(0,0)}
+ if(inApp){AS.open=false;asRender();renderApp();if(!was)window.scrollTo(0,0)}
  else{closeModal();if(was){renderDays();renderSlots();const el=h&&document.getElementById(h);setTimeout(()=>el?el.scrollIntoView():window.scrollTo(0,0),20)}}
 }
 window.addEventListener('hashchange',route);
