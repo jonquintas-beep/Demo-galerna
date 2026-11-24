@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
+<meta name="app-version" content="20261124134542">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Galerna Taller</title>
 <meta name="robots" content="noindex, nofollow">
@@ -847,6 +848,15 @@ document.addEventListener('submit',e=>{
 });
 
 load();route();
+</script>
+<script id="upd-chk">/* Se recarga sola cuando hay una versión nueva (útil en apps añadidas a la pantalla de inicio) */
+(function(){var cur=(document.querySelector('meta[name=app-version]')||{}).content,busy=false,last=0;
+function editing(){var a=document.activeElement;return a&&(a.tagName==='INPUT'||a.tagName==='TEXTAREA')&&a.value}
+async function chk(){if(busy||Date.now()-last<10000)return;busy=true;last=Date.now();
+ try{var r=await fetch(location.pathname,{cache:'no-store'});if(r.ok){var t=await r.text(),m=t.match(/name="app-version" content="([^"]+)"/);
+  if(m&&cur&&m[1]!==cur&&!editing()){await fetch(location.pathname,{cache:'reload'}).catch(function(){});location.reload();return}}}catch(e){}
+ busy=false}
+document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});window.addEventListener('pageshow',chk);setTimeout(chk,2500);})();
 </script>
 </body>
 </html>

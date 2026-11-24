@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
+<meta name="app-version" content="20261124134542">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Garaje Trujillo · Taller mecánico en Vitoria-Gasteiz desde 1985</title>
 <meta name="description" content="Taller de mecánica y electromecánica en Fermín Lasuen 15, Vitoria-Gasteiz. Desde 1985. Llámanos al 945 28 29 39.">
@@ -592,6 +593,15 @@ if($('#f'))$('#f').addEventListener('submit',e=>{
  location.href='mailto:?subject='+encodeURIComponent('Cita para mi coche · '+v('n'))+'&body='+encodeURIComponent(body);
  toast('Envía el correo que se ha abierto y te llamamos para darte hora.');
 });
+</script>
+<script id="upd-chk">/* Se recarga sola cuando hay una versión nueva (útil en apps añadidas a la pantalla de inicio) */
+(function(){var cur=(document.querySelector('meta[name=app-version]')||{}).content,busy=false,last=0;
+function editing(){var a=document.activeElement;return a&&(a.tagName==='INPUT'||a.tagName==='TEXTAREA')&&a.value}
+async function chk(){if(busy||Date.now()-last<10000)return;busy=true;last=Date.now();
+ try{var r=await fetch(location.pathname,{cache:'no-store'});if(r.ok){var t=await r.text(),m=t.match(/name="app-version" content="([^"]+)"/);
+  if(m&&cur&&m[1]!==cur&&!editing()){await fetch(location.pathname,{cache:'reload'}).catch(function(){});location.reload();return}}}catch(e){}
+ busy=false}
+document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});window.addEventListener('pageshow',chk);setTimeout(chk,2500);})();
 </script>
 </body>
 </html>
