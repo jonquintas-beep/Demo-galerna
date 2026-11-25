@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crazy Shop Jaca</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#ff2d3d">
+<link rel="icon" type="image/png" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-title" content="Crazy Shop">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;600;800&family=Permanent+Marker&display=swap" rel="stylesheet">
+<style>
+/* VOICE: tienda de riders, ruidosa y cercana, como una pared de pegatinas
+   IDEA: la pendiente es tuya — dibujas la línea y un rider la baja
+   PICTURE: Peña Oroel nevada (invierno) o Jaca al atardecer con asfalto (verano)
+   COLOUR+TYPE: invierno nieve/negro/rojo · verano asfalto/blanco/naranja · Archivo Black + Permanent Marker
+   LAYOUT: escena a sangre, bandas completas, todo cambia con la temporada */
+:root{--x:0}
+*{box-sizing:border-box;min-width:0;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{font:16px/1.55 Archivo,system-ui,sans-serif;overflow-x:clip;background:var(--bg);color:var(--ink);transition:background .5s,color .5s}
+body[data-s=w]{color-scheme:light;--bg:#f2f6fa;--ink:#0d0e10;--acc:#ff2d3d;--acc-ink:#fff;--sup:#1d58ff;--card:#fff;--line:#d3dce6;--mut:#56616d;--soft:#e4ecf4}
+body[data-s=s]{color-scheme:dark;--bg:#171614;--ink:#f5f0e7;--acc:#ff7a1a;--acc-ink:#1a0e04;--sup:#ffd23f;--card:#221f1c;--line:#3b3631;--mut:#a99f92;--soft:#2a2622}
+body[data-s=s] .w-only,body[data-s=w] .s-only{display:none!important}
+h1,h2,h3,.disp{font-family:"Archivo Black",Archivo,sans-serif;font-weight:400;line-height:1.02;text-wrap:balance}
+h2{font-size:clamp(32px,5vw,52px);margin-bottom:14px}
+.mk{font-family:"Permanent Marker",cursive}
+a{color:inherit}button,input,select{font:inherit;color:inherit}button{cursor:pointer}
+.wrap{max-width:1240px;margin:0 auto;padding:0 max(4vw,16px)}
+.band{padding:clamp(56px,7vw,104px) 0;border-top:2px solid var(--ink)}
+.lead{font-size:17px;color:var(--mut);max-width:62ch}
+.ex{font-size:13px;color:var(--mut);margin-top:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:48px;border:2px solid var(--ink);border-radius:999px;padding:10px 22px;font-weight:800;text-decoration:none;background:var(--card);transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink)}
+.btn.acc{background:var(--acc);color:var(--acc-ink);border-color:var(--ink)}
+:focus-visible{outline:3px solid var(--sup);outline-offset:3px}
+.strip{background:var(--ink);color:var(--bg);font-size:13px;text-align:center;padding:6px 12px;font-weight:600}
+
+/* nav */
+nav.top{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:2px solid var(--ink)}
+nav.top .wrap{display:flex;align-items:center;gap:18px;height:64px}
+.logo{display:flex;align-items:center;text-decoration:none;flex:none}
+.logo svg{height:40px;width:auto}
+.links{display:flex;gap:20px;margin-left:auto;font-weight:800;font-size:15px}
+.links a{text-decoration:none}.links a:hover{color:var(--acc)}
+.season{display:flex;border:2px solid var(--ink);border-radius:999px;overflow:hidden;flex:none}
+.season button{display:flex;align-items:center;gap:6px;background:none;border:0;padding:6px 12px;font-weight:800;font-size:14px;min-height:40px}
+.season button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.season svg{width:16px;height:16px}
+.burger{display:none;margin-left:auto;width:44px;height:44px;border:2px solid var(--ink);border-radius:12px;background:var(--card);font-size:20px;font-weight:800}
+@media(max-width:980px){
+ .burger{display:block}.links{display:none;position:absolute;top:64px;left:0;right:0;background:var(--bg);flex-direction:column;gap:0;padding:8px 16px 16px;border-bottom:2px solid var(--ink)}
+ .links.open{display:flex}.links a{padding:14px 4px;border-bottom:1px solid var(--line);font-size:18px}
+ nav.top .wrap{position:relative}.season{margin-left:0}
+}
+@media(max-width:520px){.season button span{display:none}.logo svg{height:34px}}
+
+/* hero */
+.hero{position:relative;min-height:calc(100svh - 96px);display:flex;flex-direction:column;overflow:hidden;border-bottom:2px solid var(--ink)}
+.scene{position:absolute;inset:0;touch-action:none;cursor:crosshair}
+.scene svg.bg{position:absolute;inset:0;width:100%;height:100%}
+.scene canvas{position:absolute;inset:0;width:100%;height:100%}
+.htext{position:relative;z-index:2;pointer-events:none;padding-top:clamp(28px,6vh,72px)}
+.htext a,.htext button{pointer-events:auto}
+.kick{font-weight:800;font-size:15px;margin-bottom:10px}
+body[data-s=w] .kick{color:#0d1f33}
+.hero h1{font-size:clamp(46px,8.4vw,112px);line-height:.92;max-width:11ch;color:#0b1420}
+body[data-s=s] .hero h1{color:#fff7ea}
+.hero h1 .mk{display:block;font-size:.5em;color:var(--acc);transform:rotate(-3deg);margin-top:10px;line-height:1.1}
+.hero .lead{color:#22384d;margin:18px 0 22px;max-width:46ch}
+body[data-s=s] .hero .lead{color:#f1dcc6}
+.ctas{display:flex;gap:12px;flex-wrap:wrap}
+.hint{position:absolute;z-index:3;left:50%;bottom:22px;transform:translateX(-50%);background:var(--ink);color:var(--bg);border-radius:999px;padding:8px 16px;font-weight:800;font-size:14px;pointer-events:none;transition:opacity .4s;white-space:nowrap}
+.hint.hide{opacity:0}
+.trick{position:absolute;z-index:4;right:5vw;top:30%;font-family:"Permanent Marker";font-size:clamp(26px,4vw,44px);color:var(--acc);transform:rotate(-6deg) scale(.6);opacity:0;transition:opacity .25s,transform .25s;pointer-events:none;text-shadow:3px 3px 0 var(--ink)}
+.trick.show{opacity:1;transform:rotate(-6deg) scale(1)}
+.clear{position:absolute;z-index:3;right:16px;bottom:18px;background:var(--card);border:2px solid var(--ink);border-radius:999px;padding:6px 14px;font-weight:800;font-size:13px;min-height:40px}
+@media(max-width:760px){
+ .hero{min-height:0}
+ .htext{padding-bottom:18px;pointer-events:auto}
+ .scene{position:relative;height:58svh;border-top:2px solid var(--ink)}
+ .htext{order:-1}
+ .hint{left:12px;transform:none;max-width:calc(100% - 150px);white-space:normal;font-size:13px;bottom:16px}
+ .hero .lead{font-size:16px}
+}
+
+/* marquee */
+.marq{overflow:hidden;background:var(--acc);color:var(--acc-ink);border-bottom:2px solid var(--ink);white-space:nowrap}
+.marq div{display:inline-block;padding:12px 0;font-family:"Archivo Black";font-size:20px;animation:mq 38s linear infinite}
+.marq span{margin:0 22px}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* temporada */
+.temp{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:40px;align-items:center}
+.cd{background:var(--ink);color:var(--bg);border-radius:24px;padding:28px;position:relative;overflow:hidden}
+.cd h3{font-size:30px;margin-bottom:6px}
+.cdn{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:20px 0 10px}
+.cdn div{background:rgba(255,255,255,.08);border-radius:14px;padding:12px 8px;text-align:center}
+body[data-s=w] .cdn div{background:rgba(255,255,255,.1)}
+.cdn b{display:block;font-family:"Archivo Black";font-size:clamp(26px,4vw,40px);line-height:1;color:var(--acc)}
+.cdn span{font-size:13px;opacity:.8}
+.cd .stk{position:absolute;right:-14px;top:14px;background:var(--acc);color:var(--acc-ink);font-family:"Permanent Marker";padding:6px 22px;transform:rotate(12deg);font-size:20px}
+.pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.pill{border:2px solid var(--ink);border-radius:999px;padding:6px 14px;font-weight:600;font-size:14px;background:var(--card)}
+
+/* finder */
+.finder{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:28px;margin-top:28px}
+.form{background:var(--card);border:2px solid var(--ink);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:18px}
+.field label{display:flex;justify-content:space-between;font-weight:800;font-size:15px;margin-bottom:6px}
+.field label output{color:var(--acc)}
+input[type=range]{width:100%;accent-color:var(--acc);height:28px}
+.seg{display:flex;flex-wrap:wrap;gap:8px}
+.seg button{border:2px solid var(--ink);background:var(--bg);border-radius:999px;padding:8px 14px;font-weight:700;font-size:14px;min-height:44px}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.result{border:2px solid var(--ink);border-radius:24px;padding:24px;background:var(--soft);display:flex;flex-direction:column;gap:14px}
+.result .big{font-family:"Archivo Black";font-size:clamp(56px,9vw,96px);line-height:.9;color:var(--acc);white-space:nowrap}
+.result .big small{font-size:.35em;color:var(--ink)}
+.boardfig{position:relative;height:200px}
+.boardfig svg{position:absolute;inset:0;width:100%;height:100%}
+.specs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.spec{background:var(--card);border-radius:14px;padding:12px;border:1px solid var(--line)}
+.spec b{display:block;font-size:17px}.spec span{font-size:13px;color:var(--mut)}
+@media(max-width:860px){.finder,.temp{grid-template-columns:minmax(0,1fr)}.specs{grid-template-columns:minmax(0,1fr)}}
+
+/* taller */
+.svc{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:26px}
+.svc button{text-align:left;background:var(--card);border:2px solid var(--ink);border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:6px;min-height:150px;transition:transform .15s}
+.svc button:hover{transform:translateY(-3px)}
+.svc button[aria-pressed=true]{background:var(--acc);color:var(--acc-ink)}
+.svc b{font-size:18px;line-height:1.15}
+.svc .pr{font-family:"Archivo Black";font-size:26px;margin-top:auto}
+.svc span{font-size:14px;opacity:.85}
+.days{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 2px 12px;margin-top:22px}
+.day{flex:none;scroll-snap-align:start;min-width:96px;background:var(--card);border:2px solid var(--ink);border-radius:16px;padding:10px 12px;text-align:left;min-height:44px}
+.day small{display:block;font-size:13px;color:var(--mut)}.day b{font-family:"Archivo Black";font-size:28px;line-height:1}
+.day[aria-pressed=true]{background:var(--ink);color:var(--bg)}.day[aria-pressed=true] small{color:inherit;opacity:.7}
+.slots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:8px}
+.slot{background:var(--card);border:2px solid var(--ink);border-radius:16px;padding:14px;text-align:left;min-height:44px}
+.slot b{font-family:"Archivo Black";font-size:24px;display:block}
+.slot span{font-size:13px;color:var(--mut)}
+.slot[disabled]{opacity:.4;cursor:not-allowed}
+.slot[aria-pressed=true]{background:var(--acc);color:var(--acc-ink)}.slot[aria-pressed=true] span{color:inherit}
+.book{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;align-items:center}
+.book input{flex:1;min-width:200px;min-height:48px;border:2px solid var(--ink);border-radius:999px;padding:0 18px;background:var(--card);font-size:16px}
+@media(max-width:860px){.svc{grid-template-columns:repeat(2,minmax(0,1fr))}.slots{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* ticket */
+.ticket{background:#fff;color:#111;border:2px solid #111;border-radius:18px;overflow:hidden;position:relative;font-size:14px;max-width:440px}
+.ticket .tt{background:var(--acc);color:var(--acc-ink);padding:10px 16px;font-family:"Archivo Black";font-size:18px;display:flex;justify-content:space-between;border-bottom:2px dashed #111}
+.ticket .tb{padding:12px 16px;display:grid;grid-template-columns:1fr 1fr;gap:8px 12px}
+.ticket small{display:block;font-size:12px;color:#666}
+.ticket b{font-size:16px}
+#tkWrap{margin-top:18px}
+
+/* parte */
+.parte{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:26px}
+.st{background:var(--card);border:2px solid var(--ink);border-radius:20px;padding:18px}
+.st h3{font-size:22px}
+.st .row{display:flex;justify-content:space-between;font-size:14px;margin-top:10px;color:var(--mut)}
+.st .row b{color:var(--ink)}
+.meter{height:12px;background:var(--soft);border-radius:999px;overflow:hidden;margin-top:4px;border:1px solid var(--line)}
+.meter i{display:block;height:100%;background:var(--sup);width:0;transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
+.tag{display:inline-block;margin-top:12px;font-size:13px;font-weight:800;padding:4px 10px;border-radius:999px;background:var(--ink);color:var(--bg)}
+.tipday{margin-top:18px;background:var(--acc);color:var(--acc-ink);border:2px solid var(--ink);border-radius:18px;padding:16px 18px;font-weight:600;max-width:720px}
+.tipday b{font-family:"Permanent Marker";font-weight:400;font-size:20px;margin-right:6px}
+@media(max-width:860px){.parte{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:480px){.parte{grid-template-columns:minmax(0,1fr)}}
+
+/* historia */
+.rail{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:8px 2px 18px;margin-top:24px}
+.hc{flex:none;width:min(340px,82vw);scroll-snap-align:start;background:var(--card);border:2px solid var(--ink);border-radius:22px;padding:22px;position:relative}
+.hc .y{font-family:"Archivo Black";font-size:44px;color:var(--acc);line-height:1}
+.hc h3{font-size:22px;margin:8px 0 8px}
+.hc p{font-size:15px;color:var(--mut)}
+.railnav{display:flex;gap:10px}
+.railnav button{width:48px;height:48px;border-radius:50%;border:2px solid var(--ink);background:var(--card);font-size:20px;font-weight:800}
+.hhead{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+
+/* pegatinas */
+.wall{position:relative;height:340px;border:2px dashed var(--ink);border-radius:24px;margin-top:24px;overflow:hidden;background:var(--soft);cursor:copy;touch-action:manipulation}
+.wall .s{position:absolute;padding:8px 16px;border:2px solid #111;border-radius:12px;font-family:"Archivo Black";font-size:18px;white-space:nowrap;box-shadow:3px 3px 0 #111;animation:slap .25s ease-out;pointer-events:none}
+@keyframes slap{from{transform:var(--r) scale(1.8);opacity:0}}
+.wall .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--mut);pointer-events:none;text-align:center;padding:20px}
+
+/* juego cta */
+.gcta{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:30px;align-items:center}
+.gprev{aspect-ratio:4/3;border:2px solid var(--ink);border-radius:24px;overflow:hidden;position:relative;background:var(--soft)}
+.gprev canvas{width:100%;height:100%;display:block}
+@media(max-width:860px){.gcta{grid-template-columns:minmax(0,1fr)}}
+
+/* panel */
+.panel{background:#fff;color:#111;border:2px solid var(--ink);border-radius:24px;padding:24px;margin-top:24px}
+.kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin:16px 0}
+.kpi{background:#f1f4f8;border-radius:14px;padding:14px}
+.kpi b{font-family:"Archivo Black";font-size:34px;display:block;line-height:1}
+.kpi span{font-size:13px;color:#555}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:10px;border-bottom:1px solid #e5e9ee;vertical-align:top}
+th{font-size:13px;color:#555;background:#f1f4f8}
+.src{font-size:12px;font-weight:800;padding:3px 9px;border-radius:999px;background:#ffe3e6;color:#a1121f;white-space:nowrap}
+tr.new{animation:hl 2.4s}@keyframes hl{from{background:#fff4b8}}
+.empty td{color:#777;text-align:center;padding:22px}
+@media(max-width:700px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){table{font-size:13px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px;border-bottom:1px solid #e5e9ee}.stack td{display:flow-root;border:0;padding:3px 0;padding-inline-start:7em}.stack td::before{content:attr(data-l);float:inline-start;width:6.5em;margin-inline-start:-7em;color:#777}}
+
+/* catálogo */
+.ctools{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;align-items:center}
+.ctools input[type=search],.ctools select{min-height:46px;border:2px solid var(--ink);border-radius:999px;padding:0 16px;background:var(--card);font-size:16px}
+.ctools input[type=search]{flex:1 1 260px}
+.chk{display:flex;align-items:center;gap:8px;font-weight:700;font-size:15px;min-height:44px;cursor:pointer}
+.chk input{width:20px;height:20px;accent-color:var(--acc)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:14px 2px 4px}
+.chips button{flex:none;border:2px solid var(--ink);background:var(--card);border-radius:999px;padding:8px 14px;font-weight:700;font-size:14px;min-height:44px;white-space:nowrap}
+.chips button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.chips small{opacity:.65;margin-left:4px}
+.ccount{font-size:14px;color:var(--mut);margin:12px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,220px),1fr));gap:14px}
+@media(max-width:600px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.pb{padding:10px}.pb h3{font-size:14px}.pp{font-size:17px}.pp s{display:block;margin:0}.pbt{flex-direction:column;align-items:stretch;gap:2px}.pbt a{text-align:center;padding:6px}}
+.pc{background:var(--card);border:2px solid var(--ink);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;transition:transform .15s,box-shadow .15s}
+.pc:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink)}
+.pa{position:relative;aspect-ratio:10/7;background:var(--soft);border-bottom:2px solid var(--ink)}
+.pa svg{position:absolute;inset:0;width:100%;height:100%}
+.bd{position:absolute;top:10px;left:10px;display:flex;flex-direction:column;gap:5px;align-items:flex-start}
+.bd span{font-size:12px;font-weight:800;padding:3px 9px;border-radius:999px;border:1.5px solid #111;background:#fff;color:#111}
+.bd .off{background:var(--acc);color:var(--acc-ink)}
+.pb{padding:14px;display:flex;flex-direction:column;gap:4px;flex:1}
+.pb small{font-size:13px;font-weight:800;color:var(--mut)}
+.pb h3{font-family:Archivo,sans-serif;font-weight:800;font-size:16px;line-height:1.25}
+.pp{margin-top:auto;padding-top:8px;font-family:"Archivo Black";font-size:21px;white-space:nowrap}
+.pp s{font-family:Archivo;font-weight:600;font-size:14px;color:var(--mut);margin-left:6px}
+.pbt{display:flex;gap:8px;align-items:center;margin-top:8px}
+.pbt button{flex:1;min-height:44px;border:2px solid var(--ink);border-radius:999px;background:var(--bg);font-weight:800;font-size:14px}
+.pbt button[aria-pressed=true]{background:var(--acc);color:var(--acc-ink)}
+.pbt a{font-size:14px;font-weight:800;padding:10px 4px;white-space:nowrap}
+.more{display:flex;justify-content:center;margin-top:22px}
+.bagbar{position:sticky;bottom:14px;z-index:20;margin-top:18px;max-width:640px;background:var(--ink);color:var(--bg);border-radius:20px;padding:12px 14px;display:none;flex-wrap:wrap;gap:10px;align-items:center;box-shadow:5px 5px 0 var(--acc)}
+.bagbar.on{display:flex}
+.bagbar b{font-family:"Archivo Black";font-size:18px}
+.bagbar .btn{min-height:44px;padding:6px 16px;border-color:var(--bg)}
+.bagbar input{flex:1 1 160px;min-height:44px;border-radius:999px;border:0;padding:0 14px;font-size:16px;color:#111;background:#fff}
+.bagbar ul{flex-basis:100%;list-style:none;font-size:14px;opacity:.85;max-height:96px;overflow:auto}
+@media(max-width:600px){.bagbar{bottom:80px}}
+.nores{grid-column:1/-1;padding:30px;text-align:center;border:2px dashed var(--line);border-radius:20px;color:var(--mut)}
+footer{background:var(--ink);color:var(--bg);padding:56px 0 120px}
+footer .wrap{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
+footer b{font-family:"Archivo Black";font-size:20px;display:block;margin-bottom:6px}
+footer p{opacity:.8;font-size:15px;max-width:340px}
+
+/* fabs + chat */
+.fabs{position:fixed;right:18px;bottom:18px;z-index:60;display:flex;gap:10px}
+.fab{display:flex;align-items:center;gap:8px;border:2px solid var(--ink);border-radius:999px;padding:8px 16px 8px 8px;font-weight:800;background:var(--card);box-shadow:4px 4px 0 var(--ink);min-height:52px}
+.fab.acc{background:var(--acc);color:var(--acc-ink)}
+.fab .av{width:36px;height:36px;flex:none}
+.chat{position:fixed;right:18px;bottom:18px;z-index:80;width:390px;max-width:calc(100vw - 24px);height:600px;max-height:calc(100svh - 36px);background:var(--bg);border:2px solid var(--ink);border-radius:24px;display:none;flex-direction:column;overflow:hidden;box-shadow:6px 6px 0 var(--ink)}
+.chat.open{display:flex}
+.chead{display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--ink);color:var(--bg)}
+.chead .av{width:42px;height:42px}
+.chead b{font-family:"Archivo Black";font-size:18px;display:block;line-height:1.1}
+.chead small{font-size:12px;opacity:.75}
+.chead .x{margin-left:auto;width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.15);color:inherit;font-size:20px}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:9px}
+.msgs>*{flex-shrink:0}
+.m{max-width:86%;padding:10px 13px;border-radius:16px;font-size:15px;line-height:1.45;white-space:pre-wrap;overflow-wrap:anywhere}
+.m.bot{background:var(--card);border:1.5px solid var(--line);align-self:flex-start;border-bottom-left-radius:4px}
+.m.me{background:var(--acc);color:var(--acc-ink);align-self:flex-end;border-bottom-right-radius:4px;font-weight:600}
+.qr{display:flex;flex-wrap:wrap;gap:6px;align-self:flex-start}
+.qr button{border:2px solid var(--ink);background:var(--bg);border-radius:999px;padding:6px 12px;font-size:14px;font-weight:700;min-height:40px}
+.qr button:hover{background:var(--ink);color:var(--bg)}
+.cin{display:flex;gap:8px;padding:10px;border-top:2px solid var(--ink)}
+.cin input{flex:1;min-height:46px;border:2px solid var(--line);border-radius:999px;padding:0 16px;background:var(--card);font-size:16px;outline:none}
+.cin input:focus{border-color:var(--ink)}
+.cin button{width:46px;height:46px;border-radius:50%;border:2px solid var(--ink);background:var(--acc);color:var(--acc-ink);font-weight:800;font-size:18px}
+
+/* game */
+.game{position:fixed;inset:0;z-index:100;background:var(--bg);display:none;touch-action:none;user-select:none;-webkit-user-select:none}
+.game.open{display:flex;flex-direction:column}
+.ghead{display:flex;align-items:center;gap:12px;padding:10px max(4vw,14px);border-bottom:2px solid var(--ink)}
+.ghead b{font-family:"Archivo Black";font-size:20px}
+.ghud{margin-left:auto;display:flex;gap:10px;font-weight:800;font-size:15px}
+.ghud span{background:var(--card);border:2px solid var(--ink);border-radius:999px;padding:4px 12px;white-space:nowrap}
+.gx{width:44px;height:44px;border-radius:50%;border:2px solid var(--ink);background:var(--card);font-size:22px}
+.gstage{flex:1;position:relative;max-width:560px;width:100%;margin:0 auto;border-inline:2px solid var(--ink)}
+.gstage canvas{position:absolute;inset:0;width:100%;height:100%}
+.gov{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px;padding:24px;background:color-mix(in srgb,var(--bg) 86%,transparent)}
+.gov h3{font-size:clamp(30px,6vw,44px)}
+.gov p{max-width:340px;color:var(--mut)}
+.code{font-family:"Archivo Black";font-size:28px;border:2px dashed var(--ink);border-radius:14px;padding:8px 18px;background:var(--card)}
+@media(max-width:520px){.ghead b{display:none}.fab span{display:none}.fab{padding:8px}}
+@media(prefers-reduced-motion:reduce){.marq div{animation:none}*{scroll-behavior:auto}}
+</style>
+</head>
+<body data-s="w">
+
+<div class="strip">Demo de Galerna Method · horarios, precios, parte de nieve y plazas son de ejemplo</div>
+
+<nav class="top">
+ <div class="wrap">
+  <a class="logo" href="#inicio" aria-label="Crazy Shop">
+   <svg viewBox="0 0 210 60" aria-hidden="true"><g transform="rotate(-4 105 30)"><rect x="4" y="8" width="150" height="44" rx="8" fill="var(--acc)" stroke="var(--ink)" stroke-width="3"/><text x="79" y="42" text-anchor="middle" font-family="Archivo Black" font-size="31" fill="var(--acc-ink)">CRAZY</text></g><text x="160" y="40" font-family="Permanent Marker" font-size="22" fill="var(--ink)">shop</text></svg>
+  </a>
+  <div class="links" id="links">
+   <a href="#tabla"><span class="w-only">Tu tabla</span><span class="s-only">Tu skate</span></a>
+   <a href="#catalogo">Catálogo</a>
+   <a href="#taller">Taller</a>
+   <a href="#parte"><span class="w-only">Parte de nieve</span><span class="s-only">Quedadas</span></a>
+   <a href="#historia">La tienda</a>
+   <a href="#juego">Juego</a>
+   <a href="#panel">Para la tienda</a>
+  </div>
+  <div class="season" role="group" aria-label="Temporada">
+   <button class="sb" data-v="w" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7M9 4l3 2 3-2M9 20l3-2 3 2"/></svg><span>Invierno</span></button>
+   <button class="sb" data-v="s" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1"/></svg><span>Verano</span></button>
+  </div>
+  <button class="burger" id="burger" aria-label="Menú" aria-expanded="false">☰</button>
+ </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+ <div class="scene" id="scene">
+  <svg class="bg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+   <defs>
+    <linearGradient id="skyW" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7fb0de"/><stop offset=".62" stop-color="#cfe2f3"/><stop offset="1" stop-color="#f2f7fb"/></linearGradient>
+    <linearGradient id="skyS" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a2346"/><stop offset=".45" stop-color="#c8513a"/><stop offset=".75" stop-color="#ff9d4a"/><stop offset="1" stop-color="#ffc977"/></linearGradient>
+    <linearGradient id="oroW" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbfdff"/><stop offset="1" stop-color="#a9c0d6"/></linearGradient>
+    <linearGradient id="slopeW" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#dbe7f2"/></linearGradient>
+    <g id="pine"><path d="M0 -70 L22 -20 L12 -20 L30 14 L-30 14 L-12 -20 L-22 -20Z" fill="#1f3a34"/><path d="M0 -70 L22 -20 L12 -20 L30 14 L0 14Z" fill="#162a26"/><path d="M0 -70 L10 -48 L-10 -48Z M-9 -24 L9 -24 L18 -10 L-18 -10Z" fill="#fff"/><rect x="-4" y="14" width="8" height="12" fill="#3b2a1e"/></g>
+   </defs>
+   <g class="w-only">
+    <rect width="1600" height="900" fill="url(#skyW)"/>
+    <circle cx="1320" cy="160" r="62" fill="#fff" opacity=".85"/>
+    <path d="M0 520 L140 430 L260 470 L400 380 L520 440 L640 360 L760 430 L900 390 L1040 450 L1180 370 L1320 440 L1460 400 L1600 450 V900 H0Z" fill="#b9d0e5"/>
+    <path d="M520 600 L700 470 L860 380 L980 300 L1050 285 L1090 318 L1150 410 L1270 520 L1400 600Z" fill="url(#oroW)"/>
+    <path d="M1050 285 L1090 318 L1150 410 L1270 520 L1400 600 L1240 600 L1120 470 L1070 360Z" fill="#8ea8c2" opacity=".7"/>
+    <path d="M860 380 L920 345 L960 360 L1000 320" stroke="#7d97b0" stroke-width="5" fill="none" opacity=".5"/>
+    <path d="M0 640 C300 560 600 600 900 640 S1400 700 1600 650 V900 H0Z" fill="url(#slopeW)"/>
+    <use href="#pine" x="120" y="640"/><use href="#pine" x="190" y="660" transform="scale(1)"/><use href="#pine" x="1430" y="680"/><use href="#pine" x="1500" y="660"/><use href="#pine" x="1370" y="700"/>
+   </g>
+   <g class="s-only">
+    <rect width="1600" height="900" fill="url(#skyS)"/>
+    <circle cx="1180" cy="470" r="120" fill="#ffe39a" opacity=".9"/>
+    <path d="M0 540 L140 460 L260 500 L400 420 L520 470 L640 400 L760 460 L900 420 L1040 480 L1180 410 L1320 470 L1460 430 L1600 480 V900 H0Z" fill="#8a3c3a"/>
+    <path d="M520 620 L700 490 L860 400 L980 320 L1050 305 L1090 338 L1150 430 L1270 540 L1400 620Z" fill="#5a2b33"/>
+    <path d="M0 650 H90 V600 H150 V630 H210 V560 L240 530 L270 560 V650 H340 V610 H420 V650 H500 V590 H560 V650 H1600 V900 H0Z" fill="#2b1f22"/>
+    <path d="M1240 650 V560 H1250 V520 L1262 500 L1274 520 V560 H1284 V650Z" fill="#2b1f22"/>
+    <rect y="650" width="1600" height="250" fill="#2a2725"/>
+    <path d="M0 760 H1600" stroke="#f5f0e7" stroke-width="6" stroke-dasharray="60 50" opacity=".35"/>
+    <path d="M1340 650 Q1340 560 1440 540 V650Z" fill="#5f5a55"/><path d="M1340 650 Q1340 560 1440 540" stroke="#cfc6b9" stroke-width="6" fill="none"/>
+   </g>
+  </svg>
+  <canvas id="hc"></canvas>
+  <div class="trick" id="trick"></div>
+  <div class="hint" id="hint">Dibuja una línea con el dedo y suelta: el rider la baja</div>
+  <button class="clear" id="clearL">Borrar líneas</button>
+ </div>
+ <div class="wrap htext">
+  <div class="kick">Jaca · Pirineo aragonés · desde 1998</div>
+  <h1><span class="w-only">Dibuja tu línea.</span><span class="s-only">Dibuja tu ramp.</span><span class="mk w-only">la nieve la ponemos nosotros</span><span class="mk s-only">el asfalto lo ponemos nosotros</span></h1>
+  <p class="lead">Snowboard, skate y streetwear en 120 m², a los pies del Pirineo. Detrás del mostrador, dos hermanos que llevan más de 30 años subidos a una tabla.</p>
+  <div class="ctas">
+   <a class="btn acc" href="#tabla"><span class="w-only">Encuentra tu tabla</span><span class="s-only">Encuentra tu skate</span></a>
+   <button class="btn" data-chat>Habla con Ibón</button>
+   <button class="btn" data-game>Juega</button>
+  </div>
+ </div>
+</section>
+
+<div class="marq" aria-hidden="true"><div id="marq"></div></div>
+
+<!-- TEMPORADA -->
+<section class="band" id="temporada">
+ <div class="wrap temp">
+  <div>
+   <h2>Dos temporadas, una tienda</h2>
+   <p class="lead">Crazy Shop abre cuando hay que abrir: en <b>invierno</b>, con la nieve, y en <b>verano</b>, con el skate. Entre medias, los dueños se van a rodar. Y para despedir cada temporada, el 2x1 de las dos últimas semanas en todo menos tablas, botas y fijaciones.</p>
+   <div class="pills">
+    <span class="pill">Los primeros en traer 686 a España</span>
+    <span class="pill">Tabla propia con Slash</span>
+    <span class="pill">Feria del stock antes del invierno</span>
+    <span class="pill">Sorteos en Instagram</span>
+   </div>
+  </div>
+  <div class="cd">
+   <span class="stk">2x1</span>
+   <h3><span class="w-only">El 2x1 de fin de invierno</span><span class="s-only">El 2x1 de fin de verano</span></h3>
+   <p style="opacity:.8;font-size:15px">Empieza en…</p>
+   <div class="cdn" id="cdn"></div>
+   <p style="opacity:.7;font-size:13px" id="cdDate"></p>
+  </div>
+ </div>
+</section>
+
+<!-- TU TABLA -->
+<section class="band" id="tabla">
+ <div class="wrap">
+  <h2><span class="w-only">¿Qué tabla te pide el cuerpo?</span><span class="s-only">¿Qué ancho de tabla te va?</span></h2>
+  <p class="lead w-only">Mueve los datos y te calculamos el largo, el ancho y el perfil. Luego vienes a la tienda y Santy o Luis te la afinan en persona.</p>
+  <p class="lead s-only">Dinos tu pie y cómo patinas, y te sacamos el ancho de tabla, las ruedas y los ejes. Luego vienes y te lo montamos.</p>
+  <div class="finder">
+   <div class="form">
+    <div class="w-only" style="display:flex;flex-direction:column;gap:18px">
+     <div class="field"><label for="fh">Altura <output id="oh"></output></label><input type="range" id="fh" min="140" max="205" value="175"></div>
+     <div class="field"><label for="fw">Peso <output id="ow"></output></label><input type="range" id="fw" min="35" max="120" value="70"></div>
+     <div class="field"><label>Nivel</label><div class="seg" data-k="lvl"><button data-v="ini">Empiezo</button><button data-v="int" aria-pressed="true">Me defiendo</button><button data-v="adv">Le doy fuerte</button></div></div>
+     <div class="field"><label>Dónde ruedas</label><div class="seg" data-k="sty"><button data-v="park">Park</button><button data-v="all" aria-pressed="true">Toda la montaña</button><button data-v="free">Fuera pista</button></div></div>
+    </div>
+    <div class="field"><label for="ff">Talla de pie (EU) <output id="of"></output></label><input type="range" id="ff" min="34" max="48" step=".5" value="42"></div>
+    <div class="s-only field"><label>Cómo patinas</label><div class="seg" data-k="sk"><button data-v="street" aria-pressed="true">Calle</button><button data-v="bowl">Bowl y rampa</button><button data-v="cruise">Para moverme</button></div></div>
+   </div>
+   <div class="result" aria-live="polite">
+    <div class="big" id="rBig"></div>
+    <div class="boardfig"><svg id="bsvg" viewBox="0 0 600 200" aria-label="Dibujo de la tabla recomendada"></svg></div>
+    <div class="specs" id="rSpecs"></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn acc" id="askBoard">Pregúntale a Ibón por ella</button><a class="btn" href="#catalogo" id="toCat"><span class="w-only">Ver tablas en el catálogo</span><span class="s-only">Ver skates en el catálogo</span></a></div>
+    <div class="ex" style="margin-top:0">Cálculo orientativo. En tienda lo ajustan con tus botas y tu forma de rodar.</div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- CATÁLOGO -->
+<section class="band" id="catalogo">
+ <div class="wrap">
+  <h2>Todo lo que hay en tienda</h2>
+  <p class="lead">El catálogo de crazyshop.es, con sus precios. Busca, filtra y aparta lo que te guste: te lo guardan 48 horas para que vengas a verlo.</p>
+  <div class="ctools">
+   <input type="search" id="cq" placeholder="Busca marca o modelo: Jones, Supermatic, Capita…" aria-label="Buscar en el catálogo">
+   <select id="cb" aria-label="Marca"></select>
+   <select id="cs" aria-label="Ordenar"><option value="top">Destacados</option><option value="pa">Precio: de menos a más</option><option value="pd">Precio: de más a menos</option><option value="off">Mayor descuento</option><option value="az">Nombre A–Z</option></select>
+   <label class="chk"><input type="checkbox" id="csale"> Solo rebajas</label>
+  </div>
+  <div class="chips" id="cg" role="group" aria-label="Categorías"></div>
+  <p class="ccount" id="cn" aria-live="polite"></p>
+  <div class="grid" id="grid"></div>
+  <div class="more"><button class="btn" id="cmore">Ver más</button></div>
+  <div class="bagbar" id="bag"></div>
+  <p class="ex">Catálogo y precios copiados de crazyshop.es el 25 de noviembre de 2026. Los dibujos son ilustrativos; las fotos reales irían conectadas a su tienda online.</p>
+ </div>
+</section>
+
+<!-- TALLER -->
+<section class="band" id="taller">
+ <div class="wrap">
+  <h2>Reserva el taller</h2>
+  <p class="lead"><span class="w-only">Déjala por la mañana, recógela encerada y con los cantos afilados.</span><span class="s-only">Rodamientos, lija nueva o un skate montado de cero.</span> Elige servicio, día y hora de recogida.</p>
+  <div class="svc" id="svc"></div>
+  <div class="days" id="days"></div>
+  <div class="slots" id="slots"></div>
+  <form class="book" id="bookF">
+   <input id="bName" placeholder="Tu nombre" autocomplete="name" aria-label="Tu nombre">
+   <button class="btn acc" type="submit">Reservar</button>
+  </form>
+  <div class="ex">Servicios, precios y horarios de ejemplo. Se ajustan con la tienda.</div>
+  <div id="tkWrap"></div>
+ </div>
+</section>
+
+<!-- PARTE / QUEDADAS -->
+<section class="band" id="parte">
+ <div class="wrap">
+  <h2><span class="w-only">El parte de hoy</span><span class="s-only">Quedadas de verano</span></h2>
+  <p class="lead w-only">Las estaciones de al lado, de un vistazo, antes de subir.</p>
+  <p class="lead s-only">Sesiones para patinar juntos. Apúntate y la tienda te avisa el día antes.</p>
+  <div class="parte" id="parteG"></div>
+  <div class="tipday" id="tip"></div>
+  <div class="ex"><span class="w-only">Datos de ejemplo. En la versión real el parte se actualiza solo cada mañana.</span><span class="s-only">Quedadas de ejemplo.</span></div>
+ </div>
+</section>
+
+<!-- HISTORIA -->
+<section class="band" id="historia">
+ <div class="wrap">
+  <div class="hhead">
+   <div><h2>Santy y Luis, desde 1998</h2><p class="lead">Dos hermanos de Jaca que compitieron dentro y fuera de España y montaron la tienda que les habría gustado encontrar.</p></div>
+   <div class="railnav"><button id="rp" aria-label="Anterior">←</button><button id="rn" aria-label="Siguiente">→</button></div>
+  </div>
+  <div class="rail" id="rail" tabindex="0" aria-label="Historia de Crazy Shop"></div>
+
+  <h2 style="margin-top:56px;font-size:clamp(28px,4vw,40px)">La pared de pegatinas</h2>
+  <p class="lead">Toca la pared y pega una. Son las marcas que tienen en tienda.</p>
+  <div class="wall" id="wall"><div class="ph" id="wallPh">Toca aquí</div></div>
+ </div>
+</section>
+
+<!-- JUEGO -->
+<section class="band" id="juego">
+ <div class="wrap gcta">
+  <div>
+   <h2><span class="w-only">Baja de Astún</span><span class="s-only">Baja por Jaca</span></h2>
+   <p class="lead"><span class="w-only">Esquiva pinos y piedras, coge copos y salta en los kickers.</span><span class="s-only">Esquiva conos y alcantarillas, coge pegatinas y salta en las rampas.</span> 60 segundos. Si superas los 1.500 puntos te llevas un código de descuento.</p>
+   <div class="ctas" style="margin-top:20px"><button class="btn acc" data-game>Jugar ahora</button></div>
+   <p class="ex" id="best"></p>
+  </div>
+  <div class="gprev"><canvas id="gp"></canvas></div>
+ </div>
+</section>
+
+<!-- PANEL -->
+<section class="band" id="panel">
+ <div class="wrap">
+  <h2>Así lo ve la tienda</h2>
+  <p class="lead">Cada reserva, cada consulta a Ibón y cada código del juego cae aquí al momento. Santy y Luis ya no tienen que contestar lo mismo veinte veces al día.</p>
+  <div class="panel">
+   <h3 style="font-size:22px">Panel de Crazy Shop · demo</h3>
+   <div class="kpis">
+    <div class="kpi"><b id="k1">0</b><span>Reservas de taller</span></div>
+    <div class="kpi"><b id="k2">0</b><span>Consultas a Ibón</span></div>
+    <div class="kpi"><b id="k3">0</b><span>Tablas recomendadas</span></div>
+    <div class="kpi"><b id="k4">0</b><span>Códigos del juego</span></div>
+    <div class="kpi"><b id="k5">0</b><span>Productos apartados</span></div>
+   </div>
+   <table class="stack"><thead><tr><th>Hora</th><th>Tipo</th><th>Cliente</th><th>Detalle</th><th>Origen</th></tr></thead><tbody id="tb"><tr class="empty"><td colspan="5">Reserva el taller, pregunta a Ibón o juega una partida: aparecerá aquí.</td></tr></tbody></table>
+  </div>
+ </div>
+</section>
+
+<footer>
+ <div class="wrap">
+  <div><b>Crazy Shop</b><p>Avda. Jacetania, 9 · 22700 Jaca (Huesca)<br>974 23 14 09 · info@crazyshop.es<br><a href="https://www.instagram.com/crazyshopsnowboard/" target="_blank" rel="noopener">Instagram @crazyshopsnowboard</a> · <a href="https://crazyshop.es" target="_blank" rel="noopener">crazyshop.es</a></p></div>
+  <div><b>Temporadas</b><p>Abierta en invierno y en verano. Horario de ejemplo: lunes a sábado 10:00–13:30 y 17:00–20:30.</p></div>
+  <div><b>Galerna Method</b><p>Demo preparada por Galerna Method. Ibón responde ya en la web y, en la siguiente fase, también por WhatsApp e Instagram.</p></div>
+ </div>
+</footer>
+
+<div class="fabs" id="fabs">
+ <button class="fab" data-game><svg class="av" viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="var(--sup)" stroke="var(--ink)" stroke-width="2"/><rect x="9" y="22" width="22" height="5" rx="2.5" fill="var(--ink)"/><circle cx="20" cy="14" r="5" fill="var(--ink)"/></svg><span>Juego</span></button>
+ <button class="fab acc" data-chat><svg class="av" viewBox="0 0 40 40" id="avT"><circle cx="20" cy="20" r="19" fill="#fff" stroke="#111" stroke-width="2"/><path d="M9 18a11 11 0 0 1 22 0z" fill="#111"/><rect x="8" y="16" width="24" height="4" rx="2" fill="#ff2d3d"/><circle cx="20" cy="7" r="3" fill="#ff2d3d"/><circle cx="15.5" cy="24" r="2" fill="#111"/><circle cx="24.5" cy="24" r="2" fill="#111"/><path d="M15 29q5 4 10 0" stroke="#111" stroke-width="2" fill="none" stroke-linecap="round"/></svg><span>Habla con Ibón</span></button>
+</div>
+
+<div class="chat" id="chat" role="dialog" aria-label="Chat con Ibón">
+ <div class="chead"><svg class="av" viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="#fff" stroke="#111" stroke-width="2"/><path d="M9 18a11 11 0 0 1 22 0z" fill="#111"/><rect x="8" y="16" width="24" height="4" rx="2" fill="#ff2d3d"/><circle cx="20" cy="7" r="3" fill="#ff2d3d"/><circle cx="15.5" cy="24" r="2" fill="#111"/><circle cx="24.5" cy="24" r="2" fill="#111"/><path d="M15 29q5 4 10 0" stroke="#111" stroke-width="2" fill="none" stroke-linecap="round"/></svg><div><b>Ibón</b><small>Asistente de Crazy Shop · responde al momento</small></div><button class="x" id="cx" aria-label="Cerrar chat">×</button></div>
+ <div class="msgs" id="msgs"></div>
+ <form class="cin" id="cf"><input id="ci" placeholder="Escribe aquí…" autocomplete="off" aria-label="Mensaje"><button aria-label="Enviar">➤</button></form>
+</div>
+
+<div class="game" id="game" role="dialog" aria-label="Juego">
+ <div class="ghead"><b><span class="w-only">Baja de Astún</span><span class="s-only">Baja por Jaca</span></b><div class="ghud"><span id="gT">60 s</span><span id="gS">0 pts</span><span id="gL">♥♥♥</span></div><button class="gx" id="gx" aria-label="Cerrar juego">×</button></div>
+ <div class="gstage" id="gst">
+  <canvas id="gc"></canvas>
+  <div class="gov" id="gIntro"><h3>¿Bajas?</h3><p>Arrastra el dedo o usa las flechas para moverte. Tienes tres vidas y 60 segundos.</p><button class="btn acc" id="gGo">¡A por ello!</button></div>
+  <div class="gov" id="gEnd" style="display:none"><h3 id="gEt"></h3><p id="gEp"></p><div id="gCode"></div><div class="ctas" style="justify-content:center"><button class="btn acc" id="gAgain">Otra bajada</button><button class="btn" id="gShop">Ir a la tienda</button></div></div>
+ </div>
+</div>
+
+<script>
+{
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let season='w';try{season=localStorage.getItem('cs-season')||'w'}catch(e){}
+const W_=()=>season==='w';
+
+/* ---------- marquee ---------- */
+const BRANDS=['Burton','Nidecker','686','Salomon','Never Summer','Jones','Nitro','Yes','Santa Cruz','Etnies','Billabong','Anon','Dragon','POC','Northwave','Slash'];
+$('#marq').innerHTML=[...BRANDS,...BRANDS].map(b=>`<span>${b}</span><span>✦</span>`).join('');
+
+/* ---------- panel ---------- */
+const K={k1:0,k2:0,k3:0,k4:0,k5:0};const rows=[];
+function addLog(kind,k,cliente,detalle,origen){
+ K[k]++;$('#'+k).textContent=K[k];
+ rows.unshift({t:new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}),kind,cliente,detalle,origen});
+ $('#tb').innerHTML=rows.slice(0,12).map((r,i)=>`<tr class="${i===0?'new':''}"><td data-l="Hora">${r.t}</td><td data-l="Tipo"><b>${esc(r.kind)}</b></td><td data-l="Cliente">${esc(r.cliente)}</td><td data-l="Detalle">${esc(r.detalle)}</td><td data-l="Origen"><span class="src">${esc(r.origen)}</span></td></tr>`).join('');
+}
+
+/* ---------- toast trick ---------- */
+let trT;function trick(t){const e=$('#trick');e.textContent=t;e.classList.add('show');clearTimeout(trT);trT=setTimeout(()=>e.classList.remove('show'),1600)}
+
+/* ---------- HERO: dibuja tu línea ---------- */
+const scene=$('#scene'),hc=$('#hc'),cx=hc.getContext('2d');
+let HW=0,HH=0;
+function hsize(){const d=Math.min(2,devicePixelRatio||1);HW=scene.clientWidth;HH=scene.clientHeight;hc.width=HW*d;hc.height=HH*d;cx.setTransform(d,0,0,d,0,0)}
+const hro=new ResizeObserver(hsize);hro.observe(scene);
+let lines=[],cur=null,riders=[],mouse={x:-999,y:-999},touched=false,tricks=0;
+const flakes=Array.from({length:130},()=>({x:Math.random(),y:Math.random(),r:1+Math.random()*2.6,s:.25+Math.random()*.7,o:Math.random()*6}));
+const P=e=>{const r=hc.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}};
+function hideHint(){touched=true;$('#hint').classList.add('hide')}
+hc.addEventListener('pointerdown',e=>{hc.setPointerCapture(e.pointerId);cur={pts:[P(e)]};hideHint()});
+hc.addEventListener('pointermove',e=>{const p=P(e);mouse=p;if(!cur)return;const l=cur.pts[cur.pts.length-1];if(Math.hypot(p.x-l.x,p.y-l.y)>7)cur.pts.push(p)});
+hc.addEventListener('pointerleave',()=>{mouse={x:-999,y:-999}});
+const finish=()=>{if(!cur)return;if(cur.pts.length>3)launch(cur);cur=null};
+hc.addEventListener('pointerup',finish);hc.addEventListener('pointercancel',finish);
+function launch(l){const c=[0];for(let i=1;i<l.pts.length;i++)c.push(c[i-1]+Math.hypot(l.pts[i].x-l.pts[i-1].x,l.pts[i].y-l.pts[i-1].y));l.cum=c;l.len=c[c.length-1];l.a=1;lines.push(l);if(lines.length>4)lines.shift();
+ riders.push({L:l,s:0,v:70,mode:'ride',x:l.pts[0].x,y:l.pts[0].y,ang:0,rot:0,vx:0,vy:0,t:0,slow:0,air:0,spin:0})}
+function at(L,s){let lo=0,hi=L.cum.length-1;while(hi-lo>1){const m=(lo+hi)>>1;if(L.cum[m]<=s)lo=m;else hi=m}
+ const a=L.pts[lo],b=L.pts[hi],sg=(L.cum[hi]-L.cum[lo])||1,f=(s-L.cum[lo])/sg;return{x:a.x+(b.x-a.x)*f,y:a.y+(b.y-a.y)*f,tx:(b.x-a.x)/sg,ty:(b.y-a.y)/sg}}
+const G=900;
+function trickName(r){if(r.turns===2)return'¡Doble backflip!';if(r.turns===1)return'¡Backflip!';return r.air<.35?'Ollie':'Air de '+r.air.toFixed(1)+' s'}
+function stepR(r,dt){
+ r.t+=dt;
+ if(r.mode==='ride'){
+  const p=at(r.L,Math.max(0,Math.min(r.L.len,r.s)));
+  r.v+=G*p.ty*dt*.9-r.v*.12*dt;r.s+=r.v*dt;r.x=p.x;r.y=p.y;r.flip=p.tx<0;r.ang=r.flip?Math.atan2(-p.ty,-p.tx):Math.atan2(p.ty,p.tx);
+  r.slow=Math.abs(r.v)<14?r.slow+dt:0;
+  if(r.s>=r.L.len||(r.s<=0&&r.v<0)){r.mode='air';r.vx=p.tx*r.v;r.vy=p.ty*r.v-40;r.base=r.ang;r.turns=Math.min(2,Math.floor(Math.abs(r.v)/330));r.sd=r.vx>=0?-1:1}
+  if(r.slow>1.5){r.mode='stop';r.t=0}
+ }else if(r.mode==='air'){r.vy+=G*dt;r.x+=r.vx*dt;r.y+=r.vy*dt;r.air+=dt;{const k=Math.min(1,r.air/.75),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;r.rot=r.sd*r.turns*2*Math.PI*e;r.ang=r.base*(1-e)}
+  if(r.y>HH+60||r.x<-80||r.x>HW+80){r.done=true;tricks++;trick(trickName(r));if(tricks===3)setTimeout(()=>trick(W_()?'¡Ven a por tu tabla!':'¡Ven a por tu skate!'),1800)}}
+ else if(r.t>1.1){r.done=true;trick(W_()?'¡Más pendiente!':'¡Empuja!')}
+}
+function drawRider(c,x,y,ang,s,winter,lean=0,flip=false){
+ c.save();c.translate(x,y);c.rotate(ang);if(flip)c.scale(-1,1);c.lineCap='round';c.lineJoin='round';
+ const acc=winter?'#ff2d3d':'#ff7a1a';
+ if(winter){c.fillStyle=acc;c.strokeStyle='#111';c.lineWidth=2;c.beginPath();c.roundRect(-20*s,-3*s,40*s,6*s,3*s);c.fill();c.stroke()}
+ else{c.fillStyle='#111';c.beginPath();c.roundRect(-18*s,-4*s,36*s,4*s,2*s);c.fill();c.fillStyle='#f5f0e7';for(const wx of[-11,11]){c.beginPath();c.arc(wx*s,2*s,3*s,0,7);c.fill()}}
+ c.strokeStyle='#111';c.lineWidth=4*s;
+ c.beginPath();c.moveTo(-8*s,-3*s);c.lineTo((-3+lean)*s,-14*s);c.lineTo(8*s,-3*s);c.stroke();
+ c.strokeStyle=winter?'#1d58ff':'#ffd23f';c.lineWidth=7*s;c.beginPath();c.moveTo((-3+lean)*s,-14*s);c.lineTo((0+lean)*s,-27*s);c.stroke();
+ c.strokeStyle='#111';c.lineWidth=3*s;c.beginPath();c.moveTo((0+lean)*s,-24*s);c.lineTo((-12+lean)*s,-20*s);c.moveTo((0+lean)*s,-24*s);c.lineTo((12+lean)*s,-27*s);c.stroke();
+ c.fillStyle='#f2c9a5';c.beginPath();c.arc((1+lean)*s,-33*s,5.5*s,0,7);c.fill();
+ c.fillStyle=winter?acc:'#111';c.beginPath();c.arc((1+lean)*s,-34.5*s,5.8*s,Math.PI,0);c.fill();
+ if(winter){c.fillStyle='#fff';c.beginPath();c.arc((1+lean)*s,-41*s,2.2*s,0,7);c.fill()}else{c.fillRect((1+lean)*s,-36*s,9*s,2.2*s)}
+ c.restore();
+}
+function drawHero(dt){
+ cx.clearRect(0,0,HW,HH);const w=W_();
+ if(!RM){for(const f of flakes){f.y+=(w?f.s*30:f.s*8)*dt/HH*(w?1:-1);f.x+=Math.sin(f.o+=dt)*(w?.0004:.0002);
+  if(f.y>1.02)f.y=-.02;if(f.y<-.02)f.y=1.02;
+  let px=f.x*HW,py=f.y*HH;const d=Math.hypot(px-mouse.x,py-mouse.y);if(d<90){const k=(90-d)/90*.012;f.x+=(px-mouse.x)/d*k;f.y+=(py-mouse.y)/d*k*.6}
+  cx.fillStyle=w?'rgba(255,255,255,.9)':'rgba(255,220,160,.45)';cx.beginPath();cx.arc(px,py,w?f.r:f.r*.7,0,7);cx.fill()}}
+ const drawL=(l,a)=>{if(l.pts.length<2)return;cx.globalAlpha=a;cx.lineCap='round';cx.lineJoin='round';
+  cx.beginPath();cx.moveTo(l.pts[0].x,l.pts[0].y);for(const p of l.pts)cx.lineTo(p.x,p.y);
+  cx.strokeStyle=w?'#0d0e10':'#ff7a1a';cx.lineWidth=w?6:7;cx.stroke();cx.strokeStyle=w?'#fff':'#ffd9a8';cx.lineWidth=2;cx.stroke();cx.globalAlpha=1};
+ for(const l of lines){if(!riders.some(r=>r.L===l))l.a=Math.max(.35,l.a-dt*.15);drawL(l,l.a)}
+ if(cur)drawL(cur,1);
+ for(const r of riders){stepR(r,dt);drawRider(cx,r.x,r.y-2,r.ang+r.rot,1.1,w,0,!!r.flip)}
+ riders=riders.filter(r=>!r.done);
+}
+let heroOn=true;new IntersectionObserver(e=>{heroOn=e[0].isIntersecting}).observe(scene);
+function demoLine(){if(touched||!HW)return;const pts=[];const n=46;
+ for(let i=0;i<=n;i++){const t=i/n;const x=HW*(.06+.62*t);let y=HH*(.5+.3*Math.pow(Math.sin(t*Math.PI*.5),1.5));if(t>.84)y-=(t-.84)/.16*HH*.1;pts.push({x,y})}
+ const l={pts:[pts[0]]};cur=l;let i=1;const iv=setInterval(()=>{if(touched){clearInterval(iv);cur=null;return}l.pts.push(pts[i++]);if(i>n){clearInterval(iv);cur=null;launch(l)}},18)}
+setTimeout(demoLine,900);
+$('#clearL').onclick=()=>{lines=[];riders=[]};
+
+/* ---------- countdown ---------- */
+function updCountdown(){const target=W_()?new Date('2027-03-29T10:00:00'):new Date('2027-08-30T10:00:00');
+ const ms=Math.max(0,target-new Date());const d=Math.floor(ms/864e5),h=Math.floor(ms/36e5)%24,m=Math.floor(ms/6e4)%60,s=Math.floor(ms/1e3)%60;
+ $('#cdn').innerHTML=[[d,'días'],[h,'horas'],[m,'min'],[s,'seg']].map(([v,l])=>`<div><b>${String(v).padStart(2,'0')}</b><span>${l}</span></div>`).join('');
+ $('#cdDate').textContent='Fecha de ejemplo: '+target.toLocaleDateString('es-ES',{day:'numeric',month:'long',year:'numeric'})+' · menos hardware (tablas, botas y fijaciones)'}
+setInterval(updCountdown,1000);
+
+/* ---------- finder ---------- */
+const F={lvl:'int',sty:'all',sk:'street'};
+$$('.seg').forEach(g=>g.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));F[g.dataset.k]=b.dataset.v;renderFinder()}));
+['#fh','#fw','#ff'].forEach(id=>$(id).addEventListener('input',renderFinder));
+let lastRec='';
+function renderFinder(){
+ const h=+$('#fh').value,w=+$('#fw').value,f=+$('#ff').value;
+ $('#oh').textContent=h+' cm';$('#ow').textContent=w+' kg';$('#of').textContent=String(f).replace('.',',');
+ const svg=$('#bsvg');
+ if(W_()){
+  let L=h*.88+(w-(h-100)*.9)*.25+({park:-3,all:0,free:4})[F.sty]+({ini:-3,int:0,adv:2})[F.lvl];L=Math.round(Math.max(120,Math.min(172,L)));
+  const width=f>=45?'Wide':f>=43.5?'Mid-wide':'Normal';
+  const prof={park:'Rocker o híbrido, twin',all:F.lvl==='ini'?'Rocker o flat, perdona fallos':'Híbrido camber, directional twin',free:'Camber con setback, nose ancho'}[F.sty];
+  const flex={ini:'Blando',int:'Medio',adv:F.sty==='park'?'Medio':'Duro'}[F.lvl];
+  $('#rBig').innerHTML=`${L}<small> cm</small>`;
+  $('#rSpecs').innerHTML=`<div class="spec"><b>${L-2}–${L+2} cm</b><span>Margen de largo</span></div><div class="spec"><b>${width}</b><span>Ancho por tu pie</span></div><div class="spec"><b>${flex}</b><span>Flex · ${prof}</span></div>`;
+  const len=Math.min(560,L*3.3),bw=width==='Wide'?86:width==='Mid-wide'?80:74,x0=(600-len)/2,x1=x0+len,t=100-bw/2,b=100+bw/2,r=bw*.5,mid=(x0+x1)/2,sc=7;
+  const d=`M${x0+r},${t} Q${mid},${t+sc} ${x1-r},${t} C${x1+6},${t} ${x1+6},${b} ${x1-r},${b} Q${mid},${b-sc} ${x0+r},${b} C${x0-6},${b} ${x0-6},${t} ${x0+r},${t}Z`;
+  const pat=F.sty==='park'?Array.from({length:14},(_,i)=>`<rect x="${x0+i*len/14}" y="0" width="${len/28}" height="200" fill="#111" opacity=".9"/>`).join(''):F.sty==='free'?`<path d="M${x0} ${b} L${mid-80} ${t+10} L${mid-30} ${t+30} L${mid+30} ${t-4} L${x1} ${b}Z" fill="#fff"/><path d="M${mid+30} ${t-4} L${mid+60} ${t+22} L${mid+10} ${t+14}Z" fill="#1d58ff"/>`:`<circle cx="${mid}" cy="100" r="${bw*.42}" fill="#fff"/><text x="${mid}" y="108" text-anchor="middle" font-family="Archivo Black" font-size="22" fill="#111">CRAZY</text>`;
+  const st=len*.21;
+  svg.innerHTML=`<defs><clipPath id="bc"><path d="${d}"/></clipPath></defs><path d="${d}" fill="#ff2d3d" transform="translate(5 6)" opacity=".25"/><g clip-path="url(#bc)"><rect width="600" height="200" fill="#ff2d3d"/>${pat}</g><path d="${d}" fill="none" stroke="#111" stroke-width="3"/>${[mid-st,mid+st].map(x=>`<rect x="${x-14}" y="${t+6}" width="28" height="${bw-12}" rx="8" fill="#111" opacity=".85"/>`).join('')}<path d="M${x0} 182 H${x1}" stroke="var(--ink)" stroke-width="2"/><path d="M${x0} 176 V188 M${x1} 176 V188" stroke="var(--ink)" stroke-width="2"/><text x="${mid}" y="${t-14}" text-anchor="middle" font-family="Archivo" font-weight="800" font-size="16" fill="var(--ink)">${L} cm · ${width}</text>`;
+  lastRec=`${L} cm, ${width}, flex ${flex.toLowerCase()} (${F.sty==='park'?'park':F.sty==='free'?'fuera pista':'toda la montaña'})`;
+ }else{
+  let dw=f<=36?7.5:f<=39?7.875:f<=42?8.125:f<=44?8.375:8.625;dw+=({street:-.125,bowl:.25,cruise:.25})[F.sk];
+  dw=Math.round(dw*8)/8;const wh={street:'51–53 mm, 99a',bowl:'54–56 mm, 99a',cruise:'56–60 mm, blandas 78a'}[F.sk];
+  const tr=dw<=7.75?'Ejes 129':dw<=8.25?'Ejes 139':'Ejes 149';
+  const fr=n=>String(n).replace('.',',');
+  $('#rBig').innerHTML=`${fr(dw)}<small> "</small>`;
+  $('#rSpecs').innerHTML=`<div class="spec"><b>${fr(dw-.125)}"–${fr(dw+.125)}"</b><span>Ancho de tabla</span></div><div class="spec"><b>${wh}</b><span>Ruedas</span></div><div class="spec"><b>${tr}</b><span>Del ancho de la tabla</span></div>`;
+  const dwp=dw*13,len=480,x0=60,t=100-dwp/2,b=100+dwp/2;
+  svg.innerHTML=`<rect x="${x0+5}" y="${t+6}" width="${len}" height="${dwp}" rx="${dwp/2}" fill="#ff7a1a" opacity=".25"/><rect x="${x0}" y="${t}" width="${len}" height="${dwp}" rx="${dwp/2}" fill="#1b1a19" stroke="#ff7a1a" stroke-width="3"/>${[x0+95,x0+len-95].map(x=>`<rect x="${x-10}" y="${t-12}" width="20" height="${dwp+24}" rx="6" fill="#bdb6ab"/><circle cx="${x}" cy="${t-12}" r="9" fill="#f5f0e7"/><circle cx="${x}" cy="${b+12}" r="9" fill="#f5f0e7"/>`).join('')}<text x="300" y="108" text-anchor="middle" font-family="Permanent Marker" font-size="30" fill="#ff7a1a">crazy</text><path d="M560 ${t} V${b}" stroke="var(--ink)" stroke-width="2"/><text x="572" y="105" font-family="Archivo" font-weight="800" font-size="15" fill="var(--ink)">${fr(dw)}"</text>`;
+  lastRec=`tabla de ${fr(dw)}", ruedas ${wh}`;
+ }
+}
+$('#askBoard').onclick=()=>{addLog('Tabla recomendada','k3','Visitante web',lastRec,'Calculadora');openChat();me(`Quiero esta: ${lastRec}`);setTimeout(()=>bot(`¡Buena elección! ${W_()?'Para esa medida':'Para ese ancho'} tenemos varias opciones en tienda. ¿Te la aparto para que la pruebes?`,[['Sí, apártamela',()=>askName(n=>{addLog('Reserva de tabla','k2',n,lastRec,'Ibón');bot(`Hecho, ${n}. Te la dejamos apartada 48 h a tu nombre. Pásate por la Avda. Jacetania, 9.`,QR0())})],['Solo miraba',()=>bot('Sin problema. Aquí me tienes para lo que necesites.',QR0())]]),500)};
+
+/* ---------- taller ---------- */
+const SV={w:[['Encerado en caliente','Cera según la nieve del día','12 €'],['Afilado + encerado','Cantos a punto para el hielo','25 €'],['Reparación de base','Arañazos y golpes con P-Tex','desde 15 €'],['Montaje de fijaciones','Stance y ángulos a tu medida','10 €']],
+ s:[['Montaje de skate','Tabla, ejes, ruedas y lija','5 €'],['Cambio de rodamientos','Limpios o nuevos','8 €'],['Lija nueva','Corte limpio y bordes','6 €'],['Puesta a punto','Ejes, gomas y tornillería','12 €']]};
+let B={svc:null,day:null,slot:null};
+function renderServices(){B={svc:null,day:B.day,slot:null};$('#svc').innerHTML=SV[season].map((s,i)=>`<button data-i="${i}" aria-pressed="false"><b>${s[0]}</b><span>${s[1]}</span><span class="pr">${s[2]}</span></button>`).join('')}
+$('#svc').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;B.svc=+b.dataset.i;$$('#svc button').forEach(x=>x.setAttribute('aria-pressed',x===b))});
+const DAYS=[];{const d=new Date();for(let i=1;DAYS.length<12;i++){const x=new Date(d);x.setDate(d.getDate()+i);if(x.getDay()!==0)DAYS.push(x)}}
+function renderDays(){$('#days').innerHTML=DAYS.map((d,i)=>`<button class="day" data-i="${i}" aria-pressed="${B.day===i}"><small>${d.toLocaleDateString('es-ES',{weekday:'short'})}</small><b>${d.getDate()}</b><small>${d.toLocaleDateString('es-ES',{month:'short'})}</small></button>`).join('');renderSlots()}
+const SLOTS=['10:00','12:30','17:30','20:00'];
+function renderSlots(){if(B.day==null){$('#slots').innerHTML='<p class="ex" style="grid-column:1/-1;margin:0">Elige un día para ver las horas de recogida.</p>';return}
+ const seed=DAYS[B.day].getDate();$('#slots').innerHTML=SLOTS.map((s,i)=>{const left=(seed*7+i*5)%5;return`<button class="slot" data-s="${s}" ${left===0?'disabled':''} aria-pressed="${B.slot===s}"><b>${s}</b><span>${left===0?'Completo':left+' huecos'}</span></button>`}).join('')}
+$('#days').addEventListener('click',e=>{const b=e.target.closest('.day');if(!b)return;B.day=+b.dataset.i;B.slot=null;$$('.day').forEach(x=>x.setAttribute('aria-pressed',x===b));renderSlots()});
+$('#slots').addEventListener('click',e=>{const b=e.target.closest('.slot');if(!b||b.disabled)return;B.slot=b.dataset.s;$$('.slot').forEach(x=>x.setAttribute('aria-pressed',x===b))});
+function code(p){return p+'-'+Math.random().toString(36).slice(2,6).toUpperCase()}
+function ticket(name,svc,day,slot,origen){const c=code('CS');const ds=day.toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'});
+ addLog('Reserva de taller','k1',name,`${svc} · ${ds} ${slot} · ${c}`,origen);
+ return`<div class="ticket"><div class="tt"><span>Taller Crazy Shop</span><span>${c}</span></div><div class="tb"><div><small>Servicio</small><b>${esc(svc)}</b></div><div><small>A nombre de</small><b>${esc(name)}</b></div><div><small>Recogida</small><b>${esc(ds)}</b></div><div><small>Hora</small><b>${slot}</b></div></div></div>`}
+$('#bookF').addEventListener('submit',e=>{e.preventDefault();const n=$('#bName').value.trim();
+ const miss=B.svc==null?'un servicio':B.day==null?'un día':!B.slot?'una hora':!n?'tu nombre':null;
+ if(miss){$('#tkWrap').innerHTML=`<p class="ex" style="color:var(--acc);font-weight:800">Te falta ${miss}.</p>`;return}
+ $('#tkWrap').innerHTML=ticket(n,SV[season][B.svc][0],DAYS[B.day],B.slot,'Web')+'<p class="ex">Te llegaría un WhatsApp de confirmación y otro cuando esté lista.</p>';$('#bName').value=''});
+
+/* ---------- parte / quedadas ---------- */
+const PW=[['Astún',95,150,'24 / 34 pistas','Polvo'],['Candanchú',80,130,'31 / 46 pistas','Primavera'],['Formigal',70,145,'78 / 103 pistas','Dura'],['Panticosa',60,110,'18 / 31 pistas','Polvo']];
+const PS=[['Jueves','Sesión al atardecer','Para todos los niveles. Trae tu tabla o te dejamos una.'],['Sábado','Clinic de ollie para peques','De 8 a 14 años, con casco.'],['Domingo','Mini contest','Premios de la tienda y pegatinas para todos.'],['Cada día','Prueba de cruisers','Pide en tienda y date una vuelta.']];
+function renderParte(){const g=$('#parteG');
+ if(W_()){g.innerHTML=PW.map(p=>`<div class="st"><h3>${p[0]}</h3><div class="row"><span>Base</span><b>${p[1]} cm</b></div><div class="meter"><i data-w="${p[1]/2}"></i></div><div class="row"><span>Cota alta</span><b>${p[2]} cm</b></div><div class="meter"><i data-w="${p[2]/2}"></i></div><div class="row"><span>Abiertas</span><b>${p[3]}</b></div><span class="tag">Nieve ${p[4].toLowerCase()}</span></div>`).join('');
+  $('#tip').innerHTML='<b>Consejo de la tienda:</b> con polvo en Astún, tabla un par de centímetros más larga y fijaciones un poco hacia atrás. Y cera fría.';
+  requestAnimationFrame(()=>setTimeout(()=>$$('.meter i').forEach(i=>i.style.width=i.dataset.w+'%'),60))}
+ else{g.innerHTML=PS.map((p,i)=>`<div class="st"><span class="tag" style="margin:0 0 8px">${p[0]}</span><h3>${p[1]}</h3><p style="font-size:14px;color:var(--mut);margin:8px 0 12px">${p[2]}</p><button class="btn" data-q="${i}" style="min-height:44px;padding:6px 16px">Me apunto</button></div>`).join('');
+  $('#tip').innerHTML='<b>Consejo de la tienda:</b> con calor, ruedas algo más duras y rodamientos limpios. Se nota.'}}
+$('#parteG').addEventListener('click',e=>{const b=e.target.closest('[data-q]');if(!b)return;const q=PS[+b.dataset.q];askNameInline(b,n=>addLog('Apuntado a quedada','k2',n,`${q[0]} · ${q[1]}`,'Web'))});
+function askNameInline(b,cb){const n=(b.parentNode.querySelector('input')||null);if(n){if(!n.value.trim())return n.focus();cb(n.value.trim());b.textContent='¡Apuntado!';b.disabled=true;n.remove();return}
+ const i=document.createElement('input');i.placeholder='Tu nombre';i.setAttribute('aria-label','Tu nombre');i.style.cssText='width:100%;min-height:44px;border:2px solid var(--ink);border-radius:999px;padding:0 14px;margin-bottom:8px;background:var(--bg);font-size:16px';b.before(i);i.focus();b.textContent='Confirmar'}
+
+/* ---------- historia ---------- */
+const HIST=[['1998','Abre Crazy Shop','Santy y Luis Cabrero, hermanos y riders de Jaca, abren su tienda a los pies del Pirineo.'],
+ ['Riders','Compiten fuera y dentro','Los dos han competido a nivel nacional e internacional, y han viajado por medio mundo con la tabla.'],
+ ['Cantera','Empujan a los de casa','Ayudan a los riders jóvenes de la zona con las competiciones y colaboran con escuelas e instructores de las estaciones.'],
+ ['686','Los primeros en España','Fueron la primera tienda en traer a España la ropa de snowboard de 686, hace unos veinte años.'],
+ ['25 años','Una tabla con Slash','Para el 25 aniversario sacaron una tabla diseñada con Slash, la marca de Gigi Ruf, y reunieron a leyendas del snow español.'],
+ ['Hoy','Cara a cara','Tienen web, pero lo suyo es la tienda: 120 m² de snow, skate y streetwear, y consejo de gente que prueba lo que vende.']];
+$('#rail').innerHTML=HIST.map(h=>`<article class="hc"><div class="y">${h[0]}</div><h3>${h[1]}</h3><p>${h[2]}</p></article>`).join('');
+const rail=$('#rail');const mv=d=>rail.scrollBy({left:d*(rail.querySelector('.hc').offsetWidth+16),behavior:RM?'auto':'smooth'});
+$('#rp').onclick=()=>mv(-1);$('#rn').onclick=()=>mv(1);rail.addEventListener('keydown',e=>{if(e.key==='ArrowRight')mv(1);if(e.key==='ArrowLeft')mv(-1)});
+
+/* ---------- pegatinas ---------- */
+const STK=[...BRANDS,'CRAZY SHOP','JACA','1998','PIRINEO','CRAZY'];const COLS=[['#ff2d3d','#fff'],['#1d58ff','#fff'],['#ffd23f','#111'],['#fff','#111'],['#111','#fff'],['#ff7a1a','#111'],['#2bd47d','#111']];
+$('#wall').addEventListener('click',e=>{$('#wallPh').style.display='none';const r=e.currentTarget.getBoundingClientRect();const s=document.createElement('div');s.className='s';const c=COLS[Math.random()*COLS.length|0];
+ s.textContent=STK[Math.random()*STK.length|0];const rot=`rotate(${(Math.random()*30-15).toFixed(1)}deg)`;s.style.cssText=`left:${e.clientX-r.left}px;top:${e.clientY-r.top}px;background:${c[0]};color:${c[1]};--r:translate(-50%,-50%) ${rot};transform:translate(-50%,-50%) ${rot}`;
+ e.currentTarget.appendChild(s);const all=e.currentTarget.querySelectorAll('.s');if(all.length>40)all[0].remove()});
+
+/* ---------- chat Ibón ---------- */
+const chat=$('#chat'),msgs=$('#msgs');let greeted=false,pending=null;
+function scrollM(){msgs.scrollTop=msgs.scrollHeight}
+function me(t){const d=document.createElement('div');d.className='m me';d.textContent=t;msgs.appendChild(d);scrollM()}
+function bot(t,qr){const d=document.createElement('div');d.className='m bot';d.textContent=t;msgs.appendChild(d);if(qr&&qr.length){const q=document.createElement('div');q.className='qr';qr.forEach(([l,fn])=>{const b=document.createElement('button');b.type='button';b.textContent=l;b.onclick=()=>{q.remove();me(l);setTimeout(fn,380)};q.appendChild(b)});msgs.appendChild(q)}scrollM()}
+function el(html){const d=document.createElement('div');d.innerHTML=html;msgs.appendChild(d.firstElementChild);scrollM()}
+function askName(cb){pending=cb;bot('¿A qué nombre lo pongo?')}
+const QR0=()=>[[W_()?'¿Qué tabla me compro?':'¿Qué skate me compro?',fBoard],['Reservar taller',fTaller],['El 2x1',f2x1],[W_()?'Parte de nieve':'Quedadas',fParte],['Buscar en el catálogo',fCat],['Horario y dirección',fHorario]];
+function fCat(){bot('Dime marca, modelo o tipo de producto. Por ejemplo: «Supermatic», «Capita» o «mochila airbag».');pending=t=>{if(!showCat(t))bot('No lo encuentro en la web, pero igual lo tienen en tienda. ¿Te paso con Santy o Luis?',[['Sí',fHuman],['Buscar otra cosa',fCat]])}}
+function openChat(){chat.classList.add('open');$('#fabs').style.display='none';if(!greeted){greeted=true;addLog('Conversación con Ibón','k2','Visitante web','Ha abierto el chat','Ibón');bot(`¡Aupa! Soy Ibón, el asistente de Crazy Shop. Te ayudo con tablas, taller, ofertas y lo que necesites. ${W_()?'Hoy hay polvo en Astún, por cierto (dato de ejemplo).':'Esta semana hay quedada el jueves al atardecer.'}`,QR0())}setTimeout(()=>$('#ci').focus(),50)}
+function closeChat(){chat.classList.remove('open');$('#fabs').style.display=''}
+$('#cx').onclick=closeChat;$$('[data-chat]').forEach(b=>b.onclick=openChat);
+function fBoard(){if(!W_()){bot('Dime tu talla de pie (EU) y te digo el ancho.');pending=function fS(t){const f=parseFloat(t.replace(',','.'));if(!(f>25&&f<52)){bot('Pásame solo el número, por ejemplo 42.');pending=fS;return}$('#ff').value=f;renderFinder();bot(`Con un ${f} te va ${$('#rBig').textContent.trim()} de ancho. Te lo he dejado puesto en la calculadora.`,[['Ver la calculadora',()=>{closeChat();location.hash='tabla'}],['Otra cosa',()=>bot('¿Qué más necesitas?',QR0())]])};return}
+ bot('Vamos a ello. ¿Cuánto mides, en centímetros?');
+ const st={};pending=function hS(t){const h=parseInt(t);if(!(h>120&&h<220)){bot('Ponme la altura en cm, por ejemplo 175.');pending=hS;return}st.h=h;bot('¿Y cuánto pesas, en kilos?');
+  pending=function wS(t){const w=parseInt(t);if(!(w>25&&w<160)){bot('Solo el número, por ejemplo 70.');pending=wS;return}$('#fh').value=st.h;$('#fw').value=w;
+   bot('¿Dónde vas a rodar más?',[['Park',()=>fin('park')],['Toda la montaña',()=>fin('all')],['Fuera pista',()=>fin('free')]])}};
+ function fin(s){F.sty=s;$$('[data-k=sty] button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.v===s));renderFinder();addLog('Tabla recomendada','k3','Visitante web',lastRec,'Ibón');
+  bot(`Para ti: ${lastRec}. En tienda lo afinamos con tus botas.`,[['Apártamela para probarla',()=>askName(n=>{addLog('Reserva de tabla','k2',n,lastRec,'Ibón');bot(`Listo, ${n}. Te la dejamos apartada 48 h.`,QR0())})],['Ver la calculadora',()=>{closeChat();location.hash='tabla'}]])}}
+function fTaller(){const S=SV[season];bot('¿Qué le hacemos?',S.map((s,i)=>[`${s[0]} · ${s[2]}`,()=>{bot('¿Qué día te va bien recogerla?',DAYS.slice(0,5).map(d=>[d.toLocaleDateString('es-ES',{weekday:'short',day:'numeric'}),()=>{bot('¿A qué hora?',SLOTS.map(h=>[h,()=>askName(n=>{bot('Reservado. Aquí lo tienes:');el(ticket(n,s[0],d,h,'Ibón'));bot('Te escribiremos por WhatsApp cuando esté lista. ¿Algo más?',QR0())})]))}]))}]))}
+function f2x1(){bot('Las dos últimas semanas de cada temporada hay 2x1 en todo menos hardware: tablas, botas y fijaciones van aparte. Arriba tienes la cuenta atrás (fecha de ejemplo).',[['Avísame cuando empiece',()=>askName(n=>{addLog('Aviso 2x1','k2',n,'Quiere aviso del 2x1','Ibón');bot(`Apuntado, ${n}. Te avisamos el primer día.`,QR0())})],['Otra cosa',()=>bot('Dime.',QR0())]])}
+function fParte(){closeChat();location.hash='parte'}
+function fHorario(){bot('Estamos en la Avda. Jacetania, 9, en Jaca. Abrimos en temporada de invierno y de verano. Horario de ejemplo: de lunes a sábado, 10:00–13:30 y 17:00–20:30.',[['Hablar con Santy o Luis',fHuman],['Otra cosa',()=>bot('Dime.',QR0())]])}
+function fHuman(){addLog('Quiere hablar con la tienda','k2','Visitante web','Derivado a WhatsApp','Ibón');bot('Te paso con la tienda por WhatsApp con tu consulta ya escrita, para que no tengas que repetir nada. (En la demo no se envía nada.)',QR0())}
+$('#cf').addEventListener('submit',e=>{e.preventDefault();const t=$('#ci').value.trim();if(!t)return;$('#ci').value='';me(t);
+ setTimeout(()=>{if(pending){const p=pending;pending=null;p(t);return}
+  const x=t.toLowerCase();
+  if(/precio|cuanto|cuesta|teneis|tienes|hay /.test(x)&&showCat(t))return;
+  if(/medida|largo|talla|ancho|que tabla|qué tabla|que skate|qué skate/.test(x))return fBoard();
+  if(showCat(t))return;
+  if(/tabla|skate/.test(x))return fBoard();
+  if(/taller|encer|afil|cera|canto|reparar|rodamient|lija|montar/.test(x))return fTaller();
+  if(/2x1|oferta|descuento|rebaja|precio/.test(x))return f2x1();
+  if(/parte|nieve|astun|astún|candanch|formigal|quedada/.test(x))return fParte();
+  if(/hora|abr|cierr|donde|dónde|direcci|llegar/.test(x))return fHorario();
+  if(/juego|jugar/.test(x)){closeChat();return openGame()}
+  if(/santy|luis|persona|humano|whats/.test(x))return fHuman();
+  bot('Eso mejor te lo cuentan Santy o Luis en persona. ¿Te paso con ellos o te ayudo con otra cosa?',[['Pásame con ellos',fHuman],['Ver opciones',()=>bot('Esto es lo que puedo hacer:',QR0())]])},420)});
+
+/* ---------- JUEGO ---------- */
+const game=$('#game'),gst=$('#gst'),gc=$('#gc'),g=gc.getContext('2d');let GW=0,GH=0;
+function gsize(){const d=Math.min(2,devicePixelRatio||1);GW=gst.clientWidth;GH=gst.clientHeight;gc.width=GW*d;gc.height=GH*d;g.setTransform(d,0,0,d,0,0)}
+const gro=new ResizeObserver(gsize);gro.observe(gst);
+let GS=null,gOn=false,keys={};
+function gReset(){GS={x:GW/2,tx:GW/2,t:60,score:0,lives:3,objs:[],sp:0,speed:240,inv:0,air:0,lean:0,off:0,coll:0}}
+function spawn(){const r=Math.random(),x=30+Math.random()*(GW-60);
+ if(r<.55)GS.objs.push({k:'ob',x,y:GH+40,v:Math.random()<.5?0:1});else if(r<.88)GS.objs.push({k:'it',x,y:GH+40});else GS.objs.push({k:'ramp',x,y:GH+40})}
+function drawObj(o,w){g.save();g.translate(o.x,o.y);
+ if(o.k==='ob'){if(w){if(o.v===0){g.scale(.6,.6);g.fillStyle='#1f3a34';g.beginPath();g.moveTo(0,-50);g.lineTo(26,10);g.lineTo(-26,10);g.fill();g.fillStyle='#fff';g.beginPath();g.moveTo(0,-50);g.lineTo(9,-30);g.lineTo(-9,-30);g.fill();g.fillStyle='#3b2a1e';g.fillRect(-4,10,8,10)}else{g.fillStyle='#7c8794';g.beginPath();g.ellipse(0,0,18,12,0,0,7);g.fill();g.fillStyle='#fff';g.beginPath();g.ellipse(-3,-6,12,5,0,0,7);g.fill()}}
+  else{if(o.v===0){g.fillStyle='#ff7a1a';g.beginPath();g.moveTo(0,-22);g.lineTo(12,12);g.lineTo(-12,12);g.fill();g.fillStyle='#fff';g.fillRect(-7,-4,14,5);g.fillStyle='#111';g.fillRect(-15,12,30,4)}else{g.fillStyle='#111';g.beginPath();g.arc(0,0,16,0,7);g.fill();g.strokeStyle='#555';g.lineWidth=2;for(let i=-8;i<=8;i+=5){g.beginPath();g.moveTo(-12,i);g.lineTo(12,i);g.stroke()}}}}
+ else if(o.k==='it'){const b=Math.sin(performance.now()/200+o.x)*3;g.translate(0,b);if(w){g.strokeStyle='#1d58ff';g.lineWidth=3;g.lineCap='round';for(let i=0;i<3;i++){g.rotate(Math.PI/3);g.beginPath();g.moveTo(-11,0);g.lineTo(11,0);g.stroke()}}else{g.rotate(-.2);g.fillStyle='#ffd23f';g.strokeStyle='#111';g.lineWidth=2;g.beginPath();g.roundRect(-16,-9,32,18,4);g.fill();g.stroke();g.fillStyle='#111';g.font='bold 9px Archivo';g.textAlign='center';g.fillText('CRAZY',0,3)}}
+ else{g.fillStyle=w?'#cfe0f0':'#6b625a';g.strokeStyle='#111';g.lineWidth=2;g.beginPath();g.moveTo(-26,14);g.lineTo(26,14);g.lineTo(18,-10);g.lineTo(-18,-10);g.closePath();g.fill();g.stroke();g.fillStyle=w?'#ff2d3d':'#ff7a1a';g.fillRect(-18,-12,36,4)}
+ g.restore()}
+let gLast=0;
+function gLoop(ts){if(!gOn)return;const dt=Math.min(.033,(ts-(gLast||ts))/1000);gLast=ts;const w=W_();
+ if(GS&&GS.run){GS.t-=dt;GS.speed+=8*dt;GS.off=(GS.off+GS.speed*dt)%80;
+  if(keys.l)GS.tx-=420*dt;if(keys.r)GS.tx+=420*dt;GS.tx=Math.max(24,Math.min(GW-24,GS.tx));
+  const px=GS.x;GS.x+=(GS.tx-GS.x)*Math.min(1,dt*9);GS.lean+=(((GS.x-px)/dt)/60-GS.lean)*Math.min(1,dt*8);
+  GS.sp-=dt;if(GS.sp<=0){spawn();GS.sp=Math.max(.22,.62-(60-GS.t)*.006)}
+  GS.inv=Math.max(0,GS.inv-dt);GS.air=Math.max(0,GS.air-dt);GS.score+=dt*GS.speed*.08;
+  const py=GH*.68;
+  for(const o of GS.objs){o.y-=GS.speed*dt;if(o.hit)continue;const d=Math.hypot(o.x-GS.x,o.y-py);
+   if(o.k==='it'&&d<30){o.hit=1;GS.score+=50;GS.coll++}
+   else if(o.k==='ramp'&&d<30&&!GS.air){o.hit=1;GS.air=.9;GS.score+=150;gToast('¡Air! +150')}
+   else if(o.k==='ob'&&d<26&&!GS.air&&!GS.inv){o.hit=1;GS.lives--;GS.inv=1.2;if(navigator.vibrate)try{navigator.vibrate(60)}catch(e){};if(GS.lives<=0)gEnd()}}
+  GS.objs=GS.objs.filter(o=>o.y>-60&&!(o.hit&&o.k==='it'));if(GS.t<=0)gEnd();
+  $('#gT').textContent=Math.ceil(Math.max(0,GS.t))+' s';$('#gS').textContent=Math.round(GS.score)+' pts';$('#gL').textContent='♥'.repeat(Math.max(0,GS.lives))||'–'}
+ // draw
+ g.fillStyle=w?'#f4f8fc':'#2a2725';g.fillRect(0,0,GW,GH);
+ if(GS){g.strokeStyle=w?'rgba(120,150,180,.25)':'rgba(245,240,231,.25)';g.lineWidth=w?2:4;
+  if(w){for(let i=0;i<8;i++){const x=(i+.5)*GW/8;g.beginPath();for(let y=-80;y<GH+80;y+=20){const yy=y-GS.off;g.lineTo(x+Math.sin(yy/60+i)*10,yy)}g.stroke()}}
+  else{g.setLineDash([30,50]);g.lineDashOffset=GS.off;g.beginPath();g.moveTo(GW/2,0);g.lineTo(GW/2,GH);g.stroke();g.setLineDash([])}
+  for(const o of GS.objs)if(!(o.hit&&o.k!=='ob'))drawObj(o,w);
+  const py=GH*.68,sc=1.25+(GS.air?Math.sin((.9-GS.air)/.9*Math.PI)*.5:0);
+  if(GS.air){g.fillStyle='rgba(0,0,0,.15)';g.beginPath();g.ellipse(GS.x,py+6,22,6,0,0,7);g.fill()}
+  if(!(GS.inv&&Math.floor(GS.inv*10)%2))drawRider(g,GS.x,py-(GS.air?18:0),Math.max(-.5,Math.min(.5,GS.lean*.06)),sc,w,Math.max(-5,Math.min(5,GS.lean*.4)))}
+ requestAnimationFrame(gLoop)}
+let gtT;function gToast(t){trick(t)}
+function openGame(){game.classList.add('open');document.body.style.overflow='hidden';gsize();gReset();$('#gIntro').style.display='';$('#gEnd').style.display='none';gOn=true;gLast=0;requestAnimationFrame(gLoop)}
+function closeGame(){game.classList.remove('open');document.body.style.overflow='';gOn=false;if(GS)GS.run=false}
+function gStart(){gReset();GS.run=true;$('#gIntro').style.display='none';$('#gEnd').style.display='none'}
+function gEnd(){if(!GS.run)return;GS.run=false;const s=Math.round(GS.score);let best=0;try{best=+localStorage.getItem('cs-best')||0;if(s>best)localStorage.setItem('cs-best',s)}catch(e){}
+ $('#gEt').textContent=GS.lives<=0?'¡Te has comido el '+(W_()?'pino':'cono')+'!':'¡Bajada completa!';
+ $('#gEp').textContent=`${s} puntos · ${GS.coll} ${W_()?'copos':'pegatinas'}.`+(s>best?' ¡Récord!':'');
+ if(s>=1500){const c=code('CRAZY');$('#gCode').innerHTML=`<p style="margin-bottom:8px">Enséñalo en tienda: 10 % de descuento (código de ejemplo)</p><div class="code">${c}</div>`;addLog('Código del juego','k4','Jugador web',`${s} pts · ${c}`,'Juego')}
+ else{$('#gCode').innerHTML='<p>Llega a 1.500 puntos para llevarte un código.</p>';addLog('Partida jugada','k4','Jugador web',`${s} pts, sin código`,'Juego')}
+ $('#gEnd').style.display='';showBest()}
+function showBest(){let b=0;try{b=+localStorage.getItem('cs-best')||0}catch(e){}$('#best').textContent=b?`Tu mejor bajada: ${b} puntos`:''}
+$$('[data-game]').forEach(b=>b.onclick=openGame);$('#gx').onclick=closeGame;$('#gGo').onclick=gStart;$('#gAgain').onclick=gStart;$('#gShop').onclick=()=>{closeGame();location.hash='tabla'};
+gc.addEventListener('pointerdown',e=>{if(!GS)return;gc.setPointerCapture(e.pointerId);GS.tx=e.clientX-gc.getBoundingClientRect().left});
+gc.addEventListener('pointermove',e=>{if(!GS||!e.buttons&&e.pointerType==='mouse')return;GS.tx=e.clientX-gc.getBoundingClientRect().left});
+addEventListener('keydown',e=>{if(!game.classList.contains('open'))return;if(['ArrowLeft','a','A'].includes(e.key))keys.l=1;if(['ArrowRight','d','D'].includes(e.key))keys.r=1;if(e.key==='Escape')closeGame();if((e.key===' '||e.key==='Enter')&&GS&&!GS.run&&$('#gIntro').style.display!=='none'){e.preventDefault();gStart()}});
+addEventListener('keyup',e=>{if(['ArrowLeft','a','A'].includes(e.key))keys.l=0;if(['ArrowRight','d','D'].includes(e.key))keys.r=0});
+
+/* preview del juego */
+const gp=$('#gp'),gpx=gp.getContext('2d');let gpo=0;
+function gpLoop(dt){const W=gp.clientWidth,H=gp.clientHeight;if(gp.width!==W*2){gp.width=W*2;gp.height=H*2}gpx.setTransform(2,0,0,2,0,0);const w=W_();gpo+=dt*90;
+ gpx.fillStyle=w?'#f4f8fc':'#2a2725';gpx.fillRect(0,0,W,H);
+ for(let i=0;i<6;i++){const y=((i*90-gpo)%540+540)%540-60;const x=W*(.15+((i*37)%70)/100);gpx.save();gpx.translate(x,y);gpx.scale(.8,.8);
+  if(w){gpx.fillStyle='#1f3a34';gpx.beginPath();gpx.moveTo(0,-40);gpx.lineTo(22,10);gpx.lineTo(-22,10);gpx.fill()}else{gpx.fillStyle='#ff7a1a';gpx.beginPath();gpx.moveTo(0,-20);gpx.lineTo(11,12);gpx.lineTo(-11,12);gpx.fill()}gpx.restore()}
+ drawRider(gpx,W/2+Math.sin(gpo/60)*W*.25,H*.66,Math.cos(gpo/60)*.3,1.6,w,Math.cos(gpo/60)*4)}
+let gpOn=false;new IntersectionObserver(e=>{gpOn=e[0].isIntersecting}).observe(gp);
+
+/* ---------- loop principal ---------- */
+let last=0;function loop(ts){const dt=Math.min(.033,(ts-(last||ts))/1000);last=ts;if(heroOn&&HW)drawHero(dt);if(gpOn&&!RM)gpLoop(dt);requestAnimationFrame(loop)}
+requestAnimationFrame(loop);
+
+/* ---------- catálogo ---------- */
+const CAT=[["Tabla Never Summer Swift","Tablas snowboard","5-tablas-snowboard","tablas","board","Never Summer",849.0,null,1,1],["Peto Volcom Ash Stretch Gore Tex","Pantalones snowboard","9-pantalones-snowboard","ropa","pants","Volcom",415.0,null,1,1],["Tabla Rome Ravine Pro","Tablas snowboard","5-tablas-snowboard","tablas","board","Rome",649.95,null,1,1],["Black Diamond Pilolet LT Classic","Material de seguridad","44-material-de-seguridad","monte","safety","Black Diamond",115.0,null,1,1],["Funda Snowboard Crazy Shop","Mochilas","28-mochilas","monte","bag","Crazy Shop",49.0,null,1,1],["Chaleco Espaldera Prosurf XS/S","Protecciones","21-protecciones","monte","protect","Prosurf",90.0,null,1,1],["Protección de muñeca Prosurf","Complementos skate","54-complementos-skate","skate","protect","Prosurf",25.0,null,0,1],["Tabla Never Summer Cirrus","Tablas snowboard","5-tablas-snowboard","tablas","board","Never Summer",699.0,null,1,1],["Tabla Never Summer Proto Type 3","Tablas snowboard","5-tablas-snowboard","tablas","board","Never Summer",729.0,null,1,1],["Tabla Never Summer Proto T3 FR","Tablas snowboard","5-tablas-snowboard","tablas","board","Never Summer",849.0,null,1,1],["Fijación Nidecker Supermatic LT","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Nidecker",469.95,null,1,2],["Bones Big Balls","Rodamientos skate","57-rodamientos-skate","skate","bearing","Bones",32.0,null,1,1],["BirdHouse Logo 54mm","Ruedas skate","56-ruedas-skate","skate","wheel","Birdhouse",24.99,null,0,1],["Cruzade skate Razor 10\"","Skates completos","52-skates-completos","skate","complete","Cruzade",150.0,null,1,1],["Botas Fubuki Niseko 2.0","Calzado","38-calzado","ropa","boot","Fubuki",75.0,150.0,1,3],["Black Diamond Crampon Strap","Material de seguridad","44-material-de-seguridad","monte","safety","Black Diamond",109.9,157.0,1,1],["Coraza Prosurf","Protecciones","21-protecciones","monte","protect","Prosurf",145.0,null,1,1],["Chaleco Espaldera Prosurf","Protecciones","21-protecciones","monte","protect","Prosurf",99.0,null,0,1],["Protección culera Prosurf","Protecciones","21-protecciones","monte","protect","Prosurf",76.5,null,1,1],["Tabla Never Summer Nokhu","Tablas snowboard","5-tablas-snowboard","tablas","board","Never Summer",799.0,null,1,1],["Tabla Sims ATV \"Tom Sims\"","Tablas snowboard","5-tablas-snowboard","tablas","board","Sims",599.0,null,1,1],["Independent Mason Silva 1.59\"","Ejes skate","55-ejes-skate","skate","truck","Independent",39.95,null,1,1],["Bones Super Swiss 6","Rodamientos skate","57-rodamientos-skate","skate","bearing","Bones",72.0,null,1,1],["Natas Kaupas 59mm","Ruedas skate","56-ruedas-skate","skate","wheel","Natas Kaupas",59.0,null,1,1],["Birdhouse Hawk Spiral 8\"","Tablas skate","53-tablas-skate","skate","deck","Birdhouse",64.9,null,1,1],["Black Diamond Funda Crampon","Material de seguridad","44-material-de-seguridad","monte","safety","Black Diamond",17.0,null,1,1],["Rasqueta de Acero","Material Reparación","36-material-reparacion-snowboard-taller","taller","tool","",7.5,null,1,1],["Tabla Never Summer Infinity","Tablas snowboard","5-tablas-snowboard","tablas","board","Never Summer",649.0,null,1,1],["Tabla Never Summer Trooper","Tablas snowboard","5-tablas-snowboard","tablas","board","Never Summer",729.0,null,1,1],["Tabla White Space Maax","Tablas snowboard","5-tablas-snowboard","tablas","board","White Space",629.0,null,1,1],["Independent Built To Grind 159\"","Ejes skate","55-ejes-skate","skate","truck","Independent",39.95,null,1,1],["Rodillera Bullet","Complementos skate","54-complementos-skate","skate","protect","Bullet",35.0,null,1,1],["Birdhouse Fletcher Joker 8.25\"","Tablas skate","53-tablas-skate","skate","deck","Birdhouse",74.95,null,1,1],["Mochila Union Expedition 24L","Mochilas","28-mochilas","monte","pack","Union",159.95,null,1,1],["Chaqueta Volcom Eras Gore-Tex","Cazadoras snowboard","8-cazadoras-snowboard","ropa","jacket","Volcom",165.0,330.0,1,1],["Fijación Nidecker Supermatic","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Nidecker",399.95,null,1,1],["Tabla Never Summer BenchMarc","Tablas snowboard","5-tablas-snowboard","tablas","board","Never Summer",699.0,null,1,1],["Tabla White Space Freestyle Pro","Tablas snowboard","5-tablas-snowboard","tablas","board","White Space",519.0,null,1,1],["Tony Hawk 7.5\"","Skates completos","52-skates-completos","skate","complete","Birdhouse",49.95,null,1,1],["Ortovox Rescue Set Diract Voice","Material de seguridad","44-material-de-seguridad","monte","safety","Ortovox",430.0,null,0,1],["Mochila Union Resort Pack 14L","Mochilas","28-mochilas","monte","pack","Union",129.95,null,1,1],["Bota Vans Standard Snow MTE","Calzado","38-calzado","ropa","boot","Vans",108.0,180.0,0,1],["Fijación Nidecker Supermatic OG","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Nidecker",399.95,null,1,1],["Lima ancha","Material Reparación","36-material-reparacion-snowboard-taller","taller","tool","",18.35,null,1,1],["Protección de rodilla Prosurf","Protecciones","21-protecciones","monte","protect","Prosurf",40.0,null,1,1],["Tabla Never Summer Easy Rider","Tablas snowboard","5-tablas-snowboard","tablas","board","Never Summer",699.0,null,1,1],["Fijación Rome Katana Fase","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Rome",389.93,null,0,2],["Tony Hawk 8\"","Skates completos","52-skates-completos","skate","complete","Birdhouse",49.95,null,1,2],["Plan B Lil Buddies Joslin 8\"","Tablas skate","53-tablas-skate","skate","deck","Plan B",74.95,null,1,1],["Peto 686 Gore Tex Dispatch","Pantalones snowboard","9-pantalones-snowboard","ropa","pants","686",549.95,null,1,1],["Tabla Arbor Veda","Tablas snowboard","5-tablas-snowboard","tablas","board","Arbor",689.99,null,1,1],["Fijación Bent Metal Supermatic","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Bent Metal",449.99,null,1,2],["Cazadora Volcom Dua Ins Gore-Tex","Cazadoras snowboard","8-cazadoras-snowboard","ropa","jacket","Volcom",165.0,330.0,1,1],["Mochila Jones Dscnt 19L","Mochilas","28-mochilas","monte","pack","Jones",159.95,null,1,1],["Lima ICECUT Supercross Fina","Material Reparación","36-material-reparacion-snowboard-taller","taller","tool","",23.0,null,1,1],["Tabla Arbor Sin Cara","Tablas snowboard","5-tablas-snowboard","tablas","board","Arbor",549.99,null,1,1],["Tabla Sims Sahun Palmer (reedición de 1992)","Tablas snowboard","5-tablas-snowboard","tablas","board","Sims",0.0,null,0,1],["Mochila BCA Float E2 25L Avalanche Airbag (eléctrica)","Mochilas","28-mochilas","monte","pack","BCA",1300.0,null,1,1],["BCA Tracker S Rescue Package Set","Material de seguridad","44-material-de-seguridad","monte","safety","BCA",370.0,null,1,1],["Peto 686 Black Magic","Pantalones snowboard","9-pantalones-snowboard","ropa","pants","686",309.95,null,1,1],["Fijación Union Atlas Pro Kazu Kokubo","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Union",469.95,null,1,1],["Tabla Arbor Kuro Neko Decon","Tablas snowboard","5-tablas-snowboard","tablas","board","Arbor",479.99,null,1,1],["Tabla Sims UAP","Tablas snowboard","5-tablas-snowboard","tablas","board","Sims",779.0,null,1,1],["Fijación Jones Mercury Fase","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Jones",359.95,null,1,1],["Globe Ramones Hey Ho 8.6\"","Tablas skate","53-tablas-skate","skate","deck","Globe",80.0,null,1,1],["Fijación Union Trilogy","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Union",299.95,null,1,2],["Pack para afilar cantos","Material Reparación","36-material-reparacion-snowboard-taller","taller","tool","",39.9,null,0,1],["Aplicador universal cera rápida","Material Reparación","36-material-reparacion-snowboard-taller","taller","tool","",15.0,null,1,1],["Tabla Sims Fakie","Tablas snowboard","5-tablas-snowboard","tablas","board","Sims",699.0,null,1,1],["Mochila chaleco BCA Float E2 V Turbo Avalanche Airbag (eléctrica)","Mochilas","28-mochilas","monte","pack","BCA",875.0,1250.0,1,1],["Ángulo para cantos","Material Reparación","36-material-reparacion-snowboard-taller","taller","tool","",36.0,null,1,1],["Funda botas Crazy Shop","Complementos","10-complementos","taller","pack","Crazy Shop",20.0,null,0,1],["Tabla Sims Prototype","Tablas snowboard","5-tablas-snowboard","tablas","board","Sims",699.0,null,0,1],["Tabla Rome Ravine","Tablas snowboard","5-tablas-snowboard","tablas","board","Rome",579.95,null,1,1],["Powell Peralta Mike McGill 8.5\"","Tablas skate","53-tablas-skate","skate","deck","Powell Peralta",79.0,null,1,1],["Fijación Trilogy Classic","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Union",249.95,null,0,1],["Tabla Rome Viper","Tablas snowboard","5-tablas-snowboard","tablas","board","Rome",549.95,null,1,1],["Mochila Ortovox Free Rider 28","Mochilas","28-mochilas","monte","pack","Ortovox",180.0,null,1,1],["Pantalón Volcom V.Co Gore-Tex","Pantalones snowboard","9-pantalones-snowboard","ropa","pants","Volcom",350.0,null,1,1],["Fijación Union Juliet","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Union",199.95,null,0,1],["Cepillo crines de caballo","Material Reparación","36-material-reparacion-snowboard-taller","taller","tool","",15.0,null,1,1],["Tabla White Space Icona","Tablas snowboard","5-tablas-snowboard","tablas","board","White Space",850.0,null,0,1],["Powell Peralta Caballero Lime Fade 8.25\"","Tablas skate","53-tablas-skate","skate","deck","Powell Peralta",79.0,null,1,1],["Fijación Union Juliet","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Union",139.97,199.95,1,1],["Rasqueta de plástico","Material Reparación","36-material-reparacion-snowboard-taller","taller","tool","",6.0,null,0,1],["Tabla Capita Artemis","Tablas snowboard","5-tablas-snowboard","tablas","board","Capita",599.0,null,1,1],["Santa Cruz Classic 8\"","Tablas skate","53-tablas-skate","skate","deck","Santa Cruz",74.9,null,1,1],["Mochila Ortovox Free Rider 20S","Mochilas","28-mochilas","monte","pack","Ortovox",180.0,null,1,1],["Fijación Union Juliet","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Union",179.96,199.95,0,1],["Tabla White Space Montano","Tablas snowboard","5-tablas-snowboard","tablas","board","White Space",619.0,null,1,1],["Santa Cruz Crowded 8.25\"","Tablas skate","53-tablas-skate","skate","deck","Santa Cruz",84.49,null,1,1],["Fijación Union Rosa","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Union",179.95,null,0,1],["Tabla Capita Birds of a Feather","Tablas snowboard","5-tablas-snowboard","tablas","board","Capita",549.0,null,1,1],["Tabla White Space Freestyle Sahun White Pro","Tablas snowboard","5-tablas-snowboard","tablas","board","White Space",589.0,null,1,1],["Tabla Capita Paradise","Tablas snowboard","5-tablas-snowboard","tablas","board","Capita",499.0,null,1,1],["Pantalón 686 Geode Thermagraph","Pantalones snowboard","9-pantalones-snowboard","ropa","pants","686",164.98,329.95,1,1],["Pantalón Volcom L Gore-Tex","Pantalones snowboard","9-pantalones-snowboard","ropa","pants","Volcom",350.0,null,1,1],["Tabla Jones Flagship W","Tablas snowboard","5-tablas-snowboard","tablas","board","Jones",749.95,null,0,1],["Fijación Rome Volt Fase","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Rome",299.95,null,1,1],["Tabla White Space Overwide Twin","Tablas snowboard","5-tablas-snowboard","tablas","board","White Space",539.0,null,1,1],["Tabla Jones Airheart","Tablas snowboard","5-tablas-snowboard","tablas","board","Jones",629.95,null,1,1],["Fijación Rome Bolt Fase","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Rome",299.95,null,1,1],["Tabla Arbor Bryan Iguchi Pro","Tablas snowboard","5-tablas-snowboard","tablas","board","Arbor",759.99,null,1,1],["Tabla Jones Dream Weaver","Tablas snowboard","5-tablas-snowboard","tablas","board","Jones",529.95,null,1,1],["Tabla Arbor A-Frame","Tablas snowboard","5-tablas-snowboard","tablas","board","Arbor",749.99,null,0,1],["Pantalón 686 Dispatch Gore-Tex","Pantalones snowboard","9-pantalones-snowboard","ropa","pants","686",439.95,null,1,1],["Tabla Arbor Rain","Tablas snowboard","5-tablas-snowboard","tablas","board","Arbor",689.99,null,1,1],["Tabla Arbor Coda","Tablas snowboard","5-tablas-snowboard","tablas","board","Arbor",685.99,null,1,1],["Tabla Arbor Element Camber","Tablas snowboard","5-tablas-snowboard","tablas","board","Arbor",599.99,null,1,1],["Fijación Salomon Rhythm","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Salomon",180.0,null,1,1],["Tabla Salomon Rumble Fish","Tablas snowboard","5-tablas-snowboard","tablas","board","Salomon",580.0,null,1,1],["Fijación Flux XF","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Flux",399.95,null,1,1],["Tabla Salomon No Drama","Tablas snowboard","5-tablas-snowboard","tablas","board","Salomon",500.0,null,1,1],["Tabla Rome Stale Crewzer","Tablas snowboard","5-tablas-snowboard","tablas","board","Rome",629.95,null,0,1],["Pantalón 686 Quantum Thermagraph","Pantalones snowboard","9-pantalones-snowboard","ropa","pants","686",329.95,null,1,1],["Tabla Rome Stale Fish","Tablas snowboard","5-tablas-snowboard","tablas","board","Rome",599.95,null,1,1],["Tabla Salomon Wonder","Tablas snowboard","5-tablas-snowboard","tablas","board","Salomon",450.0,null,1,1],["Fijación Flux EM","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Flux",279.95,null,1,1],["Tabla Rome Viper Pro","Tablas snowboard","5-tablas-snowboard","tablas","board","Rome",599.95,null,0,1],["Tabla Salomon Bliss","Tablas snowboard","5-tablas-snowboard","tablas","board","Salomon",400.0,null,1,1],["Fijación Flux PR","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Flux",229.95,null,1,1],["Tabla Rome Ravine","Tablas snowboard","5-tablas-snowboard","tablas","board","Rome",589.95,null,1,1],["Tabla Salomon Oh Yeah","Tablas snowboard","5-tablas-snowboard","tablas","board","Salomon",400.0,null,1,1],["Fijación Yes Select","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Yes",173.97,289.95,1,1],["Tabla Jones Flagship","Tablas snowboard","5-tablas-snowboard","tablas","board","Jones",749.95,null,1,1],["Fijación Arbor Cypress","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Arbor",215.99,359.99,1,1],["Tabla Jones Howler","Tablas snowboard","5-tablas-snowboard","tablas","board","Jones",669.99,null,1,1],["Tabla Jones Freecarver 6000","Tablas snowboard","5-tablas-snowboard","tablas","board","Jones",699.95,null,1,1],["Fijación Jones Meteorite Rally Cat","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Jones",197.97,329.95,1,1],["Tabla Jones Stratos","Tablas snowboard","5-tablas-snowboard","tablas","board","Jones",699.95,null,1,1],["Fijación Jones Meteorite Rally Cat","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Jones",299.95,null,1,1],["Tabla Jones Aviator 2.0","Tablas snowboard","5-tablas-snowboard","tablas","board","Jones",629.95,null,1,1],["Fijación Nidecker Kaon Plus","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Nidecker",279.95,null,1,2],["Tabla Jones Frontier","Tablas snowboard","5-tablas-snowboard","tablas","board","Jones",529.95,null,1,1],["Fijación Nidecker Muon","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Nidecker",179.95,null,1,1],["Tabla Nidecker Smoke","Tablas snowboard","5-tablas-snowboard","tablas","board","Nidecker",629.95,null,1,1],["Fijación Bent Metal Axtion","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Bent Metal",289.95,null,1,1],["Fijación Bent Metal Joint","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Bent Metal",219.99,null,1,1],["Tabla Nidecker Blade Pro","Tablas snowboard","5-tablas-snowboard","tablas","board","Nidecker",599.95,null,1,1],["Tabla Nidecker Odyssey","Tablas snowboard","5-tablas-snowboard","tablas","board","Nidecker",569.95,null,1,1],["Tabla Nidecker Alpha","Tablas snowboard","5-tablas-snowboard","tablas","board","Nidecker",499.95,null,1,1],["Tabla Nidecker Beta","Tablas snowboard","5-tablas-snowboard","tablas","board","Nidecker",499.95,null,1,1],["Fijación Bent Metal Bolt","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Bent Metal",179.99,null,1,1],["Tabla Nidecker Escape","Tablas snowboard","5-tablas-snowboard","tablas","board","Nidecker",469.95,null,1,1],["Fijación Union Atlas Pro","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Union",469.95,null,1,1],["Fijación Union Falcor","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Union",399.95,null,1,1],["Tabla Yes Greats","Tablas snowboard","5-tablas-snowboard","tablas","board","Yes",359.97,599.95,1,1],["Tabla Capita Mega Death","Tablas snowboard","5-tablas-snowboard","tablas","board","Capita",1099.0,null,1,1],["Fijación Union Atlas","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Union",369.95,null,1,1],["Tabla Capita Mega Merc","Tablas snowboard","5-tablas-snowboard","tablas","board","Capita",899.0,null,1,1],["Tabla Capita Super D.O.A.","Tablas snowboard","5-tablas-snowboard","tablas","board","Capita",759.0,null,1,1],["Fijación Union Force Team","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Union",319.95,null,1,1],["Tabla Capita The Black Snowboard of Death","Tablas snowboard","5-tablas-snowboard","tablas","board","Capita",699.0,null,1,1],["Tabla Capita Matriarch Torstein Horgmo","Tablas snowboard","5-tablas-snowboard","tablas","board","Capita",679.0,null,1,1],["Fijación Union Force","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Union",299.95,null,1,1],["Tabla Capita Aeronaut by Arthur Longo","Tablas snowboard","5-tablas-snowboard","tablas","board","Capita",649.0,null,1,1],["Tabla Capita Kazu Kokubo Pro","Tablas snowboard","5-tablas-snowboard","tablas","board","Capita",649.0,null,1,1],["Tabla Capita Mercury","Tablas snowboard","5-tablas-snowboard","tablas","board","Capita",599.0,null,1,1],["Tabla Capita The Navigator","Tablas snowboard","5-tablas-snowboard","tablas","board","Capita",579.0,null,1,1],["Fijación Union Force Classic","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Union",249.95,null,1,1],["Tabla Capita D.O.A.","Tablas snowboard","5-tablas-snowboard","tablas","board","Capita",549.0,null,1,1],["Tabla Capita Side Winder","Tablas snowboard","5-tablas-snowboard","tablas","board","Capita",529.0,null,1,1],["Tabla Capita Spring Break Slush Slasher 2.0","Tablas snowboard","5-tablas-snowboard","tablas","board","Capita",399.0,null,1,1],["Fijación Union Strata","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Union",259.95,null,0,1],["Fijación Union Contact","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Union",229.95,null,1,1],["Tabla Lib Tech Lib Rig","Tablas snowboard","5-tablas-snowboard","tablas","board","Lib Tech",699.99,null,1,1],["Tabla Lib Tech Orca","Tablas snowboard","5-tablas-snowboard","tablas","board","Lib Tech",749.95,null,1,1],["Tabla Lib Tech Terrain Wrecker","Tablas snowboard","5-tablas-snowboard","tablas","board","Lib Tech",599.99,null,1,1],["Fijación Union STR","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Union",199.95,null,1,1],["Tabla Lib Tech Travis Rice Pro","Tablas snowboard","5-tablas-snowboard","tablas","board","Lib Tech",699.99,null,1,1],["Tabla Lib Tech Dynamo","Tablas snowboard","5-tablas-snowboard","tablas","board","Lib Tech",590.0,null,1,1],["Tabla Lib Tech Mayhem Sweet Fish","Tablas snowboard","5-tablas-snowboard","tablas","board","Lib Tech",750.01,null,1,1],["Tabla Lib Tech DPR","Tablas snowboard","5-tablas-snowboard","tablas","board","Lib Tech",499.99,null,1,1],["Fijación Union Flite Pro","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Union",179.95,null,1,1],["Tabla Lib Tech Cold Brew","Tablas snowboard","5-tablas-snowboard","tablas","board","Lib Tech",559.99,null,1,1],["Fijación Salomon District","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Salomon",290.0,null,1,1],["Tabla GNU Turbo Gremlin","Tablas snowboard","5-tablas-snowboard","tablas","board","GNU",639.99,null,1,1],["Tabla GNU Money","Tablas snowboard","5-tablas-snowboard","tablas","board","GNU",459.99,null,1,1],["Fijación Salomon EDB Prime","Fijaciones snowboard","7-fijaciones-snowboard","fijaciones","binding","Salomon",250.0,null,1,1],["Tabla GNU Antigravity","Tablas snowboard","5-tablas-snowboard","tablas","board","GNU",489.99,null,1,1],["Tabla Slash Brainstorm","Tablas snowboard","5-tablas-snowboard","tablas","board","Slash",293.4,489.0,1,1],["Tabla K2 Alchemist","Tablas snowboard","5-tablas-snowboard","tablas","board","K2",750.0,null,1,1],["Tabla K2 Cardinal Commonwealth","Tablas snowboard","5-tablas-snowboard","tablas","board","K2",700.0,null,1,1],["Tabla Never Summer Valhalla","Tablas snowboard","5-tablas-snowboard","tablas","board","Never Summer",559.3,799.0,0,1],["Tabla K2 Excavator","Tablas snowboard","5-tablas-snowboard","tablas","board","K2",660.0,null,1,1],["Tabla K2 Manifest","Tablas snowboard","5-tablas-snowboard","tablas","board","K2",630.0,null,1,1],["Tabla K2 Sky Pilot","Tablas snowboard","5-tablas-snowboard","tablas","board","K2",600.0,null,1,1],["Tabla K2 Passport","Tablas snowboard","5-tablas-snowboard","tablas","board","K2",575.0,null,1,1],["Tabla K2 Almanac","Tablas snowboard","5-tablas-snowboard","tablas","board","K2",525.0,null,1,1],["Tabla K2 Embassy","Tablas snowboard","5-tablas-snowboard","tablas","board","K2",500.0,null,1,1],["Tabla K2 Tree Splitter","Tablas snowboard","5-tablas-snowboard","tablas","board","K2",230.0,null,1,1],["Tabla Salomon Highpath Split","Tablas snowboard","5-tablas-snowboard","tablas","board","Salomon",1000.0,null,1,1],["Tabla Salomon Assassin Pro","Tablas snowboard","5-tablas-snowboard","tablas","board","Salomon",720.0,null,1,1],["Tabla Salomon Wolle Nyvelt Fish","Tablas snowboard","5-tablas-snowboard","tablas","board","Salomon",650.0,null,1,1],["Tabla Salomon Highpath","Tablas snowboard","5-tablas-snowboard","tablas","board","Salomon",600.0,null,1,1],["Tabla Salomon Assassin","Tablas snowboard","5-tablas-snowboard","tablas","board","Salomon",600.0,null,1,1],["Tabla Salomon Jetstream","Tablas snowboard","5-tablas-snowboard","tablas","board","Salomon",600.0,null,1,1],["Tabla Salomon Indicator","Tablas snowboard","5-tablas-snowboard","tablas","board","Salomon",600.0,null,1,1],["Tabla Salomon Fastlane","Tablas snowboard","5-tablas-snowboard","tablas","board","Salomon",600.0,null,1,1],["Tabla Salomon Huck Knife Pro","Tablas snowboard","5-tablas-snowboard","tablas","board","Salomon",600.0,null,1,1],["Tabla Salomon Dancehaul","Tablas snowboard","5-tablas-snowboard","tablas","board","Salomon",500.0,null,1,1],["Tabla Salomon Huck Knife","Tablas snowboard","5-tablas-snowboard","tablas","board","Salomon",500.0,null,1,1],["Tabla Salomon Craft","Tablas snowboard","5-tablas-snowboard","tablas","board","Salomon",450.0,null,1,1],["Tabla Salomon Sight","Tablas snowboard","5-tablas-snowboard","tablas","board","Salomon",400.0,null,1,1],["Tabla Salomon Team Package","Tablas snowboard","5-tablas-snowboard","tablas","board","Salomon",295.0,null,1,1]].map(([n,c,u,g,k,b,p,o,l,v],i)=>({i,n,c,u,g,k,b,p,o,l,v,d:o&&p?Math.round((1-p/o)*100):0}));
+const GR=[['all','Todo'],['tablas','Tablas'],['fijaciones','Fijaciones'],['ropa','Ropa y calzado'],['skate','Skate'],['monte','Mochilas y seguridad'],['taller','Taller y cera']];
+const C={g:'tablas',q:'',b:'',s:'top',sale:false,n:24};const bag=new Set();
+const eur=x=>x.toLocaleString('es-ES',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
+const nrm=t=>t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+const PAL=['#ff2d3d','#1d58ff','#ffd23f','#2bd47d','#ff7a1a','#9b5cff','#111111','#00b3c7','#ff5fa2'];
+const col=s=>{let h=0;for(const ch of s)h=(h*31+ch.charCodeAt(0))>>>0;return PAL[h%PAL.length]};
+const ink=c=>['#ffd23f','#2bd47d','#00b3c7'].includes(c)?'#111':'#fff';
+function art(k,c,n){const o='stroke="#111" stroke-width="3" stroke-linejoin="round"';const t=ink(c);
+ const A={
+ board:`<g transform="rotate(-18 100 70)"><rect x="18" y="52" width="164" height="38" rx="19" fill="${c}" ${o}/><path d="M60 52v38M140 52v38" stroke="${t}" stroke-width="6" opacity=".5"/><rect x="66" y="58" width="12" height="26" rx="4" fill="#111"/><rect x="122" y="58" width="12" height="26" rx="4" fill="#111"/></g>`,
+ binding:`<path d="M78 112 L70 42 Q70 26 92 26 L112 26 Q124 26 122 42 L118 112Z" fill="${c}" ${o}/><rect x="56" y="104" width="92" height="16" rx="6" fill="#111"/><rect x="62" y="56" width="74" height="14" rx="6" fill="#111"/><rect x="64" y="82" width="70" height="12" rx="5" fill="${t}" ${o}/>`,
+ pants:`<path d="M66 22h68l10 98h-30l-14-62-14 62H56z" fill="${c}" ${o}/><rect x="66" y="22" width="68" height="10" fill="#111"/>`,
+ jacket:`<path d="M80 22q20-12 40 0l26 14 12 60-20 4-4-36v66H66V64l-4 36-20-4 12-60z" fill="${c}" ${o}/><path d="M100 26v104" stroke="#111" stroke-width="3"/><path d="M84 20q16 18 32 0" fill="none" stroke="#111" stroke-width="3"/>`,
+ boot:`<path d="M70 20h42v62l38 14q10 4 10 14v10H62V30z" fill="${c}" ${o}/><path d="M74 40h34M74 54h34M74 68h34" stroke="${t}" stroke-width="4"/><rect x="60" y="114" width="102" height="10" rx="4" fill="#111"/>`,
+ deck:`<rect x="16" y="52" width="168" height="40" rx="20" fill="#1a1a1a" ${o}/><rect x="16" y="52" width="168" height="40" rx="20" fill="none" stroke="${c}" stroke-width="6"/><rect x="44" y="40" width="10" height="64" rx="4" fill="#bbb" ${o}/><rect x="146" y="40" width="10" height="64" rx="4" fill="#bbb" ${o}/>`,
+ complete:`<path d="M22 70 Q30 82 44 82 H156 Q170 82 178 70" fill="none" stroke="${c}" stroke-width="10" stroke-linecap="round"/><path d="M60 84 l-6 14M140 84 l6 14" stroke="#888" stroke-width="6"/><circle cx="52" cy="104" r="12" fill="#f5f0e7" ${o}/><circle cx="148" cy="104" r="12" fill="#f5f0e7" ${o}/>`,
+ wheel:`<circle cx="100" cy="70" r="46" fill="#f5f0e7" ${o}/><circle cx="100" cy="70" r="30" fill="${c}" ${o}/><circle cx="100" cy="70" r="10" fill="#111"/>`,
+ truck:`<path d="M40 60h120" stroke="#aaa" stroke-width="12" stroke-linecap="round"/><path d="M76 60 L100 100 L124 60Z" fill="${c}" ${o}/><rect x="80" y="96" width="40" height="14" rx="4" fill="#bbb" ${o}/><circle cx="34" cy="60" r="10" fill="#111"/><circle cx="166" cy="60" r="10" fill="#111"/>`,
+ bearing:`<circle cx="78" cy="72" r="34" fill="#cfcfcf" ${o}/><circle cx="78" cy="72" r="20" fill="${c}" ${o}/><circle cx="78" cy="72" r="8" fill="#111"/><circle cx="132" cy="62" r="24" fill="#cfcfcf" ${o}/><circle cx="132" cy="62" r="13" fill="${c}" ${o}/>`,
+ protect:`<path d="M100 18 L150 34 V72 Q150 108 100 124 Q50 108 50 72 V34Z" fill="${c}" ${o}/><path d="M100 36 V108 M70 56 H130" stroke="${t}" stroke-width="6" opacity=".55"/>`,
+ pack:`<rect x="58" y="24" width="84" height="100" rx="22" fill="${c}" ${o}/><rect x="70" y="72" width="60" height="36" rx="10" fill="#111" opacity=".85"/><path d="M80 24 Q100 8 120 24" fill="none" stroke="#111" stroke-width="5"/>`,
+ bag:`<rect x="16" y="46" width="168" height="50" rx="25" fill="${c}" ${o}/><path d="M30 71 H170" stroke="#111" stroke-width="3" stroke-dasharray="6 6"/><text x="100" y="66" text-anchor="middle" font-family="Archivo Black" font-size="15" fill="${t}">CRAZY</text>`,
+ safety:`<rect x="66" y="22" width="68" height="100" rx="16" fill="${c}" ${o}/><rect x="78" y="36" width="44" height="34" rx="6" fill="#111"/><path d="M86 54h28M100 44v20" stroke="#2bd47d" stroke-width="4"/><circle cx="100" cy="96" r="10" fill="#111"/>`,
+ tool:/cera|aplicador/.test(nrm(n))?`<rect x="56" y="46" width="88" height="52" rx="8" fill="${c}" ${o}/><text x="100" y="78" text-anchor="middle" font-family="Archivo Black" font-size="16" fill="${t}">WAX</text>`:/cepillo/.test(nrm(n))?`<rect x="40" y="52" width="120" height="26" rx="8" fill="#8a5a2b" ${o}/><path d="M48 80v24M60 80v24M72 80v24M84 80v24M96 80v24M108 80v24M120 80v24M132 80v24M144 80v24" stroke="#111" stroke-width="4"/>`:`<rect x="36" y="56" width="128" height="30" rx="6" fill="${c}" ${o}/><path d="M50 56v30M66 56v30M82 56v30M98 56v30M114 56v30M130 56v30M146 56v30" stroke="#111" stroke-width="2" opacity=".5"/>`};
+ return`<svg viewBox="0 0 200 140" aria-hidden="true">${A[k]||A.pack}</svg>`}
+function cFilter(){const q=nrm(C.q).split(/\s+/).filter(Boolean);
+ return CAT.filter(x=>(C.g==='all'||x.g===C.g)&&(!C.b||x.b===C.b)&&(!C.sale||x.d>0)&&q.every(t=>nrm(x.n+' '+x.b+' '+x.c).includes(t)))}
+function cSort(L){const by={top:(a,b)=>(b.d>0)-(a.d>0)||a.i-b.i,pa:(a,b)=>(a.p||1e9)-(b.p||1e9),pd:(a,b)=>b.p-a.p,off:(a,b)=>b.d-a.d||a.p-b.p,az:(a,b)=>a.n.localeCompare(b.n,'es')}[C.s];return L.slice().sort(by)}
+function cChips(){const base=CAT.filter(x=>(!C.b||x.b===C.b)&&(!C.sale||x.d>0));
+ $('#cg').innerHTML=GR.map(([k,l])=>`<button data-g="${k}" aria-pressed="${C.g===k}">${l}<small>${k==='all'?base.length:base.filter(x=>x.g===k).length}</small></button>`).join('')}
+function cBrands(){const bs=[...new Set(CAT.filter(x=>C.g==='all'||x.g===C.g).map(x=>x.b).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'es'));if(C.b&&!bs.includes(C.b))C.b='';
+ $('#cb').innerHTML='<option value="">Todas las marcas</option>'+bs.map(b=>`<option ${b===C.b?'selected':''}>${esc(b)}</option>`).join('')}
+function card(x){const c=col(x.b||x.n);const on=bag.has(x.i);
+ const bd=[x.d?`<span class="off">-${x.d}%</span>`:'',x.v>1?`<span>${x.v} versiones</span>`:''].join('');
+ const pr=x.p?`${eur(x.p)}${x.o?`<s>${eur(x.o)}</s>`:''}`:'Consultar precio';
+ return`<article class="pc"><div class="pa">${art(x.k,c,x.n)}<div class="bd">${bd}</div></div><div class="pb"><small>${esc(x.b||'Crazy Shop')}</small><h3>${esc(x.n)}</h3><div class="pp">${pr}</div><div class="pbt"><button data-add="${x.i}" aria-pressed="${on}">${on?'Apartado ✓':'Apartar'}</button><a href="https://crazyshop.es/${x.u}" target="_blank" rel="noopener" title="Ver la categoría en crazyshop.es">Web ↗</a></div></div></article>`}
+function cRender(){cChips();cBrands();const L=cSort(cFilter());
+ $('#cn').textContent=`${L.length} ${L.length===1?'artículo':'artículos'}${C.q?` para “${C.q}”`:''}`;
+ $('#grid').innerHTML=L.length?L.slice(0,C.n).map(card).join(''):`<div class="nores">Nada por aquí. Prueba con otra marca o pregúntale a Ibón: si no está en la web, igual está en la tienda.</div>`;
+ $('#cmore').style.display=L.length>C.n?'':'none';$('#cmore').textContent=`Ver más (${L.length-C.n} restantes)`}
+function bagRender(){const b=$('#bag');const it=[...bag].map(i=>CAT[i]);if(!it.length){b.classList.remove('on');return}
+ const tot=it.reduce((s,x)=>s+(x.p||0),0);b.classList.add('on');
+ b.innerHTML=`<b>${it.length} apartado${it.length>1?'s':''} · ${eur(tot)}</b><button class="btn acc" id="bagGo">Apartar en tienda</button><button class="btn" id="bagClr" style="background:transparent;color:inherit">Vaciar</button><ul>${it.map(x=>`<li>${esc(x.n)} · ${x.p?eur(x.p):'consultar'}</li>`).join('')}</ul>`}
+$('#cg').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;C.g=b.dataset.g;C.n=24;cRender()});
+$('#cq').addEventListener('input',e=>{C.q=e.target.value;C.n=24;if(C.q&&C.g!=='all'&&!cFilter().length)C.g='all';cRender()});
+$('#cb').addEventListener('change',e=>{C.b=e.target.value;C.n=24;cRender()});
+$('#cs').addEventListener('change',e=>{C.s=e.target.value;cRender()});
+$('#csale').addEventListener('change',e=>{C.sale=e.target.checked;C.n=24;cRender()});
+$('#cmore').onclick=()=>{C.n+=24;cRender()};
+$('#grid').addEventListener('click',e=>{const b=e.target.closest('[data-add]');if(!b)return;const i=+b.dataset.add;bag.has(i)?bag.delete(i):bag.add(i);b.setAttribute('aria-pressed',bag.has(i));b.textContent=bag.has(i)?'Apartado ✓':'Apartar';bagRender()});
+$('#bag').addEventListener('click',e=>{const t=e.target;
+ if(t.id==='bagClr'){bag.clear();cRender();bagRender()}
+ if(t.id==='bagGo'){t.outerHTML='<input id="bagN" placeholder="Tu nombre" aria-label="Tu nombre"><button class="btn acc" id="bagOk">Confirmar</button>';$('#bagN').focus()}
+ if(t.id==='bagOk'){const n=$('#bagN').value.trim();if(!n)return $('#bagN').focus();const it=[...bag].map(i=>CAT[i]);const tot=it.reduce((s,x)=>s+(x.p||0),0);const c=code('AP');
+  K.k5+=it.length-1;addLog('Productos apartados','k5',n,`${it.map(x=>x.n).join(', ')} · ${eur(tot)} · ${c}`,'Catálogo');
+  bag.clear();cRender();const b=$('#bag');b.classList.add('on');b.innerHTML=`<b>¡Hecho, ${esc(n)}!</b><span style="flex-basis:100%;font-size:14px">${it.length} artículo${it.length>1?'s':''} apartado${it.length>1?'s':''} 48 h con el código ${c}. Te escribirían por WhatsApp para confirmar.</span>`;setTimeout(bagRender,6000)}});
+$('#toCat').onclick=()=>{C.g=W_()?'tablas':'skate';C.q='';$('#cq').value='';C.n=24;cRender()};
+function findCat(t){const stop=['tabla','tablas','fijacion','fijaciones','precio','cuanto','cuesta','vale','teneis','tienes','hay','una','unas','unos','para','que','de','la','el','los','las','me','mi','con','del'];
+ const q=nrm(t).replace(/[¿?¡!.,]/g,' ').split(/\s+/).filter(w=>w.length>1&&!stop.includes(w));if(!q.length)return[];
+ return CAT.map(x=>{const h=nrm(x.n+' '+x.b);return{x,s:q.filter(w=>h.includes(w)).length}}).filter(r=>r.s>0).sort((a,b)=>b.s-a.s||a.x.p-b.x.p).filter((r,_,A)=>r.s===A[0].s).slice(0,4).map(r=>r.x)}
+function showCat(t){const r=findCat(t);if(!r.length)return false;
+ bot('Esto es lo que tenemos:\n'+r.map(x=>`• ${x.n} · ${x.p?eur(x.p):'consultar'}${x.d?` (-${x.d}%)`:''}`).join('\n'),[['Apartar el primero',()=>askName(n=>{addLog('Productos apartados','k5',n,`${r[0].n} · ${code('AP')}`,'Ibón');bot(`Apartado a nombre de ${n} durante 48 h. ¡Te esperamos!`,QR0())})],['Verlo en el catálogo',()=>{C.q=t.replace(/[¿?¡!]/g,'').trim();C.g='all';$('#cq').value=C.q;C.n=24;cRender();closeChat();location.hash='catalogo'}],['Otra cosa',()=>bot('Dime.',QR0())]]);return true}
+
+/* ---------- temporada ---------- */
+function setSeason(s){season=s;document.body.dataset.s=s;try{localStorage.setItem('cs-season',s)}catch(e){}
+ $$('.sb').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===s));$('#hint').textContent=s==='w'?'Dibuja una línea con el dedo y suelta: el rider la baja':'Dibuja una rampa con el dedo y suelta: el skater la baja';
+ renderFinder();renderParte();renderServices();renderDays();updCountdown();C.g=s==='w'?'tablas':'skate';C.n=24;cRender()}
+$$('.sb').forEach(b=>b.onclick=()=>{setSeason(b.dataset.v);trick(b.dataset.v==='w'?'¡Modo invierno!':'¡Modo verano!')});
+$('#burger').onclick=()=>{const o=$('#links').classList.toggle('open');$('#burger').setAttribute('aria-expanded',o)};
+$$('#links a').forEach(a=>a.onclick=()=>$('#links').classList.remove('open'));
+setSeason(season);showBest();
+}
+</script>
+</body>
+</html>
