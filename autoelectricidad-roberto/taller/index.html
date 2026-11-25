@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="20261125142049">
+<meta name="app-version" content="20261125203716">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Taller Roberto</title>
 <meta name="robots" content="noindex, nofollow">
@@ -85,6 +85,8 @@ section.s{padding:76px 0 0}
 .ic-b{width:44px;height:44px;border-radius:12px;background:rgba(245,184,46,.12);color:var(--y);display:grid;place-items:center;margin-bottom:16px}
 .svc h3{font-size:17px;margin-bottom:6px}
 .svc p{color:var(--mu);font-size:14px}
+.presu-band{margin-top:26px;border:1px solid #3a3320;border-radius:20px;padding:24px 26px;display:flex;gap:20px;align-items:center;justify-content:space-between;background:linear-gradient(120deg,#1d1a10,#131416 70%)}.presu-band h3{font-size:20px;margin:0 0 6px}.presu-band p{color:var(--mu);margin:0;max-width:56ch}@media(max-width:700px){.presu-band{flex-direction:column;align-items:stretch}}
+.bkc{align-self:stretch;background:var(--bg);border:1px solid var(--ln);border-radius:14px;padding:14px;display:grid;gap:8px}.bkc .lab{font-size:12.5px;color:var(--mu);font-weight:600;margin-top:4px}.bkc input,.bkc textarea{width:100%;font:inherit;font-size:15.5px;background:var(--p1);color:var(--tx);border:1px solid var(--ln);border-radius:10px;padding:10px 11px}.bkc .err{color:#ff7b72;font-size:13.5px;margin:0}.bkc label{display:flex;gap:9px;font-size:13.5px;color:var(--mu);align-items:flex-start}
 .camper{margin-top:14px;border-radius:22px;border:1px solid #3a3320;background:linear-gradient(120deg,#1d1a10,#131416 60%);padding:34px;display:grid;grid-template-columns:1.1fr 1fr;gap:26px;align-items:center}
 .camper h3{font-size:44px;margin:12px 0 10px}
 .camper p{color:#b4bac2}
@@ -330,9 +332,9 @@ body.in-app .as-btn,body.as-open .as-btn{display:none}
 /* ====== CONFIGURACIÓN DEL TALLER (cambiar por los datos reales) ====== */
 const CONFIG={
   nombre:'Autoelectricidad Roberto',
-  telefono:'600 000 000',            // teléfono del taller
-  whatsapp:'34600000000',            // WhatsApp del taller con prefijo 34
-  direccion:'Dirección del taller',
+  telefono:'945 27 87 59',           // teléfono del taller
+  whatsapp:'',                       // WhatsApp del taller con prefijo 34 (vacío = no se muestra)
+  direccion:'Eibar Kalea 10, 01013 Vitoria-Gasteiz',
   horarioTexto:['Lunes a viernes','9:00 – 13:30 y 15:30 – 19:00'],
   horas:['09:00','10:00','11:00','12:00','15:30','16:30','17:30'], // huecos de cita
   diasLaborables:[1,2,3,4,5],        // 1=lunes … 5=viernes
@@ -403,7 +405,7 @@ const P={
 const LOGO=`<span class="logo-ic">${sv(P.bolt,20)}</span>`;
 
 /* ====== datos ====== */
-const S={citas:[],trabajos:[],equipo:[]};
+const S={citas:[],trabajos:[],equipo:[],presupuestos:[]};
 let MODE='local',DB=null,READY=false;
 const LSKEY='aer_demo_v1',USERKEY='aer_user';
 
@@ -420,12 +422,14 @@ function seedData(){
    {id:'t_demo5',titulo:'Luces de cruce no encienden',vehiculo:'Peugeot 308 2016',matricula:'7788 GBN',cliente:'Javi',telefono:'644555666',asignado:'w_luis',estado:'hecho',urgente:false,fecha:t,notas:[],creado:now,hechoEn:now}],
   citas:[
    {id:'c_demo1',nombre:'Marta López',telefono:'655666777',vehiculo:'Citroën Berlingo 2020',matricula:'4321 LMN',servicio:'No arranca / batería',descripcion:'Por las mañanas le cuesta arrancar y a veces no arranca.',fecha:d1,hora:'09:00',estado:'pendiente',creada:now},
-   {id:'c_demo2',nombre:'Gorka',telefono:'666777888',vehiculo:'Toyota Auris 2014',matricula:'1122 FFH',servicio:'Climatización / aire',descripcion:'El aire no enfría.',fecha:d2,hora:'16:30',estado:'pendiente',creada:now}]
+   {id:'c_demo2',nombre:'Gorka',telefono:'666777888',vehiculo:'Toyota Auris 2014',matricula:'1122 FFH',servicio:'Climatización / aire',descripcion:'El aire no enfría.',fecha:d2,hora:'16:30',estado:'pendiente',creada:now}],
+  presupuestos:[
+   {id:'p_demo1',nombre:'Iker',telefono:'677888999',vehiculo:'Fiat Ducato 2018 (sin instalación)',km:'',matricula:'',servicio:'Furgoneta / camper',resumen:'Instalación nueva en camper. Quiere placa solar, batería de litio e inversor 230 V para la nevera. La furgo no lleva nada montado.',conversacion:[{role:'user',content:'Furgoneta / camper'},{role:'assistant',content:'¿Es una instalación nueva o hay que reparar algo que falla?'},{role:'user',content:'Instalación nueva'},{role:'assistant',content:'¿Qué quieres tener o qué falla?'},{role:'user',content:'Todo el kit'},{role:'assistant',content:'¿Qué furgo es y qué lleva montado ahora?'},{role:'user',content:'Fiat Ducato 2018, sin nada'}],estado:'nuevo',creada:now}]
  };
 }
 function loadLocal(){let d=null;try{d=JSON.parse(localStorage.getItem(LSKEY))}catch(e){}
  if(!d||!Array.isArray(d.equipo)){d=seedData();try{localStorage.setItem(LSKEY,JSON.stringify(d))}catch(e){}}
- S.citas=d.citas||[];S.trabajos=d.trabajos||[];S.equipo=d.equipo||[]}
+ S.citas=d.citas||[];S.trabajos=d.trabajos||[];S.equipo=d.equipo||[];S.presupuestos=d.presupuestos||[]}
 function saveLocal(){try{localStorage.setItem(LSKEY,JSON.stringify(S))}catch(e){}}
 
 async function writeDoc(col,id,data,merge){
@@ -462,7 +466,7 @@ async function loadHuecos(){
  HUECOS={};(data||[]).forEach(r=>HUECOS[r.fecha+'|'+r.hora]=r.n);onData();
 }
 async function sbLoadAll(){
- const tabs=['citas','trabajos','equipo'];
+ const tabs=['citas','trabajos','equipo','presupuestos'];
  const rs=await Promise.all(tabs.map(t=>SB.from('aer_'+t).select('id,data')));
  rs.forEach((r,i)=>{if(!r.error)S[tabs[i]]=(r.data||[]).map(x=>({...x.data,id:x.id}))});
 }
@@ -472,7 +476,7 @@ async function sbStart(){
  await sbLoadAll();
  if(!CHAN){
   CHAN=SB.channel('aer-taller');
-  ['citas','trabajos','equipo'].forEach(t=>CHAN.on('postgres_changes',{event:'*',schema:'public',table:'aer_'+t},p=>{
+  ['citas','trabajos','equipo','presupuestos'].forEach(t=>CHAN.on('postgres_changes',{event:'*',schema:'public',table:'aer_'+t},p=>{
    if(p.eventType==='DELETE'){S[t]=S[t].filter(x=>x.id!==(p.old&&p.old.id))}
    else if(p.new&&p.new.id){const row={...p.new.data,id:p.new.id},i=S[t].findIndex(x=>x.id===row.id);if(i>=0)S[t][i]=row;else S[t].push(row)}
    onData();
@@ -563,7 +567,7 @@ function webHTML(){
  <div class="s-h"><h2 class="bb">Lo que <em>arreglamos</em></h2><p>Todo lo que lleva corriente en tu vehículo. Si no sabes qué le pasa, empezamos por la diagnosis.</p></div>
  <div class="grid3">${svc.map(s=>`<div class="svc"><div class="ic-b">${sv(s[0],22)}</div><h3>${s[1]}</h3><p>${s[2]}</p></div>`).join('')}</div>
  <div class="camper">
-  <div><div class="kicker"><i></i>Furgonetas y campers</div><h3 class="bb">Tu furgo, con <em style="font-style:normal;color:var(--y)">energía de verdad</em></h3><p>Montamos y reparamos la instalación eléctrica de furgonetas de trabajo y campers, para que tengas luz, nevera y enchufes sin quedarte tirado.</p><div style="margin-top:20px"><a class="btn y" href="#reservar" data-serv-pre="Furgoneta / camper">Pedir presupuesto</a></div></div>
+  <div><div class="kicker"><i></i>Furgonetas y campers</div><h3 class="bb">Tu furgo, con <em style="font-style:normal;color:var(--y)">energía de verdad</em></h3><p>Montamos y reparamos la instalación eléctrica de furgonetas de trabajo y campers, para que tengas luz, nevera y enchufes sin quedarte tirado.</p><div style="margin-top:20px"><button class="btn y" data-presu="Furgoneta / camper">Pedir presupuesto</button></div></div>
   <ul>${['Placas solares y reguladores','Baterías auxiliares y de litio','Cargadores e inversores 230 V','Iluminación, tomas USB y nevera','Revisión de instalaciones que fallan'].map(x=>`<li>${sv(P.check,18)}${x}</li>`).join('')}</ul>
  </div>
 </div></section>
@@ -575,6 +579,7 @@ function webHTML(){
   <div class="step"><div class="n">02</div><h3>Te lo explicamos</h3><p>Te contamos qué tiene y cuánto cuesta antes de tocar nada. Tú decides.</p></div>
   <div class="step"><div class="n">03</div><h3>Reparamos y te avisamos</h3><p>Lo arreglamos y te escribimos cuando esté listo. Puedes seguir el estado desde esta web.</p></div>
  </div>
+ <div class="presu-band"><div><h3>¿Quieres saber cuánto te va a costar?</h3><p>Responde 3 o 4 preguntas rápidas sobre tu vehículo y Roberto te llama con el presupuesto. Sin compromiso.</p></div><button class="btn y" data-presu="">Pedir presupuesto</button></div>
 </div></section>
 
 <section class="s" id="reservar"><div class="wrap"><div class="book">
@@ -612,11 +617,11 @@ function webHTML(){
 
 <footer class="foot" id="contacto"><div class="wrap">
  <div><a class="logo" href="#inicio">${LOGO}<div><b>AUTOELECTRICIDAD ROBERTO</b></div></a><p style="margin-top:14px;max-width:320px">Electricidad y electrónica del automóvil. Coches, furgonetas y campers.</p></div>
- <div><h4>Contacto</h4><p>${sv(P.phone,14)} <a href="tel:${digits(CONFIG.telefono)}">${esc(CONFIG.telefono)}</a></p><p>${sv(P.msg,14)} <a href="https://wa.me/${CONFIG.whatsapp}" target="_blank" rel="noopener">WhatsApp</a></p><p>${sv(P.pin,14)} ${esc(CONFIG.direccion)}</p></div>
+ <div><h4>Contacto</h4><p>${sv(P.phone,14)} <a href="tel:${digits(CONFIG.telefono)}">${esc(CONFIG.telefono)}</a></p>${CONFIG.whatsapp?`<p>${sv(P.msg,14)} <a href="https://wa.me/${CONFIG.whatsapp}" target="_blank" rel="noopener">WhatsApp</a></p>`:''}<p>${sv(P.pin,14)} <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CONFIG.nombre+', '+CONFIG.direccion)}" target="_blank" rel="noopener">${esc(CONFIG.direccion)}</a></p></div>
  <div><h4>Horario</h4>${CONFIG.horarioTexto.map(h=>`<p>${esc(h)}</p>`).join('')}<p style="margin-top:14px"><a href="${URL_TALLER}">Acceso taller →</a></p></div>
 </div></footer>
 <button class="as-btn" id="as-open" type="button"><i>${sv(P.bolt,16)}</i>¿Qué le pasa a tu coche?</button>
-<a class="wa-float" href="https://wa.me/${CONFIG.whatsapp}" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">${sv(P.msg,26)}</a>`;
+${CONFIG.whatsapp?`<a class="wa-float" href="https://wa.me/${CONFIG.whatsapp}" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">${sv(P.msg,26)}</a>`:''}`;
 }
 
 function slotCount(day,h){if(MODE==='sb')return HUECOS[day+'|'+h]||0;return S.citas.filter(c=>c.fecha===day&&c.hora===h&&c.estado!=='rechazada').length}
@@ -720,7 +725,7 @@ function bindWeb(){
 }
 
 /* ====================== APP TALLER ====================== */
-const TABS=[{id:'mis',label:'Mis trabajos',ic:P.list},{id:'libres',label:'Libres',ic:P.wrench},{id:'taller',label:'Taller',ic:P.grid},{id:'citas',label:'Citas web',ic:P.cal},{id:'equipo',label:'Equipo',ic:P.team}];
+const TABS=[{id:'mis',label:'Mis trabajos',ic:P.list},{id:'libres',label:'Libres',ic:P.wrench},{id:'taller',label:'Taller',ic:P.grid},{id:'citas',label:'Citas web',ic:P.cal},{id:'presu',label:'Presupuestos',ic:P.msg},{id:'equipo',label:'Equipo',ic:P.team}];
 let TAB=lsGet('aer_tab')||'mis';if(!TABS.some(t=>t.id===TAB))TAB='mis';
 let ME_ID=lsGet(USERKEY),MODAL=null,DEL_ARM=null,RM_ARM=null;
 const EST={por_hacer:'Por hacer',en_curso:'En curso',hecho:'Hecho'};
@@ -789,7 +794,27 @@ function viewEquipo(){
   ${jefe&&w.id!==me.id?`<button class="btn danger sm" data-act="rm-worker" data-id="${w.id}">${RM_ARM===w.id?'¿Seguro? Pulsa otra vez':'Quitar'}</button>`:''}</div>`}).join('')}</div>
  ${jefe?`<form class="add-w" id="f-addw"><input class="inp" name="n" placeholder="Nombre del nuevo técnico" required><button class="btn y">${sv(P.plus,14)} Añadir</button></form><p class="hint" style="margin-top:8px">Al quitar a alguien, sus trabajos abiertos pasan a “Libres”.</p>`:''}`;
 }
-const VIEWS={mis:viewMis,libres:viewLibres,taller:viewTaller,citas:viewCitas,equipo:viewEquipo};
+function presuCard(p){
+ const tel=digits(p.telefono),wa=`Hola ${(p.nombre||'').split(' ')[0]}, te escribimos de ${CONFIG.nombre} por el presupuesto que pediste${p.vehiculo?' para tu '+p.vehiculo:''}.`;
+ const ec={nuevo:['Nuevo','var(--y)'],llamado:['Llamado','#5b9bff'],convertido:['Pasado a trabajo','var(--g)'],descartado:['Descartado','var(--mu)']}[p.estado]||['',''];
+ return `<div class="cita"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><div><b style="font-size:16px">${esc(p.nombre)}</b><div class="job-meta" style="margin-top:4px">${p.vehiculo?`<span>${sv(P.car,14)} ${esc(p.vehiculo)}</span>`:''}${p.matricula?plate(p.matricula):''}${p.km?`<span>${esc(p.km)} km</span>`:''}</div></div><span style="font-size:12px;font-weight:700;color:${ec[1]};white-space:nowrap">${ec[0]}</span></div>
+ ${p.servicio&&p.servicio!=='Otro'?`<div class="job-meta" style="margin-top:0"><span class="st-pill por_hacer">${esc(p.servicio)}</span></div>`:''}
+ <p style="color:var(--tx);font-size:14.5px;line-height:1.5">${esc(p.resumen)}</p>
+ ${(p.conversacion||[]).length?`<details><summary style="cursor:pointer;color:var(--mu);font-size:13px">Ver conversación con el asistente</summary><div style="display:grid;gap:6px;margin-top:8px">${p.conversacion.map(m=>`<div style="font-size:13px;padding:7px 10px;border-radius:10px;background:${m.role==='user'?'var(--p2)':'transparent'};border:1px solid var(--ln)"><b style="color:var(--mu);font-size:11.5px">${m.role==='user'?'Cliente':'Asistente'}</b><br>${esc(m.content)}</div>`).join('')}</div></details>`:''}
+ <div class="job-meta" style="margin-top:0"><span>${sv(P.phone,14)} ${esc(p.telefono)}</span><span>${sv(P.cal,14)} ${p.creada?fmtFecha(ymd(new Date(p.creada)))+' '+hm(p.creada):''}</span></div>
+ <div class="job-acts" style="flex-wrap:wrap">${tel?`<a class="btn y sm" href="tel:${tel}">${sv(P.phone,14)} Llamar</a><a class="btn sm" href="https://wa.me/${waNum(tel)}?text=${encodeURIComponent(wa)}" target="_blank" rel="noopener">WhatsApp</a>`:''}
+ ${p.estado==='nuevo'?`<button class="btn sm" data-act="presu-est" data-id="${p.id}" data-v="llamado">Ya le he llamado</button>`:''}
+ ${p.estado==='nuevo'||p.estado==='llamado'?`<button class="btn g sm" data-act="presu-trabajo" data-id="${p.id}">Pasar a trabajo</button><button class="btn sm" data-act="presu-est" data-id="${p.id}" data-v="descartado">Descartar</button>`:`<button class="btn sm" data-act="presu-est" data-id="${p.id}" data-v="llamado">Reabrir</button>`}</div></div>`;
+}
+function viewPresu(){
+ const ord=a=>a.slice().sort((x,y)=>(y.creada||'').localeCompare(x.creada||''));
+ const nu=ord(S.presupuestos.filter(p=>p.estado==='nuevo')),ll=ord(S.presupuestos.filter(p=>p.estado==='llamado')),ce=ord(S.presupuestos.filter(p=>p.estado==='convertido'||p.estado==='descartado')).slice(0,10);
+ return `<div class="v-h"><div><h1>Presupuestos</h1><p>Clientes que han pedido presupuesto en la web. El asistente ya les ha hecho las preguntas: llámales sabiendo qué tienen.</p></div></div>
+ <div class="sec-t">Nuevos <i>${nu.length}</i></div>${nu.length?`<div class="list cols">${nu.map(presuCard).join('')}</div>`:`<div class="empty">No hay presupuestos nuevos.</div>`}
+ ${ll.length?`<div class="sec-t">Llamados, pendientes de decidir <i>${ll.length}</i></div><div class="list cols">${ll.map(presuCard).join('')}</div>`:''}
+ ${ce.length?`<div class="sec-t">Últimos cerrados</div><div class="list cols">${ce.map(presuCard).join('')}</div>`:''}`;
+}
+const VIEWS={mis:viewMis,libres:viewLibres,taller:viewTaller,citas:viewCitas,presu:viewPresu,equipo:viewEquipo};
 
 function loginHTML(){
  return `<div class="login"><div class="login-box"><span class="logo-ic" style="width:58px;height:58px;border-radius:15px;margin:0 auto">${sv(P.bolt,30)}</span>
@@ -815,7 +840,7 @@ function renderApp(){
  if(!me){root.innerHTML=loginHTML();return}
  const pend=S.citas.filter(c=>c.estado==='pendiente').length;
  root.innerHTML=`<header class="app-h"><div class="app-brand">${LOGO}<div><b>ROBERTO · TALLER</b><small>Autoelectricidad</small></div></div>
- <nav class="tabs">${TABS.map(t=>`<button class="tab ${TAB===t.id?'on':''}" data-tab="${t.id}">${sv(t.ic,18)}<span>${t.label}</span>${t.id==='citas'&&pend?`<i class="badge">${pend}</i>`:''}</button>`).join('')}</nav>
+ <nav class="tabs">${TABS.map(t=>`<button class="tab ${TAB===t.id?'on':''}" data-tab="${t.id}">${sv(t.ic,18)}<span>${t.label}</span>${({citas:pend,presu:S.presupuestos.filter(x=>x.estado==='nuevo').length})[t.id]?`<i class="badge">${({citas:pend,presu:S.presupuestos.filter(x=>x.estado==='nuevo').length})[t.id]}</i>`:''}</button>`).join('')}</nav>
  <div class="app-h-r"><a class="lnk" href="${URL_WEB}">Ver web</a><button class="me" style="--c:${me.color}" data-act="cuenta" aria-label="Cuenta">${initial(me)}</button></div></header>
  <main class="app-main">${VIEWS[TAB]()}</main>
  ${MODE==='local'?'<div class="demo-note">Modo demo · los datos se guardan en este navegador</div>':''}`;
@@ -914,6 +939,10 @@ async function act(k,ds){
    DEL_ARM=null;closeModal();await removeDoc('trabajos',t.id);toast('Trabajo eliminado');break;
   case 'cita':openModal({kind:'cita',id:ds.id});break;
   case 'cita-rech':closeModal();await patch('citas',ds.id,{estado:'rechazada'});toast('Cita rechazada');break;
+  case 'presu-est':await patch('presupuestos',ds.id,{estado:ds.v});toast('Guardado');break;
+  case 'presu-trabajo':{const p=S.presupuestos.find(x=>x.id===ds.id);if(!p)return;const now=new Date().toISOString();
+   await writeDoc('trabajos',uid('t'),{titulo:p.servicio&&p.servicio!=='Otro'?p.servicio:'Presupuesto web',vehiculo:p.vehiculo||'',matricula:p.matricula||'',cliente:p.nombre,telefono:p.telefono,asignado:'',estado:'por_hacer',urgente:false,fecha:today(),origen:'presupuesto',notas:[{autor:p.nombre+' (presupuesto web)',texto:p.resumen+(p.km?'\n'+p.km+' km':''),ts:p.creada||now}],creado:now});
+   await patch('presupuestos',p.id,{estado:'convertido'});toast('Trabajo creado');break}
   case 'cuenta':openModal({kind:'cuenta'});break;
   case 'logout':ME_ID=null;lsSet(USERKEY,null);closeModal();renderApp();break;
   case 'sb-out':ME_ID=null;lsSet(USERKEY,null);closeModal();await SB.auth.signOut();renderApp();break;
@@ -979,47 +1008,100 @@ document.addEventListener('submit',async e=>{
 
 
 /* ====================== ASISTENTE ====================== */
-const AS={open:false,msgs:[],busy:false};
-const AS_CHIPS=['Mi coche no arranca','Se enciende un testigo','¿Instaláis placas en campers?','El aire no enfría','¿Cuánto cuesta?'];
+const AS={open:false,msgs:[],busy:false,mode:'chat',presu:null,sent:false};
+const AS_CHIPS=['Mi coche no arranca','Se enciende un testigo','¿Instaláis placas en campers?','El aire no enfría','Quiero un presupuesto'];
 function asReglas(t){
  const n=t.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase(),h=ks=>ks.some(k=>n.includes(k));
  if(h(['humo','quemado','chispa']))return{reply:`Si hay humo, chispas u olor a quemado, para el vehículo, quita el contacto y no lo uses hasta revisarlo. Llámanos al ${CONFIG.telefono}.`,servicio:'Diagnosis / testigo encendido'};
- if(h(['precio','cuesta','cuanto','presupuesto']))return{reply:'Depende de lo que tenga: primero lo diagnosticamos y te damos el presupuesto antes de tocar nada.',servicio:null};
- if(h(['no arranca','bateria']))return{reply:'Suele ser la batería, un consumo que la descarga o el motor de arranque. Tráelo y lo comprobamos.',servicio:'No arranca / batería'};
- if(h(['alternador','no carga']))return{reply:'Si se enciende el testigo de batería o no carga, lo normal es revisar el alternador y la correa.',servicio:'Alternador / no carga'};
- if(h(['aire','clima','enfria']))return{reply:'Revisamos el aire acondicionado: carga de gas, fugas y fallos eléctricos.',servicio:'Climatización / aire'};
- if(h(['luz','luces','faro','piloto']))return{reply:'Arreglamos faros, pilotos y cableados de iluminación.',servicio:'Luces / iluminación'};
- if(h(['camper','furgo','placa','solar','litio']))return{reply:'Montamos la instalación eléctrica de furgonetas y campers: placas solares, baterías auxiliares y de litio, inversores y más.',servicio:'Furgoneta / camper'};
- if(h(['testigo','centralita','fallo','averia']))return{reply:'Hacemos diagnosis electrónica con equipos actualizados para encontrar el origen del fallo.',servicio:'Diagnosis / testigo encendido'};
- return{reply:'Somos especialistas en electricidad del automóvil: diagnosis, baterías, alternadores, arranques, climatización, luces y campers. Cuéntame qué le pasa.',servicio:null};
+ if(h(['precio','cuesta','cuanto','presupuesto']))return{reply:'Te preparo la solicitud de presupuesto aquí mismo y Roberto te llama con el precio.',servicio:null,presupuesto:true};
+ if(h(['no arranca','bateria']))return{reply:'Suele ser la batería, un consumo que la descarga o el motor de arranque. Lo comprobamos.',servicio:'No arranca / batería',presupuesto:true};
+ if(h(['alternador','no carga']))return{reply:'Si sale el testigo de batería o se descarga conduciendo, lo normal es revisar alternador y correa.',servicio:'Alternador / no carga',presupuesto:true};
+ if(h(['aire','clima','enfria']))return{reply:'Revisamos el aire: carga de gas, fugas y la parte eléctrica.',servicio:'Climatización / aire',presupuesto:true};
+ if(h(['luz','luces','faro','piloto']))return{reply:'Arreglamos faros, pilotos y cableados, y hacemos adaptaciones.',servicio:'Luces / iluminación',presupuesto:true};
+ if(h(['camper','furgo','placa','solar','litio']))return{reply:'Montamos y reparamos la instalación de furgos y campers: placas, baterías de litio, inversores y más.',servicio:'Furgoneta / camper',presupuesto:true};
+ if(h(['testigo','centralita','fallo','averia']))return{reply:'Lo conectamos a la máquina y buscamos el origen del fallo, no solo el código.',servicio:'Diagnosis / testigo encendido',presupuesto:true};
+ return{reply:'Somos especialistas en electricidad del automóvil: diagnosis, baterías, alternadores, arranques, climatización, luces y campers. Cuéntame qué le pasa.',servicio:null,presupuesto:true};
 }
+const PR_FLOW={
+ 'No arranca / batería':[['¿Qué hace al girar la llave o pulsar el botón?',['No hace nada','Hace clic','Gira lento','Gira pero no arranca']],['¿Cuándo le pasa?',['Siempre','En frío / por las mañanas','Tras unos días parado','Ahora está parado']],['¿Sabes cuántos años tiene la batería? ¿Lleva Start&Stop?',['Menos de 2 años','Más de 4 años','No lo sé','Lleva Start&Stop']]],
+ 'Alternador / no carga':[['¿Qué notas?',['Sale el testigo de batería','Se descarga conduciendo','Las luces bajan','Ruido en la correa']]],
+ 'Diagnosis / testigo encendido':[['¿Qué testigo se ha encendido?',['Motor','Airbag','ABS / ESP','Precalentamiento','Otro']],['¿Está fijo o parpadea? ¿Notas algo al conducir?',['Fijo, va normal','Va a tirones','Pierde fuerza / modo emergencia','Aparece y desaparece']]],
+ 'Motor de arranque':[['¿Qué hace al arrancar?',['Clic y nada','Gira lento','Ruido metálico','A veces sí, a veces no']]],
+ 'Climatización / aire':[['¿Qué le pasa al aire?',['No enfría nada','Enfría poco','No sopla','Huele o hace ruido']],['¿Sabes cuándo se cargó el gas por última vez?',['Este año','Hace más de 2 años','Nunca','No lo sé']]],
+ 'Luces / iluminación':[['¿Qué luz falla o qué quieres montar?',['Cruce / largas','Pilotos traseros','Intermitentes','Interiores','Adaptación (LED, enganche…)']],['¿De qué lado, y ya habéis probado a cambiar la bombilla?',['Un lado, ya cambiada','Un lado, sin cambiar','Las dos','Es una instalación nueva']]],
+ 'Furgoneta / camper':[['¿Es una instalación nueva o hay que reparar algo que falla?',['Instalación nueva','Ampliar lo que tengo','Reparar algo que falla']],['¿Qué quieres tener o qué falla?',['Placa solar','Batería de litio','Inversor 230 V','Nevera','Todo el kit']]],
+ 'Otro':[['Cuéntame con detalle qué le pasa o qué quieres hacerle.',[]]]};
+function asLocalPresu(){
+ const us=AS.msgs.filter(x=>x.role==='user').map(x=>x.content),first=us[0]||'';
+ const tipo=SERVICIOS.includes(first)?first:(asReglas(first).servicio||'Otro');
+ const camper=tipo==='Furgoneta / camper';
+ let F0=(PR_FLOW[tipo]||PR_FLOW.Otro);if(camper&&/repar/i.test(us[1]||''))F0=[F0[0],['¿Qué es lo que falla?',['No carga la batería auxiliar','La placa no carga','El inversor no va','Se queda sin luz']]];
+ const F=F0.concat(camper?[['¿Qué furgo es y qué lleva montado ahora?',[]]]:[['¿Qué vehículo es? Marca, modelo y año.',[]],['¿Cuántos kilómetros tiene, más o menos?',[]]]);
+ const i=us.length-1;if(i<F.length)return{reply:F[i][0],opciones:F[i][1]};
+ return{reply:'Perfecto, ya lo tengo. Revisa el resumen y déjanos tu nombre y móvil para que Roberto te llame.',listo:true,servicio:tipo,resumen:us.join('. '),vehiculo:camper?us[us.length-1]:(us[us.length-2]||''),km:camper?'':(us[us.length-1]||'')};
+}
+function asStart(mode,first){AS.mode=mode;AS.msgs=[];AS.presu=null;AS.sent=false;AS.open=true;asRender();if(first)asSend(first)}
 function asRender(){
  let el=$('#as');
  if(!AS.open){if(el)el.remove();document.body.classList.remove('as-open');return}
  document.body.classList.add('as-open');
  if(!el){el=document.createElement('div');el.id='as';el.className='as';el.setAttribute('role','dialog');el.setAttribute('aria-label','Asistente del taller');document.body.appendChild(el);
-  el.innerHTML=`<div class="as-h"><span class="logo-ic">${sv(P.bolt,18)}</span><div style="flex:1"><b>Asistente de Roberto</b><small>● Responde al momento</small></div><button class="x" id="as-x" aria-label="Cerrar">${sv(P.x,16)}</button></div><div class="as-m" id="as-m"></div><div class="as-chips" id="as-chips"></div><form class="as-f" id="as-f"><input id="as-in" placeholder="Cuéntame qué le pasa…" autocomplete="off" maxlength="500"><button id="as-send" aria-label="Enviar">${sv(P.arrow,18)}</button></form>`;}
- const m=$('#as-m');
- m.innerHTML=`<div class="bub bot">¡Hola! Soy el asistente de ${esc(CONFIG.nombre)}. Cuéntame qué le pasa a tu coche, furgo o camper y te digo si te podemos ayudar.</div>`+
-  AS.msgs.map(x=>x.role==='user'?`<div class="bub usr">${esc(x.content)}</div>`:`<div class="bub bot">${esc(x.content)}</div>${x.servicio?`<div class="as-cta"><button class="btn y sm" data-as-cita="${esc(x.servicio)}">${sv(P.cal,15)} Pedir cita: ${esc(x.servicio)}</button></div>`:''}`).join('')+
-  (AS.busy?'<div class="bub bot typ">Escribiendo…</div>':'');
- m.scrollTop=m.scrollHeight;
- $('#as-chips').innerHTML=AS.msgs.length?'':AS_CHIPS.map(c=>`<button class="chipb" data-as-chip="${esc(c)}">${esc(c)}</button>`).join('');
- $('#as-send').disabled=AS.busy;
+  el.innerHTML=`<div class="as-h"><span class="logo-ic">${sv(P.bolt,18)}</span><div style="flex:1"><b id="as-t">Asistente de Roberto</b><small>● Responde al momento</small></div><button class="x" id="as-x" aria-label="Cerrar">${sv(P.x,16)}</button></div><div class="as-m" id="as-m"></div><div class="as-chips" id="as-chips"></div><form class="as-f" id="as-f"><input id="as-in" placeholder="Cuéntame qué le pasa…" autocomplete="off" maxlength="500"><button id="as-send" aria-label="Enviar">${sv(P.arrow,18)}</button></form>`;}
+ const pr=AS.mode==='presu',m=$('#as-m'),last=AS.msgs.length-1;
+ $('#as-t').textContent=pr?'Pedir presupuesto':'Asistente de Roberto';
+ let h=pr?`<div class="bub bot">Te preparo el presupuesto. Te hago unas preguntas rápidas para que Roberto sepa qué le pasa a tu vehículo y te llamamos con el precio. ¿Qué le pasa o qué quieres hacerle?</div>`
+  :`<div class="bub bot">¡Hola! Soy el asistente de ${esc(CONFIG.nombre)}. Cuéntame qué le pasa a tu coche, furgo o camper y te digo si te podemos ayudar.</div>`;
+ h+=AS.msgs.map((x,i)=>{if(x.role==='user')return `<div class="bub usr">${esc(x.content)}</div>`;
+  const ctas=(!pr&&i===last)?[x.servicio?`<button class="btn y sm" data-as-cita="${esc(x.servicio)}">${sv(P.cal,15)} Pedir cita</button>`:'',x.presupuesto?`<button class="btn sm" data-presu="${esc(x.servicio||'')}">Pedir presupuesto</button>`:''].join(''):'';
+  return `<div class="bub bot">${esc(x.content)}</div>${ctas?`<div class="as-cta">${ctas}</div>`:''}`}).join('');
+ if(AS.busy)h+='<div class="bub bot typ">Escribiendo…</div>';
+ if(AS.presu){const Q=AS.presu;
+  h+=Q.ok2?`<div class="bkc"><b>Solicitud enviada</b><p style="margin:0;color:var(--mu)">Roberto ya la tiene en el taller y te llamará al ${esc(Q.telefono)} con el presupuesto.</p></div>`
+  :`<div class="bkc"><b>Esto es lo que le pasamos al taller</b><span class="lab">Resumen (puedes corregirlo)</span><textarea data-asp="resumen" rows="4">${esc(Q.resumen||'')}</textarea>
+  <span class="lab">Tu vehículo</span><input data-asp="vehiculo" placeholder="Marca, modelo y año" value="${esc(Q.vehiculo||'')}"><input data-asp="km" placeholder="Kilómetros aproximados" inputmode="numeric" value="${esc(Q.km||'')}"><input data-asp="matricula" placeholder="Matrícula (opcional)" style="text-transform:uppercase" value="${esc(Q.matricula||'')}">
+  <span class="lab">¿A quién llamamos?</span><input data-asp="nombre" placeholder="Nombre" autocomplete="name" value="${esc(Q.nombre||'')}"><input data-asp="telefono" placeholder="Móvil" type="tel" inputmode="tel" autocomplete="tel" value="${esc(Q.telefono||'')}">
+  <label><input type="checkbox" data-asp="ok" ${Q.ok?'checked':''} style="width:17px;height:17px;flex:none;margin-top:2px;accent-color:var(--y)"> Acepto que el taller use mis datos para llamarme por este presupuesto.</label>
+  <button class="btn y" style="width:100%" data-aspsend ${Q.sending?'disabled':''}>${Q.sending?'Enviando…':'Enviar y que me llamen'}</button><p class="err">${esc(Q.err||'')}</p></div>`}
+ m.innerHTML=h;if(!AS.keep)m.scrollTop=m.scrollHeight;AS.keep=false;
+ const lm=AS.msgs[last],qo=(pr&&!AS.busy&&!AS.presu&&lm&&lm.role==='assistant'&&lm.opciones)||[];
+ $('#as-chips').innerHTML=(AS.msgs.length?qo:(pr?SERVICIOS.filter(x=>x!=='Otro'):AS_CHIPS)).map(c=>`<button class="chipb" data-as-chip="${esc(c)}">${esc(c)}</button>`).join('');
+ const lock=pr&&!!AS.presu;$('#as-send').disabled=AS.busy||lock;$('#as-in').disabled=lock;
 }
 async function asSend(t){
  t=String(t||'').trim();if(!t||AS.busy)return;
+ if(AS.mode==='chat'&&!AS.msgs.length&&/presupuesto/i.test(t)){asStart('presu');return}
  AS.msgs.push({role:'user',content:t});AS.busy=true;asRender();
- let r=null;
- if(ON_SITE){try{const res=await fetch(SB_URL+'/functions/v1/aer-asistente',{method:'POST',headers:{'Content-Type':'application/json',apikey:SB_KEY,Authorization:'Bearer '+SB_KEY},body:JSON.stringify({messages:AS.msgs.slice(-8).map(x=>({role:x.role,content:x.content}))}),signal:AbortSignal.timeout?AbortSignal.timeout(30000):undefined});if(res.ok)r=await res.json()}catch(e){}}
- if(!r||!r.reply)r=asReglas(t);
- AS.msgs.push({role:'assistant',content:r.reply,servicio:r.servicio||null});AS.busy=false;asRender();
- const i=$('#as-in');if(i&&window.matchMedia('(min-width:561px)').matches)i.focus();
+ const pr=AS.mode==='presu';let r=null;
+ if(ON_SITE){try{const res=await fetch(SB_URL+'/functions/v1/aer-asistente',{method:'POST',headers:{'Content-Type':'application/json',apikey:SB_KEY,Authorization:'Bearer '+SB_KEY},body:JSON.stringify({modo:pr?'presupuesto':'chat',messages:AS.msgs.slice(pr?-16:-8).map(x=>({role:x.role,content:x.content}))}),signal:AbortSignal.timeout?AbortSignal.timeout(30000):undefined});if(res.ok)r=await res.json()}catch(e){}}
+ if(!r||!r.reply)r=pr?asLocalPresu():asReglas(t);
+ AS.msgs.push({role:'assistant',content:r.reply,servicio:r.servicio||null,presupuesto:!!r.presupuesto,opciones:Array.isArray(r.opciones)?r.opciones.slice(0,6):[]});
+ if(pr&&r.listo)AS.presu={resumen:r.resumen||'',vehiculo:r.vehiculo||'',km:r.km||'',servicio:r.servicio||'Otro',matricula:'',nombre:'',telefono:'',ok:false};
+ AS.busy=false;asRender();
+ const i=$('#as-in');if(i&&!i.disabled&&window.matchMedia('(min-width:561px)').matches)i.focus();
 }
+async function asPresuSend(){
+ const Q=AS.presu;if(!Q||Q.sending)return;Q.err='';
+ if(!Q.nombre||!Q.nombre.trim()){Q.err='Pon tu nombre.';return asRender()}
+ if(digits(Q.telefono||'').length<9){Q.err='Pon un móvil válido.';return asRender()}
+ if(!Q.resumen||!Q.resumen.trim()){Q.err='El resumen no puede estar vacío.';return asRender()}
+ if(!Q.ok){Q.err='Marca la casilla para que podamos llamarte.';return asRender()}
+ Q.sending=true;asRender();
+ const p={nombre:Q.nombre.trim(),telefono:Q.telefono.trim(),vehiculo:Q.vehiculo,km:Q.km,matricula:Q.matricula,servicio:Q.servicio,resumen:Q.resumen.trim(),conversacion:AS.msgs.map(x=>({role:x.role,content:x.content}))};
+ try{
+  if(MODE==='sb'){const {error}=await SB.rpc('aer_pedir_presupuesto',{p});if(error)throw new Error(/demasiadas/.test(error.message)?'Ya nos has enviado varias solicitudes. Te llamamos enseguida.':'No se ha podido enviar. Llámanos al '+CONFIG.telefono+'.')}
+  else{S.presupuestos.unshift({...p,matricula:(p.matricula||'').toUpperCase(),id:uid('p'),estado:'nuevo',creada:new Date().toISOString()});saveLocal()}
+  Q.ok2=true;AS.sent=true;
+ }catch(e){Q.err=e.message||'No se ha podido enviar.'}
+ Q.sending=false;asRender();
+}
+document.addEventListener('input',e=>{const f=e.target.closest('[data-asp]');if(!f||!AS.presu)return;AS.presu[f.dataset.asp]=f.type==='checkbox'?f.checked:f.value});
+document.addEventListener('change',e=>{const f=e.target.closest('[data-asp]');if(f&&AS.presu&&f.type==='checkbox'){AS.presu.ok=f.checked}});
 document.addEventListener('click',e=>{
- if(e.target.closest('#as-open')){AS.open=true;asRender();setTimeout(()=>{if(window.matchMedia('(min-width:561px)').matches)$('#as-in')?.focus()},50);return}
+ if(e.target.closest('#as-open')){if(AS.sent)AS.mode='chat';AS.open=true;asRender();setTimeout(()=>{if(window.matchMedia('(min-width:561px)').matches)$('#as-in')?.focus()},50);return}
+ const pz=e.target.closest('[data-presu]');if(pz){e.preventDefault();asStart('presu',pz.dataset.presu||'');return}
+ if(e.target.closest('[data-aspsend]')){asPresuSend();return}
  if(e.target.closest('#as-x')){AS.open=false;asRender();return}
- const ch=e.target.closest('[data-as-chip]');if(ch){asSend(ch.dataset.asChip);return}
+ const ch=e.target.closest('[data-as-chip]');if(ch){if(ch.dataset.asChip==='Quiero un presupuesto'){asStart('presu');return}asSend(ch.dataset.asChip);return}
  const ci=e.target.closest('[data-as-cita]');if(ci){BK.serv=ci.dataset.asCita;renderServ();AS.open=false;asRender();document.getElementById('reservar').scrollIntoView({behavior:'smooth'});toast('Elige día y hora para tu cita');return}
 });
 document.addEventListener('submit',e=>{if(e.target.id==='as-f'){e.preventDefault();const i=$('#as-in');const v=i.value;i.value='';asSend(v)}});
