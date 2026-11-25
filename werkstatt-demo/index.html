@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="app-version" content="20261125213130">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Galerna Autoservice · Kfz-Werkstatt</title>
+<meta name="description" content="Beispiel-Website einer Kfz-Werkstatt: Mechanik, Autoelektrik und Camper-Ausbau. Deutsch, Englisch, Spanisch.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#16263b">
+<link rel="icon" type="image/png" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-title" content="Galerna">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap" rel="stylesheet">
+<style>
+:root{
+ --steel:#e3e6e9;   /* fondo: chapa de acero */
+ --paper:#f6f7f8;   /* superficies claras */
+ --navy:#16263b;    /* azul mono de trabajo */
+ --ink:#0f151c;     /* texto */
+ --mute:#5b6672;    /* texto secundario */
+ --red:#c8281f;     /* aguja / rodillo del cuentakilómetros */
+ --line:#c9ced4;
+ --w-cond:"wdth" 68;--w-norm:"wdth" 100;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--steel);color:var(--ink);font-family:Archivo,"Arial Narrow",Arial,sans-serif;font-size:17px;line-height:1.55;font-variation-settings:var(--w-norm);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.cond{font-variation-settings:var(--w-cond)}
+/* barra */
+.bar{position:sticky;top:0;z-index:20;background:rgba(227,230,233,.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;gap:22px;height:68px}
+.mark{display:flex;align-items:baseline;gap:8px;text-decoration:none;font-variation-settings:var(--w-cond);font-weight:850;font-size:26px;letter-spacing:-.01em;color:var(--navy);line-height:1}
+.mark small{font-weight:500;font-size:15px;color:var(--mute)}
+.bar nav{display:flex;gap:22px;margin-left:auto;font-size:15.5px}
+.bar nav a{text-decoration:none;color:var(--mute)}
+.bar nav a:hover{color:var(--ink)}
+.tel{display:inline-flex;align-items:center;gap:9px;background:var(--navy);color:#fff;text-decoration:none;font-weight:700;padding:11px 16px;border-radius:10px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tel:hover{background:#0d1a2b}
+.tel svg{flex:none}
+@media(max-width:880px){.bar nav{display:none}.bar .tel{margin-left:auto}.mark small{display:none}}
+@media(max-width:420px){.tel .num{display:none}}
+/* hero */
+.hero{padding:56px 0 40px}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:48px;align-items:center}
+.hero h1{font-variation-settings:var(--w-cond);font-weight:850;font-size:clamp(46px,7.4vw,96px);line-height:.9;letter-spacing:-.015em;color:var(--navy)}
+.hero p{font-size:19px;color:#2c3640;max-width:30em;margin-top:22px}
+.open{display:inline-flex;align-items:center;gap:9px;font-weight:600;font-size:15px;margin-top:26px;padding:7px 12px 7px 10px;border-radius:999px;background:var(--paper);border:1px solid var(--line)}
+.open i{width:9px;height:9px;border-radius:50%;background:#9aa3ac}
+.open.si i{background:#1f9d55;box-shadow:0 0 0 4px rgba(31,157,85,.18)}
+.ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:700;font-size:17px;padding:15px 22px;border-radius:12px;text-decoration:none;border:2px solid var(--navy);transition:background .15s,color .15s}
+.btn.pri{background:var(--red);border-color:var(--red);color:#fff}
+.btn.pri:hover{background:#a71f17;border-color:#a71f17}
+.btn.sec{color:var(--navy)}
+.btn.sec:hover{background:var(--navy);color:#fff}
+/* cuentakilómetros */
+.dash{background:radial-gradient(130% 120% at 30% 0%,#22364f 0%,var(--navy) 55%,#0c1726 100%);border-radius:28px;padding:34px 30px 30px;color:#cfd6de;position:relative;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06),0 30px 60px -30px rgba(15,21,28,.55)}
+.dash .ring{position:absolute;inset:14px;border-radius:20px;border:1px solid rgba(255,255,255,.07);pointer-events:none}
+.odo-cap{display:flex;justify-content:space-between;align-items:baseline;font-size:15px;margin-bottom:14px;color:#9fb0c2}
+.odo-cap b{color:#fff;font-weight:600}
+.odo{display:flex;justify-content:center;gap:6px;background:#070b10;border-radius:12px;padding:12px;box-shadow:inset 0 3px 10px rgba(0,0,0,.8),0 1px 0 rgba(255,255,255,.08)}
+.drum{width:clamp(44px,8.4vw,74px);height:clamp(64px,12vw,104px);overflow:hidden;border-radius:6px;background:linear-gradient(#1c232c,#2b333d 18%,#39424d 50%,#2b333d 82%,#1c232c);position:relative}
+.drum:after{content:'';position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.55),transparent 28%,transparent 72%,rgba(0,0,0,.55));pointer-events:none}
+.drum .col{display:flex;flex-direction:column;transition:transform 2.2s cubic-bezier(.17,.84,.25,1)}
+.drum .col span{height:clamp(64px,12vw,104px);display:grid;place-items:center;font-variation-settings:var(--w-cond);font-weight:700;font-size:clamp(46px,8.6vw,78px);color:#eef2f6;font-variant-numeric:tabular-nums;line-height:1}
+.drum.dim .col span{color:#58626e}
+.drum.red{background:linear-gradient(#7a1510,#b8241c 18%,#d4352b 50%,#b8241c 82%,#7a1510)}
+.drum.red .col span{color:#fff}
+.odo-unit{display:flex;justify-content:space-between;align-items:center;margin-top:16px;font-size:15px}
+.odo-unit strong{font-variation-settings:var(--w-cond);font-size:28px;color:#fff;font-weight:800;letter-spacing:.01em}
+.needle{display:flex;gap:4px;align-items:flex-end}
+.needle i{width:6px;border-radius:2px;background:#33475e}
+.needle i.on{background:#e8eef4}
+.dash-foot{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:22px;border-top:1px solid rgba(255,255,255,.1);padding-top:18px}
+.dash-foot div{font-size:14px;color:#9fb0c2;line-height:1.35}
+.dash-foot b{display:block;font-variation-settings:var(--w-cond);font-size:24px;color:#fff;font-weight:750;line-height:1.1}
+@media(max-width:900px){.hero .wrap{grid-template-columns:minmax(0,1fr);gap:34px}.hero{padding-top:34px}}
+/* secciones */
+section{padding:84px 0 0}
+.h2{font-variation-settings:var(--w-cond);font-weight:850;font-size:clamp(36px,5vw,60px);line-height:.95;letter-spacing:-.01em;color:var(--navy);max-width:14em}
+.lede{color:#3a4550;max-width:36em;margin-top:14px;font-size:18px}
+/* selector de síntomas */
+.sym{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:0;margin-top:34px;background:var(--paper);border-radius:22px;overflow:hidden;border:1px solid var(--line)}
+.sym-list{padding:12px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:2px}
+.sym-list button{text-align:left;padding:15px 16px;border-radius:12px;font-size:17.5px;font-weight:600;display:flex;align-items:center;gap:12px;color:#26313c}
+.sym-list button:hover{background:#eceff2}
+.sym-list button[aria-selected=true]{background:var(--navy);color:#fff}
+.sym-list button .k{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:#e3e7eb;color:var(--navy);flex:none}
+.sym-list button[aria-selected=true] .k{background:var(--red);color:#fff}
+.sym-panel{padding:38px 40px;display:flex;flex-direction:column}
+.sym-panel h3{font-variation-settings:var(--w-cond);font-weight:800;font-size:clamp(30px,3.4vw,42px);line-height:1;color:var(--navy)}
+.sym-panel p{margin-top:14px;color:#2c3640;max-width:32em}
+.sym-panel ul{list-style:none;margin-top:18px;display:grid;gap:9px}
+.sym-panel li{display:flex;gap:10px;align-items:flex-start}
+.sym-panel li svg{color:var(--red);flex:none;margin-top:4px}
+.sym-panel .go{margin-top:auto;padding-top:26px;display:flex;gap:12px;flex-wrap:wrap}
+.sym-panel .btn{font-size:16px;padding:12px 18px}
+@media(max-width:820px){.sym{grid-template-columns:minmax(0,1fr)}.sym-list{border-right:0;border-bottom:1px solid var(--line);flex-direction:row;overflow-x:auto;scroll-snap-type:x mandatory}.sym-list button{flex:none;white-space:nowrap;scroll-snap-align:start}.sym-panel{padding:26px 22px}}
+/* forma de trabajar */
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:34px;border-top:3px solid var(--navy)}
+.step{padding:24px 26px 6px 0}
+.step+.step{padding-left:26px;border-left:1px solid var(--line)}
+.step .n{font-variation-settings:var(--w-cond);font-weight:850;font-size:64px;line-height:1;color:var(--red);font-variant-numeric:tabular-nums}
+.step h3{font-size:21px;margin:10px 0 6px;color:var(--navy)}
+.step p{color:#3a4550;font-size:16.5px}
+@media(max-width:820px){.steps{grid-template-columns:minmax(0,1fr)}.step,.step+.step{padding:22px 0;border-left:0;border-bottom:1px solid var(--line)}}
+/* equipo */
+.team{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:end;margin-top:6px}
+.big3{font-variation-settings:"wdth" 62;font-weight:900;font-size:clamp(160px,26vw,330px);line-height:.78;color:var(--navy);letter-spacing:-.04em}
+.team-txt p{color:#2c3640;margin-top:14px;max-width:32em}
+.team-txt .h2{max-width:none}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 24px;margin-top:26px}
+.facts div{border-top:2px solid var(--navy);padding-top:10px;font-size:15.5px;color:#3a4550}
+.facts b{display:block;color:var(--ink);font-size:17px}
+@media(max-width:820px){.team{grid-template-columns:minmax(0,1fr);gap:10px}}
+/* cita */
+.cita{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:30px;margin-top:30px}
+.call{align-self:start;background:var(--navy);color:#fff;border-radius:22px;padding:32px;display:flex;flex-direction:column;gap:14px}
+.call .tag{color:#9fb0c2;font-size:15px}
+.call a.num{font-variation-settings:var(--w-cond);font-weight:850;font-size:clamp(44px,6vw,64px);line-height:1;text-decoration:none;color:#fff;font-variant-numeric:tabular-nums;letter-spacing:.005em}
+.call a.num:hover{color:#ffd9d6}
+.call p{color:#c3cdd8;font-size:16px}
+.call .mail{color:#fff;font-weight:600;word-break:break-all}
+form.f{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:30px}
+.f h3{font-size:22px;color:var(--navy)}
+.f .sub{color:var(--mute);font-size:15.5px;margin:4px 0 18px}
+.fr{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+@media(max-width:560px){.fr{grid-template-columns:minmax(0,1fr)}}
+.fl{margin-bottom:14px}
+.fl label{display:block;font-size:14.5px;font-weight:600;margin-bottom:6px}
+.fl input,.fl select,.fl textarea{width:100%;font:inherit;font-size:16.5px;background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:12px 13px;color:var(--ink)}
+.fl input:focus,.fl select:focus,.fl textarea:focus{outline:none;border-color:var(--navy)}
+.when{display:flex;gap:8px}
+.when label{flex:1;margin:0}
+.when input{position:absolute;opacity:0;width:1px;height:1px}
+.when span{display:block;text-align:center;padding:11px 8px;border:1.5px solid var(--line);border-radius:10px;background:#fff;font-weight:600;font-size:15.5px;cursor:pointer}
+.when input:checked+span{background:var(--navy);border-color:var(--navy);color:#fff}
+.when input:focus-visible+span{outline:3px solid var(--red);outline-offset:2px}
+.f .note{font-size:14px;color:var(--mute);margin-top:10px}
+.f .err{color:var(--red);font-weight:600;font-size:15px;margin-top:8px}
+@media(max-width:860px){.cita{grid-template-columns:minmax(0,1fr)}}
+/* visita */
+.visit{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:30px;margin-top:30px;align-items:stretch}
+.hours{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:28px}
+.hours h3{font-size:22px;color:var(--navy)}
+.hours address{font-style:normal;margin:6px 0 20px;color:#2c3640}
+.hours table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.hours td{padding:9px 0;border-bottom:1px solid var(--line);font-size:16px}
+.hours td:last-child{text-align:right;color:#2c3640}
+.hours tr.hoy td{font-weight:700;color:var(--ink)}
+.hours tr.hoy td:first-child:after{content:' (hoy)';font-weight:500;color:var(--red)}
+.map{border-radius:22px;overflow:hidden;border:1px solid var(--line);min-height:340px;background:#d6dbe0}
+.map iframe{width:100%;height:100%;min-height:340px;border:0;display:block;filter:grayscale(.35) contrast(1.05)}
+.revs{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap}
+@media(max-width:860px){.visit{grid-template-columns:minmax(0,1fr)}}
+footer{margin-top:90px;background:var(--navy);color:#9fb0c2;padding:44px 0 56px;font-size:15px}
+footer .wrap{display:grid;grid-template-columns:minmax(0,1.3fr) repeat(2,minmax(0,1fr));gap:26px}
+footer .mark{color:#fff;font-size:30px}
+footer b{color:#fff;display:block;margin-bottom:6px;font-size:15px}
+footer a{color:#dbe3ea}
+@media(max-width:760px){footer .wrap{grid-template-columns:minmax(0,1fr)}}
+.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,20px);opacity:0;background:var(--ink);color:#fff;padding:12px 18px;border-radius:12px;font-weight:600;font-size:15px;transition:.25s;z-index:50;max-width:92vw;text-align:center}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+/* reserva */
+.bkf .chips{display:flex;flex-wrap:wrap;gap:7px}
+.chipb{padding:8px 12px;border-radius:999px;border:1.5px solid var(--line);background:#fff;font-size:15px;font-weight:600;color:#26313c}
+.chipb[aria-pressed=true]{background:var(--navy);border-color:var(--navy);color:#fff}
+.days{display:flex;gap:7px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+.day{flex:none;width:60px;padding:8px 0;border-radius:12px;border:1.5px solid var(--line);background:#fff;text-align:center;line-height:1.15}
+.day small{display:block;font-size:12px;color:var(--mute);font-weight:600}
+.day b{display:block;font-variation-settings:var(--w-cond);font-size:24px;font-weight:800;color:var(--navy)}
+.day[aria-pressed=true]{background:var(--navy);border-color:var(--navy)}
+.day[aria-pressed=true] small,.day[aria-pressed=true] b{color:#fff}
+.day:disabled{opacity:.35;cursor:not-allowed}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(74px,1fr));gap:7px}
+.slot{padding:10px 0;border-radius:10px;border:1.5px solid var(--line);background:#fff;font-weight:700;font-size:15px;font-variant-numeric:tabular-nums}
+.slot[aria-pressed=true]{background:var(--red);border-color:var(--red);color:#fff}
+.slot:disabled{opacity:.3;cursor:not-allowed;text-decoration:line-through}
+.lab{display:block;font-size:14.5px;font-weight:700;margin:4px 0 8px;color:var(--navy)}
+.okbox{background:#e8f5ec;border:1.5px solid #9fd5b0;border-radius:16px;padding:20px;color:#14532d}
+.okbox h3{color:#14532d;font-size:22px}
+/* estado */
+.est{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:26px;margin-top:26px;align-items:start}
+.est form{display:flex;gap:10px}
+.est input{flex:1;min-width:0;font:inherit;font-size:18px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:13px 14px}
+.est input:focus{outline:none;border-color:var(--navy)}
+.res{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:22px;min-height:120px;color:#2c3640}
+.tl{margin-top:14px}
+.tl-i{display:flex;gap:12px;position:relative;padding-bottom:16px}
+.tl-i:last-child{padding-bottom:0}
+.tl-i:not(:last-child):after{content:'';position:absolute;left:11px;top:26px;bottom:0;width:2px;background:var(--line)}
+.tl-i.done:not(:last-child):after{background:#1f9d55}
+.tl-d{width:24px;height:24px;border-radius:50%;border:2px solid var(--line);background:#fff;flex:none;display:grid;place-items:center;color:#fff}
+.tl-i.done .tl-d{background:#1f9d55;border-color:#1f9d55}
+.tl-i.now .tl-d{border-color:var(--red);box-shadow:0 0 0 4px rgba(200,40,31,.15)}
+.tl-i.now .tl-d:before{content:'';width:9px;height:9px;border-radius:50%;background:var(--red)}
+.plate{display:inline-flex;align-items:stretch;background:#fff;color:#111;border:1px solid #9aa3ac;border-radius:4px;font-weight:700;font-size:13px;letter-spacing:.06em;overflow:hidden;line-height:1;vertical-align:middle;font-variant-numeric:tabular-nums}
+.plate:before{content:'';width:6px;background:#1d4ed8}
+.plate span{padding:4px 6px}
+@media(max-width:820px){.est{grid-template-columns:minmax(0,1fr)}}
+/* asistente */
+.as-btn{position:fixed;right:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px;background:var(--navy);color:#fff;font-weight:700;font-size:15.5px;border-radius:999px;padding:12px 18px 12px 12px;box-shadow:0 14px 30px -10px rgba(15,21,28,.6)}
+.as-btn i{width:30px;height:30px;border-radius:50%;background:var(--red);display:grid;place-items:center;flex:none;font-style:normal}
+body.as-open .as-btn{display:none}
+.as{position:fixed;right:18px;bottom:18px;z-index:40;width:390px;max-width:calc(100vw - 24px);height:min(640px,calc(100vh - 36px));background:var(--paper);border:1px solid var(--line);border-radius:22px;display:flex;flex-direction:column;box-shadow:0 30px 70px -20px rgba(15,21,28,.55);overflow:hidden}
+@media(max-width:560px){.as{right:0;left:0;bottom:0;width:100%;max-width:none;height:90vh;border-radius:22px 22px 0 0}}
+.as-h{display:flex;align-items:center;gap:11px;padding:14px 16px;background:var(--navy);color:#fff}
+.as-h .av{width:36px;height:36px;border-radius:10px;background:var(--red);display:grid;place-items:center;font-weight:900;font-variation-settings:var(--w-cond);font-size:20px}
+.as-h b{display:block;font-size:16px}.as-h small{color:#9fdcb4;font-size:12.5px}
+.as-h button{margin-left:auto;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;display:grid;place-items:center}
+.as-m{flex:1;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+.bub{max-width:88%;padding:10px 13px;border-radius:16px;font-size:15.5px;line-height:1.45;white-space:pre-wrap}
+.bub.bot{background:#fff;border:1px solid var(--line);border-bottom-left-radius:4px;align-self:flex-start}
+.bub.usr{background:var(--navy);color:#fff;border-bottom-right-radius:4px;align-self:flex-end}
+.bub.typ{color:var(--mute)}
+.as-cta{align-self:flex-start}
+.as-cta .btn{font-size:15px;padding:10px 15px}
+.bkc{align-self:stretch;background:#fff;border:1.5px solid var(--navy);border-radius:16px;padding:14px}
+.bkc .lab{margin-top:10px}
+.bkc input{width:100%;font:inherit;font-size:16px;border:1.5px solid var(--line);border-radius:10px;padding:10px 11px;margin-bottom:8px;background:#fff}
+.bkc input:focus{outline:none;border-color:var(--navy)}
+.bkc .err{color:var(--red);font-weight:600;font-size:14.5px;margin-top:6px}
+.as-chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 10px}
+.as-f{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line);background:#fff;padding-bottom:calc(12px + env(safe-area-inset-bottom))}
+.as-f input{flex:1;min-width:0;font:inherit;font-size:16px;border:1.5px solid var(--line);border-radius:12px;padding:11px 13px;background:var(--paper)}
+.as-f input:focus{outline:none;border-color:var(--navy)}
+.as-f button{width:48px;border-radius:12px;background:var(--red);color:#fff;display:grid;place-items:center;flex:none}
+.as-f button:disabled{opacity:.5}
+.pz{background:var(--navy);color:#c3cdd8;border-radius:26px;padding:40px;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:26px;align-items:center}
+.pz p{margin-top:12px;font-size:18px;max-width:34em}
+.pz-b{display:flex;flex-direction:column;gap:10px;align-items:stretch}
+.btn.ghostw{border-color:rgba(255,255,255,.35);color:#fff}
+.btn.ghostw:hover{background:rgba(255,255,255,.1)}
+@media(max-width:820px){.pz{grid-template-columns:minmax(0,1fr);padding:28px 22px}}
+
+/* ===== portada: cuadro de instrumentos ===== */
+.hero2{background:radial-gradient(120% 90% at 75% 10%,#1b2a3d 0%,#0d151f 55%,#080c12 100%);color:#c3cdd8;padding:64px 0 70px}
+.hero2 .wrap{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:48px;align-items:center}
+.hero2 h1{font-variation-settings:var(--w-cond);font-weight:850;font-size:clamp(44px,6.4vw,86px);line-height:.92;letter-spacing:-.015em;color:#fff;text-wrap:balance}
+.hero2 .h-copy p{font-size:18.5px;max-width:32em;margin-top:20px;color:#b7c3cf}
+.hero2 .open{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14);color:#e6ecf2}
+@media(max-width:960px){.hero2 .wrap{grid-template-columns:minmax(0,1fr);gap:34px}.hero2{padding:40px 0 50px}}
+.cluster{background:linear-gradient(180deg,#121b26,#0a1017);border-radius:30px;padding:26px 24px 22px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.07),inset 0 -30px 60px rgba(0,0,0,.4),0 40px 80px -30px rgba(0,0,0,.7)}
+.dials{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:end;gap:10px}
+.dial{width:100%;height:auto;overflow:visible}
+.dial .trk{fill:none;stroke:#1f2b39;stroke-width:9;stroke-linecap:round}
+.dial .arc{fill:none;stroke:#e9eef3;stroke-width:9;stroke-linecap:round;transition:stroke-dashoffset .9s cubic-bezier(.3,.7,.2,1);filter:drop-shadow(0 0 6px rgba(255,255,255,.25))}
+#arc1{stroke:#ff5a4c;filter:drop-shadow(0 0 8px rgba(255,90,76,.5))}
+.dial .ticks line{stroke:#4a5b6e;stroke-width:2}
+.dial .ndl{stroke:#ff5a4c;stroke-width:3.5;stroke-linecap:round;transform-origin:100px 110px;transform:rotate(-90deg);transition:transform .9s cubic-bezier(.3,.7,.2,1)}
+.dial .hub{fill:#0a1017;stroke:#ff5a4c;stroke-width:3}
+.dial .dlab{fill:#5f7083;font-size:10px;text-anchor:middle;font-family:Archivo,sans-serif;letter-spacing:.04em}
+.odo-mid{text-align:center;padding-bottom:6px;min-width:96px}
+.odo-mid b{display:block;font-variation-settings:var(--w-cond);font-size:clamp(22px,3vw,30px);color:#e9eef3;font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.odo-mid span{font-size:12px;color:#6c7d90}
+.odo-mid em{display:block;font-style:normal;color:#8fa1b4;font-size:13px;margin-top:4px;font-variant-numeric:tabular-nums}
+.cl-ask{text-align:center;color:#8fa1b4;font-size:15px;margin:18px 0 12px}
+.lights{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+@media(max-width:520px){.lights{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.tl-b{aspect-ratio:1;border-radius:14px;background:#0b121a;box-shadow:inset 0 0 0 1px #1b2633;display:grid;place-items:center;color:#2a3746;transition:color .2s,background .2s,box-shadow .2s;min-height:44px}
+.tl-b svg{width:60%;height:60%}
+.tl-b:hover{color:#566679}
+.tl-b.c-a.sel,.ign .tl-b.c-a{color:#ffb020;filter:drop-shadow(0 0 8px rgba(255,176,32,.55))}
+.tl-b.c-r.sel,.ign .tl-b.c-r{color:#ff4b3e;filter:drop-shadow(0 0 8px rgba(255,75,62,.6))}
+.tl-b.sel{background:#111c27;box-shadow:inset 0 0 0 1.5px #3a4b5e}
+.tl-b.blink{animation:blink 1.6s ease-in-out 3}
+@keyframes blink{50%{color:#ffb020;filter:drop-shadow(0 0 8px rgba(255,176,32,.55))}}
+.tinfo{margin-top:16px;background:#0b121a;border-radius:18px;padding:18px 18px 16px;box-shadow:inset 0 0 0 1px #1b2633;min-height:96px}
+.ti-hint{color:#8fa1b4;font-size:15px}
+.ti-h{display:flex;gap:14px;align-items:center}
+.ti-ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;background:#111c27;flex:none}
+.ti-ic svg{width:30px;height:30px}
+.ti-ic.c-a{color:#ffb020}.ti-ic.c-r{color:#ff4b3e}
+.ti-h h3{color:#fff;font-size:21px;line-height:1.15}
+.lv{display:inline-block;margin-top:4px;font-size:13.5px;font-weight:700;padding:3px 9px;border-radius:999px}
+.lv-stop{background:rgba(255,75,62,.16);color:#ff8a80}.lv-soon{background:rgba(255,176,32,.14);color:#ffc659}.lv-ok{background:rgba(70,200,120,.14);color:#7fe0a5}
+.ti-g{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;margin-top:14px}
+.ti-g b{color:#e6ecf2;font-size:14px}.ti-g p{font-size:15px;color:#aebbc8;margin-top:3px;line-height:1.5}
+@media(max-width:560px){.ti-g{grid-template-columns:minmax(0,1fr)}}
+.ti-a{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.ti-a .btn{font-size:15.5px;padding:11px 16px}
+@media(prefers-reduced-motion:reduce){.dial .arc,.dial .ndl{transition:none}.tl-b.blink{animation:none}}
+/* ===== camper ===== */
+.lab2{display:block;font-size:14.5px;font-weight:700;color:#e6ecf2;margin:22px 0 10px}
+.seg{display:inline-flex;flex-wrap:wrap;gap:4px;background:rgba(255,255,255,.06);border-radius:12px;padding:4px}
+.seg button{padding:9px 14px;border-radius:9px;font-weight:650;font-size:15px;color:#c3cdd8;min-height:40px}
+.seg button[aria-pressed=true]{background:#fff;color:var(--navy)}
+.kit{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+@media(max-width:480px){.kit{grid-template-columns:minmax(0,1fr)}}
+.kit-i{text-align:left;padding:13px 14px 13px 44px;border-radius:14px;background:rgba(255,255,255,.05);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);position:relative;color:#e6ecf2;min-height:64px}
+.kit-i b{display:block;font-size:16px}.kit-i small{color:#93a4b6;font-size:13.5px}
+.kit-i .kc{position:absolute;left:13px;top:15px;width:20px;height:20px;border-radius:6px;box-shadow:inset 0 0 0 1.5px #5f7083;display:grid;place-items:center}
+.kit-i[aria-pressed=true]{background:rgba(255,255,255,.1);box-shadow:inset 0 0 0 1.5px #ff5a4c}
+.kit-i[aria-pressed=true] .kc{background:var(--red);box-shadow:none;color:#fff}
+.kit-i .kc svg{width:13px;height:13px}
+.kit-sum{margin-top:14px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;color:#aebbc8;font-size:15px}
+.kit-sum b{color:#fff}.kit-sum .btn{font-size:15.5px;padding:11px 16px}
+.camp ul{display:none}
+/* ===== avisos ===== */
+.rem{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:34px;align-items:start}
+.rem-copy p{margin-top:14px;font-size:18px;color:#3a4550;max-width:32em}
+.rem-list{list-style:none;margin-top:20px;display:grid;gap:10px}
+.rem-list li{display:flex;gap:10px;align-items:flex-start;font-size:16.5px}
+.rem-list li:before{content:'';width:9px;height:9px;border-radius:50%;background:var(--red);margin-top:9px;flex:none}
+#rem{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:26px}
+@media(max-width:820px){.rem{grid-template-columns:minmax(0,1fr)}}
+/* ===== vídeo del mecánico ===== */
+.vid{display:flex;gap:12px;align-items:center;width:100%;text-align:left;margin:12px 0 4px;padding:10px;border-radius:14px;background:var(--navy);color:#fff}
+.vid .vp{width:64px;height:48px;border-radius:9px;background:linear-gradient(135deg,#34495f,#1a2736);display:grid;place-items:center;flex:none;color:#fff}
+.vid b{display:block;font-size:15.5px}.vid small{color:#aebbc8;font-size:13px;line-height:1.35;display:block}
+.vid em{margin-left:auto;font-style:normal;font-size:13px;color:#aebbc8;font-variant-numeric:tabular-nums}
+.bar nav a{white-space:nowrap}
+.mark{white-space:nowrap}
+@media(max-width:1400px){.bar .mark small{display:none}}
+@media(max-width:420px){.bar .mark{font-size:20px}}
+@media(max-width:1300px){.bar nav a[href='#como'],.bar nav a[href='#averias']{display:none}}
+@media(max-width:1060px){.bar nav{display:none}.mark small{display:none}.bar .lang{margin-left:auto}.bar .tel{margin-left:0}}
+.legal{grid-column:1/-1;display:flex;gap:18px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.12);padding-top:18px;font-size:14px}
+
+.hours tr.hoy td:first-child:after{content:none}
+.hoy-l{font-weight:500;color:var(--red)}
+.demo-rib{background:var(--navy);color:#c3cdd8;font-size:13.5px;text-align:center;padding:6px 14px}
+.lang{display:flex;border:1.5px solid var(--line);border-radius:10px;overflow:hidden;flex:none}
+.lang button{padding:8px 10px;font-weight:700;font-size:14px;color:var(--mute);min-width:40px;min-height:40px}
+.lang button[aria-pressed=true]{background:var(--navy);color:#fff}
+@media(max-width:880px){.bar .lang{margin-left:auto}.bar .tel{margin-left:0}}
+@media(max-width:420px){.bar .wrap{gap:10px}.mark{font-size:22px}.lang button{min-width:34px;padding:8px 6px}}
+.camp{background:radial-gradient(130% 120% at 20% 0%,#22364f 0%,var(--navy) 60%,#0c1726 100%);color:#c3cdd8;border-radius:26px;padding:44px 40px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:34px;align-items:center}
+.camp .h2{color:#fff}
+.camp p{margin-top:14px;font-size:18px;max-width:32em}
+.camp ul{list-style:none;display:grid;gap:4px}
+.camp li{padding:13px 0;border-bottom:1px solid rgba(255,255,255,.12);color:#eef2f6;font-size:17px;display:flex;gap:12px;align-items:center}
+.camp li:before{content:'';width:10px;height:10px;border-radius:50%;background:var(--red);flex:none}
+@media(max-width:820px){.camp{grid-template-columns:minmax(0,1fr);padding:30px 22px}}
+.dash-foot b{font-size:clamp(17px,5vw,24px);overflow-wrap:anywhere}
+</style>
+</head>
+<body>
+<div class="demo-rib" data-t="rib">Web de ejemplo de Galerna Method. El taller y sus datos son ficticios.</div>
+<header class="bar"><div class="wrap">
+ <a class="mark" href="#top">Galerna Autoservice <small data-t="mark.s">Mecánica y electricidad</small></a>
+ <nav aria-label="Secciones"><a href="#top" data-t="nav.0">Testigos</a><a href="#averias" data-t="nav.1">Averías</a><a href="#campers" data-t="nav.2">Campers</a><a href="#como" data-t="nav.3">Cómo trabajamos</a><a href="#avisos" data-t="nav.5">Avisos ITV</a><a href="#visita" data-t="nav.4">Dónde estamos</a></nav>
+ <div class="lang" role="group" aria-label="Idioma / Language / Sprache"><button data-lang="de" lang="de">DE</button><button data-lang="en" lang="en">EN</button><button data-lang="es" lang="es">ES</button></div>
+ <a class="tel" href="tel:+49221000000"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><span class="num">0221 000 000</span></a>
+</div></header>
+
+<main id="top">
+<section class="hero2"><div class="wrap">
+ <div class="h-copy">
+  <h1 data-t="h1">Te decimos lo que tiene tu coche antes de tocarlo.</h1>
+  <p data-t="hero.p"></p>
+  <div class="open" id="open" role="status"><i></i><span></span></div>
+  <div class="ctas"><a class="btn pri" href="#cita" data-t="cta.cita">Pedir cita</a><a class="btn ghostw" href="#" data-presu="" data-t="cta.presu">Pedir presupuesto</a></div>
+ </div>
+ <div class="cluster" id="cluster">
+  <div class="dials" aria-hidden="true">
+   <svg class="dial" viewBox="0 0 200 120"><path class="trk" d="M20 110 A80 80 0 0 1 180 110"/><path class="arc" id="arc1" d="M20 110 A80 80 0 0 1 180 110"/><g class="ticks" id="tk1"></g><line class="ndl" id="n1" x1="100" y1="110" x2="100" y2="42"/><circle cx="100" cy="110" r="6" class="hub"/><text x="100" y="92" class="dlab">×1000 rpm</text></svg>
+   <div class="odo-mid"><b id="km">128.406</b><span>km</span><em id="cl-h"></em></div>
+   <svg class="dial" viewBox="0 0 200 120"><path class="trk" d="M20 110 A80 80 0 0 1 180 110"/><path class="arc" id="arc2" d="M20 110 A80 80 0 0 1 180 110"/><g class="ticks" id="tk2"></g><line class="ndl" id="n2" x1="100" y1="110" x2="100" y2="42"/><circle cx="100" cy="110" r="6" class="hub"/><text x="100" y="92" class="dlab">km/h</text></svg>
+  </div>
+  <p class="cl-ask" data-t="cl.ask">¿Qué testigo se te ha encendido? Tócalo.</p>
+  <div class="lights" id="lights" role="list"></div>
+  <div class="tinfo" id="tinfo" aria-live="polite"></div>
+ </div>
+</div></section>
+
+<section id="averias"><div class="wrap">
+ <h2 class="h2" data-t="av.h">¿Qué le pasa a tu coche?</h2>
+ <p class="lede" data-t="av.p">Elige lo que notas y te contamos qué hacemos. Si no aparece, pregúntale al asistente.</p>
+ <div class="sym">
+  <div class="sym-list" role="tablist" id="sym-list"></div>
+  <div class="sym-panel" role="tabpanel" id="sym-panel" aria-live="polite"></div>
+ </div>
+</div></section>
+
+<section id="presupuesto"><div class="wrap">
+ <div class="pz">
+  <div><h2 class="h2" style="color:#fff" data-t="pz.h">¿Cuánto me costaría?</h2><p data-t="pz.p">Cuéntaselo al asistente: te hace unas preguntas rápidas sobre tu vehículo y el taller te llama con el precio. Sin compromiso.</p></div>
+  <div class="pz-b"><a class="btn pri" href="#" data-presu="" data-t="cta.presu">Pedir presupuesto</a><a class="btn ghostw" href="tel:+49221000000" data-t="pz.call">O llama al 0221 000 000</a></div>
+ </div>
+</div></section>
+
+<section id="campers"><div class="wrap">
+ <div class="camp">
+  <div>
+   <h2 class="h2" data-t="cp.h">Tu camper, con energía para irte lejos.</h2>
+   <p data-t="cp.p"></p>
+   <span class="lab2" data-t="cp.use">¿Cómo la vas a usar?</span>
+   <div class="seg" id="cp-use"></div>
+  </div>
+  <div>
+   <span class="lab2" data-t="cp.pick">Elige lo que quieres montar</span>
+   <div class="kit" id="kit"></div>
+   <div class="kit-sum" id="kit-sum"></div>
+  </div>
+ </div>
+</div></section>
+
+<section id="como"><div class="wrap">
+ <h2 class="h2" data-t="co.h">Así trabajamos con tu coche</h2>
+ <p class="lede" data-t="co.p">Nada se cambia sin que tú lo sepas y lo apruebes.</p>
+ <div class="steps">
+  <div class="step"><div class="n">1</div><h3 data-t="s1.h">Lo revisamos</h3><p data-t="s1.p">Buscamos el origen de la avería, no solo el síntoma, con diagnosis electrónica cuando hace falta.</p></div>
+  <div class="step"><div class="n">2</div><h3 data-t="s2.h">Te lo explicamos</h3><p data-t="s2.p">Te llamamos con lo que hay que hacer y el precio. Solo seguimos si estás de acuerdo.</p></div>
+  <div class="step"><div class="n">3</div><h3 data-t="s3.h">Lo reparamos y te avisamos</h3><p data-t="s3.p">Probamos el coche antes de entregarlo y te escribimos por WhatsApp cuando está listo. Puedes seguirlo aquí con tu matrícula.</p></div>
+ </div>
+</div></section>
+
+<section id="avisos"><div class="wrap">
+ <div class="rem">
+  <div class="rem-copy">
+   <h2 class="h2" data-t="rm.h">Que no se te pase la ITV ni la revisión</h2>
+   <p data-t="rm.p"></p>
+   <ul class="rem-list"><li data-t="rm.1"></li><li data-t="rm.2"></li><li data-t="rm.3"></li></ul>
+  </div>
+  <form class="f" id="rem" novalidate>
+   <h3 data-t="rm.fh">Activa tus avisos</h3>
+   <div class="fr"><div class="fl"><label for="rm-m" data-t="l.mat">Matrícula</label><input id="rm-m" name="m" style="text-transform:uppercase" placeholder="K-GA 1234"></div><div class="fl"><label for="rm-t" data-t="l.tel">Móvil</label><input id="rm-t" name="t" type="tel" inputmode="tel" autocomplete="tel"></div></div>
+   <div class="fr"><div class="fl"><label for="rm-i" data-t="rm.itv">Próxima ITV</label><input id="rm-i" name="i" type="month"></div><div class="fl"><label for="rm-r" data-t="rm.rev">Próxima revisión</label><input id="rm-r" name="r" type="month"></div></div>
+   <label style="display:flex;gap:9px;font-size:14.5px;color:var(--mute);margin-bottom:14px"><input type="checkbox" name="ok" style="margin-top:4px;flex:none;width:17px;height:17px;accent-color:var(--navy)"> <span data-t="rm.ok"></span></label>
+   <button class="btn pri" style="width:100%" data-t="rm.btn">Avisadme por WhatsApp</button>
+   <p class="err" id="rm-err" role="alert"></p>
+  </form>
+ </div>
+</div></section>
+
+<section id="taller"><div class="wrap">
+ <div class="team">
+  <div class="big3" aria-hidden="true">2</div>
+  <div class="team-txt">
+   <h2 class="h2" data-t="tm.h">Mecánica y electricidad, en el mismo taller</h2>
+   <p data-t="tm.p">Muchas averías de hoy son mitad mecánica, mitad electrónica. Aquí las vemos enteras, sin mandarte de un taller a otro.</p>
+   <div class="facts">
+    <div><b data-t="f1.b">Todas las marcas</b><span data-t="f1.s">turismos, furgonetas y campers</span></div>
+    <div><b data-t="f2.b">Diagnosis electrónica</b><span data-t="f2.s">equipos actualizados</span></div>
+    <div><b data-t="f3.b">Precio antes de empezar</b><span data-t="f3.s">sin sorpresas en la factura</span></div>
+    <div><b data-t="f4.b">Hablamos tu idioma</b><span data-t="f4.s">español, inglés y alemán</span></div>
+   </div>
+  </div>
+ </div>
+</div></section>
+
+<section id="cita"><div class="wrap">
+ <h2 class="h2" data-t="ci.h">Pide cita</h2>
+ <p class="lede" data-t="ci.p">Elige día y hora aquí, pídela al asistente o llámanos.</p>
+ <div class="cita">
+  <div class="call">
+   <span class="tag" data-t="ci.tag">Llámanos en horario de taller</span>
+   <a class="num" href="tel:+49221000000">0221 000 000</a>
+   <p data-t="ci.hrs">De lunes a viernes, de 9:00 a 13:30 y de 15:30 a 19:30.</p>
+  </div>
+  <form class="f bkf" id="bk" novalidate>
+   <h3 data-t="bk.h">Reserva tu hora</h3>
+   <p class="sub" data-t="bk.sub">Solo ves las horas que de verdad están libres. Te llega directamente al taller.</p>
+   <span class="lab" data-t="bk.q">¿Qué le pasa?</span><div class="chips" id="bk-serv"></div>
+   <span class="lab" style="margin-top:14px" data-t="bk.d">Día</span><div class="days" id="bk-days"></div>
+   <span class="lab" style="margin-top:14px" data-t="bk.t">Hora</span><div class="slots" id="bk-slots"></div>
+   <div class="fr" style="margin-top:16px"><div class="fl"><label for="bk-n" data-t="l.nom">Nombre</label><input id="bk-n" name="n" autocomplete="name"></div><div class="fl"><label for="bk-t" data-t="l.tel">Móvil</label><input id="bk-t" name="t" type="tel" autocomplete="tel" inputmode="tel"></div></div>
+   <div class="fr"><div class="fl"><label for="bk-c" data-t="l.veh">Vehículo</label><input id="bk-c" name="c" data-tp="ph.veh" placeholder="Marca y modelo"></div><div class="fl"><label for="bk-m" data-t="l.mat">Matrícula</label><input id="bk-m" name="m" style="text-transform:uppercase" placeholder="K-GA 1234"></div></div>
+   <div class="fl"><label for="bk-q" data-t="l.more">Cuéntanos algo más (opcional)</label><textarea id="bk-q" name="q" rows="2"></textarea></div>
+   <label style="display:flex;gap:9px;font-size:14.5px;color:var(--mute);margin-bottom:14px"><input type="checkbox" name="ok" style="margin-top:4px;flex:none;width:17px;height:17px;accent-color:var(--navy)"> <span data-t="bk.ok">Acepto que el taller use mis datos solo para gestionar esta cita.</span></label>
+   <button class="btn pri" style="width:100%" data-t="bk.btn">Confirmar cita</button>
+   <p class="err" id="bk-err" role="alert"></p>
+  </form>
+ </div>
+</div></section>
+
+<section id="estado"><div class="wrap">
+ <h2 class="h2" data-t="es.h">¿Cómo va mi coche?</h2>
+ <div class="est">
+  <div><p class="lede" style="margin-top:0" data-t="es.p">Escribe la matrícula y mira en qué punto está, sin tener que llamar.</p><form id="f-est" style="margin-top:16px"><input name="q" placeholder="K-GA 1234" data-ta="l.mat" aria-label="Matrícula" autocomplete="off"><button class="btn pri" data-t="es.btn">Ver</button></form><p class="note" style="margin-top:10px;color:var(--mute);font-size:14.5px" data-t="es.try">Prueba con K-GA 1234.</p></div>
+  <div class="res" id="est-res" aria-live="polite"></div>
+ </div>
+</div></section>
+
+<section id="visita"><div class="wrap">
+ <h2 class="h2" data-t="vi.h">Dónde estamos</h2>
+ <div class="visit">
+  <div class="hours">
+   <h3>Galerna Autoservice</h3>
+   <address data-t="vi.addr">Musterstraße 12<br>50667 Köln, Alemania</address>
+   <table data-ta="vi.hr" aria-label="Horario"><tbody id="hrs"></tbody></table>
+   <div class="revs"><a class="btn sec" style="font-size:15.5px;padding:11px 16px" href="https://www.google.com/maps/search/?api=1&query=K%C3%B6ln" target="_blank" rel="noopener" data-t="vi.go">Cómo llegar</a></div>
+  </div>
+  <div class="map"><iframe title="Köln" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=K%C3%B6ln&z=13&output=embed"></iframe></div>
+ </div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+ <div><span class="mark" style="display:block">Galerna Autoservice</span><p style="margin-top:10px;max-width:24em" data-t="ft.p">Mecánica y electricidad del automóvil en Köln. Coches, furgonetas y campers.</p></div>
+ <div><b data-t="ft.c">Contacto</b><a href="tel:+49221000000">0221 000 000</a></div>
+ <div><b data-t="ft.t">Taller</b><span data-t="vi.addr">Musterstraße 12<br>50667 Köln, Alemania</span><br><a href="../talleres/" data-t="ft.app">Acceso taller</a></div>
+ <div class="legal"><a href="#" data-legal>Impressum</a><a href="#" data-legal>Datenschutz</a><a href="#" data-legal>AGB</a></div>
+</div></footer>
+<div class="toast" id="toast" role="status"></div>
+<button class="as-btn" id="as-open" type="button"><i aria-hidden="true">?</i><span data-t="as.btn">¿Qué le pasa a tu coche?</span></button>
+
+<script>
+{
+const $=s=>document.querySelector(s);
+const ic=d=>`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+const CHECK=ic('<path d="M20 6 9 17l-5-5"/>');
+const REDUCE=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const TEL='0221 000 000',SINCE=2004;
+
+/* ================= idiomas ================= */
+const L=['es','en','de'],LOC={es:'es-ES',en:'en-GB',de:'de-DE'};
+const ls={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+let LANG=ls.get('tg-lang-de')||((navigator.language||'de').slice(0,2));if(!L.includes(LANG))LANG='de';
+const D={
+ rib:['Web de ejemplo de Galerna Method. El taller y sus datos son ficticios.','Sample website by Galerna Method. The garage and its details are fictional.','Beispiel-Website von Galerna Method. Werkstatt und Daten sind fiktiv.'],
+ 'mark.s':['Mecánica y electricidad','Mechanics & auto electrics','Mechanik & Autoelektrik'],
+ 'nav.1':['Averías','Repairs','Reparaturen'],'nav.2':['Campers','Campervans','Camper'],'nav.3':['Cómo trabajamos','How we work','So arbeiten wir'],'nav.4':['Dónde estamos','Find us','Anfahrt'],
+ h1:['Te decimos lo que tiene tu coche antes de tocarlo.','We tell you what’s wrong before we touch your car.','Wir sagen dir, was dein Auto hat, bevor wir es anfassen.'],
+ 'hero.p':['Mecánica y electricidad del automóvil en Köln: coches, furgonetas y campers. Diagnosis, precio claro antes de empezar y aviso por WhatsApp cuando está listo.','Car mechanics and auto electrics in Köln: cars, vans and campervans. Diagnostics, a clear price before we start and a WhatsApp message when it’s ready.','Kfz-Mechanik und Autoelektrik in Köln: Autos, Transporter und Camper. Diagnose, klarer Preis vor Arbeitsbeginn und eine WhatsApp-Nachricht, sobald es fertig ist.'],
+
+ 'hero.p':['Mecánica y electricidad del automóvil en Köln. Te explicamos qué tiene y cuánto cuesta antes de empezar, y te mandamos un vídeo de lo que hemos hecho cuando está listo.','Car mechanics and auto electrics in Köln. We explain what’s wrong and what it costs before we start, and send you a video of the work when it’s ready.','Kfz-Mechanik und Autoelektrik in Köln. Wir erklären dir vorher, was dein Auto hat und was es kostet, und schicken dir ein Video der Arbeit, sobald es fertig ist.'],
+ 'nav.0':['Testigos','Warning lights','Warnleuchten'],'nav.5':['Avisos TÜV','TÜV reminders','TÜV-Erinnerung'],
+ 'cl.ask':['¿Qué testigo se te ha encendido? Tócalo.','Which warning light is on? Tap it.','Welche Warnleuchte leuchtet? Tipp drauf.'],
+ 'cl.hint':['Toca un testigo y te decimos qué significa, si puedes seguir circulando y qué hacemos.','Tap a light to see what it means, whether you can keep driving and what we do.','Tipp auf eine Leuchte: Was sie bedeutet, ob du weiterfahren kannst und was wir tun.'],
+ 'lv.stop':['Para en cuanto puedas','Stop as soon as it’s safe','Halte an, sobald es sicher ist'],'lv.soon':['Puedes circular con cuidado. Pide cita pronto','You can drive carefully. Book in soon','Vorsichtig weiterfahren. Bald Termin machen'],'lv.ok':['No es urgente, pero conviene revisarlo','Not urgent, but worth checking','Nicht dringend, aber prüfen lassen'],
+ 'ti.mean':['Qué significa','What it means','Was es bedeutet'],'ti.do':['Qué hacemos','What we do','Was wir tun'],'ti.call':['Llamar ahora','Call now','Jetzt anrufen'],
+ 'cp.p':['Montamos y reparamos la instalación eléctrica de furgonetas y campers. Elige lo que quieres y te preparamos el presupuesto con material de calidad y montaje limpio.','We fit and repair van and campervan electrics. Pick what you want and we’ll prepare a quote with quality parts and a tidy install.','Wir bauen und reparieren die Elektrik von Transportern und Campern. Wähle aus, was du willst, und wir erstellen dir ein Angebot mit Qualitätsteilen und sauberem Einbau.'],
+ 'cp.use':['¿Cómo la vas a usar?','How will you use it?','Wie nutzt du ihn?'],'cp.pick':['Elige lo que quieres montar','Choose what to fit','Wähle, was eingebaut werden soll'],
+ 'u.1':['Fines de semana','Weekends','Wochenenden'],'u.2':['Viajes largos','Long trips','Lange Reisen'],'u.3':['Vivir en ella','Living in it','Darin wohnen'],
+ 'k.solar':['Placa solar','Solar panel','Solarmodul'],'k.solar.s':['Carga gratis mientras estás parado','Free charging while parked','Kostenlos laden im Stand'],
+ 'k.lit':['Batería de litio','Lithium battery','Lithiumbatterie'],'k.lit.s':['Más energía, menos peso','More power, less weight','Mehr Energie, weniger Gewicht'],
+ 'k.dc':['Cargador desde el motor','Charging from the engine','Laden über die Lichtmaschine'],'k.dc.s':['Carga mientras conduces','Charges while you drive','Lädt während der Fahrt'],
+ 'k.inv':['Inversor 230 V','230 V inverter','230-V-Wechselrichter'],'k.inv.s':['Enchufes como en casa','Sockets like at home','Steckdosen wie zu Hause'],
+ 'k.fri':['Nevera de compresor','Compressor fridge','Kompressorkühlschrank'],'k.fri.s':['Frío de verdad, bajo consumo','Real cooling, low draw','Echte Kühlung, wenig Verbrauch'],
+ 'k.led':['Luz LED y tomas USB','LED lights and USB','LED-Licht und USB'],'k.led.s':['Interior iluminado y cargas el móvil','Lit interior, phone charging','Licht innen, Handy laden'],
+ 'k.none':['Elige al menos una cosa para pedir presupuesto.','Pick at least one item to request a quote.','Wähle mindestens eine Sache für ein Angebot.'],
+ 'k.your':['Tu instalación','Your setup','Deine Anlage'],'k.btn':['Pedir presupuesto de esta instalación','Get a quote for this setup','Angebot für diese Anlage anfordern'],
+ 'k.sum':['Instalación camper ({u}): {l}.','Campervan setup ({u}): {l}.','Camper-Anlage ({u}): {l}.'],
+ 'rm.h':['Que no se te pase el TÜV ni la revisión','Never miss your TÜV or service','Verpasse nie TÜV oder Inspektion'],
+ 'rm.p':['Déjanos tu matrícula y las fechas, y te escribimos por WhatsApp un mes antes para darte cita. Sin papeles ni sustos.','Leave your plate and the dates, and we’ll message you on WhatsApp a month before to book you in. No paperwork, no surprises.','Gib uns dein Kennzeichen und die Termine, und wir schreiben dir einen Monat vorher per WhatsApp. Kein Papierkram, keine Überraschungen.'],
+ 'rm.1':['Aviso un mes antes del TÜV, con cita ya propuesta','A reminder a month before the HU (TÜV), with a slot offered','Erinnerung einen Monat vor der HU, mit Terminvorschlag'],
+ 'rm.2':['Aviso de revisión según la fecha o los kilómetros','Service reminders by date or mileage','Inspektionserinnerung nach Datum oder Kilometern'],
+ 'rm.3':['Puedes darte de baja con un mensaje','Opt out any time with one message','Abmelden jederzeit mit einer Nachricht'],
+ 'rm.fh':['Activa tus avisos','Turn on your reminders','Erinnerungen aktivieren'],'rm.itv':['Próximo TÜV','Next HU (TÜV)','Nächste HU (TÜV)'],'rm.rev':['Próxima revisión','Next service','Nächste Inspektion'],
+ 'rm.ok':['Acepto recibir estos avisos por WhatsApp.','I agree to receive these reminders on WhatsApp.','Ich möchte diese Erinnerungen per WhatsApp erhalten.'],
+ 'rm.btn':['Avisadme por WhatsApp','Remind me on WhatsApp','Per WhatsApp erinnern'],
+ 'rm.e1':['Pon al menos una fecha: TÜV o revisión.','Add at least one date: HU or service.','Gib mindestens ein Datum an: HU oder Inspektion.'],
+ 'rm.okH':['Avisos activados','Reminders on','Erinnerungen aktiv'],
+ 'rm.okP':['Te escribiremos al {t} un mes antes de: {l}.','We’ll message {t} a month before: {l}.','Wir schreiben {t} einen Monat vor: {l}.'],
+ 'rm.li':['TÜV ({d})','HU ({d})','HU ({d})'],'rm.lr':['revisión ({d})','service ({d})','Inspektion ({d})'],
+ 'vid.t':['Vídeo del mecánico','Mechanic’s video','Video vom Mechaniker'],'vid.s':['Te enseñamos las pastillas viejas y las nuevas antes de entregarte el coche.','We show you the old and new pads before handing the car back.','Wir zeigen dir die alten und neuen Beläge vor der Übergabe.'],
+ 'vid.toast':['En la versión real, aquí ves el vídeo que graba el mecánico.','In the live version, the mechanic’s video plays here.','In der echten Version siehst du hier das Video des Mechanikers.'],
+ 'cta.cita':['Pedir cita','Book an appointment','Termin buchen'],'cta.presu':['Pedir presupuesto','Get a quote','Angebot anfordern'],
+ 'odo.cap':['Reparando coches desde <b>2004</b>','Fixing cars since <b>2004</b>','Wir reparieren Autos seit <b>2004</b>'],
+ 'odo.sub':['de oficio, con equipos de diagnosis actuales','of experience, with up-to-date diagnostic tools','Erfahrung, mit aktuellen Diagnosegeräten'],
+ years:['{n} años','{n} years','{n} Jahre'],
+ 'df.1':['Mecánica','Mechanics','Mechanik'],'df.1s':['todas las marcas','all makes','alle Marken'],'df.2':['Electricidad','Electrics','Elektrik'],'df.2s':['diagnosis y averías','diagnostics and faults','Diagnose und Fehler'],'df.3':['Campers','Campers','Camper'],'df.3s':['placas y litio','solar and lithium','Solar und Lithium'],
+ 'av.h':['¿Qué le pasa a tu coche?','What’s wrong with your car?','Was hat dein Auto?'],
+ 'av.p':['Elige lo que notas y te contamos qué hacemos. Si no aparece, pregúntale al asistente.','Pick what you’ve noticed and we’ll tell you what we do. Not listed? Ask our assistant.','Wähle aus, was dir auffällt, und wir sagen dir, was wir tun. Nicht dabei? Frag unseren Assistenten.'],
+ 'pz.h':['¿Cuánto me costaría?','How much would it cost?','Was würde das kosten?'],
+ 'pz.p':['Cuéntaselo al asistente: te hace unas preguntas rápidas sobre tu vehículo y el taller te llama con el precio. Sin compromiso.','Tell our assistant: it asks a few quick questions about your vehicle and the garage calls you with a price. No obligation.','Erzähl es unserem Assistenten: Er stellt ein paar kurze Fragen zu deinem Fahrzeug und die Werkstatt ruft dich mit dem Preis an. Unverbindlich.'],
+ 'pz.call':['O llama al 0221 000 000','Or call 0221 000 000','Oder ruf an: 0221 000 000'],
+ 'cp.h':['Tu camper, con energía para irte lejos.','Power your campervan for the long road.','Strom für deinen Camper, damit du weit kommst.'],
+ 'cp.p':['Montamos y reparamos la instalación eléctrica de furgonetas de trabajo y campers, para que tengas luz, nevera y enchufes sin depender de un camping.','We fit and repair electrical systems in work vans and campervans, so you have lights, a fridge and sockets without needing a campsite.','Wir bauen und reparieren die Elektrik von Transportern und Campern: Licht, Kühlschrank und Steckdosen, ganz ohne Campingplatz.'],
+ 'cp.btn':['Presupuesto para mi camper','Quote for my campervan','Angebot für meinen Camper'],
+ 'cp.1':['Placas solares y reguladores MPPT','Solar panels and MPPT controllers','Solarmodule und MPPT-Laderegler'],'cp.2':['Baterías auxiliares y de litio','Leisure and lithium batteries','Zusatz- und Lithiumbatterien'],'cp.3':['Cargadores de batería e inversores de 230 V','Battery chargers and 230 V inverters','Ladegeräte und 230-V-Wechselrichter'],'cp.4':['Iluminación, tomas USB y nevera','Lighting, USB sockets and fridge','Beleuchtung, USB-Steckdosen und Kühlschrank'],'cp.5':['Revisión de instalaciones que fallan','Checks on systems that fail','Prüfung fehlerhafter Anlagen'],
+ 'co.h':['Así trabajamos con tu coche','How we work on your car','So arbeiten wir an deinem Auto'],'co.p':['Nada se cambia sin que tú lo sepas y lo apruebes.','Nothing is replaced unless you know about it and approve it.','Nichts wird getauscht, ohne dass du es weißt und zustimmst.'],
+ 's1.h':['Lo revisamos','We check it','Wir prüfen es'],'s1.p':['Buscamos el origen de la avería, no solo el síntoma, con diagnosis electrónica cuando hace falta.','We look for the cause, not just the symptom, using electronic diagnostics when needed.','Wir suchen die Ursache, nicht nur das Symptom, bei Bedarf mit elektronischer Diagnose.'],
+ 's2.h':['Te lo explicamos','We explain it','Wir erklären es dir'],'s2.p':['Te llamamos con lo que hay que hacer y el precio. Solo seguimos si estás de acuerdo.','We call you with what needs doing and the price. We only go ahead if you agree.','Wir rufen dich an und sagen dir, was zu tun ist und was es kostet. Wir machen nur weiter, wenn du einverstanden bist.'],
+ 's3.h':['Lo reparamos y te avisamos','We fix it and let you know','Wir reparieren und melden uns'],'s3.p':['Probamos el coche antes de entregarlo y te escribimos por WhatsApp cuando está listo. Puedes seguirlo aquí con tu matrícula.','We test the car before handing it back and message you on WhatsApp when it’s ready. You can track it here with your number plate.','Wir testen das Auto vor der Übergabe und schreiben dir per WhatsApp, wenn es fertig ist. Du kannst es hier mit deinem Kennzeichen verfolgen.'],
+ 'tm.h':['Mecánica y electricidad, en el mismo taller','Mechanics and electrics under one roof','Mechanik und Elektrik in einer Werkstatt'],
+ 'tm.p':['Muchas averías de hoy son mitad mecánica, mitad electrónica. Aquí las vemos enteras, sin mandarte de un taller a otro.','Many faults today are half mechanical, half electronic. We handle the whole job, without sending you from one garage to another.','Viele Fehler sind heute halb Mechanik, halb Elektronik. Wir kümmern uns um alles, ohne dich von Werkstatt zu Werkstatt zu schicken.'],
+ 'f1.b':['Todas las marcas','All makes','Alle Marken'],'f1.s':['turismos, furgonetas y campers','cars, vans and campervans','Autos, Transporter und Camper'],'f2.b':['Diagnosis electrónica','Electronic diagnostics','Elektronische Diagnose'],'f2.s':['equipos actualizados','up-to-date equipment','aktuelle Geräte'],'f3.b':['Precio antes de empezar','Price before we start','Preis vor Arbeitsbeginn'],'f3.s':['sin sorpresas en la factura','no surprises on the bill','keine Überraschungen auf der Rechnung'],'f4.b':['Hablamos tu idioma','We speak your language','Wir sprechen deine Sprache'],'f4.s':['alemán, inglés y español','German, English and Spanish','Deutsch, Englisch und Spanisch'],
+ 'ci.h':['Pide cita','Book an appointment','Termin buchen'],'ci.p':['Elige día y hora aquí, pídela al asistente o llámanos.','Choose a day and time here, ask the assistant or call us.','Wähle hier Tag und Uhrzeit, frag den Assistenten oder ruf uns an.'],
+ 'ci.tag':['Llámanos en horario de taller','Call us during opening hours','Ruf uns während der Öffnungszeiten an'],'ci.hrs':['Lunes a viernes de 8:00 a 18:00 y sábados de 9:00 a 13:00.','Monday to Friday 8:00–18:00, Saturday 9:00–13:00.','Mo–Fr 8:00–18:00 Uhr, Sa 9:00–13:00 Uhr.'],
+ 'bk.h':['Reserva tu hora','Book your slot','Termin reservieren'],'bk.sub':['Solo ves las horas que de verdad están libres. Te llega directamente al taller.','You only see slots that are really free. Your booking goes straight to the garage.','Du siehst nur wirklich freie Zeiten. Deine Buchung geht direkt an die Werkstatt.'],
+ 'bk.q':['¿Qué le pasa?','What’s the problem?','Was ist das Problem?'],'bk.d':['Día','Day','Tag'],'bk.t':['Hora','Time','Uhrzeit'],
+ 'l.nom':['Nombre','Name','Name'],'l.tel':['Móvil','Mobile','Handy'],'l.veh':['Vehículo','Vehicle','Fahrzeug'],'ph.veh':['Marca y modelo','Make and model','Marke und Modell'],'l.mat':['Matrícula','Number plate','Kennzeichen'],'l.more':['Cuéntanos algo más (opcional)','Anything else? (optional)','Noch etwas? (optional)'],
+ 'bk.ok':['Acepto que el taller use mis datos solo para gestionar esta cita.','I agree to the garage using my details only to manage this booking.','Ich bin einverstanden, dass die Werkstatt meine Daten nur für diesen Termin nutzt.'],
+ 'bk.btn':['Confirmar cita','Confirm booking','Termin bestätigen'],'bk.sending':['Reservando…','Booking…','Wird gebucht…'],
+ 'es.h':['¿Cómo va mi coche?','How’s my car doing?','Wie weit ist mein Auto?'],'es.p':['Escribe la matrícula y mira en qué punto está, sin tener que llamar.','Enter your number plate and see where it’s at, without calling.','Gib dein Kennzeichen ein und sieh nach, wie weit es ist, ohne anzurufen.'],'es.btn':['Ver','Check','Prüfen'],'es.try':['Prueba con K-GA 1234.','Try K-GA 1234.','Probier K-GA 1234.'],
+ 'es.idle':['Aquí verás si tu coche está recibido, en reparación o listo para recoger.','Here you’ll see whether your car has been received, is being repaired or is ready to collect.','Hier siehst du, ob dein Auto angenommen, in Reparatur oder abholbereit ist.'],
+ 'vi.h':['Dónde estamos','Find us','Anfahrt'],'vi.addr':['Musterstraße 12<br>50667 Köln, Alemania','Musterstraße 12<br>50667 Köln, Germany','Musterstraße 12<br>50667 Köln'],'vi.hr':['Horario','Opening hours','Öffnungszeiten'],'vi.go':['Cómo llegar','Directions','Route planen'],
+ 'ft.p':['Mecánica y electricidad del automóvil en Köln. Coches, furgonetas y campers.','Car mechanics and auto electrics in Köln. Cars, vans and campervans.','Kfz-Mechanik und Autoelektrik in Köln. Autos, Transporter und Camper.'],'ft.c':['Contacto','Contact','Kontakt'],'ft.t':['Taller','Garage','Werkstatt'],'legal':['En la web real aquí van el Impressum, la política de privacidad y las condiciones, obligatorios en Alemania.','On the live site this links to the Impressum, privacy policy and terms, which are required in Germany.','Auf der echten Website stehen hier Impressum, Datenschutzerklärung und AGB, die in Deutschland Pflicht sind.'],
+ 'ft.app':['Acceso taller','Staff login','Werkstatt-Login'],
+ 'as.btn':['¿Qué le pasa a tu coche?','What’s wrong with your car?','Was hat dein Auto?'],
+ closed:['Cerrado','Closed','Geschlossen'],today:['hoy','today','heute'],and:[' y ',' and ',' und '],
+ openNow:['Abierto ahora, hasta las {h}','Open now, until {h}','Jetzt geöffnet, bis {h} Uhr'],closedToday:['Cerrado ahora. Abrimos hoy a las {h}','Closed now. We open today at {h}','Jetzt geschlossen. Heute ab {h} Uhr geöffnet'],closedNext:['Cerrado ahora. Abrimos {d} a las {h}','Closed now. We open {d} at {h}','Jetzt geschlossen. Wir öffnen {d} um {h} Uhr'],dpre:['el ','on ','am '],tomorrow:['mañana','tomorrow','morgen'],
+ full:['lleno','full','voll'],noSlots:['No quedan horas libres estos días. Llámanos al 0221 000 000.','No free slots in the coming days. Call us on 0221 000 000.','In den nächsten Tagen ist nichts frei. Ruf uns an: 0221 000 000.'],
+ other:['Otro','Something else','Etwas anderes'],
+ 'e.serv':['Elige qué le pasa al coche.','Choose what’s wrong with the car.','Wähle aus, was das Auto hat.'],'e.day':['Elige día y hora.','Choose a day and time.','Wähle Tag und Uhrzeit.'],'e.nom':['Escribe tu nombre.','Enter your name.','Gib deinen Namen ein.'],'e.tel':['Escribe un móvil válido.','Enter a valid mobile number.','Gib eine gültige Handynummer ein.'],'e.mat':['Escribe la matrícula.','Enter the number plate.','Gib das Kennzeichen ein.'],'e.ok':['Acepta el uso de tus datos para la cita.','Please agree to the use of your details.','Bitte stimme der Nutzung deiner Daten zu.'],'e.res':['Escribe qué le pasa al vehículo.','Describe what’s wrong with the vehicle.','Beschreibe, was das Fahrzeug hat.'],'e.full':['Esa hora se acaba de llenar. Elige otra.','That slot has just filled up. Choose another.','Diese Zeit ist gerade voll geworden. Wähle eine andere.'],
+ okH:['Cita reservada','Booking confirmed','Termin gebucht'],okP:['Te esperamos el <b>{d}</b> a las <b>{h}</b>. Si te surge algo, llámanos al 0221 000 000.','See you on <b>{d}</b> at <b>{h}</b>. If anything comes up, call us on 0221 000 000.','Wir erwarten dich am <b>{d}</b> um <b>{h}</b> Uhr. Falls etwas dazwischenkommt, ruf uns an: 0221 000 000.'],okP2:['Cuando dejes el coche, podrás ver cómo va en «¿Cómo va mi coche?» con tu matrícula.','Once you drop the car off, you can track it in “How’s my car doing?” with your number plate.','Sobald du das Auto abgibst, kannst du es unter „Wie weit ist mein Auto?“ mit deinem Kennzeichen verfolgen.'],
+ 'st.full':['Escribe la matrícula completa.','Enter the full number plate.','Gib das vollständige Kennzeichen ein.'],'st.none':['No hay ningún coche con esa matrícula en el taller. Revisa que esté bien escrita o llámanos.','There’s no car with that number plate at the garage. Check the spelling or give us a call.','Mit diesem Kennzeichen ist kein Auto in der Werkstatt. Prüf die Schreibweise oder ruf uns an.'],
+ 'st.1':['Recibido en el taller','Received at the garage','In der Werkstatt angenommen'],'st.1s':['Lo tenemos en cola para revisarlo.','It’s in the queue to be checked.','Es wartet auf die Prüfung.'],'st.2':['En reparación','Being repaired','In Reparatur'],'st.2s':['Estamos trabajando en tu coche.','We’re working on your car.','Wir arbeiten an deinem Auto.'],'st.3':['Listo para recoger','Ready to collect','Abholbereit'],'st.3s':['Ya puedes pasar a por él.','You can come and pick it up.','Du kannst es abholen.'],'st.done':['Hecho','Done','Erledigt'],'st.pend':['Pendiente','Pending','Ausstehend'],'st.cita':['Tienes cita el <b>{d}</b> a las <b>{h}</b>.','You have an appointment on <b>{d}</b> at <b>{h}</b>.','Du hast einen Termin am <b>{d}</b> um <b>{h}</b> Uhr.'],'st.car':['Tu coche','Your car','Dein Auto'],
+ 'as.t':['Asistente del taller','Garage assistant','Werkstatt-Assistent'],'as.tp':['Pedir presupuesto','Get a quote','Angebot anfordern'],'as.on':['● Responde al momento','● Replies instantly','● Antwortet sofort'],'as.ph':['Escribe tu mensaje…','Type your message…','Schreib deine Nachricht…'],'as.close':['Cerrar','Close','Schließen'],'as.send':['Enviar','Send','Senden'],
+ 'as.hi':['¡Hola! Soy el asistente de Galerna Autoservice. Cuéntame qué le pasa a tu vehículo, te doy cita o te preparo un presupuesto.','Hi! I’m the Galerna Autoservice assistant. Tell me what’s wrong with your vehicle and I’ll book you in or prepare a quote.','Hallo! Ich bin der Assistent von Galerna Autoservice. Erzähl mir, was dein Fahrzeug hat, dann buche ich dir einen Termin oder bereite ein Angebot vor.'],
+ 'as.hiP':['Te preparo el presupuesto. Te haré unas preguntas rápidas para que el mecánico sepa qué le pasa a tu vehículo y te llamamos con el precio. ¿Qué le pasa o qué quieres hacerle?','Let’s get your quote ready. I’ll ask a few quick questions so the mechanic knows what’s going on, then we’ll call you with the price. What’s the problem, or what would you like done?','Ich bereite dein Angebot vor. Ich stelle dir ein paar kurze Fragen, damit der Mechaniker Bescheid weiß, und wir rufen dich mit dem Preis an. Was ist das Problem oder was soll gemacht werden?'],
+ 'as.typing':['Escribiendo…','Typing…','Schreibt…'],'as.book':['Reservar cita aquí','Book here','Hier buchen'],'as.cita':['Cita: {s}','Appointment: {s}','Termin: {s}'],'as.data':['Tus datos','Your details','Deine Daten'],'as.not':['Ahora no','Not now','Jetzt nicht'],
+ 'ch.1':['Quiero pedir cita','I’d like an appointment','Ich möchte einen Termin'],'ch.2':['Quiero un presupuesto','I’d like a quote','Ich möchte ein Angebot'],
+ 'p.card':['Esto es lo que le pasamos al taller','This is what we’ll send the garage','Das geht an die Werkstatt'],'p.sum':['Resumen (puedes corregirlo)','Summary (you can edit it)','Zusammenfassung (änderbar)'],'p.veh':['Tu vehículo','Your vehicle','Dein Fahrzeug'],'p.vehph':['Marca, modelo y año','Make, model and year','Marke, Modell und Baujahr'],'p.km':['Kilómetros aproximados','Approximate mileage (km)','Ungefährer Kilometerstand'],'p.mat':['Matrícula (opcional)','Number plate (optional)','Kennzeichen (optional)'],'p.who':['¿A quién llamamos?','Who should we call?','Wen sollen wir anrufen?'],
+ 'p.ok':['Acepto que el taller use mis datos para llamarme por este presupuesto.','I agree to the garage using my details to call me about this quote.','Ich bin einverstanden, dass die Werkstatt mich wegen dieses Angebots anruft.'],'p.send':['Enviar y que me llamen','Send and call me back','Senden und zurückrufen'],'p.sending':['Enviando…','Sending…','Wird gesendet…'],
+ 'p.done':['¡Enviado, {n}! El taller ya tiene tu solicitud y te llamará al {t} con el presupuesto.','Sent, {n}! The garage has your request and will call you on {t} with the quote.','Gesendet, {n}! Die Werkstatt hat deine Anfrage und ruft dich unter {t} mit dem Angebot an.'],
+ 'b.done':['¡Listo! Tienes cita el {d} a las {h}. Si te surge algo, llámanos al 0221 000 000.','Done! Your appointment is on {d} at {h}. If anything comes up, call us on 0221 000 000.','Erledigt! Dein Termin ist am {d} um {h} Uhr. Falls etwas dazwischenkommt, ruf uns an: 0221 000 000.'],
+ 'p.ready':['Perfecto, ya lo tengo. Revisa el resumen y déjanos tu nombre y móvil para llamarte.','Great, I’ve got everything. Check the summary and leave your name and mobile so we can call you.','Super, ich habe alles. Prüf die Zusammenfassung und hinterlass Namen und Handynummer, damit wir dich anrufen können.'],
+ 'q.veh':['¿Qué vehículo es? Marca, modelo y año.','What vehicle is it? Make, model and year.','Welches Fahrzeug ist es? Marke, Modell und Baujahr.'],'q.km':['¿Cuántos kilómetros tiene, más o menos?','Roughly how many kilometres has it done?','Wie viele Kilometer hat es ungefähr?'],'q.camper':['¿Qué furgo es y qué lleva montado ahora?','What van is it, and what’s fitted at the moment?','Welcher Transporter ist es und was ist schon verbaut?'],'q.otro':['Cuéntame con detalle qué le pasa o qué quieres hacerle.','Tell me in detail what’s wrong or what you’d like done.','Beschreib genau, was los ist oder was gemacht werden soll.'],
+ 'c.price':['Te preparo la solicitud de presupuesto aquí mismo y el taller te llama con el precio.','I can prepare a quote request right here and the garage will call you with the price.','Ich bereite hier direkt eine Angebotsanfrage vor und die Werkstatt ruft dich mit dem Preis an.'],
+ 'c.smoke':['Si hay humo, chispas u olor a quemado, para el vehículo, quita el contacto y no lo uses. Llámanos al 0221 000 000.','If there’s smoke, sparks or a burning smell, stop, switch off the ignition and don’t drive it. Call us on 0221 000 000.','Bei Rauch, Funken oder Brandgeruch: anhalten, Zündung aus und nicht weiterfahren. Ruf uns an: 0221 000 000.'],
+ 'c.hours':['Abrimos de lunes a viernes de 8:00 a 18:00 y los sábados de 9:00 a 13:00.','We’re open Monday to Friday 8:00–18:00 and Saturday 9:00–13:00.','Wir haben Mo–Fr von 8:00 bis 18:00 Uhr und Sa von 9:00 bis 13:00 Uhr geöffnet.'],
+ 'c.def':['Cuéntame qué le pasa a tu vehículo, te doy cita aquí mismo o te preparo un presupuesto.','Tell me what’s wrong with your vehicle and I’ll book you in here or prepare a quote.','Erzähl mir, was dein Fahrzeug hat, dann buche ich dir hier einen Termin oder bereite ein Angebot vor.'],
+ 'r.sum':['{s}. {r}','{s}. {r}','{s}. {r}'],
+};
+const T=(k,v)=>{let s=(D[k]||[k])[L.indexOf(LANG)]??D[k][0];if(v)for(const x in v)s=s.split('{'+x+'}').join(v[x]);return s};
+const tr=a=>a[L.indexOf(LANG)]||a[0];
+
+/* ================= síntomas y servicios ================= */
+const S=[
+ {id:'frenos',i:'<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/>',k:['Hace ruido al frenar','Noise when braking','Geräusche beim Bremsen'],t:['Frenos','Brakes','Bremsen'],p:['Un chirrido, una vibración en el volante o un pedal más blando suelen ser pastillas o discos gastados.','A squeal, a shaking steering wheel or a softer pedal usually mean worn pads or discs.','Quietschen, ein zitterndes Lenkrad oder ein weicheres Pedal bedeuten meist abgenutzte Beläge oder Scheiben.'],l:[['Revisión de pastillas, discos y líquido','Check of pads, discs and fluid','Prüfung von Belägen, Scheiben und Flüssigkeit'],['Cambio de lo gastado, con tu aprobación','Replacement of worn parts, with your approval','Austausch verschlissener Teile, nach deiner Zustimmung'],['Prueba del coche antes de entregarlo','Road test before handover','Probefahrt vor der Übergabe']],
+  f:[[['¿Qué notas exactamente al frenar?','What exactly do you notice when braking?','Was genau merkst du beim Bremsen?'],[['Chirrido','Squealing','Quietschen'],['Roce metálico','Metal grinding','Metallisches Schleifen'],['Vibra el volante','Steering wheel shakes','Lenkrad vibriert'],['El pedal baja o está blando','Pedal sinks or feels soft','Pedal sinkt oder ist weich']]],[['¿Se ha encendido algún testigo?','Is any warning light on?','Leuchtet eine Warnleuchte?'],[['Ninguno','None','Keine'],['El de pastillas','Brake pad light','Bremsbelag-Leuchte'],['El de ABS','ABS light','ABS-Leuchte'],['El rojo de frenos','Red brake light','Rote Bremsleuchte']]]]},
+ {id:'testigo',i:'<path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h0"/>',k:['Se ha encendido un testigo','A warning light is on','Eine Warnleuchte leuchtet'],t:['Diagnosis','Diagnostics','Diagnose'],p:['Conectamos la máquina de diagnosis, leemos qué avería ha guardado el coche y buscamos la causa real, que no siempre es lo que marca el código.','We connect the diagnostic tool, read the stored fault and find the real cause, which isn’t always what the code says.','Wir schließen das Diagnosegerät an, lesen den gespeicherten Fehler aus und suchen die echte Ursache, die nicht immer im Code steht.'],l:[['Lectura de averías de la centralita','Reading fault codes from the ECU','Auslesen des Fehlerspeichers'],['Comprobación del circuito afectado','Testing the affected circuit','Prüfung des betroffenen Stromkreises'],['Presupuesto antes de reparar','Quote before any repair','Angebot vor der Reparatur']],
+  f:[[['¿Qué testigo se ha encendido?','Which warning light is on?','Welche Warnleuchte leuchtet?'],[['Motor','Engine','Motor'],['Batería','Battery','Batterie'],['Aceite o temperatura','Oil or temperature','Öl oder Temperatur'],['Airbag','Airbag','Airbag'],['ABS / ESP','ABS / ESP','ABS / ESP']]],[['¿Está fijo o parpadea? ¿Notas algo al conducir?','Is it steady or flashing? Anything odd when driving?','Leuchtet sie dauerhaft oder blinkt sie? Merkst du etwas beim Fahren?'],[['Fijo, va normal','Steady, drives normally','Dauerhaft, fährt normal'],['Va a tirones','It jerks','Es ruckelt'],['Pierde fuerza','Loses power','Verliert Leistung'],['Parpadea','Flashing','Blinkt']]]]},
+ {id:'arranque',i:'<rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 11v2M6 10v4M10 10v4"/>',k:['No arranca o le cuesta','Won’t start or struggles','Springt schlecht oder gar nicht an'],t:['Batería y arranque','Battery and starting','Batterie und Start'],p:['Puede ser la batería, un consumo que la descarga, el motor de arranque o el alternador. Medimos todo el circuito y salimos de dudas.','It could be the battery, something draining it, the starter motor or the alternator. We test the whole circuit and find out.','Es kann die Batterie sein, ein Verbraucher, der sie entlädt, der Anlasser oder die Lichtmaschine. Wir messen den ganzen Kreis.'],l:[['Prueba de batería y de carga','Battery and charging test','Batterie- und Ladetest'],['Revisión de arranque y alternador','Starter and alternator check','Prüfung von Anlasser und Lichtmaschine'],['Busca de consumos parásitos','Search for parasitic drain','Suche nach Kriechströmen']],
+  f:[[['¿Qué hace al girar la llave o pulsar el botón?','What happens when you turn the key or press start?','Was passiert, wenn du den Schlüssel drehst oder Start drückst?'],[['No hace nada','Nothing at all','Gar nichts'],['Hace clic','It clicks','Es klickt'],['Gira lento','Turns over slowly','Dreht langsam'],['Gira pero no arranca','Turns but won’t start','Dreht, springt aber nicht an']]],[['¿Cuándo le pasa?','When does it happen?','Wann passiert es?'],[['Siempre','Always','Immer'],['En frío / por las mañanas','When cold / in the morning','Bei Kälte / morgens'],['Tras días parado','After standing a few days','Nach ein paar Tagen Standzeit'],['Ahora está parado','It’s stuck right now','Es steht gerade still']]],[['¿Sabes cuántos años tiene la batería?','Do you know how old the battery is?','Weißt du, wie alt die Batterie ist?'],[['Menos de 2 años','Under 2 years','Unter 2 Jahre'],['Más de 4 años','Over 4 years','Über 4 Jahre'],['No lo sé','Not sure','Weiß ich nicht']]]]},
+ {id:'revision',i:'<path d="M12 2v6M12 22v-6M4.9 4.9l4.2 4.2M19.1 19.1l-4.2-4.2M2 12h6M22 12h-6"/>',k:['Le toca la revisión','It’s due a service','Inspektion ist fällig'],t:['Mantenimiento','Servicing','Wartung'],p:['Aceite, filtros y repaso general según los kilómetros de tu coche, para que no te deje tirado.','Oil, filters and a full check based on your car’s mileage, so it doesn’t leave you stranded.','Öl, Filter und Durchsicht passend zum Kilometerstand, damit du nicht liegen bleibst.'],l:[['Cambio de aceite y filtros','Oil and filter change','Öl- und Filterwechsel'],['Niveles, correas, luces y neumáticos','Fluids, belts, lights and tyres','Flüssigkeiten, Riemen, Licht und Reifen'],['Te avisamos de lo que conviene vigilar','We flag anything to keep an eye on','Wir sagen dir, worauf du achten solltest']],
+  f:[[['¿Qué quieres que te hagamos?','What would you like us to do?','Was sollen wir machen?'],[['Aceite y filtros','Oil and filters','Öl und Filter'],['Revisión completa del fabricante','Full manufacturer service','Komplette Herstellerinspektion'],['Cambio de distribución','Timing belt change','Zahnriemenwechsel'],['No lo sé, aconsejadme','Not sure, advise me','Weiß nicht, berate mich']]]]},
+ {id:'itv',i:'<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>',k:['Le toca el TÜV','The HU (TÜV) is due','Die HU (TÜV) steht an'],t:['Pre-TÜV','Pre-TÜV check','HU-Vorabcheck'],p:['Repasamos lo que suelen mirar en la estación para que la pases a la primera.','We check what the inspection station looks at, so you pass first time.','Wir prüfen vorab, was bei der Prüfstelle kontrolliert wird, damit du beim ersten Mal bestehst.'],l:[['Luces, frenos, dirección y suspensión','Lights, brakes, steering and suspension','Licht, Bremsen, Lenkung und Fahrwerk'],['Neumáticos, escape y testigos','Tyres, exhaust and warning lights','Reifen, Auspuff und Warnleuchten'],['Arreglo de lo que no pasaría','Fixing anything that would fail','Reparatur von allem, was durchfallen würde']],
+  f:[[['¿Cuándo le toca el TÜV?','When is the HU due?','Wann ist die HU fällig?'],[['Me toca este mes','Due this month','Diesen Monat fällig'],['Ya está caducado','Already overdue','Schon überfällig'],['No lo pasó','It failed','Nicht bestanden'],['Quiero adelantarme','I want to get ahead','Ich will vorsorgen']]],[['¿Quieres un pre-TÜV completo o que miremos algo concreto?','Full pre-inspection, or something specific?','Kompletter Vorabcheck oder etwas Bestimmtes?'],[['Pre-TÜV completo','Full pre-check','Kompletter Vorabcheck'],['Luces','Lights','Licht'],['Frenos','Brakes','Bremsen'],['Humos / emisiones','Emissions','Abgase'],['Neumáticos','Tyres','Reifen']]]]},
+ {id:'aire',i:'<path d="M12 2v20M4 6l16 12M20 6 4 18"/>',k:['El aire no enfría','The air con isn’t cooling','Die Klimaanlage kühlt nicht'],t:['Climatización','Air conditioning','Klimaanlage'],p:['Revisamos la carga de gas, las fugas y la parte eléctrica del aire acondicionado y el climatizador.','We check the gas charge, leaks and the electrical side of the air conditioning.','Wir prüfen Kältemittel, Undichtigkeiten und die Elektrik der Klimaanlage.'],l:[['Carga de gas y prueba de fugas','Recharge and leak test','Befüllung und Dichtheitsprüfung'],['Compresor, ventiladores y sensores','Compressor, fans and sensors','Kompressor, Lüfter und Sensoren'],['Limpieza del circuito si huele','System clean if it smells','Reinigung bei Geruch']],
+  f:[[['¿Qué le pasa al aire?','What’s the problem with the air con?','Was ist mit der Klimaanlage?'],[['No enfría nada','Not cooling at all','Kühlt gar nicht'],['Enfría poco','Cools a little','Kühlt kaum'],['No sopla','No airflow','Kein Luftstrom'],['Huele o hace ruido','Smells or makes noise','Riecht oder macht Geräusche']]],[['¿Sabes cuándo se cargó el gas por última vez?','When was it last recharged?','Wann wurde sie zuletzt befüllt?'],[['Este año','This year','Dieses Jahr'],['Hace más de 2 años','Over 2 years ago','Vor über 2 Jahren'],['Nunca','Never','Nie'],['No lo sé','Not sure','Weiß ich nicht']]]]},
+ {id:'luces',i:'<path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>',k:['Falla una luz','A light isn’t working','Ein Licht funktioniert nicht'],t:['Iluminación','Lighting','Beleuchtung'],p:['Faros, pilotos e intermitentes que fallan, cableados dañados y adaptaciones como LED o enganche de remolque.','Failing headlights, tail lights and indicators, damaged wiring, and fittings like LEDs or tow bar electrics.','Defekte Scheinwerfer, Rückleuchten und Blinker, beschädigte Kabel und Nachrüstungen wie LED oder Anhängerkupplung.'],l:[['Comprobación de bombilla, fusible y cableado','Bulb, fuse and wiring check','Prüfung von Lampe, Sicherung und Kabel'],['Reparación de conectores y masas','Connector and earth repairs','Reparatur von Steckern und Masse'],['Adaptaciones legales para el TÜV','TÜV-approved upgrades','TÜV-konforme Nachrüstungen']],
+  f:[[['¿Qué luz falla o qué quieres montar?','Which light fails, or what do you want fitted?','Welches Licht ist defekt oder was soll eingebaut werden?'],[['Cruce / largas','Dipped / main beam','Abblend- / Fernlicht'],['Pilotos traseros','Tail lights','Rückleuchten'],['Intermitentes','Indicators','Blinker'],['Adaptación (LED, enganche…)','Upgrade (LED, tow bar…)','Nachrüstung (LED, Anhängerkupplung…)']]]]},
+ {id:'camper',i:'<rect x="2" y="7" width="20" height="10" rx="2"/><path d="M7 7V4h10v3M6 17v2M18 17v2"/>',k:['Quiero equipar mi camper','I want to kit out my campervan','Ich will meinen Camper ausbauen'],t:['Furgonetas y campers','Vans and campervans','Transporter und Camper'],p:['Instalación eléctrica completa o por partes: placa solar, batería de litio, inversor, nevera y luces. Y reparamos instalaciones que fallan.','Full or partial electrical fit-outs: solar panel, lithium battery, inverter, fridge and lights. We also repair systems that fail.','Komplette oder teilweise Elektrik: Solarmodul, Lithiumbatterie, Wechselrichter, Kühlschrank und Licht. Wir reparieren auch fehlerhafte Anlagen.'],l:[['Estudio de consumos y autonomía','Power use and autonomy planning','Planung von Verbrauch und Autarkie'],['Montaje con material de calidad','Fitted with quality components','Einbau mit Qualitätskomponenten'],['Presupuesto cerrado antes de empezar','Fixed quote before we start','Festpreis vor Arbeitsbeginn']],
+  camper:true,f:[[['¿Es una instalación nueva o hay que reparar algo que falla?','A new installation, or a repair?','Neuer Einbau oder Reparatur?'],[['Instalación nueva','New installation','Neuer Einbau'],['Ampliar lo que tengo','Upgrade what I have','Bestehendes erweitern'],['Reparar algo que falla','Repair a fault','Fehler reparieren']]],[['¿Qué quieres tener o qué falla?','What do you want, or what’s failing?','Was möchtest du haben oder was ist defekt?'],[['Placa solar','Solar panel','Solarmodul'],['Batería de litio','Lithium battery','Lithiumbatterie'],['Inversor 230 V','230 V inverter','230-V-Wechselrichter'],['Nevera','Fridge','Kühlschrank'],['Todo el kit','The full kit','Das Komplettpaket']]]]},
+ {id:'ruido',i:'<path d="M3 12h3l3-8 4 16 3-8h5"/>',k:['Hace un ruido raro','It makes a strange noise','Es macht ein komisches Geräusch'],t:['Ruidos y vibraciones','Noises and vibrations','Geräusche und Vibrationen'],p:['Golpes en los baches, silbidos o vibraciones suelen venir de la suspensión, la dirección o la transmisión. Lo probamos contigo si hace falta.','Knocks over bumps, whistles or vibrations usually come from suspension, steering or drivetrain. We’ll test-drive it with you if needed.','Klopfen bei Schlaglöchern, Pfeifen oder Vibrationen kommen meist von Fahrwerk, Lenkung oder Antrieb. Bei Bedarf fahren wir mit dir Probe.'],l:[['Prueba en carretera','Road test','Probefahrt'],['Suspensión, rótulas y transmisión','Suspension, joints and drivetrain','Fahrwerk, Gelenke und Antrieb'],['Qué es urgente y qué puede esperar','What’s urgent and what can wait','Was dringend ist und was warten kann']],
+  f:[[['¿Cuándo suena?','When does it happen?','Wann tritt es auf?'],[['Al pasar baches','Over bumps','Bei Unebenheiten'],['Al girar','When turning','Beim Lenken'],['Al acelerar','When accelerating','Beim Beschleunigen'],['Con el coche parado','When stationary','Im Stand']]],[['¿Cómo es el ruido?','What does it sound like?','Wie klingt es?'],[['Golpe seco','Clunk','Dumpfer Schlag'],['Zumbido','Hum','Brummen'],['Silbido','Whistle','Pfeifen'],['Chirrido','Squeal','Quietschen']]]]},
+];
+const SV=id=>S.find(s=>s.id===id);
+const svName=id=>id==='otro'?T('other'):(SV(id)?tr(SV(id).k):id);
+function guess(t){const n=t.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase(),h=a=>a.some(x=>n.includes(x));
+ if(h(['camper','furgo','placa','solar','litio','inversor','wohnmobil','wechselrichter','van ']))return 'camper';
+ if(h(['fren','pastilla','brake','brems']))return 'frenos';
+ if(h(['arranc','bateria','battery','start','batterie','anspring']))return 'arranque';
+ if(h(['aire','clima','enfria','air con','aircon','klima']))return 'aire';
+ if(h(['luz','luces','faro','piloto','light','bulb','licht','scheinwerfer','blinker']))return 'luces';
+ if(h(['itv','mot','tuv','tüv','hu ','hauptuntersuchung','dekra','inspection','prufung']))return 'itv';
+ if(h(['revision','aceite','filtro','distribucion','service','oil','inspektion','ol ']))return 'revision';
+ if(h(['testigo','warning','warnleuchte','diagnos','averia','fault','fehler']))return 'testigo';
+ if(h(['ruido','vibra','golpe','noise','knock','gerausch','klopf']))return 'ruido';
+ return 'otro'}
+
+/* ================= horario ================= */
+const H={1:[[480,1080]],2:[[480,1080]],3:[[480,1080]],4:[[480,1080]],5:[[480,1080]],6:[[540,780]],0:[]};
+const fm=m=>Math.floor(m/60)+':'+String(m%60).padStart(2,'0');
+const dayName=(k,o)=>new Intl.DateTimeFormat(LOC[LANG],{weekday:o||'long'}).format(new Date(2024,0,7+k));
+const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
+function horario(){
+ const now=new Date(),d=now.getDay(),m=now.getHours()*60+now.getMinutes();
+ $('#hrs').innerHTML=[1,2,3,4,5,6,0].map(k=>`<tr class="${k===d?'hoy':''}"><td>${cap(dayName(k))}${k===d?` <span class="hoy-l">(${T('today')})</span>`:''}</td><td>${H[k].length?H[k].map(r=>fm(r[0])+'–'+fm(r[1])).join(T('and')):T('closed')}</td></tr>`).join('');
+ const el=$('#open'),cur=H[d].find(r=>m>=r[0]&&m<r[1]);let txt;
+ if(cur){txt=T('openNow',{h:fm(cur[1])});el.classList.add('si')}
+ else{el.classList.remove('si');const later=H[d].find(r=>m<r[0]);
+  if(later)txt=T('closedToday',{h:fm(later[0])});
+  else{let k=1;while(k<8&&!H[(d+k)%7].length)k++;const nd=(d+k)%7;txt=T('closedNext',{d:k===1?T('tomorrow'):T('dpre')+(LANG==='de'?cap(dayName(nd)):dayName(nd)),h:fm(H[nd][0][0])})}}
+ el.querySelector('span').textContent=txt;
+}
+
+/* ================= selector de síntomas ================= */
+let SEL=0;
+function renderSym(){
+ $('#sym-list').innerHTML=S.map((s,i)=>`<button role="tab" id="t${i}" aria-selected="${i===SEL}" aria-controls="sym-panel" tabindex="${i===SEL?0:-1}" data-i="${i}"><span class="k">${ic(s.i)}</span>${esc(tr(s.k))}</button>`).join('');
+ const s=S[SEL];$('#sym-panel').setAttribute('aria-labelledby','t'+SEL);
+ $('#sym-panel').innerHTML=`<h3>${esc(tr(s.t))}</h3><p>${esc(tr(s.p))}</p><ul>${s.l.map(x=>`<li>${CHECK}<span>${esc(tr(x))}</span></li>`).join('')}</ul><div class="go"><a class="btn pri" href="#cita" data-motivo="${s.id}">${T('cta.cita')}</a><a class="btn sec" href="#" data-presu="${s.id}">${T('cta.presu')}</a></div>`;
+}
+$('#sym-list').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;SEL=+b.dataset.i;renderSym();$('#t'+SEL).focus()});
+$('#sym-list').addEventListener('keydown',e=>{if(!['ArrowDown','ArrowUp','ArrowLeft','ArrowRight'].includes(e.key))return;e.preventDefault();SEL=(SEL+(e.key==='ArrowDown'||e.key==='ArrowRight'?1:S.length-1))%S.length;renderSym();$('#t'+SEL).focus()});
+
+/* ================= reservas (demo en este navegador) ================= */
+const KEY='tg-demo-de-v1';let DB={citas:[],presus:[]};try{DB=JSON.parse(ls.get(KEY))||DB}catch(e){}
+const saveDB=()=>ls.set(KEY,JSON.stringify(DB));
+const HORAS=['08:00','09:00','10:00','11:00','13:00','14:00','15:00','16:00'],CAP=2,LAB=[1,2,3,4,5];
+const SERV=[...S.map(x=>x.id),'otro'];
+const p2=n=>String(n).padStart(2,'0'),ymd=d=>d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate()),addD=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x};
+const pY=s=>{const[a,b,c]=s.split('-').map(Number);return new Date(a,b-1,c)};
+const fL=s=>new Intl.DateTimeFormat(LOC[LANG],{weekday:'long',day:'numeric',month:'long'}).format(pY(s));
+const seed=d=>{const x=[...String(d)].reduce((a,c)=>a*31+c.charCodeAt(0)>>>0,7);return x};
+const cnt=(d,h)=>(seed(d+h)%5===0?CAP:seed(d+h)%3===0?1:0)+DB.citas.filter(c=>c.fecha===d&&c.hora===h).length;
+const past=(d,h)=>{if(d!==ymd(new Date()))return false;const[a,b]=h.split(':').map(Number),n=new Date();return a*60+b<=n.getHours()*60+n.getMinutes()+45};
+const free=d=>HORAS.filter(h=>!past(d,h)&&cnt(d,h)<CAP).length;
+function dayList(){const o=[];let d=new Date();for(let i=0;o.length<10&&i<40;i++){if(LAB.includes(d.getDay()))o.push(ymd(d));d=addD(d,1)}return o}
+const MS=d=>new Intl.DateTimeFormat(LOC[LANG],{month:'short'}).format(d).replace('.','');
+function daysHTML(sel,attr){return dayList().map(d=>{const t=pY(d),f=!free(d);return `<button type="button" class="day" ${attr}="${d}" aria-pressed="${sel===d}" ${f?'disabled':''}><small>${d===ymd(new Date())?T('today'):dayName(t.getDay(),'short').replace('.','')}</small><b>${t.getDate()}</b><small>${f?T('full'):MS(t)}</small></button>`}).join('')}
+function slotsHTML(day,sel,attr){if(!day)return `<p style="color:var(--mute)">${T('noSlots')}</p>`;return HORAS.map(h=>{const dis=past(day,h)||cnt(day,h)>=CAP;return `<button type="button" class="slot" ${attr}="${h}" aria-pressed="${sel===h}" ${dis?'disabled':''}>${h}</button>`}).join('')}
+const firstFree=()=>dayList().find(free)||'';
+async function reservar(c){await new Promise(r=>setTimeout(r,450));if(cnt(c.fecha,c.hora)>=CAP)throw new Error(T('e.full'));DB.citas.push({...c,creada:new Date().toISOString()});saveDB()}
+const valid=c=>!c.servicio?T('e.serv'):!c.fecha||!c.hora?T('e.day'):!c.nombre?T('e.nom'):c.telefono.replace(/\D/g,'').length<9?T('e.tel'):c.matricula.replace(/[^A-Za-z0-9]/g,'').length<4?T('e.mat'):'';
+const BK={serv:'',day:'',slot:''};
+function renderBK(){
+ if(!$('#bk'))return;
+ $('#bk-serv').innerHTML=SERV.map(x=>`<button type="button" class="chipb" data-bkserv="${x}" aria-pressed="${BK.serv===x}">${esc(svName(x))}</button>`).join('');
+ if(!BK.day||!free(BK.day))BK.day=firstFree();
+ if(BK.slot&&(past(BK.day,BK.slot)||cnt(BK.day,BK.slot)>=CAP))BK.slot='';
+ $('#bk-days').innerHTML=daysHTML(BK.day,'data-bkday');$('#bk-slots').innerHTML=slotsHTML(BK.day,BK.slot,'data-bkslot');
+}
+$('#bk').addEventListener('submit',async e=>{
+ e.preventDefault();const f=e.target,v=k=>(f.elements[k].value||'').trim(),err=$('#bk-err');err.textContent='';
+ const c={servicio:BK.serv,fecha:BK.day,hora:BK.slot,nombre:v('n'),telefono:v('t'),vehiculo:v('c'),matricula:v('m').toUpperCase(),descripcion:v('q')};
+ const m=valid(c);if(m)return err.textContent=m;
+ if(!f.elements.ok.checked)return err.textContent=T('e.ok');
+ const b=f.querySelector('button.pri');b.disabled=true;b.textContent=T('bk.sending');
+ try{await reservar(c)}catch(x){b.disabled=false;b.textContent=T('bk.btn');return err.textContent=x.message}
+ const ok=document.createElement('div');ok.className='okbox';ok.setAttribute('role','status');ok.dataset.fecha=c.fecha;ok.dataset.hora=c.hora;f.replaceWith(ok);renderOk();
+});
+function renderOk(){const ok=$('.okbox[data-fecha]');if(!ok)return;ok.innerHTML=`<h3>${T('okH')}</h3><p style="margin-top:6px">${T('okP',{d:esc(fL(ok.dataset.fecha)),h:esc(ok.dataset.hora)})}</p><p style="margin-top:8px">${T('okP2')}</p>`}
+
+/* ================= estado por matrícula ================= */
+const norm=s=>s.replace(/[^A-Za-z0-9]/g,'').toUpperCase();
+let EST='';
+function renderEst(){
+ const el=$('#est-res'),q=EST;
+ if(!q){el.textContent=T('es.idle');return}
+ if(norm(q).length<4){el.textContent=T('st.full');return}
+ const pl=x=>`<span class="plate"><span>${esc(x)}</span></span>`;
+ const demo=norm(q)==='KGA1234'?{vehiculo:'Seat León 2016',matricula:'K-GA 1234',estado:1,titulo:tr(SV('frenos').t)}:null;
+ const ci=DB.citas.slice().reverse().find(c=>norm(c.matricula)===norm(q));
+ if(demo){const st=[['st.1','st.1s'],['st.2','st.2s'],['st.3','st.3s']],idx=demo.estado;
+  el.innerHTML=`<b style="color:var(--navy);font-size:18px">${esc(demo.vehiculo)}</b> ${pl(demo.matricula)}<p style="color:var(--mute);margin-top:2px">${esc(demo.titulo)}</p><button class="vid" type="button" data-vid><span class="vp"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span><span><b>${T('vid.t')}</b><small>${T('vid.s')}</small></span><em>0:42</em></button><div class="tl">${st.map((x,i)=>{const cl=i<idx?'done':i===idx?'now':'';return `<div class="tl-i ${cl}"><div class="tl-d">${cl==='done'?CHECK:''}</div><div><b>${T(x[0])}</b><br><small style="color:var(--mute)">${i===idx?T(x[1]):i<idx?T('st.done'):T('st.pend')}</small></div></div>`}).join('')}</div>`}
+ else if(ci)el.innerHTML=`<b style="color:var(--navy);font-size:18px">${esc(ci.vehiculo||T('st.car'))}</b> ${pl(ci.matricula)}<p style="margin-top:8px">${T('st.cita',{d:esc(fL(ci.fecha)),h:esc(ci.hora)})}</p>`;
+ else el.textContent=T('st.none');
+}
+$('#f-est').addEventListener('submit',e=>{e.preventDefault();EST=e.target.q.value.trim()||' ';renderEst()});
+
+/* ================= asistente (demo sin servidor) ================= */
+const AS={open:false,mode:'chat',msgs:[],busy:false,book:null,presu:null,sent:false};
+function chatReply(t){const n=t.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase(),h=a=>a.some(x=>n.includes(x));
+ if(h(['humo','quemado','chispa','smoke','burning','spark','rauch','brand','funken']))return{reply:T('c.smoke'),servicio:'testigo',cita:false,presupuesto:false};
+ if(h(['presupuesto','precio','cuesta','cuanto','price','cost','quote','how much','preis','kost','angebot']))return{reply:T('c.price'),presupuesto:true};
+ if(h(['horario','abris','abierto','hours','open','offnungszeit','geoffnet']))return{reply:T('c.hours')};
+ const id=guess(t);if(id==='otro')return{reply:T('c.def'),servicio:'otro',cita:true,presupuesto:true};
+ const s=SV(id);return{reply:tr(s.p),servicio:id,cita:true,presupuesto:true}}
+function presuStep(){
+ const us=AS.msgs.filter(x=>x.role==='user').map(x=>x.content),first=AS.presuTipo||'otro',s=SV(first);
+ let steps=(s?s.f:[]).map(x=>[tr(x[0]),x[1].map(tr)]);
+ if(first==='otro'&&!AS.presuFree)steps=[[T('q.otro'),[]]];
+ steps=steps.concat(s&&s.camper?[[T('q.camper'),[]]]:[[T('q.veh'),[]],[T('q.km'),[]]]);
+ const i=us.length-1;if(i<steps.length)return{reply:steps[i][0],opciones:steps[i][1]};
+ const ans=us.slice(1),vi=s&&s.camper?ans.length-1:ans.length-2;
+ return{reply:T('p.ready'),listo:true,resumen:svName(first)+'. '+us.join('. ')+'.',vehiculo:ans[vi]||'',km:s&&s.camper?'':(ans[ans.length-1]||''),servicio:first}}
+function asStart(mode,first){AS.mode=mode;AS.msgs=[];AS.book=null;AS.presu=null;AS.sent=false;AS.presuTipo='';AS.presuFree=false;AS.open=true;asRender();return first?asSend(svName(first),first):Promise.resolve()}
+function asRender(){
+ let el=$('#as');
+ if(!AS.open){if(el)el.remove();document.body.classList.remove('as-open');return}
+ document.body.classList.add('as-open');
+ if(!el){el=document.createElement('div');el.id='as';el.className='as';el.setAttribute('role','dialog');document.body.appendChild(el);
+  el.innerHTML=`<div class="as-h"><span class="av">G</span><div><b id="as-t"></b><small id="as-on"></small></div><button id="as-x">${ic('<path d="M18 6 6 18M6 6l12 12"/>')}</button></div><div class="as-m" id="as-m"></div><div class="as-chips" id="as-chips"></div><form class="as-f" id="as-f"><input id="as-in" autocomplete="off" maxlength="500"><button id="as-send">${ic('<path d="M5 12h14M13 6l6 6-6 6"/>')}</button></form>`}
+ const pr=AS.mode==='presu';
+ el.setAttribute('aria-label',T('as.t'));$('#as-t').textContent=pr?T('as.tp'):T('as.t');$('#as-on').textContent=T('as.on');$('#as-x').setAttribute('aria-label',T('as.close'));$('#as-send').setAttribute('aria-label',T('as.send'));$('#as-in').placeholder=T('as.ph');
+ const m=$('#as-m'),last=AS.msgs.length-1;
+ let h=`<div class="bub bot">${esc(pr?T('as.hiP'):T('as.hi'))}</div>`;
+ h+=AS.msgs.map((x,i)=>{if(x.role==='user')return `<div class="bub usr">${esc(x.content)}</div>`;
+  const ctas=(!pr&&i===last&&!AS.book)?[x.cita?`<button class="btn pri" data-asbook="${x.servicio||'otro'}">${T('as.book')}</button>`:'',x.presupuesto?`<button class="btn sec" data-presu="${x.servicio&&x.servicio!=='otro'?x.servicio:''}">${T('cta.presu')}</button>`:''].join(''):'';
+  return `<div class="bub bot">${esc(x.content)}</div>${ctas?`<div class="as-cta" style="display:flex;gap:8px;flex-wrap:wrap">${ctas}</div>`:''}`}).join('');
+ if(AS.busy)h+=`<div class="bub bot typ">${T('as.typing')}</div>`;
+ if(AS.book){const B=AS.book;if(!B.day||!free(B.day))B.day=firstFree();
+  h+=`<div class="bkc"><b style="color:var(--navy)">${esc(T('as.cita',{s:svName(B.serv)}))}</b><span class="lab">${T('bk.d')}</span><div class="days">${daysHTML(B.day,'data-asday')}</div><span class="lab">${T('bk.t')}</span><div class="slots">${slotsHTML(B.day,B.slot,'data-asslot')}</div>
+  <span class="lab">${T('as.data')}</span><input data-asf="nombre" placeholder="${T('l.nom')}" value="${esc(B.nombre||'')}" autocomplete="name"><input data-asf="telefono" placeholder="${T('l.tel')}" type="tel" inputmode="tel" value="${esc(B.telefono||'')}"><input data-asf="matricula" placeholder="${T('l.mat')}" style="text-transform:uppercase" value="${esc(B.matricula||'')}"><input data-asf="vehiculo" placeholder="${T('ph.veh')}" value="${esc(B.vehiculo||'')}">
+  <button class="btn pri" style="width:100%;margin-top:4px" data-asconf ${B.sending?'disabled':''}>${B.sending?T('bk.sending'):T('bk.btn')}</button><button class="btn sec" style="width:100%;margin-top:8px;font-size:15px;padding:10px" data-ascancel>${T('as.not')}</button><p class="err">${esc(B.err||'')}</p></div>`}
+ if(AS.presu){const P=AS.presu;
+  h+=`<div class="bkc"><b style="color:var(--navy)">${T('p.card')}</b><span class="lab">${T('p.sum')}</span><textarea data-asp="resumen" rows="4" style="width:100%;font:inherit;font-size:15.5px;border:1.5px solid var(--line);border-radius:10px;padding:10px 11px;margin-bottom:8px">${esc(P.resumen||'')}</textarea>
+  <span class="lab">${T('p.veh')}</span><input data-asp="vehiculo" placeholder="${T('p.vehph')}" value="${esc(P.vehiculo||'')}"><input data-asp="km" placeholder="${T('p.km')}" inputmode="numeric" value="${esc(P.km||'')}"><input data-asp="matricula" placeholder="${T('p.mat')}" style="text-transform:uppercase" value="${esc(P.matricula||'')}">
+  <span class="lab">${T('p.who')}</span><input data-asp="nombre" placeholder="${T('l.nom')}" autocomplete="name" value="${esc(P.nombre||'')}"><input data-asp="telefono" placeholder="${T('l.tel')}" type="tel" inputmode="tel" value="${esc(P.telefono||'')}">
+  <label style="display:flex;gap:9px;font-size:14px;color:var(--mute);margin:4px 0 10px"><input type="checkbox" data-asp="ok" ${P.ok?'checked':''} style="width:17px;height:17px;flex:none;margin-top:3px;accent-color:var(--navy)"> ${T('p.ok')}</label>
+  <button class="btn pri" style="width:100%" data-aspsend ${P.sending?'disabled':''}>${P.sending?T('p.sending'):T('p.send')}</button><p class="err">${esc(P.err||'')}</p></div>`}
+ m.innerHTML=h;if(!AS.keep)m.scrollTop=m.scrollHeight;AS.keep=false;
+ const lm=AS.msgs[last],qo=(pr&&!AS.busy&&!AS.presu&&!AS.sent&&lm&&lm.role==='assistant'&&lm.opciones)||[];
+ const chips=AS.msgs.length?qo.map(c=>[c,c]):pr?S.map(s=>[tr(s.k),s.id]):[[T('ch.1'),'@cita'],[T('ch.2'),'@presu'],[tr(SV('arranque').k),tr(SV('arranque').k)],[tr(SV('camper').k),tr(SV('camper').k)]];
+ $('#as-chips').innerHTML=chips.map(c=>`<button class="chipb" data-asch="${esc(c[1])}">${esc(c[0])}</button>`).join('');
+ const lock=pr&&(!!AS.presu||AS.sent);$('#as-send').disabled=AS.busy||lock;$('#as-in').disabled=lock;
+}
+async function asSend(t,id){
+ t=String(t||'').trim();if(!t||AS.busy)return;
+ const pr=AS.mode==='presu';
+ if(pr&&!AS.msgs.length){AS.presuTipo=id||guess(t);AS.presuFree=!id&&AS.presuTipo==='otro'&&t.length>20}
+ AS.msgs.push({role:'user',content:t});AS.busy=true;asRender();
+ await new Promise(r=>setTimeout(r,REDUCE?0:450));
+ const r=pr?presuStep():chatReply(t);
+ AS.msgs.push({role:'assistant',content:r.reply,servicio:r.servicio||null,cita:!!r.cita,presupuesto:!!r.presupuesto,opciones:r.opciones||[]});
+ if(pr&&r.listo)AS.presu={resumen:r.resumen,vehiculo:r.vehiculo,km:r.km,servicio:r.servicio,matricula:'',nombre:'',telefono:'',ok:false};
+ AS.busy=false;asRender();
+}
+
+
+/* ================= cuadro de instrumentos ================= */
+const SVGL={
+ motor:'<path d="M5 9h3l2-2h5l1 2h2l2-2v8l-2-2h-2v3H9l-2-2H5z"/><path d="M3 11v4M11 7V5h4"/>',
+ bat:'<rect x="3" y="7" width="18" height="12" rx="1.5"/><path d="M7 7V5h3v2M14 7V5h3v2M7 13h4M15 11v4M13 13h4"/>',
+ oil:'<path d="M3 13h9l7-5 2 2-6 7H5a2 2 0 0 1-2-2z"/><path d="M8 13v-3h4M20 15c0 1-.7 2-1.5 2S17 16 17 15s1.5-3 1.5-3S20 14 20 15z"/>',
+ temp:'<path d="M12 3v10"/><circle cx="12" cy="16" r="3"/><path d="M12 6h3M12 9h3M3 20c2-1.5 4 1.5 6 0s4 1.5 6 0 4 1.5 6 0"/>',
+ brake:'<circle cx="12" cy="12" r="6"/><path d="M12 9v3.5M12 15h0"/><path d="M4.5 6.5a10 10 0 0 0 0 11M19.5 6.5a10 10 0 0 1 0 11"/>',
+ abs:'<circle cx="12" cy="12" r="7"/><path d="M4.5 6.5a10 10 0 0 0 0 11M19.5 6.5a10 10 0 0 1 0 11"/><text x="12" y="14.3" text-anchor="middle" font-size="6.2" font-weight="800" fill="currentColor" stroke="none" font-family="Arial,sans-serif">ABS</text>',
+ airbag:'<circle cx="8" cy="5" r="2"/><path d="M8 8v6l4 4M8 12h4"/><circle cx="17" cy="10" r="4"/>',
+ tyre:'<path d="M6 6c-2 3-2 9 0 12h12c2-3 2-9 0-12z"/><path d="M5 18h14M12 9v4M12 15.5h0"/>',
+ glow:'<path d="M4 9c2-4 4 4 6 0s4 4 6 0 4 4 4 0M4 15c2-4 4 4 6 0s4 4 6 0 4 4 4 0"/>',
+ esp:'<path d="M6 10l2-4h8l2 4v5H6z"/><path d="M8 15v2M16 15v2M5 20c2-1 3 1 5 0M14 20c2-1 3 1 5 0"/>',
+ dpf:'<rect x="4" y="7" width="16" height="10" rx="2"/><path d="M2 12h2M20 12h2"/><circle cx="9" cy="10.5" r=".7"/><circle cx="12" cy="13.5" r=".7"/><circle cx="15" cy="10.5" r=".7"/><circle cx="9" cy="13.5" r=".7"/><circle cx="15" cy="13.5" r=".7"/>',
+ steer:'<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.5"/><path d="M4 12h5.5M14.5 12H20M12 14.5V20"/>',
+};
+const TL=[
+ {id:'motor',c:'a',lv:'soon',sv:'testigo',n:['Avería del motor','Engine fault','Motorstörung'],m:['La centralita ha detectado un fallo en el motor o en las emisiones. Si parpadea, el fallo es grave: reduce la marcha y no fuerces el motor.','The ECU has found a fault in the engine or emissions. If it flashes, it’s serious: slow down and don’t push the engine.','Das Steuergerät hat einen Motor- oder Abgasfehler erkannt. Blinkt sie, ist es ernst: langsam fahren und den Motor schonen.'],d:['Leemos la avería con la máquina de diagnosis y comprobamos la causa real antes de cambiar nada.','We read the fault with our diagnostic tool and confirm the real cause before replacing anything.','Wir lesen den Fehler mit dem Diagnosegerät aus und prüfen die echte Ursache, bevor wir etwas tauschen.']},
+ {id:'bat',c:'r',lv:'soon',sv:'arranque',n:['Batería / carga','Battery / charging','Batterie / Ladung'],m:['El coche no está cargando la batería. Suele ser el alternador o su correa. Puedes llegar al taller, pero apaga lo que no necesites.','The car isn’t charging the battery, usually the alternator or its belt. You can reach the garage, but switch off what you don’t need.','Das Auto lädt die Batterie nicht, meist Lichtmaschine oder Riemen. Bis zur Werkstatt geht es, schalte aber Unnötiges aus.'],d:['Medimos batería y alternador y buscamos consumos que la descargan.','We test the battery and alternator and look for anything draining it.','Wir messen Batterie und Lichtmaschine und suchen Verbraucher, die sie entladen.']},
+ {id:'oil',c:'r',lv:'stop',sv:'testigo',n:['Presión de aceite','Oil pressure','Öldruck'],m:['Falta aceite o presión. Seguir circulando puede romper el motor. Para, apágalo y comprueba el nivel.','Low oil or low pressure. Driving on can wreck the engine. Stop, switch off and check the level.','Zu wenig Öl oder Druck. Weiterfahren kann den Motor zerstören. Anhalten, abstellen, Stand prüfen.'],d:['Revisamos nivel, fugas, bomba y sensor. Si no puedes moverlo, te decimos cómo traerlo.','We check level, leaks, pump and sensor. If it can’t move, we tell you how to get it here.','Wir prüfen Stand, Lecks, Pumpe und Sensor. Fährt es nicht mehr, sagen wir dir, wie es herkommt.']},
+ {id:'temp',c:'r',lv:'stop',sv:'testigo',n:['Temperatura del motor','Engine temperature','Motortemperatur'],m:['El motor se está calentando demasiado. Para y déjalo enfriar. No abras el depósito del refrigerante en caliente.','The engine is overheating. Stop and let it cool. Don’t open the coolant cap while hot.','Der Motor wird zu heiß. Anhalten und abkühlen lassen. Kühlmitteldeckel nicht heiß öffnen.'],d:['Buscamos fugas y revisamos termostato, bomba de agua y electroventilador.','We look for leaks and check the thermostat, water pump and cooling fan.','Wir suchen Lecks und prüfen Thermostat, Wasserpumpe und Lüfter.']},
+ {id:'brake',c:'r',lv:'stop',sv:'frenos',n:['Sistema de frenos','Brake system','Bremssystem'],m:['Puede faltar líquido de frenos o haber un fallo en el circuito. Si el pedal está blando, no circules.','Brake fluid may be low or there’s a circuit fault. If the pedal feels soft, don’t drive.','Bremsflüssigkeit fehlt oder es gibt einen Fehler im Kreis. Ist das Pedal weich, nicht fahren.'],d:['Revisamos líquido, pastillas, discos y posibles fugas, y probamos el coche antes de entregarlo.','We check fluid, pads, discs and leaks, and road-test the car before handover.','Wir prüfen Flüssigkeit, Beläge, Scheiben und Lecks und machen eine Probefahrt.']},
+ {id:'abs',c:'a',lv:'soon',sv:'frenos',n:['ABS','ABS','ABS'],m:['Los frenos funcionan, pero sin la ayuda del ABS. Frena con más distancia, sobre todo con lluvia.','Brakes still work, but without ABS assistance. Leave more distance, especially in the rain.','Die Bremsen gehen, aber ohne ABS. Mehr Abstand halten, besonders bei Regen.'],d:['Diagnosis del ABS: sensores de rueda, cableado y centralita.','ABS diagnostics: wheel sensors, wiring and control unit.','ABS-Diagnose: Raddrehzahlsensoren, Kabel und Steuergerät.']},
+ {id:'airbag',c:'r',lv:'soon',sv:'testigo',n:['Airbag','Airbag','Airbag'],m:['Hay un fallo en el sistema de airbags: puede que no salten en un accidente. Revísalo cuanto antes.','There’s a fault in the airbag system: they may not deploy in a crash. Get it checked soon.','Fehler im Airbagsystem: Die Airbags lösen evtl. nicht aus. Bald prüfen lassen.'],d:['Leemos la avería y revisamos conectores bajo los asientos, cinta del volante y sensores.','We read the fault and check under-seat connectors, the clock spring and sensors.','Wir lesen den Fehler aus und prüfen Stecker unter den Sitzen, Wickelfeder und Sensoren.']},
+ {id:'tyre',c:'a',lv:'soon',sv:'otro',n:['Presión de neumáticos','Tyre pressure','Reifendruck'],m:['Algún neumático ha perdido presión. Comprueba las ruedas y ajusta la presión en cuanto puedas.','A tyre has lost pressure. Check your tyres and adjust the pressure soon.','Ein Reifen hat Druck verloren. Reifen prüfen und Druck bald anpassen.'],d:['Revisamos pinchazos y válvulas y reiniciamos el sistema de control de presión.','We check for punctures and valves and reset the pressure monitoring system.','Wir prüfen auf Löcher und Ventile und setzen die Reifendruckkontrolle zurück.']},
+ {id:'glow',c:'a',lv:'soon',sv:'arranque',n:['Precalentamiento (diésel)','Glow plugs (diesel)','Vorglühen (Diesel)'],m:['Si se queda encendido o parpadea, suele ser un fallo en los calentadores o en la gestión del motor.','If it stays on or flashes, it’s usually the glow plugs or engine management.','Bleibt sie an oder blinkt, liegt es meist an Glühkerzen oder Motorsteuerung.'],d:['Medimos calentadores y relé y leemos la centralita.','We test glow plugs and relay and read the ECU.','Wir messen Glühkerzen und Relais und lesen das Steuergerät aus.']},
+ {id:'esp',c:'a',lv:'soon',sv:'testigo',n:['Control de estabilidad','Stability control','Stabilitätskontrolle'],m:['Si parpadea al conducir, está actuando. Si se queda fijo, el sistema está desconectado o tiene un fallo.','If it flashes while driving, it’s working. If it stays on, the system is off or faulty.','Blinkt sie beim Fahren, greift sie ein. Bleibt sie an, ist das System aus oder defekt.'],d:['Diagnosis de sensores de dirección y de rueda y de la centralita del ESP.','Diagnostics of steering and wheel sensors and the ESP unit.','Diagnose von Lenkwinkel- und Raddrehzahlsensoren und ESP-Steuergerät.']},
+ {id:'dpf',c:'a',lv:'soon',sv:'testigo',n:['Filtro de partículas','Particulate filter','Partikelfilter'],m:['El filtro está lleno. Muchas veces se limpia con 20 minutos de carretera a ritmo constante. Si no se apaga, tráelo.','The filter is clogged. Often 20 minutes at steady motorway speed clears it. If it stays on, bring it in.','Der Filter ist voll. Oft hilft 20 Minuten gleichmäßige Autobahnfahrt. Geht sie nicht aus, komm vorbei.'],d:['Regeneración forzada con la máquina y revisión de sensores de presión.','Forced regeneration with our tool and a check of pressure sensors.','Zwangsregeneration mit dem Diagnosegerät und Prüfung der Drucksensoren.']},
+ {id:'steer',c:'a',lv:'soon',sv:'testigo',n:['Dirección asistida','Power steering','Servolenkung'],m:['La dirección puede ir más dura. Se puede circular con cuidado, pero conviene revisarlo pronto.','Steering may feel heavier. You can drive carefully, but get it checked soon.','Die Lenkung kann schwerer gehen. Vorsichtig fahren und bald prüfen lassen.'],d:['Diagnosis de la dirección eléctrica, sensor de par y alimentación.','Diagnostics of electric steering, torque sensor and power supply.','Diagnose der elektrischen Lenkung, des Drehmomentsensors und der Versorgung.']},
+];
+let TSEL='',IGN=false;
+function renderLights(){
+ $('#lights').innerHTML=TL.map(t=>`<button role="listitem" class="tl-b c-${t.c} ${TSEL===t.id?'sel':''}" data-tl="${t.id}" aria-pressed="${TSEL===t.id}" aria-label="${esc(tr(t.n))}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${SVGL[t.id]}</svg></button>`).join('');
+}
+function renderTinfo(){
+ const el=$('#tinfo'),t=TL.find(x=>x.id===TSEL);
+ if(!t){el.innerHTML=`<p class="ti-hint">${T('cl.hint')}</p>`;return}
+ el.innerHTML=`<div class="ti-h"><span class="ti-ic c-${t.c}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${SVGL[t.id]}</svg></span><div><h3>${esc(tr(t.n))}</h3><span class="lv lv-${t.lv}">${T('lv.'+t.lv)}</span></div></div>
+ <div class="ti-g"><div><b>${T('ti.mean')}</b><p>${esc(tr(t.m))}</p></div><div><b>${T('ti.do')}</b><p>${esc(tr(t.d))}</p></div></div>
+ <div class="ti-a">${t.lv==='stop'?`<a class="btn pri" href="tel:+49221000000">${T('ti.call')} · 0221 000 000</a>`:`<a class="btn pri" href="#cita" data-motivo="${t.sv}">${T('cta.cita')}</a>`}<a class="btn ghostw" href="#" data-presutl="${t.id}">${T('cta.presu')}</a></div>`;
+}
+/* agujas */
+function ticks(id){const g=$('#'+id);let h='';for(let i=0;i<=10;i++){const a=Math.PI*(1-i/10),x1=100+80*Math.cos(a),y1=110-80*Math.sin(a),x2=100+(i%5?72:66)*Math.cos(a),y2=110-(i%5?72:66)*Math.sin(a);h+=`<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}"/>`}g.innerHTML=h}
+ticks('tk1');ticks('tk2');
+const ARCLEN=Math.PI*80;['arc1','arc2'].forEach(i=>{const a=$('#'+i);a.style.strokeDasharray=ARCLEN;a.style.strokeDashoffset=ARCLEN});
+function needle(n,f){const deg=-90+180*f;$('#n'+n).style.transform=`rotate(${deg}deg)`;$('#arc'+n).style.strokeDashoffset=ARCLEN*(1-f)}
+function ignition(){
+ const cl=$('#cluster');
+ if(REDUCE){needle(1,.08);needle(2,0);return}
+ cl.classList.add('ign');IGN=true;needle(1,1);needle(2,1);
+ setTimeout(()=>{needle(1,.08);needle(2,0)},900);
+ setTimeout(()=>{cl.classList.remove('ign');IGN=false;const m=$('[data-tl="motor"]');if(m&&!TSEL)m.classList.add('blink')},1500);
+}
+const clh=()=>{const d=new Date();$('#cl-h').textContent=String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')};clh();setInterval(clh,30000);
+
+/* ================= configurador camper ================= */
+const KIT=['solar','lit','dc','inv','fri','led'];const KSEL=new Set(['solar','lit']);let KUSE='u.1';
+function renderKit(){
+ $('#cp-use').innerHTML=['u.1','u.2','u.3'].map(u=>`<button type="button" data-kuse="${u}" aria-pressed="${KUSE===u}">${T(u)}</button>`).join('');
+ $('#kit').innerHTML=KIT.map(k=>`<button type="button" class="kit-i" data-kit="${k}" aria-pressed="${KSEL.has(k)}"><span class="kc">${KSEL.has(k)?CHECK:''}</span><b>${T('k.'+k)}</b><small>${T('k.'+k+'.s')}</small></button>`).join('');
+ const l=KIT.filter(k=>KSEL.has(k)).map(k=>T('k.'+k));
+ $('#kit-sum').innerHTML=l.length?`<span>${T('k.your')}: <b>${esc(l.join(' · '))}</b></span><button class="btn pri" type="button" data-kitgo>${T('k.btn')}</button>`:`<span>${T('k.none')}</span>`;
+}
+function kitPresu(){
+ const lc=x=>LANG==='de'?x:x.toLowerCase(),l=KIT.filter(k=>KSEL.has(k)).map(k=>lc(T('k.'+k)));if(!l.length)return;
+ const sum=T('k.sum',{u:lc(T(KUSE)),l:l.join(', ')});
+ AS.mode='presu';AS.msgs=[{role:'user',content:sum}];AS.book=null;AS.sent=false;AS.presuTipo='camper';
+ AS.presu={resumen:sum,vehiculo:'',km:'',servicio:'camper',matricula:'',nombre:'',telefono:'',ok:false};AS.open=true;asRender();
+}
+
+/* ================= recordatorios ================= */
+let REM=null;
+function renderRem(){const f=$('#rem');if(!f){const ok=$('#rem-ok');if(ok&&REM)ok.innerHTML=remOk();return}}
+const ym=s=>{if(!s)return '';const[a,b]=s.split('-').map(Number);return new Intl.DateTimeFormat(LOC[LANG],{month:'long',year:'numeric'}).format(new Date(a,b-1,1))};
+const remOk=()=>{const l=[REM.i?T('rm.li',{d:ym(REM.i)}):'',REM.r?T('rm.lr',{d:ym(REM.r)}):''].filter(Boolean).join(T('and'));return `<h3>${T('rm.okH')}</h3><p style="margin-top:6px">${esc(T('rm.okP',{t:REM.t,l}))}</p>`};
+$('#rem').addEventListener('submit',e=>{
+ e.preventDefault();const f=e.target,v=k=>(f.elements[k].value||'').trim(),err=$('#rm-err');err.textContent='';
+ if(v('m').replace(/[^A-Za-z0-9]/g,'').length<4)return err.textContent=T('e.mat');
+ if(v('t').replace(/\D/g,'').length<9)return err.textContent=T('e.tel');
+ if(!v('i')&&!v('r'))return err.textContent=T('rm.e1');
+ if(!f.elements.ok.checked)return err.textContent=T('e.ok');
+ REM={m:v('m').toUpperCase(),t:v('t'),i:v('i'),r:v('r')};DB.avisos=(DB.avisos||[]).concat([REM]);saveDB();
+ const ok=document.createElement('div');ok.className='okbox';ok.id='rem-ok';ok.setAttribute('role','status');f.replaceWith(ok);ok.innerHTML=remOk();
+});
+
+/* ================= idioma: aplicar ================= */
+function applyLang(){
+ document.documentElement.lang=LANG;
+ document.querySelectorAll('[data-t]').forEach(e=>{e.innerHTML=T(e.dataset.t)});
+ document.querySelectorAll('[data-tp]').forEach(e=>{e.placeholder=T(e.dataset.tp)});
+ document.querySelectorAll('[data-ta]').forEach(e=>{e.setAttribute('aria-label',T(e.dataset.ta))});
+ document.querySelectorAll('[data-lang]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.lang===LANG));
+  document.title=T('h1').replace(/\.$/,'')+' · Galerna Autoservice';
+ horario();renderSym();renderBK();renderOk();renderEst();asRender();renderLights();renderTinfo();renderKit();renderRem();
+}
+
+/* ================= eventos ================= */
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('on'),3200)}
+document.addEventListener('click',async e=>{
+ const tb=e.target.closest('[data-tl]');if(tb){TSEL=TSEL===tb.dataset.tl?'':tb.dataset.tl;renderLights();renderTinfo();if(TSEL&&window.matchMedia('(max-width:900px)').matches)$('#tinfo').scrollIntoView({behavior:REDUCE?'auto':'smooth',block:'nearest'});return}
+ const ku=e.target.closest('[data-kuse]');if(ku){KUSE=ku.dataset.kuse;renderKit();return}
+ const ki=e.target.closest('[data-kit]');if(ki){const k=ki.dataset.kit;KSEL.has(k)?KSEL.delete(k):KSEL.add(k);renderKit();return}
+ if(e.target.closest('[data-kitgo]')){kitPresu();return}
+ if(e.target.closest('[data-legal]')){e.preventDefault();toast(T('legal'));return}
+ if(e.target.closest('[data-vid]')){toast(T('vid.toast'));return}
+ const lg=e.target.closest('[data-lang]');if(lg){LANG=lg.dataset.lang;ls.set('tg-lang-de',LANG);applyLang();return}
+ const a=e.target.closest('[data-bkserv]');if(a){BK.serv=a.dataset.bkserv;renderBK();return}
+ const dd=e.target.closest('[data-bkday]');if(dd&&!dd.disabled){BK.day=dd.dataset.bkday;BK.slot='';renderBK();return}
+ const hh=e.target.closest('[data-bkslot]');if(hh&&!hh.disabled){BK.slot=hh.dataset.bkslot;renderBK();return}
+ const mo=e.target.closest('[data-motivo]');if(mo){BK.serv=mo.dataset.motivo;renderBK()}
+ if(e.target.closest('#as-open')){if(!AS.msgs.length||AS.sent){AS.mode='chat';AS.msgs=[];AS.sent=false;AS.presu=null;AS.book=null}AS.open=true;asRender();return}
+ const pt=e.target.closest('[data-presutl]');if(pt){e.preventDefault();const t=TL.find(x=>x.id===pt.dataset.presutl);asStart('presu',t.sv==='otro'?'':t.sv).then(()=>{if(t.sv==='testigo')asSend(tr(t.n))});return}
+ const pz=e.target.closest('[data-presu]');if(pz){e.preventDefault();asStart('presu',pz.dataset.presu||'');return}
+ if(e.target.closest('#as-x')){AS.open=false;asRender();return}
+ const ch=e.target.closest('[data-asch]');if(ch){const v=ch.dataset.asch;if(v==='@presu'){asStart('presu');return}if(v==='@cita'){AS.book={serv:'otro',day:'',slot:''};asRender();return}if(AS.mode==='presu'&&!AS.msgs.length&&SV(v)){asSend(tr(SV(v).k),v);return}asSend(ch.textContent);return}
+ const bk=e.target.closest('[data-asbook]');if(bk){AS.book={serv:bk.dataset.asbook,day:'',slot:''};asRender();return}
+ const d=e.target.closest('[data-asday]');if(d&&!d.disabled){AS.book.day=d.dataset.asday;AS.book.slot='';AS.keep=true;asRender();return}
+ const sl=e.target.closest('[data-asslot]');if(sl&&!sl.disabled){AS.book.slot=sl.dataset.asslot;AS.keep=true;asRender();return}
+ if(e.target.closest('[data-ascancel]')){AS.book=null;asRender();return}
+ if(e.target.closest('[data-asconf]')){
+  const B=AS.book,c={servicio:B.serv,fecha:B.day,hora:B.slot,nombre:(B.nombre||'').trim(),telefono:(B.telefono||'').trim(),vehiculo:(B.vehiculo||'').trim(),matricula:(B.matricula||'').trim().toUpperCase()};
+  B.err=valid(c);if(B.err){AS.keep=true;asRender();return}
+  B.sending=true;asRender();
+  try{await reservar(c)}catch(x){B.sending=false;B.err=x.message;asRender();return}
+  AS.book=null;AS.msgs.push({role:'assistant',content:T('b.done',{d:fL(c.fecha),h:c.hora})});renderBK();asRender();return}
+ if(e.target.closest('[data-aspsend]')){
+  const P=AS.presu;P.err='';
+  if(!(P.resumen||'').trim())P.err=T('e.res');else if(!(P.nombre||'').trim())P.err=T('e.nom');else if((P.telefono||'').replace(/\D/g,'').length<9)P.err=T('e.tel');else if(!P.ok)P.err=T('e.ok');
+  if(P.err){AS.keep=true;asRender();return}
+  P.sending=true;asRender();await new Promise(r=>setTimeout(r,450));
+  DB.presus.push({...P,conversacion:AS.msgs,creada:new Date().toISOString()});saveDB();
+  AS.presu=null;AS.sent=true;AS.msgs.push({role:'assistant',content:T('p.done',{n:P.nombre.trim().split(' ')[0],t:P.telefono.trim()})});asRender();return}
+});
+document.addEventListener('input',e=>{const f=e.target.closest('[data-asf]');if(f&&AS.book)AS.book[f.dataset.asf]=f.value;const q=e.target.closest('[data-asp]');if(q&&AS.presu)AS.presu[q.dataset.asp]=q.type==='checkbox'?q.checked:q.value});
+document.addEventListener('change',e=>{const q=e.target.closest('[data-asp]');if(q&&AS.presu&&q.type==='checkbox')AS.presu.ok=q.checked});
+document.addEventListener('submit',e=>{if(e.target.id==='as-f'){e.preventDefault();const i=$('#as-in'),v=i.value;i.value='';asSend(v)}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&AS.open){AS.open=false;asRender()}});
+applyLang();setInterval(horario,60000);ignition();
+}
+</script>
+<script id="upd-chk">/* Se recarga sola cuando hay una versión nueva (útil en apps añadidas a la pantalla de inicio) */
+(function(){var cur=(document.querySelector('meta[name=app-version]')||{}).content,busy=false,last=0;
+function editing(){var a=document.activeElement;return a&&(a.tagName==='INPUT'||a.tagName==='TEXTAREA')&&a.value}
+async function chk(){if(busy||Date.now()-last<10000)return;busy=true;last=Date.now();
+ try{var r=await fetch(location.pathname,{cache:'no-store'});if(r.ok){var t=await r.text(),m=t.match(/name="app-version" content="([^"]+)"/);
+  if(m&&cur&&m[1]!==cur&&!editing()){await fetch(location.pathname,{cache:'reload'}).catch(function(){});location.reload();return}}}catch(e){}
+ busy=false}
+document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});window.addEventListener('pageshow',chk);setTimeout(chk,2500);})();
+</script>
+</body>
+</html>
