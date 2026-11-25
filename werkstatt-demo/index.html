@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="20261125213233">
+<meta name="app-version" content="20261125213335">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Galerna Autoservice · Kfz-Werkstatt</title>
 <meta name="description" content="Beispiel-Website einer Kfz-Werkstatt: Mechanik, Autoelektrik und Camper-Ausbau. Deutsch, Englisch, Spanisch.">
@@ -327,6 +327,8 @@ body.as-open .as-btn{display:none}
 @media(max-width:1300px){.bar nav a[href='#como'],.bar nav a[href='#averias']{display:none}}
 @media(max-width:1060px){.bar nav{display:none}.mark small{display:none}.bar .lang{margin-left:auto}.bar .tel{margin-left:0}}
 body{overflow-x:clip}
+.bar .mark{min-width:0;flex:1 1 auto;overflow:hidden;text-overflow:ellipsis}
+.bar .lang,.bar .tel{flex:none}
 .legal{grid-column:1/-1;display:flex;gap:18px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.12);padding-top:18px;font-size:14px}
 
 .hours tr.hoy td:first-child:after{content:none}
