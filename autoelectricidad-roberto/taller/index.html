@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="20261124134542">
+<meta name="app-version" content="20261125142049">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Taller Roberto</title>
 <meta name="robots" content="noindex, nofollow">
@@ -411,7 +411,7 @@ function nextWorkday(n){let d=new Date(),c=0;while(c<n){d=addDays(d,1);if(CONFIG
 function seedData(){
  const t=today(),d1=nextWorkday(1),d2=nextWorkday(2),now=new Date().toISOString();
  return{
-  equipo:[{id:'w_roberto',nombre:'Roberto',rol:'jefe',color:'#f5b82e',orden:0},{id:'w_luis',nombre:'Luis',rol:'tecnico',color:'#3fbf5f',orden:1},{id:'w_pepe',nombre:'Pepe',rol:'tecnico',color:'#3b82f6',orden:2}],
+  equipo:[{id:'w_roberto',nombre:'Roberto',rol:'jefe',color:'#f5b82e',orden:0},{id:'w_luis',nombre:'Julen',rol:'tecnico',color:'#3fbf5f',orden:1},{id:'w_pepe',nombre:'Nuno',rol:'tecnico',color:'#3b82f6',orden:2}],
   trabajos:[
    {id:'t_demo1',titulo:'Cambiar alternador',vehiculo:'Seat León 2015',matricula:'1234 ABC',cliente:'Manolo',telefono:'600555444',asignado:'w_pepe',estado:'en_curso',urgente:true,fecha:t,notas:[{autor:'Roberto',texto:'No carga: 12,1 V con el motor en marcha. Alternador pedido.',ts:now}],creado:now,presupuesto:'380'},
    {id:'t_demo2',titulo:'Batería',vehiculo:'Renault Clio 2018',matricula:'5678 DFG',cliente:'Ana García',telefono:'611222333',asignado:'w_pepe',estado:'por_hacer',urgente:false,fecha:t,notas:[],creado:now},
