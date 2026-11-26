@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="20261126154431">
+<meta name="app-version" content="20261126155021">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Taller Roberto</title>
 <meta name="robots" content="noindex, nofollow">
@@ -171,6 +171,7 @@ textarea{resize:vertical}
 .foot a{text-decoration:none}.foot a:hover{color:var(--tx)}
 @media(max-width:760px){.foot .wrap{grid-template-columns:1fr}}
 .wa-float[hidden]{display:none}
+.btn.wa-cta{background:#1f8f4a;border-color:#1f8f4a;color:#fff;display:inline-flex;align-items:center;gap:8px;text-decoration:none}
 .wa-float{position:fixed;right:18px;bottom:18px;z-index:30;width:56px;height:56px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.45);color:#fff}
 body.in-app .wa-float{display:none}
 .wa-app{position:fixed;right:18px;bottom:22px;z-index:25;width:56px;height:56px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.45)}
@@ -391,7 +392,8 @@ const fmtTel=d=>{d=digits(d);if(d.length===11&&d.startsWith('34'))d=d.slice(2);r
 const IS_TOUCH=window.matchMedia('(pointer:coarse)').matches;
 const isDemo=x=>!!x.demo;
 const WEB_WA_TXT='Hola, me gustaría pedir un presupuesto para la avería de mi vehículo.';
-const webWA=()=>'https://wa.me/'+CONFIG.whatsapp+'?text='+encodeURIComponent(WEB_WA_TXT);
+const webWA=(t)=>'https://wa.me/'+CONFIG.whatsapp+'?text='+encodeURIComponent(t||WEB_WA_TXT);
+const waCTA=(t,label)=>CONFIG.whatsapp?`<a class="btn wa-cta" href="${webWA(t)}" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">${WA_PATH}</svg> ${label}</a>`:'';
 const WA_PATH='<path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3a.5.5 0 0 0 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4 5.1 5.1 0 0 0 3.2.7 2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3z"/>';
 const waIco=(n=15)=>`<svg width="${n}" height="${n}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">${WA_PATH}</svg>`;
 const waLink=(tel,txt)=>'https://wa.me/'+waNum(digits(tel))+(txt?'?text='+encodeURIComponent(txt):'');
@@ -647,11 +649,11 @@ function webHTML(){
 
 <footer class="foot" id="contacto"><div class="wrap">
  <div><a class="logo" href="#inicio">${LOGO}<div><b>AUTOELECTRICIDAD ROBERTO</b></div></a><p style="margin-top:14px;max-width:320px">Electricidad y electrónica del automóvil. Coches, furgonetas y campers.</p></div>
- <div><h4>Contacto</h4><p>${sv(P.phone,14)} <a href="tel:${digits(CONFIG.telefono)}">${esc(CONFIG.telefono)}</a></p><p id="wa-row" ${CONFIG.whatsapp?'':'hidden'}>${sv(P.msg,14)} <a id="wa-link" href="${webWA()}" target="_blank" rel="noopener">WhatsApp</a></p><p>${sv(P.pin,14)} <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CONFIG.nombre+', '+CONFIG.direccion)}" target="_blank" rel="noopener">${esc(CONFIG.direccion)}</a></p></div>
+ <div><h4>Contacto</h4><p>${sv(P.phone,14)} <a href="tel:${digits(CONFIG.telefono)}">${esc(CONFIG.telefono)}</a></p><p id="wa-row" hidden>${sv(P.msg,14)} <a id="wa-link" href="${webWA()}" target="_blank" rel="noopener">WhatsApp</a></p><p>${sv(P.pin,14)} <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CONFIG.nombre+', '+CONFIG.direccion)}" target="_blank" rel="noopener">${esc(CONFIG.direccion)}</a></p></div>
  <div><h4>Horario</h4>${CONFIG.horarioTexto.map(h=>`<p>${esc(h)}</p>`).join('')}<p style="margin-top:14px"><a href="${URL_TALLER}">Acceso taller →</a></p></div>
 </div></footer>
 <button class="as-btn" id="as-open" type="button"><i>${sv(P.bolt,16)}</i>¿Qué le pasa a tu coche?</button>
-<a class="wa-float" id="wa-float" href="${webWA()}" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp"><svg width="28" height="28" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3a.5.5 0 0 0 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4 5.1 5.1 0 0 0 3.2.7 2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3z"/></svg></a>`;
+`;
 }
 
 function slotCount(day,h){if(MODE==='sb')return HUECOS[day+'|'+h]||0;return S.citas.filter(c=>c.fecha===day&&c.hora===h&&c.estado!=='rechazada').length}
@@ -694,7 +696,7 @@ async function submitBooking(f){
  ok.innerHTML=`<div class="ok-card"><div class="ok-ic">${sv(P.check,30)}</div><h3>¡Cita reservada!</h3><p class="hint">Te esperamos. Si necesitas cambiarla, llámanos al ${esc(CONFIG.telefono)}.</p>
   <div class="sum"><div><span>Día</span><b>${fechaLarga(c.fecha)}</b></div><div><span>Hora</span><b>${c.hora}</b></div><div><span>Vehículo</span><b>${esc(c.vehiculo)} ${plate(c.matricula)}</b></div><div><span>Motivo</span><b>${esc(c.servicio)}</b></div></div>
   <p class="hint">Cuando el coche esté en el taller podrás ver cómo va en <a class="lk" href="#estado">¿Cómo va mi coche?</a> con tu matrícula.</p>
-  <button type="button" class="btn" style="margin-top:18px" id="bk-new">Pedir otra cita</button></div>`;
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">${waCTA(`Hola, tengo cita el ${fechaLarga(c.fecha)} a las ${c.hora} para mi ${c.vehiculo} (${c.matricula}). `,'Escríbenos por WhatsApp')}<button type="button" class="btn" id="bk-new">Pedir otra cita</button></div></div>`;
  ok.scrollIntoView({behavior:'smooth',block:'center'});
 }
 
@@ -739,11 +741,11 @@ function initGauge(){
 function setWebWA(n){
  n=digits(n);if(!n)return;CONFIG.whatsapp=waNum(n);
  const r=$('#wa-row'),l=$('#wa-link'),f=$('#wa-float');
- if(l)l.href=webWA();if(r)r.hidden=false;
+ if(l)l.href=webWA();
  if(f){f.href=webWA();f.hidden=false}
 }
 function bindWeb(){
- const w=$('#web');w.innerHTML=webHTML();const wf=$('#wa-float');if(wf&&!CONFIG.whatsapp)wf.hidden=true;
+ const w=$('#web');w.innerHTML=webHTML();
  w.addEventListener('click',e=>{
   const s=e.target.closest('[data-serv]');if(s){BK.serv=s.dataset.serv;renderServ();return}
   const pre=e.target.closest('[data-serv-pre]');if(pre){BK.serv=pre.dataset.servPre;renderServ();return}
@@ -1138,7 +1140,7 @@ function asRender(){
   return `<div class="bub bot">${esc(x.content)}</div>${ctas?`<div class="as-cta">${ctas}</div>`:''}`}).join('');
  if(AS.busy)h+='<div class="bub bot typ">Escribiendo…</div>';
  if(AS.presu){const Q=AS.presu;
-  h+=Q.ok2?`<div class="bkc"><b>Solicitud enviada</b><p style="margin:0;color:var(--mu)">Roberto ya la tiene en el taller y te llamará al ${esc(Q.telefono)} con el presupuesto.</p></div>`
+  h+=Q.ok2?`<div class="bkc"><b>Solicitud enviada</b><p style="margin:0;color:var(--mu)">Roberto ya la tiene en el taller y te llamará al ${esc(Q.telefono)} con el presupuesto.</p>${waCTA(`Hola, soy ${Q.nombre}. Acabo de pedir un presupuesto en la web para mi ${Q.vehiculo||'vehículo'}.`,'Seguir por WhatsApp')}</div>`
   :`<div class="bkc"><b>Esto es lo que le pasamos al taller</b><span class="lab">Resumen (puedes corregirlo)</span><textarea data-asp="resumen" rows="4">${esc(Q.resumen||'')}</textarea>
   <span class="lab">Tu vehículo</span><input data-asp="vehiculo" placeholder="Marca, modelo y año" value="${esc(Q.vehiculo||'')}"><input data-asp="km" placeholder="Kilómetros aproximados" inputmode="numeric" value="${esc(Q.km||'')}"><input data-asp="matricula" placeholder="Matrícula (opcional)" style="text-transform:uppercase" value="${esc(Q.matricula||'')}">
   <span class="lab">¿A quién llamamos?</span><input data-asp="nombre" placeholder="Nombre" autocomplete="name" value="${esc(Q.nombre||'')}"><input data-asp="telefono" placeholder="Móvil" type="tel" inputmode="tel" autocomplete="tel" value="${esc(Q.telefono||'')}">
