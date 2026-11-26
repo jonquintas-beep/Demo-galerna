@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="20261125203716">
+<meta name="app-version" content="20261126081310">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Taller Roberto</title>
 <meta name="robots" content="noindex, nofollow">
@@ -170,6 +170,7 @@ textarea{resize:vertical}
 .foot p{margin-bottom:6px}
 .foot a{text-decoration:none}.foot a:hover{color:var(--tx)}
 @media(max-width:760px){.foot .wrap{grid-template-columns:1fr}}
+.wa-float[hidden]{display:none}
 .wa-float{position:fixed;right:18px;bottom:18px;z-index:30;width:56px;height:56px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.45);color:#fff}
 body.in-app .wa-float{display:none}
 /* APP */
@@ -184,6 +185,17 @@ body.in-app .wa-float{display:none}
 .tab.on{background:rgba(245,184,46,.12);color:var(--y)}
 .badge{font-style:normal;background:var(--r);color:#fff;font-size:11px;font-weight:700;border-radius:999px;padding:1px 6px;line-height:1.4}
 .app-h-r{display:flex;align-items:center;gap:12px}
+.wa-h{display:flex;align-items:center;gap:7px;background:#16351f;color:#5ee08a;border:1px solid #1f4a2e;border-radius:999px;padding:7px 12px;font-weight:600;font-size:13.5px;white-space:nowrap}
+.wa-h.off{background:transparent;color:var(--mu);border-color:var(--ln)}
+@media(max-width:700px){.wa-h span{display:none}.wa-h{padding:8px}}
+.wa-num{font-size:26px;font-weight:700;letter-spacing:.01em;margin:4px 0 6px}
+.tpl{display:grid;gap:8px;margin-top:8px}
+.tpl a{display:block;text-decoration:none;color:var(--tx);border:1px solid var(--ln);border-radius:12px;padding:11px 13px;background:var(--p1)}
+.tpl a b{display:block;font-size:14px;color:#5ee08a;margin-bottom:2px}
+.tpl a small{color:var(--mu);font-size:13px;line-height:1.4;display:block}
+.qm{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 16px}
+.qm a{font-size:13px;text-decoration:none;color:#5ee08a;border:1px solid #1f4a2e;border-radius:999px;padding:7px 11px}
+.demo-tag{display:inline-block;font-size:11px;font-weight:700;color:var(--mu);border:1px dashed var(--ln);border-radius:6px;padding:1px 6px;margin-left:6px;vertical-align:middle}
 .lnk{font-size:13px;color:var(--mu);text-decoration:none}.lnk:hover{color:var(--tx)}
 .me{width:36px;height:36px;border-radius:50%;background:var(--c);color:#111;font-weight:700}
 .app-main{max-width:1240px;margin:0 auto;padding:22px 20px 110px}
@@ -367,6 +379,11 @@ const isToday=iso=>!!iso&&ymd(new Date(iso))===today();
 const normPlate=s=>String(s||'').toUpperCase().replace(/[^A-Z0-9]/g,'');
 const digits=s=>String(s||'').replace(/\D/g,'');
 const waNum=d=>d.length===9?'34'+d:d;
+const AJ=()=>S.ajustes.find(x=>x.id==='general')||{};
+const tallerWA=()=>digits(AJ().whatsapp||CONFIG.whatsapp||'');
+const fmtTel=d=>{d=digits(d);if(d.length===11&&d.startsWith('34'))d=d.slice(2);return d.length===9?(d.startsWith('9')?d.replace(/(\d{3})(\d{2})(\d{2})(\d{2})/,'$1 $2 $3 $4'):d.replace(/(\d{3})(\d{3})(\d{3})/,'$1 $2 $3')):d};
+const IS_TOUCH=window.matchMedia('(pointer:coarse)').matches;
+const isDemo=x=>!!x.demo;
 const plate=p=>`<span class="plate"><span>${esc(String(p).toUpperCase())}</span></span>`;
 const initial=w=>esc((w.nombre||'?').trim().charAt(0).toUpperCase());
 function lsGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
@@ -405,7 +422,7 @@ const P={
 const LOGO=`<span class="logo-ic">${sv(P.bolt,20)}</span>`;
 
 /* ====== datos ====== */
-const S={citas:[],trabajos:[],equipo:[],presupuestos:[]};
+const S={citas:[],trabajos:[],equipo:[],presupuestos:[],ajustes:[]};
 let MODE='local',DB=null,READY=false;
 const LSKEY='aer_demo_v1',USERKEY='aer_user';
 
@@ -429,7 +446,7 @@ function seedData(){
 }
 function loadLocal(){let d=null;try{d=JSON.parse(localStorage.getItem(LSKEY))}catch(e){}
  if(!d||!Array.isArray(d.equipo)){d=seedData();try{localStorage.setItem(LSKEY,JSON.stringify(d))}catch(e){}}
- S.citas=d.citas||[];S.trabajos=d.trabajos||[];S.equipo=d.equipo||[];S.presupuestos=d.presupuestos||[]}
+ S.citas=d.citas||[];S.trabajos=d.trabajos||[];S.equipo=d.equipo||[];S.presupuestos=d.presupuestos||[];S.ajustes=d.ajustes||[]}
 function saveLocal(){try{localStorage.setItem(LSKEY,JSON.stringify(S))}catch(e){}}
 
 async function writeDoc(col,id,data,merge){
@@ -466,7 +483,7 @@ async function loadHuecos(){
  HUECOS={};(data||[]).forEach(r=>HUECOS[r.fecha+'|'+r.hora]=r.n);onData();
 }
 async function sbLoadAll(){
- const tabs=['citas','trabajos','equipo','presupuestos'];
+ const tabs=['citas','trabajos','equipo','presupuestos','ajustes'];
  const rs=await Promise.all(tabs.map(t=>SB.from('aer_'+t).select('id,data')));
  rs.forEach((r,i)=>{if(!r.error)S[tabs[i]]=(r.data||[]).map(x=>({...x.data,id:x.id}))});
 }
@@ -476,7 +493,7 @@ async function sbStart(){
  await sbLoadAll();
  if(!CHAN){
   CHAN=SB.channel('aer-taller');
-  ['citas','trabajos','equipo','presupuestos'].forEach(t=>CHAN.on('postgres_changes',{event:'*',schema:'public',table:'aer_'+t},p=>{
+  ['citas','trabajos','equipo','presupuestos','ajustes'].forEach(t=>CHAN.on('postgres_changes',{event:'*',schema:'public',table:'aer_'+t},p=>{
    if(p.eventType==='DELETE'){S[t]=S[t].filter(x=>x.id!==(p.old&&p.old.id))}
    else if(p.new&&p.new.id){const row={...p.new.data,id:p.new.id},i=S[t].findIndex(x=>x.id===row.id);if(i>=0)S[t][i]=row;else S[t].push(row)}
    onData();
@@ -490,7 +507,7 @@ async function sbInit(){
  MODE='sb';
  if(!window.supabase){READY=true;onData();toast('No se pudo cargar. Revisa la conexión.');return}
  SB=window.supabase.createClient(SB_URL,SB_KEY);
- if(!TALLER_PATH){await loadHuecos();READY=true;onData();setInterval(loadHuecos,60000);window.addEventListener('focus',loadHuecos);return}
+ if(!TALLER_PATH){SB.rpc('aer_ajustes_publicos').then(({data})=>{if(data&&data.whatsapp)setWebWA(data.whatsapp)});await loadHuecos();READY=true;onData();setInterval(loadHuecos,60000);window.addEventListener('focus',loadHuecos);return}
  const {data}=await SB.auth.getSession();SESSION=data.session;
  SB.auth.onAuthStateChange((ev,s)=>{SESSION=s;if(ev==='SIGNED_OUT'){S.citas=[];S.trabajos=[];S.equipo=[];STAFF=null;onData()}});
  if(SESSION)await sbStart();
@@ -617,11 +634,11 @@ function webHTML(){
 
 <footer class="foot" id="contacto"><div class="wrap">
  <div><a class="logo" href="#inicio">${LOGO}<div><b>AUTOELECTRICIDAD ROBERTO</b></div></a><p style="margin-top:14px;max-width:320px">Electricidad y electrónica del automóvil. Coches, furgonetas y campers.</p></div>
- <div><h4>Contacto</h4><p>${sv(P.phone,14)} <a href="tel:${digits(CONFIG.telefono)}">${esc(CONFIG.telefono)}</a></p>${CONFIG.whatsapp?`<p>${sv(P.msg,14)} <a href="https://wa.me/${CONFIG.whatsapp}" target="_blank" rel="noopener">WhatsApp</a></p>`:''}<p>${sv(P.pin,14)} <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CONFIG.nombre+', '+CONFIG.direccion)}" target="_blank" rel="noopener">${esc(CONFIG.direccion)}</a></p></div>
+ <div><h4>Contacto</h4><p>${sv(P.phone,14)} <a href="tel:${digits(CONFIG.telefono)}">${esc(CONFIG.telefono)}</a></p><p id="wa-row" ${CONFIG.whatsapp?'':'hidden'}>${sv(P.msg,14)} <a id="wa-link" href="https://wa.me/${CONFIG.whatsapp}" target="_blank" rel="noopener">WhatsApp</a></p><p>${sv(P.pin,14)} <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CONFIG.nombre+', '+CONFIG.direccion)}" target="_blank" rel="noopener">${esc(CONFIG.direccion)}</a></p></div>
  <div><h4>Horario</h4>${CONFIG.horarioTexto.map(h=>`<p>${esc(h)}</p>`).join('')}<p style="margin-top:14px"><a href="${URL_TALLER}">Acceso taller →</a></p></div>
 </div></footer>
 <button class="as-btn" id="as-open" type="button"><i>${sv(P.bolt,16)}</i>¿Qué le pasa a tu coche?</button>
-${CONFIG.whatsapp?`<a class="wa-float" href="https://wa.me/${CONFIG.whatsapp}" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">${sv(P.msg,26)}</a>`:''}`;
+<a class="wa-float" id="wa-float" href="https://wa.me/${CONFIG.whatsapp}" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">${sv(P.msg,26)}</a>`;
 }
 
 function slotCount(day,h){if(MODE==='sb')return HUECOS[day+'|'+h]||0;return S.citas.filter(c=>c.fecha===day&&c.hora===h&&c.estado!=='rechazada').length}
@@ -706,8 +723,14 @@ function initGauge(){
  },350);
 }
 
+function setWebWA(n){
+ n=digits(n);if(!n)return;CONFIG.whatsapp=waNum(n);
+ const r=$('#wa-row'),l=$('#wa-link'),f=$('#wa-float');
+ if(l)l.href='https://wa.me/'+CONFIG.whatsapp;if(r)r.hidden=false;
+ if(f){f.href='https://wa.me/'+CONFIG.whatsapp;f.hidden=false}
+}
 function bindWeb(){
- const w=$('#web');w.innerHTML=webHTML();
+ const w=$('#web');w.innerHTML=webHTML();const wf=$('#wa-float');if(wf&&!CONFIG.whatsapp)wf.hidden=true;
  w.addEventListener('click',e=>{
   const s=e.target.closest('[data-serv]');if(s){BK.serv=s.dataset.serv;renderServ();return}
   const pre=e.target.closest('[data-serv-pre]');if(pre){BK.serv=pre.dataset.servPre;renderServ();return}
@@ -841,11 +864,33 @@ function renderApp(){
  const pend=S.citas.filter(c=>c.estado==='pendiente').length;
  root.innerHTML=`<header class="app-h"><div class="app-brand">${LOGO}<div><b>ROBERTO · TALLER</b><small>Autoelectricidad</small></div></div>
  <nav class="tabs">${TABS.map(t=>`<button class="tab ${TAB===t.id?'on':''}" data-tab="${t.id}">${sv(t.ic,18)}<span>${t.label}</span>${({citas:pend,presu:S.presupuestos.filter(x=>x.estado==='nuevo').length})[t.id]?`<i class="badge">${({citas:pend,presu:S.presupuestos.filter(x=>x.estado==='nuevo').length})[t.id]}</i>`:''}</button>`).join('')}</nav>
- <div class="app-h-r"><a class="lnk" href="${URL_WEB}">Ver web</a><button class="me" style="--c:${me.color}" data-act="cuenta" aria-label="Cuenta">${initial(me)}</button></div></header>
+ <div class="app-h-r"><button class="wa-h ${tallerWA()?'':'off'}" data-act="wa" aria-label="WhatsApp del taller">${sv(P.msg,16)}<span>${tallerWA()?esc(fmtTel(tallerWA())):'WhatsApp'}</span></button><a class="lnk" href="${URL_WEB}">Ver web</a><button class="me" style="--c:${me.color}" data-act="cuenta" aria-label="Cuenta">${initial(me)}</button></div></header>
  <main class="app-main">${VIEWS[TAB]()}</main>
  ${MODE==='local'?'<div class="demo-note">Modo demo · los datos se guardan en este navegador</div>':''}`;
 }
 
+/* ---- WhatsApp: mensajes preparados ---- */
+function plantillas(t){
+ const n=t&&t.cliente?' '+t.cliente.split(' ')[0]:'',v=t?(t.vehiculo||'vehículo')+(t.matricula?' ('+t.matricula+')':''):'vehículo',imp=t&&t.presupuesto?t.presupuesto+' €':'___ €';
+ return [
+  ['Ya está listo',`Hola${n}, te escribimos de ${CONFIG.nombre}. Tu ${v} ya está listo, puedes pasar a recogerlo cuando quieras.${t&&t.presupuesto?' Importe: '+imp+'.':''} Horario: L-V 9:00-13:30 y 15:30-19:00.`],
+  ['Presupuesto',`Hola${n}, te escribimos de ${CONFIG.nombre}. Hemos revisado tu ${v}. La reparación sale por ${imp} (IVA incluido). ¿Te parece bien que empecemos?`],
+  ['Pieza pedida',`Hola${n}, te escribimos de ${CONFIG.nombre}. Para tu ${v} hemos tenido que pedir una pieza. En cuanto llegue lo terminamos y te avisamos.`],
+  ['Recordatorio de cita',`Hola${n}, te recordamos tu cita en ${CONFIG.nombre}. Si no puedes venir, avísanos por aquí y te buscamos otro hueco.`],
+ ];
+}
+function modalWA(){
+ const n=tallerWA(),open=IS_TOUCH?'whatsapp://':'https://web.whatsapp.com/';
+ return `<div class="sh-h"><h2>WhatsApp del taller</h2>${xBtn}</div>
+ ${n?`<p class="hint" style="margin:0">Número del taller</p><div class="wa-num">${esc(fmtTel(n))}</div>
+ <p class="hint">Los mensajes a clientes salen del WhatsApp que tengáis abierto en este móvil u ordenador. Tiene que ser este número. Es el mismo que aparece en la web para que los clientes os escriban.</p>
+ <div style="display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 18px"><a class="wa-big" style="margin:0;flex:1" href="${open}" target="_blank" rel="noopener">${sv(P.msg,18)} Abrir WhatsApp</a></div>`
+ :`<p class="hint" style="margin-top:0">Todavía no habéis puesto el número de WhatsApp del taller. Ponedlo aquí: se usará en la web y para escribir a los clientes.</p>`}
+ <span class="lbl">${n?'Cambiar número':'Número de WhatsApp'}</span>
+ <div class="note-f" style="margin-bottom:18px"><input type="tel" inputmode="tel" data-keep="wa" placeholder="600 000 000" value="${esc(n?fmtTel(n):'')}" style="flex:1"><button class="btn y sm" data-act="wa-save">Guardar</button></div>
+ <span class="lbl">Mensajes preparados</span><p class="hint" style="margin-top:0">Dentro de cada trabajo tenéis estos mensajes listos para mandar al cliente con un toque.</p>
+ <div class="tpl">${plantillas(null).map(x=>`<a href="#" onclick="return false"><b>${esc(x[0])}</b><small>${esc(x[1])}</small></a>`).join('')}</div>`;
+}
 /* ---- modales ---- */
 const xBtn=`<button class="x" data-act="close" aria-label="Cerrar">${sv(P.x)}</button>`;
 const workerOpts=sel=>`<option value="">Sin asignar</option>${sortedEquipo().map(w=>`<option value="${w.id}" ${w.id===sel?'selected':''}>${esc(w.nombre)}</option>`).join('')}`;
@@ -856,6 +901,7 @@ function modalJob(t){
  return `<div class="sh-h"><h2>${esc(t.titulo)}</h2><button class="urg-btn ${t.urgente?'on':''}" data-act="urg" data-id="${t.id}">URGENTE</button>${xBtn}</div>
  <div class="seg">${['por_hacer','en_curso','hecho'].map(s=>`<button class="${s} ${t.estado===s?'on':''}" data-act="set-estado" data-id="${t.id}" data-v="${s}">${EST[s]}</button>`).join('')}</div>
  ${t.estado==='hecho'&&tel?`<a class="wa-big" href="https://wa.me/${waNum(tel)}?text=${encodeURIComponent(waTxt)}" target="_blank" rel="noopener">${sv(P.msg,18)} Avisar al cliente: ya está listo</a>`:''}
+ ${tel?`<span class="lbl" style="margin-top:0">Escribir al cliente por WhatsApp</span><div class="qm">${plantillas(t).map(x=>`<a href="https://wa.me/${waNum(tel)}?text=${encodeURIComponent(x[1])}" target="_blank" rel="noopener">${esc(x[0])}</a>`).join('')}</div>`:''}
  <div class="rows">
   <div class="row"><span>Asignado</span><div class="r-v"><select data-field="asignado" data-id="${t.id}">${workerOpts(asig(t))}</select></div></div>
   <div class="row"><span>Vehículo</span><div class="r-v">${esc(t.vehiculo||'—')} ${t.matricula?plate(t.matricula):''}</div></div>
@@ -898,8 +944,10 @@ function modalCuenta(){
  const me=currentUser();
  return `<div class="sh-h"><h2>Hola, ${esc(me?me.nombre:'')}</h2>${xBtn}</div><span class="lbl">Cambiar de usuario</span>
  <div class="who" style="margin-bottom:18px">${sortedEquipo().map(w=>`<button data-login="${w.id}" style="${w.id===ME_ID?'border-color:var(--y)':''}"><span class="av" style="--c:${w.color}">${initial(w)}</span>${esc(w.nombre)}</button>`).join('')}</div>
+ ${(()=>{const n=['trabajos','citas','presupuestos'].reduce((a,c)=>a+S[c].filter(isDemo).length,0);return n?`<span class="lbl">Datos de ejemplo</span><p class="hint" style="margin-top:0">Hay ${n} trabajos, citas y presupuestos de ejemplo para enseñar cómo funciona. Cuando empecéis de verdad, bórralos.</p><button class="btn danger sm" style="margin-bottom:18px" data-act="demo-del">${DEMO_ARM?'Pulsa otra vez para borrarlos':'Borrar datos de ejemplo'}</button>`:''})()}
  <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" data-act="logout">Cambiar de técnico</button>${MODE==='sb'?'<button class="btn danger sm" data-act="sb-out">Salir de la cuenta del taller</button>':''}</div>`;
 }
+let DEMO_ARM=false;
 function openModal(m){MODAL=m;DEL_ARM=null;renderModal()}
 function closeModal(){MODAL=null;DEL_ARM=null;$('#modal-root').innerHTML=''}
 function renderModal(){
@@ -912,6 +960,7 @@ function renderModal(){
  else if(MODAL.kind==='new'){if(!fresh)return;html=modalNew()}
  else if(MODAL.kind==='cita'){if(!fresh&&S.citas.some(x=>x.id===MODAL.id))return;html=modalCita(S.citas.find(x=>x.id===MODAL.id))}
  else if(MODAL.kind==='cuenta')html=modalCuenta();
+ else if(MODAL.kind==='wa')html=modalWA();
  root.innerHTML=`<div class="ov"><div class="sheet" role="dialog" aria-modal="true">${html}</div></div>`;
  if(!fresh)root.querySelector('.ov').style.animation='none',root.querySelector('.sheet').style.animation='none';
  root.querySelectorAll('[data-keep]').forEach(el=>{if(keep[el.dataset.keep])el.value=keep[el.dataset.keep]});
@@ -927,6 +976,12 @@ async function act(k,ds){
  if(needT.includes(k)&&!t)return;
  switch(k){
   case 'close':closeModal();break;
+  case 'wa':openModal({kind:'wa'});break;
+  case 'wa-save':{const i=$('#modal-root input[data-keep="wa"]'),v=digits(i?i.value:'');if(v&&v.length<9){toast('Pon un número de 9 cifras');return}await writeDoc('ajustes','general',{whatsapp:v},true);toast(v?'WhatsApp guardado':'WhatsApp quitado');renderModal();renderApp();break}
+  case 'demo-del':{
+   if(!DEMO_ARM){DEMO_ARM=true;renderModal();setTimeout(()=>{if(DEMO_ARM){DEMO_ARM=false;renderModal()}},4000);return}
+   DEMO_ARM=false;for(const c of ['trabajos','citas','presupuestos'])for(const x of S[c].filter(isDemo))await removeDoc(c,x.id);
+   toast('Datos de ejemplo borrados');renderModal();break}
   case 'new':openModal({kind:'new'});break;
   case 'start':await patch('trabajos',t.id,{estado:'en_curso',asignado:asig(t)||me.id});toast('Trabajo en curso');break;
   case 'done':await patch('trabajos',t.id,{estado:'hecho',hechoEn:now,asignado:asig(t)||me.id});toast('✓ Trabajo marcado como hecho');break;
