@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Atalaia · Inmobiliaria</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#121212">
+<link rel="icon" type="image/png" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-title" content="Atalaia">
+<script>try{if(localStorage.getItem('atalaia-mode')==='light')document.documentElement.dataset.mode='light'}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* VOICE: premium y cercana, agencia de barrio que sabe vender; oscuro con dorado, con ritmo
+   IDEA: un plano-secuencia de cine: la cámara entra por la ventana de la casa y la recorre
+   PICTURE: casa vasca al atardecer que se agranda hasta el salón; fotos que se acercan al bajar
+   COLOUR and TYPE: blanco, tinta carbón, azul ría profundo en bandas enteras, piedra; Instrument Serif + Manrope
+   LAYOUT: hero fijo de 4 pantallas, cinta en movimiento, fichas, valorador en banda azul, barrios en carrusel, asistente flotante */
+:root{color-scheme:dark;--bg:#121212;--ink:#f1ede6;--soft:#a39d93;--stone:#1b1a18;--line:#2e2c28;--sea:#c9a266;--seaInk:#17140f;--deep:#0b0b0a;--deepInk:#f1ede6;--warm:#d8b278;--card:#1d1c1a;--band2:#2a2318;--leadInk:#a39d93}
+:root[data-mode=light]{color-scheme:light;--bg:#dfe1e3;--ink:#1c1f23;--soft:#4d5258;--stone:#d2d5d8;--line:#bcc0c5;--sea:#8a6630;--seaInk:#ffffff;--deep:#2c2f33;--warm:#c9a266;--card:#eceef0;--band2:#3d3a35;--leadInk:#b9bcc0}
+body,nav.solid,.sc,.rev,.opt,.valor,.card .ask,#chat,#log,.msg{transition:background-color .45s,color .45s,border-color .45s}
+.mode{width:44px;height:44px;border-radius:50%;border:1.5px solid currentColor;background:none;color:inherit;cursor:pointer;display:grid;place-items:center;opacity:.85;flex:none}
+.mode:hover{opacity:1}
+.mode .sun{display:none}:root[data-mode=light] .mode .sun{display:block}:root[data-mode=light] .mode .moon{display:none}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:76px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.6 Manrope,system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:"Instrument Serif",Georgia,serif;font-weight:400;line-height:1.05;text-wrap:balance;margin:0}
+a{color:inherit}
+button{font:inherit;color:inherit}
+.band{padding:clamp(64px,9vw,140px) max(5vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 22px;border-radius:999px;border:0;background:var(--sea);color:var(--seaInk);font:700 15px Manrope,sans-serif;text-decoration:none;cursor:pointer;white-space:nowrap;transition:transform .2s}
+.btn:hover{transform:translateY(-1px)}
+.btn.ghost{background:transparent;border:1.5px solid currentColor;color:inherit}
+.btn.light{background:#fff;color:#16181b}
+.btn:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--warm);outline-offset:3px}
+.eyebrow{color:var(--sea);font-size:14px;font-weight:700;margin:0 0 18px;display:flex;align-items:center;gap:12px}
+.eyebrow::before{content:"";width:28px;height:1.5px;background:currentColor}
+h1 em,h2 em,.gold{color:var(--sea);font-style:italic}
+.h2{font-size:clamp(40px,5.2vw,52px)}
+
+/* nav */
+nav{position:fixed;inset:0 0 auto;z-index:30;display:flex;align-items:center;gap:26px;padding:14px max(5vw,16px);color:#fff;transition:background .4s,color .4s,box-shadow .4s}
+nav.solid{background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(12px);color:var(--ink);box-shadow:0 1px 0 var(--line)}
+.logo{font:400 30px/1 "Instrument Serif",serif;text-decoration:none;margin-right:auto}
+nav .lk{text-decoration:none;font-size:15px;font-weight:600;opacity:.85}
+nav .lk:hover{opacity:1}
+nav .tel{font-weight:700;font-size:15px;white-space:nowrap}
+
+/* hero */
+#hero{height:420vh;position:relative;background:#0f1b27}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.layer{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:transform,opacity}
+#int{opacity:0}
+.scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,14,22,.55),rgba(8,14,22,0) 38%,rgba(8,14,22,0) 55%,rgba(8,14,22,.7));pointer-events:none}
+.htxt,.cap{font-family:"Instrument Serif",Georgia,serif;line-height:1.05;margin:0}
+.htxt{position:absolute;left:max(5vw,16px);right:max(5vw,16px);color:#fff;font-size:clamp(46px,8.5vw,124px);max-width:11ch;text-shadow:0 2px 30px rgba(0,0,0,.35)}
+#tA{top:max(15vh,96px)}
+#tB{bottom:calc(12vh + 70px);font-style:italic}
+.htxt .w,.cap .w{display:inline-block;opacity:0;will-change:transform,opacity,filter}
+#heroCta{position:absolute;left:max(5vw,16px);bottom:10vh;display:flex;flex-wrap:wrap;gap:12px;opacity:0;pointer-events:none;transition:opacity .4s}
+#heroCta.on{opacity:1;pointer-events:auto}
+#heroCta .btn.ghost{color:#fff}
+#hint{position:absolute;left:50%;bottom:28px;translate:-50% 0;color:#fff;font-size:14px;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:10px}
+#hint i{width:1px;height:42px;background:linear-gradient(#fff,transparent);animation:drip 1.8s infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* marquee */
+.marq{background:var(--deep);color:var(--deepInk);overflow:hidden;padding:26px 0;border-block:1px solid rgba(255,255,255,.08)}
+.marq .track{display:flex;width:max-content;will-change:transform}
+.marq span{font:italic 400 clamp(28px,3.4vw,44px)/1 "Instrument Serif",serif;padding:0 28px;white-space:nowrap;display:flex;align-items:center;gap:56px}
+.marq span::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--warm)}
+
+/* manifesto */
+.manif{display:grid;grid-template-columns:minmax(0,8fr) minmax(0,4fr);gap:clamp(32px,6vw,96px);align-items:end}
+#man{font:400 clamp(30px,4.4vw,56px)/1.18 "Instrument Serif",serif;margin:0;text-wrap:pretty}
+#man .w{opacity:.14;transition:opacity .15s linear}
+.promise{display:grid;gap:18px}
+.promise div{border-top:1px solid var(--line);padding-top:14px}
+.promise b{display:block;font-size:17px}
+.promise span{color:var(--soft);font-size:15px}
+
+/* reveals */
+.rv .w{display:inline-block;opacity:0;transform:translateY(.5em);filter:blur(6px);transition:opacity .8s,transform .8s cubic-bezier(.2,.7,.2,1),filter .8s;transition-delay:calc(var(--i)*70ms)}
+.rv.in .w{opacity:1;transform:none;filter:none}
+.fu{opacity:0;transform:translateY(26px);transition:opacity .9s .2s,transform .9s .2s cubic-bezier(.2,.7,.2,1)}
+.fu.in{opacity:1;transform:none}
+
+/* listings */
+.head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:18px 40px;margin-bottom:clamp(28px,4vw,52px)}
+.tabs{display:flex;gap:6px;background:var(--stone);padding:5px;border-radius:999px}
+.tabs button{border:0;background:none;min-height:42px;padding:0 20px;border-radius:999px;font-weight:700;cursor:pointer;color:var(--soft)}
+.tabs button[aria-pressed=true]{background:var(--bg);color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(22px,2.6vw,36px) clamp(18px,2.4vw,32px)}
+.card{display:block;position:relative}
+.media{aspect-ratio:4/4.4;overflow:hidden;border-radius:8px;background:var(--stone);clip-path:inset(100% 0 0 0);transition:clip-path 1.2s cubic-bezier(.7,0,.2,1);position:relative}
+.card:nth-child(3n+2) .media{transition-delay:.12s}.card:nth-child(3n) .media{transition-delay:.24s}
+.card.in .media{clip-path:inset(0 0 0 0)}
+.media svg,.media img{width:100%;height:100%;display:block;object-fit:cover;transform-origin:50% 60%;will-change:transform}
+.badge{position:absolute;top:14px;left:14px;background:#fff;color:#16181b;font-size:13px;font-weight:700;padding:5px 12px;border-radius:999px}
+.badge.ex{background:var(--sea);color:var(--seaInk)}
+.badge{display:flex;align-items:center;gap:6px}.badge.ok2::before{content:"";width:7px;height:7px;border-radius:50%;background:#3fbf6f}
+.meta{padding-top:16px}
+.zona{color:var(--soft);font-size:14px;font-weight:600}
+.meta h3{font-size:clamp(26px,2.3vw,31px);margin:4px 0 10px}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;font-size:15px;color:var(--soft)}
+.row b{color:var(--ink);font-weight:800;font-size:17px;white-space:nowrap;margin-left:auto}
+.ask{margin-top:14px;width:100%;min-height:44px;border-radius:8px;border:1.5px solid var(--line);background:none;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+.ask:hover{border-color:var(--sea);color:var(--sea)}
+.note{font-size:13px;color:var(--soft);margin-top:28px}
+
+/* ria */
+#ria{height:230vh;position:relative}
+#ria .stage{display:grid;place-items:center}
+#ria .frame{width:min(62vw,760px);aspect-ratio:16/10;overflow:hidden;border-radius:8px;position:relative}
+#ria .frame>*{width:100%;height:100%;display:block;object-fit:cover}
+#ria .cap{position:absolute;left:max(5vw,16px);bottom:10vh;color:#fff;font-size:clamp(42px,6vw,84px);max-width:13ch;text-shadow:0 2px 30px rgba(0,0,0,.4)}
+
+/* sell / valuation */
+#vender{background:radial-gradient(120% 90% at 85% 40%,var(--band2),var(--deep) 70%);color:var(--deepInk)}
+.sell{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(36px,6vw,96px);align-items:center}
+.sell p.lead{font-size:18px;color:var(--leadInk);max-width:46ch;margin:22px 0 28px}
+.ticks{display:grid;gap:12px;padding:0;margin:0;list-style:none}
+.ticks li{display:flex;gap:12px;align-items:baseline}
+.ticks li::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:var(--warm);translate:0 -2px}
+.valor{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:clamp(22px,3vw,34px);box-shadow:0 30px 80px rgba(0,0,0,.3)}
+.valor h3{font-size:32px;margin-bottom:6px}
+.valor .sub{color:var(--soft);font-size:15px;margin:0 0 20px}
+.valor form{display:grid;gap:14px}
+.valor label{font-size:14px;font-weight:600;color:var(--soft);display:grid;gap:6px}
+.valor select,.valor input{font:16px Manrope,sans-serif;min-height:50px;padding:0 14px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+.valor .btn{min-height:54px;margin-top:4px}
+.valor small{color:var(--soft);font-size:13px}
+
+/* method */
+#metodo{background:var(--stone)}
+.two{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,6vw,96px)}
+.two .stick{position:sticky;top:110px;align-self:start}
+.two .stick p{color:var(--soft);max-width:36ch;margin:18px 0 0}
+.step{padding:30px 0;border-top:1px solid var(--line);display:grid;grid-template-columns:auto minmax(0,1fr);gap:20px}
+.step:last-child{border-bottom:1px solid var(--line)}
+.step .when{font-weight:800;color:var(--sea);font-size:14px;white-space:nowrap;padding-top:8px;min-width:76px}
+.step h3{font-size:clamp(26px,2.6vw,34px);margin-bottom:8px}
+.step p{margin:0;color:var(--soft);max-width:52ch}
+
+/* barrios */
+.carousel{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;scrollbar-width:none}
+.carousel::-webkit-scrollbar{display:none}
+.barrio{flex:0 0 clamp(250px,28vw,340px);scroll-snap-align:start;border-radius:10px;overflow:hidden;background:var(--stone)}
+.barrio svg{display:block;width:100%;aspect-ratio:4/3}
+.barrio div{padding:18px 20px 22px}
+.barrio h3{font-size:30px}
+.barrio p{margin:6px 0 0;color:var(--soft);font-size:15px}
+.cnav{display:flex;gap:8px}
+.cnav button{width:46px;height:46px;border-radius:50%;border:1.5px solid var(--line);background:none;cursor:pointer;font-size:18px}
+
+/* faq */
+.faq{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:clamp(32px,6vw,96px)}
+details{border-top:1px solid var(--line);padding:6px 0}
+details:last-child{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center;min-height:56px;font-weight:700;font-size:17px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:26px;font-weight:400;color:var(--sea);transition:transform .3s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{margin:0 0 18px;color:var(--soft);max-width:60ch}
+
+/* final cta + footer */
+.final{background:var(--sea);color:var(--seaInk);text-align:center}
+.final h2{font-size:clamp(42px,6vw,76px);max-width:16ch;margin:0 auto 26px}
+.final .btn{background:var(--seaInk);color:var(--sea)}
+footer{padding:56px max(5vw,16px) 40px;color:var(--soft);font-size:15px}
+.fgrid{display:grid;grid-template-columns:minmax(0,2fr) repeat(3,minmax(0,1fr));gap:32px}
+.fgrid b{display:block;color:var(--ink);margin-bottom:8px}
+.fgrid a{display:block;text-decoration:none;padding:3px 0}
+.fbot{border-top:1px solid var(--line);margin-top:40px;padding-top:20px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:13px}
+
+/* stats + start */
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));background:var(--sea);color:var(--seaInk)}
+.stats div{padding:22px 16px;text-align:center;border-left:1px solid rgba(0,0,0,.15)}
+.stats div:first-child{border-left:0}
+.stats b{display:block;font:400 clamp(30px,3.6vw,46px)/1 "Instrument Serif",serif}
+.stats span{font-size:14px;font-weight:600}
+.start{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.sc{display:flex;flex-direction:column;gap:30px;padding:22px;min-height:170px;border:1px solid var(--line);border-radius:10px;background:var(--card);text-decoration:none;cursor:pointer;text-align:left;transition:border-color .3s,transform .3s}
+.sc:hover{border-color:var(--sea);transform:translateY(-3px)}
+.sc .ic{display:flex;justify-content:space-between;align-items:center;color:var(--sea)}
+.sc .ic i{width:46px;height:46px;border:1.5px solid currentColor;border-radius:8px;display:grid;place-items:center;font-style:normal}
+.sc b{font:400 32px/1 "Instrument Serif",serif;margin-top:auto}
+.sc small{color:var(--soft);font-size:14px}
+.sc.hot{background:var(--sea);color:var(--seaInk);border-color:var(--sea)}.sc.hot .ic,.sc.hot small{color:var(--seaInk)}
+/* reviews + blog */
+.revs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.rev{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:24px;display:flex;flex-direction:column;gap:16px}
+.stars{color:var(--sea);letter-spacing:3px}
+.rev p{margin:0;font:400 22px/1.3 "Instrument Serif",serif}
+.who{display:flex;align-items:center;gap:10px;margin-top:auto;font-size:14px;color:var(--soft)}
+.who i{width:38px;height:38px;border-radius:50%;background:var(--stone);border:1px solid var(--line);display:grid;place-items:center;font-style:normal;font-weight:700;color:var(--ink)}
+.score{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.score b{font:400 44px/1 "Instrument Serif",serif}
+.posts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.post{display:block;text-decoration:none}
+.post .pm{aspect-ratio:16/10;border-radius:8px;overflow:hidden}
+.post .pm svg{width:100%;height:100%;display:block;transition:transform .8s}
+.post:hover .pm svg{transform:scale(1.06)}
+.post small{display:block;color:var(--sea);font-weight:700;font-size:13px;margin:14px 0 6px}
+.post h3{font-size:26px}
+/* choose */
+.choose{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(32px,6vw,96px);align-items:center}
+.opts{display:grid;gap:10px}
+.opt{display:flex;justify-content:space-between;align-items:center;min-height:62px;padding:0 22px;border:1px solid var(--line);border-radius:10px;background:var(--card);font-weight:700;font-size:17px;cursor:pointer;text-align:left;transition:border-color .3s,padding .3s}
+.opt:hover{border-color:var(--sea);padding-left:28px}
+.opt::after{content:"→";color:var(--sea)}
+/* floating + mobile bar */
+#wa{position:fixed;right:20px;bottom:88px;z-index:40;display:flex;align-items:center;gap:8px;min-height:50px;padding:0 18px;border-radius:999px;background:#25a35a;color:#fff;font-weight:700;text-decoration:none;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+.mbar{display:none}
+.step .when{font:400 30px/1 "Instrument Serif",serif;color:var(--sea);padding-top:4px}
+.checks{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:8px}
+.checks li{display:flex;gap:10px}.checks li::before{content:"✓";color:var(--sea);font-weight:800}
+.cnt{font-weight:700;color:var(--soft);font-size:14px;white-space:nowrap}.cnt b{color:var(--ink);font-size:18px}
+/* assistant */
+#fab{position:fixed;right:20px;bottom:20px;z-index:40;display:flex;align-items:center;gap:10px;padding:8px 18px 8px 8px;border-radius:999px;border:1px solid var(--sea);background:var(--deep);color:#fff;font-weight:700;cursor:pointer;box-shadow:0 12px 34px rgba(0,0,0,.28);min-height:56px}
+.av{width:40px;height:40px;border-radius:50%;background:var(--warm);color:var(--deep);display:grid;place-items:center;font:400 22px/1 "Instrument Serif",serif;flex:none;position:relative}
+.av::after{content:"";position:absolute;right:0;bottom:1px;width:10px;height:10px;border-radius:50%;background:#3fbf6f;border:2px solid var(--deep)}
+#bubble{position:fixed;right:20px;bottom:150px;z-index:40;max-width:290px;background:var(--bg);color:var(--ink);border-radius:14px 14px 4px 14px;padding:14px 16px;box-shadow:0 14px 40px rgba(0,0,0,.2);font-size:15px;cursor:pointer;opacity:0;transform:translateY(10px);pointer-events:none;transition:.4s}
+#bubble.on{opacity:1;transform:none;pointer-events:auto}
+#bubble b{display:block;margin-bottom:2px}
+#bubble .x{position:absolute;top:4px;right:6px;border:0;background:none;cursor:pointer;color:var(--soft);font-size:18px;width:32px;height:32px}
+#chat{position:fixed;right:20px;bottom:20px;z-index:50;width:min(400px,calc(100vw - 40px));height:min(660px,calc(100vh - 40px));background:var(--bg);border-radius:18px;box-shadow:0 30px 90px rgba(0,0,0,.35);display:flex;flex-direction:column;overflow:hidden;opacity:0;transform:translateY(20px) scale(.98);pointer-events:none;transition:.3s}
+#chat.open{opacity:1;transform:none;pointer-events:auto}
+.chead{background:var(--deep);border-bottom:1px solid var(--line);color:#fff;padding:14px 14px 14px 16px;display:flex;align-items:center;gap:12px}
+.chead b{display:block;font-size:16px}
+.chead small{color:#b9bcc0;font-size:13px}
+.chead .x{margin-left:auto;border:0;background:rgba(255,255,255,.1);color:#fff;width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:20px}
+#log{flex:1;overflow-y:auto;padding:18px 16px;display:flex;flex-direction:column;gap:10px;background:var(--stone)}
+.msg{max-width:86%;padding:11px 14px;border-radius:16px;font-size:15px;line-height:1.45;animation:pop .3s ease-out}
+.msg.bot{background:var(--bg);border-bottom-left-radius:4px;align-self:flex-start;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.msg.me{background:var(--sea);color:var(--seaInk);border-bottom-right-radius:4px;align-self:flex-end}
+@keyframes pop{from{opacity:0;transform:translateY(6px)}}
+.typing{display:flex;gap:4px;padding:14px 16px}
+.typing i{width:7px;height:7px;border-radius:50%;background:var(--soft);animation:blink 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes blink{50%{opacity:.25}}
+.est{background:var(--deep);color:#fff;border:1px solid var(--sea);border-radius:12px;padding:14px 16px;margin:4px 0}
+.est small{color:#b9bcc0;display:block}
+.est strong{font:400 30px/1.1 "Instrument Serif",serif;display:block;margin:4px 0}
+.ok{border:1.5px solid #3fbf6f;border-radius:12px;padding:12px 14px;margin-bottom:8px}
+.ok b{display:block}
+.mini{display:flex;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
+.mini:first-child{border-top:0}
+.mini svg,.mini img{width:64px;height:52px;border-radius:6px;flex:none;object-fit:cover}
+.mini b{display:block;font-size:14px;line-height:1.3}
+.mini span{font-size:13px;color:var(--soft)}
+.lv{margin-top:8px;border:0;background:none;color:var(--sea);font-weight:700;cursor:pointer;padding:6px 0;text-decoration:underline;text-underline-offset:3px}
+#qr{display:flex;flex-wrap:wrap;gap:8px;padding:10px 14px 0;background:var(--bg)}
+#qr:empty{display:none}
+#qr button{border:1.5px solid var(--sea);color:var(--sea);background:none;border-radius:999px;min-height:40px;padding:0 14px;font-size:14px;font-weight:700;cursor:pointer}
+#qr button:hover{background:var(--sea);color:var(--seaInk)}
+#cf{display:flex;gap:8px;padding:12px 14px 14px;background:var(--bg)}
+#ci{flex:1;font:16px Manrope,sans-serif;min-height:46px;padding:0 14px;border:1px solid var(--line);border-radius:999px;background:var(--stone);color:var(--ink)}
+#cf button{width:46px;height:46px;border-radius:50%;border:0;background:var(--sea);color:var(--seaInk);cursor:pointer;font-size:18px;flex:none}
+.cfoot{font-size:12px;color:var(--soft);text-align:center;padding:0 14px 10px;background:var(--bg)}
+
+/* lead view */
+#lead{position:fixed;inset:0;z-index:60;background:rgba(10,16,22,.6);display:none;place-items:center;padding:16px}
+#lead.open{display:grid}
+.lcard{background:var(--bg);border-radius:16px;width:min(520px,100%);max-height:90vh;overflow:auto;box-shadow:0 30px 90px rgba(0,0,0,.4)}
+.lhead{padding:18px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px}
+.lhead b{font-size:17px}
+.lhead small{display:block;color:var(--soft);font-size:13px}
+.lhead button{margin-left:auto;border:0;background:var(--stone);width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:20px}
+.temp{display:inline-block;padding:4px 12px;border-radius:999px;font-size:13px;font-weight:800;color:#fff}
+.lbody{padding:18px 20px 22px;display:grid;gap:16px}
+.kv{display:grid;grid-template-columns:8.5em minmax(0,1fr);gap:6px 12px;font-size:15px}
+.kv dt{color:var(--soft)}.kv dd{margin:0;font-weight:600}
+.auto{background:var(--stone);border-radius:10px;padding:14px 16px;font-size:14px}
+.auto b{display:block;margin-bottom:6px}
+.auto ol{margin:0;padding-left:18px;display:grid;gap:4px}
+
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.revs,.posts{grid-template-columns:minmax(0,1fr)}.choose{grid-template-columns:minmax(0,1fr)}.two,.sell,.faq,.manif{grid-template-columns:minmax(0,1fr)}.two .stick{position:static}nav .lk,nav .tel{display:none}#ria .frame{width:84vw}.fgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){#tB{bottom:calc(10vh + 130px)}#heroCta{bottom:calc(10vh + 10px)}.grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;scrollbar-width:none;margin-inline:calc(-1 * max(5vw,16px));padding-inline:max(5vw,16px)}.grid::-webkit-scrollbar{display:none}.grid .card{flex:0 0 84%;scroll-snap-align:center}.media{aspect-ratio:4/5}.stats span{font-size:12px}.start{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.sc{padding:14px;min-height:130px;gap:16px}.sc b{font-size:22px}.sc small{display:none}.sc .ic i{width:38px;height:38px}.revs,.posts,.choose{grid-template-columns:minmax(0,1fr)}#wa{display:none}.mbar{display:grid;grid-template-columns:1fr 1fr;position:fixed;inset:auto 0 0;z-index:35}.mbar a{display:flex;align-items:center;justify-content:center;gap:10px;min-height:58px;font-weight:700;text-decoration:none;background:#0b0b0a;color:#fff}.mbar a+a{background:var(--sea);color:var(--seaInk)}#fab{bottom:72px;right:14px}#bubble{bottom:136px}body{padding-bottom:58px}#chat{right:0;bottom:0;width:100vw;height:100svh;border-radius:0}#fab span.t{display:none}#fab{padding:8px}#bubble{right:16px;left:16px;max-width:none}.pair{grid-template-columns:minmax(0,1fr)}.step{grid-template-columns:minmax(0,1fr);gap:4px}.step .when{padding:0}}
+@media(prefers-reduced-motion:reduce){#hero{height:100vh}#ria{height:auto}#ria .stage{position:relative}.htxt .w,.cap .w,.rv .w,.fu{opacity:1!important;transform:none!important;filter:none!important;transition:none}#int,#tA{display:none}#man .w{opacity:1}.media{clip-path:none}#hint{display:none}#heroCta{opacity:1;pointer-events:auto}#ria .frame{width:100vw;height:80vh}}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a class="logo" href="#hero">Atalaia</a>
+  <a class="lk" href="#inmuebles">Comprar</a>
+  <a class="lk" href="#vender">Vender</a>
+  <a class="lk" href="#barrios">Barrios</a>
+  <a class="lk" href="#faq">Dudas</a>
+  <span class="tel">944 000 000</span>
+  <button class="mode" id="mode" type="button" aria-label="Cambiar a modo claro"><svg class="moon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg><svg class="sun" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg></button>
+  <a class="btn" href="#vender">Valora tu casa</a>
+</nav>
+<section id="hero" aria-label="Presentación">
+  <div class="stage">
+    <img id="ext" class="layer" src="villa-dia.jpg" data-zoom="2.6" data-origin="55% 62%" alt="Villa contemporánea al atardecer">
+    <img id="int" class="layer" src="villa-noche.jpg" data-origin="47% 64%" alt="Salón iluminado visto desde la piscina">
+
+        <div class="scrim"></div>
+    <h1 class="htxt" id="tA">Casas que se sienten <em>antes de entrar</em></h1>
+    <p class="htxt" id="tB">Bienvenido a casa.</p>
+    <div id="heroCta"><button class="btn light" type="button" data-start="vender">Quiero vender mi casa</button><a class="btn ghost" href="#inmuebles">Ver casas en venta</a></div>
+    <div id="hint">Desliza<i></i></div>
+  </div>
+</section>
+
+<div class="marq" aria-hidden="true"><div class="track" id="track"></div></div>
+
+<div class="stats"><div><b>15</b><span>años en Bizkaia</span></div><div><b>4,8</b><span>en Google</span></div><div><b>48 h</b><span>para valorar tu casa</span></div></div>
+
+<section class="band" style="padding-bottom:0">
+  <div class="wrap">
+    <p class="eyebrow fu">Empieza por aquí</p>
+    <div class="start fu">
+      <a class="sc" href="#inmuebles"><span class="ic"><i>⌂</i>→</span><b>Comprar</b><small>Casas seleccionadas en Bilbao, Getxo y Uribe Kosta</small></a>
+      <button class="sc" type="button" data-start="vender"><span class="ic"><i>◇</i>→</span><b>Vender</b><small>Te ayudamos a venderla bien y sin prisas</small></button>
+      <a class="sc hot" href="#vender"><span class="ic"><i>↗</i>→</span><b>Valorar</b><small>Estimación al momento, visita en 48 h</small></a>
+    </div>
+    <p class="note" style="margin-top:12px">Cifras de ejemplo: aquí van los datos reales de la inmobiliaria.</p>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap manif">
+    <div>
+      <p class="eyebrow fu">Atalaia Inmobiliaria · Bilbao, Getxo y Uribe Kosta</p>
+      <p id="man">No vendemos metros cuadrados. Contamos cómo se vive una casa: la luz de la mañana en la cocina, el silencio del dormitorio, el paseo hasta la ría. Así es como una casa encuentra a su comprador.</p>
+    </div>
+    <div class="promise fu">
+      <div><b>Valoración en 48 horas</b><span>Un agente visita tu casa, gratis y sin compromiso.</span></div>
+      <div><b>Te respondemos al momento</b><span>Nuestro asistente atiende 24 h por la web y WhatsApp.</span></div>
+      <div><b>Presentación de cine</b><span>Fotografía, vídeo y una página propia para tu casa.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="inmuebles" style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <div><p class="eyebrow">Casas seleccionadas</p><h2 class="rv h2">Encuentra <em>la tuya</em></h2></div>
+      <span class="cnt" id="cnt"></span><div class="tabs" role="group" aria-label="Operación"><button type="button" data-op="venta" aria-pressed="true">En venta</button><button type="button" data-op="alquiler" aria-pressed="false">En alquiler</button></div>
+    </div>
+    <div class="grid" id="grid"></div>
+    <p class="note">Inmuebles, precios y datos de ejemplo para la demo.</p>
+  </div>
+</section>
+<section id="ria" aria-label="El entorno">
+  <div class="stage">
+    <div class="frame" id="frame">
+      <svg viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs><linearGradient id="rs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fb9cc"/><stop offset="1" stop-color="#f1d2a8"/></linearGradient></defs>
+        <rect width="1600" height="1000" fill="url(#rs)"/>
+        <path d="M0 520 C200 440 420 470 600 430 S1000 380 1250 440 1500 420 1600 450 V1000 H0Z" fill="#6f8798"/>
+        <rect y="560" width="1600" height="440" fill="#3f6b84"/>
+        <g fill="#f5e7d0" opacity=".5"><rect x="200" y="640" width="320" height="3"/><rect x="760" y="700" width="420" height="3"/><rect x="380" y="800" width="520" height="3"/></g>
+        <g><rect x="1060" y="380" width="380" height="190" fill="#ece5d9"/><path d="M1040 390 L1250 300 L1460 390Z" fill="#7a3b2e"/>
+        <g fill="#3a4b57"><rect x="1100" y="420" width="40" height="50"/><rect x="1170" y="420" width="40" height="50"/><rect x="1240" y="420" width="40" height="50"/><rect x="1310" y="420" width="40" height="50"/><rect x="1380" y="420" width="40" height="50"/></g></g>
+        <g><rect x="140" y="420" width="240" height="150" fill="#d9cdb9"/><path d="M120 430 L260 360 L400 430Z" fill="#5f3127"/><rect x="240" y="490" width="40" height="80" fill="#3a4b57"/></g>
+        <path d="M620 600 l60 -40 h100 l40 40Z" fill="#f4f1ec"/><path d="M700 560 V470 L760 556Z" fill="#fff"/>
+        <path d="M0 870 C400 830 800 900 1600 850 V1000 H0Z" fill="#2c4250"/>
+      </svg>
+    </div>
+    <p class="cap" id="cap">Y todo lo que hay al salir por la puerta.</p>
+  </div>
+</section>
+
+<section class="band" id="vender">
+  <div class="wrap sell">
+    <div>
+      <p class="eyebrow">Para propietarios</p>
+      <h2 class="rv h2" style="font-size:clamp(44px,6vw,76px)">Vender bien empieza <em>antes de publicar</em></h2>
+      <p class="lead fu">Te damos una estimación al momento y, si quieres, un agente la visita en menos de 48 horas para darte el precio exacto y un plan de venta.</p>
+      <ul class="ticks fu">
+        <li>Estimación orientativa en un minuto, sin dejar tus datos</li>
+        <li>Visita de valoración gratuita, a la hora que te venga bien</li>
+        <li>Plan de venta por escrito: precio, plazos y cómo la presentaremos</li>
+      </ul>
+    </div>
+    <div class="valor fu">
+      <h3>Valora tu vivienda</h3>
+      <p class="sub">Tres datos y nuestro asistente hace el resto.</p>
+      <form id="vf">
+        <div class="pair">
+          <label for="vt">Tipo<select id="vt"><option>Piso</option><option>Ático</option><option>Casa o chalet</option><option>Bajo o local</option></select></label>
+          <label for="vm">Metros<input id="vm" type="number" inputmode="numeric" min="20" max="2000" required placeholder="90"></label>
+        </div>
+        <label for="vz">Zona<select id="vz"><option>Bilbao</option><option>Getxo</option><option>Uribe Kosta</option><option>Margen izquierda</option><option>Otra zona</option></select></label>
+        <button class="btn" type="submit">Calcular mi estimación</button>
+        <small>Sin compromiso. Solo te pediremos el teléfono si quieres la visita.</small>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="metodo">
+  <div class="wrap two">
+    <div class="stick">
+      <p class="eyebrow">Cómo vendemos tu casa</p>
+      <h2 class="rv h2">De la primera llamada <em>a la notaría</em></h2>
+      <p class="fu">Un solo agente contigo de principio a fin, y un asistente que no deja ninguna pregunta sin respuesta.</p>
+      <ul class="checks fu"><li>Estrategia de precio y salida al mercado</li><li>Marketing y presentación de la vivienda</li><li>Acompañamiento durante toda la operación</li></ul>
+      <a class="btn fu" href="#vender" style="margin-top:26px">Solicitar valoración →</a>
+    </div>
+    <div>
+      <div class="step fu"><span class="when">01</span><div><h3>Valoración honesta</h3><p>Visitamos la vivienda, estudiamos lo que se ha vendido de verdad en la zona y te damos un precio defendible, no uno que suene bien.</p></div></div>
+      <div class="step fu"><span class="when">02</span><div><h3>Presentación de cine</h3><p>Fotografía profesional, vídeo y visita virtual. Una página propia para tu casa, como esta, que se comparte con un enlace.</p></div></div>
+      <div class="step fu"><span class="when">03</span><div><h3>Campaña y compradores filtrados</h3><p>Anuncios en los portales y en redes. Nuestro asistente responde a cada interesado al momento y solo visitan quienes pueden comprar.</p></div></div>
+      <div class="step fu"><span class="when">04</span><div><h3>Informe de visitas</h3><p>Te contamos quién ha visitado, qué opinó y cómo va el interés, para ajustar a tiempo si hace falta.</p></div></div>
+      <div class="step fu"><span class="when">05</span><div><h3>Hasta la notaría</h3><p>Negociación, arras, documentación e hipoteca del comprador. Te acompañamos hasta la firma.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="barrios">
+  <div class="wrap">
+    <div class="head">
+      <div><p class="eyebrow">Dónde trabajamos</p><h2 class="rv h2">Conocemos <em>cada calle</em></h2></div>
+      <div class="cnav"><button type="button" id="prev" aria-label="Anterior">←</button><button type="button" id="next" aria-label="Siguiente">→</button></div>
+    </div>
+    <div class="carousel" id="car" tabindex="0"></div>
+    <p class="note">Precios medios orientativos de ejemplo.</p>
+  </div>
+</section>
+
+<section class="band" id="faq" style="padding-top:0">
+  <div class="wrap faq">
+    <div><p class="eyebrow">Preguntas frecuentes</p><h2 class="rv h2">Lo que nos preguntan los propietarios</h2></div>
+    <div class="fu">
+      <details><summary>¿Cuánto cuesta la valoración?</summary><p>Nada. La visita de valoración es gratuita y sin compromiso. Te llevas el precio y el plan de venta aunque decidas no vender con nosotros.</p></details>
+      <details><summary>¿Por qué trabajáis en exclusiva?</summary><p>Porque una casa anunciada en cinco agencias a cinco precios pierde valor. En exclusiva invertimos en fotografía, vídeo y campaña, y respondemos solo ante ti.</p></details>
+      <details><summary>¿Cuánto se tarda en vender?</summary><p>Depende sobre todo del precio de salida. Por eso empezamos con una valoración realista y te enseñamos cada semana cómo responde el mercado.</p></details>
+      <details><summary>¿Tengo que estar en las visitas?</summary><p>No. Las hacemos nosotros, con compradores ya filtrados, y te contamos cómo ha ido cada una.</p></details>
+      <details><summary>Quiero vender y comprar a la vez, ¿podéis ayudarme?</summary><p>Sí, es muy habitual. Coordinamos los plazos de la venta y de la compra para que no tengas que hacer dos mudanzas.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="resenas" style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <div><p class="eyebrow">Reseñas</p><h2 class="rv h2">Lo que dicen <em>de nosotros</em></h2></div>
+      <div class="score fu"><span class="stars">★★★★★</span><b>4,8</b><span style="color:var(--soft)">en Google</span></div>
+    </div>
+    <div class="revs">
+      <div class="rev fu"><span class="stars">★★★★★</span><p>Nos valoraron el piso con datos reales de la zona y se vendió al precio que nos dijeron.</p><span class="who"><i>A</i>Propietaria · Abando</span></div>
+      <div class="rev fu"><span class="stars">★★★★★</span><p>Siempre sabíamos quién había visitado la casa y qué opinaba. Cero sorpresas.</p><span class="who"><i>J</i>Propietario · Algorta</span></div>
+      <div class="rev fu"><span class="stars">★★★★★</span><p>Escribí un domingo por la noche y a los dos minutos ya tenía la visita reservada.</p><span class="who"><i>L</i>Comprador · Deusto</span></div>
+    </div>
+    <p class="note">Reseñas de ejemplo: en la web real se muestran las reseñas de Google de la inmobiliaria.</p>
+  </div>
+</section>
+
+<section class="band" id="blog" style="padding-top:0">
+  <div class="wrap">
+    <div class="head"><div><p class="eyebrow">Blog</p><h2 class="rv h2">Lo que hay <em>que saber</em></h2></div><p class="fu">Guías claras para vender, comprar o vivir en Bizkaia. Sin tecnicismos.</p></div>
+    <div class="posts" id="posts"></div>
+  </div>
+</section>
+
+<section class="band" id="empezar" style="background:var(--stone)">
+  <div class="wrap choose">
+    <div><p class="eyebrow">Contacto</p><h2 class="rv h2">¿Qué quieres hacer <em>con tu casa?</em></h2><p class="fu" style="color:var(--soft);margin-top:18px;max-width:40ch">Elige una opción y te respondemos al momento. Sin coste y sin compromiso.</p></div>
+    <div class="opts fu">
+      <button class="opt" type="button" data-start="vender">Venderla</button>
+      <button class="opt" type="button" data-start="valorar">Saber cuánto vale</button>
+      <button class="opt" type="button" data-start="comprar">Comprar una</button>
+      <button class="opt" type="button" data-start="alquilar">Ponerla en alquiler</button>
+      <button class="opt" type="button" data-start="agente">Otra cosa</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div><span class="logo" style="color:var(--ink)">Atalaia</span><p style="max-width:32ch">Inmobiliaria en Bilbao, Getxo y Uribe Kosta. Compra, venta y alquiler.</p></div>
+      <div><b>Oficina</b>Gran Vía 1, Bilbao<br>L a V · 9:30 a 19:30</div>
+      <div><b>Contacto</b>944 000 000<br>hola@atalaia.demo</div>
+      <div><b>Enlaces</b><a href="#inmuebles">Comprar</a><a href="#vender">Vender</a><a href="#barrios">Barrios</a></div>
+    </div>
+    <div class="fbot"><span>Demo de Galerna Method · datos ficticios</span><span>Aviso legal · Privacidad · Cookies</span></div>
+  </div>
+</footer>
+
+<a id="wa" href="https://wa.me/34638429161"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.3-.4.8-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>WhatsApp</a>
+<div class="mbar"><a href="tel:+34944000000"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2Z"/></svg>Llamar</a><a href="https://wa.me/34638429161"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.3-.4.8-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>WhatsApp</a></div>
+<button id="fab" type="button" aria-label="Abrir asistente"><span class="av">A</span><span class="t">¿Hablamos?</span></button>
+<div id="bubble" role="button" tabindex="0"><button class="x" type="button" aria-label="Cerrar">×</button><b>¿Piensas en vender?</b>Te digo cuánto vale tu casa en un minuto.</div>
+
+<div id="chat" role="dialog" aria-label="Asistente de Atalaia">
+  <div class="chead"><span class="av">A</span><div><b>Ane · Atalaia</b><small>Asistente · responde al momento</small></div><button class="x" type="button" id="cx" aria-label="Cerrar">×</button></div>
+  <div id="log" aria-live="polite"></div>
+  <div id="qr"></div>
+  <form id="cf"><input id="ci" autocomplete="off" placeholder="Escribe aquí…" aria-label="Mensaje"><button type="submit" aria-label="Enviar">→</button></form>
+  <div class="cfoot">Demo · en la versión real conecta con WhatsApp y la agenda</div>
+</div>
+
+<div id="lead" role="dialog" aria-label="Ficha del contacto"><div class="lcard">
+  <div class="lhead"><span class="av">A</span><div><b>Nuevo contacto en el CRM</b><small>Así le llega a la inmobiliaria</small></div><button type="button" id="lx" aria-label="Cerrar">×</button></div>
+  <div class="lbody" id="lbody"></div>
+</div></div>
+
+
+
+<script>
+{
+const $ = s => document.querySelector(s);
+let chatOpen = false, greeted = false;
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const norm = s => String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
+const eur = n => n.toLocaleString('es-ES') + ' €';
+const split = el => { let i = 0; el.innerHTML = [...el.childNodes].map(n => { const g = n.nodeType === 1; return n.textContent.trim().split(/\s+/).filter(Boolean).map(w => `<span class="w${g ? ' gold' : ''}" style="--i:${i++}">${esc(w)}</span>`).join(' '); }).filter(Boolean).join(' '); return [...el.querySelectorAll('.w')]; };
+
+/* ---------- illustrations (swap for <img src="foto.jpg"> when there are real photos) ---------- */
+let gid = 0;
+const sky = (a, b) => { const id = 'k' + (gid++); return `<defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient></defs><rect width="600" height="600" fill="url(#${id})"/>`; };
+const win = (x, y, w, h, lit) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${lit ? '#f6c57e' : '#405563'}"/>`;
+const art = {
+  piso: () => { let s = sky('#a9c3d6', '#ecd9bf') + `<rect x="110" y="90" width="380" height="510" fill="#e9dfd0"/><rect x="100" y="80" width="400" height="22" fill="#cbbba4"/>`;
+    for (let r = 0; r < 5; r++) for (let c = 0; c < 3; c++) { const x = 140 + c * 120, y = 130 + r * 84; s += win(x, y, 80, 58, (r + c) % 3 === 0) + `<rect x="${x - 8}" y="${y + 58}" width="96" height="8" fill="#3b3a38"/><path d="M${x - 6} ${y + 58} v-18 M${x + 86} ${y + 58} v-18 M${x - 6} ${y + 40} h92" stroke="#3b3a38" stroke-width="3" fill="none"/>`; }
+    return s + `<rect x="110" y="540" width="380" height="60" fill="#3d4a52"/><rect x="270" y="548" width="60" height="52" fill="#c69a63"/><rect y="590" width="600" height="10" fill="#8c8478"/>`; },
+  atico: () => sky('#7fa3c0', '#f2cfa0') + `<rect y="430" width="600" height="170" fill="#46708a"/><path d="M0 430 C150 410 300 425 600 412 V440 H0Z" fill="#6c8596"/><rect x="80" y="250" width="440" height="230" fill="#f3f0ea"/><rect x="60" y="236" width="480" height="18" fill="#2f3337"/><rect x="110" y="282" width="250" height="150" fill="#f4c886"/><path d="M193 282 v150 M276 282 v150" stroke="#2f3337" stroke-width="4"/><rect x="390" y="282" width="100" height="150" fill="#3f5361"/><rect x="80" y="440" width="440" height="8" fill="#2f3337"/><rect y="480" width="600" height="120" fill="#e5e0d7"/><ellipse cx="140" cy="470" rx="26" ry="38" fill="#3f6249"/><rect x="128" y="470" width="24" height="16" fill="#c2a07c"/>`,
+  caserio: () => sky('#b9cad3', '#f0dcc0') + `<path d="M0 380 C160 330 300 360 600 320 V600 H0Z" fill="#7d9a7e"/><path d="M0 460 C200 430 420 470 600 440 V600 H0Z" fill="#5f7d60"/><rect x="90" y="300" width="420" height="230" fill="#efe8dc"/><rect x="90" y="450" width="420" height="80" fill="#a59a8b"/><path d="M60 312 L300 190 L540 312 L520 322 L300 212 L80 322Z" fill="#7a3b2e"/><path d="M92 312 L300 208 L508 312Z" fill="#e5dccd"/><g stroke="#4a3224" stroke-width="7"><path d="M300 212 V300 M150 300 H450 M200 300 L300 250 L400 300"/></g>${win(140, 340, 50, 70, true)}${win(410, 340, 50, 70, false)}${win(270, 330, 60, 70, true)}<path d="M270 530 V470 a30 30 0 0 1 60 0 V530Z" fill="#3b261b"/><rect y="528" width="600" height="72" fill="#4f6b50"/><rect x="520" y="380" width="12" height="150" fill="#3a2b20"/><circle cx="526" cy="360" r="56" fill="#3f6249"/>`,
+  loft: () => { let s = sky('#c8d3da', '#e9d6c0') + `<rect x="60" y="120" width="480" height="480" fill="#9a5b45"/>`;
+    for (let r = 0; r < 12; r++) s += `<path d="M60 ${140 + r * 38} H540" stroke="#87503c" stroke-width="2"/>`;
+    for (let c = 0; c < 3; c++) s += `<rect x="${100 + c * 150}" y="170" width="110" height="170" fill="#2e3438"/><rect x="${106 + c * 150}" y="176" width="98" height="158" fill="${c === 1 ? '#f4c886' : '#55707f'}"/><path d="M${155 + c * 150} 176 v158 M${106 + c * 150} 255 h98" stroke="#2e3438" stroke-width="4"/>`;
+    return s + `<rect x="100" y="400" width="400" height="200" fill="#2e3438"/><rect x="110" y="410" width="380" height="180" fill="#f2c27f"/><path d="M237 410 v180 M363 410 v180" stroke="#2e3438" stroke-width="5"/>`; },
+  chalet: () => sky('#9fc0d6', '#f3dcb8') + `<rect y="420" width="600" height="180" fill="#6f8f6a"/><rect x="60" y="230" width="300" height="220" fill="#f4f1ec"/><rect x="300" y="300" width="250" height="150" fill="#e2ddd4"/><rect x="40" y="218" width="340" height="16" fill="#2f3337"/><rect x="290" y="288" width="280" height="14" fill="#2f3337"/><rect x="90" y="270" width="230" height="120" fill="#f4c886"/><path d="M167 270 v120 M244 270 v120" stroke="#2f3337" stroke-width="4"/><rect x="330" y="330" width="190" height="90" fill="#405563"/><rect x="120" y="470" width="360" height="70" rx="6" fill="#5fb0cf"/><path d="M140 500 q40 -10 80 0 t80 0 t80 0 t80 0" stroke="#bfe6f3" stroke-width="3" fill="none"/><circle cx="545" cy="400" r="40" fill="#3f6249"/>`,
+  adosado: () => { let s = sky('#b3c6d3', '#efd8bd') + `<rect y="520" width="600" height="80" fill="#5f7d60"/>`;
+    const cols = ['#efe8dc', '#e6d9c4', '#efe8dc'];
+    for (let i = 0; i < 3; i++) { const x = 20 + i * 190; s += `<rect x="${x}" y="260" width="180" height="270" fill="${cols[i]}"/><path d="M${x - 10} 270 L${x + 90} 190 L${x + 190} 270Z" fill="#7a3b2e"/>${win(x + 26, 300, 50, 60, i !== 1)}${win(x + 104, 300, 50, 60, i === 1)}<rect x="${x + 64}" y="420" width="52" height="110" fill="#3b261b"/>`; }
+    return s; }
+};
+const scene = (a, b, c, d) => `<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="400" height="300" fill="${a}"/><path d="M0 170 C120 130 240 160 400 130 V300 H0Z" fill="${b}"/><path d="M0 220 C140 200 260 230 400 210 V300 H0Z" fill="${c}"/><g fill="${d}"><rect x="60" y="150" width="60" height="70"/><rect x="130" y="130" width="46" height="90"/><rect x="186" y="160" width="70" height="60"/><rect x="266" y="140" width="40" height="80"/><rect x="316" y="165" width="56" height="55"/></g></svg>`;
+
+/* ---------- data ---------- */
+const PROPS = [
+  { id: 11, op: 'venta', img: 'villa-dia.jpg', z: 'Getxo', zona: 'Getxo · Andra Mari', t: 'Villa de diseño con piscina desbordante', m2: 620, h: 6, b: 6, p: 2450000, tag: 'Exclusiva', d: 'Tres alturas de vidrio y piedra, piscina desbordante con cascada, spa interior y jardín de 3.000 m².' },
+  { id: 12, op: 'venta', img: 'villa-noche.jpg', z: 'Getxo', zona: 'Getxo · Neguri', t: 'Casa contemporánea con piscina', m2: 380, h: 4, b: 4, p: 1390000, tag: 'Nuevo', d: 'Salón a doble altura abierto a la piscina, terraza en voladizo y domótica completa.' },
+  { id: 13, op: 'venta', img: 'casa-rustica.jpg', z: 'Uribe Kosta', zona: 'Gatika', t: 'Casa de piedra y madera con jardín', m2: 290, h: 5, b: 3, p: 780000, tag: 'Exclusiva', d: 'Entramado de madera, porche acristalado y jardín con arbolado. Rehabilitada con calidades de hotel.' },
+  { id: 1, op: 'venta', k: 'piso', z: 'Bilbao', zona: 'Bilbao · Abando', t: 'Piso señorial con balcones', m2: 128, h: 3, b: 2, p: 465000, tag: 'Exclusiva', d: 'Tercera planta con ascensor, techos altos y tres balcones a la calle. Cocina reformada y calefacción central.' },
+  { id: 2, op: 'venta', k: 'atico', z: 'Getxo', zona: 'Getxo · Neguri', t: 'Ático con terraza al Abra', m2: 96, h: 2, b: 2, p: 520000, tag: 'Nuevo', d: 'Terraza de 40 m² con vistas al mar, garaje y trastero. Entrar a vivir.' },
+  { id: 3, op: 'venta', k: 'caserio', z: 'Uribe Kosta', zona: 'Mungia', t: 'Caserío rehabilitado', m2: 310, h: 5, b: 3, p: 690000, tag: 'Exclusiva', d: 'Rehabilitado conservando piedra y vigas, con 2.000 m² de terreno y huerta.' },
+  { id: 4, op: 'venta', k: 'loft', z: 'Bilbao', zona: 'Bilbao · Bilbao La Vieja', t: 'Loft en antigua fábrica', m2: 74, h: 1, b: 1, p: 235000, tag: 'Nuevo', d: 'Doble altura, ladrillo visto y grandes ventanales. A cinco minutos del Casco Viejo.' },
+  { id: 5, op: 'venta', k: 'chalet', z: 'Getxo', zona: 'Getxo · Algorta', t: 'Chalet con piscina', m2: 240, h: 4, b: 3, p: 895000, tag: 'Exclusiva', d: 'Parcela de 600 m², piscina, porche y garaje para dos coches. Zona muy tranquila.' },
+  { id: 6, op: 'venta', k: 'adosado', z: 'Margen izquierda', zona: 'Barakaldo', t: 'Adosado con jardín', m2: 150, h: 4, b: 2, p: 310000, tag: '', d: 'Tres plantas, jardín propio y bajera. Cerca del metro y de los colegios.' },
+  { id: 7, op: 'alquiler', k: 'piso', z: 'Bilbao', zona: 'Bilbao · Indautxu', t: 'Piso luminoso en Indautxu', m2: 85, h: 2, b: 1, p: 1250, tag: 'Nuevo', d: 'Exterior, amueblado y con ascensor. Disponible el mes que viene.' },
+  { id: 8, op: 'alquiler', k: 'loft', z: 'Bilbao', zona: 'Bilbao · Deusto', t: 'Estudio junto a la universidad', m2: 60, h: 1, b: 1, p: 980, tag: '', d: 'Reformado, con cocina abierta y mucha luz. Ideal para una o dos personas.' }
+];
+PROPS.forEach(x => { x.svg = x.img ? `<img src="${x.img}" alt="" loading="lazy">` : `<svg viewBox="0 0 600 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${art[x.k]()}</svg>`; });
+const precio = x => x.op === 'alquiler' ? eur(x.p) + '/mes' : eur(x.p);
+const BARRIOS = [
+  ['Abando', 'Bilbao', 'Elegancia de ensanche, todo a mano.', '4.300 €/m²', '#c9d6df', '#8fa6b5', '#6f8798', '#e9dfd0'],
+  ['Indautxu', 'Bilbao', 'Comercio, plazas y vida de barrio.', '4.100 €/m²', '#d7d2c8', '#a59a8b', '#7d7468', '#efe8dc'],
+  ['Deusto', 'Bilbao', 'Universidad, ría y mucho ambiente.', '3.400 €/m²', '#cfdbe2', '#7fa3c0', '#46708a', '#f3f0ea'],
+  ['Neguri', 'Getxo', 'Villas, jardines y el Abra delante.', '5.200 €/m²', '#bfd3de', '#5d7f96', '#3f6b84', '#ece5d9'],
+  ['Algorta', 'Getxo', 'Puerto Viejo, playas y calma.', '4.400 €/m²', '#d4dee3', '#6f93ab', '#4f6a80', '#efe8dc'],
+  ['Mungia', 'Uribe Kosta', 'Casas con terreno a 20 minutos.', '2.700 €/m²', '#d6dfd2', '#7d9a7e', '#5f7d60', '#efe8dc']
+];
+const EURM2 = { 'bilbao': 3700, 'getxo': 4300, 'uribe kosta': 2900, 'margen izquierda': 2200 };
+const TIPOS = ['Piso', 'Ático', 'Casa o chalet', 'Bajo o local'];
+const ZONAS = ['Bilbao', 'Getxo', 'Uribe Kosta', 'Margen izquierda', 'Otra zona'];
+const ESTADOS = ['Para entrar a vivir', 'Necesita reforma', 'Reformado hace poco'];
+const PLAZOS = ['Lo antes posible', 'En 3 a 6 meses', 'Solo quiero saber el precio'];
+
+/* ---------- render page ---------- */
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15, rootMargin: '0px 0px -6% 0px' });
+const grid = $('#grid');
+let medias = [];
+const renderGrid = (op, instant) => {
+  grid.innerHTML = PROPS.filter(x => x.op === op).map(x => `<article class="card${instant ? ' in' : ''}"><div class="media">${x.svg}${x.tag ? `<span class="badge${x.tag === 'Exclusiva' ? ' ex' : ''}">${x.tag}</span>` : ''}</div>
+    <div class="meta"><div class="zona">${x.zona}</div><h3>${x.t}</h3><div class="row"><span>${x.m2} m²</span><span>${x.h} hab.</span><span>${x.b} baños</span><b>${precio(x)}</b></div>
+    <button class="ask" type="button" data-prop="${x.id}">Preguntar o reservar visita</button></div></article>`).join('');
+  medias = [...grid.querySelectorAll('.media svg,.media img')];
+  if (!instant) grid.querySelectorAll('.card').forEach(c => io.observe(c));
+};
+renderGrid('venta');
+document.querySelectorAll('.tabs button').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.tabs button').forEach(o => o.setAttribute('aria-pressed', o === b));
+  renderGrid(b.dataset.op, true); grid.scrollLeft = 0; upCnt(); req();
+}));
+$('#car').innerHTML = BARRIOS.map(b => `<div class="barrio">${scene(b[4], b[5], b[6], b[7])}<div><span class="zona">${b[1]}</span><h3>${b[0]}</h3><p>${b[2]}</p><p><b style="color:var(--ink)">${b[3]}</b> de media</p></div></div>`).join('');
+const car = $('#car'), stepC = d => car.scrollBy({ left: d * (car.querySelector('.barrio').offsetWidth + 18), behavior: RM ? 'auto' : 'smooth' });
+$('#prev').addEventListener('click', () => stepC(-1)); $('#next').addEventListener('click', () => stepC(1));
+car.addEventListener('keydown', e => { if (e.key === 'ArrowRight') { e.preventDefault(); stepC(1); } if (e.key === 'ArrowLeft') { e.preventDefault(); stepC(-1); } });
+const POSTS = [['Guía · vender', 'Cómo preparar tu casa para la visita de valoración', '#cdbfa8', '#9b8a70', '#6b5d49', '#efe8dc'], ['Guía · comprar', 'Vender y comprar a la vez sin hacer dos mudanzas', '#bcc9d1', '#7f97a6', '#53697a', '#ece5d9'], ['Trámites', 'Qué documentos necesitas para vender tu vivienda', '#d2c7b9', '#a3907a', '#76644f', '#f1ece4']];
+const modeBtn = $('#mode'), setModeLabel = () => modeBtn.setAttribute('aria-label', document.documentElement.dataset.mode === 'light' ? 'Cambiar a modo oscuro' : 'Cambiar a modo claro');
+setModeLabel();
+modeBtn.addEventListener('click', () => { const r = document.documentElement; if (r.dataset.mode === 'light') delete r.dataset.mode; else r.dataset.mode = 'light'; setModeLabel(); try { localStorage.setItem('atalaia-mode', r.dataset.mode || 'dark'); } catch (e) {} });
+$('#posts').innerHTML = POSTS.map(p => `<a class="post fu" href="#blog"><div class="pm">${scene(p[2], p[3], p[4], p[5])}</div><small>${p[0]}</small><h3>${p[1]}</h3></a>`).join('');
+const cnt = $('#cnt'), upCnt = () => { const cs = grid.querySelectorAll('.card'); if (!cs.length) return; const w = cs[0].offsetWidth + 14; const k = Math.min(cs.length, Math.round(grid.scrollLeft / w) + 1); cnt.innerHTML = innerWidth <= 600 ? `<b>${String(k).padStart(2, '0')}</b> — ${String(cs.length).padStart(2, '0')}` : ''; };
+grid.addEventListener('scroll', upCnt, { passive: true }); addEventListener('resize', upCnt);
+const MQ = ['Valoración gratuita en 48 h', 'Bilbao · Getxo · Uribe Kosta', 'Fotografía y vídeo profesional', 'Te respondemos al momento, también por WhatsApp', 'Venta en exclusiva con plan por escrito'];
+$('#track').innerHTML = [...MQ, ...MQ, ...MQ].map(t => `<span>${t}</span>`).join('');
+
+document.querySelectorAll('.rv').forEach(split); upCnt();
+document.querySelectorAll('.rv,.fu').forEach(el => io.observe(el));
+
+/* ---------- scroll scenes ---------- */
+const nav = $('#nav'), hero = $('#hero'), ext = $('#ext'), int = $('#int'), hint = $('#hint'), hcta = $('#heroCta');
+const ZOOM = +ext.dataset.zoom || 14;
+ext.style.transformOrigin = ext.dataset.origin || '50% 50%';
+int.style.transformOrigin = int.dataset.origin || '50% 50%';
+const tAel = $('#tA'), tA = split(tAel), tB = split($('#tB'));
+const man = $('#man'), mw = split(man);
+const ria = $('#ria'), frame = $('#frame'), cw = split($('#cap'));
+const track = $('#track'), marq = track.parentElement;
+const words = (ws, p, a, b) => { const n = ws.length; ws.forEach((w, i) => { const t = clamp((p - a) / (b - a) * n - i); w.style.opacity = t; w.style.transform = `translateY(${(1 - t) * .45}em)`; w.style.filter = t > .99 ? 'none' : `blur(${(1 - t) * 8}px)`; }); };
+let ticking = false, seen = false;
+const frameFn = () => {
+  ticking = false;
+  const vh = innerHeight, r = hero.getBoundingClientRect();
+  nav.classList.toggle('solid', r.bottom < 70);
+  if (r.bottom < vh * .3 && !seen) { seen = true; setTimeout(() => { if (!chatOpen && !greeted) { $('#bubble').classList.add('on'); setTimeout(() => $('#bubble').classList.remove('on'), 9000); } }, 3500); }
+  if (!RM) {
+    const p = clamp(-r.top / (r.height - vh));
+    if (window.M3D) {
+      M3D.set(p);
+      words(tA, p, 0, .2);
+      tAel.style.opacity = 1 - clamp((p - .3) / .1);
+      words(tB, p, .84, .96);
+      hcta.classList.toggle('on', p > .95);
+    } else {
+    const z = clamp(p / .62);
+    ext.style.transform = `scale(${Math.pow(ZOOM, z)})`;
+    ext.style.opacity = 1 - clamp((p - .48) / .12);
+    ext.style.filter = `blur(${clamp((p - .42) / .12) * 6}px)`;
+    int.style.opacity = clamp((p - .48) / .12);
+    const q = clamp((p - .48) / .52);
+    int.style.transform = `scale(${1.06 + .42 * (1 - (1 - q) ** 2)})`;
+    words(tA, p, 0, .22);
+    tAel.style.opacity = 1 - clamp((p - .32) / .1);
+    words(tB, p, .64, .84);
+    hcta.classList.toggle('on', p > .86);
+    }
+    hint.style.opacity = 1 - clamp(p / .06);
+
+    const rr = ria.getBoundingClientRect(), rp = clamp(-rr.top / (rr.height - vh));
+    const e = 1 - (1 - clamp(rp / .7)) ** 3;
+    const base = innerWidth <= 900 ? 84 : Math.min(62, 760 / innerWidth * 100);
+    const w0 = base * innerWidth / 100, h0 = w0 * .625;
+    frame.style.aspectRatio = 'auto';
+    frame.style.width = `${w0 + (innerWidth - w0) * e}px`;
+    frame.style.height = `${h0 + (vh - h0) * e}px`;
+    frame.style.borderRadius = `${8 * (1 - e)}px`;
+    words(cw, rp, .55, .9);
+
+    const mr = marq.getBoundingClientRect();
+    if (mr.bottom > 0 && mr.top < vh) track.style.transform = `translateX(${-((scrollY * .35) % (track.scrollWidth / 3))}px)`;
+    medias.forEach(m => { const b = m.getBoundingClientRect(); if (b.bottom < -50 || b.top > vh + 50) return; const t = clamp((vh - b.top) / (vh + b.height)); m.style.transform = `scale(${1 + t * .24})`; });
+    const mr2 = man.getBoundingClientRect(), mp = clamp((vh * .85 - mr2.top) / (mr2.height + vh * .25));
+    mw.forEach((w, i) => { w.style.opacity = .14 + .86 * clamp(mp * mw.length * 1.15 - i); });
+  }
+};
+const req = () => { if (!ticking) { ticking = true; requestAnimationFrame(frameFn); } };
+addEventListener('scroll', req, { passive: true });
+addEventListener('resize', req);
+frameFn();
+
+/* ---------- assistant ---------- */
+const chat = $('#chat'), log = $('#log'), qr = $('#qr'), ci = $('#ci');
+let pending = null, busy = Promise.resolve();
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const add = (who, html) => { const d = document.createElement('div'); d.className = 'msg ' + who; d.innerHTML = html; log.appendChild(d); log.scrollTop = log.scrollHeight; return d; };
+const say = html => (busy = busy.then(async () => {
+  const t = add('bot typing', '<i></i><i></i><i></i>');
+  await sleep(RM ? 150 : 450 + Math.min(900, html.replace(/<[^>]+>/g, '').length * 9));
+  t.remove(); add('bot', html);
+}));
+const me = text => add('me', esc(text));
+const ask = (opts, cfg = {}) => busy.then(() => {
+  qr.innerHTML = opts.map((o, i) => `<button type="button" data-i="${i}">${esc(o)}</button>`).join('');
+  ci.placeholder = cfg.ph || (opts.length ? 'Elige una opción o escribe…' : 'Escribe aquí…');
+  ci.setAttribute('inputmode', cfg.mode || 'text');
+  log.scrollTop = log.scrollHeight;
+  if (!opts.length && chatOpen && matchMedia('(pointer:fine)').matches) ci.focus();
+  return new Promise(res => { pending = { opts, cfg, res }; });
+});
+const finish = (v, shown) => { const p = pending; pending = null; qr.innerHTML = ''; me(shown ?? v); p.res(v); };
+qr.addEventListener('click', e => { const b = e.target.closest('button'); if (b && pending) finish(pending.opts[+b.dataset.i]); });
+
+const FAQ = [
+  [/comisi|honorario|cuanto cobr/, 'Los honorarios dependen de la vivienda y del servicio. El agente te los da por escrito en la visita de valoración, sin sorpresas.'],
+  [/horario|abierto|oficina|donde est/, 'Estamos en Gran Vía 1, Bilbao, de lunes a viernes de 9:30 a 19:30. Yo respondo a cualquier hora.'],
+  [/exclusiva/, 'Trabajamos en exclusiva para invertir en tu casa (fotos, vídeo, campaña) y responder solo ante ti. El agente te lo explica en la valoración.'],
+  [/hipoteca|financ/, 'Colaboramos con asesores hipotecarios que estudian tu caso gratis. Si quieres, el agente te pone en contacto.']
+];
+const faqOf = t => { const n = norm(t); const f = FAQ.find(([r]) => r.test(n)); return f && f[1]; };
+const intentOf = t => { const n = norm(t);
+  if (/vend|valor|tasa|cuanto vale|precio de mi/.test(n)) return 'vender';
+  if (/alquil|arrend/.test(n)) return 'alquilar';
+  if (/compr|busco|buscando/.test(n)) return 'comprar';
+  if (/agente|persona|llam|humano/.test(n)) return 'agente';
+  return null; };
+
+$('#cf').addEventListener('submit', e => {
+  e.preventDefault();
+  const t = ci.value.trim(); if (!t) return; ci.value = '';
+  if (!pending) { me(t); route(intentOf(t) || 'menu'); return; }
+  const { opts, cfg } = pending;
+  if (cfg.check) { const v = cfg.check(t); if (v == null) { me(t); say(cfg.err); return; } finish(v, t); return; }
+  if (opts.length && !cfg.free) {
+    const n = norm(t), m = opts.find(o => norm(o) === n) || opts.find(o => norm(o).includes(n) && n.length > 0) || opts.find(o => n.includes(norm(o).split(/[ ,]/)[0]));
+    if (m) { finish(m, t); return; }
+    me(t);
+    const f = faqOf(t); if (f) { say(f); return; }
+    const it = intentOf(t); if (it) { pending = null; qr.innerHTML = ''; route(it); return; }
+    say('Para ir rápido, elige una de las opciones de abajo o dímelo con otras palabras.');
+    return;
+  }
+  finish(t);
+});
+
+const slots = () => { const out = []; const d = new Date(); d.setHours(12, 0, 0, 0);
+  while (out.length < 6) { d.setDate(d.getDate() + 1); const wd = d.getDay(); if (wd === 0 || wd === 6) continue;
+    const lab = d.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'short' }).replace('.', '');
+    ['10:00', '12:30', '17:30'].forEach(h => out.length < 6 && out.push(`${lab[0].toUpperCase() + lab.slice(1)} · ${h}`)); }
+  return out; };
+const estimate = d => {
+  const key = Object.keys(EURM2).find(k => norm(d.zona).includes(k));
+  const base = (key ? EURM2[key] : 2600) * d.m2;
+  const ft = { 'Piso': 1, 'Ático': 1.12, 'Casa o chalet': 1.05, 'Bajo o local': .85 }[d.tipo] || 1;
+  const fe = { 'Para entrar a vivir': 1, 'Necesita reforma': .82, 'Reformado hace poco': 1.1 }[d.estado] || 1;
+  const v = base * ft * fe, r5 = n => Math.round(n / 5000) * 5000;
+  return [r5(v * .94), r5(v * 1.06)];
+};
+const getName = async () => { await say('¿Cómo te llamas?'); return ask([], { ph: 'Tu nombre', check: t => t.length > 1 ? t.slice(0, 40) : null, err: '¿Me dices tu nombre?' }); };
+const getPhone = async name => { await say(`Encantada, ${esc(name)}. ¿A qué móvil te escribimos por WhatsApp?`);
+  return ask([], { ph: '600 000 000', mode: 'tel', check: t => { const n = t.replace(/\D/g, '').replace(/^34/, ''); return /^[6789]\d{8}$/.test(n) ? n.replace(/(\d{3})(\d{3})(\d{3})/, '$1 $2 $3') : null; }, err: 'Ese número no me cuadra. ¿Me lo pasas otra vez? Son 9 cifras.' }); };
+
+let LEAD = null;
+const showLeadBtn = lead => { LEAD = lead; return say('<button type="button" class="lv">Ver cómo le llega a la inmobiliaria</button>'); };
+log.addEventListener('click', e => { if (e.target.closest('.lv') && LEAD) openLead(LEAD); const v = e.target.closest('[data-visit]'); if (v && pending) { const p = PROPS.find(x => x.id === +v.dataset.visit); finish('Visitar: ' + p.t); } });
+const TEMP = { 'Caliente': '#d2553c', 'Templado': '#d99a2b', 'Frío · nutrir': '#5d7f96' };
+const openLead = l => {
+  const rows = Object.entries(l.datos).map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('');
+  $('#lbody').innerHTML = `<div><span class="temp" style="background:${TEMP[l.temp]}">${l.temp}</span> <span style="color:var(--soft);font-size:14px;margin-left:6px">Origen: web · asistente</span></div>
+    <dl class="kv">${rows}</dl>
+    <div class="auto"><b>Lo que ya ha pasado solo</b><ol>${l.auto.map(a => `<li>${esc(a)}</li>`).join('')}</ol></div>`;
+  $('#lead').classList.add('open'); $('#lx').focus();
+};
+$('#lx').addEventListener('click', () => $('#lead').classList.remove('open'));
+$('#lead').addEventListener('click', e => { if (e.target.id === 'lead') $('#lead').classList.remove('open'); });
+
+const book = async (d, motivo) => {
+  d.nombre = await getName(); d.tel = await getPhone(d.nombre);
+  await say('Estos son los próximos huecos libres en la agenda del agente:');
+  d.cita = await ask(slots());
+  await say(`<div class="ok"><b>${motivo} reservada</b>${esc(d.cita)}<br>${esc(d.dir || d.zona || '')}</div>Te llega ahora la confirmación por WhatsApp al ${esc(d.tel)} y, el día antes, un recordatorio. Si te surge algo, me escribes y lo cambiamos.`);
+};
+const contact = async (d, motivo) => {
+  d.nombre = await getName(); d.tel = await getPhone(d.nombre);
+  if (motivo === 'llamada') { await say('¿Cuándo te viene mejor que te llamemos?'); d.franja = await ask(['Por la mañana', 'Por la tarde']); await say(`Hecho. Un agente te llama ${esc(d.franja.toLowerCase())}, en el próximo día laborable.`); }
+  else await say('Hecho. En unos minutos te llega por WhatsApp. Si algo no te cuadra, contéstanos ahí mismo.');
+};
+
+const vender = async pre => {
+  pre = pre || {};
+  const d = { ...pre };
+  if (!pre.m2) await say('Perfecto. Te doy una estimación en un minuto y, si quieres, te reservo una visita de valoración gratuita.');
+  if (!d.tipo) { await say('¿Qué tipo de vivienda es?'); d.tipo = await ask(TIPOS); }
+  if (!d.zona) { await say('¿En qué zona está?'); d.zona = await ask(ZONAS, { free: true }); }
+  if (!d.m2) { await say('¿Cuántos metros tiene, más o menos?'); d.m2 = await ask([], { ph: 'Ej.: 90', mode: 'numeric', check: t => { const m = t.match(/\d{2,4}/); return m && +m[0] >= 20 ? +m[0] : null; }, err: 'Dime solo el número de metros, por ejemplo 90.' }); }
+  await say('¿Cuántas habitaciones?'); d.hab = await ask(['1', '2', '3', '4 o más']);
+  await say('¿En qué estado está?'); d.estado = await ask(ESTADOS);
+  await say('Y una última: ¿cuándo te gustaría vender?'); d.plazo = await ask(PLAZOS);
+  const [lo, hi] = estimate(d); d.est = `${eur(lo)} – ${eur(hi)}`;
+  await say(`<div class="est"><small>Estimación orientativa · ${esc(d.tipo.toLowerCase())} de ${d.m2} m² en ${esc(d.zona)}</small><strong>${eur(lo)} – ${eur(hi)}</strong><small>Con ventas recientes de la zona</small></div>`);
+  await say('El precio exacto depende de lo que solo se ve en persona: luz, vistas, altura, estado real. Un agente puede visitarla en 30 minutos, gratis y sin compromiso. ¿Te la reservo?');
+  const r = await ask(['Sí, reservar visita', 'Prefiero que me llaméis', 'Ahora no']);
+  const temp = d.plazo === PLAZOS[0] ? 'Caliente' : d.plazo === PLAZOS[1] ? 'Templado' : 'Frío · nutrir';
+  const datos = () => ({ Nombre: d.nombre, Teléfono: d.tel, Quiere: 'Vender', Vivienda: `${d.tipo}, ${d.m2} m², ${d.hab} hab.`, Zona: d.zona, Estado: d.estado, Plazo: d.plazo, Estimación: d.est });
+  if (r.startsWith('Sí')) {
+    await book(d, 'Visita de valoración');
+    await showLeadBtn({ temp: d.plazo === PLAZOS[2] ? 'Templado' : 'Caliente', datos: { ...datos(), Cita: d.cita }, auto: ['Lead creado en el CRM con todos los datos', 'Cita añadida a la agenda del agente', 'Confirmación enviada por WhatsApp', 'Recordatorio programado 24 h antes', 'Aviso al agente con la ficha y la estimación'] });
+  } else if (r.startsWith('Prefiero')) {
+    await contact(d, 'llamada');
+    await showLeadBtn({ temp, datos: { ...datos(), Llamar: d.franja }, auto: ['Lead creado en el CRM', 'Tarea de llamada asignada al agente', 'WhatsApp de bienvenida enviado'] });
+  } else {
+    await say('Sin problema. ¿Te envío la estimación y un informe de precios de tu zona por WhatsApp, para que lo tengas a mano?');
+    const w = await ask(['Sí, por WhatsApp', 'No, gracias']);
+    if (w.startsWith('Sí')) { await contact(d, 'informe'); await showLeadBtn({ temp: 'Frío · nutrir', datos: datos(), auto: ['Lead creado en el CRM', 'Informe de zona enviado por WhatsApp', 'Seguimiento automático en 7, 30 y 90 días'] }); }
+    else { await say('¡Gracias! Aquí estoy para cualquier duda.'); menu(); }
+  }
+};
+const visitar = async (p, d = {}) => {
+  d.dir = p.zona; d.prop = p.t;
+  if (p.op === 'venta') { await say('Antes de nada: ¿tienes que vender una vivienda para comprar esta?'); d.vende = await ask(['Sí, tengo que vender', 'No']); }
+  await book(d, 'Visita a ' + p.t);
+  const vende = d.vende && d.vende.startsWith('Sí');
+  await showLeadBtn({ temp: 'Caliente', datos: { Nombre: d.nombre, Teléfono: d.tel, Quiere: p.op === 'venta' ? 'Comprar' : 'Alquilar', Inmueble: `${p.t} · ${precio(p)}`, Cita: d.cita, 'Vende antes': vende ? 'Sí, oportunidad de captación' : 'No' }, auto: ['Lead creado en el CRM', 'Visita añadida a la agenda del agente', 'Confirmación y ubicación enviadas por WhatsApp', vende ? 'Marcado como posible propietario para captar' : 'Ficha del inmueble enviada por WhatsApp'] });
+  if (vende) { await say('Como también tienes que vender, ¿quieres que te diga ya cuánto podría valer tu casa? Así el agente lo trae preparado a la visita.'); const r = await ask(['Sí, valorar mi casa', 'Más adelante']); if (r.startsWith('Sí')) return vender(); }
+  await say('¿Te ayudo con algo más?'); menu(true);
+};
+const comprar = async () => {
+  await say('¡Vamos a buscarla! ¿En qué zona te gustaría vivir?');
+  const zona = await ask(['Bilbao', 'Getxo', 'Uribe Kosta', 'Margen izquierda', 'Me da igual']);
+  await say('¿Hasta qué precio?');
+  const pr = await ask(['Hasta 300.000 €', 'Hasta 500.000 €', 'Hasta 700.000 €', 'Más de 700.000 €']);
+  const max = { 'Hasta 300.000 €': 300000, 'Hasta 500.000 €': 500000, 'Hasta 700.000 €': 700000 }[pr] || 1e9;
+  let res = PROPS.filter(x => x.op === 'venta' && x.p <= max && (zona === 'Me da igual' || x.z === zona));
+  if (!res.length) { await say('Ahora mismo no tengo nada exacto con eso, pero mira estas, que se acercan:'); res = PROPS.filter(x => x.op === 'venta').sort((a, b) => Math.abs(a.p - max) - Math.abs(b.p - max)).slice(0, 2); }
+  else await say(`Tengo ${res.length === 1 ? 'esta' : 'estas ' + res.length}:`);
+  await say(res.map(x => `<div class="mini">${x.svg}<div><b>${x.t}</b><span>${x.zona} · ${x.m2} m² · ${precio(x)}</span></div></div>`).join(''));
+  await say('¿Quieres visitar alguna?');
+  const pick = await ask([...res.map(x => 'Visitar: ' + x.t), 'Ninguna me encaja']);
+  const p = res.find(x => pick === 'Visitar: ' + x.t);
+  if (p) return visitar(p, { zona });
+  await say('Entendido. ¿Te aviso por WhatsApp en cuanto entre algo así, antes de que salga en los portales?');
+  const a = await ask(['Sí, avísame', 'No, gracias']);
+  if (a.startsWith('Sí')) { const d = {}; await contact(d, 'alerta'); await showLeadBtn({ temp: 'Templado', datos: { Nombre: d.nombre, Teléfono: d.tel, Quiere: 'Comprar', Zona: zona, Presupuesto: pr }, auto: ['Lead creado en el CRM', 'Alerta de nuevos inmuebles activada', 'El agente recibe el perfil del comprador'] }); }
+  else { await say('Vale. Aquí estoy si cambias de idea.'); menu(true); }
+};
+const alquilar = async () => {
+  await say('¿Eres propietario o buscas piso de alquiler?');
+  const r = await ask(['Soy propietario', 'Busco piso de alquiler']);
+  if (r.startsWith('Soy')) {
+    await say('Gestionamos el alquiler completo: inquilino solvente, contrato, cobros e incidencias. Muchos propietarios también nos piden comparar cuánto sacarían vendiendo. Te llama un agente y lo veis juntos.');
+    const d = {}; await contact(d, 'llamada');
+    return showLeadBtn({ temp: 'Templado', datos: { Nombre: d.nombre, Teléfono: d.tel, Quiere: 'Gestión de alquiler', Llamar: d.franja }, auto: ['Lead creado en el CRM', 'Tarea de llamada asignada al agente'] });
+  }
+  const res = PROPS.filter(x => x.op === 'alquiler');
+  await say(res.map(x => `<div class="mini">${x.svg}<div><b>${x.t}</b><span>${x.zona} · ${x.m2} m² · ${precio(x)}</span></div></div>`).join(''));
+  const pick = await ask([...res.map(x => 'Visitar: ' + x.t), 'Ninguno me encaja']);
+  const p = res.find(x => pick === 'Visitar: ' + x.t);
+  if (p) return visitar(p);
+  await say('Vale. Si quieres, déjame tu número y te aviso cuando entre algo nuevo.'); menu(true);
+};
+const agente = async () => {
+  await say('Claro, te paso con un agente. Te llama él para que no tengas que esperar.');
+  const d = {}; await contact(d, 'llamada');
+  await showLeadBtn({ temp: 'Templado', datos: { Nombre: d.nombre, Teléfono: d.tel, Quiere: 'Hablar con un agente', Llamar: d.franja }, auto: ['Lead creado en el CRM', 'Tarea de llamada asignada al agente'] });
+};
+const ficha = async p => {
+  await say(`<div class="mini">${p.svg}<div><b>${p.t}</b><span>${p.zona} · ${precio(p)}</span></div></div>${esc(p.d)}`);
+  await say('¿Quieres verla en persona?');
+  const r = await ask(['Reservar visita', 'Tengo otra pregunta']);
+  if (r.startsWith('Reservar')) return visitar(p);
+  await say('Dime, te respondo lo que sepa y lo que no, se lo paso al agente.');
+  const q = await ask([], { ph: 'Tu pregunta' });
+  await say((faqOf(q) || 'Buena pregunta. Se la paso al agente que lleva esta casa y te responde por WhatsApp.') + ' ¿Te reservo una visita mientras?');
+  const r2 = await ask(['Sí, reservar visita', 'No, gracias']);
+  if (r2.startsWith('Sí')) return visitar(p);
+  menu(true);
+};
+const MENU = ['Quiero vender mi casa', 'Busco casa para comprar', 'Alquiler', 'Hablar con un agente'];
+const menu = async again => {
+  if (!again) await say('¡Hola! Soy Ane, la asistente de Atalaia. Te ayudo a vender, comprar o alquilar, a cualquier hora. ¿Qué necesitas?');
+  const r = await ask(again ? [...MENU] : MENU);
+  route({ [MENU[0]]: 'vender', [MENU[1]]: 'comprar', [MENU[2]]: 'alquilar', [MENU[3]]: 'agente' }[r]);
+};
+const route = (k, arg) => {
+  pending = null; qr.innerHTML = '';
+  ({ vender, comprar, alquilar, agente, ficha, menu: () => menu(true) })[k || 'menu'](arg);
+};
+const openChat = () => { chat.classList.add('open'); chatOpen = true; $('#bubble').classList.remove('on'); $('#fab').style.visibility = 'hidden'; };
+const closeChat = () => { chat.classList.remove('open'); chatOpen = false; $('#fab').style.visibility = ''; $('#fab').focus(); };
+const start = (k, arg, userText) => {
+  openChat();
+  if (userText) me(userText);
+  if (!greeted && !k) { greeted = true; menu(); return; }
+  if (!greeted) { greeted = true; say('¡Hola! Soy Ane, la asistente de Atalaia.'); }
+  route(k, arg);
+};
+$('#fab').addEventListener('click', () => greeted ? openChat() : start());
+$('#cx').addEventListener('click', closeChat);
+addEventListener('keydown', e => { if (e.key === 'Escape') { if ($('#lead').classList.contains('open')) $('#lead').classList.remove('open'); else if (chatOpen) closeChat(); } });
+$('#bubble').addEventListener('click', e => { if (e.target.closest('.x')) { e.stopPropagation(); $('#bubble').classList.remove('on'); return; } start('vender', null, 'Quiero saber cuánto vale mi casa'); });
+$('#bubble').addEventListener('keydown', e => { if (e.key === 'Enter') start('vender', null, 'Quiero saber cuánto vale mi casa'); });
+document.addEventListener('click', e => {
+  const s = e.target.closest('[data-start]'); if (s) { const k = s.dataset.start; if (k === 'valorar') { $('#vender').scrollIntoView({ behavior: RM ? 'auto' : 'smooth' }); setTimeout(() => $('#vm').focus({ preventScroll: true }), 700); return; } start(k, null, { vender: 'Quiero vender mi casa', comprar: 'Busco casa para comprar', alquilar: 'Quiero poner mi casa en alquiler', agente: 'Quiero hablar con alguien' }[k] || s.textContent.trim()); return; }
+  const a = e.target.closest('[data-prop]'); if (a) { const p = PROPS.find(x => x.id === +a.dataset.prop); start('ficha', p, 'Me interesa: ' + p.t); }
+});
+$('#vf').addEventListener('submit', e => {
+  e.preventDefault();
+  const d = { tipo: $('#vt').value, zona: $('#vz').value, m2: +$('#vm').value };
+  if (!(d.m2 >= 20)) { $('#vm').focus(); return; }
+  start('vender', d, `Quiero valorar mi ${d.tipo.toLowerCase()} de ${d.m2} m² en ${d.zona}`);
+});
+}
+</script>
+</body>
+</html>
