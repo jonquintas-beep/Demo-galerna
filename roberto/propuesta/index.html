@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Propuesta · Autoelectricidad Roberto</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0b0c0e">
+<link rel="icon" type="image/png" href="../icons/favicon.png">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="apple-mobile-web-app-title" content="A. Roberto">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{color-scheme:dark;--bg:#0b0c0e;--p1:#131518;--p2:#1a1d21;--ln:#262a30;--tx:#eef0f2;--mu:#8b929b;--y:#f5b82e;--y2:#ffcf4a;--g:#3fbf5f;--b:#5b9bff}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font:16px/1.6 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.bb{font-family:'Bebas Neue',Impact,sans-serif;font-weight:400;letter-spacing:.5px;line-height:.95}
+.w{max-width:1080px;margin:0 auto;padding:0 22px}
+section{padding:84px 0;border-top:1px solid var(--ln)}
+h2{font-family:'Bebas Neue',Impact,sans-serif;font-weight:400;font-size:clamp(40px,7vw,64px);line-height:.95;letter-spacing:.5px;max-width:16ch}
+.lead{color:var(--mu);font-size:18px;max-width:60ch;margin-top:14px}
+:focus-visible{outline:2px solid var(--y);outline-offset:3px}
+
+/* cabecera */
+.top{position:sticky;top:0;z-index:20;background:rgba(11,12,14,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--ln)}
+.top .w{display:flex;align-items:center;gap:12px;height:64px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-ic{width:36px;height:36px;border-radius:10px;background:var(--y);color:#111;display:grid;place-items:center;flex:none}
+.logo b{font-family:'Bebas Neue';font-weight:400;font-size:22px;letter-spacing:.8px;line-height:1;display:block}
+.logo small{color:var(--mu);font-size:11.5px;display:block;line-height:1.2}
+.top .btn{margin-left:auto}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;padding:12px 18px;font-weight:600;font-size:15px;text-decoration:none;border:1px solid var(--ln);background:var(--p2);color:var(--tx);cursor:pointer}
+.btn.y{background:var(--y);border-color:var(--y);color:#111}
+.btn.y:hover{background:var(--y2)}
+.btn.big{padding:16px 24px;font-size:16.5px}
+.btn.wa{background:#1f8f4a;border-color:#1f8f4a;color:#fff}
+
+/* portada */
+.hero{padding:72px 0 80px;position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:auto -20% -60% auto;width:720px;height:720px;background:radial-gradient(circle,rgba(245,184,46,.14),transparent 62%);pointer-events:none}
+.for{display:inline-flex;align-items:center;gap:8px;color:var(--mu);font-size:14px;border:1px solid var(--ln);border-radius:999px;padding:6px 14px}
+.for i{width:7px;height:7px;border-radius:50%;background:var(--y)}
+.hero h1{font-family:'Bebas Neue',Impact,sans-serif;font-weight:400;font-size:clamp(58px,11vw,124px);line-height:.88;letter-spacing:.5px;margin:22px 0 22px;max-width:11ch}
+.hero h1 span{color:var(--y)}
+.hero p{font-size:19px;color:#c9ced4;max-width:52ch}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:48px;max-width:760px}
+.fact{border:1px solid var(--ln);border-radius:14px;padding:16px;background:var(--p1)}
+.fact b{font-family:'Bebas Neue';font-weight:400;font-size:40px;line-height:1;display:block;color:var(--y)}
+.fact span{color:var(--mu);font-size:13.5px}
+
+/* problema */
+.pain{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:36px}
+.pain div{background:var(--p1);border:1px solid var(--ln);border-radius:16px;padding:22px}
+.pain h3{font-size:17px;margin-bottom:6px}
+.pain p{color:var(--mu);font-size:15px}
+.pain .t{font-family:'Bebas Neue';font-size:30px;color:#ff8a8a;line-height:1;display:block;margin-bottom:10px}
+
+/* noche */
+.night{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.tl{position:relative;display:grid;gap:14px;padding-left:22px}
+.tl:before{content:"";position:absolute;left:5px;top:8px;bottom:8px;width:2px;background:linear-gradient(var(--b),var(--y))}
+.tl div{position:relative;background:var(--p1);border:1px solid var(--ln);border-radius:14px;padding:14px 16px}
+.tl div:before{content:"";position:absolute;left:-22px;top:18px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--b)}
+.tl div.m:before{border-color:var(--y)}
+.tl time{font-family:'Bebas Neue';font-size:24px;color:var(--b);line-height:1;display:block}
+.tl div.m time{color:var(--y)}
+.tl p{font-size:15px;color:#c9ced4;margin-top:4px}
+
+/* incluye */
+.inc{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:40px}
+.it{background:var(--p1);border:1px solid var(--ln);border-radius:18px;padding:24px;display:grid;grid-template-columns:44px minmax(0,1fr);gap:16px;align-items:start}
+.it .ic{width:44px;height:44px;border-radius:12px;background:rgba(245,184,46,.12);color:var(--y);display:grid;place-items:center}
+.it h3{font-size:18px;line-height:1.3}
+.it p{color:var(--mu);font-size:15px;margin-top:6px}
+.it ul{list-style:none;margin-top:10px;display:grid;gap:5px}
+.it li{font-size:14.5px;color:#c9ced4;padding-left:18px;position:relative}
+.it li:before{content:"";position:absolute;left:2px;top:9px;width:7px;height:7px;border-radius:2px;background:var(--y)}
+.it.wide{grid-column:1/-1}
+.plus-h{margin-top:56px;font-family:'Bebas Neue';font-size:34px;font-weight:400;letter-spacing:.5px}
+.plus{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:16px}
+.plus div{border:1px dashed #3a3f47;border-radius:14px;padding:16px}
+.plus b{display:block;font-size:15.5px}
+.plus span{color:var(--mu);font-size:14px}
+
+/* garantia */
+.promise{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:36px}
+.promise div{border-radius:18px;padding:26px;background:linear-gradient(160deg,rgba(245,184,46,.13),rgba(245,184,46,.02));border:1px solid rgba(245,184,46,.3)}
+.promise b{font-family:'Bebas Neue';font-weight:400;font-size:54px;line-height:1;color:var(--y);display:block}
+.promise p{color:#d6dade;font-size:15.5px;margin-top:8px}
+
+/* precio */
+.price-wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:16px;margin-top:40px;align-items:stretch}
+.pc{background:var(--p1);border:1px solid var(--ln);border-radius:22px;padding:30px;position:relative}
+.pc.main{border-color:var(--y);box-shadow:0 0 0 1px var(--y) inset,0 30px 80px -40px rgba(245,184,46,.45)}
+.bf{position:absolute;top:-14px;left:26px;background:var(--y);color:#111;font-weight:700;font-size:13px;border-radius:999px;padding:5px 14px}
+.pc h3{font-size:15px;color:var(--mu);font-weight:600}
+.was{color:var(--mu);text-decoration:line-through;font-size:22px;margin-top:14px;display:block}
+.now{font-family:'Bebas Neue';font-weight:400;font-size:clamp(76px,12vw,110px);line-height:.9;display:block}
+.now small{font-size:.38em;color:var(--mu);font-family:Inter,sans-serif;font-weight:500;letter-spacing:0}
+.save{display:inline-block;margin-top:10px;background:rgba(63,191,95,.14);color:#6ee38b;border-radius:999px;padding:4px 12px;font-weight:600;font-size:14px}
+.pay{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:24px}
+.pay div{background:var(--p2);border:1px solid var(--ln);border-radius:14px;padding:14px}
+.pay b{font-size:22px;display:block}
+.pay span{color:var(--mu);font-size:13.5px}
+.ready{display:flex;align-items:center;gap:10px;margin-top:16px;font-size:15px;color:#c9ced4}
+.ready i{width:9px;height:9px;border-radius:50%;background:var(--g);box-shadow:0 0 0 4px rgba(63,191,95,.18)}
+.pc.side .now{font-size:clamp(64px,10vw,88px)}
+.pc.side ul{list-style:none;margin-top:20px;display:grid;gap:8px}
+.pc.side li{font-size:15px;color:#c9ced4;display:flex;gap:10px}
+.pc.side li:before{content:"✓";color:var(--g);font-weight:700}
+
+/* calculadora */
+.calc{margin-top:40px;background:var(--p1);border:1px solid var(--ln);border-radius:22px;padding:30px;display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
+.calc label{display:block;font-size:14.5px;color:#c9ced4;margin-bottom:6px}
+.calc label b{color:var(--y);font-size:18px;margin-left:6px}
+.calc input[type=range]{width:100%;accent-color:var(--y);margin-bottom:22px}
+.res{border-radius:18px;background:var(--p2);border:1px solid var(--ln);padding:24px}
+.res .row{display:flex;justify-content:space-between;gap:12px;font-size:15px;color:#c9ced4;padding:6px 0}
+.res .row b{color:var(--tx)}
+.res .tot{border-top:1px solid var(--ln);margin-top:10px;padding-top:14px}
+.res .tot b{font-family:'Bebas Neue';font-weight:400;font-size:46px;color:var(--g);line-height:1}
+.res .tot.neg b{color:#ff8a8a}
+.res p{color:var(--mu);font-size:13.5px;margin-top:8px}
+
+/* pasos */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:36px}
+.steps div{background:var(--p1);border:1px solid var(--ln);border-radius:16px;padding:20px}
+.steps b{font-family:'Bebas Neue';font-weight:400;font-size:26px;color:var(--y);display:block;line-height:1}
+.steps h3{font-size:16.5px;margin:8px 0 4px}
+.steps p{color:var(--mu);font-size:14.5px}
+
+/* cierre */
+.close{text-align:center;padding:96px 0 110px}
+.close h2{margin:0 auto;max-width:18ch}
+.close .lead{margin:16px auto 0}
+.close .hero-cta{justify-content:center}
+.foot{color:var(--mu);font-size:13px;text-align:center;padding:26px 0 40px;border-top:1px solid var(--ln)}
+
+@media(max-width:860px){
+ section{padding:64px 0}
+ .night,.price-wrap,.calc{grid-template-columns:minmax(0,1fr)}
+ .pain,.promise{grid-template-columns:minmax(0,1fr)}
+ .inc{grid-template-columns:minmax(0,1fr)}
+ .plus,.steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .top .btn span{display:none}
+}
+@media(max-width:520px){
+ .facts{grid-template-columns:minmax(0,1fr)}
+ .facts .fact{display:flex;align-items:baseline;gap:12px}
+ .plus,.steps{grid-template-columns:minmax(0,1fr)}
+ .pay{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+ .pc,.calc{padding:22px}
+ .it{padding:20px;grid-template-columns:minmax(0,1fr)}
+ .hero p{font-size:17.5px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="top"><div class="w">
+ <a class="logo" href="#"><span class="logo-ic"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z" fill="currentColor"/></svg></span><span><b>Autoelectricidad Roberto</b><small>Propuesta del sistema completo</small></span></a>
+ <a class="btn y" href="#precio">Ver precio <span>Black Friday</span></a>
+</div></header>
+
+<main>
+<div class="hero"><div class="w">
+ <span class="for"><i></i>Propuesta para Roberto, Julen y Nuno · Vitoria-Gasteiz</span>
+ <h1>Tu taller atiende <span>aunque estéis cerrados</span></h1>
+ <p>Un sistema completo que coge los clientes por la tarde y los fines de semana, les hace las preguntas de la avería y les da cita solo. Vosotros llegáis por la mañana y lo tenéis todo en la app del taller.</p>
+ <div class="hero-cta"><a class="btn y big" href="#incluye">Qué incluye</a><a class="btn big" href="#precio">Ver la inversión</a></div>
+ <div class="facts">
+  <div class="fact"><b>24 h</b><span>los clientes pueden pedir cita</span></div>
+  <div class="fact"><b>1 semana</b><span>y está funcionando</span></div>
+  <div class="fact"><b>&lt; 24 h</b><span>para resolver cualquier problema</span></div>
+ </div>
+</div></div>
+
+<section><div class="w">
+ <h2>Lo que pasa hoy cuando no podéis coger el teléfono</h2>
+ <p class="lead">No es un problema de ganas: es que estáis con las manos dentro de un coche. Pero el cliente no espera.</p>
+ <div class="pain">
+  <div><span class="t">Con las manos en un coche</span><h3>Llamada perdida, cliente perdido</h3><p>El que tiene el coche parado llama al siguiente taller de la lista. Casi nunca vuelve a llamar.</p></div>
+  <div><span class="t">De 19:00 a 9:00</span><h3>La tarde y la noche no existen</h3><p>Es cuando la gente sale de trabajar y busca taller. Ahora mismo, en ese rato no hay nadie para atenderles.</p></div>
+  <div><span class="t">Sábado y domingo</span><h3>El lunes empieza tarde</h3><p>El coche que no arrancó el sábado acaba en otro sitio, o el lunes os llega sin saber qué tiene.</p></div>
+ </div>
+</div></section>
+
+<section><div class="w night">
+ <div>
+  <h2>Así trabaja mientras dormís</h2>
+  <p class="lead">El asistente habla como un mecánico de verdad: pregunta lo justo, entiende la avería y agenda en los huecos libres. Lo que no es de electricidad lo filtra antes de que os haga perder tiempo.</p>
+ </div>
+ <div class="tl">
+  <div><time>Martes 21:14</time><p>Un cliente entra en la web: “el coche no arranca por las mañanas”.</p></div>
+  <div><time>21:15</time><p>El asistente le pregunta qué hace al girar la llave y cuántos años tiene la batería.</p></div>
+  <div><time>21:17</time><p>Le ofrece dos huecos libres. Elige el miércoles a las 9:00. Cita hecha, con su móvil y su coche.</p></div>
+  <div class="m"><time>Miércoles 8:55</time><p>Abrís la app: “Mientras estabais cerrados: 1 cita agendada”. Con un toque se convierte en trabajo.</p></div>
+ </div>
+</div></section>
+
+<section id="incluye"><div class="w">
+ <h2>El sistema completo, todo incluido</h2>
+ <p class="lead">No son piezas sueltas. Web, asistente y app del taller están conectados: lo que entra por un lado aparece al momento en el otro.</p>
+ <div class="inc">
+  <div class="it"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9z"/></svg></span><div><h3>Software del taller</h3><p>La app con la que trabajáis los tres, en el móvil o en el ordenador.</p><ul><li>Trabajos por técnico: por hacer, en curso y hechos</li><li>Citas y presupuestos que llegan solos</li><li>WhatsApp al cliente con mensajes ya escritos</li><li>Vídeo del coche al cliente al entregarlo</li></ul></div></div>
+  <div class="it"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg></span><div><h3>Página web nueva</h3><p>Pensada para que el cliente pida cita o presupuesto, no para mirar fotos.</p><ul><li>Reserva con los huecos reales del taller</li><li>Rápida y perfecta en el móvil</li><li>Vuestros servicios: diagnosis, baterías, alternadores, aire, campers</li></ul></div></div>
+  <div class="it"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z" fill="currentColor"/></svg></span><div><h3>Asistentes de cita</h3><p>Atienden a cualquier hora y dan cita en los huecos libres sin que toquéis nada.</p><ul><li>Responden por la tarde y los fines de semana</li><li>Explican qué puede ser la avería, sin dar precios</li><li>Resumen de todo lo que han hecho al abrir la app</li></ul></div></div>
+  <div class="it"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 3H2l8 9.5V19l4 2v-8.5z"/></svg></span><div><h3>Filtrado de clientes</h3><p>Antes de llegar a vosotros, cada cliente ya ha contado qué le pasa al coche.</p><ul><li>Llamáis sabiendo qué tiene y qué pieza mirar</li><li>Lo que no es eléctrico se avisa antes</li><li>Menos llamadas para nada, más trabajos cerrados</li></ul></div></div>
+  <div class="it wide"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg></span><div><h3>Mejora continua y actualizaciones</h3><p>El sistema no se queda como el primer día. Cada mes lo ajustamos a cómo trabajáis: nuevas funciones, mejores respuestas del asistente y nuevos recursos para el taller, sin coste extra.</p></div></div>
+ </div>
+
+ <h3 class="plus-h">Y además, sin pagar más</h3>
+ <div class="plus">
+  <div><b>Formación en el taller</b><span>Os enseño a usarlo a los tres el día de la entrega.</span></div>
+  <div><b>Alojamiento y copias</b><span>Servidor, seguridad y copias de seguridad incluidos.</span></div>
+  <div><b>Informe mensual</b><span>Clientes atendidos fuera de horario, citas y presupuestos.</span></div>
+  <div><b>Vuestros datos son vuestros</b><span>Clientes y trabajos siempre a vuestro nombre.</span></div>
+ </div>
+</div></section>
+
+<section><div class="w">
+ <h2>Conmigo directamente, sin centralitas</h2>
+ <p class="lead">No hay tickets ni esperas. Si algo falla o se os ocurre una mejora, me escribís a mí.</p>
+ <div class="promise">
+  <div><b>24 h</b><p>Contacto directo conmigo cualquier día, a cualquier hora, por WhatsApp o teléfono.</p></div>
+  <div><b>&lt; 24 h</b><p>Cualquier problema o mejora que pidáis, resuelto en menos de 24 horas.</p></div>
+  <div><b>1 semana</b><p>Desde que empezamos hasta que el sistema está funcionando en el taller.</p></div>
+ </div>
+</div></section>
+
+<section id="precio"><div class="w">
+ <h2>La inversión</h2>
+ <p class="lead">Precio especial de Black Friday para Autoelectricidad Roberto.</p>
+ <div class="price-wrap">
+  <div class="pc main"><span class="bf">Oferta Black Friday</span>
+   <h3>Puesta en marcha del sistema completo</h3>
+   <span class="was">5.000 €</span>
+   <span class="now">3.000 <small>€</small></span>
+   <span class="save">Ahorras 2.000 €</span>
+   <div class="pay"><div><b>1.500 €</b><span>al empezar</span></div><div><b>1.500 €</b><span>al entregarlo funcionando</span></div></div>
+   <div class="ready"><i></i>Listo y funcionando en una semana</div>
+  </div>
+  <div class="pc side">
+   <h3>Mantenimiento y mejora continua</h3>
+   <span class="was">1.200 €/mes</span>
+   <span class="now">900 <small>€/mes</small></span>
+   <span class="save">Ahorras 300 € cada mes</span>
+   <ul><li>Asistentes atendiendo 24 horas</li><li>Actualizaciones y mejoras cada mes</li><li>Contacto conmigo las 24 horas</li><li>Problemas resueltos en menos de 24 h</li><li>Alojamiento, seguridad e informe mensual</li></ul>
+  </div>
+ </div>
+
+ <div class="calc">
+  <div>
+   <h3 style="font-family:'Bebas Neue';font-weight:400;font-size:36px;line-height:1;margin-bottom:8px">¿Cuándo se paga solo?</h3>
+   <p style="color:var(--mu);font-size:15px;margin-bottom:22px">Mueve los números con lo que ves en vuestro taller.</p>
+   <label for="r1">Clientes más al mes que antes se perdían <b id="v1">5</b></label>
+   <input id="r1" type="range" min="1" max="20" value="5">
+   <label for="r2">Lo que deja de media cada trabajo <b id="v2">250 €</b></label>
+   <input id="r2" type="range" min="80" max="800" step="10" value="250">
+  </div>
+  <div class="res">
+   <div class="row"><span>Facturación extra al mes</span><b id="o1">1.250 €</b></div>
+   <div class="row"><span>Cuota mensual</span><b>− 900 €</b></div>
+   <div class="row tot" id="tot"><span>Te queda cada mes</span><b id="o2">350 €</b></div>
+   <p id="o3">La puesta en marcha se recupera en unos 9 meses.</p>
+  </div>
+ </div>
+</div></section>
+
+<section><div class="w">
+ <h2>De hoy a funcionando, en una semana</h2>
+ <div class="steps">
+  <div><b>Día 1</b><h3>Arrancamos</h3><p>Firmamos, primer pago de 1.500 € y me cuentas cómo trabajáis.</p></div>
+  <div><b>Días 2 a 5</b><h3>Lo monto</h3><p>Web, app y asistentes con vuestros servicios, horarios y equipo.</p></div>
+  <div><b>Día 6</b><h3>Lo probamos</h3><p>Hacemos citas de prueba y ajustamos lo que haga falta.</p></div>
+  <div><b>Día 7</b><h3>Entrega</h3><p>Formación en el taller, segundo pago y a funcionar.</p></div>
+ </div>
+</div></section>
+
+<div class="close"><div class="w">
+ <h2>¿Empezamos esta semana?</h2>
+ <p class="lead">Dime “adelante” y el sistema está atendiendo a vuestros clientes antes de que acabe la semana que viene.</p>
+ <div class="hero-cta"><a class="btn wa big" href="https://wa.me/34638429161?text=Hola%20Jon%2C%20adelante%20con%20el%20sistema%20para%20Autoelectricidad%20Roberto." target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3a.5.5 0 0 0 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4 5.1 5.1 0 0 0 3.2.7 2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3z"/></svg> Empezamos</a><a class="btn big" href="tel:+34638429161">Llamar a Jon · 638 429 161</a></div>
+</div></div>
+</main>
+<footer class="foot">Propuesta preparada por Jon · Galerna Method · Noviembre 2026</footer>
+
+<script>
+const r1=document.getElementById('r1'),r2=document.getElementById('r2'),f=n=>Math.round(n).toLocaleString('es-ES')+' €';
+function calc(){
+ const c=+r1.value,t=+r2.value,ex=c*t,net=ex-900;
+ document.getElementById('v1').textContent=c;document.getElementById('v2').textContent=f(t);
+ document.getElementById('o1').textContent=f(ex);
+ document.getElementById('o2').textContent=(net<0?'− ':'')+f(Math.abs(net));
+ document.getElementById('tot').classList.toggle('neg',net<0);
+ document.getElementById('o3').textContent=net>0?'La puesta en marcha se recupera en unos '+Math.ceil(3000/net)+' '+(Math.ceil(3000/net)===1?'mes':'meses')+'.':'Con estos números aún no cubre la cuota: sube los clientes o el ticket medio.';
+}
+r1.oninput=r2.oninput=calc;calc();
+</script>
+</body>
+</html>
