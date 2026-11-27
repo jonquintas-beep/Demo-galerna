@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="20261127083620">
+<meta name="app-version" content="20261127144507">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Taller Roberto</title>
 <meta name="robots" content="noindex, nofollow">
@@ -367,8 +367,8 @@ const CONFIG={
   telefono:'945 27 87 59',           // teléfono del taller
   whatsapp:'34638429161',            // WhatsApp del taller con prefijo 34 (se puede cambiar desde la app)
   direccion:'Eibar Kalea 10, 01013 Vitoria-Gasteiz',
-  horarioTexto:['Lunes a viernes','9:00 – 13:30 y 15:30 – 19:00'],
-  horas:['09:00','10:00','11:00','12:00','15:30','16:30','17:30'], // huecos de cita
+  horarioTexto:['Lunes a viernes','7:00 – 15:00'],
+  horas:['07:00','08:00','09:00','10:00','11:00','12:00','13:00'], // huecos de cita
   diasLaborables:[1,2,3,4,5],        // 1=lunes … 5=viernes
   capacidadPorHora:2,                // coches que pueden entrar a la misma hora
   diasVista:12
@@ -475,7 +475,7 @@ function seedData(){
    {id:'t_demo5',titulo:'Luces de cruce no encienden',vehiculo:'Peugeot 308 2016',matricula:'7788 GBN',cliente:'Javi',telefono:'644555666',asignado:'w_luis',estado:'hecho',urgente:false,fecha:t,notas:[],creado:now,hechoEn:now}],
   citas:[
    {id:'c_demo1',nombre:'Marta López',telefono:'655666777',vehiculo:'Citroën Berlingo 2020',matricula:'4321 LMN',servicio:'No arranca / batería',descripcion:'Por las mañanas le cuesta arrancar y a veces no arranca.',fecha:d1,hora:'09:00',estado:'pendiente',creada:now},
-   {id:'c_demo2',nombre:'Gorka',telefono:'666777888',vehiculo:'Toyota Auris 2014',matricula:'1122 FFH',servicio:'Climatización / aire',descripcion:'El aire no enfría.',fecha:d2,hora:'16:30',estado:'pendiente',creada:ago(1,21,14),demo:true},
+   {id:'c_demo2',nombre:'Gorka',telefono:'666777888',vehiculo:'Toyota Auris 2014',matricula:'1122 FFH',servicio:'Climatización / aire',descripcion:'El aire no enfría.',fecha:d2,hora:'11:00',estado:'pendiente',creada:ago(1,21,14),demo:true},
    {id:'c_demo3',nombre:'Unai',telefono:'688111222',vehiculo:'Volkswagen Golf 2017',matricula:'2468 JKL',servicio:'Testigo encendido',descripcion:'[Llamada] Testigo de motor fijo desde ayer, el coche va bien. Prefiere a primera hora.',fecha:d1,hora:'10:00',estado:'pendiente',creada:ago(0,7,48),demo:true}],
   presupuestos:[
    {id:'p_demo1',nombre:'Iker',telefono:'677888999',vehiculo:'Fiat Ducato 2018 (sin instalación)',km:'',matricula:'',servicio:'Furgoneta / camper',resumen:'Instalación nueva en camper. Quiere placa solar, batería de litio e inversor 230 V para la nevera. La furgo no lleva nada montado.',conversacion:[{role:'user',content:'Furgoneta / camper'},{role:'assistant',content:'¿Es una instalación nueva o hay que reparar algo que falla?'},{role:'user',content:'Instalación nueva'},{role:'assistant',content:'¿Qué quieres tener o qué falla?'},{role:'user',content:'Todo el kit'},{role:'assistant',content:'¿Qué furgo es y qué lleva montado ahora?'},{role:'user',content:'Fiat Ducato 2018, sin nada'}],estado:'nuevo',creada:ago(2,22,5)}]
@@ -811,7 +811,7 @@ function jobCard(t,mode){
 const sec=(title,arr,mode,empty,cls='')=>`<div class="sec-t">${title} <i>${arr.length}</i></div>${arr.length?`<div class="list ${cls}">${arr.map(x=>jobCard(x,mode)).join('')}</div>`:`<div class="empty">${empty}</div>`}`;
 
 /* ---- Asistente fuera de horario ---- */
-const HORARIO=[[9*60,13*60+30],[15*60+30,19*60]];
+const HORARIO=[[7*60,15*60]];
 const fueraHorario=iso=>{if(!iso)return false;const d=new Date(iso),w=d.getDay();if(w===0||w===6)return true;const m=d.getHours()*60+d.getMinutes();return !HORARIO.some(([a,b])=>m>=a&&m<b)};
 const LLAM=/^\[Llamada\]\s*/;
 const canalDe=x=>x.canal||(LLAM.test(x.descripcion||x.resumen||'')?'llamada':'web');
@@ -842,7 +842,7 @@ function modalAsis(){
  <div class="chan"><div>${chPill('web')}<div><b>Web</b><small>Citas y presupuestos las 24 horas</small></div><span class="st" style="color:var(--g)">● Activo</span></div>
  <div>${chPill('llamada')}<div><b>Teléfono</b><small>Coge las llamadas que no podéis atender y agenda la cita</small></div><span class="st" style="color:var(--g)">● Activo</span></div>
  <div>${chPill('whatsapp')}<div><b>WhatsApp</b><small>Responde a los mensajes por la tarde y los fines de semana</small></div><span class="st" style="color:var(--y)">Al conectar la línea</span></div></div>
- <span class="lbl">Horario del taller</span><p class="hint" style="margin-top:0">Lunes a viernes de 9:00 a 13:30 y de 15:30 a 19:00. Fuera de ese horario responde el asistente.</p>
+ <span class="lbl">Horario del taller</span><p class="hint" style="margin-top:0">Lunes a viernes de 7:00 a 15:00. Por la tarde, por la noche y los fines de semana responde el asistente.</p>
  <span class="lbl">Últimos 14 días fuera de horario</span>
  <div class="asis-n" style="margin-bottom:10px"><span><b>${it.length}</b> clientes atendidos</span><span><b>${c}</b> citas</span><span><b>${it.length-c}</b> presupuestos</span>${ch('llamada')?`<span><b>${ch('llamada')}</b> por teléfono</span>`:''}</div>
  ${it.length?`<div class="asis-l">${it.map(asisLine).join('')}</div>`:'<div class="empty">Todavía no ha atendido a nadie fuera de horario.</div>'}`;
@@ -951,7 +951,7 @@ function plantillas(t){
  const n=t&&t.cliente?' '+t.cliente.split(' ')[0]:'',v=t?(t.vehiculo||'vehículo')+(t.matricula?' ('+t.matricula+')':''):'vehículo',imp=t&&t.presupuesto?t.presupuesto+' €':'___ €';
  return [
   ['Vídeo del coche',`Hola${n}, te escribimos de ${CONFIG.nombre}. Te mandamos un vídeo de tu ${v} para que veas lo que hemos encontrado.`],
-  ['Ya está listo',`Hola${n}, te escribimos de ${CONFIG.nombre}. Tu ${v} ya está listo, puedes pasar a recogerlo cuando quieras.${t&&t.presupuesto?' Importe: '+imp+'.':''} Horario: L-V 9:00-13:30 y 15:30-19:00.`],
+  ['Ya está listo',`Hola${n}, te escribimos de ${CONFIG.nombre}. Tu ${v} ya está listo, puedes pasar a recogerlo cuando quieras.${t&&t.presupuesto?' Importe: '+imp+'.':''} Horario: L-V de 7:00 a 15:00.`],
   ['Presupuesto',`Hola${n}, te escribimos de ${CONFIG.nombre}. Hemos revisado tu ${v}. La reparación sale por ${imp} (IVA incluido). ¿Te parece bien que empecemos?`],
   ['Pieza pedida',`Hola${n}, te escribimos de ${CONFIG.nombre}. Para tu ${v} hemos tenido que pedir una pieza. En cuanto llegue lo terminamos y te avisamos.`],
   ['Recordatorio de cita',`Hola${n}, te recordamos tu cita en ${CONFIG.nombre}. Si no puedes venir, avísanos por aquí y te buscamos otro hueco.`],
