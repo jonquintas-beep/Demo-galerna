@@ -53,7 +53,7 @@ nav .lk:hover{opacity:1}
 nav .tel{font-weight:700;font-size:15px;white-space:nowrap}
 
 /* hero */
-#hero{height:420vh;position:relative;background:#0f1b27}
+#hero{height:230vh;position:relative;background:#0f1b27}
 .stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
 .layer{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:transform,opacity}
 #int{opacity:0}
@@ -115,7 +115,7 @@ nav .tel{font-weight:700;font-size:15px;white-space:nowrap}
 .note{font-size:13px;color:var(--soft);margin-top:28px}
 
 /* ria */
-#ria{height:230vh;position:relative}
+#ria{height:170vh;position:relative}
 #ria .stage{display:grid;place-items:center}
 #ria .frame{width:min(62vw,760px);aspect-ratio:16/10;overflow:hidden;border-radius:8px;position:relative}
 #ria .frame>*{width:100%;height:100%;display:block;object-fit:cover}
@@ -300,8 +300,8 @@ footer{padding:56px max(5vw,16px) 40px;color:var(--soft);font-size:15px}
 </nav>
 <section id="hero" aria-label="Presentación">
   <div class="stage">
-    <img id="ext" class="layer" fetchpriority="high" decoding="async" src="villa-dia.jpg" data-zoom="1.75" data-origin="55% 62%" alt="Villa contemporánea al atardecer">
-    <img id="int" class="layer" src="villa-noche.jpg" data-origin="47% 64%" alt="Salón iluminado visto desde la piscina">
+    <img id="ext" class="layer" fetchpriority="high" decoding="async" src="casa-adosada.jpg" data-zoom="2.3" data-origin="57% 68%" alt="Casa con jardín al atardecer">
+    <img id="int" class="layer" src="salon.jpg" data-origin="45% 55%" alt="Salón abierto al jardín y la piscina">
 
         <div class="scrim"></div>
     <h1 class="htxt" id="tA">Casas que se sienten <em>antes de entrar</em></h1>
@@ -544,9 +544,9 @@ const scene = (a, b, c, d) => `<svg viewBox="0 0 400 300" preserveAspectRatio="x
 
 /* ---------- data ---------- */
 const PROPS = [
-  { id: 11, op: 'venta', img: 'villa-dia.jpg', z: 'Getxo', zona: 'Getxo · Andra Mari', t: 'Villa de diseño con piscina desbordante', m2: 620, h: 6, b: 6, p: 2450000, tag: 'Exclusiva', d: 'Tres alturas de vidrio y piedra, piscina desbordante con cascada, spa interior y jardín de 3.000 m².' },
-  { id: 12, op: 'venta', img: 'villa-noche.jpg', z: 'Getxo', zona: 'Getxo · Neguri', t: 'Casa contemporánea con piscina', m2: 380, h: 4, b: 4, p: 1390000, tag: 'Nuevo', d: 'Salón a doble altura abierto a la piscina, terraza en voladizo y domótica completa.' },
-  { id: 13, op: 'venta', img: 'casa-rustica.jpg', z: 'Uribe Kosta', zona: 'Gatika', t: 'Casa de piedra y madera con jardín', m2: 290, h: 5, b: 3, p: 780000, tag: 'Exclusiva', d: 'Entramado de madera, porche acristalado y jardín con arbolado. Rehabilitada con calidades de hotel.' },
+  { id: 11, op: 'venta', img: 'casa-piscina.jpg', z: 'Getxo', zona: 'Getxo · Algorta', t: 'Casa contemporánea con piscina', m2: 260, h: 4, b: 3, p: 1150000, tag: 'Exclusiva', d: 'Salón y cocina abiertos al jardín con grandes correderas, terraza con barandilla de vidrio y piscina.' },
+  { id: 12, op: 'venta', img: 'casa-adosada.jpg', z: 'Uribe Kosta', zona: 'Sopela', t: 'Adosado con jardín y porche', m2: 185, h: 4, b: 3, p: 545000, tag: 'Nuevo', d: 'Planta baja diáfana abierta al porche, jardín privado con iluminación y dormitorio principal con vestidor.' },
+  { id: 13, op: 'venta', img: 'edificio.jpg', z: 'Bilbao', zona: 'Bilbao · Zorrozaurre', t: 'Pisos de obra nueva con terraza', m2: 92, h: 2, b: 2, p: 389000, tag: 'Exclusiva', d: 'Promoción de obra nueva: terrazas acristaladas, áticos con solárium, garaje y trastero. Entrega en 2027.' },
   { id: 1, op: 'venta', k: 'piso', z: 'Bilbao', zona: 'Bilbao · Abando', t: 'Piso señorial con balcones', m2: 128, h: 3, b: 2, p: 465000, tag: 'Exclusiva', d: 'Tercera planta con ascensor, techos altos y tres balcones a la calle. Cocina reformada y calefacción central.' },
   { id: 2, op: 'venta', k: 'atico', z: 'Getxo', zona: 'Getxo · Neguri', t: 'Ático con terraza al Abra', m2: 96, h: 2, b: 2, p: 520000, tag: 'Nuevo', d: 'Terraza de 40 m² con vistas al mar, garaje y trastero. Entrar a vivir.' },
   { id: 3, op: 'venta', k: 'caserio', z: 'Uribe Kosta', zona: 'Mungia', t: 'Caserío rehabilitado', m2: 310, h: 5, b: 3, p: 690000, tag: 'Exclusiva', d: 'Rehabilitado conservando piedra y vigas, con 2.000 m² de terreno y huerta.' },
@@ -636,7 +636,7 @@ const frameFn = () => {
     ext.style.filter = `blur(${clamp((p - .44) / .14) * 4}px)`;
     int.style.opacity = clamp((p - .48) / .12);
     const q = clamp((p - .48) / .52);
-    int.style.transform = `scale(${1.02 + .26 * (1 - (1 - q) ** 2)})`;
+    int.style.transform = `scale(${1.12 - .1 * (1 - (1 - q) ** 2)})`;
     words(tA, p, 0, .22);
     tAel.style.opacity = 1 - clamp((p - .32) / .1);
     words(tB, p, .64, .84);
