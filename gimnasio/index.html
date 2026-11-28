@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Burdina Training Club</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0b0b0c">
+<link rel="icon" type="image/png" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-title" content="Burdina">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+/* VOICE: crudo, directo, de nave de hierro — habla como un coach, no como una cadena
+   IDEA: una serie de press banca: cargar la barra, bajar, atascarse y bloquear
+   PICTURE: un levantador visto desde los pies, la barra sube con tu dedo
+   COLOUR and TYPE: negro carbón, naranja incandescente, hueso; Anton + Archivo
+   LAYOUT: hero fijo de 5 pantallas, zonas en scroll lateral, herramientas a ancho completo */
+:root{color-scheme:dark;--bg:#0b0b0c;--bg2:#121110;--card:#161412;--line:#2a2622;--ink:#f4f0ea;--mut:#a39b91;--or:#ff5b14;--or2:#ff8a3d;--bone:#efe8dd}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Archivo,system-ui,sans-serif;overflow-x:clip}
+a{color:inherit}
+h1,h2,h3,.big{font-family:Anton,Impact,sans-serif;font-weight:400;line-height:1.02;text-wrap:balance;margin:0;letter-spacing:.005em}
+h2{font-size:clamp(36px,5.4vw,64px);text-transform:uppercase}
+h3{font-size:26px;text-transform:uppercase}
+p{margin:0}
+.band{padding:clamp(56px,8vw,120px) max(5vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+.lead{color:var(--mut);font-size:17px;max-width:60ch;margin-top:14px}
+.btn{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 24px;border-radius:999px;background:var(--or);color:#111;font-weight:800;text-decoration:none;border:0;font:800 16px Archivo,sans-serif;cursor:pointer;transition:transform .2s,background .2s}
+.btn:hover{background:var(--or2);transform:translateY(-2px)}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px #ffffff40}
+.btn.ghost:hover{box-shadow:inset 0 0 0 1.5px var(--or);color:var(--or)}
+:focus-visible{outline:3px solid var(--or2);outline-offset:3px}
+/* nav */
+nav{position:fixed;inset:0 0 auto;z-index:50;display:flex;align-items:center;gap:24px;padding:12px max(4vw,16px);background:linear-gradient(#0b0b0cee,#0b0b0c00)}
+.logo{display:flex;align-items:center;gap:10px;font:24px Anton,sans-serif;text-decoration:none;letter-spacing:.04em}
+.logo svg{width:34px;height:34px}
+nav .links{display:flex;gap:22px;margin-left:auto;font-weight:600;font-size:15px}
+nav .links a{text-decoration:none;color:#d8d1c8}
+nav .links a:hover{color:var(--or)}
+nav .btn{min-height:42px;padding:0 18px;font-size:15px}
+@media(max-width:860px){nav .links{display:none}nav .btn{margin-left:auto}}
+/* hero */
+#hero{height:520vh;position:relative}
+.stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:radial-gradient(120% 80% at 50% 0%,#2a1408 0%,#0b0b0c 60%)}
+#scene{position:absolute;inset:0;width:100%;height:100%}
+.intro{position:absolute;left:0;right:0;top:15vh;text-align:center;padding:0 16px;pointer-events:none}
+.intro .big{font-size:clamp(64px,15vw,210px);line-height:.9;text-transform:uppercase;background:linear-gradient(180deg,#fff 30%,#ff8a3d);-webkit-background-clip:text;background-clip:text;color:transparent}
+.intro p{font-size:clamp(17px,2vw,22px);color:#e6ddd2;margin-top:12px}
+.hint{position:absolute;left:50%;bottom:28px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--mut);font-size:14px}
+.hint i{width:26px;height:42px;border:2px solid #ffffff55;border-radius:14px;position:relative}
+.hint i::after{content:"";position:absolute;left:50%;top:8px;width:4px;height:8px;margin-left:-2px;border-radius:2px;background:var(--or);animation:wheel 1.6s infinite}
+@keyframes wheel{to{transform:translateY(14px);opacity:0}}
+.caps{position:absolute;left:max(5vw,16px);bottom:clamp(36px,9vh,90px);max-width:min(460px,90vw)}
+.cap{position:absolute;left:0;bottom:0;width:min(460px,90vw);opacity:0;transform:translateY(24px);transition:opacity .35s,transform .35s;pointer-events:none}
+.cap.on{opacity:1;transform:none;pointer-events:auto}
+.cap h2{font-size:clamp(40px,6vw,84px)}
+.cap p{color:#ddd3c7;font-size:17px;margin-top:8px}
+.cap .row{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
+.meters{position:absolute;right:max(4vw,16px);top:96px;display:grid;gap:10px;width:200px}
+.m{background:#0d0c0bcc;border:1px solid var(--line);border-radius:14px;padding:10px 14px;backdrop-filter:blur(6px)}
+.m span{display:block;color:var(--mut);font-size:13px}
+.m b{font:30px Anton,sans-serif;font-variant-numeric:tabular-nums;white-space:nowrap}
+.m b small{font:600 14px Archivo,sans-serif;color:var(--mut);margin-left:4px}
+.m .bar{height:4px;background:#ffffff14;border-radius:2px;margin-top:6px;overflow:hidden}
+.m .bar i{display:block;height:100%;width:0;background:var(--or)}
+.prog{position:absolute;left:0;bottom:0;height:3px;background:var(--or);width:0;box-shadow:0 0 12px var(--or)}
+.flash{position:absolute;inset:0;background:radial-gradient(circle at 50% 30%,#fff,#ff8a3d 50%,transparent 80%);opacity:0;pointer-events:none;mix-blend-mode:screen}
+.stamp{position:absolute;left:50%;top:52vh;transform:translate(-50%,0) rotate(-6deg) scale(1.6);opacity:0;border:4px solid var(--or);background:#0b0b0cdd;color:var(--or);padding:8px 22px;border-radius:10px;font:clamp(28px,4.4vw,54px) Anton,sans-serif;text-transform:uppercase;white-space:nowrap;pointer-events:none;text-shadow:0 0 30px #ff5b1488}
+@media(max-width:700px){.meters{top:76px;right:12px;width:auto;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.m{padding:6px 10px}.m b{font-size:20px}.m:nth-child(n+3){display:none}.intro{top:17vh}}
+/* marquee */
+.mqw{overflow:hidden;padding:24px 0;margin:-34px 0 -14px;position:relative;z-index:2}
+.marq{background:var(--or);color:#120a05;overflow:hidden;white-space:nowrap;padding:16px 0;transform:rotate(-1.5deg);margin:-10px -2vw 0;position:relative;z-index:2}
+.marq div{display:inline-block;font:clamp(26px,3.4vw,44px) Anton,sans-serif;text-transform:uppercase;animation:mq 26s linear infinite}
+@keyframes mq{to{transform:translateX(-50%)}}
+/* reveal */
+.rv{opacity:0;transform:translateY(40px);transition:opacity .8s,transform .8s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+/* disciplinas */
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:44px}
+@media(max-width:1000px){.grid4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.grid4{grid-template-columns:minmax(0,1fr)}}
+.card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:26px;overflow:hidden;min-height:320px;display:flex;flex-direction:column;transition:transform .35s,border-color .35s}
+.card::before{content:"";position:absolute;inset:0;background:linear-gradient(160deg,var(--or),#b33a00);transform:translateY(101%);transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+.card>*{position:relative}
+.card:hover{transform:translateY(-6px);border-color:var(--or)}
+.card:hover::before{transform:none}
+.card:hover p,.card:hover .tag{color:#1a0d05}
+.card:hover svg{stroke:#1a0d05}
+.card svg{width:64px;height:64px;stroke:var(--or);fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;margin-bottom:auto}
+.card h3{margin-top:28px}
+.card p{color:var(--mut);margin-top:8px;transition:color .3s}
+.card .tag{font-size:14px;color:var(--or2);font-weight:600;margin-top:14px}
+/* zonas */
+#zonas{position:relative;background:var(--bg2)}
+.zwrap{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
+.zhead{padding:0 max(5vw,16px);margin-bottom:28px}
+#track{display:flex;gap:24px;padding:0 max(5vw,16px);will-change:transform;width:max-content}
+.zone{width:min(78vw,760px);height:min(56vh,460px);border-radius:28px;position:relative;overflow:hidden;background:linear-gradient(135deg,#1d1a17,#0e0d0c);border:1px solid var(--line);padding:clamp(22px,3vw,40px);display:flex;flex-direction:column;justify-content:flex-end}
+.zone .bgw{position:absolute;right:-2%;top:-6%;font:clamp(120px,18vw,240px) Anton,sans-serif;color:transparent;-webkit-text-stroke:2px #ff5b1433;text-transform:uppercase;line-height:1;white-space:nowrap}
+.zone svg{position:absolute;right:6%;top:12%;width:42%;height:60%}
+.zone h3{font-size:clamp(32px,4vw,52px)}
+.zone p{color:#cfc6bb;max-width:44ch;margin-top:10px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.chips span{border:1px solid #ffffff2a;border-radius:999px;padding:6px 14px;font-size:14px}
+.zone .sz{position:absolute;left:clamp(22px,3vw,40px);top:clamp(22px,3vw,40px);font:44px Anton,sans-serif;color:var(--or)}
+.zone .sz small{font:600 14px Archivo,sans-serif;color:var(--mut);margin-left:6px}
+/* calculadora */
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:24px;margin-top:40px}
+@media(max-width:860px){.calc{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:clamp(20px,3vw,34px)}
+.field{margin-bottom:26px}
+.field label{display:flex;justify-content:space-between;font-weight:600;margin-bottom:10px}
+.field label output{font:26px Anton,sans-serif;color:var(--or);white-space:nowrap}
+input[type=range]{width:100%;accent-color:var(--or);height:32px}
+.preset{display:flex;gap:8px;flex-wrap:wrap}
+.preset button{min-height:44px;padding:0 16px;border-radius:12px;border:1px solid var(--line);background:#1d1a17;color:var(--ink);font:600 15px Archivo,sans-serif;cursor:pointer}
+.preset button[aria-pressed=true]{background:var(--or);color:#111;border-color:var(--or)}
+.res .big{font-size:clamp(80px,12vw,150px);color:var(--ink)}
+.res .big small{font-size:.32em;color:var(--or);margin-left:8px}
+.res .sub{color:var(--mut)}
+.zonesT{display:grid;gap:8px;margin:22px 0}
+.zr{display:grid;grid-template-columns:90px minmax(0,1fr) 84px;align-items:center;gap:12px;font-size:15px}
+.zr .tr{height:10px;border-radius:5px;background:#ffffff10;overflow:hidden}
+.zr .tr i{display:block;height:100%;background:linear-gradient(90deg,#b33a00,var(--or));transition:width .4s}
+.zr b{text-align:right;white-space:nowrap}
+.loadbar{display:flex;align-items:center;height:120px;margin:10px 0 6px;padding:0 8px;background:#0f0e0d;border-radius:16px;overflow:hidden}
+.loadbar .sl{height:10px;background:linear-gradient(#ddd,#777);flex:0 0 40px;border-radius:3px}
+.pl{width:16px;border-radius:4px;margin-left:3px;flex:none;transition:height .3s}
+.pl.k25{background:var(--or)}.pl.k20{background:#3a3633;box-shadow:inset 0 0 0 2px #ff5b14}.pl.k15{background:var(--bone)}.pl.k10{background:#7d756c}.pl.ks{background:#c9c2b8}
+.loadtxt{color:var(--mut);font-size:14px}
+/* clases */
+.days{display:flex;gap:8px;overflow-x:auto;margin-top:34px;padding-bottom:6px}
+.days button{flex:none;min-width:64px;min-height:48px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:600 16px Archivo,sans-serif;cursor:pointer}
+.days button[aria-selected=true]{background:var(--or);color:#111;border-color:var(--or)}
+.sched{margin-top:18px;border-top:1px solid var(--line)}
+.cl{display:grid;grid-template-columns:120px minmax(0,1fr) 200px auto;gap:20px;align-items:center;padding:20px 0;border-bottom:1px solid var(--line)}
+.cl .h{font:42px Anton,sans-serif;color:var(--or);white-space:nowrap}
+.cl .n{font-weight:800;font-size:19px}
+.cl .c{color:var(--mut);font-size:15px}
+.cl .cap2{font-size:14px;color:var(--mut)}
+.cl .cap2 .tr{height:6px;border-radius:3px;background:#ffffff12;margin-top:6px;overflow:hidden}
+.cl .cap2 .tr i{display:block;height:100%;background:var(--or)}
+.cl .btn{min-height:44px;font-size:15px}
+.cl .btn.done{background:#2b2724;color:var(--or2)}
+@media(max-width:760px){.cl{grid-template-columns:84px minmax(0,1fr);gap:8px 14px}.cl .h{font-size:30px;grid-row:span 2}.cl .cap2,.cl .btn{grid-column:2}.cl .btn{justify-self:start}}
+/* app */
+.appg{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center}
+@media(max-width:860px){.appg{grid-template-columns:minmax(0,1fr)}}
+.feat{display:grid;gap:18px;margin-top:30px}
+.feat div{display:grid;grid-template-columns:44px minmax(0,1fr);gap:14px}
+.feat svg{width:44px;height:44px;stroke:var(--or);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.feat b{display:block;font-size:18px}
+.feat span{color:var(--mut)}
+.phone{width:min(330px,86vw);margin:0 auto;aspect-ratio:9/19;border-radius:46px;background:#050505;padding:12px;box-shadow:0 40px 90px #ff5b1430,0 0 0 2px #2d2926;transform:rotate(-4deg);transition:transform .6s}
+.phone:hover{transform:rotate(0)}
+.scr{height:100%;border-radius:36px;background:linear-gradient(180deg,#1a1410,#0d0c0b 45%);padding:34px 18px 18px;overflow:hidden;display:flex;flex-direction:column;gap:12px;font-size:14px}
+.scr .hi{font:26px Anton,sans-serif}
+.scr .hi small{display:block;font:500 13px Archivo,sans-serif;color:var(--mut)}
+.tile{background:#1f1b18;border-radius:18px;padding:14px}
+.tile.or{background:var(--or);color:#140a04}
+.tile .t{font-weight:800}
+.tile .s{opacity:.75;font-size:13px}
+.chart{display:flex;align-items:flex-end;gap:6px;height:80px;margin-top:10px}
+.chart i{flex:1;background:linear-gradient(#ff8a3d,#b33a00);border-radius:5px 5px 2px 2px;height:0;transition:height 1s cubic-bezier(.2,.7,.2,1)}
+.ex{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #ffffff10}
+.ex:last-child{border:0}
+/* planes */
+.toggle{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px;margin-top:26px}
+.toggle button{min-height:44px;padding:0 20px;border-radius:999px;border:0;background:transparent;color:var(--ink);font:600 15px Archivo,sans-serif;cursor:pointer}
+.toggle button[aria-pressed=true]{background:var(--or);color:#111}
+.plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:30px}
+@media(max-width:900px){.plans{grid-template-columns:minmax(0,1fr)}}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:30px;display:flex;flex-direction:column}
+.plan.hot{background:linear-gradient(170deg,#2a160b,#141210 60%);border-color:var(--or);box-shadow:0 30px 80px #ff5b1422}
+.plan .badge{align-self:flex-start;background:var(--or);color:#111;font-weight:800;font-size:13px;padding:4px 12px;border-radius:999px;margin-bottom:14px}
+.plan .pr{font:64px Anton,sans-serif;margin:14px 0 4px;white-space:nowrap}
+.plan .pr small{font:600 16px Archivo,sans-serif;color:var(--mut)}
+.plan ul{list-style:none;padding:0;margin:18px 0 26px;display:grid;gap:10px;color:#d6cec4}
+.plan li{padding-left:28px;position:relative}
+.plan li::before{content:"";position:absolute;left:0;top:7px;width:14px;height:8px;border-left:3px solid var(--or);border-bottom:3px solid var(--or);transform:rotate(-45deg)}
+.plan .btn{margin-top:auto;justify-content:center}
+.note{color:var(--mut);font-size:13px;margin-top:18px}
+/* prueba */
+#prueba{background:var(--or);color:#140a04;position:relative;overflow:hidden}
+#prueba .bgw{position:absolute;right:-3vw;bottom:-6vw;font:clamp(160px,26vw,380px) Anton,sans-serif;color:transparent;-webkit-text-stroke:3px #0000001f;line-height:.8;pointer-events:none}
+.trial{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:center;position:relative}
+@media(max-width:860px){.trial{grid-template-columns:minmax(0,1fr)}}
+#prueba h2{font-size:clamp(44px,7vw,96px)}
+#prueba .lead{color:#3a1a08}
+form{background:#0b0b0c;color:var(--ink);border-radius:26px;padding:clamp(22px,3vw,34px);display:grid;gap:14px}
+form label{font-weight:600;font-size:15px;display:grid;gap:6px}
+form input,form select{min-height:50px;border-radius:14px;border:1px solid var(--line);background:#161412;color:var(--ink);padding:0 14px;font:16px Archivo,sans-serif}
+.ok{display:none;background:#161412;border:1px solid var(--or);border-radius:16px;padding:16px}
+.ok.on{display:block}
+.ok a{color:var(--or2);font-weight:800}
+footer{padding:48px max(5vw,16px) 110px;color:var(--mut);font-size:15px;border-top:1px solid var(--line)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:28px;justify-content:space-between}
+footer b{color:var(--ink);display:block;margin-bottom:6px}
+/* asistente */
+.fab{position:fixed;right:18px;bottom:18px;z-index:60;width:62px;height:62px;border-radius:50%;background:var(--or);border:0;cursor:pointer;box-shadow:0 10px 30px #ff5b1466;display:grid;place-items:center}
+.fab svg{width:30px;height:30px;fill:#111}
+.fab::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--or);animation:pulse 2s infinite}
+@keyframes pulse{to{transform:scale(1.35);opacity:0}}
+.chat{position:fixed;right:18px;bottom:92px;z-index:60;width:min(360px,calc(100vw - 36px));background:#121110;border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:0 30px 80px #000a;transform:translateY(20px) scale(.96);opacity:0;pointer-events:none;transition:.25s}
+.chat.on{transform:none;opacity:1;pointer-events:auto}
+.chat header{background:var(--or);color:#111;padding:14px 16px;font-weight:800;display:flex;justify-content:space-between;align-items:center}
+.chat header button{background:none;border:0;font:800 22px Archivo,sans-serif;cursor:pointer;min-width:44px;min-height:44px}
+.msgs{padding:14px;display:grid;gap:8px;max-height:300px;overflow-y:auto}
+.msg{background:#1f1b18;border-radius:14px 14px 14px 4px;padding:10px 12px;max-width:88%;font-size:15px}
+.msg.me{justify-self:end;background:var(--or);color:#111;border-radius:14px 14px 4px 14px}
+.qr{display:flex;flex-wrap:wrap;gap:6px;padding:0 14px 14px}
+.qr button,.qr a{min-height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--or);background:transparent;color:var(--or2);font:600 14px Archivo,sans-serif;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center}
+@media(prefers-reduced-motion:reduce){.marq div,.fab::after,.hint i::after{animation:none}.rv{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="#hero" aria-label="Burdina, inicio"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="none" stroke="#ff5b14" stroke-width="5"/><circle cx="20" cy="20" r="5" fill="#ff5b14"/><rect x="2" y="18" width="36" height="4" fill="#f4f0ea"/></svg>BURDINA</a>
+  <div class="links"><a href="#disciplinas">Entrenar</a><a href="#zonas">Instalaciones</a><a href="#calculadora">Tu récord</a><a href="#clases">Clases</a><a href="#app">App</a><a href="#planes">Planes</a></div>
+  <a class="btn" href="#prueba">Semana gratis</a>
+</nav>
+
+<section id="hero" aria-label="Presentación">
+  <div class="stick">
+    <svg id="scene" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      <defs>
+        <radialGradient id="spot" gradientUnits="userSpaceOnUse" cx="600" cy="0" r="1000"><stop offset="0" stop-color="#ff6a1f" stop-opacity=".35"/><stop offset=".55" stop-color="#ff5b14" stop-opacity=".05"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+        <linearGradient id="cone" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb27a" stop-opacity=".22"/><stop offset="1" stop-color="#ff5b14" stop-opacity="0"/></linearGradient>
+        <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c1410"/><stop offset="1" stop-color="#0b0b0c"/></linearGradient>
+        <linearGradient id="gBar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fafafa"/><stop offset=".5" stop-color="#7a7a7a"/><stop offset="1" stop-color="#d5d5d5"/></linearGradient>
+        <linearGradient id="gO" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff8a3d"/><stop offset=".5" stop-color="#ff5b14"/><stop offset="1" stop-color="#b33a00"/></linearGradient>
+        <linearGradient id="gK" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3d3936"/><stop offset="1" stop-color="#141210"/></linearGradient>
+        <linearGradient id="gW" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fbf6ee"/><stop offset="1" stop-color="#b9b0a3"/></linearGradient>
+        <radialGradient id="heat" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ff5b14" stop-opacity=".55"/><stop offset="1" stop-color="#ff5b14" stop-opacity="0"/></radialGradient>
+        <filter id="blur"><feGaussianBlur stdDeviation="30"/></filter>
+      </defs>
+      <rect x="-1200" y="-400" width="3600" height="1600" fill="url(#spot)"/>
+      <polygon points="520,0 680,0 980,730 220,730" fill="url(#cone)"/>
+      <text id="ghost" x="600" y="470" text-anchor="middle" font-family="Anton" font-size="360" fill="none" stroke="#ff5b14" stroke-opacity=".16" stroke-width="2">20</text>
+      <rect x="-1200" y="725" width="3600" height="600" fill="url(#floor)"/>
+      <ellipse cx="600" cy="770" rx="330" ry="22" fill="#000" opacity=".7"/>
+      <g id="rig">
+        <ellipse id="heatE" cx="600" cy="420" rx="320" ry="240" fill="url(#heat)" opacity="0" filter="url(#blur)"/>
+        <g fill="#1b1a19" stroke="#3a3531" stroke-width="2">
+          <rect x="329" y="130" width="22" height="595" rx="3"/><rect x="849" y="130" width="22" height="595" rx="3"/>
+          <path d="M351 236 h26 v30 h-10 v-18 h-16z"/><path d="M849 236 h-26 v30 h10 v-18 h16z"/>
+          <rect x="300" y="715" width="80" height="12" rx="3"/><rect x="820" y="715" width="80" height="12" rx="3"/>
+        </g>
+        <g fill="#161412" stroke="#ff5b14" stroke-width="2">
+          <rect x="560" y="610" width="16" height="115"/><rect x="624" y="610" width="16" height="115"/>
+          <rect x="530" y="545" width="140" height="70" rx="12"/>
+        </g>
+        <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M565 600 L440 655 L412 768 M635 600 L760 655 L788 768" stroke="#ff5b14" stroke-width="80" stroke-opacity=".85"/>
+          <path d="M565 600 L440 655 L412 768 M635 600 L760 655 L788 768" stroke="#131211" stroke-width="74"/>
+        </g>
+        <g fill="#131211" stroke="#ff5b14" stroke-width="3">
+          <ellipse cx="400" cy="776" rx="50" ry="18"/><ellipse cx="800" cy="776" rx="50" ry="18"/>
+          <circle id="head" cx="600" cy="456" r="38"/>
+          <path d="M520 602 C470 592 448 562 450 522 C452 500 505 488 600 486 C695 488 748 500 750 522 C752 562 730 592 680 602 Z"/>
+          <path d="M540 512 C570 530 630 530 660 512" fill="none" stroke-opacity=".5"/>
+          <circle cx="458" cy="522" r="34"/><circle cx="742" cy="522" r="34"/>
+        </g>
+        <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path id="aLo" stroke="#ff5b14" stroke-width="58"/><path id="aRo" stroke="#ff5b14" stroke-width="58"/>
+          <path id="aL" stroke="#131211" stroke-width="51"/><path id="aR" stroke="#131211" stroke-width="51"/>
+        </g>
+        <g id="barG">
+          <rect x="150" y="-6" width="900" height="12" rx="4" fill="url(#gBar)"/>
+          <rect x="140" y="-10" width="170" height="20" rx="4" fill="url(#gBar)"/>
+          <rect x="890" y="-10" width="170" height="20" rx="4" fill="url(#gBar)"/>
+          <rect x="304" y="-20" width="12" height="40" rx="3" fill="#bbb"/><rect x="884" y="-20" width="12" height="40" rx="3" fill="#bbb"/>
+          <g id="plates"></g>
+          <g fill="#131211" stroke="#ff5b14" stroke-width="3"><rect x="405" y="-18" width="50" height="36" rx="13"/><rect x="745" y="-18" width="50" height="36" rx="13"/></g>
+        </g>
+      </g>
+      <circle id="ring" cx="600" cy="232" r="0" fill="none" stroke="#ff8a3d" stroke-width="6" opacity="0"/>
+      <g id="chalk" fill="#f4f0ea"></g>
+    </svg>
+    <div class="flash" id="flash"></div>
+    <div class="intro" id="intro"><div class="big">Burdina</div><p>Training club de fuerza en Vitoria-Gasteiz</p></div>
+    <div class="stamp" id="stamp">Nuevo récord · 140 kg</div>
+    <div class="meters" aria-hidden="true">
+      <div class="m"><span>Carga</span><b id="mKg">20<small>kg</small></b><div class="bar"><i id="mKgB"></i></div></div>
+      <div class="m"><span>Velocidad de barra</span><b id="mV">0.00<small>m/s</small></b></div>
+      <div class="m"><span>Pulso</span><b id="mHr">72<small>ppm</small></b><div class="bar"><i id="mHrB"></i></div></div>
+      <div class="m"><span>Repetición</span><b id="mRep">0/1</b></div>
+    </div>
+    <div class="caps">
+      <div class="cap" data-a=".07" data-b=".38"><h2>Carga la barra</h2><p>Cada disco que subes aquí dentro te lo has ganado tú.</p></div>
+      <div class="cap" data-a=".38" data-b=".44"><h2>Desrackea</h2><p>Escápulas atrás, pies clavados al suelo. Respira.</p></div>
+      <div class="cap" data-a=".44" data-b=".61"><h2>Baja controlado</h2><p>Tres segundos hasta el pecho. Sin rebotes.</p></div>
+      <div class="cap" data-a=".61" data-b=".88"><h2>Empuja</h2><p>El punto muerto es donde se hacen los récords.</p></div>
+      <div class="cap" data-a=".88" data-b="1.1"><h2>Ahora te toca a ti</h2><p>Coaches de fuerza, clases y una app que mide cada kilo que subes.</p><div class="row"><a class="btn" href="#prueba">Prueba una semana gratis</a><a class="btn ghost" href="#clases">Ver clases</a></div></div>
+    </div>
+    <div class="hint" id="hint"><i></i>Desliza para levantar</div>
+    <div class="prog" id="prog"></div>
+  </div>
+</section>
+
+<div class="mqw"><div class="marq" aria-hidden="true"><div>Fuerza · Hipertrofia · Funcional · Boxeo · Movilidad · Entrenamiento personal · Powerlifting · Fuerza · Hipertrofia · Funcional · Boxeo · Movilidad · Entrenamiento personal · Powerlifting · </div></div></div>
+
+<section class="band" id="disciplinas">
+  <div class="wrap">
+    <h2 class="rv">Cuatro formas de entrenar, un mismo hierro</h2>
+    <p class="lead rv">Vengas a por tu primer press o a por un total de competición, aquí tienes un plan y alguien que lo revisa contigo cada semana.</p>
+    <div class="grid4">
+      <article class="card rv"><svg viewBox="0 0 64 64"><path d="M8 26v12M14 20v24M50 20v24M56 26v12M14 32h36"/></svg><h3>Fuerza</h3><p>Sentadilla, banca y peso muerto con programación por bloques y técnica revisada en vídeo.</p><span class="tag">Grupos de 6 · Todos los niveles</span></article>
+      <article class="card rv"><svg viewBox="0 0 64 64"><path d="M24 16a8 8 0 0 1 16 0v4M18 54a14 14 0 0 1 0-28h28a14 14 0 0 1 0 28z"/></svg><h3>Funcional</h3><p>Circuitos con kettlebells, trineos y remo. Sudas, te ríes y sales con ganas de volver.</p><span class="tag">40 clases a la semana</span></article>
+      <article class="card rv"><svg viewBox="0 0 64 64"><path d="M20 30V18a8 8 0 0 1 8-8h12a8 8 0 0 1 8 8v20a12 12 0 0 1-12 12H28a8 8 0 0 1-8-8zM20 30h10M28 50v6h14v-6"/></svg><h3>Boxeo</h3><p>Técnica, sacos y sparring controlado. Cardio de verdad y cabeza despejada.</p><span class="tag">Iniciación y avanzado</span></article>
+      <article class="card rv"><svg viewBox="0 0 64 64"><circle cx="32" cy="14" r="6"/><path d="M32 22v18M20 30h24M32 40l-10 16M32 40l10 16"/></svg><h3>Personal</h3><p>Un coach solo para ti: valoración inicial, plan a medida y seguimiento en la app.</p><span class="tag">Primera valoración gratis</span></article>
+    </div>
+  </div>
+</section>
+
+<section id="zonas" aria-label="Instalaciones">
+  <div class="zwrap">
+    <div class="zhead"><h2>Mil metros de hierro</h2><p class="lead">Sigue deslizando: así es el gimnasio por dentro.</p></div>
+    <div id="track"></div>
+  </div>
+</section>
+
+<section class="band" id="calculadora">
+  <div class="wrap">
+    <h2 class="rv">¿Cuánto mueves de verdad?</h2>
+    <p class="lead rv">Mete el peso y las repeticiones de tu última serie buena y te calculamos tu máximo estimado, tus zonas de trabajo y cómo cargar la barra.</p>
+    <div class="calc">
+      <div class="panel rv">
+        <div class="field"><label>Ejercicio</label><div class="preset" id="ejer"><button type="button" aria-pressed="true">Press banca</button><button type="button" aria-pressed="false">Sentadilla</button><button type="button" aria-pressed="false">Peso muerto</button></div></div>
+        <div class="field"><label for="w">Peso levantado <output id="wo">80 kg</output></label><input id="w" type="range" min="20" max="300" step="2.5" value="80"></div>
+        <div class="field"><label for="r">Repeticiones <output id="ro">6</output></label><input id="r" type="range" min="1" max="12" step="1" value="6"></div>
+        <a class="btn" id="calcWa" href="#" target="_blank" rel="noopener">Quiero un plan para subir de aquí</a>
+      </div>
+      <div class="panel res rv" aria-live="polite">
+        <div class="sub">Tu máximo estimado en <span id="ejn">press banca</span></div>
+        <div class="big" id="rm">96<small>kg</small></div>
+        <div class="zonesT" id="zt"></div>
+        <div class="loadbar" id="lb"></div>
+        <div class="loadtxt" id="lt"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="clases" style="background:var(--bg2)">
+  <div class="wrap">
+    <h2 class="rv">Horario de clases</h2>
+    <p class="lead rv">Elige día y reserva tu plaza en un toque. Te llega la confirmación por WhatsApp.</p>
+    <div class="days" role="tablist" id="days"></div>
+    <div class="sched" id="sched" role="tabpanel"></div>
+  </div>
+</section>
+
+<section class="band" id="app">
+  <div class="wrap appg">
+    <div>
+      <h2 class="rv">Tu gimnasio en el bolsillo</h2>
+      <p class="lead rv">Con la app de Burdina cada socio lleva su rutina, sus récords y sus reservas encima. Y el gimnasio sabe quién viene, quién progresa y quién se está enfriando.</p>
+      <div class="feat">
+        <div class="rv"><svg viewBox="0 0 44 44"><rect x="6" y="8" width="32" height="30" rx="5"/><path d="M6 17h32M14 4v8M30 4v8M16 27l4 4 8-8"/></svg><p><b>Reserva en dos toques</b><span>Plazas en tiempo real y lista de espera automática.</span></p></div>
+        <div class="rv"><svg viewBox="0 0 44 44"><path d="M8 34l9-10 7 6 12-16"/><path d="M28 14h8v8"/></svg><p><b>Progreso y récords</b><span>Cada serie queda guardada y el récord salta solo.</span></p></div>
+        <div class="rv"><svg viewBox="0 0 44 44"><path d="M10 8h24v28H10zM16 16h12M16 22h12M16 28h7"/></svg><p><b>La rutina de tu coach</b><span>Ejercicios con vídeo, pesos sugeridos y notas.</span></p></div>
+        <div class="rv"><svg viewBox="0 0 44 44"><path d="M8 36l3-8a14 14 0 1 1 5 5z"/></svg><p><b>Avisos por WhatsApp</b><span>Recordatorios de clase y mensajes si llevas días sin venir.</span></p></div>
+      </div>
+    </div>
+    <div class="phone rv" aria-hidden="true">
+      <div class="scr">
+        <div class="hi">Kaixo, Ane<small>Martes · semana 6 de 8</small></div>
+        <div class="tile or"><div class="t">Hoy toca empuje</div><div class="s">5 ejercicios · 55 min</div></div>
+        <div class="tile"><div class="ex"><span>Press banca 4×5</span><b>62,5 kg</b></div><div class="ex"><span>Press militar 3×8</span><b>35 kg</b></div><div class="ex"><span>Fondos 3×10</span><b>+5 kg</b></div></div>
+        <div class="tile"><div class="t">Press banca · 8 semanas</div><div class="chart" id="chart"><i data-h="38"></i><i data-h="46"></i><i data-h="50"></i><i data-h="58"></i><i data-h="62"></i><i data-h="74"></i><i data-h="80"></i><i data-h="100"></i></div></div>
+        <div class="tile"><div class="t">Boxeo · 19:00</div><div class="s">Plaza reservada · quedan 3</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="planes" style="background:var(--bg2)">
+  <div class="wrap">
+    <h2 class="rv">Sin matrícula, sin letra pequeña</h2>
+    <div class="toggle" id="tog"><button type="button" aria-pressed="true" data-m="1">Mensual</button><button type="button" aria-pressed="false" data-m="0.9">Trimestral −10 %</button></div>
+    <div class="plans">
+      <div class="plan rv"><h3>Libre</h3><div class="pr" data-p="39">39 €<small>/mes</small></div><p class="lead">Sala de fuerza y cardio a tu aire.</p><ul><li>Acceso de 6:00 a 23:00</li><li>Rutina inicial con un coach</li><li>App con tus récords</li></ul><a class="btn ghost" href="#prueba">Empezar</a></div>
+      <div class="plan hot rv"><span class="badge">El que más se elige</span><h3>Total</h3><div class="pr" data-p="55">55 €<small>/mes</small></div><p class="lead">Todo el gimnasio y todas las clases.</p><ul><li>Clases ilimitadas</li><li>Revisión de técnica mensual</li><li>Reservas y avisos por WhatsApp</li><li>Programa de fuerza de 8 semanas</li></ul><a class="btn" href="#prueba">Probar una semana gratis</a></div>
+      <div class="plan rv"><h3>Personal</h3><div class="pr" data-p="129">129 €<small>/mes</small></div><p class="lead">Un coach pendiente de ti.</p><ul><li>2 sesiones privadas por semana</li><li>Plan de entreno y nutrición</li><li>Seguimiento diario en la app</li></ul><a class="btn ghost" href="#prueba">Hablar con un coach</a></div>
+    </div>
+    <p class="note">Marca, horarios y precios de ejemplo para esta demo.</p>
+  </div>
+</section>
+
+<section class="band" id="prueba">
+  <div class="bgw" aria-hidden="true">GO</div>
+  <div class="wrap trial">
+    <div>
+      <h2>Tu primera semana va por nuestra cuenta</h2>
+      <p class="lead">Ven, entrena con un coach, prueba las clases que quieras y decide después. Sin tarjeta y sin compromiso.</p>
+    </div>
+    <form id="form" novalidate>
+      <label>Nombre<input id="fn" required autocomplete="given-name" placeholder="Cómo te llamas"></label>
+      <label>Teléfono<input id="ft" required type="tel" autocomplete="tel" placeholder="600 000 000"></label>
+      <label>Qué buscas<select id="fo"><option>Ganar fuerza</option><option>Perder grasa</option><option>Ganar músculo</option><option>Volver a moverme</option><option>Boxeo</option></select></label>
+      <button class="btn" type="submit" style="justify-content:center">Quiero mi semana gratis</button>
+      <div class="ok" id="ok" role="status"></div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div><b>Burdina Training Club</b>Vitoria-Gasteiz<br>WhatsApp 638 429 161</div>
+    <div><b>Horario</b>Lunes a viernes 6:00 – 23:00<br>Sábados y domingos 9:00 – 14:00</div>
+    <div><b>Demo</b>Web piloto para gimnasios<br>Diseño y sistema: Galerna Method</div>
+  </div>
+</footer>
+
+<button class="fab" id="fab" aria-label="Abrir asistente"><svg viewBox="0 0 24 24"><path d="M4 4h16v12H8l-4 4z"/></svg></button>
+<div class="chat" id="chat" role="dialog" aria-label="Asistente de Burdina">
+  <header>Asistente Burdina <button type="button" id="cx" aria-label="Cerrar">×</button></header>
+  <div class="msgs" id="msgs"></div>
+  <div class="qr" id="qr"></div>
+</div>
+
+<script>
+{
+const $=s=>document.querySelector(s);
+const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+const seg=(p,a,b)=>clamp((p-a)/(b-a),0,1);
+const ease=t=>t<.5?2*t*t:1-((-2*t+2)**2)/2;
+const eOut=t=>1-((1-t)**3);
+const eBack=t=>{const c1=1.70158,c3=c1+1;return 1+c3*((t-1)**3)+c1*((t-1)**2)};
+const WA='https://wa.me/34638429161?text=';
+const wa=t=>WA+encodeURIComponent(t);
+const NS='http://www.w3.org/2000/svg';
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- placas ---------- */
+const PL=[{kg:25,h:270,w:34,f:'url(#gO)'},{kg:20,h:245,w:30,f:'url(#gK)'},{kg:15,h:205,w:26,f:'url(#gW)'}];
+const plG=$('#plates');const plates=[];
+let off=0;
+PL.forEach((d,i)=>{
+  [-1,1].forEach(s=>{
+    const r=document.createElementNS(NS,'rect');
+    const x=s<0?296-off-d.w:904+off;
+    r.setAttribute('width',d.w);r.setAttribute('height',d.h);r.setAttribute('y',-d.h/2);r.setAttribute('rx',6);
+    r.setAttribute('fill',d.f);r.setAttribute('stroke',i==1?'#ff5b14':'#00000055');r.setAttribute('stroke-width',i==1?3:1.5);
+    plG.appendChild(r);plates.push({r,x,s,i,kg:d.kg});
+  });
+  off+=d.w;
+});
+const chalk=$('#chalk');const parts=[];
+let seed=7;const rnd=()=>{seed=(seed*16807)%2147483647;return seed/2147483647};
+for(let i=0;i<48;i++){const c=document.createElementNS(NS,'circle');c.setAttribute('r',(2+rnd()*5).toFixed(1));chalk.appendChild(c);parts.push({c,ox:i%2?430:770,a:-Math.PI*rnd(),sp:.4+rnd()})}
+
+const hero=$('#hero'),rig=$('#rig'),barG=$('#barG');
+const arms=[[$('#aL'),$('#aLo'),-1],[$('#aR'),$('#aRo'),1]];
+const caps=[...document.querySelectorAll('.cap')];
+const el={kg:$('#mKg'),kgB:$('#mKgB'),v:$('#mV'),hr:$('#mHr'),hrB:$('#mHrB'),rep:$('#mRep'),ghost:$('#ghost'),intro:$('#intro'),hint:$('#hint'),prog:$('#prog'),flash:$('#flash'),stamp:$('#stamp'),ring:$('#ring'),heat:$('#heatE'),head:$('#head')};
+let cur=0,lastBy=250,lastT=performance.now(),vS=0,lastKg=-1;
+
+function pressCurve(t){if(t<.3)return .45*eOut(t/.3);if(t<.75)return .45+.15*(t-.3)/.45;return .6+.4*ease((t-.75)/.25)}
+
+function drawHero(p,now){
+  let by=250,dip=0,kg=20,shake=0,effort=0;
+  plates.forEach(o=>{
+    const t=seg(p,.08+o.i*.1,.08+o.i*.1+.09);
+    const e=eBack(t);
+    o.r.setAttribute('x',(o.x+(1-e)*o.s*760).toFixed(1));
+    o.r.style.opacity=t>0?1:0;
+    if(t>.8&&t<1)dip=Math.max(dip,Math.sin((t-.8)/.2*Math.PI)*6);
+    if(t>=.8)kg+=o.kg;
+  });
+  if(p<.38)by=250+dip;
+  else if(p<.42)by=250-18*ease(seg(p,.38,.42));
+  else if(p<.58)by=232+238*ease(seg(p,.42,.58));
+  else if(p<.62)by=470;
+  else if(p<.88){const t=seg(p,.62,.88);by=470-238*pressCurve(t);if(t>.3&&t<.75){shake=4*Math.sin(Math.PI*(t-.3)/.45)}effort=Math.sin(Math.PI*t)}
+  else by=232;
+  if(p>.42&&p<.88)effort=Math.max(effort,.25);
+  const sx=reduce?0:shake*Math.sin(now/28),sy=reduce?0:shake*Math.cos(now/37)*.6;
+  rig.setAttribute('transform',`translate(${sx.toFixed(2)} ${sy.toFixed(2)})`);
+  barG.setAttribute('transform',`translate(0 ${by.toFixed(1)})`);
+  el.head.setAttribute('cy',(456+effort*3).toFixed(1));
+  el.heat.setAttribute('opacity',(effort*.9).toFixed(2));
+  const t=clamp((470-by)/238,0,1.1);
+  arms.forEach(([a,o,s])=>{
+    const shx=600+s*142,shy=522,hx=600+s*170;
+    const eb=[600+s*215,580],el2=[600+s*164,(shy+by)/2];
+    const k=ease(clamp(t,0,1));
+    const ex=eb[0]+(el2[0]-eb[0])*k,ey=t>1?(shy+by)/2:eb[1]+(el2[1]-eb[1])*k;
+    const d=`M${shx} ${shy} L${ex.toFixed(1)} ${ey.toFixed(1)} L${hx} ${by.toFixed(1)}`;
+    a.setAttribute('d',d);o.setAttribute('d',d);
+  });
+  /* HUD */
+  if(kg!==lastKg){el.kg.firstChild.nodeValue=kg;el.ghost.textContent=kg;el.kgB.style.width=(kg/140*100)+'%';lastKg=kg}
+  const dt=Math.max(.001,(now-lastT)/1000);
+  const v=Math.abs(by-lastBy)*(.45/238)/dt;vS+=(v-vS)*.15;lastBy=by;lastT=now;
+  el.v.firstChild.nodeValue=(p>.38&&p<.9?vS:0).toFixed(2);
+  const hr=Math.round(72+seg(p,.05,.9)*96+effort*14);
+  el.hr.firstChild.nodeValue=hr;el.hrB.style.width=(hr/190*100)+'%';
+  el.rep.textContent=p>.87?'1/1':'0/1';
+  el.intro.style.opacity=1-seg(p,.02,.08);
+  el.intro.style.transform=`translateY(${-seg(p,0,.08)*60}px)`;
+  el.hint.style.opacity=1-seg(p,0,.03);
+  el.prog.style.width=(p*100)+'%';
+  caps.forEach(c=>c.classList.toggle('on',p>=+c.dataset.a&&p<+c.dataset.b));
+  /* lockout */
+  const L=seg(p,.88,1);
+  el.flash.style.opacity=(Math.max(0,1-Math.abs(p-.886)/.018)*.85).toFixed(2);
+  el.stamp.style.opacity=L>0?Math.min(1,L*5):0;
+  el.stamp.style.transform=`translate(-50%,0) rotate(-6deg) scale(${(1.6-.6*eOut(Math.min(1,L*4))).toFixed(3)})`;
+  el.ring.setAttribute('r',(30+560*eOut(L)).toFixed(1));
+  el.ring.setAttribute('opacity',L>0?(.9*(1-L)).toFixed(2):0);
+  parts.forEach(q=>{
+    const k=eOut(L);
+    q.c.setAttribute('cx',(q.ox+Math.cos(q.a)*q.sp*k*320).toFixed(1));
+    q.c.setAttribute('cy',(232+Math.sin(q.a)*q.sp*k*260+L*L*160).toFixed(1));
+    q.c.setAttribute('opacity',L>0?(1-L).toFixed(2):0);
+  });
+}
+
+/* ---------- zonas ---------- */
+const Z=[
+ {w:'Fuerza',t:'Zona de fuerza',m:'420',d:'Ocho racks, cuatro plataformas y discos calibrados. Aquí no se hace cola para sentadilla.',c:['8 racks','4 plataformas','Discos calibrados']},
+ {w:'Box',t:'Box funcional',m:'300',d:'Césped, trineos, cuerdas y un rig para clases de hasta 16 personas con música alta.',c:['Trineos','Rig de 12 m','Remos y bicis de aire']},
+ {w:'Ring',t:'Ring y sacos',m:'160',d:'Boxeo y kickboxing con técnica de verdad, para empezar de cero o para preparar tu primera velada.',c:['Ring 5×5','12 sacos','Sparring guiado']},
+ {w:'Relax',t:'Recuperación',m:'120',d:'Movilidad, sauna y zona de estiramientos. Lo que haces al salir también es entrenar.',c:['Sauna','Movilidad','Vestuarios con taquilla']}
+];
+const art=i=>[
+ `<svg viewBox="0 0 300 300" fill="none" stroke="#ff5b14" stroke-width="6" stroke-linecap="round"><path d="M60 280V30M240 280V30M60 120h40M240 120h-40M20 110h260"/><rect x="24" y="70" width="22" height="80" rx="5" fill="#ff5b14"/><rect x="254" y="70" width="22" height="80" rx="5" fill="#ff5b14"/></svg>`,
+ `<svg viewBox="0 0 300 300" fill="none" stroke="#ff5b14" stroke-width="6" stroke-linecap="round"><path d="M120 90a30 30 0 0 1 60 0v14"/><path d="M95 250a55 55 0 0 1 0-110h110a55 55 0 0 1 0 110z" fill="#ff5b1422"/><path d="M20 280h260"/></svg>`,
+ `<svg viewBox="0 0 300 300" fill="none" stroke="#ff5b14" stroke-width="6" stroke-linecap="round"><path d="M150 20v50"/><rect x="110" y="70" width="80" height="190" rx="40" fill="#ff5b1422"/><path d="M110 120h80M110 210h80"/></svg>`,
+ `<svg viewBox="0 0 300 300" fill="none" stroke="#ff5b14" stroke-width="6" stroke-linecap="round"><path d="M70 220c20-30 40-30 60 0s40 30 60 0 40-30 60 0M70 170c20-30 40-30 60 0s40 30 60 0 40-30 60 0M70 120c20-30 40-30 60 0s40 30 60 0 40-30 60 0"/></svg>`][i];
+const track=$('#track'),zs=$('#zonas');
+track.innerHTML=Z.map((z,i)=>`<article class="zone"><span class="bgw" aria-hidden="true">${z.w}</span>${art(i)}<div class="sz">${z.m}<small>m²</small></div><h3>${z.t}</h3><p>${z.d}</p><div class="chips">${z.c.map(c=>`<span>${c}</span>`).join('')}</div></article>`).join('');
+const scene=$('#scene');function fitScene(){scene.setAttribute('viewBox',innerWidth<700?'120 60 960 740':'0 0 1200 800')}fitScene();addEventListener('resize',fitScene);
+function sizeZ(){zs.style.height=(innerHeight+Math.max(0,track.scrollWidth-innerWidth))+'px'}
+sizeZ();addEventListener('resize',sizeZ);
+
+/* ---------- loop ---------- */
+function frame(now){
+  const hr=hero.getBoundingClientRect();
+  const target=clamp(-hr.top/(hr.height-innerHeight),0,1);
+  cur+=(target-cur)*(reduce?1:.14);
+  if(Math.abs(target-cur)<.0004)cur=target;
+  if(hr.bottom>-50)drawHero(cur,now);
+  const zr=zs.getBoundingClientRect();
+  if(zr.top<innerHeight&&zr.bottom>0){
+    const zp=clamp(-zr.top/Math.max(1,zr.height-innerHeight),0,1);
+    track.style.transform=`translateX(${(-zp*Math.max(0,track.scrollWidth-innerWidth)).toFixed(1)}px)`;
+  }
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+
+/* ---------- reveal ---------- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);if(e.target.classList.contains('phone'))document.querySelectorAll('#chart i').forEach((b,i)=>setTimeout(()=>b.style.height=b.dataset.h+'%',i*90))}}),{threshold:.15});
+document.querySelectorAll('.rv').forEach((e,i)=>{e.style.transitionDelay=(i%4)*80+'ms';io.observe(e)});
+
+/* ---------- calculadora ---------- */
+const w=$('#w'),r=$('#r');let ejer='press banca';
+const SIZES={25:96,20:88,15:76,10:62,5:46,2.5:36,1.25:28};
+function fmt(n){return (Math.round(n*2)/2).toLocaleString('es-ES')}
+function calc(){
+  const W=+w.value,R=+r.value;
+  const rm=R===1?W:W*(1+R/30);
+  $('#wo').textContent=fmt(W)+' kg';$('#ro').textContent=R;
+  $('#rm').firstChild.nodeValue=fmt(rm);$('#ejn').textContent=ejer;
+  const zones=[['Fuerza',.9,'3–5 reps'],['Músculo',.78,'6–10 reps'],['Técnica',.65,'10–12 reps']];
+  $('#zt').innerHTML=zones.map(([n,f,d])=>`<div class="zr"><span>${n}<br><small style="color:var(--mut)">${d}</small></span><div class="tr"><i style="width:${f*100}%"></i></div><b>${fmt(rm*f)} kg</b></div>`).join('');
+  let side=Math.max(0,(Math.round(rm/2.5)*2.5-20)/2);const list=[];
+  for(const p of [25,20,15,10,5,2.5,1.25]){while(side>=p-1e-9){list.push(p);side-=p}}
+  $('#lb').innerHTML='<div class="sl"></div>'+list.map(p=>`<div class="pl ${p>=10?'k'+p:'ks'}" style="height:${SIZES[p]}px"></div>`).join('')+'<div class="sl" style="flex:1"></div>';
+  $('#lt').textContent=list.length?`Por lado: ${list.map(p=>p.toLocaleString('es-ES')).join(' + ')} kg, sobre una barra de 20 kg.`:'Solo la barra de 20 kg.';
+  $('#calcWa').href=wa(`Hola! He calculado mi máximo en ${ejer}: unos ${fmt(rm)} kg. Quiero un plan para subirlo.`);
+}
+w.addEventListener('input',calc);r.addEventListener('input',calc);
+$('#ejer').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;$('#ejer').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));ejer=b.textContent.toLowerCase();calc()});
+calc();
+
+/* ---------- clases ---------- */
+const D=['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'];
+const WK=[['07:00','Fuerza básica','Iker','55 min',8],['09:30','Movilidad','Nerea','45 min',14],['13:30','HIIT exprés','Unai','30 min',16],['18:00','Powerbuilding','Iker','60 min',8],['19:00','Boxeo','Ane','60 min',14],['20:15','Funcional','Unai','50 min',16]];
+const WE=[['10:00','Open box','Unai','90 min',20],['11:30','Funcional','Ane','50 min',16]];
+const SUN=[['10:30','Movilidad y estiramientos','Nerea','45 min',14]];
+const booked=new Set();
+let day=(new Date().getDay()+6)%7;
+function schedule(){
+  $('#days').innerHTML=D.map((d,i)=>`<button role="tab" id="d${i}" aria-selected="${i===day}">${d}</button>`).join('');
+  const list=day<5?WK.filter((_,j)=>!(day%2&&j===1)):day===5?WE:SUN;
+  $('#sched').innerHTML=list.map((c,j)=>{
+    const taken=Math.min(c[4]-1,Math.round(c[4]*(.35+((day*7+j*3)%6)/10)));
+    const key=day+'-'+j,isB=booked.has(key),left=c[4]-taken-(isB?1:0);
+    return `<div class="cl"><div class="h">${c[0]}</div><div><div class="n">${c[1]}</div><div class="c">${c[2]} · ${c[3]}</div></div><div class="cap2">${left} plazas libres de ${c[4]}<div class="tr"><i style="width:${(c[4]-left)/c[4]*100}%"></i></div></div><a class="btn${isB?' done':''}" data-k="${key}" href="${wa(`Hola! Quiero reservar ${c[1]} el ${D[day]} a las ${c[0]}.`)}" target="_blank" rel="noopener">${isB?'Reservada':'Reservar'}</a></div>`}).join('');
+}
+$('#days').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;day=+b.id.slice(1);schedule()});
+$('#sched').addEventListener('click',e=>{const a=e.target.closest('a[data-k]');if(!a)return;booked.add(a.dataset.k);setTimeout(schedule,50)});
+schedule();
+
+/* ---------- planes ---------- */
+$('#tog').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;$('#tog').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));const m=+b.dataset.m;document.querySelectorAll('.pr').forEach(p=>{const v=Math.round(+p.dataset.p*m);p.firstChild.nodeValue=v+' €'})});
+
+/* ---------- formulario ---------- */
+$('#form').addEventListener('submit',e=>{
+  e.preventDefault();
+  const n=$('#fn').value.trim(),t=$('#ft').value.trim(),o=$('#fo').value;const ok=$('#ok');ok.classList.add('on');
+  if(!n||t.replace(/\D/g,'').length<9){ok.textContent='Pon tu nombre y un teléfono de 9 cifras y te reservamos la semana.';return}
+  ok.innerHTML='';const p=document.createElement('p');p.textContent=`¡Listo, ${n}! Envíanos este mensaje y te damos hora con un coach.`;
+  const a=document.createElement('a');a.href=wa(`Hola! Soy ${n} (${t}). Quiero mi semana gratis en Burdina. Objetivo: ${o}.`);a.target='_blank';a.rel='noopener';a.textContent='Enviar por WhatsApp →';
+  ok.append(p,a);
+});
+
+/* ---------- asistente ---------- */
+const chat=$('#chat'),msgs=$('#msgs'),qr=$('#qr');
+const A={
+ 'Horarios':'Abrimos de lunes a viernes de 6:00 a 23:00 y los fines de semana de 9:00 a 14:00. El horario de clases lo tienes más abajo en la web.',
+ 'Precios':'Desde 39 € al mes y sin matrícula. El plan Total, con todas las clases, son 55 €. ¿Quieres probar antes?',
+ 'Soy principiante':'Perfecto. La primera semana entrenas con un coach que te enseña la técnica de los básicos, sin prisas.',
+ 'Semana gratis':'¡Hecho! Mándanos tu nombre por WhatsApp y te reservamos la primera sesión con un coach.'
+};
+function say(t,me){const d=document.createElement('div');d.className='msg'+(me?' me':'');d.textContent=t;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight}
+function opts(){qr.innerHTML=Object.keys(A).map(k=>`<button type="button">${k}</button>`).join('')+`<a href="${wa('Hola! Quiero información de Burdina.')}" target="_blank" rel="noopener">Hablar por WhatsApp</a>`}
+let started=false;
+$('#fab').addEventListener('click',()=>{chat.classList.toggle('on');if(!started){started=true;say('Kaixo! Soy el asistente de Burdina. ¿En qué te ayudo?');opts()}});
+$('#cx').addEventListener('click',()=>chat.classList.remove('on'));
+qr.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;say(b.textContent,true);setTimeout(()=>say(A[b.textContent]),450)});
+}
+</script>
+</body>
+</html>
